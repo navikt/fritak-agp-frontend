@@ -2,7 +2,7 @@ Kronisk syk - frontend
 
 ## Komme i gang
 
-Kan kjøres lokalt sammen med [backendapplikasjonen](https://github.com/navikt/kronisk-syk-backend).
+Kan kjøres lokalt sammen med [backendapplikasjonen](https://github.com/navikt/fritak-agp-backend).
 
 ## Henvendelser
 
