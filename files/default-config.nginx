@@ -1,0 +1,105 @@
+error_log /dev/stdout;
+charset utf-8;
+client_body_buffer_size 10M; # Default er satt veldig lavt. Får problemer med enkelte dokument queries.
+proxy_buffering off;
+resolver "${RESOLVER}" ipv6=off;
+resolver_timeout 3s;
+tcp_nodelay off; ## No need to bleed constant updates. Send the all shebang in one fell swoop.
+tcp_nopush off;
+gzip off;
+gzip_proxied any;
+absolute_redirect off;
+
+gzip_types
+    text/css
+    text/javascript
+    text/xml
+    text/plain
+    application/javascript
+    application/x-javascript
+    application/json
+    application/xml
+    application/rss+xml
+    application/atom+xml
+    font/truetype
+    font/opentype
+    image/svg+xml;
+
+server {
+    listen "${APP_PORT}";
+    root "${APP_DIR}";
+    server_name  _;
+
+    access_log /dev/stdout;
+    error_log /dev/stdout info;
+
+
+    # Set some varable for usage in OpenResty modules.
+    set $app_path_prefix            "${APP_PATH_PREFIX}";
+    set $apigw_api_key              "${API_GW_API_KEY}";
+    set $apigw_url                  "${API_GATEWAY}";
+
+    # Proxy headers. Will be overwritten if you set them in blocks.
+    proxy_hide_header       Content-Security-Policy;
+    proxy_http_version      1.1;
+    proxy_intercept_errors  off;
+    proxy_pass_header       Nav-Callid;
+    proxy_pass_header       Cookie;
+    proxy_set_header        Connection "";
+    proxy_set_header        Referer $http_referer;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-NginX-Proxy true;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_ssl_verify        off;
+
+    # Health check for NAIS
+    location = "/health/is-alive" {
+        return 200 "Application:UP";
+        default_type text/plain;
+    }
+
+    # Readiness check for NAIS
+    location = "/health/is-ready" {
+        return 200 "Application:READY";
+        default_type text/plain;
+    }
+
+    location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+        expires -1;
+    }
+
+    location /nettrefusjon/api/ {
+        proxy_set_header "x-nav-apiKey" $apigw_api_key;
+        proxy_pass "${API_GATEWAY}/api/";
+    }
+
+    location /nettrefusjon/static/ {
+        alias "${APP_DIR}/static/";
+    }
+
+    # Any route that doesn't have a file extension (e.g. /devices)
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location @401_json {
+        default_type application/json;
+        return 401 '{"feilmelding":"Bruker ikke innlogget","type":"MANGLER_TILGANG_FEIL"}';
+    }
+
+    location @403_json {
+        default_type application/json;
+        return 403 '{"feilmelding":"Innlogget bruker har ikke tilgang til ressursen","type":"MANGLER_TILGANG_FEIL"}';
+    }
+
+    location @404_json {
+        default_type application/json;
+        return 404 '{"feilmelding":"Kunne ikke finne ressursen, beklager.","type":"IKKE_FUNNET_FEIL"}';
+    }
+
+    location @504_json {
+        default_type application/json;
+        return 504 '{"feilmelding":"Timet ut","type":"GENERELL_FEIL"}';
+    }
+
+}
