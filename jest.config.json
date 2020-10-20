@@ -1,8 +1,14 @@
 {
+  "rootDir": "./src",
+  "globals": {
+    "window": true
+  },
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
   "collectCoverage": true,
+  "coverageDirectory": "../coverage",
   "coveragePathIgnorePatterns": [
-    "index.tsx",
-    "App.tsx"
   ],
   "coverageThreshold": {
     "global": {
