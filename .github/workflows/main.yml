@@ -31,6 +31,7 @@ jobs:
       - name: Bygg med npm install
         run: CI=false npm install
       - run: npm test
+      - run: node run-sonar.js
       - name: Build and publish Docker image
         run: |
           docker build --tag ${IMAGE} .
