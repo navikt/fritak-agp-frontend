@@ -5,7 +5,7 @@ scanner(
         serverUrl : 'https://sonarcloud.io',
         token : process.env.SONAR_TOKEN,
         options: {
-            'sonar.organization': 'navit',
+            'sonar.organization': 'navikt',
             'sonar.projectKey': 'navikt_fritak-agp-frontend',
             'sonar.sources': 'src',
             'sonar.javascript.lcov.reportPaths': 'coverage/lcov.info',

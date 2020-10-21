@@ -28,10 +28,12 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Bygg med npm install
+      - name: Bygg
         run: CI=false npm install
-      - run: npm test
-      - run: node run-sonar.js
+      - name: Test
+        run: npm test
+      - name: SonarCube
+        run: node run-sonar.js
       - name: Build and publish Docker image
         run: |
           docker build --tag ${IMAGE} .
