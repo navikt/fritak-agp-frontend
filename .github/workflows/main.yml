@@ -6,7 +6,11 @@ on:
       - main
 
 env:
+  APP: fritak-agp-frontend
+  DOCKER_IMAGE_NAME: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend
+  LATEST_TAG: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend:latest
   IMAGE: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
+
 
 jobs:
   build:
@@ -15,8 +19,8 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@master
+      - uses: actions/setup-java@v1
         with:
           node-version: '12.x'
       - name: Cache node modules
@@ -36,18 +40,17 @@ jobs:
         run: node run-sonar.js
       - name: Build and publish Docker image
         run: |
-          docker build --tag ${IMAGE} .
+          docker build --tag ${IMAGE} --tag ${LATEST_TAG} .
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-          docker push ${IMAGE}
+          docker push ${DOCKER_IMAGE_NAME}
 
   deploy:
     name: Deploy to PREPROD
     needs: build
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: actions/checkout@master
+      - uses: nais/deploy/actions/deploy@master
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
