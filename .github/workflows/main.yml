@@ -20,7 +20,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
       - name: Cache node modules
