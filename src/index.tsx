@@ -10,7 +10,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-// Sentry.init({ dsn: 'https://3769b2c742c840f085ca72d93f49bb0e@sentry.gc.nav.no/39' });
+Sentry.init({ dsn: 'https://a61578f55fc64d8690aa9b66423ac0c4@sentry.gc.nav.no/46' });
 
 ReactDOM.render(
   <BrowserRouter basename="nettrefusjon">
