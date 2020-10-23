@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/browser';
 import App from './App';
 import './index.css';
 import Modal from 'react-modal';
+import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 
 Modal.setAppElement('#root');
 
