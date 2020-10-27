@@ -1,13 +1,13 @@
 
 export enum Keys {
-	MY_PAGE = 'MY_PAGE'
+	SIDE_TITTEL = 'SIDE_TITTEL'
 }
 
 const translatedKeys: IncludedKeys = {
-	[Keys.MY_PAGE]: {
-		nb: 'Refusjonskrav av sykepenger - korona',
-		nn: 'Refusjonskrav av sjukepengar - korona',
-		en: 'Refunds regarding corona virus',
+	[Keys.SIDE_TITTEL]: {
+		nb: 'Søknadsskjema',
+		nn: 'Søknadsskjema',
+		en: 'Forms',
 	}
 };
 

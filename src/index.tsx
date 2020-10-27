@@ -20,7 +20,7 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
 }
 
 ReactDOM.render(
-  <BrowserRouter basename="nettrefusjon">
+  <BrowserRouter basename="fritak-agp">
     <App />
   </BrowserRouter>,
   document.getElementById('root') as HTMLElement
