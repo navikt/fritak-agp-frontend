@@ -9,9 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SONAR_TOKEN: ${{ secrets.SONARTOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -24,6 +25,9 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - run: CI=false npm install
-      - run: npm test
-      - run: node run-sonar.js
+      - name: Bygg
+        run: CI=false npm install
+      - name: Test
+        run: npm test
+      - name: SonarCube
+        run: node run-sonar.js
