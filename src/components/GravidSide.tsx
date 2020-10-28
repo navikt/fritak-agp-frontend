@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Feilmelding, Ingress, Normaltekst } from 'nav-frontend-typografi';
-import { BekreftCheckboksPanel, FnrInput, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
+import { BekreftCheckboksPanel, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Skillelinje from './Skillelinje';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
-import Lenke from 'nav-frontend-lenker';
 import DatoVelger from './DatoVelger';
-import Fnr from "./Fnr";
+import Fnr from './Fnr';
 import validator from '@navikt/fnrvalidator';
 
 interface GravidSideProps {
@@ -17,6 +16,7 @@ interface GravidSideProps {
   dato?: Date
   tilrettelegge?: boolean
   bekreftet?: boolean
+  videre?: boolean
   tiltak?: string
   tiltakBeskrivelse?: string
   omplassering?: string
@@ -24,7 +24,7 @@ interface GravidSideProps {
 }
 
 const isValidFnr = (fnr: string) => {
-  return validator.fnr(fnr).status == "valid";
+  return validator.fnr(fnr).status === 'valid';
 }
 
 const GravidSide = (props: GravidSideProps) => {
@@ -51,8 +51,10 @@ const GravidSide = (props: GravidSideProps) => {
 
   const [bekreftet, setBekreftet] = useState<boolean>(props.bekreftet || false);
 
+  const [videre, setVidere] = useState<boolean>(props.videre || false);
+
   const handleSubmit = () => {
-    setTiltakBeskrivelseFeilmelding(tiltakBeskrivelse == '' ? 'Må fylles ut' : '');
+    setTiltakBeskrivelseFeilmelding(tiltakBeskrivelse === '' ? 'Må fylles ut' : '');
   }
   return (
     <Row>
@@ -99,63 +101,82 @@ const GravidSide = (props: GravidSideProps) => {
                 <Radio label={'Nei'} name="sitteplass" value={'nei'} defaultChecked={tilrettelegge === false} onClick={() => {setTilrettelegge(false)}}/>
               </RadioGruppe>
             </SkjemaGruppe>
-          </Panel>
 
-          {tilrettelegge == false &&
-            <div>
-              <Skillelinje/>
-
-              <Panel>
-                <Feilmelding>*Forsøksvis tilrettelegging er i utgangspunktet påkrevd for at vi skal godkjenne
-                  søknaden*</Feilmelding>
-                <br />
-                <Normaltekst>Dere kan <Lenke onClick={() => {}} href="#">gå videre med søknaden</Lenke>, men det er altså da sannsynlig at
-                  den blir
-                  avslått.</Normaltekst>
-              </Panel>
-
-              <Skillelinje/>
-            </div>
-          }
-
-          {tilrettelegge == true &&
-            <div>
-              <Panel>
+            {tilrettelegge === true &&
+              <>
                 <SkjemaGruppe feil={tiltakFeilmelding}>
                   <RadioGruppe
                     legend="Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?">
-                    <Radio label={'Fleksibel/tilpasset arbeidstid'} name="tiltak" onClick={() => {setTiltak('arbeidstid')}}
+                    <Radio label={'Fleksibel/tilpasset arbeidstid'} name="tiltak" onClick={() => {
+                      setTiltak('arbeidstid')
+                    }}
                            defaultChecked={tiltak === 'arbeidstid'}/>
-                    <Radio label={'Hjemmekontor'} name="tiltak" onClick={() => {setTiltak('hjemmekontor')}}
+                    <Radio label={'Hjemmekontor'} name="tiltak" onClick={() => {
+                      setTiltak('hjemmekontor')
+                    }}
                            defaultChecked={tiltak === 'hjemmekontor'}/>
-                    <Radio label={'Tilpassede arbeidsoppgaver'} name="tiltak" onClick={() => {setTiltak('oppgaver')}}
+                    <Radio label={'Tilpassede arbeidsoppgaver'} name="tiltak" onClick={() => {
+                      setTiltak('oppgaver')
+                    }}
                            defaultChecked={tiltak === 'oppgaver'}/>
-                    <Radio label={'Annet, vennligst spesifiser kortfattet i feltet under'} name="tiltak"  onClick={() => {setTiltak('annet')}}
+                    <Radio label={'Annet, vennligst spesifiser kortfattet i feltet under'} name="tiltak" onClick={() => {
+                      setTiltak('annet')
+                    }}
                            defaultChecked={tiltak === 'annet'}/>
                     {tiltak === 'annet' &&
-                      <Textarea value={tiltakBeskrivelse} feil={tiltakBeskrivelseFeilmelding}
-                                onChange={(evt) => {setTiltakBeskrivelse(evt.currentTarget.value)}}></Textarea>
+                    <Textarea value={tiltakBeskrivelse} feil={tiltakBeskrivelseFeilmelding}
+                              onChange={(evt) => {
+                                setTiltakBeskrivelse(evt.currentTarget.value)
+                              }}></Textarea>
                     }
-
                   </RadioGruppe>
                 </SkjemaGruppe>
 
                 <SkjemaGruppe feil={omplasseringFeilmelding}>
                   <RadioGruppe legend="Er omplassering av den ansatte forsøkt?">
-                    <Radio label={'Ja'} name="sitteplass" defaultChecked={omplassering === 'ja'} onClick={() => {setOmplassering('ja')}}/>
-                    <Radio label={'Nei'} name="sitteplass" defaultChecked={omplassering === 'nei'} onClick={() => {setOmplassering('nei')}}/>
-                    <Radio label={'Omplassering er ikke gjennomført'} name="sitteplass"
-                           defaultChecked={omplassering === 'ikke'} onClick={() => {setOmplassering('ikke')}}/>
+                    <Radio label={'Ja'} name="omplassering" defaultChecked={omplassering === 'ja'} onClick={() => {
+                      setOmplassering('ja')
+                    }}/>
+                    <Radio label={'Nei'} name="omplassering" defaultChecked={omplassering === 'nei'} onClick={() => {
+                      setOmplassering('nei')
+                    }}/>
+                    <Radio label={'Omplassering er ikke gjennomført'} name="omplassering"
+                           defaultChecked={omplassering === 'ikke'} onClick={() => {
+                      setOmplassering('ikke')
+                    }}/>
                   </RadioGruppe>
                 </SkjemaGruppe>
-              </Panel>
+              </>
+            }
 
+            {tilrettelegge === false &&
               <Skillelinje/>
-            </div>
-          }
+            }
 
-          {!!tilrettelegge &&
-            <div>
+            {tilrettelegge === false &&
+              <>
+
+                <Panel>
+                  <Feilmelding>*Forsøksvis tilrettelegging er i utgangspunktet påkrevd for at vi skal godkjenne
+                    søknaden*</Feilmelding>
+                  <br />
+                  <Normaltekst>
+                    Dere kan
+                    <button onClick={() => {setVidere(true)}} className="lenke"
+                            style={{ display: 'run-in', border: 'none', margin: '0', paddingRight: '0' }}>gå videre med
+                      søknaden</button>,
+                    men det er altså da sannsynlig at den blir avslått.</Normaltekst>
+                </Panel>
+              </>
+            }
+          </Panel>
+
+
+
+          {(!!tilrettelegge || videre) &&
+            <>
+              <Skillelinje/>
+
               <Panel>
                 <SkjemaGruppe legend="Dokumentasjon om svagerskapsrelatert sykdomsfravære"
                               description="Det må dokumenteres av lege at fraværet er relatert til svangerskapsrelatert
@@ -181,7 +202,7 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel>
                 <Hovedknapp onClick={handleSubmit}>Send søknad</Hovedknapp>
               </Panel>
-            </div>
+            </>
           }
 
         </SideIndentering>
