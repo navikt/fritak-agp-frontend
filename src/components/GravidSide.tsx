@@ -18,23 +18,42 @@ interface GravidSideProps {
   tilrettelegge?: boolean
   bekreftet?: boolean
   tiltak?: string
+  tiltakBeskrivelse?: string
+  omplassering?: string
   validated?: boolean
+}
+
+const isValidFnr = (fnr: string) => {
+  return validator.fnr(fnr).status == "valid";
 }
 
 const GravidSide = (props: GravidSideProps) => {
   const [validated, setValidated] = useState<boolean>(props.validated || false);
 
   const [dato, setDato] = useState<Date|undefined>(props.dato || undefined);
-  const [datoFeilmelding, setDatoFeilmelding] = useState<string>('');
+  const [datoFeilmelding, setDatoFeilmelding] = useState<string>(!validated ? '' : 'Må fylles ut');
 
-  const [fnr, setFnr] = useState<string|undefined>(props.fnr);
-  const [fnrValid, setFnrValid] = useState<boolean>(fnr ? validator.fnr(fnr).status == "valid" : false);
-  const [fnrFeilmelding, setFnrFeilmelding] = useState<string>(validated && fnrValid ? '' : 'Ugyldig fødselsnummer' );
+  const [fnr, setFnr] = useState<string>(props.fnr || '');
+  const [fnrValid, setFnrValid] = useState<boolean>(isValidFnr(fnr));
+  const [fnrFeilmelding, setFnrFeilmelding] = useState<string>(!validated ? '' :(validated && fnrValid) ? '' : 'Ugyldig fødselsnummer' );
 
   const [tilrettelegge, setTilrettelegge] = useState<boolean|undefined>(props.tilrettelegge);
-  const [bekreftet, setBekreftet] = useState<boolean>(props.bekreftet || false);
-  const [tiltak, setTiltak] = useState<string>(props.tiltak || '');
+  const [tilretteleggeFeilmelding, setTilretteleggeFeilmelding] = useState<string>(!validated ? '' : 'Må fylles ut');
 
+  const [tiltak, setTiltak] = useState<string>(props.tiltak || '');
+  const [tiltakFeilmelding, setTiltakFeilmelding] = useState<string>(!validated ? '' : 'Må fylles ut');
+  const [tiltakBeskrivelse, setTiltakBeskrivelse] = useState<string>(props.tiltakBeskrivelse || '');
+  const [tiltakBeskrivelseFeilmelding, setTiltakBeskrivelseFeilmelding] = useState<string>(!validated ? '' : 'Må fylles ut');
+
+  const [omplassering, setOmplassering] = useState<string>(props.omplassering || '');
+  const [omplasseringFeilmelding, setOmplasseringFeilmelding] = useState<string>(!validated ? '' : 'Må fylles ut');
+
+
+  const [bekreftet, setBekreftet] = useState<boolean>(props.bekreftet || false);
+
+  const handleSubmit = () => {
+    setTiltakBeskrivelseFeilmelding(tiltakBeskrivelse == '' ? 'Må fylles ut' : '');
+  }
   return (
     <Row>
       <Column>
@@ -69,86 +88,101 @@ const GravidSide = (props: GravidSideProps) => {
           <Skillelinje/>
 
           <Panel>
-            <SkjemaGruppe legend="Arbeidssituasjon og miljø"
+            <SkjemaGruppe legend="Arbeidssituasjon og miljø" feil={tilretteleggeFeilmelding}
                           description="Vi ønsker så godt innblikk i hvordan dere eventuelt har forsøkt å løse situasjonen
                         selv. Dette både for å vurdere søknaden, men også for å kunne bistå dere for at den ansatte om
                         mulig skal kunne stå i jobben sin.">
               <RadioGruppe
                 legend="Har dere forsøkt å tilrettelegge arbeidsdagen slik at den ansatte kan utføre arbeidet sitt til
               tross for helsetilstanden hennes?">
-                <Radio label={'Ja'} name="sitteplass" defaultChecked={tilrettelegge === true}/>
-                <Radio label={'Nei'} name="sitteplass" defaultChecked={tilrettelegge === false}/>
+                <Radio label={'Ja'} name="sitteplass" value={'ja'} defaultChecked={tilrettelegge === true} onClick={() => {setTilrettelegge(true)}}/>
+                <Radio label={'Nei'} name="sitteplass" value={'nei'} defaultChecked={tilrettelegge === false} onClick={() => {setTilrettelegge(false)}}/>
               </RadioGruppe>
             </SkjemaGruppe>
           </Panel>
 
-          <div>
-            <Skillelinje/>
+          {tilrettelegge == false &&
+            <div>
+              <Skillelinje/>
 
-            <Panel>
-              <Feilmelding>*Forsøksvis tilrettelegging er i utgangspunktet påkrevd for at vi skal godkjenne
-                søknaden*</Feilmelding>
-              <br />
-              <Normaltekst>Dere kan <Lenke onClick={() => {}} href="#">gå videre med søknaden</Lenke>, men det er altså da sannsynlig at
-                den blir
-                avslått.</Normaltekst>
-            </Panel>
+              <Panel>
+                <Feilmelding>*Forsøksvis tilrettelegging er i utgangspunktet påkrevd for at vi skal godkjenne
+                  søknaden*</Feilmelding>
+                <br />
+                <Normaltekst>Dere kan <Lenke onClick={() => {}} href="#">gå videre med søknaden</Lenke>, men det er altså da sannsynlig at
+                  den blir
+                  avslått.</Normaltekst>
+              </Panel>
 
-            <Skillelinje/>
-          </div>
+              <Skillelinje/>
+            </div>
+          }
 
+          {tilrettelegge == true &&
+            <div>
+              <Panel>
+                <SkjemaGruppe feil={tiltakFeilmelding}>
+                  <RadioGruppe
+                    legend="Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?">
+                    <Radio label={'Fleksibel/tilpasset arbeidstid'} name="tiltak" onClick={() => {setTiltak('arbeidstid')}}
+                           defaultChecked={tiltak === 'arbeidstid'}/>
+                    <Radio label={'Hjemmekontor'} name="tiltak" onClick={() => {setTiltak('hjemmekontor')}}
+                           defaultChecked={tiltak === 'hjemmekontor'}/>
+                    <Radio label={'Tilpassede arbeidsoppgaver'} name="tiltak" onClick={() => {setTiltak('oppgaver')}}
+                           defaultChecked={tiltak === 'oppgaver'}/>
+                    <Radio label={'Annet, vennligst spesifiser kortfattet i feltet under'} name="tiltak"  onClick={() => {setTiltak('annet')}}
+                           defaultChecked={tiltak === 'annet'}/>
+                    {tiltak === 'annet' &&
+                      <Textarea value={tiltakBeskrivelse} feil={tiltakBeskrivelseFeilmelding}
+                                onChange={(evt) => {setTiltakBeskrivelse(evt.currentTarget.value)}}></Textarea>
+                    }
 
-          <Panel>
-            <SkjemaGruppe>
-              <RadioGruppe
-                legend="Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?">
-                <Radio label={'Fleksibel/tilpasset arbeidstid'} name="tiltak" value="arbeidstid"
-                       defaultChecked={tiltak === 'arbeidstid'}/>
-                <Radio label={'Hjemmekontor'} name="tiltak" value="hjemmekontor"
-                       defaultChecked={tiltak === 'hjemmekontor'}/>
-                <Radio label={'Tilpassede arbeidsoppgaver'} name="tiltak" value="oppgaver"
-                       defaultChecked={tiltak === 'oppgaver'}/>
-                <Radio label={'Annet, vennligst spesifiser kortfattet i feltet under'} name="tiltak" value="arbeidstid"
-                       defaultChecked={tiltak === 'annet'}/>
-                <Textarea value={''} onChange={() => {}}></Textarea>
-              </RadioGruppe>
+                  </RadioGruppe>
+                </SkjemaGruppe>
 
-              <RadioGruppe legend="Er omplassering av den ansatte forsøkt?">
-                <Radio label={'Ja'} name="sitteplass"/>
-                <Radio label={'Nei'} name="sitteplass"/>
-                <Radio label={'Omplassering er ikke gjennomført'} name="sitteplass"/>
-              </RadioGruppe>
-            </SkjemaGruppe>
-          </Panel>
+                <SkjemaGruppe feil={omplasseringFeilmelding}>
+                  <RadioGruppe legend="Er omplassering av den ansatte forsøkt?">
+                    <Radio label={'Ja'} name="sitteplass" defaultChecked={omplassering === 'ja'} onClick={() => {setOmplassering('ja')}}/>
+                    <Radio label={'Nei'} name="sitteplass" defaultChecked={omplassering === 'nei'} onClick={() => {setOmplassering('nei')}}/>
+                    <Radio label={'Omplassering er ikke gjennomført'} name="sitteplass"
+                           defaultChecked={omplassering === 'ikke'} onClick={() => {setOmplassering('ikke')}}/>
+                  </RadioGruppe>
+                </SkjemaGruppe>
+              </Panel>
 
-          <Skillelinje/>
+              <Skillelinje/>
+            </div>
+          }
 
-          <Panel>
-            <SkjemaGruppe legend="Dokumentasjon om svagerskapsrelatert sykdomsfravære"
-                          description="Det må dokumenteres av lege at fraværet er relatert til svangerskapsrelatert
+          {!!tilrettelegge &&
+            <div>
+              <Panel>
+                <SkjemaGruppe legend="Dokumentasjon om svagerskapsrelatert sykdomsfravære"
+                              description="Det må dokumenteres av lege at fraværet er relatert til svangerskapsrelatert
                         sykdom. Dere kan laste opp denne om dere har den. Alternativt vil NAV innhente dokumentasjon
                         direkte fra lege.">
-              <Knapp>Last opp legedokumentasjon</Knapp>
-            </SkjemaGruppe>
-          </Panel>
+                  <Knapp>Last opp legedokumentasjon</Knapp>
+                </SkjemaGruppe>
+              </Panel>
 
-          <Skillelinje/>
+              <Skillelinje/>
 
-          <Panel>
-            <BekreftCheckboksPanel
-              label="Jeg bekrefter at opplysningene jeg har gitt er riktige."
-              checked={bekreftet}
-              onChange={() => {
-              }}
-            >
-              Jeg er kjent med at hvis opplysningene jeg har gitt ikke er riktige eller fullstendige, så kan jeg miste
-              retten til stønad.
-            </BekreftCheckboksPanel>
-          </Panel>
+              <Panel>
+                <BekreftCheckboksPanel
+                  label="Jeg bekrefter at opplysningene jeg har gitt er riktige."
+                  checked={bekreftet}
+                  onChange={(evt) => {setBekreftet(!bekreftet)}}
+                >
+                  Jeg er kjent med at hvis opplysningene jeg har gitt ikke er riktige eller fullstendige, så kan jeg miste
+                  retten til stønad.
+                </BekreftCheckboksPanel>
+              </Panel>
 
-          <Panel>
-            <Hovedknapp>Send søknad</Hovedknapp>
-          </Panel>
+              <Panel>
+                <Hovedknapp onClick={handleSubmit}>Send søknad</Hovedknapp>
+              </Panel>
+            </div>
+          }
 
         </SideIndentering>
 
