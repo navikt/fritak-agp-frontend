@@ -76,7 +76,7 @@ const GravidSide = (props: GravidSideProps) => {
             <SkjemaGruppe legend="Informasjon om den ansatte">
               <Row>
                 <Column sm="4" xs="6">
-                  <Fnr label="Fødselsnummer" nr={fnr} placeholder="11 siffer"
+                  <Fnr label="Fødselsnummer" fnr={fnr} placeholder="11 siffer"
                        feilmelding={fnrFeilmelding} onValidate={setFnrValid} onChange={setFnr}/>
                 </Column>
                 <Column sm="4" xs="6">
@@ -154,8 +154,6 @@ const GravidSide = (props: GravidSideProps) => {
             }
 
             {tilrettelegge === false &&
-              <>
-
                 <Panel>
                   <Feilmelding>*Forsøksvis tilrettelegging er i utgangspunktet påkrevd for at vi skal godkjenne
                     søknaden*</Feilmelding>
@@ -167,7 +165,6 @@ const GravidSide = (props: GravidSideProps) => {
                       søknaden</button>,
                     men det er altså da sannsynlig at den blir avslått.</Normaltekst>
                 </Panel>
-              </>
             }
           </Panel>
 

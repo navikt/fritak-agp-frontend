@@ -3,7 +3,7 @@ import {FnrInput} from "nav-frontend-skjema";
 
 interface FnrProps {
   label: string
-  nr?: string
+  fnr?: string
   feilmelding?: string,
   placeholder: string
   onChange: (fnr: string) => void
@@ -15,7 +15,7 @@ const Fnr = (props: FnrProps) => {
     props.onValidate(valid);
   }
   return (
-    <FnrInput value={props.nr} placeholder={props.placeholder} label={props.label}
+    <FnrInput value={props.fnr} placeholder={props.placeholder} label={props.label}
               onValidate={(val) => setValid(val)}
               onChange={(evt) => {props.onChange(evt.target.value)}} feil={props.feilmelding}/>
   );
