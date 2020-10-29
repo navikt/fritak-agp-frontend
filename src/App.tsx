@@ -7,15 +7,16 @@ import GravidSide from './components/GravidSide';
 import KroniskSide from './components/KroniskSide';
 import Forside from './components/Forside';
 import env from './environment';
+import './App.sass';
+
 
 const App = () => {
   return (
-    <div className="felles">
     <EnvironmentProvider loginServiceUrl={env.loginServiceUrl} sideTittel={'Søknadsskjema'}
                          basePath={env.baseUrl}>
       <ArbeidsgiverProvider>
         <I18nextProvider i18n={i18n}>
-          <InnloggetSide>
+          <InnloggetSide className="innloggetside__fritak">
             <Switch>
               <Route path="/gravid" render={() => <GravidSide/>}/>
               <Route path="/kronisk" render={() => <KroniskSide/>}/>
@@ -25,7 +26,6 @@ const App = () => {
         </I18nextProvider>
       </ArbeidsgiverProvider>
     </EnvironmentProvider>
-    </div>
   );
 };
 
