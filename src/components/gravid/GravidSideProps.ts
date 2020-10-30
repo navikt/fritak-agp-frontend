@@ -1,4 +1,5 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema/src/feiloppsummering';
+import GravidStatus from './GravidStatus';
 
 interface GravidSideProps {
   fnr?: string
@@ -14,6 +15,7 @@ interface GravidSideProps {
   omplassering?: string
   validated?: boolean
   feilOppsummeringer?: Array<FeiloppsummeringFeil>
+  status?: GravidStatus
 }
 
 export default GravidSideProps;

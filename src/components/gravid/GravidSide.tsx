@@ -31,7 +31,7 @@ const INVALID_FNR = 'Ugyldig fødselsnummer';
 const EMPTY = '';
 
 const GravidSide = (props: GravidSideProps) => {
-  const [status, setStatus] = useState<number>(GravidStatus.DEFAULT);
+  const [status, setStatus] = useState<number>(props.status || GravidStatus.DEFAULT);
   const [validated, setValidated] = useState<boolean>(props.validated || false);
   const [dato, setDato] = useState<Date|undefined>(props.dato || undefined);
   const [datoFeilmelding, setDatoFeilmelding] = useState<string>(!validated ? EMPTY : REQUIRED_INPUT);
@@ -137,7 +137,7 @@ const GravidSide = (props: GravidSideProps) => {
           <GravidKvittering />
         }
 
-        {status == GravidStatus.FAILED &&
+        {status == GravidStatus.ERROR &&
           <GravidFeil />
         }
 
