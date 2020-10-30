@@ -1,5 +1,5 @@
-import React from "react";
-import {FnrInput} from "nav-frontend-skjema";
+import React from 'react';
+import { FnrInput } from 'nav-frontend-skjema';
 
 interface FnrProps {
   label: string
