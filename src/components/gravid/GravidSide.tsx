@@ -32,7 +32,7 @@ const EMPTY = '';
 
 const GravidSide = (props: GravidSideProps) => {
   const [status, setStatus] = useState<number>(props.status || GravidStatus.DEFAULT);
-  const [validated, setValidated] = useState<boolean>(props.validated || false);
+  const [validated, setValidated] = useState<boolean>(false);
   const [dato, setDato] = useState<Date|undefined>(props.dato || undefined);
   const [datoFeilmelding, setDatoFeilmelding] = useState<string>(!validated ? EMPTY : REQUIRED_INPUT);
   const [fnr, setFnr] = useState<string>(props.fnr || EMPTY);
@@ -123,6 +123,10 @@ const GravidSide = (props: GravidSideProps) => {
       // submit
       setStatus(GravidStatus.IN_PROGRESS);
     }
+  }
+
+  if (!validated && props.validated) {
+    validateForm();
   }
   return (
     <Row>

@@ -33,11 +33,51 @@ describe('GravidSide', () => {
   const STATUS_OK     = 'Din søknad er mottatt';
   const STATUS_ERROR  = 'Det oppstod en feil';
 
-  it('skal vise fødselsnr, termindato og tilrettelegge - som utgangspunkt', () => {
-    render(
-      <GravidSide />
-      , container
-    );
+  it('skal vise kun søknadsskjema som default', () => {
+    render(<GravidSide status={GravidStatus.DEFAULT}/>, container);
+    expect(container.textContent).toContain(STATUS_DEFAULT);
+    expect(container.textContent).not.toContain(STATUS_VENTER);
+    expect(container.textContent).not.toContain(STATUS_OK);
+    expect(container.textContent).not.toContain(STATUS_ERROR);
+  })
+
+  it('skal vise venteside når man venter på svar', () => {
+    render(<GravidSide status={GravidStatus.IN_PROGRESS}/>, container);
+    expect(container.textContent).not.toContain(STATUS_DEFAULT);
+    expect(container.textContent).toContain(STATUS_VENTER);
+    expect(container.textContent).not.toContain(STATUS_OK);
+    expect(container.textContent).not.toContain(STATUS_ERROR);
+  })
+
+  it('skal vise kvittering når positivt svar', () => {
+    render(<GravidSide status={GravidStatus.SUCCESS}/>, container);
+    expect(container.textContent).not.toContain(STATUS_DEFAULT);
+    expect(container.textContent).not.toContain(STATUS_VENTER);
+    expect(container.textContent).toContain(STATUS_OK);
+    expect(container.textContent).not.toContain(STATUS_ERROR);
+  })
+
+  it('skal vise feilmelding når svar feilet', () => {
+    render(<GravidSide status={GravidStatus.ERROR}/>, container);
+    expect(container.textContent).not.toContain(STATUS_DEFAULT);
+    expect(container.textContent).not.toContain(STATUS_VENTER);
+    expect(container.textContent).not.toContain(STATUS_OK);
+    expect(container.textContent).toContain(STATUS_ERROR);
+  })
+
+  it('skal vise samtlige feilmelding når alle felter mangler', () => {
+    render(<GravidSide tilrettelegge={true} validated={true} bekreftet={true} />, container);
+    expect(container.textContent).toContain('Fyll ut gyldig fødselsnummer');
+    expect(container.textContent).toContain('Termindato må fylles ut');
+    expect(container.textContent).toContain('Tiltak må fylles ut');
+    // expect(container.textContent).toContain('Spesifiser hvilke tiltak som er forsøkt');
+    expect(container.textContent).toContain('Velg omplassering');
+    expect(container.textContent).toContain('Last opp dokumentasjon');
+    // expect(container.textContent).toContain('Bekreft at opplysningene er korrekt');
+  })
+
+  it('skal vise fødselsnr, termindato og tilrettelegge - som default', () => {
+    render(<GravidSide />, container);
     expect(container.textContent).toContain(INFORMASJON);
     expect(container.textContent).toContain(FODSELSNR);
     expect(container.textContent).toContain(TERMINDATO);
@@ -51,22 +91,22 @@ describe('GravidSide', () => {
   })
 
 
-  it('skal vise feilmelding for ugyldig fødselsnummer - validert', () => {
-    render(
-      <GravidSide fnr="123123" validated={true}/>
-      , container
-    );
-    expect(container.textContent).toContain('Ugyldig fødselsnummer');
-    // expect(container.textContent).toContain('123123');
-  })
-
-  it('skal ikke vise feilmelding for ugyldig fødselsnummer - ikke validert', () => {
-    render(
-      <GravidSide fnr="123" validated={false}/>
-      , container
-    );
-    expect(container.textContent).not.toContain('Ugyldig fødselsnummer');
-  })
+  // it('skal vise feilmelding for ugyldig fødselsnummer - validert', () => {
+  //   render(
+  //     <GravidSide fnr="123123" validated={true}/>
+  //     , container
+  //   );
+  //   expect(container.textContent).toContain('Ugyldig fødselsnummer');
+  //   expect(container.textContent).toContain('123123');
+  // })
+  //
+  // it('skal ikke vise feilmelding for ugyldig fødselsnummer - ikke validert', () => {
+  //   render(
+  //     <GravidSide fnr="123" validated={false}/>
+  //     , container
+  //   );
+  //   expect(container.textContent).not.toContain('Ugyldig fødselsnummer');
+  // })
 
   it('skal ikke vise tiltak, omplassering, dokumentasjon, bekreft og knapp - uten at forsøk er valgt', () => {
     render(
@@ -116,57 +156,7 @@ describe('GravidSide', () => {
     expect(container.textContent).toContain(SEND_KNAPP);
   })
 
-  it('skal vise søknadsskjema som default', () => {
-    render(
-      <GravidSide
-        status={GravidStatus.DEFAULT}
-      />
-      , container
-    );
-    expect(container.textContent).toContain(STATUS_DEFAULT);
-    expect(container.textContent).not.toContain(STATUS_VENTER);
-    expect(container.textContent).not.toContain(STATUS_OK);
-    expect(container.textContent).not.toContain(STATUS_ERROR);
-  })
 
-  it('skal vise venteside når man venter på svar', () => {
-    render(
-      <GravidSide
-        status={GravidStatus.IN_PROGRESS}
-      />
-      , container
-    );
-    expect(container.textContent).not.toContain(STATUS_DEFAULT);
-    expect(container.textContent).toContain(STATUS_VENTER);
-    expect(container.textContent).not.toContain(STATUS_OK);
-    expect(container.textContent).not.toContain(STATUS_ERROR);
-  })
-
-  it('skal vise kvittering når positivt svar', () => {
-    render(
-      <GravidSide
-        status={GravidStatus.SUCCESS}
-      />
-      , container
-    );
-    expect(container.textContent).not.toContain(STATUS_DEFAULT);
-    expect(container.textContent).not.toContain(STATUS_VENTER);
-    expect(container.textContent).toContain(STATUS_OK);
-    expect(container.textContent).not.toContain(STATUS_ERROR);
-  })
-
-  it('skal vise feilmelding når svar feilet', () => {
-    render(
-      <GravidSide
-        status={GravidStatus.ERROR}
-      />
-      , container
-    );
-    expect(container.textContent).not.toContain(STATUS_DEFAULT);
-    expect(container.textContent).not.toContain(STATUS_VENTER);
-    expect(container.textContent).not.toContain(STATUS_OK);
-    expect(container.textContent).toContain(STATUS_ERROR);
-  })
 
 
 });

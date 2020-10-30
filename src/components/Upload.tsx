@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Feilmelding} from 'nav-frontend-typografi';
+import React, { ChangeEvent, useState } from 'react';
+import { Feilmelding } from 'nav-frontend-typografi';
 import './Upload.sass';
 
 interface UploadProps {
@@ -36,11 +36,11 @@ const Upload = (props: UploadProps) => {
                id="fileUploader"
                accept={props.extensions}
                onChange={handleUpload}
-               onClick={(e: any) => e.target.value = null} />
+               onClick={(e: any) => e.target.value = null}/>
         {filnavn}
       </label>
       {feilmelding &&
-        <Feilmelding>{feilmelding}</Feilmelding>
+      <Feilmelding>{feilmelding}</Feilmelding>
       }
     </div>
   );
