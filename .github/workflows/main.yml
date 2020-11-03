@@ -50,8 +50,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: nais/deploy/actions/deploy@master
+      - uses: nais/deploy/actions/deploy@v1
         env:
+          TEAM: helse-arbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
+          VARS: nais/dev-gcp.json
           RESOURCE: deploy/dev.yaml
+          REF: ${{ env.COMMIT }}
+          IMAGE: ${{ env.IMAGE }}
+

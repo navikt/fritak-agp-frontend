@@ -1,0 +1,11 @@
+{
+  "ingress": "https://fritak-agp-frontend.dev.nav.no",
+  "api-gw-url": "http://ditt-nav-arbeidsgiver-api",
+  "selvbetjening-login-url": "https://min-side-ag-fakelogin.labs.nais.io/login?issuer=selvbetjening&sub=123456789&domain=labs.nais.io&redirect=https://fritak-agp-frontend.dev.nav.no/fritak-agp/",
+  "logout-url": "https://min-side-ag-fakelogin.labs.nais.io/logout?domain=labs.nais.io",
+  "decorator-external-url": "https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&chatbot=true&level=Level4",
+  "namespace": "helse-arbeidsgiver",
+  "vault-enabled": false,
+  "webproxy-enabled": false,
+  "labs": true
+}
