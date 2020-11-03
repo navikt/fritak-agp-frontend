@@ -45,16 +45,17 @@ jobs:
           docker push ${DOCKER_IMAGE_NAME}
 
   deploy:
-    name: Deploy to PREPROD
+    name: Deploy - GCP
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: nais/deploy/actions/deploy@v1
         env:
-          TEAM: helse-arbeidsgiver
+          TEAM: helsearbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
+          RESOURCE: naiserator.yaml
           VARS: nais/dev-gcp.json
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
