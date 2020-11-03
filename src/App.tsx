@@ -3,7 +3,7 @@ import { ArbeidsgiverProvider, EnvironmentProvider, InnloggetSide } from '@navik
 import { I18nextProvider } from 'react-i18next';
 import i18n from './locales/i18n';
 import { Route, Switch } from 'react-router-dom';
-import GravidSide from './components/GravidSide';
+import GravidSide from './components/gravid/GravidSide';
 import KroniskSide from './components/KroniskSide';
 import Forside from './components/Forside';
 import env from './environment';
