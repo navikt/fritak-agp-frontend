@@ -56,7 +56,6 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           VARS: nais/dev-gcp.json
-          RESOURCE: deploy/dev.yaml
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
 
