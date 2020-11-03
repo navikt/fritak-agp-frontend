@@ -1,9 +1,14 @@
 import React from 'react'
-import GravidSide from "./GravidSide";
-import {render, unmountComponentAtNode} from "react-dom";
-import GravidStatus from "./GravidStatus";
+import GravidSide from './GravidSide';
+import { render, unmountComponentAtNode } from 'react-dom';
+import GravidStatus from './GravidStatus';
+import {axe, toHaveNoViolations} from 'jest-axe';
+import { cleanup } from '@testing-library/react';
+import { render as renderTestingLibrary } from '@testing-library/react';
 
 describe('GravidSide', () => {
+
+  // expect.extend(toHaveNoViolations)
 
   let container:Element = document.createElement('div');
 
@@ -30,7 +35,7 @@ describe('GravidSide', () => {
   const SEND_KNAPP    = 'Send søknad';
   const STATUS_DEFAULT= 'Søknad om unntak fra arbeidsgiveransvar';
   const STATUS_VENTER = 'Vennligst vent';
-  const STATUS_OK     = 'Din søknad er mottatt';
+  const STATUS_OK     = 'Søknaden er mottatt';
   const STATUS_ERROR  = 'Det oppstod en feil';
 
   it('skal vise kun søknadsskjema som default', () => {
@@ -156,7 +161,16 @@ describe('GravidSide', () => {
     expect(container.textContent).toContain(SEND_KNAPP);
   })
 
-
-
+  it('should have no a11y violations', async () => {
+    const { container } = renderTestingLibrary(<GravidSide
+      fnr="123"
+      dato={new Date(2020,9,28)}
+      tilrettelegge={false}
+      videre={true}
+    />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
+  })
 
 });
