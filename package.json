@@ -103,7 +103,7 @@
     "nav-frontend-veileder": "^2.0.24",
     "nav-frontend-veileder-style": "^2.0.18",
     "nav-frontend-veilederpanel": "^0.1.32",
-    "nav-frontend-veilederpanel-style": "0.0.30",
+    "nav-frontend-veilederpanel-style": "0.0.32",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.0.2",
     "react": "^16.14.0",
