@@ -1,20 +1,50 @@
-import 'whatwg-fetch'; // TODO: Sjekk om denne trenger å være her!
+// import 'whatwg-fetch'; // TODO: Sjekk om denne trenger å være her!
+import dayjs from 'dayjs';
+import RestStatus from './RestStatus';
 
 export interface lagreGravideInterface {
-  status: number
-  responseData: any   // TODO: Tilpass data fra backend
+  status: number;
+  validering: lagreGravideResponse[] | lagreGravideBackendError; // TODO: Tilpass data fra backend
 }
 
-export interface lagreGravidesoknadParametere {}
+export interface lagreGravidesoknadParametere {
+  dato?: Date;
+  fnr?: string;
+  tilrettelegge?: boolean;
+  tiltak?: string;
+  tiltakBeskrivelse?: string;
+  omplassering?: string;
+}
 
-export enum RestStatus {
-  NotStarted = -1,
-  Started = 1,
-  Successfully = 200,
-  Unknown = -2,
-  Timeout = -3,
-  Error = 500,
-  Unauthorized = 401
+interface lagreGravidesoknadPostParametere {
+  dato: string;
+  fnr: string;
+  tilrettelegge: boolean;
+  tiltak: string;
+  tiltakBeskrivelse: string;
+  omplassering: string;
+}
+
+interface lagreGravideResponse {
+  status: string;
+  validationErrors: lagreGravideValidationError[];
+  genericMessage: string;
+  referenceNumber: string;
+}
+
+interface lagreGravideValidationError {
+  validationType: string;
+  message: string;
+  propertyPath: string;
+  invalidValue: string;
+}
+
+interface lagreGravideBackendError {
+  type: string;
+  title: string;
+  status: number;
+  detail: string;
+  instance: string;
 }
 
 const handleStatus = (response: Response) => {
@@ -30,10 +60,24 @@ const handleStatus = (response: Response) => {
   }
 };
 
+const adaptPayload = (
+  payload: lagreGravidesoknadParametere
+): lagreGravidesoknadPostParametere => {
+  return {
+    dato: dayjs(payload.dato).format('YYYY-MM-DD'),
+    fnr: payload.fnr || '',
+    tilrettelegge: payload.tilrettelegge || false,
+    tiltak: payload.tiltak || '',
+    tiltakBeskrivelse: payload.tiltakBeskrivelse || '',
+    omplassering: payload.omplassering || ''
+  };
+};
+
 const lagreGravidesoknad = (
   basePath: string,
   payload: lagreGravidesoknadParametere
 ): Promise<lagreGravideInterface> => {
+  const bodyPayload = adaptPayload(payload);
   return Promise.race([
     new Promise<lagreGravideInterface>((_, reject) => {
       const id = setTimeout(() => {
@@ -42,7 +86,7 @@ const lagreGravidesoknad = (
       }, 10000);
     }).catch(() => ({
       status: RestStatus.Timeout,
-      responseData: []
+      validering: []
     })),
     fetch(basePath + '/api/v1/arbeidsgivere', {
       headers: {
@@ -50,16 +94,16 @@ const lagreGravidesoknad = (
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      body: JSON.stringify(payload)
+      body: JSON.stringify(bodyPayload)
     })
       .then(handleStatus)
       .then((json) => ({
         status: RestStatus.Successfully,
-        responseData: json
+        validering: json
       }))
       .catch((status) => ({
         status: status,
-        responseData: []
+        validering: []
       }))
   ]);
 };

@@ -6,8 +6,11 @@ import { Route, Switch } from 'react-router-dom';
 import GravidSide from './components/gravid/GravidSide';
 import KroniskSide from './components/KroniskSide';
 import Forside from './components/Forside';
+import GravidKvittering from './components/gravid/GravidKvittering';
 import env from './environment';
+import lenker from './components/lenker';
 import './App.sass';
+
 
 
 const App = () => {
@@ -18,9 +21,10 @@ const App = () => {
         <I18nextProvider i18n={i18n}>
           <InnloggetSide className="innloggetside__fritak">
             <Switch>
-              <Route path="/gravid" render={() => <GravidSide/>}/>
-              <Route path="/kronisk" render={() => <KroniskSide/>}/>
-              <Route path="/" render={() => <Forside/>}/>
+              <Route path={lenker.Gravid} render={() => <GravidSide/>}/>
+              <Route path={lenker.Kronisk} render={() => <KroniskSide/>}/>
+              <Route path={lenker.GravidKvittering} render={() => <GravidKvittering/>}/>
+              <Route path={lenker.Home} render={() => <Forside/>}/>
             </Switch>
           </InnloggetSide>
         </I18nextProvider>

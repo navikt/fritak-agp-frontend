@@ -17,6 +17,12 @@ import GravidStatus from './GravidStatus';
 import isValidFnr from './isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
+import lagreGravidesoknad from '../../api/lagreGravidesoknad';
+import RestStatus from '../../api/RestStatus';
+import environment from '../../environment';
+import { useHistory } from 'react-router-dom';
+import { History } from 'history';
+import lenker from '../lenker';
 
 const REQUIRED_INPUT = 'Må fylles ut';
 const REQUIRED_SELECT = 'Må velge et alternativ';
@@ -45,6 +51,8 @@ const GravidSide = (props: GravidSideProps) => {
   const [bekreftetFeilmelding, setBekreftetFeilmelding] = useState<string>(props.bekreftetFeilmelding || EMPTY);
   const [videre, setVidere] = useState<boolean>(props.videre || false);
   const [feilOppsummeringer, setFeilOppsummeringer] = useState<FeiloppsummeringFeil[]>(props.feilOppsummeringer || []);
+
+  const history: History = useHistory();
 
   const handleUploadChanged = (file?: File) => {
     setDokumentasjon(file)
@@ -111,13 +119,27 @@ const GravidSide = (props: GravidSideProps) => {
 
     setFeilOppsummeringer(feil);
     setValidated(true);
-    return feil.length == 0;
+    return feil.length === 0;
   }
 
-  const handleSubmitClicked = () => {
+  const handleSubmitClicked = async () => {
     if (validateForm()) {
       // submit
+      const payload = {
+        dato,
+        fnr,
+        tilrettelegge,
+        tiltak,
+        tiltakBeskrivelse,
+        omplassering
+      }
+
       setStatus(GravidStatus.IN_PROGRESS);
+      const lagringStatus = await lagreGravidesoknad(environment.baseUrl, payload);
+
+      if (lagringStatus.status === RestStatus.Successfully) {
+        history.push(lenker.Kvittering);
+      }
     }
   }
 
@@ -129,19 +151,19 @@ const GravidSide = (props: GravidSideProps) => {
       <Column>
         <SoknadTittel>Søknad om utvidet støtte for gravid ansatts sykefravære</SoknadTittel>
 
-        {status == GravidStatus.IN_PROGRESS &&
+        {status === GravidStatus.IN_PROGRESS &&
         <GravidProgress/>
         }
 
-        {status == GravidStatus.SUCCESS &&
+        {status === GravidStatus.SUCCESS &&
         <GravidKvittering/>
         }
 
-        {status == GravidStatus.ERROR &&
+        {status === GravidStatus.ERROR &&
         <GravidFeil/>
         }
 
-        {(status == GravidStatus.DEFAULT || status == GravidStatus.BAD_REQUEST) &&
+        {(status === GravidStatus.DEFAULT || status === GravidStatus.BAD_REQUEST) &&
         <SideIndentering>
 
           <Panel>
