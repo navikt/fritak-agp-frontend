@@ -33,6 +33,6 @@ export enum Languages {
 
 export const translationsToJson = (lan: Languages): {} => {
 	let translatedKeys = {};
-	Object.keys(allTranslations).map(e => translatedKeys[e] = allTranslations[e][lan]);
+	Object.keys(allTranslations).forEach(e => translatedKeys[e] = allTranslations[e][lan]);
 	return translatedKeys;
 };
