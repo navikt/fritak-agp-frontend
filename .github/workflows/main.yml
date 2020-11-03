@@ -43,13 +43,6 @@ jobs:
           docker build --tag ${IMAGE} --tag ${LATEST_TAG} .
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${DOCKER_IMAGE_NAME}
-
-  deploy:
-    name: Deploy - GCP
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
       - uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: helsearbeidsgiver
