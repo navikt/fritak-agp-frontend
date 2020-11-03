@@ -21,7 +21,7 @@ spec:
     periodSeconds: 3
     failureThreshold: 10
   ingresses:
-    - https://fritak-agp-frontend.dev.nav.no/fritak-agp/
+    - https://fritak-agp-frontend.dev.nav.no
   replicas:
     max: 1
     min: 1
