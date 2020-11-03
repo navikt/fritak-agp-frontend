@@ -15,7 +15,8 @@
     "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
-    "lint:fix": "eslint src/**/*.ts* --fix"
+    "lint:fix": "eslint src/**/*.ts* --fix",
+    "pretty-quick": "pretty-quick"
   },
   "browserslist": {
     "production": [
