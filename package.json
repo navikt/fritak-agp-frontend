@@ -16,7 +16,7 @@
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
-    "pretty-please": "pretty-quick"
+    "pretty-please": "pretty-quick --staged --config .prettierrc.json"
   },
   "browserslist": {
     "production": [
@@ -138,7 +138,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx)'"
     }
   }
 }
