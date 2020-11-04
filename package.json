@@ -16,7 +16,7 @@
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
-    "pretty-quick": "pretty-quick"
+    "pretty-please": "pretty-quick"
   },
   "browserslist": {
     "production": [
