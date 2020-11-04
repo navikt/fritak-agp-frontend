@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import RestStatus from "./RestStatus";
+import handleStatus from "./handleStatus";
 
 export interface lagreGravideInterface {
   status: number;
@@ -45,19 +46,6 @@ interface lagreGravideBackendError {
   detail: string;
   instance: string;
 }
-
-const handleStatus = (response: Response) => {
-  switch (response.status) {
-    case 200:
-      return response.json();
-    case 401:
-      return Promise.reject(RestStatus.Unauthorized);
-    case 500:
-      return Promise.reject(RestStatus.Error);
-    default:
-      return Promise.reject(RestStatus.Unknown);
-  }
-};
 
 const adaptPayload = (payload: lagreGravidesoknadParametere): lagreGravidesoknadPostParametere => {
   return {
