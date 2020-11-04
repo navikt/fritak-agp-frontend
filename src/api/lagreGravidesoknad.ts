@@ -1,6 +1,5 @@
-// import 'whatwg-fetch'; // TODO: Sjekk om denne trenger å være her!
-import dayjs from 'dayjs';
-import RestStatus from './RestStatus';
+import dayjs from "dayjs";
+import RestStatus from "./RestStatus";
 
 export interface lagreGravideInterface {
   status: number;
@@ -60,16 +59,14 @@ const handleStatus = (response: Response) => {
   }
 };
 
-const adaptPayload = (
-  payload: lagreGravidesoknadParametere
-): lagreGravidesoknadPostParametere => {
+const adaptPayload = (payload: lagreGravidesoknadParametere): lagreGravidesoknadPostParametere => {
   return {
-    dato: dayjs(payload.dato).format('YYYY-MM-DD'),
-    fnr: payload.fnr || '',
+    dato: dayjs(payload.dato).format("YYYY-MM-DD"),
+    fnr: payload.fnr || "",
     tilrettelegge: payload.tilrettelegge || false,
-    tiltak: payload.tiltak || '',
-    tiltakBeskrivelse: payload.tiltakBeskrivelse || '',
-    omplassering: payload.omplassering || ''
+    tiltak: payload.tiltak || "",
+    tiltakBeskrivelse: payload.tiltakBeskrivelse || "",
+    omplassering: payload.omplassering || "",
   };
 };
 
@@ -86,25 +83,25 @@ const lagreGravidesoknad = (
       }, 10000);
     }).catch(() => ({
       status: RestStatus.Timeout,
-      validering: []
+      validering: [],
     })),
-    fetch(basePath + '/api/v1/arbeidsgivere', {
+    fetch(basePath + "/api/v1/fritak-agp-gravide", {
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      method: 'POST',
-      body: JSON.stringify(bodyPayload)
+      method: "POST",
+      body: JSON.stringify(bodyPayload),
     })
       .then(handleStatus)
       .then((json) => ({
         status: RestStatus.Successfully,
-        validering: json
+        validering: json,
       }))
       .catch((status) => ({
         status: status,
-        validering: []
-      }))
+        validering: [],
+      })),
   ]);
 };
 
