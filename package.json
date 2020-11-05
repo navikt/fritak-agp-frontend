@@ -9,13 +9,14 @@
     "build:js": "react-scripts build",
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
-    "start": "npm-run-all -p start:*",
-    "server": "node src/server/server.js",
+    "dev": "npm-run-all -p start:*",
+    "start": "node src/server/server.js",
     "build": "npm run build:css && npm run build:js",
     "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
-    "lint:fix": "eslint src/**/*.ts* --fix"
+    "lint:fix": "eslint src/**/*.ts* --fix",
+    "pretty-please": "pretty-quick --staged --config .prettierrc.json"
   },
   "browserslist": {
     "production": [
@@ -92,7 +93,7 @@
     "nav-frontend-paneler": "^2.0.13",
     "nav-frontend-paneler-style": "^0.3.24",
     "nav-frontend-popover": "0.0.32",
-    "nav-frontend-popover-style": "0.0.6",
+    "nav-frontend-popover-style": "0.0.8",
     "nav-frontend-skjema": "^3.0.24",
     "nav-frontend-skjema-style": "^2.0.15",
     "nav-frontend-spinner": "^2.0.8",
@@ -103,7 +104,7 @@
     "nav-frontend-veileder": "^2.0.24",
     "nav-frontend-veileder-style": "^2.0.18",
     "nav-frontend-veilederpanel": "^0.1.32",
-    "nav-frontend-veilederpanel-style": "0.0.30",
+    "nav-frontend-veilederpanel-style": "0.0.32",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.0.2",
     "react": "^16.14.0",
@@ -126,5 +127,18 @@
     "yarn": "^1.22.10",
     "yet-another-fetch-mock": "^3.4.0"
   },
-  "snyk": true
+  "snyk": true,
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "prettier": "^2.1.2",
+    "pretty-quick": "^3.1.0"
+  },
+  "prettier": {
+    "printWidth": 120
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx)'"
+    }
+  }
 }
