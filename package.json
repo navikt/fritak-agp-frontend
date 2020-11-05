@@ -9,14 +9,14 @@
     "build:js": "react-scripts build",
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
-    "start": "npm-run-all -p start:*",
-    "server": "node src/server/server.js",
+    "dev": "npm-run-all -p start:*",
+    "start": "node src/server/server.js",
     "build": "npm run build:css && npm run build:js",
     "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
-    "pretty-please": "pretty-quick"
+    "pretty-please": "pretty-quick --staged --config .prettierrc.json"
   },
   "browserslist": {
     "production": [
@@ -138,7 +138,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx)'"
     }
   }
 }
