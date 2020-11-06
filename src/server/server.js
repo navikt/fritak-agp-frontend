@@ -7,6 +7,7 @@ const getDecorator = require('./decorator');
 const Promise = require('promise');
 const port = process.env.PORT || 3000;
 const sonekrysning = require('./sonekrysningConfig.js');
+const api = require('./api.js')
 // const digisyfoSykemeldteProxyConfig = require('./digisyfoProxy');
 // const createEnvSettingsFile = require('./envSettings.js');
 
@@ -16,6 +17,7 @@ const BASE_PATH='/fritak-agp';
 
 server.use(`${BASE_PATH}/api`, sonekrysning);
 // server.use(`${BASE_PATH}/syforest/arbeidsgiver/sykmeldte`,digisyfoSykemeldteProxyConfig);
+server.use(`/api`, api);
 
 server.engine('html', mustacheExpress());
 server.set('view engine', 'mustache');
@@ -41,7 +43,7 @@ const renderApp = decoratorFragments =>
     });
 
 const startServer = html => {
-    console.log("start server");
+    console.log("start server ", BASE_PATH);
     server.use(BASE_PATH, express.static(buildPath,{index: false}));
 
     setInternalEndpoints();
