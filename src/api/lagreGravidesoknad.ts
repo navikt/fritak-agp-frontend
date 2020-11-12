@@ -4,7 +4,10 @@ import handleStatus from './handleStatus';
 
 export interface lagreGravideInterface {
   status: number;
-  validering: lagreGravideResponse[] | lagreGravideBackendError; // TODO: Tilpass data fra backend
+  validering:
+    | lagreGravideResponse
+    | lagreGravideBackendError
+    | lagreGravideBackendError[]; // TODO: Tilpass data fra backend
 }
 
 export interface lagreGravidesoknadParametere {
@@ -32,7 +35,7 @@ export interface lagreGravideResponse {
   referenceNumber: string;
 }
 
-interface lagreGravideValidationError {
+export interface lagreGravideValidationError {
   validationType: string;
   message: string;
   propertyPath: string;

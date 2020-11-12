@@ -26,6 +26,7 @@ import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
 import lagreGravidesoknad, {
   lagreGravideBackendError,
+  lagreGravideInterface,
   lagreGravideResponse
 } from '../../api/lagreGravidesoknad';
 import RestStatus from '../../api/RestStatus';
@@ -34,6 +35,8 @@ import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import lenker from '../lenker';
 import feilmeldingReducer from './feilmeldingReducer';
+import isBackendServerError from './isBackendServerError';
+import isBackendValidationError from './isBackendValidationError';
 
 const initialStateFeilmelding = {};
 
@@ -81,21 +84,17 @@ const GravidSide = (props: GravidSideProps) => {
     setDokumentasjon(file);
   };
 
-  function isBackendError(
-    beResponse: lagreGravideBackendError | lagreGravideResponse
-  ): beResponse is lagreGravideBackendError {
-    return (beResponse as lagreGravideBackendError).detail !== undefined;
-  }
-
   const validateBackendResponse = (
-    beResponse: lagreGravideBackendError | lagreGravideResponse
+    beResponse: lagreGravideInterface
   ): boolean => {
-    if (isBackendError(beResponse)) {
+    const validering = beResponse.validering;
+
+    if (isBackendServerError(validering)) {
       return false;
     }
 
-    if (beResponse.validationErrors && beResponse.validationErrors.length > 0) {
-      beResponse.validationErrors.forEach((error) => {
+    if (isBackendValidationError(validering)) {
+      (validering as lagreGravideResponse).validationErrors.forEach((error) => {
         dispatchFeilmelding({
           type: error.propertyPath,
           feilmelding: error.message
