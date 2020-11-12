@@ -1,0 +1,27 @@
+[
+  {
+    "name" : "STADLANDET OG SINGSÅS",
+    "type" : "Enterprise",
+    "parentOrganizationNumber" : null,
+    "organizationForm" : "AS",
+    "organizationNumber" : "911366940",
+    "socialSecurityNumber" : null,
+    "status" : "Active"
+  }, {
+  "name" : "HØNEFOSS OG ØLEN",
+  "type" : "Enterprise",
+  "parentOrganizationNumber" : null,
+  "organizationForm" : "AS",
+  "organizationNumber" : "910020102",
+  "socialSecurityNumber" : null,
+  "status" : "Active"
+}, {
+  "name" : "JØA OG SEL",
+  "type" : "Business",
+  "parentOrganizationNumber" : "911366940",
+  "organizationForm" : "BEDR",
+  "organizationNumber" : "910098896",
+  "socialSecurityNumber" : null,
+  "status" : "Active"
+}
+]
