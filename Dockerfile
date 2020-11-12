@@ -8,7 +8,7 @@ FROM navikt/node-express:12.2.0-alpine
 WORKDIR /app
 
 COPY build/ build/
-COPY src/server/ src/server/
+COPY server/ server/
 COPY start.sh ./
 COPY --from=builder /app/node_modules /app/node_modules
 
