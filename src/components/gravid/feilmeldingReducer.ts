@@ -3,7 +3,14 @@ interface feilmeldingAction {
   feilmelding: string;
 }
 
-function feilmeldingReducer(state: {}, action: feilmeldingAction): {} {
+interface feilmeldingState {
+  [name: string]: string;
+}
+
+function feilmeldingReducer(
+  state: feilmeldingState | {},
+  action: feilmeldingAction
+): feilmeldingState {
   switch (action.type) {
     case 'clear':
       return {};

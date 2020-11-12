@@ -24,7 +24,10 @@ import GravidStatus from './GravidStatus';
 import isValidFnr from './isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
-import lagreGravidesoknad from '../../api/lagreGravidesoknad';
+import lagreGravidesoknad, {
+  lagreGravideBackendError,
+  lagreGravideResponse
+} from '../../api/lagreGravidesoknad';
 import RestStatus from '../../api/RestStatus';
 import environment from '../../environment';
 import { useHistory } from 'react-router-dom';
@@ -34,9 +37,9 @@ import feilmeldingReducer from './feilmeldingReducer';
 
 const initialStateFeilmelding = {};
 
-const REQUIRED_INPUT = 'Må fylles ut';
-const REQUIRED_SELECT = 'Må velge et alternativ';
-const INVALID_FNR = 'Ugyldig fødselsnummer';
+// const REQUIRED_INPUT = 'Må fylles ut';
+// const REQUIRED_SELECT = 'Må velge et alternativ';
+// const INVALID_FNR = 'Ugyldig fødselsnummer';
 const EMPTY = '';
 
 const GravidSide = (props: GravidSideProps) => {
@@ -54,10 +57,10 @@ const GravidSide = (props: GravidSideProps) => {
   const [tiltakBeskrivelse, setTiltakBeskrivelse] = useState<string>(
     props.tiltakBeskrivelse || EMPTY
   );
-  const [
-    tiltakBeskrivelseFeilmelding,
-    setTiltakBeskrivelseFeilmelding
-  ] = useState<string>(!validated ? EMPTY : REQUIRED_INPUT);
+  // const [
+  //   tiltakBeskrivelseFeilmelding,
+  //   setTiltakBeskrivelseFeilmelding
+  // ] = useState<string>(!validated ? EMPTY : REQUIRED_INPUT);
   const [omplassering, setOmplassering] = useState<string>(
     props.omplassering || EMPTY
   );
@@ -78,11 +81,37 @@ const GravidSide = (props: GravidSideProps) => {
     setDokumentasjon(file);
   };
 
+  function isBackendError(
+    beResponse: lagreGravideBackendError | lagreGravideResponse
+  ): beResponse is lagreGravideBackendError {
+    return (beResponse as lagreGravideBackendError).detail !== undefined;
+  }
+
+  const validateBackendResponse = (
+    beResponse: lagreGravideBackendError | lagreGravideResponse
+  ): boolean => {
+    if (isBackendError(beResponse)) {
+      return false;
+    }
+
+    if (beResponse.validationErrors && beResponse.validationErrors.length > 0) {
+      beResponse.validationErrors.forEach((error) => {
+        dispatchFeilmelding({
+          type: error.propertyPath,
+          feilmelding: error.message
+        });
+      });
+      return false;
+    }
+    return true;
+  };
+
   const validateForm = (): boolean => {
-    let feil = new Array<FeiloppsummeringFeil>();
+    let harFeil: boolean = false;
 
     if (!fnrValid) {
       // setFnrFeilmelding(REQUIRED_INPUT);
+      harFeil = true;
       dispatchFeilmelding({
         type: 'ansatteFeilmeldingId',
         feilmelding: 'Fyll ut gyldig fødselsnummer'
@@ -93,6 +122,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     if (!dato) {
+      harFeil = true;
       // setDatoFeilmelding(REQUIRED_INPUT);
       dispatchFeilmelding({
         type: 'dato',
@@ -103,6 +133,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     if (!tiltak) {
+      harFeil = true;
       // setTiltakFeilmelding(REQUIRED_SELECT);
       dispatchFeilmelding({
         type: 'tilretteleggeFeilmeldingId',
@@ -117,7 +148,8 @@ const GravidSide = (props: GravidSideProps) => {
 
     if (tiltak === 'annet') {
       if (!tiltakBeskrivelse) {
-        setTiltakBeskrivelseFeilmelding(REQUIRED_INPUT);
+        harFeil = true;
+        // setTiltakBeskrivelseFeilmelding(REQUIRED_INPUT);
         // feil.push({
         //   type: 'tilretteleggeFeilmeldingId',
         //   feilmelding: 'Spesifiser hvilke tiltak som er forsøkt',
@@ -141,6 +173,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     if (!omplassering) {
+      harFeil = true;
       // setOmplasseringFeilmelding(REQUIRED_SELECT);
       dispatchFeilmelding({
         type: 'omplasseringFeilmeldingId',
@@ -155,6 +188,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     if (!dokumentasjon) {
+      harFeil = true;
       // setDokumentasjonFeilmelding('Velg en fil');
       dispatchFeilmelding({
         type: 'dokumentasjonFeilmeldingId',
@@ -169,6 +203,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     if (!bekreftet) {
+      harFeil = true;
       // setBekreftetFeilmelding(REQUIRED_SELECT);
       dispatchFeilmelding({
         type: 'bekreftFeilmeldingId',
@@ -180,8 +215,9 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     // setFeilOppsummeringer(feil);
+    debugger;
     setValidated(true);
-    return Object.keys(feilmelding).length === 0;
+    return harFeil === false;
   };
 
   const handleSubmitClicked = async () => {
@@ -203,6 +239,7 @@ const GravidSide = (props: GravidSideProps) => {
       );
 
       if (lagringStatus.status === RestStatus.Successfully) {
+        validateBackendResponse(lagringStatus);
         history.push(lenker.GravidKvittering);
       }
     }
@@ -212,7 +249,9 @@ const GravidSide = (props: GravidSideProps) => {
     validateForm();
   }
 
-  const feilmeldingsliste = Object.keys(feilmelding).map((element) => ({
+  const feilmeldingsliste: FeiloppsummeringFeil[] = Object.keys(
+    feilmelding
+  ).map((element) => ({
     skjemaelementId: element,
     feilmelding: feilmelding[element]
   }));
@@ -247,7 +286,7 @@ const GravidSide = (props: GravidSideProps) => {
             <Panel>
               <SkjemaGruppe
                 legend='Informasjon om den ansatte'
-                feilmeldingId='ansatteFeilmeldingId'
+                // feilmeldingId='fnrOgDatoFeilmeldingId'
                 aria-live='polite'
               >
                 <Row>
@@ -353,7 +392,7 @@ const GravidSide = (props: GravidSideProps) => {
                       {tiltak === 'annet' && (
                         <Textarea
                           value={tiltakBeskrivelse}
-                          feil={tiltakBeskrivelseFeilmelding}
+                          feil={feilmelding.tilretteleggeFeilmeldingId}
                           onChange={(evt) => {
                             setTiltakBeskrivelse(evt.currentTarget.value);
                           }}
@@ -438,6 +477,7 @@ const GravidSide = (props: GravidSideProps) => {
                     description='Det må dokumenteres av lege at fraværet er relatert til svangerskapsrelatert
                         sykdom. Dere kan laste opp denne om dere har den. Alternativt vil NAV innhente dokumentasjon
                         direkte fra lege.'
+                    aria-live='polite'
                   >
                     <Upload
                       id='upload'

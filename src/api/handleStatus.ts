@@ -1,4 +1,4 @@
-import RestStatus from "./RestStatus";
+import RestStatus from './RestStatus';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
