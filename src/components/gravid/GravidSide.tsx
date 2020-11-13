@@ -214,7 +214,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     // setFeilOppsummeringer(feil);
-    debugger;
+
     setValidated(true);
     return harFeil === false;
   };

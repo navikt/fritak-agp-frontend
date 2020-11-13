@@ -761,3 +761,8 @@ span.flatpickr-weekday {
     transform: translate3d(0, 0, 0);
   }
 }
+
+.skjemaelement__input.datovelger-feil {
+  border-color: #ba3a26;
+  box-shadow: 0 0 0 1px #ba3a26;
+}
