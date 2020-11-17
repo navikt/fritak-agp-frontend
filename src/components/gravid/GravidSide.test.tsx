@@ -164,15 +164,17 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(SEND_KNAPP);
   });
 
-  // it('should have no a11y violations', async () => {
-  //   const { container } = renderTestingLibrary(<GravidSide
-  //     fnr="123"
-  //     dato={new Date(2020, 9, 28)}
-  //     tilrettelegge={false}
-  //     videre={true}
-  //   />)
-  //   const results = await axe(container)
-  //   expect(results).toHaveNoViolations()
-  //   cleanup()
-  // })
+  it('should have no a11y violations', async () => {
+    const { container } = renderTestingLibrary(
+      <GravidSide
+        fnr='123'
+        dato={new Date(2020, 9, 28)}
+        tilrettelegge={false}
+        videre={true}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+    cleanup();
+  });
 });

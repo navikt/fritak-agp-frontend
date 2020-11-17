@@ -78,7 +78,7 @@ const lagreGravidesoknad = (
       status: RestStatus.Timeout,
       validering: []
     })),
-    fetch(basePath + '/api/v1/fritak-agp-gravide', {
+    fetch(basePath + '/api/v1/gravid/soeknad', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
