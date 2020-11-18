@@ -9,7 +9,7 @@ function isBackendServerError(
     | lagreGravideResponse
     | lagreGravideBackendError[]
 ): beResponse is lagreGravideBackendError {
-  return (beResponse as lagreGravideBackendError).detail !== undefined;
+  return (beResponse as lagreGravideBackendError).status === 500;
 }
 
 export default isBackendServerError;

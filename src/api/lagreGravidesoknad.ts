@@ -29,10 +29,12 @@ interface lagreGravidesoknadPostParametere {
 }
 
 export interface lagreGravideResponse {
-  status: string;
-  validationErrors: lagreGravideValidationError[];
-  genericMessage: string;
-  referenceNumber: string;
+  violations: lagreGravideValidationError[];
+  type: string;
+  title: string;
+  status: number;
+  detail: string;
+  instance: string;
 }
 
 export interface lagreGravideValidationError {

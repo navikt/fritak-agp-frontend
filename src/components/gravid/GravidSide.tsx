@@ -25,7 +25,6 @@ import isValidFnr from './isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
 import lagreGravidesoknad, {
-  lagreGravideBackendError,
   lagreGravideInterface,
   lagreGravideResponse
 } from '../../api/lagreGravidesoknad';
@@ -46,7 +45,7 @@ const initialStateFeilmelding = {};
 const EMPTY = '';
 
 const GravidSide = (props: GravidSideProps) => {
-  const [status, setStatus] = useState<number>(
+  const [skjemaStatus, setSkjemaStatus] = useState<number>(
     props.status || GravidStatus.DEFAULT
   );
   const [validated, setValidated] = useState<boolean>(false);
@@ -84,6 +83,37 @@ const GravidSide = (props: GravidSideProps) => {
     setDokumentasjon(file);
   };
 
+  const validateFnr = (valid) => {
+    setFnrValid(valid);
+
+    if (valid) {
+      dispatchFeilmelding({
+        type: 'ansatteFeilmeldingId',
+        feilmelding: ''
+      });
+      // } else {
+      //   dispatchFeilmelding({
+      //     type: 'ansatteFeilmeldingId',
+      //     feilmelding: 'Fyll ut gyldig fødselsnummer'
+      //   });
+    }
+  };
+
+  const validateTermindato = (dato) => {
+    setDato(dato);
+    if (dato) {
+      dispatchFeilmelding({
+        type: 'dato',
+        feilmelding: ''
+      });
+    } else {
+      dispatchFeilmelding({
+        type: 'dato',
+        feilmelding: 'Termindato må fylles ut'
+      });
+    }
+  };
+
   const validateBackendResponse = (
     beResponse: lagreGravideInterface
   ): boolean => {
@@ -94,12 +124,15 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     if (isBackendValidationError(validering)) {
-      (validering as lagreGravideResponse).validationErrors.forEach((error) => {
-        dispatchFeilmelding({
-          type: error.propertyPath,
-          feilmelding: error.message
-        });
-      });
+      debugger;
+      ((validering as unknown) as lagreGravideResponse).violations.forEach(
+        (error) => {
+          dispatchFeilmelding({
+            type: error.propertyPath,
+            feilmelding: error.message
+          });
+        }
+      );
       return false;
     }
     return true;
@@ -231,16 +264,21 @@ const GravidSide = (props: GravidSideProps) => {
         omplassering
       };
 
-      setStatus(GravidStatus.IN_PROGRESS);
+      setSkjemaStatus(GravidStatus.IN_PROGRESS);
       const lagringStatus = await lagreGravidesoknad(
         environment.baseUrl,
         payload
       );
 
       if (lagringStatus.status === RestStatus.Successfully) {
-        validateBackendResponse(lagringStatus);
-        history.push(lenker.GravidKvittering);
+        const backendStatusOK = validateBackendResponse(lagringStatus);
+
+        if (backendStatusOK) {
+          history.push(lenker.GravidKvittering);
+        }
       }
+
+      setSkjemaStatus(GravidStatus.DEFAULT);
     }
   };
 
@@ -262,14 +300,14 @@ const GravidSide = (props: GravidSideProps) => {
           Søknad om utvidet støtte for gravid ansatts sykefravære
         </SoknadTittel>
 
-        {status === GravidStatus.IN_PROGRESS && <GravidProgress />}
+        {skjemaStatus === GravidStatus.IN_PROGRESS && <GravidProgress />}
 
-        {status === GravidStatus.SUCCESS && <GravidKvittering />}
+        {skjemaStatus === GravidStatus.SUCCESS && <GravidKvittering />}
 
-        {status === GravidStatus.ERROR && <GravidFeil />}
+        {skjemaStatus === GravidStatus.ERROR && <GravidFeil />}
 
-        {(status === GravidStatus.DEFAULT ||
-          status === GravidStatus.BAD_REQUEST) && (
+        {(skjemaStatus === GravidStatus.DEFAULT ||
+          skjemaStatus === GravidStatus.BAD_REQUEST) && (
           <SideIndentering>
             <Panel>
               <Ingress>
@@ -295,7 +333,7 @@ const GravidSide = (props: GravidSideProps) => {
                       fnr={fnr}
                       placeholder='11 siffer'
                       feilmelding={feilmelding.ansatteFeilmeldingId}
-                      onValidate={setFnrValid}
+                      onValidate={validateFnr}
                       onChange={setFnr}
                     />
                   </Column>
@@ -305,7 +343,7 @@ const GravidSide = (props: GravidSideProps) => {
                       dato={dato}
                       placeholder='dd.mm.åååå'
                       feilmelding={feilmelding.dato}
-                      onChange={setDato}
+                      onChange={validateTermindato}
                     />
                   </Column>
                 </Row>

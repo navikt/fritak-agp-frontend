@@ -10,8 +10,8 @@ function isBackendValidationError(
     | lagreGravideBackendError[]
 ): beResponse is lagreGravideBackendError {
   return (
-    (beResponse as lagreGravideResponse).validationErrors !== undefined &&
-    (beResponse as lagreGravideResponse).validationErrors.length > 0
+    (beResponse as lagreGravideResponse).violations !== undefined &&
+    (beResponse as lagreGravideResponse).violations.length > 0
   );
 }
 
