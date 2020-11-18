@@ -139,7 +139,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx)'"
+      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx|js)'"
     }
   }
 }
