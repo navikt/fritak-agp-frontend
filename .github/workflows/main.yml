@@ -35,7 +35,10 @@ jobs:
       - name: Bygg
         run: CI=false npm install
       - name: Automatisk versjonering
-        run: npm version patch
+        run: |
+          git config --global user.email "helsearbeidsgiver@nav.no"
+          git config --global user.name "HelseArbeidsgiver"
+          npm version patch
       - name: Test
         run: npm test
       - name: SonarCube
