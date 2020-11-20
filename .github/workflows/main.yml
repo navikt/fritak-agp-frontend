@@ -14,8 +14,9 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  runs-on: ubuntu-latest
+
   Bygg:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
@@ -33,6 +34,7 @@ jobs:
       - run: CI=false npm install
 
   Versjon:
+    runs-on: ubuntu-latest
     steps:
       - run: |
           git config --global user.email "helsearbeidsgiver@nav.no"
@@ -40,20 +42,26 @@ jobs:
           npm version patch
           git push
   Test:
+    runs-on: ubuntu-latest
     steps:
       - run: npm test
+
   SonarCube:
+    runs-on: ubuntu-latest
     steps:
       - run: node run-sonar.js
 
   Docker:
+    runs-on: ubuntu-latest
     steps:
       - name: Build and publish Docker image
         run: |
           docker build --tag ${IMAGE} --tag ${LATEST_TAG} .
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${DOCKER_IMAGE_NAME}
+
   Deploy:
+    runs-on: ubuntu-latest
     steps:
       - uses: nais/deploy/actions/deploy@v1
         env:
