@@ -34,6 +34,7 @@ jobs:
       - run: CI=false npm install
 
   Versjon:
+    needs: Bygg
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -42,16 +43,19 @@ jobs:
           npm version patch
           git push
   Test:
+    needs: Versjon
     runs-on: ubuntu-latest
     steps:
       - run: npm test
 
   SonarCube:
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - run: node run-sonar.js
 
   Docker:
+    needs: SonarCube
     runs-on: ubuntu-latest
     steps:
       - name: Build and publish Docker image
@@ -61,6 +65,7 @@ jobs:
           docker push ${DOCKER_IMAGE_NAME}
 
   Deploy:
+    needs: Docker
     runs-on: ubuntu-latest
     steps:
       - uses: nais/deploy/actions/deploy@v1
