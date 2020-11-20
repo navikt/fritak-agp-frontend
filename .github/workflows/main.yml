@@ -39,6 +39,7 @@ jobs:
           git config --global user.email "helsearbeidsgiver@nav.no"
           git config --global user.name "HelseArbeidsgiver"
           npm version patch
+          git push
       - name: Test
         run: npm test
       - name: SonarCube
