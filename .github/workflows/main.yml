@@ -10,14 +10,12 @@ env:
   DOCKER_IMAGE_NAME: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend
   LATEST_TAG: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend:latest
   IMAGE: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
-
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
+  runs-on: ubuntu-latest
   build:
-    runs-on: ubuntu-latest
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
@@ -32,23 +30,31 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Bygg
-        run: CI=false npm install
-      - name: Automatisk versjonering
-        run: |
+      - run: CI=false npm install
+
+  Versjonering:
+    steps:
+      - run: |
           git config --global user.email "helsearbeidsgiver@nav.no"
           git config --global user.name "HelseArbeidsgiver"
           npm version patch
           git push
-      - name: Test
-        run: npm test
-      - name: SonarCube
-        run: node run-sonar.js
+  Test:
+    steps:
+      - run: npm test
+  SonarCube:
+    steps:
+      - run: node run-sonar.js
+
+  docker:
+    steps:
       - name: Build and publish Docker image
         run: |
           docker build --tag ${IMAGE} --tag ${LATEST_TAG} .
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${DOCKER_IMAGE_NAME}
+  deploy:
+    steps:
       - uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: helsearbeidsgiver
@@ -58,4 +64,3 @@ jobs:
           VARS: nais/dev-gcp.json
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
-
