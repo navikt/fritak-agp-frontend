@@ -65,6 +65,7 @@ jobs:
     needs: [Docker]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: helsearbeidsgiver
