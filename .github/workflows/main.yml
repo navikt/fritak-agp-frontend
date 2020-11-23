@@ -19,11 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - run: CI=false npm install --no-build
+      - run: CI=false npm install
       - uses: actions/upload-artifact@v2
         with:
           name: fritak-frontend-artifact
-          path: build/
+          path: ./build
 
   Test:
     runs-on: ubuntu-latest
