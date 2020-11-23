@@ -11,8 +11,8 @@ const MOCK_MODE = !!process.env.MOCK;
 
 app.use(BASE_PATH, express.static(HOME))
 
-app.get('/internal/isAlive', (req, res) => res.sendStatus(200));
-app.get('/internal/isReady', (req, res) => res.sendStatus(200));
+app.get('/health/is-alive', (req, res) => res.sendStatus(200));
+app.get('/health/is-ready', (req, res) => res.sendStatus(200));
 
 if (MOCK_MODE) {
     app.get( '/fritak-agp/api/v1/arbeidsgivere', (req, res) => res.json(MOCK_ARBEIDSGIVERE));0
