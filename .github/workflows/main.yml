@@ -33,7 +33,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: fritak-frontend-artifact
-        path: /
+        path: ./
 
   Test:
     needs: [Checkout]
