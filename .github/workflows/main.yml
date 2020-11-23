@@ -17,24 +17,25 @@ jobs:
 
   Checkout:
     runs-on: ubuntu-latest
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-    - run: CI=false npm install --no-build
-    - uses: actions/upload-artifact@v2
-      with:
-        name: fritak-frontend-artifact
-        path: ./
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - run: CI=false npm install --no-build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: fritak-frontend-artifact
+          path: ./
 
   Test:
     needs: [Checkout]
