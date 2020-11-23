@@ -16,7 +16,6 @@ env:
 jobs:
 
   Bygg:
-    needs: [Test,SonarCube]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -24,10 +23,9 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: fritak-frontend-artifact
-          path: ${{ github.workspace }}
+          path: build/
 
   Test:
-    needs: [Checkout]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
