@@ -3,7 +3,7 @@ FROM node:alpine as builder
 #WORKDIR /app
 RUN npm install http-proxy-middleware@0.21.0 fs-extra mustache-express jsdom promise
 
-FROM navikt/node-express:12.2.0-alpine
+FROM navikt/node-express:14-alpine
 #WORKDIR /app
 
 #COPY build/ app/build/
