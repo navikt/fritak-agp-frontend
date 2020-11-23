@@ -16,6 +16,7 @@ env:
 jobs:
 
   Checkout:
+    runs-on: ubuntu-latest
     - uses: actions/checkout@master
     - uses: actions/setup-node@v1
       with:
