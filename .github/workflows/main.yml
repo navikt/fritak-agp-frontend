@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - run: CI=false npm install --no-build
+      - run: npm ci --no-build
       - run: npm test
 
   SonarCube:
@@ -43,12 +43,43 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - run: npm install sonarqube-scanner
+      - run: npm install --no-build sonarqube-scanner
       - run: node run-sonar.js
 
+  Docker:
+    needs: [Test,SonarCube,Bygg]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/download-artifact@v2
+        with:
+          name: fritak-frontend-artifact
+      - name: Build and publish Docker image
+        run: |
+          docker build --tag ${IMAGE} --tag ${LATEST_TAG} .
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker push ${DOCKER_IMAGE_NAME}
+
+  Deploy:
+    needs: [Docker]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/download-artifact@v2
+        with:
+          name: fritak-frontend-artifact
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          TEAM: helsearbeidsgiver
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: naiserator.yaml
+          VARS: nais/dev-gcp.json
+          REF: ${{ env.COMMIT }}
+          IMAGE: ${{ env.IMAGE }}
 
   Versjon:
-    needs: Bygg
+    needs: [Deploy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
