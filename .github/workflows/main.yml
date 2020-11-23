@@ -34,7 +34,6 @@ jobs:
       with:
         name: fritak-frontend-artifact
         path: *
-        retention-days: 1
 
   Test:
     needs: [Checkout]
