@@ -15,44 +15,66 @@ env:
 
 jobs:
 
-  Bygg:
+  Checkout:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - run: CI=false npm install --no-build
+    - uses: actions/upload-artifact@v2
+      with:
+        name: fritak-frontend-artifact
+        path: *
+        retention-days: 1
+
+  Test:
+    needs: [Checkout]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
+      - uses: actions/download-artifact@v2
         with:
-          node-version: '12.x'
-      - name: Cache node modules
-        uses: actions/cache@v1
+          name: fritak-frontend-artifact
+      - run: npm test
+
+  SonarCube:
+    needs: [Checkout]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
         with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - run: CI=false npm install
+          name: fritak-frontend-artifact
+      - run: node run-sonar.js
+
+  Bygg:
+    needs: [Test,SonarCube]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: fritak-frontend-artifact
 
   Versjon:
     needs: Bygg
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: fritak-frontend-artifact
       - run: |
           git config --global user.email "helsearbeidsgiver@nav.no"
           git config --global user.name "HelseArbeidsgiver"
           npm version patch
           git push
-  Test:
-    needs: Versjon
-    runs-on: ubuntu-latest
-    steps:
-      - run: npm test
 
-  SonarCube:
-    needs: Test
-    runs-on: ubuntu-latest
-    steps:
-      - run: node run-sonar.js
 
   Docker:
     needs: SonarCube

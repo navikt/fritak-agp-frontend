@@ -13,7 +13,6 @@
     "dev": "npm-run-all -p start:*",
     "start": "node server/server.js",
     "build": "npm run build:css && npm run build:js",
-    "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
