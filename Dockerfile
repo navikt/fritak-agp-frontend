@@ -7,4 +7,4 @@ COPY server/. /app/.
 RUN npm install http-proxy-middleware -g
 
 EXPOSE 9000 8012 443
-CMD ["node", "index.js"]
+ENTRYPOINT ["node", "index.js"]
