@@ -1,7 +1,6 @@
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 const app = express();
-const MOCK_ARBEIDSGIVERE = require('./arbeidsgivere.json');
 
 const BASE_PATH ='/fritak-agp';
 const HOME = './build';
@@ -18,6 +17,7 @@ app.get('/health/is-alive', (req, res) => res.sendStatus(200));
 app.get('/health/is-ready', (req, res) => res.sendStatus(200));
 
 if (MOCK_MODE) {
+    const MOCK_ARBEIDSGIVERE = require('./arbeidsgivere.json');
     app.get( '/fritak-agp/api/v1/arbeidsgivere', (req, res) => res.json(MOCK_ARBEIDSGIVERE));
 } else {
     app.use('/api', proxy({
