@@ -1,7 +1,7 @@
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 const app = express();
-const MOCK_ARBEIDSGIVERE = require('./server/json/arbeidsgivere.json');
+const MOCK_ARBEIDSGIVERE = require('./mock/arbeidsgivere.json');
 
 const BASE_PATH ='/fritak-agp';
 const HOME = './build';
