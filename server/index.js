@@ -8,7 +8,9 @@ const PORT = process.env.PORT || 9000;
 const BACKEND_URL = process.env.API_GATEWAY || 'http://localhost:8080/fritakagp'
 const MOCK_MODE = !!process.env.MOCK;
 
+// eslint-disable-next-line no-console
 console.log('Server: MOCK_MODE=', MOCK_MODE);
+// eslint-disable-next-line no-console
 console.log('Server: BACKEND_URL=', BACKEND_URL);
 
 app.use(BASE_PATH, express.static(HOME))
