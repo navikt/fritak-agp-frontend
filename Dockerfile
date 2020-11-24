@@ -1,4 +1,4 @@
-FROM navikt/node-express:14-alpine
+FROM navikt/node-express:14-alpine AS baseBuilder
 WORKDIR /app
 
 COPY package.json /app/.
@@ -7,7 +7,7 @@ RUN npm install http-proxy-middleware
 
 COPY build/. /app/.
 COPY server/. /app/.
-COPY server/node_modules/. /app/.
+COPY --from=baseBuilder server/node_modules/. /app/.
 
 
 
