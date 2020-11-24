@@ -1,5 +1,5 @@
 const express = require('express');
-const { proxy } = require('http-proxy-middleware');
+const proxy = require('http-proxy-middleware');
 const app = express();
 
 const BASE_PATH ='/fritak-agp';

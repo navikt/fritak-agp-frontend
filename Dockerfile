@@ -7,7 +7,7 @@ RUN npm install http-proxy-middleware
 
 COPY build/. /app/.
 COPY server/. /app/.
-COPY ./node_modules/. /app/.
+COPY server/node_modules/. /app/.
 
 
 
