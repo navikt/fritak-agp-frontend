@@ -1,6 +1,7 @@
 FROM navikt/node-express:14-alpine
 WORKDIR /app
 
+COPY package.json /app/.
 COPY build/. /app/.
 COPY server/. /app/.
 
