@@ -1,23 +1,26 @@
 import React, { useState, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Feilmelding, Ingress, Normaltekst } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
+  Checkbox,
+  CheckboxGruppe,
   Feiloppsummering,
   Radio,
   RadioGruppe,
   SkjemaGruppe,
   Textarea
 } from 'nav-frontend-skjema';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema/src/feiloppsummering';
 import Skillelinje from '../Skillelinje';
 import SoknadTittel from '../SoknadTittel';
 import SideIndentering from '../SideIndentering';
 import DatoVelger from '../DatoVelger';
 import Fnr from '../Fnr';
 import Upload from '../Upload';
+import './GravidSide.scss';
 import GravidSideProps from './GravidSideProps';
 import GravidProgress from './GravidProgress';
 import GravidStatus from './GravidStatus';
@@ -25,8 +28,10 @@ import isValidFnr from './isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
 import lagreGravidesoknad, {
+  lagreGravideBackendError,
   lagreGravideInterface,
-  lagreGravideResponse
+  lagreGravidesoknadParametere,
+  lagreGravideValidationError
 } from '../../api/lagreGravidesoknad';
 import RestStatus from '../../api/RestStatus';
 import environment from '../../environment';
@@ -34,15 +39,14 @@ import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import lenker from '../lenker';
 import feilmeldingReducer from './feilmeldingReducer';
+import skjemaReducer from './skjemaReducer';
 import isBackendServerError from './isBackendServerError';
 import isBackendValidationError from './isBackendValidationError';
+import Lenke from 'nav-frontend-lenker';
+import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
+import feilmeldingsListe from './feilmeldingsListe';
 
 const initialStateFeilmelding = {};
-
-// const REQUIRED_INPUT = 'Må fylles ut';
-// const REQUIRED_SELECT = 'Må velge et alternativ';
-// const INVALID_FNR = 'Ugyldig fødselsnummer';
-const EMPTY = '';
 
 const GravidSide = (props: GravidSideProps) => {
   const [skjemaStatus, setSkjemaStatus] = useState<number>(
@@ -50,32 +54,21 @@ const GravidSide = (props: GravidSideProps) => {
   );
   const [validated, setValidated] = useState<boolean>(false);
   const [dato, setDato] = useState<Date | undefined>(props.dato || undefined);
-  const [fnr, setFnr] = useState<string>(props.fnr || EMPTY);
-  const [fnrValid, setFnrValid] = useState<boolean>(isValidFnr(fnr));
   const [tilrettelegge, setTilrettelegge] = useState<boolean | undefined>(
     props.tilrettelegge
   );
-  const [tiltak, setTiltak] = useState<string>(props.tiltak || '');
-  const [tiltakBeskrivelse, setTiltakBeskrivelse] = useState<string>(
-    props.tiltakBeskrivelse || EMPTY
-  );
-  // const [
-  //   tiltakBeskrivelseFeilmelding,
-  //   setTiltakBeskrivelseFeilmelding
-  // ] = useState<string>(!validated ? EMPTY : REQUIRED_INPUT);
-  const [omplassering, setOmplassering] = useState<string>(
-    props.omplassering || EMPTY
-  );
   const [dokumentasjon, setDokumentasjon] = useState<File>();
-  // const [dokumentasjonFeilmelding, setDokumentasjonFeilmelding] = useState<string>(EMPTY);
   const [bekreftet, setBekreftet] = useState<boolean>(props.bekreftet || false);
   const [videre, setVidere] = useState<boolean>(props.videre || false);
-  // const [feilOppsummeringer, setFeilOppsummeringer] = useState<FeiloppsummeringFeil[]>(props.feilOppsummeringer || []);
+
+  const setFnr = (fnr: string) => dispatchSkjema({ field: 'fnr', value: fnr });
 
   const [feilmelding, dispatchFeilmelding] = useReducer(
     feilmeldingReducer,
     initialStateFeilmelding
   );
+
+  const [skjema, dispatchSkjema] = useReducer(skjemaReducer, {});
 
   const history: History = useHistory();
 
@@ -84,18 +77,11 @@ const GravidSide = (props: GravidSideProps) => {
   };
 
   const validateFnr = (valid) => {
-    setFnrValid(valid);
-
     if (valid) {
       dispatchFeilmelding({
         type: 'ansatteFeilmeldingId',
         feilmelding: ''
       });
-      // } else {
-      //   dispatchFeilmelding({
-      //     type: 'ansatteFeilmeldingId',
-      //     feilmelding: 'Fyll ut gyldig fødselsnummer'
-      //   });
     }
   };
 
@@ -120,12 +106,15 @@ const GravidSide = (props: GravidSideProps) => {
     const validering = beResponse.validering;
 
     if (isBackendServerError(validering)) {
+      dispatchFeilmelding({
+        type: 'General',
+        feilmelding: `${validering.title} (${validering.status})`
+      });
       return false;
     }
 
     if (isBackendValidationError(validering)) {
-      debugger;
-      ((validering as unknown) as lagreGravideResponse).violations.forEach(
+      ((validering as unknown) as lagreGravideValidationError).violations.forEach(
         (error) => {
           dispatchFeilmelding({
             type: error.propertyPath,
@@ -141,21 +130,18 @@ const GravidSide = (props: GravidSideProps) => {
   const validateForm = (): boolean => {
     let harFeil: boolean = false;
 
-    if (!fnrValid) {
-      // setFnrFeilmelding(REQUIRED_INPUT);
+    if (skjema.fnr && skjema.fnr.length > 0 && isValidFnr(skjema.fnr)) {
+      dispatchFeilmelding({ type: 'ansatteFeilmeldingId', feilmelding: '' });
+    } else {
       harFeil = true;
       dispatchFeilmelding({
         type: 'ansatteFeilmeldingId',
         feilmelding: 'Fyll ut gyldig fødselsnummer'
       });
-    } else {
-      // setFnrFeilmelding(EMPTY);
-      dispatchFeilmelding({ type: 'ansatteFeilmeldingId', feilmelding: '' });
     }
 
     if (!dato) {
       harFeil = true;
-      // setDatoFeilmelding(REQUIRED_INPUT);
       dispatchFeilmelding({
         type: 'dato',
         feilmelding: 'Termindato må fylles ut'
@@ -164,12 +150,11 @@ const GravidSide = (props: GravidSideProps) => {
       dispatchFeilmelding({ type: 'dato', feilmelding: '' });
     }
 
-    if (!tiltak) {
+    if (!skjema.Tiltak || skjema.Tiltak?.length === 0) {
       harFeil = true;
-      // setTiltakFeilmelding(REQUIRED_SELECT);
       dispatchFeilmelding({
         type: 'tilretteleggeFeilmeldingId',
-        feilmelding: 'Tiltak må fylles ut'
+        feilmelding: 'Du må oppgi minst ett tiltak dere har prøvd'
       });
     } else {
       dispatchFeilmelding({
@@ -178,14 +163,9 @@ const GravidSide = (props: GravidSideProps) => {
       });
     }
 
-    if (tiltak === 'annet') {
-      if (!tiltakBeskrivelse) {
+    if (skjema.Tiltak && skjema.Tiltak.indexOf(Tiltak.ANNET) > -1) {
+      if (!skjema.TiltakBeskrivelse || skjema.TiltakBeskrivelse.length === 0) {
         harFeil = true;
-        // setTiltakBeskrivelseFeilmelding(REQUIRED_INPUT);
-        // feil.push({
-        //   type: 'tilretteleggeFeilmeldingId',
-        //   feilmelding: 'Spesifiser hvilke tiltak som er forsøkt',
-        // });
         dispatchFeilmelding({
           type: 'tilretteleggeFeilmeldingId',
           feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
@@ -196,57 +176,30 @@ const GravidSide = (props: GravidSideProps) => {
           feilmelding: ''
         });
       }
-      // } else {
-      //   // setTiltakBeskrivelseFeilmelding(EMPTY);
-      //   dispatchFeilmelding({
-      //     type: 'tilretteleggeFeilmeldingId',
-      //     feilmelding: 'Spesifiser hvilke tiltak som er forsøkt',
-      //   });
     }
 
-    if (!omplassering) {
+    if (!skjema.Omplassering) {
       harFeil = true;
-      // setOmplasseringFeilmelding(REQUIRED_SELECT);
       dispatchFeilmelding({
         type: 'omplasseringFeilmeldingId',
         feilmelding: 'Velg omplassering'
       });
     } else {
-      // setOmplasseringFeilmelding(EMPTY);
       dispatchFeilmelding({
         type: 'omplasseringFeilmeldingId',
-        feilmelding: ''
-      });
-    }
-
-    if (!dokumentasjon) {
-      harFeil = true;
-      // setDokumentasjonFeilmelding('Velg en fil');
-      dispatchFeilmelding({
-        type: 'dokumentasjonFeilmeldingId',
-        feilmelding: 'Last opp dokumentasjon'
-      });
-    } else {
-      // setDokumentasjonFeilmelding(EMPTY);
-      dispatchFeilmelding({
-        type: 'dokumentasjonFeilmeldingId',
         feilmelding: ''
       });
     }
 
     if (!bekreftet) {
       harFeil = true;
-      // setBekreftetFeilmelding(REQUIRED_SELECT);
       dispatchFeilmelding({
         type: 'bekreftFeilmeldingId',
         feilmelding: 'Bekreft at opplysningene er korrekt'
       });
     } else {
-      // setBekreftetFeilmelding(EMPTY);
       dispatchFeilmelding({ type: 'bekreftFeilmeldingId', feilmelding: '' });
     }
-
-    // setFeilOppsummeringer(feil);
 
     setValidated(true);
     return harFeil === false;
@@ -255,13 +208,14 @@ const GravidSide = (props: GravidSideProps) => {
   const handleSubmitClicked = async () => {
     if (validateForm()) {
       // submit
-      const payload = {
+      const payload: lagreGravidesoknadParametere = {
         dato,
-        fnr,
-        tilrettelegge,
-        tiltak,
-        tiltakBeskrivelse,
-        omplassering
+        fnr: skjema.fnr,
+        tilrettelegge: skjema.tilrettelegge,
+        tiltak: skjema.Tiltak,
+        tiltakBeskrivelse: skjema.TiltakBeskrivelse,
+        omplassering: skjema.Omplassering,
+        omplasseringAarsak: skjema.OmplasseringAarsak
       };
 
       setSkjemaStatus(GravidStatus.IN_PROGRESS);
@@ -286,18 +240,13 @@ const GravidSide = (props: GravidSideProps) => {
     validateForm();
   }
 
-  const feilmeldingsliste: FeiloppsummeringFeil[] = Object.keys(
-    feilmelding
-  ).map((element) => ({
-    skjemaelementId: element,
-    feilmelding: feilmelding[element]
-  }));
+  const feilmeldingsliste = feilmeldingsListe(feilmelding);
 
   return (
     <Row>
       <Column>
         <SoknadTittel>
-          Søknad om utvidet støtte for gravid ansatts sykefravære
+          Søknad om at NAV dekker sykepenger i arbeidsgiverperioden
         </SoknadTittel>
 
         {skjemaStatus === GravidStatus.IN_PROGRESS && <GravidProgress />}
@@ -311,10 +260,19 @@ const GravidSide = (props: GravidSideProps) => {
           <SideIndentering>
             <Panel>
               <Ingress>
-                Søknad om unntak fra arbeidsgiveransvar for sykepenger til en
-                gravid arbeidstakers fravære fra jobb. Vi krever sykemelding
-                eller legeerklæring som bekrefter at fraværet skyldes
-                svangerskapsrelatert sykdom.
+                NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet
+                skyldes helseplager i svangerskapet. Dette gjelder bare hvis
+                tilrettelegging eller omplassering ikke er mulig.​ Vi bruker
+                opplysninger vi allerede har om sykefraværet, i tillegg til
+                svarene du gir nedenfor. Ordningen er beskrevet i{' '}
+                <Lenke href='https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20'>
+                  folketrygdlovens § 8-20
+                </Lenke>
+                .
+                <br />
+                <Undertittel tag='span'>
+                  Felter merket * er obligatoriske
+                </Undertittel>
               </Ingress>
             </Panel>
 
@@ -322,15 +280,15 @@ const GravidSide = (props: GravidSideProps) => {
 
             <Panel>
               <SkjemaGruppe
-                legend='Informasjon om den ansatte'
+                legend='Den ansatte'
                 // feilmeldingId='fnrOgDatoFeilmeldingId'
                 aria-live='polite'
               >
                 <Row>
                   <Column sm='4' xs='6'>
                     <Fnr
-                      label='Fødselsnummer!'
-                      fnr={fnr}
+                      label='Fødselsnummer (11 siffer) *'
+                      fnr={skjema.fnr}
                       placeholder='11 siffer'
                       feilmelding={feilmelding.ansatteFeilmeldingId}
                       onValidate={validateFnr}
@@ -356,14 +314,24 @@ const GravidSide = (props: GravidSideProps) => {
               <SkjemaGruppe
                 legend='Arbeidssituasjon og miljø'
                 feil={feilmelding.tilrettelegge}
-                description='Vi ønsker så godt innblikk i hvordan dere eventuelt har forsøkt å løse situasjonen
-                        selv. Dette både for å vurdere søknaden, men også for å kunne bistå dere for at den ansatte om
-                        mulig skal kunne stå i jobben sin.'
               >
-                <RadioGruppe
-                  legend='Har dere forsøkt å tilrettelegge arbeidsdagen slik at den ansatte kan utføre arbeidet sitt til
-              tross for helsetilstanden hennes?'
-                >
+                <Normaltekst>
+                  Vi spør først om dere har forsøkt å løse situasjonen på
+                  arbeidsplassen.
+                </Normaltekst>
+                <Normaltekst>
+                  Svaret deres brukes i to forskjellige vurderinger: ​
+                </Normaltekst>
+
+                <ul className='gravidside-tett-liste'>
+                  <li>
+                    om vi kan hjelpe til med noe, slik at den ansatte kan stå i
+                    jobben
+                  </li>
+                  <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
+                </ul>
+
+                <RadioGruppe legend='Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene? *'>
                   <Radio
                     label={'Ja'}
                     name='sitteplass'
@@ -387,86 +355,205 @@ const GravidSide = (props: GravidSideProps) => {
 
               {tilrettelegge === true && (
                 <>
-                  <SkjemaGruppe feilmeldingId='tilretteleggeFeilmeldingId'>
-                    <RadioGruppe
+                  <CheckboxGruppe
+                    legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
+                    feil={feilmelding.tilretteleggeFeilmeldingId}
+                    feilmeldingId='tilretteleggeFeilmeldingId'
+                  >
+                    <Checkbox
+                      label='Fleksibel eller tilpasset arbeidstid'
+                      value={Tiltak.TILPASSET_ARBEIDSTID}
+                      id={'arbeidstid'}
+                      onChange={(evt) =>
+                        dispatchSkjema({
+                          field: Tiltak.TILPASSET_ARBEIDSTID,
+                          value: evt.currentTarget.value
+                        })
+                      }
+                      checked={
+                        skjema.Tiltak &&
+                        skjema.Tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1
+                      }
+                    />
+                    <Checkbox
+                      label='Hjemmekontor'
+                      value={Tiltak.HJEMMEKONTOR}
+                      id={'hjemmekontor'}
+                      onChange={(evt) =>
+                        dispatchSkjema({
+                          field: Tiltak.HJEMMEKONTOR,
+                          value: evt.currentTarget.value
+                        })
+                      }
+                      checked={
+                        skjema.Tiltak &&
+                        skjema.Tiltak.indexOf(Tiltak.HJEMMEKONTOR) > -1
+                      }
+                    />
+                    <Checkbox
+                      label='Tilpassede arbeidsoppgaver'
+                      value={Tiltak.TILPASSEDE_ARBEIDSOPPGAVER}
+                      id={'oppgaver'}
+                      onChange={(evt) =>
+                        dispatchSkjema({
+                          field: Tiltak.TILPASSEDE_ARBEIDSOPPGAVER,
+                          value: evt.currentTarget.value
+                        })
+                      }
+                      checked={
+                        skjema.Tiltak &&
+                        skjema.Tiltak.indexOf(
+                          Tiltak.TILPASSEDE_ARBEIDSOPPGAVER
+                        ) > -1
+                      }
+                    />
+                    <Checkbox
+                      label='Annet, gi en kort beskrivelse av hva dere har gjort:'
+                      value={Tiltak.ANNET}
+                      id={'annet'}
+                      onChange={(evt) =>
+                        dispatchSkjema({
+                          field: Tiltak.ANNET,
+                          value: evt.currentTarget.value
+                        })
+                      }
+                      checked={
+                        skjema.Tiltak &&
+                        skjema.Tiltak.indexOf(Tiltak.ANNET) > -1
+                      }
+                    />
+                    <Textarea
+                      value={skjema.TiltakBeskrivelse || ''}
                       feil={feilmelding.tilretteleggeFeilmeldingId}
-                      legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
-                    >
-                      <Radio
-                        label={'Fleksibel/tilpasset arbeidstid'}
-                        name='tiltak'
-                        onClick={() => {
-                          setTiltak('arbeidstid');
-                        }}
-                        defaultChecked={tiltak === 'arbeidstid'}
-                      />
-                      <Radio
-                        label={'Hjemmekontor'}
-                        name='tiltak'
-                        onClick={() => {
-                          setTiltak('hjemmekontor');
-                        }}
-                        defaultChecked={tiltak === 'hjemmekontor'}
-                      />
-                      <Radio
-                        label={'Tilpassede arbeidsoppgaver'}
-                        name='tiltak'
-                        onClick={() => {
-                          setTiltak('oppgaver');
-                        }}
-                        defaultChecked={tiltak === 'oppgaver'}
-                      />
-                      <Radio
-                        label={
-                          'Annet, vennligst spesifiser kortfattet i feltet under'
-                        }
-                        name='tiltak'
-                        onClick={() => {
-                          setTiltak('annet');
-                        }}
-                        defaultChecked={tiltak === 'annet'}
-                      />
-                      {tiltak === 'annet' && (
-                        <Textarea
-                          value={tiltakBeskrivelse}
-                          feil={feilmelding.tilretteleggeFeilmeldingId}
-                          onChange={(evt) => {
-                            setTiltakBeskrivelse(evt.currentTarget.value);
-                          }}
-                        />
-                      )}
-                    </RadioGruppe>
-                  </SkjemaGruppe>
-
+                      onChange={(evt) => {
+                        // setTiltakBeskrivelse(evt.currentTarget.value);
+                        dispatchSkjema({
+                          field: 'TiltakBeskrivelse',
+                          value: evt.currentTarget.value
+                        });
+                      }}
+                      disabled={
+                        !(
+                          skjema.Tiltak &&
+                          skjema.Tiltak.indexOf(Tiltak.ANNET) > -1
+                        )
+                      }
+                    />
+                  </CheckboxGruppe>
                   <SkjemaGruppe
                     feil={feilmelding.omplasseringFeilmeldingId}
                     feilmeldingId='omplasseringFeilmeldingId'
                   >
-                    <RadioGruppe legend='Er omplassering av den ansatte forsøkt?'>
+                    <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb? *'>
                       <Radio
                         label={'Ja'}
                         name='omplassering'
-                        defaultChecked={omplassering === 'ja'}
                         onClick={() => {
-                          setOmplassering('ja');
+                          dispatchSkjema({
+                            field: 'Omplassering',
+                            value: Omplassering.JA
+                          });
                         }}
+                        checked={skjema.Omplassering === Omplassering.JA}
                       />
                       <Radio
                         label={'Nei'}
                         name='omplassering'
-                        defaultChecked={omplassering === 'nei'}
+                        checked={skjema.Omplassering === Omplassering.NEI}
                         onClick={() => {
-                          setOmplassering('nei');
+                          dispatchSkjema({
+                            field: 'Omplassering',
+                            value: Omplassering.NEI
+                          });
                         }}
                       />
                       <Radio
-                        label={'Omplassering er ikke gjennomført'}
+                        label={'Omplassering er ikke mulig - oppgi årsak:'}
                         name='omplassering'
-                        defaultChecked={omplassering === 'ikke'}
                         onClick={() => {
-                          setOmplassering('ikke');
+                          dispatchSkjema({
+                            field: 'Omplassering',
+                            value: Omplassering.IKKE_MULIG
+                          });
                         }}
+                        checked={
+                          skjema.Omplassering === Omplassering.IKKE_MULIG
+                        }
                       />
+                      <RadioGruppe className='gravideside-radiogruppe-indentert'>
+                        <Radio
+                          label={'Den ansatte motsetter seg omplassering'}
+                          name='omplassering-umulig'
+                          onClick={() => {
+                            dispatchSkjema({
+                              field: 'OmplasseringAarsak',
+                              value: OmplasseringAarsak.MOTSETTER
+                            });
+                          }}
+                          disabled={
+                            skjema.Omplassering !== Omplassering.IKKE_MULIG
+                          }
+                          checked={
+                            skjema.OmplasseringAarsak ===
+                            OmplasseringAarsak.MOTSETTER
+                          }
+                        />
+                        <Radio
+                          label={'Vi får ikke kontakt med den ansatte'}
+                          name='omplassering-umulig'
+                          onClick={() => {
+                            dispatchSkjema({
+                              field: 'OmplasseringAarsak',
+                              value: OmplasseringAarsak.FAAR_IKKE_KONTAKT
+                            });
+                          }}
+                          checked={
+                            skjema.OmplasseringAarsak ===
+                            OmplasseringAarsak.FAAR_IKKE_KONTAKT
+                          }
+                          disabled={
+                            skjema.Omplassering !== Omplassering.IKKE_MULIG
+                          }
+                        />
+                        <Radio
+                          label={
+                            'Vi har ikke andre oppgaver eller arbeidssteder å tilby'
+                          }
+                          name='omplassering-umulig'
+                          onClick={() => {
+                            dispatchSkjema({
+                              field: 'OmplasseringAarsak',
+                              value: OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
+                            });
+                          }}
+                          checked={
+                            skjema.OmplasseringAarsak ===
+                            OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
+                          }
+                          disabled={
+                            skjema.Omplassering !== Omplassering.IKKE_MULIG
+                          }
+                        />
+                        <Radio
+                          label={
+                            'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden​'
+                          }
+                          name='omplassering-umulig'
+                          checked={
+                            skjema.OmplasseringAarsak ===
+                            OmplasseringAarsak.HELSETILSTANDEN
+                          }
+                          onClick={() => {
+                            dispatchSkjema({
+                              field: 'OmplasseringAarsak',
+                              value: OmplasseringAarsak.HELSETILSTANDEN
+                            });
+                          }}
+                          disabled={
+                            skjema.Omplassering !== Omplassering.IKKE_MULIG
+                          }
+                        />
+                      </RadioGruppe>
                     </RadioGruppe>
                   </SkjemaGruppe>
                 </>
@@ -475,29 +562,21 @@ const GravidSide = (props: GravidSideProps) => {
               {tilrettelegge === false && (
                 <>
                   <Skillelinje />
-                  <Feilmelding>
-                    *Forsøksvis tilrettelegging er i utgangspunktet påkrevd for
-                    at vi skal godkjenne søknaden*
-                  </Feilmelding>
-                  <br />
-                  <Normaltekst>
-                    Dere kan
-                    <button
-                      onClick={() => {
-                        setVidere(true);
-                      }}
-                      className='lenke'
-                      style={{
-                        display: 'run-in',
-                        border: 'none',
-                        margin: '0',
-                        paddingRight: '0'
-                      }}
-                    >
-                      gå videre med søknaden
-                    </button>
-                    , men det er altså da sannsynlig at den blir avslått.
-                  </Normaltekst>
+                  <Alertstripe type='advarsel'>
+                    <Normaltekst>
+                      Dere må først ha prøvd å tilrettelegge for den gravide.​
+                      Dere kan
+                      <button
+                        className='lenke gravidside-lenke-knapp'
+                        onClick={() => {
+                          setVidere(true);
+                        }}
+                      >
+                        gå videre med søknaden
+                      </button>
+                      , men det er altså da sannsynlig at den blir avslått.
+                    </Normaltekst>
+                  </Alertstripe>
                 </>
               )}
             </Panel>
@@ -508,14 +587,24 @@ const GravidSide = (props: GravidSideProps) => {
 
                 <Panel>
                   <SkjemaGruppe
-                    legend='Dokumentasjon om svagerskapsrelatert sykdomsfravære'
+                    legend='Hvis dere har fått dokumentasjon fra den ansatte'
                     feil={feilmelding.dokumentasjonFeilmeldingId}
                     feilmeldingId='dokumentasjonFeilmeldingId'
-                    description='Det må dokumenteres av lege at fraværet er relatert til svangerskapsrelatert
-                        sykdom. Dere kan laste opp denne om dere har den. Alternativt vil NAV innhente dokumentasjon
-                        direkte fra lege.'
                     aria-live='polite'
                   >
+                    <Normaltekst>
+                      Som arbeidsgiver kan dere ikke kreve å få se
+                      helseopplysninger. Men hvis den ansatte allerede har gitt
+                      dere slik dokumentasjon frivillig, kan dere skanne eller
+                      ta bilde av den og laste den opp her. Vi tar imot .pdf
+                      .jpeg, .png, og de fleste formater fra smarttelefonkamera.
+                    </Normaltekst>
+                    <br />
+                    <Normaltekst>
+                      NAV kan også selv innhente dokumentasjon fra legen hvis
+                      det ikke allerede går klart fram av en sykmelding at det
+                      er svangerskapet som er årsaken til fraværet.'
+                    </Normaltekst>
                     <Upload
                       id='upload'
                       label='Last opp dokumentasjon'
@@ -531,16 +620,16 @@ const GravidSide = (props: GravidSideProps) => {
                 <Panel>
                   <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
                     <BekreftCheckboksPanel
-                      label='Jeg bekrefter at opplysningene jeg har gitt er riktige.'
+                      label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
                       checked={bekreftet}
                       feil={feilmelding.bekreftFeilmeldingId}
                       onChange={(evt) => {
                         setBekreftet(!bekreftet);
                       }}
                     >
-                      Jeg er kjent med at hvis opplysningene jeg har gitt ikke
-                      er riktige eller fullstendige, så kan jeg miste retten til
-                      stønad.
+                      Jeg vet at NAV kan trekke tilbake retten til å få dekket
+                      sykepengene i arbeidsgiverperioden hvis opplysningene ikke
+                      er riktige eller fullstendige.
                     </BekreftCheckboksPanel>
                   </SkjemaGruppe>
                 </Panel>

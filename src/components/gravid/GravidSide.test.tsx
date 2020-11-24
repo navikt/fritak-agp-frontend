@@ -22,17 +22,17 @@ describe('GravidSide', () => {
     htmlDivElement = document.createElement('div');
   });
 
-  const INFORMASJON = 'Informasjon om den ansatte';
+  const INFORMASJON = 'Den ansatte';
   const FODSELSNR = 'Fødselsnummer';
   const TERMINDATO = 'Termindato';
-  const TILRETTELEGGE = 'Har dere forsøkt å tilrettelegge arbeidsdagen';
+  const TILRETTELEGGE = 'Har dere prøvd å tilrettelegge arbeidsdagen';
   const TILTAK = 'Hvilke tiltak er forsøkt';
   const VIDERE = 'Forsøksvis tilrettelegging er i utgangspunktet ';
   const OMPLASSERING = 'Er omplassering av den ansatte forsøkt';
-  const DOKUMENTASJON = 'Dokumentasjon om svagerskapsrelatert';
-  const BEKREFT = 'Jeg er kjent med at hvis opplysningene jeg har gitt ikke';
+  const DOKUMENTASJON = 'Hvis dere har fått dokumentasjon fra den ansatte';
+  const BEKREFT = 'Jeg vet at NAV kan trekke tilbake retten til';
   const SEND_KNAPP = 'Send søknad';
-  const STATUS_DEFAULT = 'Søknad om unntak fra arbeidsgiveransvar';
+  const STATUS_DEFAULT = 'NAV kan dekke sykepenger i arbeidsgiverperioden';
   const STATUS_VENTER = 'Vennligst vent';
   const STATUS_OK = 'Søknaden er mottatt';
   const STATUS_ERROR = 'Det oppstod en feil';
@@ -78,7 +78,9 @@ describe('GravidSide', () => {
       'Fyll ut gyldig fødselsnummer'
     );
     expect(htmlDivElement.textContent).toContain('Termindato må fylles ut');
-    expect(htmlDivElement.textContent).toContain('Tiltak må fylles ut');
+    expect(htmlDivElement.textContent).toContain(
+      'Du må oppgi minst ett tiltak dere har prøvd'
+    );
     // expect(container.textContent).toContain('Spesifiser hvilke tiltak som er forsøkt');
     expect(htmlDivElement.textContent).toContain('Velg omplassering');
     expect(htmlDivElement.textContent).toContain('Last opp dokumentasjon');

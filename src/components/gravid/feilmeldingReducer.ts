@@ -11,11 +11,12 @@ function feilmeldingReducer(
   state: feilmeldingState | {},
   action: feilmeldingAction
 ): feilmeldingState {
+  console.log('actionFeil', action);
   switch (action.type) {
     case 'clear':
       return {};
     default:
-      const newState = state;
+      const newState = Object.assign({}, state);
       const keys = Object.keys(newState);
 
       const index = keys.indexOf(action.type);

@@ -31,7 +31,7 @@ describe('Environment', () => {
     delete window.location;
     window.location = new URL('http://localhost');
 
-    expect(env.baseUrl).toBe('http://localhost:3000');
+    expect(env.baseUrl).toBe('http://localhost:3000/fritak-agp');
   });
 
   it('should return the baseUrl url for preprod dev', () => {

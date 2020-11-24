@@ -5,7 +5,7 @@ import handleStatus from './handleStatus';
 export interface lagreGravideInterface {
   status: number;
   validering:
-    | lagreGravideResponse
+    | lagreGravideValidationError
     | lagreGravideBackendError
     | lagreGravideBackendError[]; // TODO: Tilpass data fra backend
 }
@@ -14,22 +14,24 @@ export interface lagreGravidesoknadParametere {
   dato?: Date;
   fnr?: string;
   tilrettelegge?: boolean;
-  tiltak?: string;
+  tiltak?: string[];
   tiltakBeskrivelse?: string;
   omplassering?: string;
+  omplasseringAarsak?: string;
 }
 
 interface lagreGravidesoknadPostParametere {
   dato: string;
   fnr: string;
   tilrettelegge: boolean;
-  tiltak: string;
+  tiltak: string[];
   tiltakBeskrivelse: string;
   omplassering: string;
+  omplasseringAarsak: string;
 }
 
-export interface lagreGravideResponse {
-  violations: lagreGravideValidationError[];
+export interface lagreGravideValidationError {
+  violations: lagreGravideValidationErrorItem[];
   type: string;
   title: string;
   status: number;
@@ -37,7 +39,7 @@ export interface lagreGravideResponse {
   instance: string;
 }
 
-export interface lagreGravideValidationError {
+export interface lagreGravideValidationErrorItem {
   validationType: string;
   message: string;
   propertyPath: string;
@@ -59,9 +61,10 @@ const adaptPayload = (
     dato: dayjs(payload.dato).format('YYYY-MM-DD'),
     fnr: payload.fnr || '',
     tilrettelegge: payload.tilrettelegge || false,
-    tiltak: payload.tiltak || '',
+    tiltak: (payload.tiltak as string[]) || [],
     tiltakBeskrivelse: payload.tiltakBeskrivelse || '',
-    omplassering: payload.omplassering || ''
+    omplassering: payload.omplassering || '',
+    omplasseringAarsak: payload.omplasseringAarsak || ''
   };
 };
 
@@ -69,6 +72,7 @@ const lagreGravidesoknad = (
   basePath: string,
   payload: lagreGravidesoknadParametere
 ): Promise<lagreGravideInterface> => {
+  console.log('payload', payload);
   const bodyPayload = adaptPayload(payload);
   return Promise.race([
     new Promise<lagreGravideInterface>((_, reject) => {

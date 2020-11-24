@@ -10,7 +10,7 @@
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "mock": "export MOCK=true; export PORT=8070; node server/server.js",
-    "dev": "npm-run-all -p start:*",
+    "dev": "npm run mock & npm-run-all -p start:*",
     "start": "node server/server.js",
     "build": "npm run build:css && npm run build:js",
     "install": "npm run-script build",

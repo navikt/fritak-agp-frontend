@@ -1,6 +1,6 @@
 import {
   lagreGravideBackendError,
-  lagreGravideResponse
+  lagreGravideValidationError
 } from '../../api/lagreGravidesoknad';
 import isBackendValidationError from './isBackendValidationError';
 
@@ -17,9 +17,8 @@ describe('isBackendValidationError', () => {
   });
 
   it('should detect a validation error from the backend if the error list is empty', () => {
-    const mockError: lagreGravideResponse = {
-      status: '123',
-      validationErrors: [
+    const mockError: lagreGravideValidationError = {
+      violations: [
         {
           validationType: 'type',
           message: 'Message',
@@ -27,14 +26,17 @@ describe('isBackendValidationError', () => {
           invalidValue: 'Value'
         }
       ],
-      genericMessage: 'Message',
-      referenceNumber: '1'
+      type: 'type',
+      title: 'Message',
+      status: 123,
+      detail: 'detail',
+      instance: '1'
     };
     expect(isBackendValidationError(mockError)).toBeTruthy();
   });
 
   it('should ignore a validation error from the backend if the error list is empty', () => {
-    const mockError: lagreGravideResponse = {
+    const mockError: lagreGravideValidationError = {
       status: '123',
       validationErrors: [],
       genericMessage: 'Message',

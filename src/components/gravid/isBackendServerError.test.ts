@@ -1,6 +1,6 @@
 import {
   lagreGravideBackendError,
-  lagreGravideResponse
+  lagreGravideValidationError
 } from '../../api/lagreGravidesoknad';
 import isBackendServerError from './isBackendServerError';
 
@@ -17,11 +17,13 @@ describe('isBackendServerError', () => {
   });
 
   it('should ignore a validation error from the backend', () => {
-    const mockError: lagreGravideResponse = {
-      status: '123',
-      validationErrors: [],
-      genericMessage: 'Message',
-      referenceNumber: '1'
+    const mockError: lagreGravideValidationError = {
+      type: 'type',
+      title: 'title',
+      status: 123,
+      detail: 'Message',
+      instance: '1',
+      violations: []
     };
     expect(isBackendServerError(mockError)).toBeFalsy();
   });
