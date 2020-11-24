@@ -1,5 +1,5 @@
 {
-  "ingress": "fritak-agp-frontend.dev.nav.no",
+  "ingress": "https://fritak-agp-frontend.dev.nav.no",
   "api-gw-url": "https://fritakagp.dev.nav.no/",
   "login-url": "https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no",
   "namespace": "helsearbeidsgiver",
