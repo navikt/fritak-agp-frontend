@@ -1,4 +1,4 @@
-FROM navikt/node-express:12-common
+FROM navikt/node-express:14-alpine
 WORKDIR /app
 
 COPY index.js /app/.
