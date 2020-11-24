@@ -1,10 +1,10 @@
 const express = require('express');
-const app = express();
 const proxy = require('http-proxy-middleware');
-const MOCK_ARBEIDSGIVERE = require('./json/arbeidsgivere.json');
+const app = express();
+const MOCK_ARBEIDSGIVERE = require('./server/json/arbeidsgivere.json');
 
 const BASE_PATH ='/fritak-agp';
-const HOME = 'build';
+const HOME = './build';
 const PORT = process.env.PORT || 9000;
 const BACKEND_URL = process.env.API_GATEWAY || 'http://localhost:8080/fritakagp'
 const MOCK_MODE = !!process.env.MOCK;

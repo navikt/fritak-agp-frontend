@@ -1,16 +1,10 @@
-FROM node:alpine as builder
+FROM navikt/node-express:14-common
+WORKDIR /app
 
-#WORKDIR /app
-RUN yarn add install http-proxy-middleware@0.21.0 fs-extra mustache-express jsdom promise
+COPY index.js /app/.
+COPY build/. /app/.
 
-FROM navikt/node-express:14-alpine
-#WORKDIR /app
-
-#COPY build/ app/build/
-#COPY server/ app/server/
-#COPY start.sh app/
-#COPY --from=builder /app/node_modules /app/node_modules
-
+RUN npm install http-proxy-middleware -g
 
 EXPOSE 9000 8012 443
-ENTRYPOINT ["/bin/sh", "start.sh"]
+CMD ["node", "index.js"]
