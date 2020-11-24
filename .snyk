@@ -1,0 +1,33 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-DECOMPRESSTAR-559095:
+    - sonarqube-scanner > download > decompress > decompress-tar:
+        reason: None given
+        expires: '2020-12-24T09:59:33.733Z'
+    - sonarqube-scanner > download > decompress > decompress-tarbz2 > decompress-tar:
+        reason: None given
+        expires: '2020-12-24T09:59:33.733Z'
+    - sonarqube-scanner > download > decompress > decompress-targz > decompress-tar:
+        reason: None given
+        expires: '2020-12-24T09:59:33.733Z'
+  SNYK-JS-NODESASS-541000:
+    - node-sass:
+        reason: None given
+        expires: '2020-12-24T09:59:33.733Z'
+  SNYK-JS-NODESASS-541002:
+    - node-sass:
+        reason: None given
+        expires: '2020-12-24T09:59:33.733Z'
+  SNYK-JS-Y18N-1021887:
+    - node-sass > sass-graph > yargs > y18n:
+        reason: None given
+        expires: '2020-12-24T09:59:33.733Z'
+    - react-scripts > webpack > terser-webpack-plugin > cacache > y18n:
+        reason: None given
+        expires: '2020-12-24T09:59:33.734Z'
+    - react-scripts > jest > jest-cli > @jest/core > @jest/reporters > jest-runtime > yargs > y18n:
+        reason: None given
+        expires: '2020-12-24T09:59:33.734Z'
+patch: {}

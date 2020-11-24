@@ -1,21 +1,21 @@
 const express = require('express');
-const app = express();
 const proxy = require('http-proxy-middleware');
-const MOCK_ARBEIDSGIVERE = require('./json/arbeidsgivere.json');
+const app = express();
+const MOCK_ARBEIDSGIVERE = require('./server/json/arbeidsgivere.json');
 
 const BASE_PATH ='/fritak-agp';
-const HOME = 'build';
-const PORT = process.env.PORT || 3000;
+const HOME = './build';
+const PORT = process.env.PORT || 9000;
 const BACKEND_URL = process.env.API_GATEWAY || 'http://localhost:8080/fritakagp'
 const MOCK_MODE = !!process.env.MOCK;
 
 app.use(BASE_PATH, express.static(HOME))
 
-app.get('/internal/isAlive', (req, res) => res.sendStatus(200));
-app.get('/internal/isReady', (req, res) => res.sendStatus(200));
+app.get('/health/is-alive', (req, res) => res.sendStatus(200));
+app.get('/health/is-ready', (req, res) => res.sendStatus(200));
 
 if (MOCK_MODE) {
-    app.get( '/fritak-agp/api/v1/arbeidsgivere', (req, res) => res.json(MOCK_ARBEIDSGIVERE));0
+    app.get( '/fritak-agp/api/v1/arbeidsgivere', (req, res) => res.json(MOCK_ARBEIDSGIVERE));
 } else {
     app.use('/api', proxy({
             changeOrigin: true,

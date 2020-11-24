@@ -11,13 +11,13 @@ spec:
   ingresses:
     - '{{{ingress}}}'
   liveness:
-    path: /fritak-agp/internal/isAlive
+    path: /health/is-alive
     initialDelay: 15
     timeout: 1
     periodSeconds: 3
     failureThreshold: 10
   readiness:
-    path: /fritak-agp/internal/isReady
+    path: /health/is-ready
     initialDelay: 15
     timeout: 1
     periodSeconds: 3
