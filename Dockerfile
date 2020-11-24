@@ -1,14 +1,15 @@
 FROM navikt/node-express:14-alpine as builder
+
 WORKDIR /app
+RUN yarn add http-proxy-middleware
 
-COPY package.json /app/.
 
-RUN npm install http-proxy-middleware
+FROM navikt/node-express:12.2.0-alpine
+WORKDIR /app
 
 COPY build/. /app/.
 COPY server/. /app/.
-COPY --from=builder  node_modules/. /app/.
-
+COPY --from=builder /app/node_modules /app/node_modules
 
 
 EXPOSE 9000 8012 8080 443
