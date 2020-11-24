@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package.json /app/.
 COPY build/. /app/.
 COPY server/. /app/.
+COPY ./node_modules/. /app/.
 
 RUN npm install http-proxy-middleware
 
