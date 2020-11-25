@@ -15,9 +15,20 @@ console.log('Server: BACKEND_URL=', BACKEND_URL);
 
 app.use(BASE_PATH, express.static(HOME))
 
-app.get('/health/is-alive', (req, res) => res.sendStatus(200));
-app.get('/health/is-ready', (req, res) => res.sendStatus(200));
+
+app.get('/health/is-alive', (req, res) => {
+    // eslint-disable-next-line no-console
+    console.log('Server: is-alive');
+    res.sendStatus(200);
+})
+app.get('/health/is-ready', (req, res) => {
+    // eslint-disable-next-line no-console
+    console.log('Server: is-ready');
+    res.sendStatus(200);
+})
 app.get('/', (req, res) => {
+    // eslint-disable-next-line no-console
+    console.log('Server: redirect to default');
     res.redirect('/fritak-agp/');
 });
 

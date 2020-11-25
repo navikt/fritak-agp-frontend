@@ -6,7 +6,7 @@ RUN yarn add http-proxy-middleware fs-extra mustache-express jsdom promise
 FROM navikt/node-express:12.2.0-alpine
 WORKDIR /app
 
-COPY build/. /app/.
+COPY build/. /app/build
 COPY server/. /app/.
 COPY --from=builder /app/node_modules /app/node_modules
 
