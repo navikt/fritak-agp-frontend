@@ -11,7 +11,6 @@ function feilmeldingReducer(
   state: feilmeldingState | {},
   action: feilmeldingAction
 ): feilmeldingState {
-  console.log('actionFeil', action);
   switch (action.type) {
     case 'clear':
       return {};

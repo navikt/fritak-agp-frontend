@@ -38,13 +38,13 @@ describe('lagreGravidesoknad', () => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
         status: 500,
-        json: () => Promise.resolve({})
+        json: () => Promise.resolve({ iam: 'happy' })
       } as Response)
     );
 
     expect(await lagreGravidesoknad('/Path', {})).toEqual({
-      status: RestStatus.Error,
-      validering: []
+      status: RestStatus.Successfully,
+      validering: { iam: 'happy' }
     });
   });
 

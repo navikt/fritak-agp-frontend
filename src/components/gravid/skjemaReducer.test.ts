@@ -1,3 +1,4 @@
+import { Tiltak } from './gravidSideEnums';
 import skjemaReducer from './skjemaReducer';
 
 describe('skjemaReducer', () => {
@@ -8,17 +9,17 @@ describe('skjemaReducer', () => {
   });
 
   it('should update the correct error description', () => {
-    const initialState = { ost: 'Frisk og fin' };
+    const initialState = { TiltakBeskrivelse: 'Frisk og fin' };
     const newState = skjemaReducer(initialState, {
-      field: 'ost',
+      field: 'TiltakBeskrivelse',
       value: 'Muggen'
     });
 
-    expect(newState).toEqual({ ost: 'Muggen' });
+    expect(newState).toEqual({ TiltakBeskrivelse: 'Muggen' });
   });
 
   it('should clear error descriptions', () => {
-    const initialState = { ost: 'Frisk og fin' };
+    const initialState = { TiltakBeskrivelse: 'Frisk og fin' };
     const newState = skjemaReducer(initialState, {
       field: 'clear',
       value: 'Muggen'
@@ -28,58 +29,59 @@ describe('skjemaReducer', () => {
   });
 
   it('should add an error description', () => {
-    const initialState = { ost: 'Frisk og fin' };
+    const initialState = { TiltakBeskrivelse: 'Frisk og fin' };
     const newState = skjemaReducer(initialState, {
-      field: 'loff',
+      field: 'fnr',
       value: 'Tørr'
     });
 
     expect(newState).toEqual({
-      loff: 'Tørr',
-      ost: 'Frisk og fin'
+      fnr: 'Tørr',
+      TiltakBeskrivelse: 'Frisk og fin'
     });
   });
 
   it('should delete an error description when empty string', () => {
-    const initialState = { ost: 'Frisk og fin', loff: 'Tørr' };
+    const initialState = { TiltakBeskrivelse: 'Frisk og fin', fnr: 'Tørr' };
     const newState = skjemaReducer(initialState, {
-      field: 'ost',
+      field: 'TiltakBeskrivelse',
       value: ''
     });
 
     expect(newState).toEqual({
-      loff: 'Tørr'
+      fnr: 'Tørr'
     });
   });
 
   it('should toggle the state on on TiltakVurdertArbeidstid', () => {
-    const initialState = { ost: 'Frisk og fin', loff: 'Tørr' };
+    const initialState = { TiltakBeskrivelse: 'Frisk og fin', fnr: 'Tørr' };
     const newState = skjemaReducer(initialState, {
-      field: 'TiltakVurdertArbeidstid',
+      field: Tiltak.TILPASSET_ARBEIDSTID,
       value: 'tiltak'
     });
 
     expect(newState).toEqual({
-      ost: 'Frisk og fin',
-      loff: 'Tørr',
-      TiltakVurdertArbeidstid: 'tiltak'
+      TiltakBeskrivelse: 'Frisk og fin',
+      fnr: 'Tørr',
+      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
     });
   });
 
   it('should toggle the state off on TiltakVurdertArbeidstid', () => {
     const initialState = {
-      ost: 'Frisk og fin',
-      loff: 'Tørr',
-      TiltakVurdertArbeidstid: 'tiltak'
+      TiltakBeskrivelse: 'Frisk og fin',
+      fnr: 'Tørr',
+      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
     };
     const newState = skjemaReducer(initialState, {
-      field: 'TiltakVurdertArbeidstid',
+      field: Tiltak.TILPASSET_ARBEIDSTID,
       value: 'tiltak'
     });
 
     expect(newState).toEqual({
-      ost: 'Frisk og fin',
-      loff: 'Tørr'
+      TiltakBeskrivelse: 'Frisk og fin',
+      fnr: 'Tørr',
+      Tiltak: []
     });
   });
 });

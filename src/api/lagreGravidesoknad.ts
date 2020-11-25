@@ -72,7 +72,6 @@ const lagreGravidesoknad = (
   basePath: string,
   payload: lagreGravidesoknadParametere
 ): Promise<lagreGravideInterface> => {
-  console.log('payload', payload);
   const bodyPayload = adaptPayload(payload);
   return Promise.race([
     new Promise<lagreGravideInterface>((_, reject) => {
