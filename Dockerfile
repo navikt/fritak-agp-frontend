@@ -10,5 +10,5 @@ COPY build/. /app/build
 COPY server/. /app
 COPY --from=builder /app/node_modules /app/node_modules
 
-EXPOSE 8000
+EXPOSE 3000
 ENTRYPOINT ["node", "index.js"]

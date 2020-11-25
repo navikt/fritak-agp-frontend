@@ -4,9 +4,9 @@ const app = express();
 
 const BASE_PATH ='/fritak-agp';
 const HOME = './build';
-const PORT = process.env.PORT || 8000;
-const BACKEND_URL = process.env.API_BACKEND_URL || 'http://localhost:8000/fritak-agp/'
-const MOCK_MODE = true;
+const PORT = process.env.PORT || 3000;
+const BACKEND_URL = process.env.API_BACKEND_URL || 'http://localhost:3001/fritak-agp/'
+const MOCK_MODE = process.env.MOCK === 'true';
 
 // eslint-disable-next-line no-console
 console.log('Server: MOCK_MODE=', MOCK_MODE);
