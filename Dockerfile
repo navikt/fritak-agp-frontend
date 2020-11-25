@@ -1,14 +1,10 @@
-FROM navikt/node-express:14-alpine as builder
+FROM navikt/node-express:14-alpine
 
 WORKDIR /app
-RUN yarn add http-proxy-middleware fs-extra mustache-express jsdom promise
 
-FROM navikt/node-express:12.2.0-alpine
-WORKDIR /app
+COPY build/. /build
+COPY server/. /
+RUN npm install
 
-COPY build/. /app/build
-COPY server/. /app
-COPY --from=builder /app/node_modules /app/node_modules
-
-EXPOSE 3000
-ENTRYPOINT ["node", "index.js"]
+EXPOSE 8080
+ENTRYPOINT ["node", "server.js"]
