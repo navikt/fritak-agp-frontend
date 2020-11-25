@@ -48,6 +48,18 @@ if (MOCK_MODE) {
     );
 }
 
+app.use(function (req, res) {
+    // eslint-disable-next-line no-console
+    console.error('Server: Error 404', req.url)
+    res.status(404).send('Sorry can\'t find that!')
+})
+
+app.use(function (err, req, res) {
+    // eslint-disable-next-line no-console
+    console.error('Server: Error 500', err)
+    res.status(500).send('Something broke!')
+})
+
 app.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log('Server: listening on port', PORT);
