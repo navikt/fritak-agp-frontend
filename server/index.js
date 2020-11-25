@@ -17,6 +17,9 @@ app.use(BASE_PATH, express.static(HOME));
 
 app.get('/health/is-alive', (req, res) => res.sendStatus(200));
 app.get('/health/is-ready', (req, res) => res.sendStatus(200));
+app.get('/', (req, res) => {
+  res.redirect('/fritak-agp/');
+});
 
 if (MOCK_MODE) {
   const MOCK_ARBEIDSGIVERE = require('./arbeidsgivere.json');

@@ -9,7 +9,7 @@ spec:
   image: {{image}}
   port: 443
   ingresses:
-    - '{{{ingress}}}'
+    - https://fritak-agp-frontend.dev.nav.no
   liveness:
     path: /health/is-alive
     initialDelay: 15
