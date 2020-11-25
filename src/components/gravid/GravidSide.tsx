@@ -1,7 +1,12 @@
 import React, { useState, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import {
+  Feilmelding,
+  Ingress,
+  Normaltekst,
+  Undertittel
+} from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -14,10 +19,10 @@ import {
 } from 'nav-frontend-skjema';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { FeiloppsummeringFeil } from 'nav-frontend-skjema/src/feiloppsummering';
 import Skillelinje from '../Skillelinje';
 import SoknadTittel from '../SoknadTittel';
 import SideIndentering from '../SideIndentering';
-import DatoVelger from '../DatoVelger';
 import Fnr from '../Fnr';
 import Upload from '../Upload';
 import './GravidSide.scss';
@@ -45,6 +50,7 @@ import isBackendValidationError from './isBackendValidationError';
 import Lenke from 'nav-frontend-lenker';
 import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
 import feilmeldingsListe from './feilmeldingsListe';
+import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const initialStateFeilmelding = {};
 
@@ -283,6 +289,7 @@ const GravidSide = (props: GravidSideProps) => {
                 legend='Den ansatte'
                 // feilmeldingId='fnrOgDatoFeilmeldingId'
                 aria-live='polite'
+                feilmeldingId='ansatteFeilmeldingId'
               >
                 <Row>
                   <Column sm='4' xs='6'>

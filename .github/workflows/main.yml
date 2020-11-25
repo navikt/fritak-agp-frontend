@@ -10,39 +10,71 @@ env:
   DOCKER_IMAGE_NAME: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend
   LATEST_TAG: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend:latest
   IMAGE: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
-
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  build:
+
+  Bygg:
     runs-on: ubuntu-latest
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@master
+      - run: npm ci
+      - run: npm run-script build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: fritak-frontend-artifact
+          path: ${{ github.workspace }}/build/**/*
+
+  Test:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Cache node modules
-        uses: actions/cache@v1
+      - run: npm ci --no-build
+      - run: npm test
+
+  SonarCube:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
         with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Bygg
-        run: CI=false npm install
-      - name: Test
-        run: npm test
-      - name: SonarCube
-        run: node run-sonar.js
+          node-version: '12.x'
+      - run: npm install --no-build sonarqube-scanner
+      - run: node run-sonar.js
+
+  Snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  Docker:
+    needs: [Test,SonarCube,Bygg]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/download-artifact@v2
+        with:
+          name: fritak-frontend-artifact
+          path: build
       - name: Build and publish Docker image
         run: |
           docker build --tag ${IMAGE} --tag ${LATEST_TAG} .
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${DOCKER_IMAGE_NAME}
+
+  Deploy:
+    needs: [Docker]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
       - uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: helsearbeidsgiver
@@ -53,3 +85,16 @@ jobs:
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
 
+  Versjon:
+    needs: [Deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: |
+          git config --global user.email "helsearbeidsgiver@nav.no"
+          git config --global user.name "HelseArbeidsgiver"
+          npm version patch
+          git push

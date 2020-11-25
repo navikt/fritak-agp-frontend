@@ -4,6 +4,5 @@
   "login-url": "https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no",
   "namespace": "helsearbeidsgiver",
   "vault-enabled": false,
-  "webproxy-enabled": false,
-  "labs": true
+  "webproxy-enabled": false
 }
