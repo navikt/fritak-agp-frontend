@@ -14,36 +14,24 @@ interface skjemaState {
   TiltakBeskrivelse?: string;
 }
 
-// [name: string]: string;
-
 function updateTiltakListe(state: skjemaState, field: Tiltak) {
   const newState: skjemaState = Object.assign({}, state);
-  let Tiltak: Tiltak[] | undefined = newState.Tiltak;
+  let stateTiltak: Tiltak[] | undefined = newState.Tiltak;
   let elementPos = -1;
 
-  if (Tiltak) {
-    elementPos = Tiltak.indexOf(field);
+  if (stateTiltak) {
+    elementPos = stateTiltak.indexOf(field);
   } else {
     newState.Tiltak = [];
-    Tiltak = newState.Tiltak;
+    stateTiltak = newState.Tiltak;
   }
 
   if (elementPos === -1) {
-    Tiltak.push(field);
+    stateTiltak.push(field);
   } else {
-    Tiltak.splice(elementPos, 1);
+    stateTiltak.splice(elementPos, 1);
   }
 
-  return newState;
-}
-
-function upsertElement(state: skjemaState, field: string, value: string) {
-  const newState: skjemaState = Object.assign({}, state);
-  if (newState[field]) {
-    delete newState[field];
-  } else {
-    newState[field] = value;
-  }
   return newState;
 }
 

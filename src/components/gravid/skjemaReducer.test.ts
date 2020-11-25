@@ -1,4 +1,4 @@
-import { Tiltak } from './gravidSideEnums';
+import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
 import skjemaReducer from './skjemaReducer';
 
 describe('skjemaReducer', () => {
@@ -82,6 +82,42 @@ describe('skjemaReducer', () => {
       TiltakBeskrivelse: 'Frisk og fin',
       fnr: 'Tørr',
       Tiltak: []
+    });
+  });
+
+  it('should remove OmplasseringAarsak when Omplassering does not require a reason', () => {
+    const initialState = {
+      TiltakBeskrivelse: 'Frisk og fin',
+      OmplasseringAarsak: OmplasseringAarsak.MOTSETTER,
+      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
+      Omplassering: Omplassering.IKKE_MULIG
+    };
+    const newState = skjemaReducer(initialState, {
+      field: 'Omplassering',
+      value: Omplassering.JA
+    });
+
+    expect(newState).toEqual({
+      TiltakBeskrivelse: 'Frisk og fin',
+      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
+      Omplassering: Omplassering.JA
+    });
+  });
+
+  it('should add Omplassering when Omplassering is set', () => {
+    const initialState = {
+      TiltakBeskrivelse: 'Frisk og fin',
+      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
+    };
+    const newState = skjemaReducer(initialState, {
+      field: 'Omplassering',
+      value: Omplassering.JA
+    });
+
+    expect(newState).toEqual({
+      TiltakBeskrivelse: 'Frisk og fin',
+      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
+      Omplassering: Omplassering.JA
     });
   });
 });
