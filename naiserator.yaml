@@ -7,7 +7,7 @@ metadata:
     team: helsearbeidsgiver
 spec:
   image: {{image}}
-  port: 443
+  port: 8080
   ingresses:
     - '{{{ingress}}}'
   liveness:
