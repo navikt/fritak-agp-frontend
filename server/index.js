@@ -1,5 +1,5 @@
 const express = require('express');
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 const BASE_PATH ='/fritak-agp';
@@ -22,7 +22,7 @@ if (MOCK_MODE) {
     const MOCK_ARBEIDSGIVERE = require('./arbeidsgivere.json');
     app.get( '/fritak-agp/api/v1/arbeidsgivere', (req, res) => res.json(MOCK_ARBEIDSGIVERE));
 } else {
-    app.use('/api', proxy({
+    app.use('/api', createProxyMiddleware({
             changeOrigin: true,
             target: BACKEND_URL,
             secure: true,
