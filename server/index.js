@@ -5,7 +5,7 @@ const app = express();
 const BASE_PATH ='/fritak-agp';
 const HOME = './build';
 const PORT = process.env.PORT || 8000;
-const BACKEND_URL = process.env.API_GATEWAY || 'http://localhost:8000/fritak-agp/'
+const BACKEND_URL = process.env.API_BACKEND_URL || 'http://localhost:8000/fritak-agp/'
 const MOCK_MODE = true;
 
 // eslint-disable-next-line no-console

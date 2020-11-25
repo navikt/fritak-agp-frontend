@@ -9,7 +9,7 @@ spec:
   image: {{image}}
   port: 8000
   ingresses:
-    - https://fritak-agp-frontend.dev.nav.no
+    - '{{{ingress}}}'
   liveness:
     path: /health/is-alive
     initialDelay: 15
@@ -33,7 +33,7 @@ spec:
       cpu: 400m
       memory: 256Mi
   env:
-    - name: API_GATEWAY
-      value: '{{{api-gw-url}}}'
+    - name: API_BACKEND_URL
+      value: '{{{api-url}}}'
     - name: LOGIN_URL
       value: '{{{login-url}}}'
