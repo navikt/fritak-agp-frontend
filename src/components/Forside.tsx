@@ -3,6 +3,7 @@ import Lenke from 'nav-frontend-lenker';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Link } from 'react-router-dom';
 
 const Forside = () => {
   return (
@@ -13,10 +14,10 @@ const Forside = () => {
         </Panel>
         <Panel>
           <Normaltekst>
-            Gå til skjema for <Lenke href="./gravid">gravide</Lenke>
+            Gå til skjema for <Link to='./gravid'>gravide</Link>
           </Normaltekst>
           <Normaltekst>
-            Gå til skjema for <Lenke href="./kronisk">kronisk syke</Lenke>
+            Gå til skjema for <Link to='./gravid'>kronisk syke</Link>
           </Normaltekst>
         </Panel>
       </Column>
