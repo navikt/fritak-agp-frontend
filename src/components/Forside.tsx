@@ -1,5 +1,4 @@
 import React from 'react';
-import Lenke from 'nav-frontend-lenker';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
