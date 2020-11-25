@@ -1,12 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import {
-  Feilmelding,
-  Ingress,
-  Normaltekst,
-  Undertittel
-} from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -19,7 +14,6 @@ import {
 } from 'nav-frontend-skjema';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema/src/feiloppsummering';
 import Skillelinje from '../Skillelinje';
 import SoknadTittel from '../SoknadTittel';
 import SideIndentering from '../SideIndentering';
@@ -33,7 +27,6 @@ import isValidFnr from './isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
 import lagreGravidesoknad, {
-  lagreGravideBackendError,
   lagreGravideInterface,
   lagreGravidesoknadParametere,
   lagreGravideValidationError
@@ -82,6 +75,9 @@ const GravidSide = (props: GravidSideProps) => {
     setDokumentasjon(file);
   };
 
+  const isTiltakAnnet =
+    skjema.Tiltak && skjema.Tiltak.indexOf(Tiltak.ANNET) > -1;
+
   const validateFnr = (valid) => {
     if (valid) {
       dispatchFeilmelding({
@@ -91,9 +87,9 @@ const GravidSide = (props: GravidSideProps) => {
     }
   };
 
-  const validateTermindato = (dato) => {
-    setDato(dato);
-    if (dato) {
+  const validateTermindato = (termindato: Date) => {
+    setDato(termindato);
+    if (termindato) {
       dispatchFeilmelding({
         type: 'dato',
         feilmelding: ''
@@ -169,7 +165,7 @@ const GravidSide = (props: GravidSideProps) => {
       });
     }
 
-    if (skjema.Tiltak && skjema.Tiltak.indexOf(Tiltak.ANNET) > -1) {
+    if (isTiltakAnnet) {
       if (!skjema.TiltakBeskrivelse || skjema.TiltakBeskrivelse.length === 0) {
         harFeil = true;
         dispatchFeilmelding({
@@ -424,27 +420,18 @@ const GravidSide = (props: GravidSideProps) => {
                           value: evt.currentTarget.value
                         })
                       }
-                      checked={
-                        skjema.Tiltak &&
-                        skjema.Tiltak.indexOf(Tiltak.ANNET) > -1
-                      }
+                      checked={isTiltakAnnet}
                     />
                     <Textarea
                       value={skjema.TiltakBeskrivelse || ''}
                       feil={feilmelding.tilretteleggeFeilmeldingId}
                       onChange={(evt) => {
-                        // setTiltakBeskrivelse(evt.currentTarget.value);
                         dispatchSkjema({
                           field: 'TiltakBeskrivelse',
                           value: evt.currentTarget.value
                         });
                       }}
-                      disabled={
-                        !(
-                          skjema.Tiltak &&
-                          skjema.Tiltak.indexOf(Tiltak.ANNET) > -1
-                        )
-                      }
+                      disabled={!isTiltakAnnet}
                     />
                   </CheckboxGruppe>
                   <SkjemaGruppe
@@ -455,7 +442,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <Radio
                         label={'Ja'}
                         name='omplassering'
-                        onClick={() => {
+                        onChange={() => {
                           dispatchSkjema({
                             field: 'Omplassering',
                             value: Omplassering.JA
@@ -467,7 +454,7 @@ const GravidSide = (props: GravidSideProps) => {
                         label={'Nei'}
                         name='omplassering'
                         checked={skjema.Omplassering === Omplassering.NEI}
-                        onClick={() => {
+                        onChange={() => {
                           dispatchSkjema({
                             field: 'Omplassering',
                             value: Omplassering.NEI
@@ -477,7 +464,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <Radio
                         label={'Omplassering er ikke mulig - oppgi årsak:'}
                         name='omplassering'
-                        onClick={() => {
+                        onChange={() => {
                           dispatchSkjema({
                             field: 'Omplassering',
                             value: Omplassering.IKKE_MULIG
@@ -491,7 +478,7 @@ const GravidSide = (props: GravidSideProps) => {
                         <Radio
                           label={'Den ansatte motsetter seg omplassering'}
                           name='omplassering-umulig'
-                          onClick={() => {
+                          onChange={() => {
                             dispatchSkjema({
                               field: 'OmplasseringAarsak',
                               value: OmplasseringAarsak.MOTSETTER
@@ -508,7 +495,7 @@ const GravidSide = (props: GravidSideProps) => {
                         <Radio
                           label={'Vi får ikke kontakt med den ansatte'}
                           name='omplassering-umulig'
-                          onClick={() => {
+                          onChange={() => {
                             dispatchSkjema({
                               field: 'OmplasseringAarsak',
                               value: OmplasseringAarsak.FAAR_IKKE_KONTAKT
@@ -527,7 +514,7 @@ const GravidSide = (props: GravidSideProps) => {
                             'Vi har ikke andre oppgaver eller arbeidssteder å tilby'
                           }
                           name='omplassering-umulig'
-                          onClick={() => {
+                          onChange={() => {
                             dispatchSkjema({
                               field: 'OmplasseringAarsak',
                               value: OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
@@ -550,7 +537,7 @@ const GravidSide = (props: GravidSideProps) => {
                             skjema.OmplasseringAarsak ===
                             OmplasseringAarsak.HELSETILSTANDEN
                           }
-                          onClick={() => {
+                          onChange={() => {
                             dispatchSkjema({
                               field: 'OmplasseringAarsak',
                               value: OmplasseringAarsak.HELSETILSTANDEN
