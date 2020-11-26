@@ -65,7 +65,7 @@ if (MOCK_MODE) {
 app.use(function (req, res) {
   // eslint-disable-next-line no-console
   console.error('Server: Error 404', req.url);
-  res.status(404).send("Sorry can't find that!");
+  res.status(404).send('404 not found');
 });
 
 app.use(function (err, req, res) {
