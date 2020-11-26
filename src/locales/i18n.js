@@ -11,19 +11,19 @@ i18n.init({
     },
     en: {
       translations: translationsToJson(Languages.en)
-    },
+    }
   },
   fallbackLng: Languages.nb,
-  ns: ["translations"],
-  defaultNS: "translations",
+  ns: ['translations'],
+  defaultNS: 'translations',
   keySeparator: false,
   interpolation: {
     escapeValue: false,
-    formatSeparator: ","
+    formatSeparator: ','
   },
   react: {
     wait: true
-  },
+  }
 });
 
 export default i18n;
