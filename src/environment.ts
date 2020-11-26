@@ -12,7 +12,7 @@ class Environment {
       case EnvironmentType.PREPROD_DEV:
         return 'https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no';
       default:
-        return 'http://localhost:8080/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/';
+        return 'http://localhost:3000/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/';
     }
   }
 
@@ -23,7 +23,7 @@ class Environment {
       case EnvironmentType.PREPROD_DEV:
         return 'https://fritakagp.dev.nav.no/fritak-agp';
       default:
-        return 'http://localhost:3000/fritak-agp';
+        return 'http://localhost:3001/fritak-agp';
     }
   }
 

@@ -1,15 +1,14 @@
 {
   "name": "fritak-agp-frontend",
-  "version": "0.1.6",
+  "version": "0.1.11",
   "private": true,
   "homepage": "/fritak-agp",
-  "proxy": "http://localhost:8070",
   "scripts": {
     "start:js": "react-scripts start --development",
     "build:js": "react-scripts build",
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
-    "mock": "export MOCK=true; export PORT=8070; node server/index.js",
+    "mock": "export MOCK=true; export PORT=3001; node server/index.js",
     "dev": "npm run mock & npm-run-all -p start:*",
     "start": "node server/index.js",
     "build": "npm run build:css && npm run build:js",
