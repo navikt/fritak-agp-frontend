@@ -18,3 +18,4 @@
 *.log*
 /src/react-app-env.d.ts
 *.css
+.eslintcache
