@@ -27,6 +27,15 @@ jobs:
       - run: npm ci --no-build
       - run: npm test
 
+  Eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm run-script lint
+
   SonarCube:
     runs-on: ubuntu-latest
     steps:
