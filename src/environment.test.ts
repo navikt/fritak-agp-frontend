@@ -3,7 +3,7 @@ import env from './environment';
 describe('Environment', () => {
   it('should return the loginservice url for localhost', () => {
     expect(env.loginServiceUrl).toBe(
-      'http://localhost:8080/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/'
+      'http://localhost:3000/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/'
     );
   });
 
@@ -31,7 +31,7 @@ describe('Environment', () => {
     delete window.location;
     window.location = new URL('http://localhost');
 
-    expect(env.baseUrl).toBe('http://localhost:3000/fritak-agp');
+    expect(env.baseUrl).toBe('http://localhost:3001/fritak-agp');
   });
 
   it('should return the baseUrl url for preprod dev', () => {
