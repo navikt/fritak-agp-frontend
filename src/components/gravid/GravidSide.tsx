@@ -597,7 +597,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Normaltekst>
                       NAV kan også selv innhente dokumentasjon fra legen hvis
                       det ikke allerede går klart fram av en sykmelding at det
-                      er svangerskapet som er årsaken til fraværet.'
+                      er svangerskapet som er årsaken til fraværet.
                     </Normaltekst>
                     <Upload
                       id='upload'
