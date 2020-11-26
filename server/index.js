@@ -2,7 +2,7 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
-const BASE_PATH ='/fritak-agp';
+const BASE_PATH = '/fritak-agp';
 const HOME = './build';
 const PORT = process.env.PORT || 3000;
 const BACKEND_URL = process.env.API_BACKEND_URL || 'http://localhost:3001/fritak-agp/'
@@ -13,7 +13,7 @@ console.log('Server: MOCK_MODE=', MOCK_MODE);
 // eslint-disable-next-line no-console
 console.log('Server: BACKEND_URL=', BACKEND_URL);
 
-app.use(BASE_PATH, express.static(HOME))
+app.use(BASE_PATH, express.static(HOME));
 
 
 app.get('/health/is-alive', (req, res) => {
@@ -28,19 +28,34 @@ app.get('/', (req, res) => {
 });
 
 if (MOCK_MODE) {
-    const MOCK_ARBEIDSGIVERE = require('./arbeidsgivere.json');
-    app.get( '/fritak-agp/api/v1/arbeidsgivere', (req, res) => res.json(MOCK_ARBEIDSGIVERE));
+  const MOCK_ARBEIDSGIVERE = require('./arbeidsgivere.json');
+  app.get('/fritak-agp/api/v1/arbeidsgivere', (req, res) =>
+    res.json(MOCK_ARBEIDSGIVERE)
+  );
+
+  app.post(
+    BASE_PATH + '/api/v1/gravid/soeknad',
+    createProxyMiddleware({
+      changeOrigin: true,
+      target: BACKEND_URL + '/v1/gravid/soeknad',
+      logLevel: 'debug',
+      ignorePath: true
+    })
+  );
 } else {
-    app.use('/api', createProxyMiddleware({
-            changeOrigin: true,
-            target: BACKEND_URL,
-            secure: true,
-            xfwd: true,
-            headers: {
-                'x-nav-apiKey': process.env.APIGW_HEADER,
-            }
-        })
-    );
+  app.use(BASE_PATH, express.static(HOME));
+  app.use(
+    '/api/v1/gravid/soeknad',
+    createProxyMiddleware({
+      changeOrigin: true,
+      target: BACKEND_URL,
+      secure: true,
+      xfwd: true,
+      headers: {
+        'x-nav-apiKey': process.env.APIGW_HEADER
+      }
+    })
+  );
 }
 
 app.use(function (req, res) {
@@ -56,6 +71,6 @@ app.use(function (err, req, res) {
 })
 
 app.listen(PORT, () => {
-    // eslint-disable-next-line no-console
-    console.log('Server: listening on port', PORT);
+  // eslint-disable-next-line no-console
+  console.log('Server: listening on port', PORT);
 });

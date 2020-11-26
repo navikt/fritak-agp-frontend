@@ -9,7 +9,7 @@
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "mock": "export MOCK=true; export PORT=3001; node server/index.js",
-    "dev": "npm-run-all -p start:*",
+    "dev": "npm run mock & npm-run-all -p start:*",
     "start": "node server/index.js",
     "build": "npm run build:css && npm run build:js",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
@@ -52,7 +52,6 @@
     "@typescript-eslint/parser": "^2.34.0",
     "constate": "^2.0.0",
     "dayjs": "^1.9.3",
-    "eslint": "^6.8.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.4",
@@ -117,7 +116,7 @@
     "react-modal": "^3.11.2",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^4.0.1",
     "snyk": "^1.413.4",
     "sonarqube-scanner": "^2.7.0",
     "timezone-mock": "^1.1.2",
@@ -138,7 +137,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx)'"
+      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx|js)'"
     }
   }
 }
