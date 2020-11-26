@@ -1,18 +1,17 @@
 {
   "name": "fritak-agp-frontend",
-  "version": "0.1.0",
+  "version": "0.1.11",
   "private": true,
   "homepage": "/fritak-agp",
-  "proxy": "http://localhost:8080",
   "scripts": {
     "start:js": "react-scripts start --development",
     "build:js": "react-scripts build",
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
-    "dev": "npm-run-all -p start:*",
-    "start": "node src/server/server.js",
+    "mock": "export MOCK=true; export PORT=3001; node server/index.js",
+    "dev": "npm run mock & npm-run-all -p start:*",
+    "start": "node server/index.js",
     "build": "npm run build:css && npm run build:js",
-    "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
@@ -35,7 +34,7 @@
   "dependencies": {
     "@navikt/bedriftsmeny": "^2.2.0",
     "@navikt/fnrvalidator": "^1.1.3",
-    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.1.32",
+    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.1.37",
     "@sentry/browser": "^5.26.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
@@ -53,12 +52,12 @@
     "@typescript-eslint/parser": "^2.34.0",
     "constate": "^2.0.0",
     "dayjs": "^1.9.3",
-    "eslint": "^6.8.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.4",
     "eslint-plugin-react-hooks": "^3.0.0",
     "eslint-plugin-typescript": "^0.14.0",
+    "http-proxy-middleware": "^1.0.6",
     "i18next": "^19.8.2",
     "jest-axe": "^3.5.0",
     "jest-environment-jsdom-sixteen": "^1.0.3",
@@ -93,7 +92,7 @@
     "nav-frontend-paneler": "^2.0.13",
     "nav-frontend-paneler-style": "^0.3.24",
     "nav-frontend-popover": "0.0.32",
-    "nav-frontend-popover-style": "0.0.8",
+    "nav-frontend-popover-style": "0.0.9",
     "nav-frontend-skjema": "^3.0.24",
     "nav-frontend-skjema-style": "^2.0.15",
     "nav-frontend-spinner": "^2.0.8",
@@ -104,7 +103,7 @@
     "nav-frontend-veileder": "^2.0.24",
     "nav-frontend-veileder-style": "^2.0.18",
     "nav-frontend-veilederpanel": "^0.1.32",
-    "nav-frontend-veilederpanel-style": "0.0.32",
+    "nav-frontend-veilederpanel-style": "0.0.33",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.0.2",
     "react": "^16.14.0",
@@ -117,7 +116,7 @@
     "react-modal": "^3.11.2",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^4.0.1",
     "snyk": "^1.413.4",
     "sonarqube-scanner": "^2.7.0",
     "timezone-mock": "^1.1.2",
@@ -138,7 +137,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx)'"
+      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx|js)'"
     }
   }
 }

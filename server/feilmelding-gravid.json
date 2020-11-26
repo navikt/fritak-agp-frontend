@@ -1,0 +1,15 @@
+{
+    "violations": [
+      {
+        "validationType": "NotNull",
+        "message": "Det angitte feltet er påkrevd",
+        "propertyPath": "dato",
+        "invalidValue": "null"
+      }
+    ],
+    "type": "urn:nav:helsearbeidsgiver:validation-error",
+    "title": "Valideringen av input feilet",
+    "status": 422,
+    "detail": "Ett eller flere felter har feil.",
+    "instance": "about:blank"
+  }

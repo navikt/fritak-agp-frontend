@@ -5,24 +5,29 @@ export enum EnvironmentType {
 }
 
 class Environment {
-
   get loginServiceUrl() {
     switch (this.environmentMode) {
-      case EnvironmentType.PROD : return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/';
-      case EnvironmentType.PREPROD_DEV : return 'https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no';
-      default : return 'http://localhost:8080/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/';
+      case EnvironmentType.PROD:
+        return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/';
+      case EnvironmentType.PREPROD_DEV:
+        return 'https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no';
+      default:
+        return 'http://localhost:3000/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/';
     }
   }
 
   get baseUrl() {
     switch (this.environmentMode) {
-      case EnvironmentType.PROD : return 'https://fritakagp.nav.no/fritak-agp';
-      case EnvironmentType.PREPROD_DEV : return 'https://fritakagp.dev.nav.no/fritak-agp';
-      default : return 'http://localhost:3000';
+      case EnvironmentType.PROD:
+        return 'https://fritakagp.nav.no/fritak-agp';
+      case EnvironmentType.PREPROD_DEV:
+        return 'https://fritakagp.dev.nav.no/fritak-agp';
+      default:
+        return 'http://localhost:3001/fritak-agp';
     }
   }
 
-  get environmentMode(){
+  get environmentMode() {
     if (window.location.hostname === 'localhost') {
       return EnvironmentType.LOCAL;
     }
@@ -31,7 +36,6 @@ class Environment {
     }
     return EnvironmentType.PROD;
   }
-
 }
 
 const env = new Environment();

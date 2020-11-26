@@ -1,4 +1,4 @@
-import RestStatus from "./RestStatus";
+import RestStatus from './RestStatus';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
@@ -7,7 +7,8 @@ const handleStatus = (response: Response) => {
     case 401:
       return Promise.reject(RestStatus.Unauthorized);
     case 500:
-      return Promise.reject(RestStatus.Error);
+      return response.json();
+    // return Promise.reject(RestStatus.Error);
     default:
       return Promise.reject(RestStatus.Unknown);
   }
