@@ -1,6 +1,7 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
+const path = require('path');
 
 const BASE_PATH = '/fritak-agp';
 const HOME = './build';
@@ -57,7 +58,7 @@ if (MOCK_MODE) {
     })
   );
   app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../build', 'index.html'));
   });
 }
 

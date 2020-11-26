@@ -7,8 +7,8 @@ FROM navikt/node-express:12.2.0-alpine
 WORKDIR /app
 
 COPY build/. /app/build
-COPY server/. /app
+COPY server/. /app/server
 COPY --from=builder /app/node_modules /app/node_modules
 
 EXPOSE 3000
-ENTRYPOINT ["node", "index.js"]
+ENTRYPOINT ['node', 'server/index.js']
