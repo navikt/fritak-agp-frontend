@@ -1,14 +1,6 @@
-FROM navikt/node-express:14-alpine as builder
-
+FROM navikt/node-express:14-alpine
 WORKDIR /app
-RUN npm install
-
-FROM navikt/node-express:12.2.0-alpine
-WORKDIR /app
-
 COPY build/. /app/build
-COPY server/. /app/server
-COPY --from=builder /app/node_modules /app/node_modules
-
+COPY server/. /app
 EXPOSE 3000
-ENTRYPOINT ['npm', 'start']
+ENTRYPOINT ["node", "index.js"]
