@@ -1,4 +1,4 @@
-export const testFnr = {
+const testFnr = {
   GyldigeFraDolly: {
     TestPerson1: '25087327879',
     TestPerson2: '25088521644',
