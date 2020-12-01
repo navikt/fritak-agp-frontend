@@ -1,5 +1,5 @@
 import React from 'react';
-import { FnrInput } from 'nav-frontend-skjema';
+import { Input } from 'nav-frontend-skjema';
 
 interface OrgnrProps {
   label: string;
@@ -15,13 +15,13 @@ const Orgnr = (props: OrgnrProps) => {
     props.onValidate(valid);
   };
   return (
-    <FnrInput
+    <Input
       value={props.orgnr}
       placeholder={props.placeholder}
       label={props.label}
-      onValidate={(val) => setValid(val)}
       onChange={(evt) => {
         props.onChange(evt.target.value);
+        setValid(evt.target.value);
       }}
       feil={props.feilmelding}
     />
