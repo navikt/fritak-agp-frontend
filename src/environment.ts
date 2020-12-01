@@ -10,6 +10,7 @@ class Environment {
       case EnvironmentType.PROD:
         return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true';
       case EnvironmentType.PREPROD_DEV:
+        return 'https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no/?loggedIn=true';
       default:
         return 'http://localhost:3000/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/?loggedIn=true';
     }
