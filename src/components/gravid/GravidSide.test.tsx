@@ -24,7 +24,7 @@ describe('GravidSide', () => {
 
   const INFORMASJON = 'Den ansatte';
   const FODSELSNR = 'Fødselsnummer';
-  const TERMINDATO = 'Termindato';
+  const ORGANISASJONSNUMMER = 'Organisasjonsnummer';
   const TILRETTELEGGE = 'Har dere prøvd å tilrettelegge arbeidsdagen';
   const TILTAK = 'Hvilke tiltak er forsøkt';
   const VIDERE = 'Forsøksvis tilrettelegging er i utgangspunktet ';
@@ -77,7 +77,9 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(
       'Fyll ut gyldig fødselsnummer'
     );
-    expect(htmlDivElement.textContent).toContain('Termindato må fylles ut');
+    expect(htmlDivElement.textContent).toContain(
+      'Fyll ut gyldig organisasjonsnummer'
+    );
     expect(htmlDivElement.textContent).toContain(
       'Du må oppgi minst ett tiltak dere har prøvd'
     );
@@ -91,7 +93,7 @@ describe('GravidSide', () => {
     render(<GravidSide />, htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INFORMASJON);
     expect(htmlDivElement.textContent).toContain(FODSELSNR);
-    expect(htmlDivElement.textContent).toContain(TERMINDATO);
+    expect(htmlDivElement.textContent).toContain(ORGANISASJONSNUMMER);
     expect(htmlDivElement.textContent).toContain(TILRETTELEGGE);
     expect(htmlDivElement.textContent).not.toContain(TILTAK);
     expect(htmlDivElement.textContent).not.toContain(VIDERE);
