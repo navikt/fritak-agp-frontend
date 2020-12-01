@@ -11,7 +11,7 @@ export interface lagreGravideInterface {
 }
 
 export interface lagreGravidesoknadParametere {
-  dato?: Date;
+  orgnr?: string;
   fnr?: string;
   tilrettelegge?: boolean;
   tiltak?: string[];
@@ -21,7 +21,7 @@ export interface lagreGravidesoknadParametere {
 }
 
 interface lagreGravidesoknadPostParametere {
-  dato: string;
+  orgnr: string;
   fnr: string;
   tilrettelegge: boolean;
   tiltak: string[];
@@ -58,7 +58,7 @@ const adaptPayload = (
   payload: lagreGravidesoknadParametere
 ): lagreGravidesoknadPostParametere => {
   return {
-    dato: dayjs(payload.dato).format('YYYY-MM-DD'),
+    orgnr: payload.orgnr || '',
     fnr: payload.fnr || '',
     tilrettelegge: payload.tilrettelegge || false,
     tiltak: (payload.tiltak as string[]) || [],
