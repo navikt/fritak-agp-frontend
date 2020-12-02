@@ -26,7 +26,7 @@ jobs:
           name: fritak-frontend-artifact
           path: ${{ github.workspace }}/build/**/*
 
-  Test:
+  Kodekvalitet:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -35,6 +35,7 @@ jobs:
           node-version: '12.x'
       - run: npm ci --no-build
       - run: npm test
+      - run: node run-sonar.js
 
   Eslint:
     runs-on: ubuntu-latest
@@ -46,15 +47,6 @@ jobs:
       - run: npm ci
       - run: npm run-script lint
 
-  SonarCube:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: npm install --no-build sonarqube-scanner
-      - run: node run-sonar.js
 
   Snyk:
     runs-on: ubuntu-latest
@@ -66,7 +58,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   Docker:
-    needs: [Test,Eslint,SonarCube,Bygg]
+    needs: [Kodekvalitet,Eslint,Bygg]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
