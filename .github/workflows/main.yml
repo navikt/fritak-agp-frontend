@@ -58,7 +58,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   Docker:
-    needs: [Test,Eslint,SonarCube,Bygg]
+    needs: [Kodekvalitet,Eslint,Bygg]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
