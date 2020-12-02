@@ -272,15 +272,17 @@ const GravidSide = (props: GravidSideProps) => {
                 </Lenke>
                 .
                 <br />
-                <Undertittel tag='span'>
-                  Felter merket * er obligatoriske
-                </Undertittel>
               </Ingress>
             </Panel>
-
+            <Skillelinje />
+            <Panel>
+              <Undertittel tag='span'>
+                Felter merket * er obligatoriske
+              </Undertittel>
+            </Panel>
             <Skillelinje />
 
-            <Panel>
+            <Panel id='gravidside-panel-ansatte'>
               <SkjemaGruppe
                 legend='Den ansatte'
                 // feilmeldingId='fnrOgDatoFeilmeldingId'
@@ -438,117 +440,119 @@ const GravidSide = (props: GravidSideProps) => {
                     feil={feilmelding.omplasseringFeilmeldingId}
                     feilmeldingId='omplasseringFeilmeldingId'
                   >
-                    <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb? *'>
-                      <Radio
-                        label={'Ja'}
-                        name='omplassering'
-                        onChange={() => {
-                          dispatchSkjema({
-                            field: 'Omplassering',
-                            value: Omplassering.JA
-                          });
-                        }}
-                        checked={skjema.Omplassering === Omplassering.JA}
-                      />
-                      <Radio
-                        label={'Nei'}
-                        name='omplassering'
-                        checked={skjema.Omplassering === Omplassering.NEI}
-                        onChange={() => {
-                          dispatchSkjema({
-                            field: 'Omplassering',
-                            value: Omplassering.NEI
-                          });
-                        }}
-                      />
-                      <Radio
-                        label={'Omplassering er ikke mulig - oppgi årsak:'}
-                        name='omplassering'
-                        onChange={() => {
-                          dispatchSkjema({
-                            field: 'Omplassering',
-                            value: Omplassering.IKKE_MULIG
-                          });
-                        }}
-                        checked={
-                          skjema.Omplassering === Omplassering.IKKE_MULIG
-                        }
-                      />
-                      <RadioGruppe className='gravideside-radiogruppe-indentert'>
+                    <div className='gravid-side-radiogruppe-omplassering'>
+                      <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb? *'>
                         <Radio
-                          label={'Den ansatte motsetter seg omplassering'}
-                          name='omplassering-umulig'
+                          label={'Ja'}
+                          name='omplassering'
                           onChange={() => {
                             dispatchSkjema({
-                              field: 'OmplasseringAarsak',
-                              value: OmplasseringAarsak.MOTSETTER
+                              field: 'Omplassering',
+                              value: Omplassering.JA
                             });
                           }}
-                          disabled={
-                            skjema.Omplassering !== Omplassering.IKKE_MULIG
-                          }
-                          checked={
-                            skjema.OmplasseringAarsak ===
-                            OmplasseringAarsak.MOTSETTER
-                          }
+                          checked={skjema.Omplassering === Omplassering.JA}
                         />
                         <Radio
-                          label={'Vi får ikke kontakt med den ansatte'}
-                          name='omplassering-umulig'
+                          label={'Nei'}
+                          name='omplassering'
+                          checked={skjema.Omplassering === Omplassering.NEI}
                           onChange={() => {
                             dispatchSkjema({
-                              field: 'OmplasseringAarsak',
-                              value: OmplasseringAarsak.FAAR_IKKE_KONTAKT
+                              field: 'Omplassering',
+                              value: Omplassering.NEI
+                            });
+                          }}
+                        />
+                        <Radio
+                          label={'Omplassering er ikke mulig - oppgi årsak:'}
+                          name='omplassering'
+                          onChange={() => {
+                            dispatchSkjema({
+                              field: 'Omplassering',
+                              value: Omplassering.IKKE_MULIG
                             });
                           }}
                           checked={
-                            skjema.OmplasseringAarsak ===
-                            OmplasseringAarsak.FAAR_IKKE_KONTAKT
-                          }
-                          disabled={
-                            skjema.Omplassering !== Omplassering.IKKE_MULIG
+                            skjema.Omplassering === Omplassering.IKKE_MULIG
                           }
                         />
-                        <Radio
-                          label={
-                            'Vi har ikke andre oppgaver eller arbeidssteder å tilby'
-                          }
-                          name='omplassering-umulig'
-                          onChange={() => {
-                            dispatchSkjema({
-                              field: 'OmplasseringAarsak',
-                              value: OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
-                            });
-                          }}
-                          checked={
-                            skjema.OmplasseringAarsak ===
-                            OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
-                          }
-                          disabled={
-                            skjema.Omplassering !== Omplassering.IKKE_MULIG
-                          }
-                        />
-                        <Radio
-                          label={
-                            'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden​'
-                          }
-                          name='omplassering-umulig'
-                          checked={
-                            skjema.OmplasseringAarsak ===
-                            OmplasseringAarsak.HELSETILSTANDEN
-                          }
-                          onChange={() => {
-                            dispatchSkjema({
-                              field: 'OmplasseringAarsak',
-                              value: OmplasseringAarsak.HELSETILSTANDEN
-                            });
-                          }}
-                          disabled={
-                            skjema.Omplassering !== Omplassering.IKKE_MULIG
-                          }
-                        />
+                        <RadioGruppe className='gravideside-radiogruppe-indentert'>
+                          <Radio
+                            label={'Den ansatte motsetter seg omplassering'}
+                            name='omplassering-umulig'
+                            onChange={() => {
+                              dispatchSkjema({
+                                field: 'OmplasseringAarsak',
+                                value: OmplasseringAarsak.MOTSETTER
+                              });
+                            }}
+                            disabled={
+                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                            }
+                            checked={
+                              skjema.OmplasseringAarsak ===
+                              OmplasseringAarsak.MOTSETTER
+                            }
+                          />
+                          <Radio
+                            label={'Vi får ikke kontakt med den ansatte'}
+                            name='omplassering-umulig'
+                            onChange={() => {
+                              dispatchSkjema({
+                                field: 'OmplasseringAarsak',
+                                value: OmplasseringAarsak.FAAR_IKKE_KONTAKT
+                              });
+                            }}
+                            checked={
+                              skjema.OmplasseringAarsak ===
+                              OmplasseringAarsak.FAAR_IKKE_KONTAKT
+                            }
+                            disabled={
+                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                            }
+                          />
+                          <Radio
+                            label={
+                              'Vi har ikke andre oppgaver eller arbeidssteder å tilby'
+                            }
+                            name='omplassering-umulig'
+                            onChange={() => {
+                              dispatchSkjema({
+                                field: 'OmplasseringAarsak',
+                                value: OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
+                              });
+                            }}
+                            checked={
+                              skjema.OmplasseringAarsak ===
+                              OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
+                            }
+                            disabled={
+                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                            }
+                          />
+                          <Radio
+                            label={
+                              'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden​'
+                            }
+                            name='omplassering-umulig'
+                            checked={
+                              skjema.OmplasseringAarsak ===
+                              OmplasseringAarsak.HELSETILSTANDEN
+                            }
+                            onChange={() => {
+                              dispatchSkjema({
+                                field: 'OmplasseringAarsak',
+                                value: OmplasseringAarsak.HELSETILSTANDEN
+                              });
+                            }}
+                            disabled={
+                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                            }
+                          />
+                        </RadioGruppe>
                       </RadioGruppe>
-                    </RadioGruppe>
+                    </div>
                   </SkjemaGruppe>
                 </>
               )}
@@ -556,7 +560,10 @@ const GravidSide = (props: GravidSideProps) => {
               {tilrettelegge === false && (
                 <>
                   <Skillelinje />
-                  <Alertstripe type='advarsel'>
+                  <Alertstripe
+                    className='gravidside-alert-gravid'
+                    type='advarsel'
+                  >
                     <Normaltekst>
                       Dere må først ha prøvd å tilrettelegge for den gravide.​
                       Dere kan
