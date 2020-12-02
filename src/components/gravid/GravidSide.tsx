@@ -111,6 +111,7 @@ const GravidSide = (props: GravidSideProps) => {
         type: 'ansatteFeilmeldingId',
         feilmelding: ''
       });
+      return true;
     } else {
       dispatchFeilmelding({
         type: 'ansatteFeilmeldingId',
@@ -230,6 +231,7 @@ const GravidSide = (props: GravidSideProps) => {
 
     submitted = !altValidert;
     setSubmittedState(submitted);
+    console.log("DETTE GIKK", altValidert);
     return altValidert;
   };
 
@@ -241,8 +243,10 @@ const GravidSide = (props: GravidSideProps) => {
   const handleSubmitClicked = async () => {
     submitted = true;
     setSubmittedState(submitted);
+    console.log("JUHU");
     if (validateForm()) {
       // submit
+      console.log("VALIDERT");
       const payload: lagreGravidesoknadParametere = {
         orgnr: skjema.orgnr,
         fnr: skjema.fnr,
@@ -260,6 +264,8 @@ const GravidSide = (props: GravidSideProps) => {
         payload
       );
 
+      console.log("***************************", lagringStatus);
+
       if (lagringStatus.status === RestStatus.Successfully) {
         const backendStatusOK = validateBackendResponse(lagringStatus);
 
@@ -271,6 +277,7 @@ const GravidSide = (props: GravidSideProps) => {
       setSkjemaStatus(GravidStatus.DEFAULT);
     }
   };
+
   const validateBackendResponse = (
     beResponse: lagreGravideInterface
   ): boolean => {
@@ -431,7 +438,7 @@ const GravidSide = (props: GravidSideProps) => {
                 <>
                   <CheckboxGruppe
                     legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
-                    feil={feilmelding.tiltak}
+                    feil={feilmelding.tiltakFeilmeldingId}
                     feilmeldingId='tiltakFeilmeldingId'
                   >
                     <Checkbox

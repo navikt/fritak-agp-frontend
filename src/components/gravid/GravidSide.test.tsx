@@ -197,7 +197,7 @@ describe('GravidSide', () => {
     renderTestingLibrary(
       <GravidSide
         fnr='123'
-        dato={new Date(2020, 9, 28)}
+        orgnr='123456789'
         tilrettelegge={false}
         videre={true}
       />
@@ -231,7 +231,7 @@ describe('GravidSide', () => {
     renderTestingLibrary(
       <GravidSide
         fnr='123'
-        dato={new Date(2020, 9, 28)}
+        orgnr='123456789'
         tilrettelegge={false}
         videre={true}
       />
@@ -255,7 +255,7 @@ describe('GravidSide', () => {
     renderTestingLibrary(
       <GravidSide
         fnr='123'
-        dato={new Date(2020, 9, 28)}
+        orgnr='123456789'
         tilrettelegge={false}
         videre={true}
       />
