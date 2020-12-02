@@ -10,7 +10,12 @@ const handleStatus = (response: Response) => {
     case 401:
       return Promise.reject(RestStatus.Unauthorized);
     case 400:
-      return Promise.reject(response.json());
+      return Promise.reject(
+        response
+          .clone()
+          .json()
+          .catch(() => response.text())
+      );
     case 500:
       return response.json();
     // return Promise.reject(RestStatus.Error);
