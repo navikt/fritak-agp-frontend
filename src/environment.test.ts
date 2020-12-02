@@ -3,7 +3,7 @@ import env from './environment';
 describe('Environment', () => {
   it('should return the loginservice url for localhost', () => {
     expect(env.loginServiceUrl).toBe(
-      'http://localhost:3000/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/'
+      'http://localhost:3000/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/?loggedIn=true'
     );
   });
 
@@ -12,7 +12,7 @@ describe('Environment', () => {
     window.location = new URL('https://www.dev.nav.no');
 
     expect(env.loginServiceUrl).toBe(
-      'https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no'
+      'https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no/?loggedIn=true'
     );
   });
 
@@ -21,7 +21,7 @@ describe('Environment', () => {
     window.location = new URL('https://www.nav.no');
 
     expect(env.loginServiceUrl).toBe(
-      'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/'
+      'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true'
     );
   });
 
