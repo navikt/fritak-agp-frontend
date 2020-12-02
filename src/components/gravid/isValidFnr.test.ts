@@ -13,12 +13,12 @@ describe('isValidFnr', () => {
   });
 
   it('should return false for invalid fødselsnummer', () => {
-    const validFnr = testFnr.Ugyldige;
+    const invalidFnr = testFnr.Ugyldige;
 
-    const fnrKeys = Object.keys(validFnr);
+    const fnrKeys = Object.keys(invalidFnr);
 
     fnrKeys.forEach((key) => {
-      expect(isValidFnr(validFnr[key])).toBeFalsy();
+      expect(isValidFnr(invalidFnr[key])).toBeFalsy();
     });
   });
 });

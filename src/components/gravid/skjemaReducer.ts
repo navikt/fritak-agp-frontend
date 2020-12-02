@@ -7,6 +7,7 @@ interface skjemaAction {
 
 interface skjemaState {
   fnr?: string;
+  orgnr?: string;
   tilrettelegge?: boolean;
   Tiltak?: Tiltak[];
   Omplassering?: Omplassering;

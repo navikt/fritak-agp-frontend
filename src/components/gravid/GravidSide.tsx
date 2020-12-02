@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -43,7 +43,8 @@ import isBackendValidationError from './isBackendValidationError';
 import Lenke from 'nav-frontend-lenker';
 import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
 import feilmeldingsListe from './feilmeldingsListe';
-import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import isValidOrgnr from './isValidOrgnr';
+import Orgnr from '../Orgnr';
 
 const initialStateFeilmelding = {};
 
@@ -61,6 +62,8 @@ const GravidSide = (props: GravidSideProps) => {
   const [videre, setVidere] = useState<boolean>(props.videre || false);
 
   const setFnr = (fnr: string) => dispatchSkjema({ field: 'fnr', value: fnr });
+  const setOrgnr = (orgnr: string) =>
+    dispatchSkjema({ field: 'orgnr', value: orgnr });
 
   const [feilmelding, dispatchFeilmelding] = useReducer(
     feilmeldingReducer,
@@ -87,17 +90,11 @@ const GravidSide = (props: GravidSideProps) => {
     }
   };
 
-  const validateTermindato = (termindato: Date) => {
-    setDato(termindato);
-    if (termindato) {
+  const validateOrgnr = (valid) => {
+    if (valid) {
       dispatchFeilmelding({
-        type: 'dato',
+        type: 'arbeidsgiverFeilmeldingId',
         feilmelding: ''
-      });
-    } else {
-      dispatchFeilmelding({
-        type: 'dato',
-        feilmelding: 'Termindato må fylles ut'
       });
     }
   };
@@ -142,14 +139,17 @@ const GravidSide = (props: GravidSideProps) => {
       });
     }
 
-    if (!dato) {
-      harFeil = true;
+    if (skjema.orgnr && skjema.orgnr.length > 0 && isValidOrgnr(skjema.orgnr)) {
       dispatchFeilmelding({
-        type: 'dato',
-        feilmelding: 'Termindato må fylles ut'
+        type: 'arbeidsgiverFeilmeldingId',
+        feilmelding: ''
       });
     } else {
-      dispatchFeilmelding({ type: 'dato', feilmelding: '' });
+      harFeil = true;
+      dispatchFeilmelding({
+        type: 'arbeidsgiverFeilmeldingId',
+        feilmelding: 'Fyll ut gyldig organisasjonsnummer'
+      });
     }
 
     if (!skjema.Tiltak || skjema.Tiltak?.length === 0) {
@@ -211,7 +211,7 @@ const GravidSide = (props: GravidSideProps) => {
     if (validateForm()) {
       // submit
       const payload: lagreGravidesoknadParametere = {
-        dato,
+        orgnr: skjema.orgnr,
         fnr: skjema.fnr,
         tilrettelegge: skjema.tilrettelegge,
         tiltak: skjema.Tiltak,
@@ -283,7 +283,6 @@ const GravidSide = (props: GravidSideProps) => {
             <Panel>
               <SkjemaGruppe
                 legend='Den ansatte'
-                // feilmeldingId='fnrOgDatoFeilmeldingId'
                 aria-live='polite'
                 feilmeldingId='ansatteFeilmeldingId'
               >
@@ -299,12 +298,13 @@ const GravidSide = (props: GravidSideProps) => {
                     />
                   </Column>
                   <Column sm='4' xs='6'>
-                    <DatoVelger
-                      label='Termindato'
-                      dato={dato}
-                      placeholder='dd.mm.åååå'
-                      feilmelding={feilmelding.dato}
-                      onChange={validateTermindato}
+                    <Orgnr
+                      label='Organisasjonsnummer *'
+                      orgnr={skjema.orgnr}
+                      placeholder='9 siffer'
+                      feilmelding={feilmelding.arbeidsgiverFeilmeldingId}
+                      onValidate={validateOrgnr}
+                      onChange={setOrgnr}
                     />
                   </Column>
                 </Row>
