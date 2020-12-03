@@ -284,7 +284,7 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
             <Panel>
               <Undertittel tag='span'>
-                Felter merket * er obligatoriske
+                Alle felter er obligatoriske om ikke merket annerledes
               </Undertittel>
             </Panel>
             <Skillelinje />
@@ -298,7 +298,7 @@ const GravidSide = (props: GravidSideProps) => {
                 <Row>
                   <Column sm='4' xs='6'>
                     <Fnr
-                      label='Fødselsnummer (11 siffer) *'
+                      label='Fødselsnummer (11 siffer)'
                       fnr={skjema.fnr}
                       placeholder='11 siffer'
                       feilmelding={feilmelding.ansatteFeilmeldingId}
@@ -308,7 +308,7 @@ const GravidSide = (props: GravidSideProps) => {
                   </Column>
                   <Column sm='4' xs='6'>
                     <Orgnr
-                      label='Organisasjonsnummer *'
+                      label='Organisasjonsnummer'
                       orgnr={skjema.orgnr}
                       placeholder='9 siffer'
                       feilmelding={feilmelding.arbeidsgiverFeilmeldingId}
@@ -343,7 +343,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
                 </ul>
 
-                <RadioGruppe legend='Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene? *'>
+                <RadioGruppe legend='Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene?'>
                   <Radio
                     label={'Ja'}
                     name='sitteplass'
@@ -448,7 +448,7 @@ const GravidSide = (props: GravidSideProps) => {
                     feilmeldingId='omplasseringFeilmeldingId'
                   >
                     <div className='gravid-side-radiogruppe-omplassering'>
-                      <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb? *'>
+                      <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb?'>
                         <Radio
                           label={'Ja'}
                           name='omplassering'
