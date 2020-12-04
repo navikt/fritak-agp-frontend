@@ -7,15 +7,14 @@ const handleStatus = (response: Response) => {
         .clone()
         .json()
         .catch(() => response.text());
-    case 401:
+    case RestStatus.Unauthorized:
       return Promise.reject(RestStatus.Unauthorized);
     case 400:
-      return Promise.reject(
-        response
-          .clone()
-          .json()
-          .catch(() => response.text())
-      );
+      return response
+        .clone()
+        .json()
+        .catch(() => response.text());
+
     case 500:
       return response.json();
     // return Promise.reject(RestStatus.Error);

@@ -3,7 +3,7 @@ import RestStatus from './RestStatus';
 import handleStatus from './handleStatus';
 
 export interface lagreGravideInterface {
-  status: number;
+  status: RestStatus;
   validering:
     | lagreGravideValidationError
     | lagreGravideBackendError

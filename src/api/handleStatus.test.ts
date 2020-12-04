@@ -42,7 +42,10 @@ describe('handleStatus', () => {
     const params = ({
       status: 400,
       json: () => Promise.resolve(mockData),
-      clone: () => ({ json: () => Promise.reject(mockData) })
+      clone: () => ({
+        json: () => Promise.reject(mockData),
+        text: () => Promise.resolve('FAIL')
+      })
     } as unknown) as Response;
 
     expect(handleStatus(params)).rejects.toEqual({ iam: 'happy' });
@@ -67,13 +70,18 @@ describe('handleStatus', () => {
   });
 
   it('Should reject a promisse with code 401 for response with status 401', () => {
+    const mockData = {
+      iam: 'happy'
+    };
+
     const params = ({
       status: 401,
-      json: () => {
-        return {
-          iam: 'happy'
-        };
-      }
+      json: () => Promise.reject(mockData),
+      text: () => Promise.resolve('FAIL'),
+      clone: () => ({
+        json: () => Promise.reject(mockData),
+        text: () => Promise.resolve('FAIL')
+      })
     } as unknown) as Response;
 
     expect(handleStatus(params)).rejects.toBe(RestStatus.Unauthorized);

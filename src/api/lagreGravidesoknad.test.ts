@@ -24,7 +24,7 @@ describe('lagreGravidesoknad', () => {
   it('should reject with status Unauthorized if the backend responds with 401', async () => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
-        status: 401,
+        status: RestStatus.Unauthorized,
         json: () => Promise.resolve({})
       } as Response)
     );
@@ -65,11 +65,13 @@ describe('lagreGravidesoknad', () => {
 
   it('should reject with status Timeout if the backend does not respond', async () => {
     jest.useFakeTimers();
+    const mockData = {};
 
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
         status: -33,
-        json: () => Promise.reject({})
+        json: () => Promise.resolve(mockData),
+        clone: () => ({ json: () => Promise.resolve(mockData) })
       } as Response)
     );
 
