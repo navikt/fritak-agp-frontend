@@ -171,11 +171,7 @@ describe('GravidSide', () => {
     renderTestingLibrary(
       <GravidSide
         fnr='123'
-<<<<<<< HEAD
         orgnr='123456789'
-=======
-        dato={new Date(2020, 9, 28)}
->>>>>>> Tester at feilmeldinger blir satt
         tilrettelegge={false}
         videre={true}
       />
