@@ -8,10 +8,11 @@ describe('lagreGravidesoknad', () => {
     };
 
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve({
+      Promise.resolve(({
         status: 200,
-        json: () => Promise.resolve(mockData)
-      } as Response)
+        json: () => Promise.resolve(mockData),
+        clone: () => ({ json: () => Promise.resolve(mockData) })
+      } as unknown) as Response)
     );
 
     expect(await lagreGravidesoknad('/Path', {})).toEqual({

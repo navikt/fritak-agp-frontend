@@ -104,6 +104,13 @@ const GravidSide = (props: GravidSideProps) => {
   ): boolean => {
     const validering = beResponse.validering;
 
+    if (!beResponse.validering) {
+      dispatchFeilmelding({
+        type: 'General',
+        feilmelding: 'Lagringen gikk galt'
+      });
+      return false;
+    }
     if (isBackendServerError(validering)) {
       dispatchFeilmelding({
         type: 'General',

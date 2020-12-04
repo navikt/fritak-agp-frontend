@@ -88,6 +88,7 @@ const lagreGravidesoknad = (
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       method: 'POST',
       body: JSON.stringify(bodyPayload)
     })
