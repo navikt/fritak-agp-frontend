@@ -9,17 +9,17 @@ describe('skjemaReducer', () => {
   });
 
   it('should update the correct error description', () => {
-    const initialState = { TiltakBeskrivelse: 'Frisk og fin' };
+    const initialState = { tiltakBeskrivelse: 'Frisk og fin' };
     const newState = skjemaReducer(initialState, {
-      field: 'TiltakBeskrivelse',
+      field: 'tiltakBeskrivelse',
       value: 'Muggen'
     });
 
-    expect(newState).toEqual({ TiltakBeskrivelse: 'Muggen' });
+    expect(newState).toEqual({ tiltakBeskrivelse: 'Muggen' });
   });
 
   it('should clear error descriptions', () => {
-    const initialState = { TiltakBeskrivelse: 'Frisk og fin' };
+    const initialState = { tiltakBeskrivelse: 'Frisk og fin' };
     const newState = skjemaReducer(initialState, {
       field: 'clear',
       value: 'Muggen'
@@ -29,7 +29,7 @@ describe('skjemaReducer', () => {
   });
 
   it('should add an error description', () => {
-    const initialState = { TiltakBeskrivelse: 'Frisk og fin' };
+    const initialState = { tiltakBeskrivelse: 'Frisk og fin' };
     const newState = skjemaReducer(initialState, {
       field: 'fnr',
       value: 'Tørr'
@@ -37,14 +37,14 @@ describe('skjemaReducer', () => {
 
     expect(newState).toEqual({
       fnr: 'Tørr',
-      TiltakBeskrivelse: 'Frisk og fin'
+      tiltakBeskrivelse: 'Frisk og fin'
     });
   });
 
   it('should delete an error description when empty string', () => {
-    const initialState = { TiltakBeskrivelse: 'Frisk og fin', fnr: 'Tørr' };
+    const initialState = { tiltakBeskrivelse: 'Frisk og fin', fnr: 'Tørr' };
     const newState = skjemaReducer(initialState, {
-      field: 'TiltakBeskrivelse',
+      field: 'tiltakBeskrivelse',
       value: ''
     });
 
@@ -54,24 +54,24 @@ describe('skjemaReducer', () => {
   });
 
   it('should toggle the state on on TiltakVurdertArbeidstid', () => {
-    const initialState = { TiltakBeskrivelse: 'Frisk og fin', fnr: 'Tørr' };
+    const initialState = { tiltakBeskrivelse: 'Frisk og fin', fnr: 'Tørr' };
     const newState = skjemaReducer(initialState, {
       field: Tiltak.TILPASSET_ARBEIDSTID,
       value: 'tiltak'
     });
 
     expect(newState).toEqual({
-      TiltakBeskrivelse: 'Frisk og fin',
+      tiltakBeskrivelse: 'Frisk og fin',
       fnr: 'Tørr',
-      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
+      tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
     });
   });
 
   it('should toggle the state off on TiltakVurdertArbeidstid', () => {
     const initialState = {
-      TiltakBeskrivelse: 'Frisk og fin',
+      tiltakBeskrivelse: 'Frisk og fin',
       fnr: 'Tørr',
-      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
+      tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
     };
     const newState = skjemaReducer(initialState, {
       field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -79,45 +79,45 @@ describe('skjemaReducer', () => {
     });
 
     expect(newState).toEqual({
-      TiltakBeskrivelse: 'Frisk og fin',
+      tiltakBeskrivelse: 'Frisk og fin',
       fnr: 'Tørr',
-      Tiltak: []
+      tiltak: []
     });
   });
 
   it('should remove OmplasseringAarsak when Omplassering does not require a reason', () => {
     const initialState = {
-      TiltakBeskrivelse: 'Frisk og fin',
-      OmplasseringAarsak: OmplasseringAarsak.MOTSETTER,
-      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
-      Omplassering: Omplassering.IKKE_MULIG
+      tiltakBeskrivelse: 'Frisk og fin',
+      omplasseringAarsak: OmplasseringAarsak.MOTSETTER,
+      tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
+      omplassering: Omplassering.IKKE_MULIG
     };
     const newState = skjemaReducer(initialState, {
-      field: 'Omplassering',
+      field: 'omplassering',
       value: Omplassering.JA
     });
 
     expect(newState).toEqual({
-      TiltakBeskrivelse: 'Frisk og fin',
-      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
-      Omplassering: Omplassering.JA
+      tiltakBeskrivelse: 'Frisk og fin',
+      tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
+      omplassering: Omplassering.JA
     });
   });
 
   it('should add Omplassering when Omplassering is set', () => {
     const initialState = {
-      TiltakBeskrivelse: 'Frisk og fin',
-      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
+      tiltakBeskrivelse: 'Frisk og fin',
+      tiltak: [Tiltak.TILPASSET_ARBEIDSTID]
     };
     const newState = skjemaReducer(initialState, {
-      field: 'Omplassering',
+      field: 'omplassering',
       value: Omplassering.JA
     });
 
     expect(newState).toEqual({
-      TiltakBeskrivelse: 'Frisk og fin',
-      Tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
-      Omplassering: Omplassering.JA
+      tiltakBeskrivelse: 'Frisk og fin',
+      tiltak: [Tiltak.TILPASSET_ARBEIDSTID],
+      omplassering: Omplassering.JA
     });
   });
 });

@@ -18,6 +18,7 @@ export interface lagreGravidesoknadParametere {
   tiltakBeskrivelse?: string;
   omplassering?: string;
   omplasseringAarsak?: string;
+  bekreftet?: boolean;
 }
 
 interface lagreGravidesoknadPostParametere {
