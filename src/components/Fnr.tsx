@@ -17,9 +17,7 @@ const Fnr = (props: FnrProps) => {
       placeholder={props.placeholder}
       label={props.label}
       onValidate={(valid) => props.onValidate(valid)}
-      onChange={(evt) => {
-        props.onChange(evt.target.value);
-      }}
+      onChange={(evt) => props.onChange(evt.target.value)}
       feil={props.feilmelding}
     />
   );
