@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -20,7 +20,6 @@ import SideIndentering from '../SideIndentering';
 import Fnr from '../Fnr';
 import Upload from '../Upload';
 import './GravidSide.scss';
-import GravidSideProps from './GravidSideProps';
 import GravidProgress from './GravidProgress';
 import GravidStatus from './GravidStatus';
 import isValidFnr from './isValidFnr';
@@ -45,6 +44,7 @@ import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
 import feilmeldingsListe from './feilmeldingsListe';
 import isValidOrgnr from './isValidOrgnr';
 import Orgnr from '../Orgnr';
+import GravidSideProps from './GravidSideProps';
 
 const initialStateFeilmelding = {};
 
@@ -52,53 +52,203 @@ const GravidSide = (props: GravidSideProps) => {
   const [skjemaStatus, setSkjemaStatus] = useState<number>(
     props.status || GravidStatus.DEFAULT
   );
-  const [validated, setValidated] = useState<boolean>(false);
-  const [dato, setDato] = useState<Date | undefined>(props.dato || undefined);
   const [tilrettelegge, setTilrettelegge] = useState<boolean | undefined>(
     props.tilrettelegge
   );
   const [dokumentasjon, setDokumentasjon] = useState<File>();
-  const [bekreftet, setBekreftet] = useState<boolean>(props.bekreftet || false);
   const [videre, setVidere] = useState<boolean>(props.videre || false);
-
-  const setFnr = (fnr: string) => dispatchSkjema({ field: 'fnr', value: fnr });
-  const setOrgnr = (orgnr: string) =>
-    dispatchSkjema({ field: 'orgnr', value: orgnr });
-
+  const [submittedState, setSubmittedState] = useState<boolean>(
+    props.submitted || false
+  );
+  let submitted: boolean = submittedState;
   const [feilmelding, dispatchFeilmelding] = useReducer(
     feilmeldingReducer,
     initialStateFeilmelding
   );
-
   const [skjema, dispatchSkjema] = useReducer(skjemaReducer, {});
-
   const history: History = useHistory();
-
   const handleUploadChanged = (file?: File) => {
     setDokumentasjon(file);
   };
-
   const isTiltakAnnet =
-    skjema.Tiltak && skjema.Tiltak.indexOf(Tiltak.ANNET) > -1;
+    skjema.tiltak && skjema.tiltak.indexOf(Tiltak.ANNET) > -1;
 
-  const validateFnr = (valid) => {
-    if (valid) {
+  // const validateBackendResponse = (
+  //   beResponse: lagreGravideInterface
+  // ): boolean => {
+  //   const validering = beResponse.validering;
+
+  //   if (!beResponse.validering) {
+  //     dispatchFeilmelding({
+  //       type: 'General',
+  //       feilmelding: 'Lagringen gikk galt'
+  //     });
+  //     return false;
+  //   }
+  //   if (isBackendServerError(validering)) {
+  //     dispatchFeilmelding({
+  //       type: 'General',
+  //       feilmelding: `${validering.title} (${validering.status})`
+  //     });
+  //     return false;
+  //   }
+
+  //   if (isBackendValidationError(validering)) {
+  //     ((validering as unknown) as lagreGravideValidationError).violations.forEach(
+  //       (error) => {
+  //         dispatchFeilmelding({
+  //           type: error.propertyPath,
+  //           feilmelding: error.message
+  //         });
+  //       }
+  //     );
+  //     return false;
+  //   }
+  //   return true;
+  // };
+
+
+  const validateFnr = (): boolean => {
+    if (!submitted || (skjema.fnr && isValidFnr(skjema.fnr))) {
       dispatchFeilmelding({
         type: 'ansatteFeilmeldingId',
         feilmelding: ''
       });
+    } else {
+      dispatchFeilmelding({
+        type: 'ansatteFeilmeldingId',
+        feilmelding: 'Fyll ut gyldig fødselsnummer'
+      });
+      return false;
     }
   };
 
-  const validateOrgnr = (valid) => {
-    if (valid) {
+  const validateOrgnr = (): boolean => {
+    if (!submitted || (skjema.orgnr && isValidOrgnr(skjema.orgnr))) {
       dispatchFeilmelding({
         type: 'arbeidsgiverFeilmeldingId',
         feilmelding: ''
       });
+      return true;
+    } else {
+      dispatchFeilmelding({
+        type: 'arbeidsgiverFeilmeldingId',
+        feilmelding: 'Fyll ut gyldig organisasjonsnummer'
+      });
+      return false;
     }
   };
 
+  const validateTiltak = (): boolean => {
+    if (submitted) {
+      if (
+        isTiltakAnnet &&
+        (!skjema.tiltakBeskrivelse || skjema.tiltakBeskrivelse.length === 0)
+      ) {
+        dispatchFeilmelding({
+          type: 'tilretteleggeFeilmeldingId',
+          feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
+        });
+        return false;
+      }
+      if (!skjema.tiltak) {
+        dispatchFeilmelding({
+          type: 'tilretteleggeFeilmeldingId',
+          feilmelding: 'Du må oppgi minst ett tiltak dere har prøvd'
+        });
+        return false;
+      }
+    }
+    dispatchFeilmelding({
+      type: 'tilretteleggeFeilmeldingId',
+      feilmelding: ''
+    });
+    return true;
+  };
+
+  const validateOmplassering = (): boolean => {
+    if (submitted && !skjema.omplassering) {
+      dispatchFeilmelding({
+        type: 'omplasseringFeilmeldingId',
+        feilmelding: 'Velg omplassering'
+      });
+      return false;
+    } else {
+      dispatchFeilmelding({
+        type: 'omplasseringFeilmeldingId',
+        feilmelding: ''
+      });
+      return true;
+    }
+  };
+
+  const validateBekreftet = (): boolean => {
+    if (submitted && !skjema.bekreftet) {
+      dispatchFeilmelding({
+        type: 'bekreftFeilmeldingId',
+        feilmelding: 'Bekreft at opplysningene er korrekt'
+      });
+      return false;
+    } else {
+      dispatchFeilmelding({
+        type: 'bekreftFeilmeldingId',
+        feilmelding: ''
+      });
+      return true;
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const altValidert: boolean = [
+      validateFnr(),
+      validateOrgnr(),
+      validateTiltak(),
+      validateOmplassering(),
+      validateBekreftet()
+    ].every(Boolean);
+
+    submitted = !altValidert;
+    setSubmittedState(submitted);
+    return altValidert;
+  };
+
+  useEffect(() => {
+    validateForm();
+  }, [skjema]);
+
+  const handleSubmitClicked = async () => {
+    submitted = true;
+    setSubmittedState(submitted);
+    if (validateForm()) {
+      // submit
+      const payload: lagreGravidesoknadParametere = {
+        orgnr: skjema.orgnr,
+        fnr: skjema.fnr,
+        tilrettelegge: skjema.tilrettelegge,
+        tiltak: skjema.tiltak,
+        tiltakBeskrivelse: skjema.tiltakBeskrivelse,
+        omplassering: skjema.omplassering,
+        omplasseringAarsak: skjema.omplasseringAarsak,
+        bekreftet: skjema.bekreftet
+      };
+
+      setSkjemaStatus(GravidStatus.IN_PROGRESS);
+      const lagringStatus = await lagreGravidesoknad(
+        environment.baseUrl,
+        payload
+      );
+
+      if (lagringStatus.status === RestStatus.Successfully) {
+        const backendStatusOK = validateBackendResponse(lagringStatus);
+
+        if (backendStatusOK) {
+          history.push(lenker.GravidKvittering);
+        }
+      }
+
+      setSkjemaStatus(GravidStatus.DEFAULT);
+    }
+  };
   const validateBackendResponse = (
     beResponse: lagreGravideInterface
   ): boolean => {
@@ -133,123 +283,10 @@ const GravidSide = (props: GravidSideProps) => {
     return true;
   };
 
-  const validateForm = (): boolean => {
-    let harFeil: boolean = false;
-
-    if (skjema.fnr && skjema.fnr.length > 0 && isValidFnr(skjema.fnr)) {
-      dispatchFeilmelding({ type: 'ansatteFeilmeldingId', feilmelding: '' });
-    } else {
-      harFeil = true;
-      dispatchFeilmelding({
-        type: 'ansatteFeilmeldingId',
-        feilmelding: 'Fyll ut gyldig fødselsnummer'
-      });
-    }
-
-    if (skjema.orgnr && skjema.orgnr.length > 0 && isValidOrgnr(skjema.orgnr)) {
-      dispatchFeilmelding({
-        type: 'arbeidsgiverFeilmeldingId',
-        feilmelding: ''
-      });
-    } else {
-      harFeil = true;
-      dispatchFeilmelding({
-        type: 'arbeidsgiverFeilmeldingId',
-        feilmelding: 'Fyll ut gyldig organisasjonsnummer'
-      });
-    }
-
-    if (!skjema.Tiltak || skjema.Tiltak?.length === 0) {
-      harFeil = true;
-      dispatchFeilmelding({
-        type: 'tilretteleggeFeilmeldingId',
-        feilmelding: 'Du må oppgi minst ett tiltak dere har prøvd'
-      });
-    } else {
-      dispatchFeilmelding({
-        type: 'tilretteleggeFeilmeldingId',
-        feilmelding: ''
-      });
-    }
-
-    if (isTiltakAnnet) {
-      if (!skjema.TiltakBeskrivelse || skjema.TiltakBeskrivelse.length === 0) {
-        harFeil = true;
-        dispatchFeilmelding({
-          type: 'tilretteleggeFeilmeldingId',
-          feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
-        });
-      } else {
-        dispatchFeilmelding({
-          type: 'tilretteleggeFeilmeldingId',
-          feilmelding: ''
-        });
-      }
-    }
-
-    if (!skjema.Omplassering) {
-      harFeil = true;
-      dispatchFeilmelding({
-        type: 'omplasseringFeilmeldingId',
-        feilmelding: 'Velg omplassering'
-      });
-    } else {
-      dispatchFeilmelding({
-        type: 'omplasseringFeilmeldingId',
-        feilmelding: ''
-      });
-    }
-
-    if (!bekreftet) {
-      harFeil = true;
-      dispatchFeilmelding({
-        type: 'bekreftFeilmeldingId',
-        feilmelding: 'Bekreft at opplysningene er korrekt'
-      });
-    } else {
-      dispatchFeilmelding({ type: 'bekreftFeilmeldingId', feilmelding: '' });
-    }
-
-    setValidated(true);
-    return harFeil === false;
-  };
-
-  const handleSubmitClicked = async () => {
-    if (validateForm()) {
-      // submit
-      const payload: lagreGravidesoknadParametere = {
-        orgnr: skjema.orgnr,
-        fnr: skjema.fnr,
-        tilrettelegge: skjema.tilrettelegge,
-        tiltak: skjema.Tiltak,
-        tiltakBeskrivelse: skjema.TiltakBeskrivelse,
-        omplassering: skjema.Omplassering,
-        omplasseringAarsak: skjema.OmplasseringAarsak
-      };
-
-      setSkjemaStatus(GravidStatus.IN_PROGRESS);
-      const lagringStatus = await lagreGravidesoknad(
-        environment.baseUrl,
-        payload
-      );
-
-      if (lagringStatus.status === RestStatus.Successfully) {
-        const backendStatusOK = validateBackendResponse(lagringStatus);
-
-        if (backendStatusOK) {
-          history.push(lenker.GravidKvittering);
-        }
-      }
-
-      setSkjemaStatus(GravidStatus.DEFAULT);
-    }
-  };
-
-  if (!validated && props.validated) {
-    validateForm();
-  }
-
   const feilmeldingsliste = feilmeldingsListe(feilmelding);
+  if (!feilmeldingsliste) {
+    setSubmittedState(false);
+  }
 
   return (
     <Row>
@@ -302,8 +339,10 @@ const GravidSide = (props: GravidSideProps) => {
                       fnr={skjema.fnr}
                       placeholder='11 siffer'
                       feilmelding={feilmelding.ansatteFeilmeldingId}
-                      onValidate={validateFnr}
-                      onChange={setFnr}
+                      onValidate={() => {}}
+                      onChange={(fnr: string) =>
+                        dispatchSkjema({ field: 'fnr', value: fnr })
+                      }
                     />
                   </Column>
                   <Column sm='4' xs='6'>
@@ -312,8 +351,9 @@ const GravidSide = (props: GravidSideProps) => {
                       orgnr={skjema.orgnr}
                       placeholder='9 siffer'
                       feilmelding={feilmelding.arbeidsgiverFeilmeldingId}
-                      onValidate={validateOrgnr}
-                      onChange={setOrgnr}
+                      onChange={(orgnr: string) =>
+                        dispatchSkjema({ field: 'orgnr', value: orgnr })
+                      }
                     />
                   </Column>
                 </Row>
@@ -345,27 +385,23 @@ const GravidSide = (props: GravidSideProps) => {
 
                 <RadioGruppe legend='Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene?'>
                   <Radio
-                    label={'Ja'}
+                    label='Ja'
                     name='sitteplass'
-                    value={'ja'}
+                    value='ja'
                     defaultChecked={tilrettelegge === true}
-                    onClick={() => {
-                      setTilrettelegge(true);
-                    }}
+                    onClick={() => setTilrettelegge(true)}
                   />
                   <Radio
-                    label={'Nei'}
+                    label='Nei'
                     name='sitteplass'
-                    value={'nei'}
+                    value='nei'
                     defaultChecked={tilrettelegge === false}
-                    onClick={() => {
-                      setTilrettelegge(false);
-                    }}
+                    onClick={() => setTilrettelegge(false)}
                   />
                 </RadioGruppe>
               </SkjemaGruppe>
 
-              {tilrettelegge === true && (
+              {tilrettelegge ? (
                 <>
                   <CheckboxGruppe
                     legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
@@ -383,8 +419,8 @@ const GravidSide = (props: GravidSideProps) => {
                         })
                       }
                       checked={
-                        skjema.Tiltak &&
-                        skjema.Tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1
+                        skjema.tiltak &&
+                        skjema.tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1
                       }
                     />
                     <Checkbox
@@ -398,8 +434,8 @@ const GravidSide = (props: GravidSideProps) => {
                         })
                       }
                       checked={
-                        skjema.Tiltak &&
-                        skjema.Tiltak.indexOf(Tiltak.HJEMMEKONTOR) > -1
+                        skjema.tiltak &&
+                        skjema.tiltak.indexOf(Tiltak.HJEMMEKONTOR) > -1
                       }
                     />
                     <Checkbox
@@ -413,8 +449,8 @@ const GravidSide = (props: GravidSideProps) => {
                         })
                       }
                       checked={
-                        skjema.Tiltak &&
-                        skjema.Tiltak.indexOf(
+                        skjema.tiltak &&
+                        skjema.tiltak.indexOf(
                           Tiltak.TILPASSEDE_ARBEIDSOPPGAVER
                         ) > -1
                       }
@@ -432,14 +468,14 @@ const GravidSide = (props: GravidSideProps) => {
                       checked={isTiltakAnnet}
                     />
                     <Textarea
-                      value={skjema.TiltakBeskrivelse || ''}
+                      value={skjema.tiltakBeskrivelse || ''}
                       feil={feilmelding.tilretteleggeFeilmeldingId}
-                      onChange={(evt) => {
+                      onChange={(evt) =>
                         dispatchSkjema({
-                          field: 'TiltakBeskrivelse',
+                          field: 'tiltakBeskrivelse',
                           value: evt.currentTarget.value
-                        });
-                      }}
+                        })
+                      }
                       disabled={!isTiltakAnnet}
                     />
                   </CheckboxGruppe>
@@ -450,111 +486,107 @@ const GravidSide = (props: GravidSideProps) => {
                     <div className='gravid-side-radiogruppe-omplassering'>
                       <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb?'>
                         <Radio
-                          label={'Ja'}
+                          label='Ja'
                           name='omplassering'
-                          onChange={() => {
+                          onChange={() =>
                             dispatchSkjema({
-                              field: 'Omplassering',
+                              field: 'omplassering',
                               value: Omplassering.JA
-                            });
-                          }}
-                          checked={skjema.Omplassering === Omplassering.JA}
+                            })
+                          }
+                          checked={skjema.omplassering === Omplassering.JA}
                         />
                         <Radio
-                          label={'Nei'}
+                          label='Nei'
                           name='omplassering'
-                          checked={skjema.Omplassering === Omplassering.NEI}
-                          onChange={() => {
+                          checked={skjema.omplassering === Omplassering.NEI}
+                          onChange={() =>
                             dispatchSkjema({
-                              field: 'Omplassering',
+                              field: 'omplassering',
                               value: Omplassering.NEI
-                            });
-                          }}
+                            })
+                          }
                         />
                         <Radio
-                          label={'Omplassering er ikke mulig - oppgi årsak:'}
+                          label='Omplassering er ikke mulig - oppgi årsak:'
                           name='omplassering'
-                          onChange={() => {
+                          onChange={() =>
                             dispatchSkjema({
-                              field: 'Omplassering',
+                              field: 'omplassering',
                               value: Omplassering.IKKE_MULIG
-                            });
-                          }}
+                            })
+                          }
                           checked={
-                            skjema.Omplassering === Omplassering.IKKE_MULIG
+                            skjema.omplassering === Omplassering.IKKE_MULIG
                           }
                         />
                         <RadioGruppe className='gravideside-radiogruppe-indentert'>
                           <Radio
-                            label={'Den ansatte motsetter seg omplassering'}
+                            label='Den ansatte motsetter seg omplassering'
                             name='omplassering-umulig'
-                            onChange={() => {
+                            onChange={() =>
                               dispatchSkjema({
-                                field: 'OmplasseringAarsak',
+                                field: 'omplasseringAarsak',
                                 value: OmplasseringAarsak.MOTSETTER
-                              });
-                            }}
+                              })
+                            }
                             disabled={
-                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                              skjema.omplassering !== Omplassering.IKKE_MULIG
                             }
                             checked={
-                              skjema.OmplasseringAarsak ===
+                              skjema.omplasseringAarsak ===
                               OmplasseringAarsak.MOTSETTER
                             }
                           />
                           <Radio
-                            label={'Vi får ikke kontakt med den ansatte'}
+                            label='Vi får ikke kontakt med den ansatte'
                             name='omplassering-umulig'
                             onChange={() => {
                               dispatchSkjema({
-                                field: 'OmplasseringAarsak',
+                                field: 'omplasseringAarsak',
                                 value: OmplasseringAarsak.FAAR_IKKE_KONTAKT
                               });
                             }}
                             checked={
-                              skjema.OmplasseringAarsak ===
+                              skjema.omplasseringAarsak ===
                               OmplasseringAarsak.FAAR_IKKE_KONTAKT
                             }
                             disabled={
-                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                              skjema.omplassering !== Omplassering.IKKE_MULIG
                             }
                           />
                           <Radio
-                            label={
-                              'Vi har ikke andre oppgaver eller arbeidssteder å tilby'
-                            }
+                            label='Vi har ikke andre oppgaver eller arbeidssteder å tilby'
                             name='omplassering-umulig'
-                            onChange={() => {
+                            onChange={() =>
                               dispatchSkjema({
-                                field: 'OmplasseringAarsak',
+                                field: 'omplasseringAarsak',
                                 value: OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
-                              });
-                            }}
+                              })
+                            }
                             checked={
-                              skjema.OmplasseringAarsak ===
+                              skjema.omplasseringAarsak ===
                               OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
                             }
                             disabled={
-                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                              skjema.omplassering !== Omplassering.IKKE_MULIG
                             }
                           />
                           <Radio
-                            label={
-                              'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden​'
-                            }
+                            label='Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden​'
                             name='omplassering-umulig'
                             checked={
-                              skjema.OmplasseringAarsak ===
+                              skjema.omplasseringAarsak ===
                               OmplasseringAarsak.HELSETILSTANDEN
                             }
-                            onChange={() => {
+                            onChange={() =>
                               dispatchSkjema({
-                                field: 'OmplasseringAarsak',
+                                field: 'omplasseringAarsak',
                                 value: OmplasseringAarsak.HELSETILSTANDEN
-                              });
-                            }}
+                              })
+                            }
                             disabled={
-                              skjema.Omplassering !== Omplassering.IKKE_MULIG
+                              skjema.omplassering !== Omplassering.IKKE_MULIG
                             }
                           />
                         </RadioGruppe>
@@ -562,9 +594,7 @@ const GravidSide = (props: GravidSideProps) => {
                     </div>
                   </SkjemaGruppe>
                 </>
-              )}
-
-              {tilrettelegge === false && (
+              ) : (
                 <>
                   <Skillelinje />
                   <Alertstripe
@@ -576,9 +606,7 @@ const GravidSide = (props: GravidSideProps) => {
                       Dere kan
                       <button
                         className='lenke gravidside-lenke-knapp'
-                        onClick={() => {
-                          setVidere(true);
-                        }}
+                        onClick={() => setVidere(true)}
                       >
                         gå videre med søknaden
                       </button>
@@ -629,11 +657,14 @@ const GravidSide = (props: GravidSideProps) => {
                   <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
                     <BekreftCheckboksPanel
                       label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                      checked={bekreftet}
+                      checked={skjema.bekreftet || false}
                       feil={feilmelding.bekreftFeilmeldingId}
-                      onChange={(evt) => {
-                        setBekreftet(!bekreftet);
-                      }}
+                      onChange={() =>
+                        dispatchSkjema({
+                          field: 'bekreftet',
+                          value: !skjema.bekreftet
+                        })
+                      }
                     >
                       Jeg vet at NAV kan trekke tilbake retten til å få dekket
                       sykepengene i arbeidsgiverperioden hvis opplysningene ikke
@@ -650,7 +681,6 @@ const GravidSide = (props: GravidSideProps) => {
                     />
                   </Panel>
                 )}
-
                 <Panel>
                   <Hovedknapp onClick={handleSubmitClicked}>
                     Send søknad
