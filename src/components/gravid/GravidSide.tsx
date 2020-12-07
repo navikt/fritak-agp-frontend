@@ -237,7 +237,6 @@ const GravidSide = (props: GravidSideProps) => {
       setSkjemaStatus(GravidStatus.DEFAULT);
     }
   };
-
   const validateBackendResponse = (
     beResponse: lagreGravideInterface
   ): boolean => {
