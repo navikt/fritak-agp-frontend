@@ -70,41 +70,6 @@ const GravidSide = (props: GravidSideProps) => {
   const isTiltakAnnet =
     skjema.tiltak && skjema.tiltak.indexOf(Tiltak.ANNET) > -1;
 
-  // const validateBackendResponse = (
-  //   beResponse: lagreGravideInterface
-  // ): boolean => {
-  //   const validering = beResponse.validering;
-
-  //   if (!beResponse.validering) {
-  //     dispatchFeilmelding({
-  //       type: 'General',
-  //       feilmelding: 'Lagringen gikk galt'
-  //     });
-  //     return false;
-  //   }
-  //   if (isBackendServerError(validering)) {
-  //     dispatchFeilmelding({
-  //       type: 'General',
-  //       feilmelding: `${validering.title} (${validering.status})`
-  //     });
-  //     return false;
-  //   }
-
-  //   if (isBackendValidationError(validering)) {
-  //     ((validering as unknown) as lagreGravideValidationError).violations.forEach(
-  //       (error) => {
-  //         dispatchFeilmelding({
-  //           type: error.propertyPath,
-  //           feilmelding: error.message
-  //         });
-  //       }
-  //     );
-  //     return false;
-  //   }
-  //   return true;
-  // };
-
-
   const validateFnr = (): boolean => {
     if (!submitted || (skjema.fnr && isValidFnr(skjema.fnr))) {
       dispatchFeilmelding({
@@ -243,7 +208,6 @@ const GravidSide = (props: GravidSideProps) => {
   const handleSubmitClicked = async () => {
     submitted = true;
     setSubmittedState(submitted);
-    console.log("JUHU");
     if (validateForm()) {
       // submit
       console.log("VALIDERT");
