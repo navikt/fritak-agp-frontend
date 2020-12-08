@@ -216,44 +216,9 @@ describe('GravidSide', () => {
       />
     );
 
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
-        status: 200,
-        json: () => Promise.resolve(null),
-        text: () => Promise.resolve(null),
-        clone: () => ({
-          json: () => Promise.reject(null),
-          text: () => Promise.resolve(null)
-        })
-      } as unknown) as Response)
-    );
+    setupFetchMock(null, 200);
 
-    fireEvent.click(screen.getByLabelText('Ja'));
-
-    fireEvent.click(screen.getByLabelText('Hjemmekontor'));
-
-    const checker = screen.getAllByLabelText('Ja');
-
-    if (checker) {
-      fireEvent.click(checker[1]);
-    }
-
-    fireEvent.click(screen.getByLabelText(/Jeg bekrefter at opplysningene/));
-
-    const fnr = screen.getByLabelText(/Fødselsnummer/);
-
-    fireEvent.change(fnr, {
-      target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
-    });
-
-    const orgNr = screen.getByLabelText(/Organisasjonsnummer/);
-
-    fireEvent.change(orgNr, {
-      target: { value: testOrgnr.GyldigeOrgnr.TestOrg1 }
-    });
-
-    const submitButton = screen.getByText('Send søknad');
-    fireEvent.click(submitButton);
+    fyllUtOgSubmit();
 
     await waitFor(() => {
       expect(screen.getByText(/Lagringen gikk galt/)).toBeInTheDocument();
@@ -290,17 +255,7 @@ describe('GravidSide', () => {
       status: 'Status feil'
     };
 
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
-        status: 200,
-        json: () => Promise.resolve(mockData),
-        text: () => Promise.resolve(null),
-        clone: () => ({
-          json: () => Promise.resolve(mockData),
-          text: () => Promise.resolve(null)
-        })
-      } as unknown) as Response)
-    );
+    setupFetchMock(mockData, 200);
 
     fyllUtOgSubmit();
 
@@ -335,17 +290,7 @@ describe('GravidSide', () => {
       instance: 'about:blank'
     };
 
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
-        status: 200,
-        json: () => Promise.resolve(mockData),
-        text: () => Promise.resolve(null),
-        clone: () => ({
-          json: () => Promise.resolve(mockData),
-          text: () => Promise.resolve(null)
-        })
-      } as unknown) as Response)
-    );
+    setupFetchMock(mockData, 200);
 
     fyllUtOgSubmit();
 
@@ -370,6 +315,20 @@ describe('GravidSide', () => {
     cleanup();
   });
 });
+
+function setupFetchMock(mockData: any, responseStatus: number) {
+  jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
+    Promise.resolve(({
+      status: responseStatus,
+      json: () => Promise.resolve(mockData),
+      text: () => Promise.resolve(null),
+      clone: () => ({
+        json: () => Promise.resolve(mockData),
+        text: () => Promise.resolve(null)
+      })
+    } as unknown) as Response)
+  );
+}
 
 function fyllUtOgSubmit() {
   const jaCheck = screen.getByLabelText('Ja');
