@@ -1,6 +1,17 @@
 import env from './environment';
 
+const theWindowLocation = window.location;
+
 describe('Environment', () => {
+  beforeEach(() => {
+    // @ts-ignore
+    delete window.location;
+  });
+
+  afterEach(() => {
+    window.location = theWindowLocation;
+  });
+
   it('should return the loginservice url for localhost', () => {
     expect(env.loginServiceUrl).toBe(
       'http://fritakagp.dev.nav.no/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/?loggedIn=true'
@@ -8,7 +19,7 @@ describe('Environment', () => {
   });
 
   it('should return the loginservice url for preprod dev', () => {
-    delete window.location;
+    // @ts-ignore
     window.location = new URL('https://www.dev.nav.no');
 
     expect(env.loginServiceUrl).toBe(
@@ -17,7 +28,7 @@ describe('Environment', () => {
   });
 
   it('should return the loginservice url for prod', () => {
-    delete window.location;
+    // @ts-ignore
     window.location = new URL('https://www.nav.no');
 
     expect(env.loginServiceUrl).toBe(
@@ -25,31 +36,29 @@ describe('Environment', () => {
     );
   });
 
-  /*********/
-
   it('should return the baseUrl url for localhost', () => {
-    delete window.location;
+    // @ts-ignore
     window.location = new URL('http://localhost');
 
     expect(env.baseUrl).toBe('https://fritakagp.dev.nav.no');
   });
 
   it('should return the baseUrl url for preprod dev', () => {
-    delete window.location;
+    // @ts-ignore
     window.location = new URL('https://www.dev.nav.no');
 
     expect(env.baseUrl).toBe('https://fritakagp.dev.nav.no/fritak-agp');
   });
 
   it('should return the baseUrl url for preprod q', () => {
-    delete window.location;
+    // @ts-ignore
     window.location = new URL('https://arbeidsgiver-q.nav.no');
 
     expect(env.baseUrl).toBe('https://fritakagp.nav.no/fritak-agp');
   });
 
   it('should return the baseUrl url for prod', () => {
-    delete window.location;
+    // @ts-ignore
     window.location = new URL('https://www.nav.no');
 
     expect(env.baseUrl).toBe('https://fritakagp.nav.no/fritak-agp');
