@@ -52,9 +52,6 @@ const GravidSide = (props: GravidSideProps) => {
   const [skjemaStatus, setSkjemaStatus] = useState<number>(
     props.status || GravidStatus.DEFAULT
   );
-  const [tilrettelegge, setTilrettelegge] = useState<boolean | undefined>(
-    props.tilrettelegge
-  );
   const [dokumentasjon, setDokumentasjon] = useState<File>();
   const [videre, setVidere] = useState<boolean>(props.videre || false);
   const [submittedState, setSubmittedState] = useState<boolean>(
@@ -389,20 +386,24 @@ const GravidSide = (props: GravidSideProps) => {
                     label='Ja'
                     name='sitteplass'
                     value='ja'
-                    defaultChecked={tilrettelegge === true}
-                    onClick={() => setTilrettelegge(true)}
+                    defaultChecked={skjema.tilrettelegge}
+                    onClick={() =>
+                      dispatchSkjema({ field: 'tilrettelegge', value: true })
+                    }
                   />
                   <Radio
                     label='Nei'
                     name='sitteplass'
                     value='nei'
-                    defaultChecked={tilrettelegge === false}
-                    onClick={() => setTilrettelegge(false)}
+                    defaultChecked={!skjema.tilrettelegge}
+                    onClick={() =>
+                      dispatchSkjema({ field: 'tilrettelegge', value: false })
+                    }
                   />
                 </RadioGruppe>
               </SkjemaGruppe>
 
-              {tilrettelegge ? (
+              {skjema.tilrettelegge ? (
                 <>
                   <CheckboxGruppe
                     legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
@@ -618,7 +619,7 @@ const GravidSide = (props: GravidSideProps) => {
               )}
             </Panel>
 
-            {(tilrettelegge || videre) && (
+            {(skjema.tilrettelegge || videre) && (
               <>
                 <Skillelinje />
 
