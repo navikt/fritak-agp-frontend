@@ -13,7 +13,6 @@ import {
 
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
-import { mockComponent } from 'react-dom/test-utils';
 
 describe('GravidSide', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -217,22 +216,19 @@ describe('GravidSide', () => {
       />
     );
 
-    const mockData = null;
-
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve(({
         status: 200,
-        json: () => Promise.resolve(mockData),
+        json: () => Promise.resolve(null),
         text: () => Promise.resolve(null),
         clone: () => ({
-          json: () => Promise.reject(mockData),
+          json: () => Promise.reject(null),
           text: () => Promise.resolve(null)
         })
       } as unknown) as Response)
     );
 
-    const jaCheck = screen.getByLabelText('Ja');
-    fireEvent.click(jaCheck);
+    fireEvent.click(screen.getByLabelText('Ja'));
 
     fireEvent.click(screen.getByLabelText('Hjemmekontor'));
 
@@ -306,33 +302,7 @@ describe('GravidSide', () => {
       } as unknown) as Response)
     );
 
-    const jaCheck = screen.getByLabelText('Ja');
-    fireEvent.click(jaCheck);
-
-    fireEvent.click(screen.getByLabelText('Hjemmekontor'));
-
-    const checker = screen.getAllByLabelText('Ja');
-
-    if (checker) {
-      fireEvent.click(checker[1]);
-    }
-
-    fireEvent.click(screen.getByLabelText(/Jeg bekrefter at opplysningene/));
-
-    const fnr = screen.getByLabelText(/Fødselsnummer/);
-
-    fireEvent.change(fnr, {
-      target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
-    });
-
-    const orgNr = screen.getByLabelText(/Organisasjonsnummer/);
-
-    fireEvent.change(orgNr, {
-      target: { value: testOrgnr.GyldigeOrgnr.TestOrg1 }
-    });
-
-    const submitButton = screen.getByText('Send søknad');
-    fireEvent.click(submitButton);
+    fyllUtOgSubmit();
 
     await waitFor(() => {
       expect(screen.getByText(/Title feil/)).toBeInTheDocument();
@@ -377,33 +347,7 @@ describe('GravidSide', () => {
       } as unknown) as Response)
     );
 
-    const jaCheck = screen.getByLabelText('Ja');
-    fireEvent.click(jaCheck);
-
-    fireEvent.click(screen.getByLabelText('Tilpassede arbeidsoppgaver'));
-
-    const checker = screen.getAllByLabelText('Nei');
-
-    if (checker) {
-      fireEvent.click(checker[1]);
-    }
-
-    fireEvent.click(screen.getByLabelText(/Jeg bekrefter at opplysningene/));
-
-    const fnr = screen.getByLabelText(/Fødselsnummer/);
-
-    fireEvent.change(fnr, {
-      target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
-    });
-
-    const orgNr = screen.getByLabelText(/Organisasjonsnummer/);
-
-    fireEvent.change(orgNr, {
-      target: { value: testOrgnr.GyldigeOrgnr.TestOrg1 }
-    });
-
-    const submitButton = screen.getByText('Send søknad');
-    fireEvent.click(submitButton);
+    fyllUtOgSubmit();
 
     await waitFor(() => {
       expect(
@@ -426,3 +370,33 @@ describe('GravidSide', () => {
     cleanup();
   });
 });
+
+function fyllUtOgSubmit() {
+  const jaCheck = screen.getByLabelText('Ja');
+  fireEvent.click(jaCheck);
+
+  fireEvent.click(screen.getByLabelText('Hjemmekontor'));
+
+  const checker = screen.getAllByLabelText('Ja');
+
+  if (checker) {
+    fireEvent.click(checker[1]);
+  }
+
+  fireEvent.click(screen.getByLabelText(/Jeg bekrefter at opplysningene/));
+
+  const fnr = screen.getByLabelText(/Fødselsnummer/);
+
+  fireEvent.change(fnr, {
+    target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
+  });
+
+  const orgNr = screen.getByLabelText(/Organisasjonsnummer/);
+
+  fireEvent.change(orgNr, {
+    target: { value: testOrgnr.GyldigeOrgnr.TestOrg1 }
+  });
+
+  const submitButton = screen.getByText('Send søknad');
+  fireEvent.click(submitButton);
+}

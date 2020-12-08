@@ -13,6 +13,8 @@ describe('Environment', () => {
   });
 
   it('should return the loginservice url for localhost', () => {
+    window.location = theWindowLocation;
+
     expect(env.loginServiceUrl).toBe(
       'http://fritakagp.dev.nav.no/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/?loggedIn=true'
     );
