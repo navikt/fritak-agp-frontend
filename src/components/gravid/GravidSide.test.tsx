@@ -337,21 +337,6 @@ describe('GravidSide', () => {
     await waitFor(() => {
       expect(screen.getByText(/Title feil/)).toBeInTheDocument();
     });
-
-    expect(screen.queryAllByText(/Fyll ut gyldig fødselsnummer/).length).toBe(
-      0
-    );
-    expect(
-      screen.queryAllByText(/Fyll ut gyldig organisasjonsnummer/).length
-    ).toBe(0);
-    expect(
-      screen.queryAllByText(/Du må oppgi minst ett tiltak dere har prøvd/)
-        .length
-    ).toBe(0);
-    expect(screen.queryAllByText(/Velg omplassering/).length).toBe(0);
-    expect(
-      screen.queryAllByText(/Bekreft at opplysningene er korrekt/).length
-    ).toBe(0);
   });
 
   it('skal vise valideringsfeil fra backend, etter at man har klikket submit', async () => {
@@ -395,9 +380,9 @@ describe('GravidSide', () => {
     const jaCheck = screen.getByLabelText('Ja');
     fireEvent.click(jaCheck);
 
-    fireEvent.click(screen.getByLabelText('Hjemmekontor'));
+    fireEvent.click(screen.getByLabelText('Tilpassede arbeidsoppgaver'));
 
-    const checker = screen.getAllByLabelText('Ja');
+    const checker = screen.getAllByLabelText('Nei');
 
     if (checker) {
       fireEvent.click(checker[1]);
