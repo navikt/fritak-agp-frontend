@@ -136,6 +136,22 @@ const GravidSide = (props: GravidSideProps) => {
     }
   };
 
+  const validateTilrettelegge = (): boolean => {
+    if (submitted && skjema.tilrettelegge === undefined) {
+      dispatchFeilmelding({
+        type: 'tilretteleggeFeilmeldingId',
+        feilmelding: 'Spesifiser om dere har tilrettelagt arbeidsdagen'
+      });
+      return false;
+    } else {
+      dispatchFeilmelding({
+        type: 'tilretteleggeFeilmeldingId',
+        feilmelding: ''
+      });
+      return true;
+    }
+  };
+
   const validateTiltak = (): boolean => {
     if (submitted) {
       if (
@@ -143,21 +159,21 @@ const GravidSide = (props: GravidSideProps) => {
         (!skjema.tiltakBeskrivelse || skjema.tiltakBeskrivelse.length === 0)
       ) {
         dispatchFeilmelding({
-          type: 'tilretteleggeFeilmeldingId',
+          type: 'tiltakFeilmeldingId',
           feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
         });
         return false;
       }
       if (!skjema.tiltak) {
         dispatchFeilmelding({
-          type: 'tilretteleggeFeilmeldingId',
+          type: 'tiltakFeilmeldingId',
           feilmelding: 'Du må oppgi minst ett tiltak dere har prøvd'
         });
         return false;
       }
     }
     dispatchFeilmelding({
-      type: 'tilretteleggeFeilmeldingId',
+      type: 'tiltakFeilmeldingId',
       feilmelding: ''
     });
     return true;
@@ -196,13 +212,21 @@ const GravidSide = (props: GravidSideProps) => {
   };
 
   const validateForm = (): boolean => {
-    const altValidert: boolean = [
-      validateFnr(),
-      validateOrgnr(),
-      validateTiltak(),
-      validateOmplassering(),
-      validateBekreftet()
-    ].every(Boolean);
+    const altValidert: boolean = skjema.tilrettelegge
+      ? [
+          validateFnr(),
+          validateOrgnr(),
+          validateTilrettelegge(),
+          validateTiltak(),
+          validateOmplassering(),
+          validateBekreftet()
+        ].every(Boolean)
+      : [
+          validateFnr(),
+          validateOrgnr(),
+          validateTilrettelegge(),
+          validateBekreftet()
+        ].every(Boolean);
 
     submitted = !altValidert;
     setSubmittedState(submitted);
@@ -386,7 +410,7 @@ const GravidSide = (props: GravidSideProps) => {
                     label='Ja'
                     name='sitteplass'
                     value='ja'
-                    defaultChecked={skjema.tilrettelegge}
+                    defaultChecked={skjema.tilrettelegge === true}
                     onClick={() =>
                       dispatchSkjema({ field: 'tilrettelegge', value: true })
                     }
@@ -395,7 +419,7 @@ const GravidSide = (props: GravidSideProps) => {
                     label='Nei'
                     name='sitteplass'
                     value='nei'
-                    defaultChecked={!skjema.tilrettelegge}
+                    defaultChecked={skjema.tilrettelegge === false}
                     onClick={() =>
                       dispatchSkjema({ field: 'tilrettelegge', value: false })
                     }
@@ -407,8 +431,8 @@ const GravidSide = (props: GravidSideProps) => {
                 <>
                   <CheckboxGruppe
                     legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
-                    feil={feilmelding.tilretteleggeFeilmeldingId}
-                    feilmeldingId='tilretteleggeFeilmeldingId'
+                    feil={feilmelding.tiltak}
+                    feilmeldingId='tiltakFeilmeldingId'
                   >
                     <Checkbox
                       label='Fleksibel eller tilpasset arbeidstid'
