@@ -180,6 +180,7 @@ const GravidSide = (props: GravidSideProps) => {
 
   useEffect(() => {
     validateForm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skjema]);
 
   const handleSubmitClicked = async () => {
