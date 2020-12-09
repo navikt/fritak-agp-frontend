@@ -77,25 +77,30 @@ describe('GravidSide', () => {
   });
 
   // Todo: fixme!
-  // it('skal vise samtlige feilmelding når alle felter mangler', () => {
-  //   render(
-  //     <GravidSide tilrettelegge={true} bekreftet={true} submitted={true} />,
-  //     htmlDivElement
-  //   );
-  //   expect(htmlDivElement.textContent).toContain(
-  //     'Fyll ut gyldig fødselsnummer'
-  //   );
-  //   expect(htmlDivElement.textContent).toContain(
-  //     'Fyll ut gyldig organisasjonsnummer'
-  //   );
-  //   expect(htmlDivElement.textContent).toContain(
-  //     'Du må oppgi minst ett tiltak dere har prøvd'
-  //   );
-  //   // expect(container.textContent).toContain('Spesifiser hvilke tiltak som er forsøkt');
-  //   expect(htmlDivElement.textContent).toContain('Velg omplassering');
-  //   expect(htmlDivElement.textContent).toContain('Last opp dokumentasjon');
-  //   // expect(container.textContent).toContain('Bekreft at opplysningene er korrekt');
-  // });
+  it('skal vise samtlige feilmelding når alle felter mangler', () => {
+    renderTestingLibrary(
+      <GravidSide tilrettelegge={true} bekreftet={true} submitted={true} />
+    );
+
+    fireEvent.click(screen.getByLabelText('Ja'));
+    const submitButton = screen.getByText('Send søknad');
+    fireEvent.click(submitButton);
+
+    expect(screen.queryAllByText(/Fyll ut gyldig fødselsnummer/).length).toBe(
+      2
+    );
+    expect(
+      screen.queryAllByText(/Fyll ut gyldig organisasjonsnummer/).length
+    ).toBe(2);
+    expect(
+      screen.queryAllByText(/Du må oppgi minst ett tiltak dere har prøvd/)
+        .length
+    ).toBe(2);
+    expect(screen.queryAllByText(/Velg omplassering/).length).toBe(2);
+    expect(
+      screen.queryAllByText(/Bekreft at opplysningene er korrekt/).length
+    ).toBe(2);
+  });
 
   it('skal vise fødselsnr, termindato og tilrettelegge - som default', () => {
     render(<GravidSide />, htmlDivElement);
