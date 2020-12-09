@@ -2,29 +2,30 @@ import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
 
 interface skjemaAction {
   field: string;
-  value: string;
+  value: string | boolean;
 }
 
 interface skjemaState {
   fnr?: string;
   orgnr?: string;
   tilrettelegge?: boolean;
-  Tiltak?: Tiltak[];
-  Omplassering?: Omplassering;
-  OmplasseringAarsak?: OmplasseringAarsak;
-  TiltakBeskrivelse?: string;
+  tiltak?: Tiltak[];
+  omplassering?: Omplassering;
+  omplasseringAarsak?: OmplasseringAarsak;
+  tiltakBeskrivelse?: string;
+  bekreftet?: boolean;
 }
 
-function updateTiltakListe(state: skjemaState, field: Tiltak) {
+function updateTiltakListe(state: skjemaState, field: Tiltak): skjemaState {
   const newState: skjemaState = Object.assign({}, state);
-  let stateTiltak: Tiltak[] | undefined = newState.Tiltak;
+  let stateTiltak: Tiltak[] | undefined = newState.tiltak;
   let elementPos = -1;
 
   if (stateTiltak) {
     elementPos = stateTiltak.indexOf(field);
   } else {
-    newState.Tiltak = [];
-    stateTiltak = newState.Tiltak;
+    newState.tiltak = [];
+    stateTiltak = newState.tiltak;
   }
 
   if (elementPos === -1) {
@@ -49,10 +50,10 @@ function skjemaReducer(state: skjemaState, action: skjemaAction): skjemaState {
       setNewState = updateTiltakListe(state, action.field);
       // upsertElement(state, action.field, action.value);
       break;
-    case 'Omplassering':
+    case 'omplassering':
       const omplasseringState: skjemaState = Object.assign({}, state);
       if (action.value !== Omplassering.IKKE_MULIG) {
-        delete omplasseringState['OmplasseringAarsak'];
+        delete omplasseringState['omplasseringAarsak'];
       }
 
       omplasseringState[action.field] = action.value as Omplassering;
