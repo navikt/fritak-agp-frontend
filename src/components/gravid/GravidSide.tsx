@@ -196,7 +196,6 @@ const GravidSide = (props: GravidSideProps) => {
 
     submitted = !altValidert;
     setSubmittedState(submitted);
-    console.log('DETTE GIKK', altValidert);
     return altValidert;
   };
 
@@ -208,10 +207,8 @@ const GravidSide = (props: GravidSideProps) => {
   const handleSubmitClicked = async () => {
     submitted = true;
     setSubmittedState(submitted);
-    console.log('JUHU');
     if (validateForm()) {
       // submit
-      console.log('VALIDERT');
       const payload: lagreGravidesoknadParametere = {
         orgnr: skjema.orgnr,
         fnr: skjema.fnr,
@@ -228,8 +225,6 @@ const GravidSide = (props: GravidSideProps) => {
         environment.baseUrl,
         payload
       );
-
-      console.log('***************************', lagringStatus);
 
       if (lagringStatus.status === RestStatus.Successfully) {
         const backendStatusOK = validateBackendResponse(lagringStatus);
