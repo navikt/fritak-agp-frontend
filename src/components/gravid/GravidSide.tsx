@@ -250,6 +250,7 @@ const GravidSide = (props: GravidSideProps) => {
       });
       return false;
     }
+
     if (isBackendServerError(validering)) {
       dispatchFeilmelding({
         type: 'General',
