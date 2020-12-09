@@ -3,7 +3,7 @@ import RestStatus from './RestStatus';
 import handleStatus from './handleStatus';
 
 export interface lagreGravideInterface {
-  status: number;
+  status: RestStatus;
   validering:
     | lagreGravideValidationError
     | lagreGravideBackendError
@@ -89,6 +89,7 @@ const lagreGravidesoknad = (
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       method: 'POST',
       body: JSON.stringify(bodyPayload)
     })

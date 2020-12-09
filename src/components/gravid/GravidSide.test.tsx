@@ -5,8 +5,14 @@ import GravidStatus from './GravidStatus';
 import { axe } from 'jest-axe';
 import {
   cleanup,
-  render as renderTestingLibrary
+  fireEvent,
+  render as renderTestingLibrary,
+  screen,
+  waitFor
 } from '@testing-library/react';
+
+import testFnr from '../../mockData/testFnr';
+import testOrgnr from '../../mockData/testOrgnr';
 
 describe('GravidSide', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -20,6 +26,7 @@ describe('GravidSide', () => {
     unmountComponentAtNode(htmlDivElement);
     htmlDivElement.remove();
     htmlDivElement = document.createElement('div');
+    jest.restoreAllMocks();
   });
 
   const INFORMASJON = 'Den ansatte';
@@ -69,26 +76,30 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(STATUS_ERROR);
   });
 
-  // Todo: fixme!
-  // it('skal vise samtlige feilmelding når alle felter mangler', () => {
-  //   render(
-  //     <GravidSide tilrettelegge={true} bekreftet={true} submitted={true} />,
-  //     htmlDivElement
-  //   );
-  //   expect(htmlDivElement.textContent).toContain(
-  //     'Fyll ut gyldig fødselsnummer'
-  //   );
-  //   expect(htmlDivElement.textContent).toContain(
-  //     'Fyll ut gyldig organisasjonsnummer'
-  //   );
-  //   expect(htmlDivElement.textContent).toContain(
-  //     'Du må oppgi minst ett tiltak dere har prøvd'
-  //   );
-  //   // expect(container.textContent).toContain('Spesifiser hvilke tiltak som er forsøkt');
-  //   expect(htmlDivElement.textContent).toContain('Velg omplassering');
-  //   expect(htmlDivElement.textContent).toContain('Last opp dokumentasjon');
-  //   // expect(container.textContent).toContain('Bekreft at opplysningene er korrekt');
-  // });
+  it('skal vise samtlige feilmelding når alle felter mangler', () => {
+    renderTestingLibrary(
+      <GravidSide tilrettelegge={true} bekreftet={true} submitted={true} />
+    );
+
+    fireEvent.click(screen.getByLabelText('Ja'));
+    const submitButton = screen.getByText('Send søknad');
+    fireEvent.click(submitButton);
+
+    expect(screen.queryAllByText(/Fyll ut gyldig fødselsnummer/).length).toBe(
+      2
+    );
+    expect(
+      screen.queryAllByText(/Fyll ut gyldig organisasjonsnummer/).length
+    ).toBe(2);
+    expect(
+      screen.queryAllByText(/Du må oppgi minst ett tiltak dere har prøvd/)
+        .length
+    ).toBe(2);
+    expect(screen.queryAllByText(/Velg omplassering/).length).toBe(2);
+    expect(
+      screen.queryAllByText(/Bekreft at opplysningene er korrekt/).length
+    ).toBe(2);
+  });
 
   it('skal vise fødselsnr, termindato og tilrettelegge - som default', () => {
     render(<GravidSide />, htmlDivElement);
@@ -155,6 +166,101 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(SEND_KNAPP);
   });
 
+  it('skal vise feil om backend når det ikke kommer data, etter at man har klikket submit', async () => {
+    renderTestingLibrary(
+      <GravidSide
+        fnr='123'
+        orgnr='123456789'
+        tilrettelegge={false}
+        videre={true}
+      />
+    );
+
+    setupFetchMock(null, 200);
+
+    fyllUtOgSubmit();
+
+    await waitFor(() => {
+      expect(screen.getByText(/Lagringen gikk galt/)).toBeInTheDocument();
+    });
+
+    expect(screen.queryAllByText(/Fyll ut gyldig fødselsnummer/).length).toBe(
+      0
+    );
+    expect(
+      screen.queryAllByText(/Fyll ut gyldig organisasjonsnummer/).length
+    ).toBe(0);
+    expect(
+      screen.queryAllByText(/Du må oppgi minst ett tiltak dere har prøvd/)
+        .length
+    ).toBe(0);
+    expect(screen.queryAllByText(/Velg omplassering/).length).toBe(0);
+    expect(
+      screen.queryAllByText(/Bekreft at opplysningene er korrekt/).length
+    ).toBe(0);
+  });
+
+  it('skal vise feil fra backend, etter at man har klikket submit', async () => {
+    renderTestingLibrary(
+      <GravidSide
+        fnr='123'
+        orgnr='123456789'
+        tilrettelegge={false}
+        videre={true}
+      />
+    );
+
+    const mockData = {
+      title: 'Title feil',
+      status: 'Status feil'
+    };
+
+    setupFetchMock(mockData, 200);
+
+    fyllUtOgSubmit();
+
+    await waitFor(() => {
+      expect(screen.getByText(/Title feil/)).toBeInTheDocument();
+    });
+  });
+
+  it('skal vise valideringsfeil fra backend, etter at man har klikket submit', async () => {
+    renderTestingLibrary(
+      <GravidSide
+        fnr='123'
+        orgnr='123456789'
+        tilrettelegge={false}
+        videre={true}
+      />
+    );
+
+    const mockData = {
+      violations: [
+        {
+          validationType: 'NotNull',
+          message: 'Det angitte feltet er påkrevd',
+          propertyPath: 'ansatteFeilmeldingId',
+          invalidValue: 'null'
+        }
+      ],
+      type: 'urn:nav:helsearbeidsgiver:validation-error',
+      title: 'Valideringen av input feilet',
+      status: 422,
+      detail: 'Ett eller flere felter har feil.',
+      instance: 'about:blank'
+    };
+
+    setupFetchMock(mockData, 200);
+
+    fyllUtOgSubmit();
+
+    await waitFor(() => {
+      expect(
+        screen.queryAllByText(/Det angitte feltet er påkrevd/).length
+      ).toBe(2);
+    });
+  });
+
   it('should have no a11y violations', async () => {
     const { container } = renderTestingLibrary(
       <GravidSide fnr='123' orgnr='123' tilrettelegge={false} videre={true} />
@@ -164,3 +270,47 @@ describe('GravidSide', () => {
     cleanup();
   });
 });
+
+function setupFetchMock(mockData: any, responseStatus: number) {
+  jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
+    Promise.resolve(({
+      status: responseStatus,
+      json: () => Promise.resolve(mockData),
+      text: () => Promise.resolve(null),
+      clone: () => ({
+        json: () => Promise.resolve(mockData),
+        text: () => Promise.resolve(null)
+      })
+    } as unknown) as Response)
+  );
+}
+
+function fyllUtOgSubmit() {
+  const jaCheck = screen.getByLabelText('Ja');
+  fireEvent.click(jaCheck);
+
+  fireEvent.click(screen.getByLabelText('Hjemmekontor'));
+
+  const checker = screen.getAllByLabelText('Ja');
+
+  if (checker) {
+    fireEvent.click(checker[1]);
+  }
+
+  fireEvent.click(screen.getByLabelText(/Jeg bekrefter at opplysningene/));
+
+  const fnr = screen.getByLabelText(/Fødselsnummer/);
+
+  fireEvent.change(fnr, {
+    target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
+  });
+
+  const orgNr = screen.getByLabelText(/Organisasjonsnummer/);
+
+  fireEvent.change(orgNr, {
+    target: { value: testOrgnr.GyldigeOrgnr.TestOrg1 }
+  });
+
+  const submitButton = screen.getByText('Send søknad');
+  fireEvent.click(submitButton);
+}
