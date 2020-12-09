@@ -76,7 +76,6 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(STATUS_ERROR);
   });
 
-  // Todo: fixme!
   it('skal vise samtlige feilmelding når alle felter mangler', () => {
     renderTestingLibrary(
       <GravidSide tilrettelegge={true} bekreftet={true} submitted={true} />

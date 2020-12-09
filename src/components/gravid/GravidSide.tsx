@@ -196,7 +196,7 @@ const GravidSide = (props: GravidSideProps) => {
 
     submitted = !altValidert;
     setSubmittedState(submitted);
-    console.log("DETTE GIKK", altValidert);
+    console.log('DETTE GIKK', altValidert);
     return altValidert;
   };
 
@@ -208,10 +208,10 @@ const GravidSide = (props: GravidSideProps) => {
   const handleSubmitClicked = async () => {
     submitted = true;
     setSubmittedState(submitted);
-    console.log("JUHU");
+    console.log('JUHU');
     if (validateForm()) {
       // submit
-      console.log("VALIDERT");
+      console.log('VALIDERT');
       const payload: lagreGravidesoknadParametere = {
         orgnr: skjema.orgnr,
         fnr: skjema.fnr,
@@ -229,7 +229,7 @@ const GravidSide = (props: GravidSideProps) => {
         payload
       );
 
-      console.log("***************************", lagringStatus);
+      console.log('***************************', lagringStatus);
 
       if (lagringStatus.status === RestStatus.Successfully) {
         const backendStatusOK = validateBackendResponse(lagringStatus);
@@ -593,29 +593,31 @@ const GravidSide = (props: GravidSideProps) => {
                   </SkjemaGruppe>
                 </>
               ) : (
-                <>
-                  <Skillelinje />
-                  <Alertstripe
-                    className='gravidside-alert-gravid'
-                    type='advarsel'
-                  >
-                    <Normaltekst>
-                      Dere må først ha prøvd å tilrettelegge for den gravide.​
-                      Dere kan
-                      <button
-                        className='lenke gravidside-lenke-knapp'
-                        onClick={() => setVidere(true)}
-                      >
-                        gå videre med søknaden
-                      </button>
-                      , men det er altså da sannsynlig at den blir avslått.
-                    </Normaltekst>
-                  </Alertstripe>
-                </>
+                skjema.tilrettelegge === false && (
+                  <>
+                    <Skillelinje />
+                    <Alertstripe
+                      className='gravidside-alert-gravid'
+                      type='advarsel'
+                    >
+                      <Normaltekst>
+                        Dere må først ha prøvd å tilrettelegge for den gravide.​
+                        Dere kan
+                        <button
+                          className='lenke gravidside-lenke-knapp'
+                          onClick={() => setVidere(true)}
+                        >
+                          gå videre med søknaden
+                        </button>
+                        , men det er altså da sannsynlig at den blir avslått.
+                      </Normaltekst>
+                    </Alertstripe>
+                  </>
+                )
               )}
             </Panel>
 
-            {(skjema.tilrettelegge || videre) && (
+            {(skjema.tilrettelegge === true || videre) && (
               <>
                 <Skillelinje />
 
