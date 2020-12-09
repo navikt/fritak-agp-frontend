@@ -166,36 +166,6 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(SEND_KNAPP);
   });
 
-  it('skal vise advarseler etter at man har klikket submit', () => {
-    renderTestingLibrary(
-      <GravidSide
-        fnr='123'
-        orgnr='123456789'
-        tilrettelegge={false}
-        videre={true}
-      />
-    );
-
-    fireEvent.click(screen.getByLabelText('Ja'));
-    const submitButton = screen.getByText('Send søknad');
-    fireEvent.click(submitButton);
-
-    expect(screen.queryAllByText(/Fyll ut gyldig fødselsnummer/).length).toBe(
-      2
-    );
-    expect(
-      screen.queryAllByText(/Fyll ut gyldig organisasjonsnummer/).length
-    ).toBe(2);
-    expect(
-      screen.queryAllByText(/Du må oppgi minst ett tiltak dere har prøvd/)
-        .length
-    ).toBe(2);
-    expect(screen.queryAllByText(/Velg omplassering/).length).toBe(2);
-    expect(
-      screen.queryAllByText(/Bekreft at opplysningene er korrekt/).length
-    ).toBe(2);
-  });
-
   it('skal vise feil om backend når det ikke kommer data, etter at man har klikket submit', async () => {
     renderTestingLibrary(
       <GravidSide
