@@ -1,8 +1,10 @@
 import RestStatus from './RestStatus';
 
 const handleStatus = (response: Response) => {
+  debugger;
   switch (response.status) {
     case 200:
+    case 201:
     case 400:
       return response
         .clone()

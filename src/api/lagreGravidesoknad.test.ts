@@ -44,7 +44,7 @@ describe('lagreGravidesoknad', () => {
     );
 
     expect(await lagreGravidesoknad('/Path', {})).toEqual({
-      status: RestStatus.Successfully,
+      status: RestStatus.Error,
       validering: { iam: 'happy' }
     });
   });

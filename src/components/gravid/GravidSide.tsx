@@ -241,6 +241,10 @@ const GravidSide = (props: GravidSideProps) => {
         });
       }
 
+      if (lagringStatus.status === RestStatus.Created) {
+        history.push(lenker.GravidKvittering);
+      }
+
       setSkjemaStatus(GravidStatus.DEFAULT);
     }
   };

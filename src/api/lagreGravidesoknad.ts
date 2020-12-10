@@ -25,10 +25,11 @@ interface lagreGravidesoknadPostParametere {
   orgnr: string;
   fnr: string;
   tilrettelegge: boolean;
-  tiltak: string[];
-  tiltakBeskrivelse: string;
-  omplassering: string;
-  omplasseringAarsak: string;
+  bekreftet: boolean;
+  tiltak?: string[];
+  tiltakBeskrivelse?: string;
+  omplassering?: string;
+  omplasseringAarsak?: string;
 }
 
 export interface lagreGravideValidationError {
@@ -58,22 +59,38 @@ export interface lagreGravideBackendError {
 const adaptPayload = (
   payload: lagreGravidesoknadParametere
 ): lagreGravidesoknadPostParametere => {
-  return {
+  const postParams: lagreGravidesoknadPostParametere = {
     orgnr: payload.orgnr || '',
     fnr: payload.fnr || '',
     tilrettelegge: payload.tilrettelegge || false,
-    tiltak: (payload.tiltak as string[]) || [],
-    tiltakBeskrivelse: payload.tiltakBeskrivelse || '',
-    omplassering: payload.omplassering || '',
-    omplasseringAarsak: payload.omplasseringAarsak || ''
+    bekreftet: payload.bekreftet || false
   };
+
+  if (payload.tiltak) {
+    postParams['tiltak'] = payload.tiltak as string[];
+  }
+
+  if (payload.tiltakBeskrivelse) {
+    postParams['tiltakBeskrivelse'] = payload.tiltakBeskrivelse;
+  }
+
+  if (payload.omplassering) {
+    postParams['omplassering'] = payload.omplassering;
+  }
+
+  if (payload.omplasseringAarsak) {
+    postParams['omplasseringAarsak'] = payload.omplasseringAarsak;
+  }
+
+  return postParams;
 };
 
 const lagreGravidesoknad = (
   basePath: string,
   payload: lagreGravidesoknadParametere
 ): Promise<lagreGravideInterface> => {
-  const bodyPayload = adaptPayload(payload);
+  const bodyPayload: lagreGravidesoknadPostParametere = adaptPayload(payload);
+  let okStatus = 0;
   return Promise.race([
     new Promise<lagreGravideInterface>((_, reject) => {
       const id = setTimeout(() => {
@@ -93,11 +110,17 @@ const lagreGravidesoknad = (
       method: 'POST',
       body: JSON.stringify(bodyPayload)
     })
-      .then(handleStatus)
-      .then((json) => ({
-        status: RestStatus.Successfully,
-        validering: json
-      }))
+      .then((params) => {
+        okStatus = params.status;
+        return handleStatus(params);
+      })
+      .then((json) => {
+        debugger;
+        return {
+          status: okStatus === 0 ? RestStatus.Successfully : okStatus,
+          validering: json
+        };
+      })
       .catch((status) => ({
         status: status,
         validering: []
