@@ -234,6 +234,13 @@ const GravidSide = (props: GravidSideProps) => {
         }
       }
 
+      if (lagringStatus.status === RestStatus.Unauthorized) {
+        dispatchFeilmelding({
+          type: 'General',
+          feilmelding: 'Du har ikke tilgang til å lagre.'
+        });
+      }
+
       setSkjemaStatus(GravidStatus.DEFAULT);
     }
   };
