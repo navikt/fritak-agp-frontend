@@ -15,6 +15,7 @@ const Fnr = (props: FnrProps) => {
     <FnrInput
       value={props.fnr}
       placeholder={props.placeholder}
+      id='ansatteFeilmeldingId'
       label={props.label}
       onValidate={(valid) => props.onValidate(valid)}
       onChange={(evt) => props.onChange(evt.target.value)}

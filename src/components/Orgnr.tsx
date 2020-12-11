@@ -14,6 +14,7 @@ const Orgnr = (props: OrgnrProps) => {
     <Input
       value={props.orgnr}
       placeholder={props.placeholder}
+      id='arbeidsgiverFeilmeldingId'
       label={props.label}
       onChange={(evt) => props.onChange(evt.target.value)}
       feil={props.feilmelding}

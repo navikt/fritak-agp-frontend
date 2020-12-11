@@ -324,11 +324,7 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
 
             <Panel id='gravidside-panel-ansatte'>
-              <SkjemaGruppe
-                legend='Den ansatte'
-                aria-live='polite'
-                feilmeldingId='ansatteFeilmeldingId'
-              >
+              <SkjemaGruppe legend='Den ansatte' aria-live='polite'>
                 <Row>
                   <Column sm='4' xs='6'>
                     <Fnr
