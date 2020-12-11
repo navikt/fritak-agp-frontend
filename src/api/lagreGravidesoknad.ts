@@ -115,7 +115,6 @@ const lagreGravidesoknad = (
         return handleStatus(params);
       })
       .then((json) => {
-        debugger;
         return {
           status: okStatus === 0 ? RestStatus.Successfully : okStatus,
           validering: json

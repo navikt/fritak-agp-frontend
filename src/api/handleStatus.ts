@@ -1,11 +1,11 @@
 import RestStatus from './RestStatus';
 
 const handleStatus = (response: Response) => {
-  debugger;
   switch (response.status) {
     case 200:
     case 201:
     case 400:
+    case 422:
       return response
         .clone()
         .json()

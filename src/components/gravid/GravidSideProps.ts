@@ -1,4 +1,5 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema/src/feiloppsummering';
+import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
 import GravidStatus from './GravidStatus';
 
 interface GravidSideProps {
@@ -8,11 +9,12 @@ interface GravidSideProps {
   bekreftet?: boolean;
   bekreftetFeilmelding?: string;
   videre?: boolean;
-  tiltak?: string;
+  tiltak?: Tiltak[];
   tiltakBeskrivelse?: string;
   dokumentasjon?: string;
   dokumentasjonFeilmelding?: string;
-  omplassering?: string;
+  omplassering?: Omplassering;
+  omplasseringAarsak?: OmplasseringAarsak;
   validated?: boolean;
   submitted?: boolean;
   feilOppsummeringer?: Array<FeiloppsummeringFeil>;

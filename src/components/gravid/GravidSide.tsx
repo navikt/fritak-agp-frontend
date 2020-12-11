@@ -36,7 +36,7 @@ import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import lenker from '../lenker';
 import feilmeldingReducer from './feilmeldingReducer';
-import skjemaReducer from './skjemaReducer';
+import skjemaReducer, { skjemaState } from './skjemaReducer';
 import isBackendServerError from './isBackendServerError';
 import isBackendValidationError from './isBackendValidationError';
 import Lenke from 'nav-frontend-lenker';
@@ -48,12 +48,26 @@ import GravidSideProps from './GravidSideProps';
 
 const initialStateFeilmelding = {};
 
+function prepareProsForState(props: GravidSideProps): skjemaState {
+  return {
+    fnr: props.fnr,
+    orgnr: props.orgnr,
+    tilrettelegge: props.tilrettelegge,
+    tiltak: props.tiltak,
+    tiltakBeskrivelse: props.tiltakBeskrivelse,
+    omplassering: props.omplassering,
+    bekreftet: props.bekreftet,
+    omplasseringAarsak: props.omplasseringAarsak
+  };
+}
+
 const GravidSide = (props: GravidSideProps) => {
   const [skjemaStatus, setSkjemaStatus] = useState<number>(
     props.status || GravidStatus.DEFAULT
   );
   const [dokumentasjon, setDokumentasjon] = useState<File>();
   const [videre, setVidere] = useState<boolean>(props.videre || false);
+  const [validated, setValidated] = useState<boolean>(props.validated || false);
   const [submittedState, setSubmittedState] = useState<boolean>(
     props.submitted || false
   );
@@ -62,7 +76,8 @@ const GravidSide = (props: GravidSideProps) => {
     feilmeldingReducer,
     initialStateFeilmelding
   );
-  const [skjema, dispatchSkjema] = useReducer(skjemaReducer, {});
+  const initialFormState = prepareProsForState(props);
+  const [skjema, dispatchSkjema] = useReducer(skjemaReducer, initialFormState);
   const history: History = useHistory();
   const handleUploadChanged = (file?: File) => {
     setDokumentasjon(file);
@@ -204,6 +219,13 @@ const GravidSide = (props: GravidSideProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skjema]);
 
+  useEffect(() => {
+    if (validated) {
+      validateForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSubmitClicked = async () => {
     submitted = true;
     setSubmittedState(submitted);
@@ -234,6 +256,10 @@ const GravidSide = (props: GravidSideProps) => {
         }
       }
 
+      if (lagringStatus.status === RestStatus.UnprocessableEntity) {
+        validateBackendResponse(lagringStatus);
+      }
+
       if (lagringStatus.status === RestStatus.Unauthorized) {
         dispatchFeilmelding({
           type: 'General',
@@ -243,9 +269,9 @@ const GravidSide = (props: GravidSideProps) => {
 
       if (lagringStatus.status === RestStatus.Created) {
         history.push(lenker.GravidKvittering);
+      } else {
+        setSkjemaStatus(GravidStatus.DEFAULT);
       }
-
-      setSkjemaStatus(GravidStatus.DEFAULT);
     }
   };
 

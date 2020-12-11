@@ -77,9 +77,7 @@ describe('GravidSide', () => {
   });
 
   it('skal vise samtlige feilmelding når alle felter mangler', () => {
-    renderTestingLibrary(
-      <GravidSide tilrettelegge={true} bekreftet={true} submitted={true} />
-    );
+    renderTestingLibrary(<GravidSide />);
 
     fireEvent.click(screen.getByLabelText('Ja'));
     const submitButton = screen.getByText('Send søknad');
@@ -115,22 +113,26 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).not.toContain(SEND_KNAPP);
   });
 
-  // it('skal vise feilmelding for ugyldig fødselsnummer - validert', () => {
-  //   render(
-  //     <GravidSide fnr="123123" validated={true}/>
-  //     , container
-  //   );
-  //   expect(container.textContent).toContain('Ugyldig fødselsnummer');
-  //   expect(container.textContent).toContain('123123');
-  // })
-  //
-  // it('skal ikke vise feilmelding for ugyldig fødselsnummer - ikke validert', () => {
-  //   render(
-  //     <GravidSide fnr="123" validated={false}/>
-  //     , container
-  //   );
-  //   expect(container.textContent).not.toContain('Ugyldig fødselsnummer');
-  // })
+  it('skal vise feilmelding for ugyldig fødselsnummer - validert', async () => {
+    renderTestingLibrary(
+      <GravidSide fnr='123123' validated={true} submitted={true} />
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Fyll ut gyldig fødselsnummer/)
+      ).toBeInTheDocument();
+      const input = screen.getByLabelText(/11 siffer/);
+      expect(input.value).toBe('123123');
+    });
+  });
+
+  it('skal ikke vise feilmelding for ugyldig fødselsnummer - ikke validert', () => {
+    render(<GravidSide fnr='123' validated={false} />, htmlDivElement);
+    expect(htmlDivElement.textContent).not.toContain(
+      'Fyll ut gyldig fødselsnummer'
+    );
+  });
 
   it('skal ikke vise tiltak, omplassering, dokumentasjon, bekreft og knapp - uten at forsøk er valgt', () => {
     render(
@@ -250,6 +252,43 @@ describe('GravidSide', () => {
       instance: 'about:blank'
     };
 
+    setupFetchMock(mockData, 422);
+
+    fyllUtOgSubmit();
+
+    await waitFor(() => {
+      expect(
+        screen.queryAllByText(/Det angitte feltet er påkrevd/).length
+      ).toBe(2);
+    });
+  });
+
+  it('skal vise valideringsfeil fra backend, etter at man har klikket submit', async () => {
+    renderTestingLibrary(
+      <GravidSide
+        fnr='123'
+        orgnr='123456789'
+        tilrettelegge={false}
+        videre={true}
+      />
+    );
+
+    const mockData = {
+      violations: [
+        {
+          validationType: 'NotNull',
+          message: 'Det angitte feltet er påkrevd',
+          propertyPath: 'ansatteFeilmeldingId',
+          invalidValue: 'null'
+        }
+      ],
+      type: 'urn:nav:helsearbeidsgiver:validation-error',
+      title: 'Valideringen av input feilet',
+      status: 422,
+      detail: 'Ett eller flere felter har feil.',
+      instance: 'about:blank'
+    };
+
     setupFetchMock(mockData, 200);
 
     fyllUtOgSubmit();
@@ -260,6 +299,31 @@ describe('GravidSide', () => {
       ).toBe(2);
     });
   });
+
+  // it('skal vise kvitteringsiden etter at man har klikket submit og backend er fornøyd', async () => {
+  //   const mockHistoryPush = jest.fn();
+
+  //   jest.mock('react-router-dom', () => ({
+  //     useHistory: () => ({
+  //         push: mockHistoryPush
+  //     }),
+  //   }));
+
+  //   renderTestingLibrary(
+  //     <MemoryRouter initialEntries={['/']}>
+  //       <GravidSide />
+  //     </MemoryRouter>
+  //   );
+
+  //   const mockData = "OK";
+
+  //   setupFetchMock(mockData, 201);
+  //   fyllUtOgSubmit();
+
+  //   expect(mockHistoryPush).toHaveBeenCalledWith({});
+
+  //     // Sjekk etter redirect!
+  // });
 
   it('should have no a11y violations', async () => {
     const { container } = renderTestingLibrary(

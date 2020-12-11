@@ -5,7 +5,7 @@ interface skjemaAction {
   value: string | boolean;
 }
 
-interface skjemaState {
+export interface skjemaState {
   fnr?: string;
   orgnr?: string;
   tilrettelegge?: boolean;
