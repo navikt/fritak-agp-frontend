@@ -7,6 +7,28 @@ interface feilmeldingState {
   [name: string]: string;
 }
 
+function setFeilstatus(
+  felt: string,
+  feilmelding: string,
+  state: feilmeldingState | {}
+): feilmeldingState | {} {
+  const newState = Object.assign({}, state);
+  const keys = Object.keys(newState);
+
+  const index = keys.indexOf(felt);
+
+  if (index > -1) {
+    newState[felt] = feilmelding;
+  }
+
+  if (feilmelding === '') {
+    delete newState[felt];
+  } else {
+    newState[felt] = feilmelding;
+  }
+  return newState;
+}
+
 function feilmeldingReducer(
   state: feilmeldingState | {},
   action: feilmeldingAction
@@ -14,22 +36,18 @@ function feilmeldingReducer(
   switch (action.type) {
     case 'clear':
       return {};
+    case 'fnr':
+      return setFeilstatus('ansatteFeilmeldingId', action.feilmelding, state);
+    case 'orgnr':
+      return setFeilstatus(
+        'arbeidsgiverFeilmeldingId',
+        action.feilmelding,
+        state
+      );
+    case 'tiltak':
+      return setFeilstatus('tiltakFeilmeldingId', action.feilmelding, state);
     default:
-      const newState = Object.assign({}, state);
-      const keys = Object.keys(newState);
-
-      const index = keys.indexOf(action.type);
-
-      if (index > -1) {
-        newState[action.type] = action.feilmelding;
-      }
-
-      if (action.feilmelding === '') {
-        delete newState[action.type];
-      } else {
-        newState[action.type] = action.feilmelding;
-      }
-      return newState;
+      return setFeilstatus(action.type, action.feilmelding, state);
   }
 }
 

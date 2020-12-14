@@ -13,6 +13,19 @@ import {
 
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
+import { MemoryRouter } from 'react-router-dom';
+
+const mockHistoryPush = jest.fn();
+// import * as ReactRouterDom from 'react-router-dom';
+
+const actualRouterDom = jest.requireActual('react-router-dom') as any;
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as any),
+  useHistory: () => ({
+    push: mockHistoryPush
+  })
+}));
 
 describe('GravidSide', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -27,6 +40,7 @@ describe('GravidSide', () => {
     htmlDivElement.remove();
     htmlDivElement = document.createElement('div');
     jest.restoreAllMocks();
+    cleanup();
   });
 
   const INFORMASJON = 'Den ansatte';
@@ -301,13 +315,6 @@ describe('GravidSide', () => {
   });
 
   // it('skal vise kvitteringsiden etter at man har klikket submit og backend er fornøyd', async () => {
-  //   const mockHistoryPush = jest.fn();
-
-  //   jest.mock('react-router-dom', () => ({
-  //     useHistory: () => ({
-  //         push: mockHistoryPush
-  //     }),
-  //   }));
 
   //   renderTestingLibrary(
   //     <MemoryRouter initialEntries={['/']}>

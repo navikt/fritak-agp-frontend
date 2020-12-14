@@ -9,7 +9,7 @@ interface SideProps {
 
 const Side = (props: SideProps) => {
   return (
-    <main className='side'>
+    <main className='side' id='maincontent'>
       <Container className={'side__innhold'}>{props.children}</Container>
     </main>
   );
