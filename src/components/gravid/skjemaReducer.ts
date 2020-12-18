@@ -14,6 +14,7 @@ export interface skjemaState {
   omplasseringAarsak?: OmplasseringAarsak;
   tiltakBeskrivelse?: string;
   bekreftet?: boolean;
+  dokumentasjon?: string;
 }
 
 function updateTiltakListe(state: skjemaState, field: Tiltak): skjemaState {

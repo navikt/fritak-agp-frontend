@@ -48,6 +48,15 @@ import GravidSideProps from './GravidSideProps';
 
 const initialStateFeilmelding = {};
 
+function getBase64(file: File) {
+  return new Promise(function (resolve, reject) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
+
 function prepareProsForState(props: GravidSideProps): skjemaState {
   return {
     fnr: props.fnr,
@@ -65,7 +74,6 @@ const GravidSide = (props: GravidSideProps) => {
   const [skjemaStatus, setSkjemaStatus] = useState<number>(
     props.status || GravidStatus.DEFAULT
   );
-  const [dokumentasjon, setDokumentasjon] = useState<File>();
   const [videre, setVidere] = useState<boolean>(props.videre || false);
   const [validated, setValidated] = useState<boolean>(props.validated || false);
   const [submittedState, setSubmittedState] = useState<boolean>(
@@ -80,7 +88,11 @@ const GravidSide = (props: GravidSideProps) => {
   const [skjema, dispatchSkjema] = useReducer(skjemaReducer, initialFormState);
   const history: History = useHistory();
   const handleUploadChanged = (file?: File) => {
-    setDokumentasjon(file);
+    if (file) {
+      getBase64(file).then((base64encoded: any) => {
+        dispatchSkjema({ field: 'dokumentasjon', value: base64encoded });
+      });
+    }
   };
   const isTiltakAnnet =
     skjema.tiltak && skjema.tiltak.indexOf(Tiltak.ANNET) > -1;
@@ -239,7 +251,8 @@ const GravidSide = (props: GravidSideProps) => {
         tiltakBeskrivelse: skjema.tiltakBeskrivelse,
         omplassering: skjema.omplassering,
         omplasseringAarsak: skjema.omplasseringAarsak,
-        bekreftet: skjema.bekreftet
+        bekreftet: skjema.bekreftet,
+        dokumentasjon: skjema.dokumentasjon
       };
 
       setSkjemaStatus(GravidStatus.IN_PROGRESS);
@@ -677,7 +690,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Upload
                       id='upload'
                       label='Last opp dokumentasjon'
-                      extensions='.html,.pdf,.doc'
+                      extensions='.jpg,.pdf'
                       onChange={handleUploadChanged}
                       fileSize={250000}
                     />
