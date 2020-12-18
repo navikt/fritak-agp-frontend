@@ -45,19 +45,11 @@ import feilmeldingsListe from './feilmeldingsListe';
 import isValidOrgnr from './isValidOrgnr';
 import Orgnr from '../Orgnr';
 import GravidSideProps from './GravidSideProps';
+import getBase64file from './getBase64File';
 
 const initialStateFeilmelding = {};
 
-function getBase64(file: File) {
-  return new Promise(function (resolve, reject) {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
-
-function prepareProsForState(props: GravidSideProps): skjemaState {
+function preparePropsForState(props: GravidSideProps): skjemaState {
   return {
     fnr: props.fnr,
     orgnr: props.orgnr,
@@ -84,12 +76,12 @@ const GravidSide = (props: GravidSideProps) => {
     feilmeldingReducer,
     initialStateFeilmelding
   );
-  const initialFormState = prepareProsForState(props);
+  const initialFormState = preparePropsForState(props);
   const [skjema, dispatchSkjema] = useReducer(skjemaReducer, initialFormState);
   const history: History = useHistory();
   const handleUploadChanged = (file?: File) => {
     if (file) {
-      getBase64(file).then((base64encoded: any) => {
+      getBase64file(file).then((base64encoded: any) => {
         dispatchSkjema({ field: 'dokumentasjon', value: base64encoded });
       });
     }
