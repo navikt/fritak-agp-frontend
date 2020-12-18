@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import RestStatus from './RestStatus';
 import handleStatus from './handleStatus';
 
@@ -7,7 +6,7 @@ export interface lagreGravideInterface {
   validering:
     | lagreGravideValidationError
     | lagreGravideBackendError
-    | lagreGravideBackendError[]; // TODO: Tilpass data fra backend
+    | lagreGravideBackendError[];
 }
 
 export interface lagreGravidesoknadParametere {
@@ -19,6 +18,7 @@ export interface lagreGravidesoknadParametere {
   omplassering?: string;
   omplasseringAarsak?: string;
   bekreftet?: boolean;
+  dokumentasjon?: string;
 }
 
 interface lagreGravidesoknadPostParametere {
@@ -80,6 +80,10 @@ const adaptPayload = (
 
   if (payload.omplasseringAarsak) {
     postParams['omplasseringAarsak'] = payload.omplasseringAarsak;
+  }
+
+  if (payload.dokumentasjon) {
+    postParams['dokumentasjon'] = payload.dokumentasjon;
   }
 
   return postParams;
