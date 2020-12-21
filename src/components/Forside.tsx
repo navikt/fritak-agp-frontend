@@ -16,7 +16,7 @@ const Forside = () => {
             Gå til skjema for <Link to='./gravid'>gravide</Link>
           </Normaltekst>
           <Normaltekst>
-            Gå til skjema for <Link to='./gravid'>kronisk syke</Link>
+            Gå til skjema for <Link to='./kronisk'>kronisk syke</Link>
           </Normaltekst>
         </Panel>
       </Column>
