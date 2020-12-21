@@ -1,26 +1,19 @@
 import KroniskState from './KroniskState';
-
-export enum KroniskActionType {
-  Fnr,
-  Orgnr,
-  Reset,
-  Validate
-}
+import { KroniskActions } from './KroniskActions';
 
 export const defaultKroniskState = () => {
   return {};
 };
 
 const KroniskReducer = (state, action): KroniskState => {
-  console.log('Kronisk', action, state);
   switch (action.type) {
-    case KroniskActionType.Fnr:
+    case KroniskActions.Fnr:
       return { fnr: action.payload };
-    case KroniskActionType.Orgnr:
+    case KroniskActions.Orgnr:
       return { orgnr: action.payload };
-    case KroniskActionType.Reset:
+    case KroniskActions.Reset:
       return defaultKroniskState();
-    case KroniskActionType.Validate:
+    case KroniskActions.Validate:
       return {};
     default:
       throw new Error();
