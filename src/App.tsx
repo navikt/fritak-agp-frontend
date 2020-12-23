@@ -7,12 +7,12 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './locales/i18n';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import GravidSide from './components/gravid/GravidSide';
-import KroniskSide from './components/kronisk/KroniskSide';
 import Forside from './components/Forside';
 import GravidKvittering from './components/gravid/GravidKvittering';
 import env from './environment';
 import lenker from './components/lenker';
 import Side from './components/Side';
+import KroniskSide from './components/kronisk/KroniskSide';
 
 const App = () => {
   return (
