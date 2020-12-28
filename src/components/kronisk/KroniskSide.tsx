@@ -435,13 +435,13 @@ const KroniskSide = (props: GravidSideProps) => {
                 <CheckboxGruppe
                   legend='Hva slags arbeid utfører den ansatte?'
                   feil={feilmelding.tiltakFeilmeldingId}
-                  feilmeldingId='tiltakFeilmeldingId'
+                  feilmeldingId='arbeidsutfører'
                 >
                   <Column sm='4' xs='6'>
                     <Checkbox
                       label='Stillesittende arbeid'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'stillesittende'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -456,7 +456,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Moderat fysisk arbeid'
                       value={Tiltak.HJEMMEKONTOR}
-                      id={'hjemmekontor'}
+                      id={'moderat'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.HJEMMEKONTOR,
@@ -471,7 +471,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Fysisk krevende arbeid'
                       value={Tiltak.TILPASSEDE_ARBEIDSOPPGAVER}
-                      id={'oppgaver'}
+                      id={'fysisk'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSEDE_ARBEIDSOPPGAVER,
@@ -491,13 +491,13 @@ const KroniskSide = (props: GravidSideProps) => {
                 <CheckboxGruppe
                   legend='Hvilke påkjenninger innebærer arbeidet?​'
                   feil={feilmelding.tiltakFeilmeldingId}
-                  feilmeldingId='tiltakFeilmeldingId'
+                  feilmeldingId='påkjenninger'
                 >
                   <Column sm='4' xs='6'>
                     <Checkbox
                       label='Allergener eller giftstofferd'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'allergener'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -512,7 +512,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Ukomfortabel temperatur eller luftfuktighet​'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'ukomfortabel'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -527,7 +527,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Stressende omgivelser'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'stressende'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -542,7 +542,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Regelmessige kveldsskift eller nattskift'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'regelmessige'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -557,7 +557,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Mye gåing/ståing'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'gåing'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -574,7 +574,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Harde gulv'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'harde'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -589,7 +589,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Tunge løft'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'tunge'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
@@ -604,7 +604,7 @@ const KroniskSide = (props: GravidSideProps) => {
                     <Checkbox
                       label='Annet, gi en kort beskrivelse:'
                       value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
+                      id={'annet'}
                       onChange={(evt) =>
                         dispatchSkjema({
                           field: Tiltak.TILPASSET_ARBEIDSTID,
