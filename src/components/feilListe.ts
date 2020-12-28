@@ -1,6 +1,6 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 
-const feilmeldingsliste = (feilmelding: {
+const feilListe = (feilmelding: {
   [key: string]: string;
 }): FeiloppsummeringFeil[] =>
   Object.keys(feilmelding).map((element) => ({
@@ -8,4 +8,4 @@ const feilmeldingsliste = (feilmelding: {
     feilmelding: feilmelding[element]
   }));
 
-export default feilmeldingsliste;
+export default feilListe;

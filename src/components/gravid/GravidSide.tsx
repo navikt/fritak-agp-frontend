@@ -41,11 +41,11 @@ import isBackendServerError from './isBackendServerError';
 import isBackendValidationError from './isBackendValidationError';
 import Lenke from 'nav-frontend-lenker';
 import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
-import feilmeldingsListe from './feilmeldingsListe';
 import isValidOrgnr from './isValidOrgnr';
 import Orgnr from '../Orgnr';
 import GravidSideProps from './GravidSideProps';
 import getBase64file from './getBase64File';
+import feilListe from '../feilListe';
 
 const initialStateFeilmelding = {};
 
@@ -315,7 +315,7 @@ const GravidSide = (props: GravidSideProps) => {
     return true;
   };
 
-  const feilmeldingsliste = feilmeldingsListe(feilmelding);
+  const feilmeldingsliste = feilListe(feilmelding);
   if (!feilmeldingsliste) {
     setSubmittedState(false);
   }
