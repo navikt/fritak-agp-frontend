@@ -617,6 +617,7 @@ const KroniskSide = (props: GravidSideProps) => {
                       }
                     />
                     <Textarea
+                      label='annet'
                       value={skjema.tiltakBeskrivelse || ''}
                       feil={feilmelding.tilretteleggeFeilmeldingId}
                       onChange={(evt) =>
@@ -716,7 +717,7 @@ const KroniskSide = (props: GravidSideProps) => {
                               <tr key={year + month}>
                                 <td>{month}</td>
                                 <td>
-                                  <Input aria-labelledby='' defaultValue='' />
+                                  <Input defaultValue='' />
                                 </td>
                               </tr>
                             ))}
