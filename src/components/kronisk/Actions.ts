@@ -37,5 +37,5 @@ export interface Payload {
 
 export interface KroniskAction {
   type: Actions;
-  payload?: Payload;
+  payload?: any; // todo: fixme
 }
