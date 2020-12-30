@@ -29,6 +29,7 @@ import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
 import { ArbeidType } from './ArbeidType';
 import { PåkjenningerType } from './PåkjenningerType';
+import getBase64file from '../gravid/getBase64File';
 
 const initialStateFeilmelding = {};
 
@@ -62,13 +63,13 @@ const KroniskSide = (props: KroniskState) => {
   // const initialFormState = preparePropsForState(props);
   // const [skjema, dispatchSkjema] = useReducer(skjemaReducer, initialFormState);
   // const history: History = useHistory();
-  // const handleUploadChanged = (file?: File) => {
-  //   if (file) {
-  //     getBase64file(file).then((base64encoded: any) => {
-  //       dispatchSkjema({ field: 'dokumentasjon', value: base64encoded });
-  //     });
-  //   }
-  // };
+  const handleUploadChanged = (file?: File) => {
+    if (file) {
+      getBase64file(file).then((base64encoded: any) => {
+        dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
+      });
+    }
+  };
   // const isTiltakAnnet =
   // //   skjema.tiltak && skjema.tiltak.indexOf(Tiltak.ANNET) > -1;
   //
@@ -504,221 +505,226 @@ const KroniskSide = (props: KroniskState) => {
                       PåkjenningerType.RegelmessigKveldsskift
                     )}
                   />
-                  {/*        <Checkbox*/}
-                  {/*          label='Mye gåing/ståing'*/}
-                  {/*          value={Tiltak.TILPASSET_ARBEIDSTID}*/}
-                  {/*          id={'gåing'}*/}
-                  {/*          onChange={(evt) =>*/}
-                  {/*            dispatchSkjema({*/}
-                  {/*              field: Tiltak.TILPASSET_ARBEIDSTID,*/}
-                  {/*              value: evt.currentTarget.value*/}
-                  {/*            })*/}
-                  {/*          }*/}
-                  {/*          checked={*/}
-                  {/*            skjema.tiltak &&*/}
-                  {/*            skjema.tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1*/}
-                  {/*          }*/}
-                  {/*        />*/}
-                  {/*      </Column>*/}
-                  {/*      <Column sm='4' xs='6'>*/}
-                  {/*        <Checkbox*/}
-                  {/*          label='Harde gulv'*/}
-                  {/*          value={Tiltak.TILPASSET_ARBEIDSTID}*/}
-                  {/*          id={'harde'}*/}
-                  {/*          onChange={(evt) =>*/}
-                  {/*            dispatchSkjema({*/}
-                  {/*              field: Tiltak.TILPASSET_ARBEIDSTID,*/}
-                  {/*              value: evt.currentTarget.value*/}
-                  {/*            })*/}
-                  {/*          }*/}
-                  {/*          checked={*/}
-                  {/*            skjema.tiltak &&*/}
-                  {/*            skjema.tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1*/}
-                  {/*          }*/}
-                  {/*        />*/}
-                  {/*        <Checkbox*/}
-                  {/*          label='Tunge løft'*/}
-                  {/*          value={Tiltak.TILPASSET_ARBEIDSTID}*/}
-                  {/*          id={'tunge'}*/}
-                  {/*          onChange={(evt) =>*/}
-                  {/*            dispatchSkjema({*/}
-                  {/*              field: Tiltak.TILPASSET_ARBEIDSTID,*/}
-                  {/*              value: evt.currentTarget.value*/}
-                  {/*            })*/}
-                  {/*          }*/}
-                  {/*          checked={*/}
-                  {/*            skjema.tiltak &&*/}
-                  {/*            skjema.tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1*/}
-                  {/*          }*/}
-                  {/*        />*/}
-                  {/*        <Checkbox*/}
-                  {/*          label='Annet, gi en kort beskrivelse:'*/}
-                  {/*          value={Tiltak.TILPASSET_ARBEIDSTID}*/}
-                  {/*          id={'annet'}*/}
-                  {/*          onChange={(evt) =>*/}
-                  {/*            dispatchSkjema({*/}
-                  {/*              field: Tiltak.TILPASSET_ARBEIDSTID,*/}
-                  {/*              value: evt.currentTarget.value*/}
-                  {/*            })*/}
-                  {/*          }*/}
-                  {/*          checked={*/}
-                  {/*            skjema.tiltak &&*/}
-                  {/*            skjema.tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1*/}
-                  {/*          }*/}
-                  {/*        />*/}
-                  {/*        <Textarea*/}
-                  {/*          label='annet'*/}
-                  {/*          value={skjema.tiltakBeskrivelse || ''}*/}
-                  {/*          feil={feilmelding.tilretteleggeFeilmeldingId}*/}
-                  {/*          onChange={(evt) =>*/}
-                  {/*            dispatchSkjema({*/}
-                  {/*              field: 'tiltakBeskrivelse',*/}
-                  {/*              value: evt.currentTarget.value*/}
-                  {/*            })*/}
-                  {/*          }*/}
-                  {/*          disabled={!isTiltakAnnet}*/}
-                  {/*        />*/}
-                  {/*      </Column>*/}
-                  {/*    </CheckboxGruppe>*/}
-                  {/*  </SkjemaGruppe>*/}
-
-                  {/*  {!skjema.tilrettelegge && skjema.tilrettelegge === false && (*/}
-                  {/*    <>*/}
-                  {/*      <Skillelinje />*/}
-                  {/*      <Alertstripe*/}
-                  {/*        className='gravidside-alert-gravid'*/}
-                  {/*        type='advarsel'*/}
-                  {/*      >*/}
-                  {/*        <Normaltekst>*/}
-                  {/*          Dere må først ha prøvd å tilrettelegge for den gravide.​*/}
-                  {/*          Dere kan*/}
-                  {/*          <button*/}
-                  {/*            className='lenke gravidside-lenke-knapp'*/}
-                  {/*            onClick={() => setVidere(true)}*/}
-                  {/*          >*/}
-                  {/*            gå videre med søknaden*/}
-                  {/*          </button>*/}
-                  {/*          , men det er altså da sannsynlig at den blir avslått.*/}
-                  {/*        </Normaltekst>*/}
-                  {/*      </Alertstripe>*/}
-                  {/*    </>*/}
-                  {/*  )}*/}
-                  {/*</Panel>*/}
-
-                  {/*{(skjema.tilrettelegge === true || videre) && (*/}
-                  {/*  <>*/}
-                  {/*    <Skillelinje />*/}
-
-                  {/*    <Panel>*/}
-                  {/*      <SkjemaGruppe*/}
-                  {/*        legend='Hvis dere har fått dokumentasjon fra den ansatte'*/}
-                  {/*        feil={feilmelding.dokumentasjonFeilmeldingId}*/}
-                  {/*        feilmeldingId='dokumentasjonFeilmeldingId'*/}
-                  {/*        aria-live='polite'*/}
-                  {/*      >*/}
-                  {/*        <Normaltekst>*/}
-                  {/*          Som arbeidsgiver kan dere ikke kreve å få se*/}
-                  {/*          helseopplysninger. Men hvis den ansatte allerede har gitt*/}
-                  {/*          dere slik dokumentasjon frivillig, kan dere skanne eller*/}
-                  {/*          ta bilde av den og laste den opp her. Vi tar imot .pdf*/}
-                  {/*          .jpeg, .png, og de fleste formater fra smarttelefonkamera.*/}
-                  {/*        </Normaltekst>*/}
-                  {/*        <br />*/}
-                  {/*        <Normaltekst>*/}
-                  {/*          NAV kan også selv innhente dokumentasjon fra legen hvis*/}
-                  {/*          det er nødvendig.*/}
-                  {/*        </Normaltekst>*/}
-                  {/*        <Upload*/}
-                  {/*          id='upload'*/}
-                  {/*          label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'*/}
-                  {/*          extensions='.jpg,.pdf'*/}
-                  {/*          onChange={handleUploadChanged}*/}
-                  {/*          fileSize={250000}*/}
-                  {/*        />*/}
-                  {/*      </SkjemaGruppe>*/}
-                  {/*    </Panel>*/}
-
-                  {/*    <Skillelinje />*/}
-                  {/*    <Panel>*/}
-                  {/*      <SkjemaGruppe*/}
-                  {/*        legend='Fraværet'*/}
-                  {/*        feil={feilmelding.dokumentasjonFeilmeldingId}*/}
-                  {/*        feilmeldingId='dokumentasjonFeilmeldingId'*/}
-                  {/*        aria-live='polite'*/}
-                  {/*      >*/}
-                  {/*        <Normaltekst>*/}
-                  {/*          Skriv inn antall dager med sykefravære relatert til*/}
-                  {/*          søknaden i hver måned. Dere kan gå 3 år tilbake i tid hvis*/}
-                  {/*          både arbeidsforholdet og helseproblemene har vart så*/}
-                  {/*          lenge.*/}
-                  {/*        </Normaltekst>*/}
-
-                  {/*        <table className='tabell tabell--stripet'>*/}
-                  {/*          <tr>*/}
-                  {/*            {years.map((year) => (*/}
-                  {/*              <th key={year}>*/}
-                  {/*                {year}*/}
-                  {/*                <tr>*/}
-                  {/*                  {headers.map((header) => (*/}
-                  {/*                    <th key={year + header}>{header}</th>*/}
-                  {/*                  ))}*/}
-                  {/*                </tr>*/}
-                  {/*                {months.map((month) => (*/}
-                  {/*                  <tr key={year + month}>*/}
-                  {/*                    <td>{month}</td>*/}
-                  {/*                    <td>*/}
-                  {/*                      <Input defaultValue='' />*/}
-                  {/*                    </td>*/}
-                  {/*                  </tr>*/}
-                  {/*                ))}*/}
-                  {/*              </th>*/}
-                  {/*            ))}*/}
-                  {/*          </tr>*/}
-
-                  {/*          <tbody></tbody>*/}
-                  {/*        </table>*/}
-                  {/*      </SkjemaGruppe>*/}
-                  {/*    </Panel>*/}
-
-                  {/*    <Skillelinje />*/}
-
-                  {/*    <Panel>*/}
-                  {/*      <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>*/}
-                  {/*        <BekreftCheckboksPanel*/}
-                  {/*          label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'*/}
-                  {/*          checked={skjema.bekreftet || false}*/}
-                  {/*          feil={feilmelding.bekreftFeilmeldingId}*/}
-                  {/*          onChange={() =>*/}
-                  {/*            dispatchSkjema({*/}
-                  {/*              field: 'bekreftet',*/}
-                  {/*              value: !skjema.bekreftet*/}
-                  {/*            })*/}
-                  {/*          }*/}
-                  {/*        >*/}
-                  {/*          Jeg vet at NAV kan trekke tilbake retten til å få dekket*/}
-                  {/*          sykepengene i arbeidsgiverperioden hvis opplysningene ikke*/}
-                  {/*          er riktige eller fullstendige.*/}
-                  {/*        </BekreftCheckboksPanel>*/}
-                  {/*      </SkjemaGruppe>*/}
-                  {/*    </Panel>*/}
-
-                  {/*    {feilmeldingsliste.length > 0 && (*/}
-                  {/*      <Panel>*/}
-                  {/*        <Feiloppsummering*/}
-                  {/*          tittel='For å gå videre må du rette opp følgende:'*/}
-                  {/*          feil={feilmeldingsliste}*/}
-                  {/*        />*/}
-                  {/*      </Panel>*/}
-                  {/*    )}*/}
-                  {/*    <Panel>*/}
-                  {/*      <Hovedknapp onClick={handleSubmitClicked}>*/}
-                  {/*        Send søknad*/}
-                  {/*      </Hovedknapp>*/}
-                  {/*    </Panel>*/}
+                  <Checkbox
+                    label='Mye gåing/ståing'
+                    value={PåkjenningerType.Gåing}
+                    id={'gåing'}
+                    onChange={(evt) =>
+                      dispatch({
+                        type: Actions.TogglePaakjenninger,
+                        payload: evt.currentTarget.value
+                      })
+                    }
+                    checked={props.påkjenninger?.includes(
+                      PåkjenningerType.Gåing
+                    )}
+                  />
+                </Column>
+                <Column sm='4' xs='6'>
+                  <Checkbox
+                    label='Harde gulv'
+                    value={PåkjenningerType.HardeGulv}
+                    id={'harde'}
+                    onChange={(evt) =>
+                      dispatch({
+                        type: Actions.TogglePaakjenninger,
+                        payload: evt.currentTarget.value
+                      })
+                    }
+                    checked={props.påkjenninger?.includes(
+                      PåkjenningerType.HardeGulv
+                    )}
+                  />
+                  <Checkbox
+                    label='Tunge løft'
+                    value={PåkjenningerType.TungeLøft}
+                    id={'tunge'}
+                    onChange={(evt) =>
+                      dispatch({
+                        type: Actions.TogglePaakjenninger,
+                        payload: evt.currentTarget.value
+                      })
+                    }
+                    checked={props.påkjenninger?.includes(
+                      PåkjenningerType.TungeLøft
+                    )}
+                  />
+                  <Checkbox
+                    label='Annet, gi en kort beskrivelse:'
+                    value={PåkjenningerType.Annet}
+                    id={'annet'}
+                    onChange={(evt) =>
+                      dispatch({
+                        type: Actions.TogglePaakjenninger,
+                        payload: evt.currentTarget.value
+                      })
+                    }
+                    checked={props.påkjenninger?.includes(
+                      PåkjenningerType.Annet
+                    )}
+                  />
+                  <Textarea
+                    label='annet'
+                    value={props.kommentar || ''}
+                    feil={props.kommentarError}
+                    onChange={(evt) =>
+                      dispatch({
+                        type: Actions.Kommentar,
+                        payload: evt.currentTarget.value
+                      })
+                    }
+                    disabled={
+                      !props.påkjenninger?.includes(PåkjenningerType.Annet)
+                    }
+                  />
                 </Column>
               </CheckboxGruppe>
             </SkjemaGruppe>
+
+            {/*{!skjema.tilrettelegge && skjema.tilrettelegge === false && (*/}
+            {/*  <>*/}
+            {/*    <Skillelinje />*/}
+            {/*    <Alertstripe*/}
+            {/*      className='gravidside-alert-gravid'*/}
+            {/*      type='advarsel'*/}
+            {/*    >*/}
+            {/*      <Normaltekst>*/}
+            {/*        Dere må først ha prøvd å tilrettelegge for den gravide.​*/}
+            {/*        Dere kan*/}
+            {/*        <button*/}
+            {/*          className='lenke gravidside-lenke-knapp'*/}
+            {/*          onClick={() => setVidere(true)}*/}
+            {/*        >*/}
+            {/*          gå videre med søknaden*/}
+            {/*        </button>*/}
+            {/*        , men det er altså da sannsynlig at den blir avslått.*/}
+            {/*      </Normaltekst>*/}
+            {/*    </Alertstripe>*/}
+            {/*  </>*/}
+            {/*)}*/}
           </Panel>
+
+          {/*{(skjema.tilrettelegge === true || videre) && (*/}
+          <>
+            <Skillelinje />
+
+            <Panel>
+              <SkjemaGruppe
+                legend='Hvis dere har fått dokumentasjon fra den ansatte'
+                feil={props.dokumentasjonError}
+                feilmeldingId='dokumentasjon'
+                aria-live='polite'
+              >
+                <Normaltekst>
+                  Som arbeidsgiver kan dere ikke kreve å få se
+                  helseopplysninger. Men hvis den ansatte allerede har gitt dere
+                  slik dokumentasjon frivillig, kan dere skanne eller ta bilde
+                  av den og laste den opp her. Vi tar imot .pdf .jpeg, .png, og
+                  de fleste formater fra smarttelefonkamera.
+                </Normaltekst>
+                <br />
+                <Normaltekst>
+                  NAV kan også selv innhente dokumentasjon fra legen hvis det er
+                  nødvendig.
+                </Normaltekst>
+                <Upload
+                  id='upload'
+                  label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
+                  extensions='.jpg,.pdf'
+                  onChange={handleUploadChanged}
+                  fileSize={250000}
+                />
+              </SkjemaGruppe>
+            </Panel>
+
+            <Skillelinje />
+            <Panel>
+              <SkjemaGruppe
+                legend='Fraværet'
+                feil={props.fraværError}
+                feilmeldingId='fravær'
+                aria-live='polite'
+              >
+                <Normaltekst>
+                  Skriv inn antall dager med sykefravære relatert til søknaden i
+                  hver måned. Dere kan gå 3 år tilbake i tid hvis både
+                  arbeidsforholdet og helseproblemene har vart så lenge.
+                </Normaltekst>
+
+                <table className='tabell tabell--stripet'>
+                  <tr>
+                    {years.map((year) => (
+                      <th key={year}>
+                        {year}
+                        <tr>
+                          {headers.map((header) => (
+                            <th key={year + header}>{header}</th>
+                          ))}
+                        </tr>
+                        {months.map((month) => (
+                          <tr key={year + month}>
+                            <td>{month}</td>
+                            <td>
+                              <Input
+                                defaultValue=''
+                                onChange={(event) =>
+                                  dispatch({
+                                    type: Actions.Fravær,
+                                    payload: {
+                                      period: `${year}-${month}`,
+                                      value: event.target.value
+                                    } // todo: support
+                                  })
+                                }
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </th>
+                    ))}
+                  </tr>
+
+                  <tbody></tbody>
+                </table>
+              </SkjemaGruppe>
+            </Panel>
+
+            <Skillelinje />
+
+            <Panel>
+              <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
+                <BekreftCheckboksPanel
+                  label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
+                  checked={props.bekreft || false}
+                  feil={props.bekreftError}
+                  onChange={() =>
+                    dispatch({
+                      type: Actions.Bekreft,
+                      payload: !props.bekreft
+                    })
+                  }
+                >
+                  Jeg vet at NAV kan trekke tilbake retten til å få dekket
+                  sykepengene i arbeidsgiverperioden hvis opplysningene ikke er
+                  riktige eller fullstendige.
+                </BekreftCheckboksPanel>
+              </SkjemaGruppe>
+            </Panel>
+
+            {/*{feilmeldingsliste.length > 0 && (*/}
+            {/*  <Panel>*/}
+            {/*    <Feiloppsummering*/}
+            {/*      tittel='For å gå videre må du rette opp følgende:'*/}
+            {/*      feil={feilmeldingsliste}*/}
+            {/*    />*/}
+            {/*  </Panel>*/}
+            {/*)}*/}
+            {/*<Panel>*/}
+            {/*  <Hovedknapp onClick={handleSubmitClicked}>*/}
+            {/*    Send søknad*/}
+            {/*  </Hovedknapp>*/}
+            {/*</Panel>*/}
+          </>
           {/*)}*/}
         </SideIndentering>
         {/*)}*/}
