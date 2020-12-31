@@ -81,7 +81,7 @@
     "react-dom": "^16.14.0",
     "react-flatpickr": "^3.10.6",
     "react-hook-form": "^5.7.2",
-    "react-i18next": "^11.7.3",
+    "react-i18next": "^11.8.3",
     "react-modal": "^3.11.2",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
