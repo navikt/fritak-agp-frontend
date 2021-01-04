@@ -304,7 +304,7 @@ const KroniskSide = (props: KroniskState) => {
   //   setSubmittedState(false);
   // }
 
-  const years: string[] = ['2017', '2018', '2019', '2020'];
+  const years: number[] = [2017, 2018, 2019, 2020];
   const headers: string[] = ['Måned', 'Dager'];
   const months: string[] = [
     'Jan',
@@ -360,7 +360,7 @@ const KroniskSide = (props: KroniskState) => {
                     feilmelding={props.fnrError}
                     onValidate={() => {}}
                     onChange={(fnr: string) =>
-                      dispatch({ type: Actions.Fnr, payload: fnr })
+                      dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })
                     }
                   />
                 </Column>
@@ -371,7 +371,10 @@ const KroniskSide = (props: KroniskState) => {
                     placeholder='9 siffer'
                     feilmelding={props.orgnrError}
                     onChange={(orgnr: string) =>
-                      dispatch({ type: Actions.Orgnr, payload: orgnr })
+                      dispatch({
+                        type: Actions.Orgnr,
+                        payload: { orgnr: orgnr }
+                      })
                     }
                   />
                 </Column>
@@ -411,7 +414,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.ToggleArbeid,
-                        payload: evt.currentTarget.value
+                        payload: { arbeid: ArbeidType.Stillesittende }
                       })
                     }
                     checked={props.arbeid?.includes(ArbeidType.Stillesittende)}
@@ -423,7 +426,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.ToggleArbeid,
-                        payload: evt.currentTarget.value
+                        payload: { arbeid: ArbeidType.Moderat }
                       })
                     }
                     checked={props.arbeid?.includes(ArbeidType.Moderat)}
@@ -435,7 +438,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.ToggleArbeid,
-                        payload: evt.currentTarget.value
+                        payload: { arbeid: ArbeidType.Krevende }
                       })
                     }
                     checked={props.arbeid?.includes(ArbeidType.Krevende)}
@@ -456,7 +459,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.Allergener }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -470,7 +473,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.Ukomfortabel }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -484,7 +487,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.Stressende }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -498,7 +501,9 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: {
+                          påkjenning: PåkjenningerType.RegelmessigKveldsskift
+                        }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -512,7 +517,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.Gåing }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -528,7 +533,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.HardeGulv }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -542,7 +547,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.TungeLøft }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -556,7 +561,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.TogglePaakjenninger,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.Annet }
                       })
                     }
                     checked={props.påkjenninger?.includes(
@@ -570,7 +575,7 @@ const KroniskSide = (props: KroniskState) => {
                     onChange={(evt) =>
                       dispatch({
                         type: Actions.Kommentar,
-                        payload: evt.currentTarget.value
+                        payload: { påkjenning: PåkjenningerType.Annet }
                       })
                     }
                     disabled={
@@ -580,220 +585,119 @@ const KroniskSide = (props: KroniskState) => {
                 </Column>
               </CheckboxGruppe>
             </SkjemaGruppe>
-
-            {/*{!skjema.tilrettelegge && skjema.tilrettelegge === false && (*/}
-            {/*  <>*/}
-            {/*    <Skillelinje />*/}
-            {/*    <Alertstripe*/}
-            {/*      className='gravidside-alert-gravid'*/}
-            {/*      type='advarsel'*/}
-            {/*    >*/}
-            {/*      <Normaltekst>*/}
-            {/*        Dere må først ha prøvd å tilrettelegge for den gravide.​*/}
-            {/*        Dere kan*/}
-            {/*        <button*/}
-            {/*          className='lenke gravidside-lenke-knapp'*/}
-            {/*          onClick={() => setVidere(true)}*/}
-            {/*        >*/}
-            {/*          gå videre med søknaden*/}
-            {/*        </button>*/}
-            {/*        , men det er altså da sannsynlig at den blir avslått.*/}
-            {/*      </Normaltekst>*/}
-            {/*    </Alertstripe>*/}
-            {/*  </>*/}
-            {/*)}*/}
           </Panel>
 
-          {/*{(skjema.tilrettelegge === true || videre) && (*/}
-          <>
-            <Skillelinje />
+          <Skillelinje />
 
-            <Panel>
-              <SkjemaGruppe
-                legend='Hvis dere har fått dokumentasjon fra den ansatte'
-                feil={props.dokumentasjonError}
-                feilmeldingId='dokumentasjon'
-                aria-live='polite'
-              >
-                <Normaltekst>
-                  Som arbeidsgiver kan dere ikke kreve å få se
-                  helseopplysninger. Men hvis den ansatte allerede har gitt dere
-                  slik dokumentasjon frivillig, kan dere skanne eller ta bilde
-                  av den og laste den opp her. Vi tar imot .pdf .jpeg, .png, og
-                  de fleste formater fra smarttelefonkamera.
-                </Normaltekst>
-                <br />
-                <Normaltekst>
-                  NAV kan også selv innhente dokumentasjon fra legen hvis det er
-                  nødvendig.
-                </Normaltekst>
-                <Upload
-                  id='upload'
-                  label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
-                  extensions='.jpg,.pdf'
-                  onChange={handleUploadChanged}
-                  fileSize={250000}
-                />
-              </SkjemaGruppe>
-            </Panel>
+          <Panel>
+            <SkjemaGruppe
+              legend='Hvis dere har fått dokumentasjon fra den ansatte'
+              feil={props.dokumentasjonError}
+              feilmeldingId='dokumentasjon'
+              aria-live='polite'
+            >
+              <Normaltekst>
+                Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger.
+                Men hvis den ansatte allerede har gitt dere slik dokumentasjon
+                frivillig, kan dere skanne eller ta bilde av den og laste den
+                opp her. Vi tar imot .pdf .jpeg, .png, og de fleste formater fra
+                smarttelefonkamera.
+              </Normaltekst>
+              <br />
+              <Normaltekst>
+                NAV kan også selv innhente dokumentasjon fra legen hvis det er
+                nødvendig.
+              </Normaltekst>
+              <Upload
+                id='upload'
+                label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
+                extensions='.jpg,.pdf'
+                onChange={handleUploadChanged}
+                fileSize={250000}
+              />
+            </SkjemaGruppe>
+          </Panel>
 
-            <Skillelinje />
-            <Panel>
-              <SkjemaGruppe
-                legend='Fraværet'
-                feil={props.fraværError}
-                feilmeldingId='fravær'
-                aria-live='polite'
-              >
-                <Normaltekst>
-                  Skriv inn antall dager med sykefravære relatert til søknaden i
-                  hver måned. Dere kan gå 3 år tilbake i tid hvis både
-                  arbeidsforholdet og helseproblemene har vart så lenge.
-                </Normaltekst>
+          <Skillelinje />
+          <Panel>
+            <SkjemaGruppe
+              legend='Fraværet'
+              feil={props.fraværError}
+              feilmeldingId='fravær'
+              aria-live='polite'
+            >
+              <Normaltekst>
+                Skriv inn antall dager med sykefravære relatert til søknaden i
+                hver måned. Dere kan gå 3 år tilbake i tid hvis både
+                arbeidsforholdet og helseproblemene har vart så lenge.
+              </Normaltekst>
 
-                <table className='tabell tabell--stripet'>
-                  <tr>
-                    {years.map((year) => (
-                      <th key={year}>
-                        {year}
-                        <tr>
-                          {headers.map((header) => (
-                            <th key={year + header}>{header}</th>
-                          ))}
-                        </tr>
-                        {months.map((month) => (
-                          <tr key={year + month}>
-                            <td>{month}</td>
-                            <td>
-                              <Input
-                                defaultValue=''
-                                onChange={(event) =>
-                                  dispatch({
-                                    type: Actions.Fravær,
-                                    payload: {
-                                      period: `${year}-${month}`,
-                                      value: event.target.value
-                                    } // todo: support
-                                  })
-                                }
-                              />
-                            </td>
-                          </tr>
+              <table className='tabell tabell--stripet'>
+                <tr>
+                  {years.map((year) => (
+                    <th key={year}>
+                      {year}
+                      <tr>
+                        {headers.map((header) => (
+                          <th key={year + header}>{header}</th>
                         ))}
-                      </th>
-                    ))}
-                  </tr>
+                      </tr>
+                      {months.map((month) => (
+                        <tr key={year + month}>
+                          <td>{month}</td>
+                          <td>
+                            <Input
+                              defaultValue=''
+                              onChange={(event) =>
+                                dispatch({
+                                  type: Actions.Fravær,
+                                  payload: {
+                                    fravær: {
+                                      year: year,
+                                      month: month,
+                                      dager: parseInt(event.target.value)
+                                    }
+                                  }
+                                })
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </th>
+                  ))}
+                </tr>
 
-                  <tbody></tbody>
-                </table>
-              </SkjemaGruppe>
-            </Panel>
+                <tbody></tbody>
+              </table>
+            </SkjemaGruppe>
+          </Panel>
 
-            <Skillelinje />
+          <Skillelinje />
 
-            <Panel>
-              <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
-                <BekreftCheckboksPanel
-                  label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                  checked={props.bekreft || false}
-                  feil={props.bekreftError}
-                  onChange={() =>
-                    dispatch({
-                      type: Actions.Bekreft,
-                      payload: !props.bekreft
-                    })
-                  }
-                >
-                  Jeg vet at NAV kan trekke tilbake retten til å få dekket
-                  sykepengene i arbeidsgiverperioden hvis opplysningene ikke er
-                  riktige eller fullstendige.
-                </BekreftCheckboksPanel>
-              </SkjemaGruppe>
-            </Panel>
-
-            {/*{feilmeldingsliste.length > 0 && (*/}
-            {/*  <Panel>*/}
-            {/*    <Feiloppsummering*/}
-            {/*      tittel='For å gå videre må du rette opp følgende:'*/}
-            {/*      feil={feilmeldingsliste}*/}
-            {/*    />*/}
-            {/*  </Panel>*/}
-            {/*)}*/}
-            {/*<Panel>*/}
-            {/*  <Hovedknapp onClick={handleSubmitClicked}>*/}
-            {/*    Send søknad*/}
-            {/*  </Hovedknapp>*/}
-            {/*</Panel>*/}
-          </>
-          {/*)}*/}
+          <Panel>
+            <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
+              <BekreftCheckboksPanel
+                label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
+                checked={props.bekreft || false}
+                feil={props.bekreftError}
+                onChange={() =>
+                  dispatch({
+                    type: Actions.Bekreft,
+                    payload: { bekreft: !props.bekreft }
+                  })
+                }
+              >
+                Jeg vet at NAV kan trekke tilbake retten til å få dekket
+                sykepengene i arbeidsgiverperioden hvis opplysningene ikke er
+                riktige eller fullstendige.
+              </BekreftCheckboksPanel>
+            </SkjemaGruppe>
+          </Panel>
         </SideIndentering>
-        {/*)}*/}
       </Column>
     </Row>
   );
 };
 
 export default KroniskSide;
-
-/*
-const KroniskSide = (props: KroniskState) => {
-  const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
-  const { fnr, fnrError, feilmeldinger } = state;
-
-     <Panel>
-          <Innholdstittel>Kronisk</Innholdstittel>
-        </Panel>
-        <Panel>
-          <FnrInput
-            value={fnr}
-            onValidate={() => {}}
-            onChange={(evt) =>
-              dispatch({
-                type: Actions.Fnr,
-                payload: {
-                  fnr: evt.currentTarget.value
-                }
-              })
-            }
-            feil={fnrError}
-          />
-        </Panel>
-        <Panel>
-          {feilmeldinger?.length && (
-            <Feiloppsummering
-              tittel='For å gå videre må du rette opp følgende:'
-              feil={feilmeldinger}
-            />
-          )}
-        </Panel>
-        <Panel>
-          <button
-            onClick={() =>
-              dispatch({
-                type: Actions.ToggleArbeid,
-                payload: { arbeid: ArbeidType.Krevende }
-              })
-            }
-          >
-            Arbeid
-          </button>
-
-          <button
-            onClick={() =>
-              dispatch({
-                type: Actions.Fravær,
-                payload: { fravær: { year: 2018, month: 10, dager: 2 } }
-              })
-            }
-          >
-            År 1 Mnd 10 Dag 5 = 0
-          </button>
-
-          <button onClick={() => dispatch({ type: Actions.Validate })}>
-            Validate
-          </button>
-          <button onClick={() => dispatch({ type: Actions.Reset })}>
-            Reset
-          </button>
-        </Panel>
- */

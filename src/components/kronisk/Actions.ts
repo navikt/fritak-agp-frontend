@@ -18,7 +18,7 @@ export enum Actions {
 
 export interface FraværType {
   year: number;
-  month: number;
+  month: string;
   dager?: number;
 }
 
@@ -37,5 +37,5 @@ export interface Payload {
 
 export interface KroniskAction {
   type: Actions;
-  payload?: any; // todo: fixme
+  payload?: Payload;
 }
