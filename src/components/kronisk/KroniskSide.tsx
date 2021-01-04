@@ -654,8 +654,11 @@ const KroniskSide = (props: KroniskState) => {
                                   payload: {
                                     fravær: {
                                       year: year,
-                                      month: month,
-                                      dager: parseInt(event.target.value)
+                                      month: months.indexOf(month),
+                                      dager:
+                                        event.target.value == ''
+                                          ? undefined
+                                          : parseInt(event.target.value)
                                     }
                                   }
                                 })

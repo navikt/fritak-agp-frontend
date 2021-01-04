@@ -7,46 +7,46 @@ const KroniskReducer = (
   action: KroniskAction
 ): KroniskState => {
   const nextState = Object.assign({}, state);
-  console.log(action.payload);
+  const { payload } = action;
   switch (action.type) {
     case Actions.Fnr:
-      nextState.fnr = action.payload?.fnr;
+      nextState.fnr = payload?.fnr;
       return nextState;
 
     case Actions.Orgnr:
-      nextState.orgnr = action.payload?.orgnr;
+      nextState.orgnr = payload?.orgnr;
       return nextState;
 
     case Actions.ToggleArbeid: // Toggler en input
-      if (action.payload?.arbeid === undefined) {
+      if (payload?.arbeid === undefined) {
         throw new Error('Du må spesifisere arbeidstype');
       }
       if (!nextState.arbeid) {
         nextState.arbeid = [];
       }
-      nextState.arbeid.push(action.payload?.arbeid!);
+      nextState.arbeid.push(payload?.arbeid!);
       return nextState;
 
     case Actions.TogglePaakjenninger:
-      if (action.payload?.påkjenning === undefined) {
+      if (payload?.påkjenning === undefined) {
         throw new Error('Du må spesifisere påkjenning');
       }
       if (!nextState.påkjenninger) {
         nextState.påkjenninger = [];
       }
-      nextState.påkjenninger.push(action.payload?.påkjenning!);
+      nextState.påkjenninger.push(payload?.påkjenning!);
       return nextState;
 
     case Actions.Kommentar:
-      nextState.kommentar = action.payload?.kommentar;
+      nextState.kommentar = payload?.kommentar;
       return nextState;
 
     case Actions.Dokumentasjon:
-      nextState.dokumentasjon = action.payload?.dokumentasjon;
+      nextState.dokumentasjon = payload?.dokumentasjon;
       return nextState;
 
     case Actions.Fravær: //
-      if (!action.payload?.fravær) {
+      if (!payload?.fravær) {
         throw new Error('Du må spesifisere fravær');
       }
 
@@ -54,21 +54,21 @@ const KroniskReducer = (
         nextState.fravær = [];
       }
 
-      let { fravær } = action.payload;
+      let { fravær } = payload;
       const { year, month, dager } = fravær;
       nextState.fravær.push({ year: year, [month]: dager });
       return nextState;
 
     case Actions.Bekreft:
-      nextState.bekreft = action.payload?.bekreft;
+      nextState.bekreft = payload?.bekreft;
       return nextState;
 
     case Actions.Progress:
-      nextState.progress = action.payload?.progress;
+      nextState.progress = payload?.progress;
       return nextState;
 
     case Actions.Kvittering:
-      nextState.kvittering = action.payload?.kvittering;
+      nextState.kvittering = payload?.kvittering;
       return nextState;
 
     case Actions.Validate:
@@ -90,7 +90,7 @@ const KroniskReducer = (
       return Object.assign({}, defaultKroniskState());
 
     default:
-      throw new Error('Ugyldig action');
+      throw new Error(`Ugyldig action: ${action.type}`);
   }
 };
 

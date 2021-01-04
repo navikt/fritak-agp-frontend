@@ -18,7 +18,7 @@ export enum Actions {
 
 export interface FraværType {
   year: number;
-  month: string;
+  month: number;
   dager?: number;
 }
 
