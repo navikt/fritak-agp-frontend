@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -6,13 +6,9 @@ import {
   BekreftCheckboksPanel,
   Checkbox,
   CheckboxGruppe,
-  Feiloppsummering,
-  Input,
   SkjemaGruppe,
   Textarea
 } from 'nav-frontend-skjema';
-import Alertstripe from 'nav-frontend-alertstriper';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import Skillelinje from '../Skillelinje';
 import SoknadTittel from '../SoknadTittel';
 import SideIndentering from '../SideIndentering';
@@ -21,48 +17,16 @@ import Upload from '../Upload';
 import './KroniskSide.scss';
 import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../Orgnr';
-import GravidSideProps from '../gravid/GravidSideProps';
-import { skjemaState } from '../gravid/skjemaReducer';
-import { Tiltak } from '../gravid/gravidSideEnums';
 import KroniskState, { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
 import { ArbeidType } from './ArbeidType';
 import { PåkjenningerType } from './PåkjenningerType';
 import getBase64file from '../gravid/getBase64File';
-
-const initialStateFeilmelding = {};
-
-function preparePropsForState(props: GravidSideProps): skjemaState {
-  return {
-    fnr: props.fnr,
-    orgnr: props.orgnr,
-    tilrettelegge: props.tilrettelegge,
-    tiltak: props.tiltak,
-    tiltakBeskrivelse: props.tiltakBeskrivelse,
-    omplassering: props.omplassering,
-    bekreftet: props.bekreftet,
-    omplasseringAarsak: props.omplasseringAarsak
-  };
-}
+import DagerTabell from './DagerTabell';
 
 const KroniskSide = (props: KroniskState) => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
-  const { fnr, fnrError, feilmeldinger } = state;
-  // const [skjemaStatus, setSkjemaStatus] = useState<number>(
-  //   props.status || GravidStatus.DEFAULT
-  // );
-  // const [videre, setVidere] = useState<boolean>(props.videre || false);
-  const [validated, setValidated] = useState<boolean>(props.validated || false);
-  const [submittedState, setSubmittedState] = useState<boolean>(false);
-  let submitted: boolean = submittedState;
-  // const [feilmelding, dispatchFeilmelding] = useReducer(
-  //   feilmeldingReducer,
-  //   initialStateFeilmelding
-  // );
-  // const initialFormState = preparePropsForState(props);
-  // const [skjema, dispatchSkjema] = useReducer(skjemaReducer, initialFormState);
-  // const history: History = useHistory();
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
@@ -70,257 +34,6 @@ const KroniskSide = (props: KroniskState) => {
       });
     }
   };
-  // const isTiltakAnnet =
-  // //   skjema.tiltak && skjema.tiltak.indexOf(Tiltak.ANNET) > -1;
-  //
-  // const validateFnr = (): boolean => {
-  //   if (!submitted || (skjema.fnr && isValidFnr(skjema.fnr))) {
-  //     dispatchFeilmelding({
-  //       type: 'ansatteFeilmeldingId',
-  //       feilmelding: ''
-  //     });
-  //     return true;
-  //   } else {
-  //     dispatchFeilmelding({
-  //       type: 'ansatteFeilmeldingId',
-  //       feilmelding: 'Fyll ut gyldig fødselsnummer'
-  //     });
-  //     return false;
-  //   }
-  // };
-  //
-  // const validateOrgnr = (): boolean => {
-  //   if (!submitted || (skjema.orgnr && isValidOrgnr(skjema.orgnr))) {
-  //     dispatchFeilmelding({
-  //       type: 'arbeidsgiverFeilmeldingId',
-  //       feilmelding: ''
-  //     });
-  //     return true;
-  //   } else {
-  //     dispatchFeilmelding({
-  //       type: 'arbeidsgiverFeilmeldingId',
-  //       feilmelding: 'Fyll ut gyldig organisasjonsnummer'
-  //     });
-  //     return false;
-  //   }
-  // };
-  //
-  // const validateTilrettelegge = (): boolean => {
-  //   if (submitted && skjema.tilrettelegge === undefined) {
-  //     dispatchFeilmelding({
-  //       type: 'tilretteleggeFeilmeldingId',
-  //       feilmelding: 'Spesifiser om dere har tilrettelagt arbeidsdagen'
-  //     });
-  //     return false;
-  //   } else {
-  //     dispatchFeilmelding({
-  //       type: 'tilretteleggeFeilmeldingId',
-  //       feilmelding: ''
-  //     });
-  //     return true;
-  //   }
-  // };
-  //
-  // const validateTiltak = (): boolean => {
-  //   if (submitted) {
-  //     if (
-  //       isTiltakAnnet &&
-  //       (!skjema.tiltakBeskrivelse || skjema.tiltakBeskrivelse.length === 0)
-  //     ) {
-  //       dispatchFeilmelding({
-  //         type: 'tiltakFeilmeldingId',
-  //         feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
-  //       });
-  //       return false;
-  //     }
-  //     if (!skjema.tiltak) {
-  //       dispatchFeilmelding({
-  //         type: 'tiltakFeilmeldingId',
-  //         feilmelding: 'Du må oppgi minst ett tiltak dere har prøvd'
-  //       });
-  //       return false;
-  //     }
-  //   }
-  //   dispatchFeilmelding({
-  //     type: 'tiltakFeilmeldingId',
-  //     feilmelding: ''
-  //   });
-  //   return true;
-  // };
-  //
-  // const validateOmplassering = (): boolean => {
-  //   if (submitted && !skjema.omplassering) {
-  //     dispatchFeilmelding({
-  //       type: 'omplasseringFeilmeldingId',
-  //       feilmelding: 'Velg omplassering'
-  //     });
-  //     return false;
-  //   } else {
-  //     dispatchFeilmelding({
-  //       type: 'omplasseringFeilmeldingId',
-  //       feilmelding: ''
-  //     });
-  //     return true;
-  //   }
-  // };
-  //
-  // const validateBekreftet = (): boolean => {
-  //   if (submitted && !skjema.bekreftet) {
-  //     dispatchFeilmelding({
-  //       type: 'bekreftFeilmeldingId',
-  //       feilmelding: 'Bekreft at opplysningene er korrekt'
-  //     });
-  //     return false;
-  //   } else {
-  //     dispatchFeilmelding({
-  //       type: 'bekreftFeilmeldingId',
-  //       feilmelding: ''
-  //     });
-  //     return true;
-  //   }
-  // };
-  //
-  // const validateForm = (): boolean => {
-  //   const altValidert: boolean = skjema.tilrettelegge
-  //     ? [
-  //         validateFnr(),
-  //         validateOrgnr(),
-  //         validateTilrettelegge(),
-  //         validateTiltak(),
-  //         validateOmplassering(),
-  //         validateBekreftet()
-  //       ].every(Boolean)
-  //     : [
-  //         validateFnr(),
-  //         validateOrgnr(),
-  //         validateTilrettelegge(),
-  //         validateBekreftet()
-  //       ].every(Boolean);
-  //
-  //   submitted = !altValidert;
-  //   setSubmittedState(submitted);
-  //   return altValidert;
-  // };
-  //
-  // useEffect(() => {
-  //   validateForm();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [skjema]);
-  //
-  // useEffect(() => {
-  //   if (validated) {
-  //     validateForm();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-  //
-  // const handleSubmitClicked = async () => {
-  //   submitted = true;
-  //   setSubmittedState(submitted);
-  //   if (validateForm()) {
-  //     // submit
-  //     const payload: lagreGravidesoknadParametere = {
-  //       orgnr: skjema.orgnr,
-  //       fnr: skjema.fnr,
-  //       tilrettelegge: skjema.tilrettelegge,
-  //       tiltak: skjema.tiltak,
-  //       tiltakBeskrivelse: skjema.tiltakBeskrivelse,
-  //       omplassering: skjema.omplassering,
-  //       omplasseringAarsak: skjema.omplasseringAarsak,
-  //       bekreftet: skjema.bekreftet,
-  //       dokumentasjon: skjema.dokumentasjon
-  //     };
-  //
-  //     setSkjemaStatus(GravidStatus.IN_PROGRESS);
-  //     const lagringStatus = await lagreGravidesoknad(
-  //       environment.baseUrl,
-  //       payload
-  //     );
-  //
-  //     if (lagringStatus.status === RestStatus.Successfully) {
-  //       const backendStatusOK = validateBackendResponse(lagringStatus);
-  //
-  //       if (backendStatusOK) {
-  //         history.push(lenker.GravidKvittering);
-  //       }
-  //     }
-  //
-  //     if (lagringStatus.status === RestStatus.UnprocessableEntity) {
-  //       validateBackendResponse(lagringStatus);
-  //     }
-  //
-  //     if (lagringStatus.status === RestStatus.Unauthorized) {
-  //       dispatchFeilmelding({
-  //         type: 'General',
-  //         feilmelding: 'Du har ikke tilgang til å lagre.'
-  //       });
-  //     }
-  //
-  //     if (lagringStatus.status === RestStatus.Created) {
-  //       history.push(lenker.GravidKvittering);
-  //     } else {
-  //       setSkjemaStatus(GravidStatus.DEFAULT);
-  //     }
-  //   }
-  // };
-  //
-  // const validateBackendResponse = (
-  //   beResponse: lagreGravideInterface
-  // ): boolean => {
-  //   const validering = beResponse.validering;
-  //
-  //   if (!beResponse.validering) {
-  //     dispatchFeilmelding({
-  //       type: 'General',
-  //       feilmelding: 'Lagringen gikk galt'
-  //     });
-  //     return false;
-  //   }
-  //
-  //   if (isBackendServerError(validering)) {
-  //     dispatchFeilmelding({
-  //       type: 'General',
-  //       feilmelding: `${validering.title} (${validering.status})`
-  //     });
-  //     return false;
-  //   }
-  //
-  //   if (isBackendValidationError(validering)) {
-  //     ((validering as unknown) as lagreGravideValidationError).violations.forEach(
-  //       (error) => {
-  //         dispatchFeilmelding({
-  //           type: error.propertyPath,
-  //           feilmelding: error.message
-  //         });
-  //       }
-  //     );
-  //     return false;
-  //   }
-  //   return true;
-  // };
-  //
-  // const feilmeldingsliste = feilListe(feilmelding);
-  // if (!feilmeldingsliste) {
-  //   setSubmittedState(false);
-  // }
-
-  const years: number[] = [2017, 2018, 2019, 2020];
-  const headers: string[] = ['Måned', 'Dager'];
-  const months: string[] = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'Mai',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Okt',
-    'Nov',
-    'Des'
-  ];
-
   return (
     <Row>
       <Column>
@@ -619,6 +332,7 @@ const KroniskSide = (props: KroniskState) => {
           </Panel>
 
           <Skillelinje />
+
           <Panel>
             <SkjemaGruppe
               legend='Fraværet'
@@ -632,56 +346,20 @@ const KroniskSide = (props: KroniskState) => {
                 arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
 
-              <table className='tabell tabell--stripet'>
-                <thead>
-                  <tr key={'years-header'}>
-                    {years.map((year) => (
-                      <th key={year} colSpan={2}>
-                        {year}
-                      </th>
-                    ))}
-                  </tr>
-                  <tr key={'months-header'}>
-                    {years.map((year) => (
-                      <>
-                        <th key={'month-' + year}>Måned</th>
-                        <th key={'days-' + year}>Dager</th>
-                      </>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {months.map((month) => (
-                    <tr key={month}>
-                      {years.map((year) => (
-                        <>
-                          <td>{month}</td>
-                          <td>
-                            <Input
-                              defaultValue=''
-                              onChange={(event) =>
-                                dispatch({
-                                  type: Actions.Fravær,
-                                  payload: {
-                                    fravær: {
-                                      year: year,
-                                      month: months.indexOf(month),
-                                      dager:
-                                        event.target.value == ''
-                                          ? undefined
-                                          : parseInt(event.target.value)
-                                    }
-                                  }
-                                })
-                              }
-                            />
-                          </td>
-                        </>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <DagerTabell
+                onChange={(evt) => {
+                  dispatch({
+                    type: Actions.Fravær,
+                    payload: {
+                      fravær: {
+                        year: evt.year,
+                        month: evt.month,
+                        dager: evt.days
+                      }
+                    }
+                  });
+                }}
+              />
             </SkjemaGruppe>
           </Panel>
 
