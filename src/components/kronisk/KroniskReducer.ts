@@ -7,6 +7,7 @@ const KroniskReducer = (
   action: KroniskAction
 ): KroniskState => {
   const nextState = Object.assign({}, state);
+  console.log(action.payload);
   switch (action.type) {
     case Actions.Fnr:
       nextState.fnr = action.payload?.fnr;
@@ -17,7 +18,7 @@ const KroniskReducer = (
       return nextState;
 
     case Actions.ToggleArbeid: // Toggler en input
-      if (action.payload?.arbeid) {
+      if (action.payload?.arbeid === undefined) {
         throw new Error('Du må spesifisere arbeidstype');
       }
       if (!nextState.arbeid) {
@@ -27,7 +28,7 @@ const KroniskReducer = (
       return nextState;
 
     case Actions.TogglePaakjenninger:
-      if (!action.payload?.påkjenning) {
+      if (action.payload?.påkjenning === undefined) {
         throw new Error('Du må spesifisere påkjenning');
       }
       if (!nextState.påkjenninger) {
@@ -54,90 +55,8 @@ const KroniskReducer = (
       }
 
       let { fravær } = action.payload;
-      const { dager, month } = fravær;
-
-      const existingYear = nextState.fravær!!.find(
-        (f) => f.year === fravær!!.year
-      );
-      if (existingYear) {
-        switch (month) {
-          case 1:
-            existingYear.jan = dager;
-            break;
-          case 2:
-            existingYear.feb = dager;
-            break;
-          case 3:
-            existingYear.mar = dager;
-            break;
-          case 4:
-            existingYear.apr = dager;
-            break;
-          case 5:
-            existingYear.mai = dager;
-            break;
-          case 6:
-            existingYear.jun = dager;
-            break;
-          case 7:
-            existingYear.jul = dager;
-            break;
-          case 8:
-            existingYear.aug = dager;
-            break;
-          case 9:
-            existingYear.sep = dager;
-            break;
-          case 10:
-            existingYear.okt = dager;
-            break;
-          case 11:
-            existingYear.nov = dager;
-            break;
-          case 12:
-            existingYear.des = dager;
-            break;
-        }
-      } else {
-        switch (month) {
-          case 1:
-            nextState.fravær.push({ year: fravær?.year, jan: dager });
-            break;
-          case 2:
-            nextState.fravær.push({ year: fravær?.year, feb: dager });
-            break;
-          case 3:
-            nextState.fravær.push({ year: fravær?.year, mar: dager });
-            break;
-          case 4:
-            nextState.fravær.push({ year: fravær?.year, apr: dager });
-            break;
-          case 5:
-            nextState.fravær.push({ year: fravær?.year, mai: dager });
-            break;
-          case 6:
-            nextState.fravær.push({ year: fravær?.year, jun: dager });
-            break;
-          case 7:
-            nextState.fravær.push({ year: fravær?.year, jul: dager });
-            break;
-          case 8:
-            nextState.fravær.push({ year: fravær?.year, aug: dager });
-            break;
-          case 9:
-            nextState.fravær.push({ year: fravær?.year, sep: dager });
-            break;
-          case 10:
-            nextState.fravær.push({ year: fravær?.year, okt: dager });
-            break;
-          case 11:
-            nextState.fravær.push({ year: fravær?.year, nov: dager });
-            break;
-          case 12:
-            nextState.fravær.push({ year: fravær?.year, des: dager });
-            break;
-        }
-      }
+      const { year, month, dager } = fravær;
+      nextState.fravær.push({ year: year, [month]: dager });
       return nextState;
 
     case Actions.Bekreft:
