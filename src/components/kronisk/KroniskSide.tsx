@@ -633,17 +633,28 @@ const KroniskSide = (props: KroniskState) => {
               </Normaltekst>
 
               <table className='tabell tabell--stripet'>
-                <tr>
-                  {years.map((year) => (
-                    <th key={year}>
-                      {year}
-                      <tr>
-                        {headers.map((header) => (
-                          <th key={year + header}>{header}</th>
-                        ))}
-                      </tr>
-                      {months.map((month) => (
-                        <tr key={year + month}>
+                <thead>
+                  <tr key={'years-header'}>
+                    {years.map((year) => (
+                      <th key={year} colSpan={2}>
+                        {year}
+                      </th>
+                    ))}
+                  </tr>
+                  <tr key={'months-header'}>
+                    {years.map((year) => (
+                      <>
+                        <th key={'month-' + year}>Måned</th>
+                        <th key={'days-' + year}>Dager</th>
+                      </>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {months.map((month) => (
+                    <tr key={month}>
+                      {years.map((year) => (
+                        <>
                           <td>{month}</td>
                           <td>
                             <Input
@@ -665,13 +676,11 @@ const KroniskSide = (props: KroniskState) => {
                               }
                             />
                           </td>
-                        </tr>
+                        </>
                       ))}
-                    </th>
+                    </tr>
                   ))}
-                </tr>
-
-                <tbody></tbody>
+                </tbody>
               </table>
             </SkjemaGruppe>
           </Panel>
