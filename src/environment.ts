@@ -10,9 +10,9 @@ class Environment {
       case EnvironmentType.PROD:
         return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true';
       case EnvironmentType.PREPROD_DEV:
-        return 'https://loginservice.dev.nav.no/login?redirect=https://fritakagp.dev.nav.no/?loggedIn=true';
+        return 'http://fritakagp.dev.nav.no/local/cookie-please?subject=01234567890&redirect=https://fritak-agp-frontend.dev.nav.no/fritak-agp/?loggedIn=true';
       default:
-        return 'http://fritakagp.dev.nav.no/local/cookie-please?subject=12321&redirect=http://localhost:3000/fritak-agp/?loggedIn=true';
+        return 'http://fritakagp.dev.nav.no/local/cookie-please?subject=01234567890&redirect=http://localhost:3000/fritak-agp/?loggedIn=true';
     }
   }
 
