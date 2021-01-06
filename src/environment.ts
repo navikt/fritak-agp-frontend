@@ -21,7 +21,7 @@ class Environment {
       case EnvironmentType.PROD:
         return 'https://fritakagp.nav.no/fritak-agp';
       case EnvironmentType.PREPROD_DEV:
-        return 'https://fritakagp.dev.nav.no/fritak-agp';
+        return 'https://fritakagp.dev.nav.no';
       default:
         return 'https://fritakagp.dev.nav.no';
     }

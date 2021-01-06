@@ -49,7 +49,7 @@ describe('Environment', () => {
     // @ts-ignore
     window.location = new URL('https://www.dev.nav.no');
 
-    expect(env.baseUrl).toBe('https://fritakagp.dev.nav.no/fritak-agp');
+    expect(env.baseUrl).toBe('https://fritakagp.dev.nav.no');
   });
 
   it('should return the baseUrl url for preprod q', () => {
