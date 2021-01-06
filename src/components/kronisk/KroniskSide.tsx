@@ -7,6 +7,7 @@ import {
   Checkbox,
   CheckboxGruppe,
   Feiloppsummering,
+  Input,
   SkjemaGruppe,
   Textarea
 } from 'nav-frontend-skjema';
@@ -22,7 +23,7 @@ import KroniskState, { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
 import { ArbeidType } from './ArbeidType';
-import { PåkjenningerType } from './PåkjenningerType';
+import { PaakjenningerType } from './PaakjenningerType';
 import getBase64file from '../gravid/getBase64File';
 import DagerTabell from './DagerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -69,7 +70,11 @@ const KroniskSide = (props: KroniskState) => {
           <Skillelinje />
 
           <Panel id='gravidside-panel-ansatte'>
-            <SkjemaGruppe legend='Den ansatte' aria-live='polite'>
+            <SkjemaGruppe
+              legend='Den ansatte'
+              aria-live='polite'
+              feilmeldingId={'ansatt'}
+            >
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
@@ -171,132 +176,135 @@ const KroniskSide = (props: KroniskState) => {
 
               <CheckboxGruppe
                 legend='Hvilke påkjenninger innebærer arbeidet?'
-                feil={state.påkjenningerError}
-                feilmeldingId='påkjenninger'
+                feil={state.paakjenningerError}
+                feilmeldingId='paakjenninger'
               >
                 <Row>
                   <Column sm='4' xs='6'>
                     <Checkbox
                       label='Allergener eller giftstofferd'
-                      value={PåkjenningerType.Allergener}
+                      value={PaakjenningerType.Allergener}
                       id={'allergener'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
-                          payload: { påkjenning: PåkjenningerType.Allergener }
+                          payload: { paakjenning: PaakjenningerType.Allergener }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.Allergener
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.Allergener
                       )}
                     />
                     <Checkbox
                       label='Ukomfortabel temperatur eller luftfuktighet​'
-                      value={PåkjenningerType.Ukomfortabel}
+                      value={PaakjenningerType.Ukomfortabel}
                       id={'ukomfortabel'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
-                          payload: { påkjenning: PåkjenningerType.Ukomfortabel }
+                          payload: {
+                            paakjenning: PaakjenningerType.Ukomfortabel
+                          }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.Ukomfortabel
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.Ukomfortabel
                       )}
                     />
                     <Checkbox
                       label='Stressende omgivelser'
-                      value={PåkjenningerType.Stressende}
+                      value={PaakjenningerType.Stressende}
                       id={'stressende'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
-                          payload: { påkjenning: PåkjenningerType.Stressende }
+                          payload: { paakjenning: PaakjenningerType.Stressende }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.Stressende
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.Stressende
                       )}
                     />
                     <Checkbox
                       label='Regelmessige kveldsskift eller nattskift'
-                      value={PåkjenningerType.RegelmessigKveldsskift}
+                      value={PaakjenningerType.RegelmessigKveldsskift}
                       id={'regelmessige'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
                           payload: {
-                            påkjenning: PåkjenningerType.RegelmessigKveldsskift
+                            paakjenning:
+                              PaakjenningerType.RegelmessigKveldsskift
                           }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.RegelmessigKveldsskift
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.RegelmessigKveldsskift
                       )}
                     />
                     <Checkbox
                       label='Mye gåing/ståing'
-                      value={PåkjenningerType.Gåing}
+                      value={PaakjenningerType.Gåing}
                       id={'gåing'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
-                          payload: { påkjenning: PåkjenningerType.Gåing }
+                          payload: { paakjenning: PaakjenningerType.Gåing }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.Gåing
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.Gåing
                       )}
                     />
                   </Column>
                   <Column sm='4' xs='6'>
                     <Checkbox
                       label='Harde gulv'
-                      value={PåkjenningerType.HardeGulv}
+                      value={PaakjenningerType.HardeGulv}
                       id={'harde'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
-                          payload: { påkjenning: PåkjenningerType.HardeGulv }
+                          payload: { paakjenning: PaakjenningerType.HardeGulv }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.HardeGulv
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.HardeGulv
                       )}
                     />
                     <Checkbox
                       label='Tunge løft'
-                      value={PåkjenningerType.TungeLøft}
+                      value={PaakjenningerType.TungeLøft}
                       id={'tunge'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
-                          payload: { påkjenning: PåkjenningerType.TungeLøft }
+                          payload: { paakjenning: PaakjenningerType.TungeLøft }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.TungeLøft
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.TungeLøft
                       )}
                     />
                     <Checkbox
                       label='Annet, gi en kort beskrivelse:'
-                      value={PåkjenningerType.Annet}
+                      value={PaakjenningerType.Annet}
                       id={'annet'}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.TogglePaakjenninger,
-                          payload: { påkjenning: PåkjenningerType.Annet }
+                          payload: { paakjenning: PaakjenningerType.Annet }
                         })
                       }
-                      checked={state.påkjenninger?.includes(
-                        PåkjenningerType.Annet
+                      checked={state.paakjenninger?.includes(
+                        PaakjenningerType.Annet
                       )}
                     />
                     <Textarea
                       label='annet'
                       defaultValue={state.kommentar}
                       value={state.kommentar || ''}
-                      feil={state.kommentarError}
+                      feil={state.kommentarError || undefined}
                       onChange={(evt) =>
                         dispatch({
                           type: Actions.Kommentar,
@@ -304,7 +312,7 @@ const KroniskSide = (props: KroniskState) => {
                         })
                       }
                       disabled={
-                        !state.påkjenninger?.includes(PåkjenningerType.Annet)
+                        !state.paakjenninger?.includes(PaakjenningerType.Annet)
                       }
                     />
                   </Column>
@@ -349,8 +357,8 @@ const KroniskSide = (props: KroniskState) => {
           <Panel>
             <SkjemaGruppe
               legend='Fraværet'
-              feil={state.fraværError}
-              feilmeldingId='fravær'
+              feil={state.fravaerError}
+              feilmeldingId='fravaer'
               aria-live='polite'
             >
               <Normaltekst>
@@ -360,11 +368,12 @@ const KroniskSide = (props: KroniskState) => {
               </Normaltekst>
 
               <DagerTabell
+                validated={state.validated || false}
                 onChange={(evt) => {
                   dispatch({
-                    type: Actions.Fravær,
+                    type: Actions.Fravaer,
                     payload: {
-                      fravær: {
+                      fravaer: {
                         year: evt.year,
                         month: evt.month,
                         dager: evt.days

@@ -76,24 +76,24 @@ describe('KroniskReducer', () => {
 
   it('should set, update and remove fravær', () => {
     let state = KroniskReducer(defaultKroniskState(), {
-      type: Actions.Fravær,
-      payload: { fravær: { year: 2018, month: 9, dager: 2 } }
+      type: Actions.Fravaer,
+      payload: { fravaer: { year: 2018, month: 9, dager: 2 } }
     });
-    let { fravær } = state;
-    expect(fravær?.length).toEqual(1);
-    let årsfravær = fravær!![0];
-    expect(årsfravær.year).toEqual(2018);
-    expect(årsfravær.okt).toEqual(2);
+    let { fravaer } = state;
+    expect(fravaer?.length).toEqual(1);
+    let Aarsfravaer = fravaer!![0];
+    expect(Aarsfravaer.year).toEqual(2018);
+    expect(Aarsfravaer.okt).toEqual(2);
     let state2 = KroniskReducer(state, {
-      type: Actions.Fravær,
-      payload: { fravær: { year: 2018, month: 9, dager: 3 } }
+      type: Actions.Fravaer,
+      payload: { fravaer: { year: 2018, month: 9, dager: 3 } }
     });
-    expect(state2.fravær!![0].okt).toEqual(3);
+    expect(state2.fravaer!![0].okt).toEqual(3);
     let state3 = KroniskReducer(state, {
-      type: Actions.Fravær,
-      payload: { fravær: { year: 2018, month: 9 } }
+      type: Actions.Fravaer,
+      payload: { fravaer: { year: 2018, month: 9 } }
     });
-    expect(state3.fravær!![0].okt).toBeUndefined();
+    expect(state3.fravaer!![0].okt).toBeUndefined();
   });
 
   it('should set kommentar', () => {
@@ -149,9 +149,9 @@ describe('KroniskReducer', () => {
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toEqual('');
     expect(state.arbeid?.length).toEqual(0);
-    expect(state.påkjenninger?.length).toEqual(0);
+    expect(state.paakjenninger?.length).toEqual(0);
     expect(state.kommentar).toEqual('');
-    expect(state.fravær?.length).toEqual(0);
+    expect(state.fravaer?.length).toEqual(0);
     expect(state.progress).toBeUndefined();
     expect(state.validated).toBeUndefined();
     expect(state.kvittering).toBeUndefined();
@@ -159,8 +159,8 @@ describe('KroniskReducer', () => {
     expect(state.fnrError).toBeUndefined();
     expect(state.orgnrError).toBeUndefined();
     expect(state.arbeidError).toBeUndefined();
-    expect(state.påkjenningerError).toBeUndefined();
-    expect(state.fraværError).toBeUndefined();
+    expect(state.paakjenningerError).toBeUndefined();
+    expect(state.fravaerError).toBeUndefined();
     expect(state.bekreftError).toBeUndefined();
     expect(state.kommentarError).toBeUndefined();
     expect(state.dokumentasjonError).toBeUndefined();

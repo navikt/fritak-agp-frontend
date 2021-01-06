@@ -1,10 +1,7 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { Årsfravær } from './Årsfravær';
-import { MONTHS } from './DagerTabell';
-
-export const maxDaysInMonth = (year: number, month: number): number => {
-  return new Date(year, month + 1, 0).getDate();
-};
+import { Aarsfravaer } from './Aarsfravaer';
+import { monthKey, MONTHS } from '../../utils/months';
+import { maxDaysInMonth } from '../../utils/maxDaysInMonth';
 
 export const validerDag = (
   year: number,
@@ -16,14 +13,14 @@ export const validerDag = (
   }
   if (dag < 0) {
     return {
-      skjemaelementId: 'dager',
+      skjemaelementId: 'fravaer',
       feilmelding: MONTHS[month] + ' må være 0 eller mer'
     };
   }
   const maxDays = maxDaysInMonth(year, month);
   if (dag > maxDays) {
     return {
-      skjemaelementId: 'dager',
+      skjemaelementId: 'fravaer',
       feilmelding: MONTHS[month] + ' må være mindre enn ' + maxDays
     };
   }
@@ -31,13 +28,13 @@ export const validerDag = (
 };
 
 export const validerTabell = (
-  liste: Array<Årsfravær>
+  liste: Array<Aarsfravaer>
 ): FeiloppsummeringFeil[] => {
   let feilmeldinger = new Array<FeiloppsummeringFeil>();
-  let isEmpty = false;
+  let isEmpty = true;
   liste.forEach((l) => {
     MONTHS.forEach((m, index) => {
-      const month = m.substr(0, 3).toLowerCase();
+      const month = monthKey(m);
       const dager = l[month];
       if (dager != undefined) {
         isEmpty = false;
@@ -50,8 +47,8 @@ export const validerTabell = (
   });
   if (isEmpty) {
     feilmeldinger.push({
-      skjemaelementId: 'fravær',
-      feilmelding: 'Du må fylle ut minste en'
+      skjemaelementId: 'fravaer',
+      feilmelding: 'Må fylles ut'
     });
   }
   return feilmeldinger;

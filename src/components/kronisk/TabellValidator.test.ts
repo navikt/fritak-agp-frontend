@@ -1,5 +1,5 @@
 import { maxDaysInMonth, validerDag, validerTabell } from './TabellValidator';
-import { Årsfravær } from './Årsfravær';
+import { Aarsfravaer } from './Aarsfravaer';
 
 describe('TabellValidator', () => {
   it('should not allow negative numbers', () => {
@@ -13,31 +13,31 @@ describe('TabellValidator', () => {
   });
 
   it('should not allow negative days', () => {
-    let liste = new Array<Årsfravær>();
+    let liste = new Array<Aarsfravaer>();
     liste.push({
       year: 2021,
       jan: -3
-    } as Årsfravær);
+    } as Aarsfravaer);
     let feil = validerTabell(liste);
     expect(feil.length).toEqual(1);
   });
 
   it('should not allow too high days', () => {
-    let liste = new Array<Årsfravær>();
+    let liste = new Array<Aarsfravaer>();
     liste.push({
       year: 2021,
       jan: 32
-    } as Årsfravær);
+    } as Aarsfravaer);
     let feil = validerTabell(liste);
     expect(feil.length).toEqual(1);
   });
 
   it('should not allow february', () => {
-    let liste = new Array<Årsfravær>();
+    let liste = new Array<Aarsfravaer>();
     liste.push({
       year: 2021,
       feb: 29
-    } as Årsfravær);
+    } as Aarsfravaer);
     let feil = validerTabell(liste);
     expect(feil.length).toEqual(1);
   });

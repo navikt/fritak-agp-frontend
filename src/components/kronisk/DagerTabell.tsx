@@ -1,33 +1,20 @@
 import React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import './DagerTabell.sass';
-
-export const MONTHS: string[] = [
-  'Januar',
-  'Februar',
-  'Mars',
-  'April',
-  'Mai',
-  'Juni',
-  'Juli',
-  'August',
-  'September',
-  'Oktober',
-  'November',
-  'Desember'
-];
+import { lastFourYears } from '../../utils/lastFourYears';
+import { MONTHS } from '../../utils/months';
+import { isFuture } from '../../utils/isFuture';
 
 interface DagerTabellProps {
   years?: number[];
   onChange: any;
+  validated: boolean;
 }
-
-const lastFourYears = (year: number = new Date().getFullYear()) => {
-  return [-2, -1, 0].map((n) => year + n);
-};
 
 const DagerTabell = (props: DagerTabellProps) => {
   const years: number[] = props.years || lastFourYears();
+  const thisYear = years[years.length - 1];
+  const thisMonth = 2;
   return (
     <table className='tabell tabell--stripet tabell--border dager-tabell'>
       <thead>
@@ -50,28 +37,39 @@ const DagerTabell = (props: DagerTabellProps) => {
       <tbody>
         {MONTHS.map((month) => (
           <tr key={month}>
-            {years.map((year) => (
-              <>
-                <td>{month.substr(0, 3)}</td>
-                <td>
-                  <Input
-                    label={month + ' ' + year}
-                    defaultValue=''
-                    id={month.substr(0, 3) + '-' + year}
-                    onChange={(event) => {
-                      props.onChange({
-                        year: year,
-                        month: MONTHS.indexOf(month),
-                        day:
-                          event.target.value == ''
-                            ? undefined
-                            : parseInt(event.target.value)
-                      });
-                    }}
-                  />
-                </td>
-              </>
-            ))}
+            {years.map((year) => {
+              if (!isFuture(year, month, thisYear, thisMonth)) {
+                return (
+                  <>
+                    <td>{month.substr(0, 3)}</td>
+                    <td>
+                      <Input
+                        label={month + ' ' + year}
+                        defaultValue=''
+                        id={month + '-' + year}
+                        onChange={(event) => {
+                          props.onChange({
+                            year: year,
+                            month: MONTHS.indexOf(month),
+                            day:
+                              event.target.value == ''
+                                ? undefined
+                                : parseInt(event.target.value)
+                          });
+                        }}
+                      />
+                    </td>
+                  </>
+                );
+              } else {
+                return (
+                  <>
+                    <td className='empty-month'></td>
+                    <td className='empty-month'></td>
+                  </>
+                );
+              }
+            })}
           </tr>
         ))}
       </tbody>
