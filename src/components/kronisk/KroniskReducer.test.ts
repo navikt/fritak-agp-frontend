@@ -74,16 +74,27 @@ describe('KroniskReducer', () => {
     expect(state.progress).toEqual(true);
   });
 
-  // TODO - Morten fikser reducer senere
-  // it('should set fravær', () => {
-  //   let state = KroniskReducer(defaultKroniskState(), {
-  //     type: Actions.Fravær,
-  //     payload: { fravær: { year: 2018, month: 10, dager: 2 } }
-  //   });
-  //   expect(state.fravær?.length).toEqual(1);
-  //   expect(state.fravær!![0].year).toEqual(2018);
-  //   expect(state.fravær!![0].okt).toEqual(2);
-  // });
+  it('should set, update and remove fravær', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.Fravær,
+      payload: { fravær: { year: 2018, month: 9, dager: 2 } }
+    });
+    let { fravær } = state;
+    expect(fravær?.length).toEqual(1);
+    let årsfravær = fravær!![0];
+    expect(årsfravær.year).toEqual(2018);
+    expect(årsfravær.okt).toEqual(2);
+    let state2 = KroniskReducer(state, {
+      type: Actions.Fravær,
+      payload: { fravær: { year: 2018, month: 9, dager: 3 } }
+    });
+    expect(state2.fravær!![0].okt).toEqual(3);
+    let state3 = KroniskReducer(state, {
+      type: Actions.Fravær,
+      payload: { fravær: { year: 2018, month: 9 } }
+    });
+    expect(state3.fravær!![0].okt).toBeUndefined();
+  });
 
   it('should set kommentar', () => {
     let state = KroniskReducer(defaultKroniskState(), {

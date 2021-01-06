@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import './DagerTabell.sass';
 
-const months: string[] = [
+export const MONTHS: string[] = [
   'Januar',
   'Februar',
   'Mars',
@@ -23,7 +23,7 @@ interface DagerTabellProps {
 }
 
 const lastFourYears = (year: number = new Date().getFullYear()) => {
-  return [-3, -2, -1, 0].map((n) => year + n);
+  return [-2, -1, 0].map((n) => year + n);
 };
 
 const DagerTabell = (props: DagerTabellProps) => {
@@ -48,7 +48,7 @@ const DagerTabell = (props: DagerTabellProps) => {
         </tr>
       </thead>
       <tbody>
-        {months.map((month) => (
+        {MONTHS.map((month) => (
           <tr key={month}>
             {years.map((year) => (
               <>
@@ -57,11 +57,11 @@ const DagerTabell = (props: DagerTabellProps) => {
                   <Input
                     label={month + ' ' + year}
                     defaultValue=''
-                    placeholder=''
+                    id={month.substr(0, 3) + '-' + year}
                     onChange={(event) => {
                       props.onChange({
                         year: year,
-                        month: months.indexOf(month),
+                        month: MONTHS.indexOf(month),
                         day:
                           event.target.value == ''
                             ? undefined
