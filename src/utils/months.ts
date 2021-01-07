@@ -12,7 +12,3 @@ export const MONTHS: string[] = [
   'November',
   'Desember'
 ];
-
-export const monthKey = (month: string) => {
-  return month.substr(0, 3).toLowerCase();
-};

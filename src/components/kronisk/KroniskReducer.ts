@@ -2,7 +2,8 @@ import KroniskState, { defaultKroniskState } from './KroniskState';
 import { Actions, KroniskAction } from './Actions';
 import { Aarsfravaer } from './Aarsfravaer';
 import { validateKronisk } from './validateKronisk';
-import { monthKey, MONTHS } from '../../utils/months';
+import { MONTHS } from '../../utils/months';
+import { monthKey } from '../../utils/monthKey';
 
 const KroniskReducer = (
   state: KroniskState,
@@ -62,6 +63,11 @@ const KroniskReducer = (
       if (payload?.fravaer == undefined) {
         throw new Error('Du må spesifisere fravær');
       }
+      console.log('Fravær', payload.fravaer);
+
+      if (payload.fravaer.dager == 'tre') {
+      }
+
       if (!nextState.fravaer) {
         nextState.fravaer = [];
       }

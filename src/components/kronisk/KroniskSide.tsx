@@ -25,7 +25,7 @@ import { Actions } from './Actions';
 import { ArbeidType } from './ArbeidType';
 import { PaakjenningerType } from './PaakjenningerType';
 import getBase64file from '../gravid/getBase64File';
-import DagerTabell from './DagerTabell';
+import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 
 const KroniskSide = (props: KroniskState) => {
@@ -367,7 +367,7 @@ const KroniskSide = (props: KroniskState) => {
                 arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
 
-              <DagerTabell
+              <FravaerTabell
                 validated={state.validated || false}
                 onChange={(evt) => {
                   dispatch({
@@ -376,7 +376,7 @@ const KroniskSide = (props: KroniskState) => {
                       fravaer: {
                         year: evt.year,
                         month: evt.month,
-                        dager: evt.days
+                        dager: evt.dager
                       }
                     }
                   });

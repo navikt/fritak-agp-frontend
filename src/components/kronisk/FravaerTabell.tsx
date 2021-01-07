@@ -1,22 +1,25 @@
 import React from 'react';
 import { Input } from 'nav-frontend-skjema';
-import './DagerTabell.sass';
-import { lastFourYears } from '../../utils/lastFourYears';
+import './FravaerTabell.sass';
+import { lastThreeYears } from '../../utils/lastThreeYears';
 import { MONTHS } from '../../utils/months';
 import { isFuture } from '../../utils/isFuture';
+import { FravaerType } from './Actions';
+import { Aarsfravaer } from './Aarsfravaer';
 
 interface DagerTabellProps {
   years?: number[];
   onChange: any;
   validated: boolean;
+  fravaer?: Array<Aarsfravaer>;
 }
 
-const DagerTabell = (props: DagerTabellProps) => {
-  const years: number[] = props.years || lastFourYears();
+const FravaerTabell = (props: DagerTabellProps) => {
+  const years: number[] = props.years || lastThreeYears();
   const thisYear = years[years.length - 1];
   const thisMonth = 2;
   return (
-    <table className='tabell tabell--stripet tabell--border dager-tabell'>
+    <table className='tabell tabell--stripet tabell--border fravaer-tabell'>
       <thead>
         <tr key={'years-header'}>
           {years.map((year) => (
@@ -47,15 +50,15 @@ const DagerTabell = (props: DagerTabellProps) => {
                         label={month + ' ' + year}
                         defaultValue=''
                         id={month + '-' + year}
+                        inputMode='numeric'
+                        pattern='[0-9]*'
                         onChange={(event) => {
                           props.onChange({
                             year: year,
                             month: MONTHS.indexOf(month),
-                            day:
-                              event.target.value == ''
-                                ? undefined
-                                : parseInt(event.target.value)
-                          });
+                            dager: event.currentTarget.value
+                          } as FravaerType);
+                          return false;
                         }}
                       />
                     </td>
@@ -64,8 +67,8 @@ const DagerTabell = (props: DagerTabellProps) => {
               } else {
                 return (
                   <>
-                    <td className='empty-month'></td>
-                    <td className='empty-month'></td>
+                    <td className='empty-month' />
+                    <td className='empty-month' />
                   </>
                 );
               }
@@ -77,4 +80,4 @@ const DagerTabell = (props: DagerTabellProps) => {
   );
 };
 
-export default DagerTabell;
+export default FravaerTabell;

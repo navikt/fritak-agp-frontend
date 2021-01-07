@@ -134,12 +134,7 @@ describe('KroniskReducer', () => {
       payload: { fnr: '' }
     });
     let state2 = KroniskReducer(state1, { type: Actions.Validate });
-    expect(state2.fnrError).toBe('Mangler fnr');
-    expect(state2.feilmeldinger!!.length).toEqual(1);
-    expect(state2.feilmeldinger!![0].feilmelding).toEqual(
-      'Fødslesnummer må fylles ut'
-    );
-    expect(state2.feilmeldinger!![0].skjemaelementId).toEqual('fnr');
+    expect(state2.feilmeldinger!!.length).toBe(5);
     // TODO Mangler validering på alle felter
   });
 

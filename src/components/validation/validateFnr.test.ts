@@ -2,14 +2,14 @@ import { validateFnr } from './validateFnr';
 
 describe('validateFnr', () => {
   it('should give error when undefined value and required', async () => {
-    expect(validateFnr(undefined, true)).toEqual('Mangler organisasjonsnummer');
+    expect(validateFnr(undefined, true)).toEqual('Mangler fødselsnummer');
   });
   it('should give error when empty value and required', async () => {
-    expect(validateFnr('', true)).toEqual('Mangler organisasjonsnummer');
+    expect(validateFnr('', true)).toEqual('Mangler fødselsnummer');
   });
 
   it('should give error when invalid value and required', async () => {
-    expect(validateFnr('123', true)).toEqual('Ugyldig organisasjonsnummer');
+    expect(validateFnr('123', true)).toEqual('Ugyldig fødselsnummer');
   });
   it('should not give error when invalid value and not required', async () => {
     expect(validateFnr('123', false)).toBeUndefined();

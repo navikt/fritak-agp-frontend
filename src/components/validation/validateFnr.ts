@@ -1,4 +1,4 @@
-import isValidOrgnr from '../gravid/isValidOrgnr';
+import isValidFnr from '../gravid/isValidFnr';
 
 export const validateFnr = (
   orgnr?: string,
@@ -7,7 +7,7 @@ export const validateFnr = (
   if (orgnr == undefined || orgnr == '') {
     return required ? 'Mangler fødselsnummer' : undefined;
   }
-  if (!isValidOrgnr(orgnr)) {
+  if (!isValidFnr(orgnr)) {
     return required ? 'Ugyldig fødselsnummer' : undefined;
   }
   return;

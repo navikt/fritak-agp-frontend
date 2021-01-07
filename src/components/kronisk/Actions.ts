@@ -19,7 +19,7 @@ export enum Actions {
 export interface FravaerType {
   year: number;
   month: number;
-  dager?: number;
+  dager: string;
 }
 
 export interface Payload {

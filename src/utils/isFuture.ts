@@ -1,4 +1,4 @@
-import { MONTHS } from '../components/kronisk/DagerTabell';
+import { MONTHS } from './months';
 
 export const isFuture = (
   year: number,
@@ -10,5 +10,5 @@ export const isFuture = (
   if (thisYear > year) {
     return false;
   }
-  return thisMonth <= monthIndex;
+  return thisMonth < monthIndex;
 };

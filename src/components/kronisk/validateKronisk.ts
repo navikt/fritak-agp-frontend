@@ -4,7 +4,7 @@ import isValidOrgnr from '../gravid/isValidOrgnr';
 import isValidFnr from '../gravid/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
-import { validerTabell } from './TabellValidator';
+import { validerFravaerTabell } from './validerFravaerTabell';
 import { validateFnr } from '../validation/validateFnr';
 
 export const validateKronisk = (state: KroniskState): KroniskState => {
@@ -32,13 +32,13 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
 
   if (nextState.fnrError) {
     feilmeldinger.push({
-      skjemaelementId: 'ansatt',
+      skjemaelementId: 'fnr',
       feilmelding: 'Fødselsnummer må fylles ut'
     });
   }
   if (nextState.orgnrError) {
     feilmeldinger.push({
-      skjemaelementId: 'ansatt',
+      skjemaelementId: 'orgnr',
       feilmelding: 'Organisasjonsnummer må fylles ut'
     });
   }
@@ -70,7 +70,7 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
   }
   nextState.feilmeldinger = feilmeldinger;
 
-  const arbeidFeilmeldinger = validerTabell(state?.fravaer || []);
+  const arbeidFeilmeldinger = validerFravaerTabell(nextState?.fravaer || []);
 
   if (
     arbeidFeilmeldinger.length == 1 &&
