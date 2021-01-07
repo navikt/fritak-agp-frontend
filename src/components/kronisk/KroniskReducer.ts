@@ -63,21 +63,16 @@ const KroniskReducer = (
       if (payload?.fravaer == undefined) {
         throw new Error('Du må spesifisere fravær');
       }
-      console.log('Fravær', payload.fravaer);
-
-      if (payload.fravaer.dager == 'tre') {
-      }
-
       if (!nextState.fravaer) {
         nextState.fravaer = [];
       }
-      // Hent ut ny verdi
       let { fravaer } = payload;
       const { year, month, dager } = fravaer;
       if (month < 0 || month > 11) {
         throw new Error('Month må være mellom 0 og 11');
       }
-      // Finn eksisterende eller opprett ny
+      const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
+      const monthProp = monthKey(MONTHS[month]);
       let nextFravaer =
         state.fravaer?.find((f) => f.year === year) ||
         ({ year: year } as Aarsfravaer);
@@ -85,8 +80,7 @@ const KroniskReducer = (
       if (!state.fravaer?.includes(nextFravaer)) {
         nextState.fravaer?.push(nextFravaer);
       }
-      const monthProp = monthKey(MONTHS[month]);
-      nextFravaer[monthProp] = dager;
+      nextFravaer[monthProp] = antallDager;
       return validateKronisk(nextState);
 
     case Actions.Bekreft:

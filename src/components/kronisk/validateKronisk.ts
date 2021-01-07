@@ -72,16 +72,17 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
 
   const arbeidFeilmeldinger = validerFravaerTabell(nextState?.fravaer || []);
 
+  nextState.fravaerError =
+    arbeidFeilmeldinger.length > 0 ? 'Må fylle ut riktig antall dager' : '';
+
   if (
     arbeidFeilmeldinger.length == 1 &&
     arbeidFeilmeldinger[0].feilmelding == 'Må fylles ut'
   ) {
     nextState.fravaerError = 'Må fylles ut';
-  } else {
-    nextState.fravaerError = undefined;
   }
 
-  nextState.feilmeldinger.concat(arbeidFeilmeldinger);
+  nextState.feilmeldinger = nextState.feilmeldinger.concat(arbeidFeilmeldinger);
 
   if (nextState.bekreftError) {
     nextState.feilmeldinger.push({

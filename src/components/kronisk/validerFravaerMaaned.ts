@@ -10,17 +10,24 @@ export const validerFravaerMaaned = (
   if (!dag) {
     return;
   }
+  const maxDays = maxDaysInMonth(year, month);
   if (dag < 0) {
     return {
       skjemaelementId: 'fravaer',
-      feilmelding: MONTHS[month] + ' må være 0 eller mer'
+      feilmelding:
+        MONTHS[month] + ' ' + year + ' må være mindre enn ' + maxDays + ' dager'
     };
   }
-  const maxDays = maxDaysInMonth(year, month);
   if (dag > maxDays) {
     return {
       skjemaelementId: 'fravaer',
-      feilmelding: MONTHS[month] + ' må være mindre enn ' + maxDays
+      feilmelding:
+        MONTHS[month] +
+        ' ' +
+        year +
+        ' må være mindre eller lik ' +
+        maxDays +
+        ' dager'
     };
   }
   return;

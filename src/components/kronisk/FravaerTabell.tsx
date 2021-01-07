@@ -6,6 +6,7 @@ import { MONTHS } from '../../utils/months';
 import { isFuture } from '../../utils/isFuture';
 import { FravaerType } from './Actions';
 import { Aarsfravaer } from './Aarsfravaer';
+import { getFravaerByMonth } from './getFravaerByMonth';
 
 interface DagerTabellProps {
   years?: number[];
@@ -17,7 +18,7 @@ interface DagerTabellProps {
 const FravaerTabell = (props: DagerTabellProps) => {
   const years: number[] = props.years || lastThreeYears();
   const thisYear = years[years.length - 1];
-  const thisMonth = 2;
+  const thisMonth = new Date().getMonth();
   return (
     <table className='tabell tabell--stripet tabell--border fravaer-tabell'>
       <thead>
@@ -48,17 +49,18 @@ const FravaerTabell = (props: DagerTabellProps) => {
                     <td>
                       <Input
                         label={month + ' ' + year}
-                        defaultValue=''
                         id={month + '-' + year}
-                        inputMode='numeric'
-                        pattern='[0-9]*'
+                        value={getFravaerByMonth(
+                          year,
+                          MONTHS.indexOf(month),
+                          props.fravaer
+                        )}
                         onChange={(event) => {
                           props.onChange({
                             year: year,
                             month: MONTHS.indexOf(month),
                             dager: event.currentTarget.value
                           } as FravaerType);
-                          return false;
                         }}
                       />
                     </td>

@@ -7,7 +7,6 @@ import {
   Checkbox,
   CheckboxGruppe,
   Feiloppsummering,
-  Input,
   SkjemaGruppe,
   Textarea
 } from 'nav-frontend-skjema';
@@ -369,6 +368,7 @@ const KroniskSide = (props: KroniskState) => {
 
               <FravaerTabell
                 validated={state.validated || false}
+                fravaer={state.fravaer}
                 onChange={(evt) => {
                   dispatch({
                     type: Actions.Fravaer,
