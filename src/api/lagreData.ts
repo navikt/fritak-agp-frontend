@@ -31,10 +31,10 @@ const lagreData = async (
       .then(async (params) => {
         switch (params.status) {
           case RestStatus.Successfully:
-          case 201:
-          case 400:
+          case RestStatus.Created:
+          case RestStatus.BadRequest:
           case RestStatus.Unauthorized:
-          case 422:
+          case RestStatus.UnprocessableEntity:
           case RestStatus.Error:
             let returndata = await params
               .clone()

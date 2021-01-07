@@ -6,6 +6,7 @@ enum RestStatus {
   Unknown = -2,
   Timeout = -3,
   Error = 500,
+  BadRequest = 400,
   Unauthorized = 401,
   UnprocessableEntity = 422
 }
