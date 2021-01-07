@@ -27,6 +27,46 @@ import getBase64file from '../gravid/getBase64File';
 import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 
+const ARBEID_CHECKBOXER = [
+  {
+    label: 'Stillesittende arbeid',
+    value: ArbeidType.Stillesittende,
+    id: 'stillesittende'
+  },
+  { label: 'Moderat fysisk arbeid', value: ArbeidType.Moderat, id: 'moderat' },
+  { label: 'Fysisk krevende arbeid', value: ArbeidType.Krevende, id: 'fysisk' }
+];
+const PAAKJENNINGER_CHECKBOXER = [
+  {
+    label: 'Allergener eller giftstofferd',
+    value: PaakjenningerType.Allergener,
+    id: 'allergener'
+  },
+  {
+    label: 'Ukomfortabel temperatur eller luftfuktighet',
+    value: PaakjenningerType.Ukomfortabel,
+    id: 'ukomfortabel'
+  },
+  {
+    label: 'Stressende omgivelser',
+    value: PaakjenningerType.Stressende,
+    id: 'stressende'
+  },
+  {
+    label: 'Regelmessige kveldsskift eller nattskift',
+    value: PaakjenningerType.RegelmessigKveldsskift,
+    id: 'regelmessige'
+  },
+  { label: 'Mye gåing/ståing', value: PaakjenningerType.Gåing, id: 'gåing' },
+  { label: 'Harde gulv', value: PaakjenningerType.HardeGulv, id: 'harde' },
+  { label: 'Tunge løft', value: PaakjenningerType.TungeLøft, id: 'tunge' },
+  {
+    label: 'Annet, gi en kort beskrivelse:',
+    value: PaakjenningerType.Annet,
+    id: 'annet'
+  }
+];
+
 const KroniskSide = (props: KroniskState) => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
@@ -131,44 +171,23 @@ const KroniskSide = (props: KroniskState) => {
               >
                 <Row>
                   <Column sm='4' xs='6'>
-                    <Checkbox
-                      label='Stillesittende arbeid'
-                      value={ArbeidType.Stillesittende}
-                      id={'stillesittende'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.ToggleArbeid,
-                          payload: { arbeid: ArbeidType.Stillesittende }
-                        })
-                      }
-                      checked={props.arbeid?.includes(
-                        ArbeidType.Stillesittende
-                      )}
-                    />
-                    <Checkbox
-                      label='Moderat fysisk arbeid'
-                      value={ArbeidType.Moderat}
-                      id={'moderat'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.ToggleArbeid,
-                          payload: { arbeid: ArbeidType.Moderat }
-                        })
-                      }
-                      checked={props.arbeid?.includes(ArbeidType.Moderat)}
-                    />
-                    <Checkbox
-                      label='Fysisk krevende arbeid'
-                      value={ArbeidType.Krevende}
-                      id={'fysisk'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.ToggleArbeid,
-                          payload: { arbeid: ArbeidType.Krevende }
-                        })
-                      }
-                      checked={state.arbeid?.includes(ArbeidType.Krevende)}
-                    />
+                    {ARBEID_CHECKBOXER.map((a) => {
+                      return (
+                        <Checkbox
+                          key={a.id}
+                          label={a.label}
+                          value={a.value}
+                          id={a.id}
+                          onChange={(evt) =>
+                            dispatch({
+                              type: Actions.ToggleArbeid,
+                              payload: { arbeid: a.value }
+                            })
+                          }
+                          checked={state.arbeid?.includes(a.value)}
+                        />
+                      );
+                    })}
                   </Column>
                 </Row>
               </CheckboxGruppe>
@@ -180,125 +199,49 @@ const KroniskSide = (props: KroniskState) => {
               >
                 <Row>
                   <Column sm='4' xs='6'>
-                    <Checkbox
-                      label='Allergener eller giftstofferd'
-                      value={PaakjenningerType.Allergener}
-                      id={'allergener'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: { paakjenning: PaakjenningerType.Allergener }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.Allergener
-                      )}
-                    />
-                    <Checkbox
-                      label='Ukomfortabel temperatur eller luftfuktighet​'
-                      value={PaakjenningerType.Ukomfortabel}
-                      id={'ukomfortabel'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: {
-                            paakjenning: PaakjenningerType.Ukomfortabel
+                    {/*5 og 3 */}
+
+                    {PAAKJENNINGER_CHECKBOXER.filter(
+                      (value, index) => index < 5
+                    ).map((a, index) => {
+                      return (
+                        <Checkbox
+                          key={a.id}
+                          label={a.label}
+                          value={a.value}
+                          id={a.id}
+                          onChange={(evt) =>
+                            dispatch({
+                              type: Actions.TogglePaakjenninger,
+                              payload: { paakjenning: a.value }
+                            })
                           }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.Ukomfortabel
-                      )}
-                    />
-                    <Checkbox
-                      label='Stressende omgivelser'
-                      value={PaakjenningerType.Stressende}
-                      id={'stressende'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: { paakjenning: PaakjenningerType.Stressende }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.Stressende
-                      )}
-                    />
-                    <Checkbox
-                      label='Regelmessige kveldsskift eller nattskift'
-                      value={PaakjenningerType.RegelmessigKveldsskift}
-                      id={'regelmessige'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: {
-                            paakjenning:
-                              PaakjenningerType.RegelmessigKveldsskift
-                          }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.RegelmessigKveldsskift
-                      )}
-                    />
-                    <Checkbox
-                      label='Mye gåing/ståing'
-                      value={PaakjenningerType.Gåing}
-                      id={'gåing'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: { paakjenning: PaakjenningerType.Gåing }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.Gåing
-                      )}
-                    />
+                          checked={state.paakjenninger?.includes(a.value)}
+                        />
+                      );
+                    })}
                   </Column>
                   <Column sm='4' xs='6'>
-                    <Checkbox
-                      label='Harde gulv'
-                      value={PaakjenningerType.HardeGulv}
-                      id={'harde'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: { paakjenning: PaakjenningerType.HardeGulv }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.HardeGulv
-                      )}
-                    />
-                    <Checkbox
-                      label='Tunge løft'
-                      value={PaakjenningerType.TungeLøft}
-                      id={'tunge'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: { paakjenning: PaakjenningerType.TungeLøft }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.TungeLøft
-                      )}
-                    />
-                    <Checkbox
-                      label='Annet, gi en kort beskrivelse:'
-                      value={PaakjenningerType.Annet}
-                      id={'annet'}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.TogglePaakjenninger,
-                          payload: { paakjenning: PaakjenningerType.Annet }
-                        })
-                      }
-                      checked={state.paakjenninger?.includes(
-                        PaakjenningerType.Annet
-                      )}
-                    />
+                    {PAAKJENNINGER_CHECKBOXER.filter(
+                      (value, index) => index > 4
+                    ).map((a, index) => {
+                      return (
+                        <Checkbox
+                          key={a.id}
+                          label={a.label}
+                          value={a.value}
+                          id={a.id}
+                          onChange={(evt) =>
+                            dispatch({
+                              type: Actions.TogglePaakjenninger,
+                              payload: { paakjenning: a.value }
+                            })
+                          }
+                          checked={state.paakjenninger?.includes(a.value)}
+                        />
+                      );
+                    })}
+
                     <Textarea
                       label='annet'
                       defaultValue={state.kommentar}
