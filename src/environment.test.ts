@@ -16,7 +16,7 @@ describe('Environment', () => {
     window.location = theWindowLocation;
 
     expect(env.loginServiceUrl).toBe(
-      'http://fritakagp.dev.nav.no/local/cookie-please?subject=01234567890&redirect=http://localhost:3000/fritak-agp/?loggedIn=true'
+      'http://fritakagp.dev.nav.no/local/cookie-please?subject=13118818924&redirect=http://localhost:3000/fritak-agp/?loggedIn=true'
     );
   });
 
@@ -25,7 +25,7 @@ describe('Environment', () => {
     window.location = new URL('https://www.dev.nav.no');
 
     expect(env.loginServiceUrl).toBe(
-      'http://fritakagp.dev.nav.no/local/cookie-please?subject=01234567890&redirect=https://fritak-agp-frontend.dev.nav.no/fritak-agp/?loggedIn=true'
+      'http://fritakagp.dev.nav.no/local/cookie-please?subject=13118818924&redirect=https://fritak-agp-frontend.dev.nav.no/fritak-agp/?loggedIn=true'
     );
   });
 
