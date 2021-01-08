@@ -35,10 +35,12 @@ describe('isBackendValidationError', () => {
 
   it('should ignore a validation error from the backend if the error list is empty', () => {
     const mockError: ValidationError = {
-      status: '123',
-      validationErrors: [],
-      genericMessage: 'Message',
-      referenceNumber: '1'
+      violations: [],
+      type: 'type',
+      title: 'Message',
+      status: 123,
+      detail: 'Detail',
+      instance: '1'
     };
     expect(isBackendValidationError(mockError)).toBeFalsy();
   });
