@@ -47,7 +47,7 @@ const KroniskReducer = (
           1
         );
       } else {
-        nextState.paakjenninger.push(payload?.paakjenning!);
+        nextState.paakjenninger.push(payload?.paakjenning);
       }
       return validateKronisk(nextState);
 

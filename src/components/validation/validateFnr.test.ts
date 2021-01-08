@@ -17,7 +17,7 @@ describe('validateFnr', () => {
 
   it('should not give error when not required and undefined value', async () => {
     expect(validateFnr(undefined, false)).toBeUndefined();
-    expect(validateFnr(undefined)).toBeUndefined();
+    expect(validateFnr()).toBeUndefined();
   });
   it('should not give error when not required and empty value', async () => {
     expect(validateFnr('', false)).toBeUndefined();

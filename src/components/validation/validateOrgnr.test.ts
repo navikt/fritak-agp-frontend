@@ -19,7 +19,7 @@ describe('validateOrgnr', () => {
 
   it('should not give error when not required and undefined value', async () => {
     expect(validateOrgnr(undefined, false)).toBeUndefined();
-    expect(validateOrgnr(undefined)).toBeUndefined();
+    expect(validateOrgnr()).toBeUndefined();
   });
   it('should not give error when not required and empty value', async () => {
     expect(validateOrgnr('', false)).toBeUndefined();
