@@ -18,56 +18,17 @@ import Upload from '../Upload';
 import './KroniskSide.scss';
 import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../Orgnr';
-import KroniskState, { defaultKroniskState } from './KroniskState';
+import { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
-import { ArbeidType } from './ArbeidType';
 import { PaakjenningerType } from './PaakjenningerType';
 import getBase64file from '../gravid/getBase64File';
 import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
+import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 
-const ARBEID_CHECKBOXER = [
-  {
-    label: 'Stillesittende arbeid',
-    value: ArbeidType.Stillesittende,
-    id: 'stillesittende'
-  },
-  { label: 'Moderat fysisk arbeid', value: ArbeidType.Moderat, id: 'moderat' },
-  { label: 'Fysisk krevende arbeid', value: ArbeidType.Krevende, id: 'fysisk' }
-];
-const PAAKJENNINGER_CHECKBOXER = [
-  {
-    label: 'Allergener eller giftstofferd',
-    value: PaakjenningerType.Allergener,
-    id: 'allergener'
-  },
-  {
-    label: 'Ukomfortabel temperatur eller luftfuktighet',
-    value: PaakjenningerType.Ukomfortabel,
-    id: 'ukomfortabel'
-  },
-  {
-    label: 'Stressende omgivelser',
-    value: PaakjenningerType.Stressende,
-    id: 'stressende'
-  },
-  {
-    label: 'Regelmessige kveldsskift eller nattskift',
-    value: PaakjenningerType.RegelmessigKveldsskift,
-    id: 'regelmessige'
-  },
-  { label: 'Mye gåing/ståing', value: PaakjenningerType.Gåing, id: 'gåing' },
-  { label: 'Harde gulv', value: PaakjenningerType.HardeGulv, id: 'harde' },
-  { label: 'Tunge løft', value: PaakjenningerType.TungeLøft, id: 'tunge' },
-  {
-    label: 'Annet, gi en kort beskrivelse:',
-    value: PaakjenningerType.Annet,
-    id: 'annet'
-  }
-];
-
-const KroniskSide = (props: KroniskState) => {
+const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
@@ -199,8 +160,6 @@ const KroniskSide = (props: KroniskState) => {
               >
                 <Row>
                   <Column sm='4' xs='6'>
-                    {/*5 og 3 */}
-
                     {PAAKJENNINGER_CHECKBOXER.filter(
                       (value, index) => index < 5
                     ).map((a, index) => {
