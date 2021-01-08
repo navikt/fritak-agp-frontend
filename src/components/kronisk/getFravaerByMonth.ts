@@ -6,14 +6,14 @@ export const getFravaerByMonth = (
   year: number,
   month: number,
   fravaer?: Array<Aarsfravaer>
-): string => {
+): number | undefined => {
   if (!fravaer || fravaer.length == 0) {
-    return '';
+    return;
   }
   const a = fravaer.find((f) => f.year == year);
   if (!a) {
-    return '';
+    return;
   }
   const dager = a[monthKey(MONTHS[month])];
-  return dager || '';
+  return dager;
 };

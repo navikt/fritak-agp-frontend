@@ -1,14 +1,14 @@
-import { MONTHS } from './months';
-
 export const isFuture = (
   year: number,
-  month: string,
+  month: number,
   thisYear: number,
   thisMonth: number
 ) => {
-  const monthIndex = MONTHS.indexOf(month);
+  if (month == -1) {
+    throw Error('Invalid month!');
+  }
   if (thisYear > year) {
     return false;
   }
-  return thisMonth < monthIndex;
+  return thisMonth < month;
 };

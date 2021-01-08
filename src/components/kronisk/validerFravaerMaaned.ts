@@ -13,14 +13,14 @@ export const validerFravaerMaaned = (
   const maxDays = maxDaysInMonth(year, month);
   if (dag < 0) {
     return {
-      skjemaelementId: 'fravaer',
+      skjemaelementId: MONTHS[month] + '-' + year,
       feilmelding:
         MONTHS[month] + ' ' + year + ' må være mindre enn ' + maxDays + ' dager'
     };
   }
   if (dag > maxDays) {
     return {
-      skjemaelementId: 'fravaer',
+      skjemaelementId: MONTHS[month] + '-' + year,
       feilmelding:
         MONTHS[month] +
         ' ' +

@@ -1,12 +1,9 @@
 import React from 'react';
-import { Input } from 'nav-frontend-skjema';
 import './FravaerTabell.sass';
 import { lastThreeYears } from '../../utils/lastThreeYears';
 import { MONTHS } from '../../utils/months';
-import { isFuture } from '../../utils/isFuture';
-import { FravaerType } from './Actions';
 import { Aarsfravaer } from './Aarsfravaer';
-import { getFravaerByMonth } from './getFravaerByMonth';
+import { FravaerRow } from './FravaerRow';
 
 interface DagerTabellProps {
   years?: number[];
@@ -41,40 +38,17 @@ const FravaerTabell = (props: DagerTabellProps) => {
       <tbody>
         {MONTHS.map((month) => (
           <tr key={month}>
-            {years.map((year) => {
-              if (!isFuture(year, month, thisYear, thisMonth)) {
-                return (
-                  <>
-                    <td>{month.substr(0, 3)}</td>
-                    <td>
-                      <Input
-                        label={month + ' ' + year}
-                        id={month + '-' + year}
-                        value={getFravaerByMonth(
-                          year,
-                          MONTHS.indexOf(month),
-                          props.fravaer
-                        )}
-                        onChange={(event) => {
-                          props.onChange({
-                            year: year,
-                            month: MONTHS.indexOf(month),
-                            dager: event.currentTarget.value
-                          } as FravaerType);
-                        }}
-                      />
-                    </td>
-                  </>
-                );
-              } else {
-                return (
-                  <>
-                    <td className='empty-month' />
-                    <td className='empty-month' />
-                  </>
-                );
-              }
-            })}
+            {years.map((year) => (
+              <FravaerRow
+                key={'input' + year + '' + month}
+                year={year}
+                month={MONTHS.indexOf(month)}
+                thisMonth={thisMonth}
+                thisYear={thisYear}
+                fravaer={props.fravaer}
+                onChange={props.onChange}
+              />
+            ))}
           </tr>
         ))}
       </tbody>
