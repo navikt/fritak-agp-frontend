@@ -3,7 +3,6 @@ import {
   EnvironmentProvider,
   LoginProvider
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
-import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import GravidSide from './components/gravid/GravidSide';
 import Forside from './components/Forside';
