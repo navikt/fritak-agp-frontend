@@ -25,7 +25,7 @@ export const validerFravaerTabell = (
   if (isEmpty) {
     feilmeldinger.push({
       skjemaelementId: 'fravaer',
-      feilmelding: 'Må fylles ut'
+      feilmelding: 'Fravær må fylles ut'
     });
   }
   return feilmeldinger;
