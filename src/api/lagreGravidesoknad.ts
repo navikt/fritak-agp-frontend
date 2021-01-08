@@ -1,5 +1,5 @@
 import RestStatus from './RestStatus';
-import handleStatus from './handleStatus';
+import postData from './postData';
 
 export interface lagreGravideInterface {
   status: RestStatus;
@@ -30,6 +30,7 @@ interface lagreGravidesoknadPostParametere {
   tiltakBeskrivelse?: string;
   omplassering?: string;
   omplasseringAarsak?: string;
+  dokumentasjon?: string;
 }
 
 export interface lagreGravideValidationError {
@@ -94,41 +95,8 @@ const lagreGravidesoknad = (
   payload: lagreGravidesoknadParametere
 ): Promise<lagreGravideInterface> => {
   const bodyPayload: lagreGravidesoknadPostParametere = adaptPayload(payload);
-  let okStatus = 0;
-  return Promise.race([
-    new Promise<lagreGravideInterface>((_, reject) => {
-      const id = setTimeout(() => {
-        clearTimeout(id);
-        reject({ status: RestStatus.Timeout });
-      }, 10000);
-    }).catch(() => ({
-      status: RestStatus.Timeout,
-      validering: []
-    })),
-    fetch(basePath + '/api/v1/gravid/soeknad', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include',
-      method: 'POST',
-      body: JSON.stringify(bodyPayload)
-    })
-      .then((params) => {
-        okStatus = params.status;
-        return handleStatus(params);
-      })
-      .then((json) => {
-        return {
-          status: okStatus === 0 ? RestStatus.Successfully : okStatus,
-          validering: json
-        };
-      })
-      .catch((status) => ({
-        status: status,
-        validering: []
-      }))
-  ]);
+
+  return postData(basePath + '/api/v1/gravid/soeknad', bodyPayload);
 };
 
 export default lagreGravidesoknad;
