@@ -2,10 +2,14 @@ import { isFuture } from './isFuture';
 
 describe('isFuture', () => {
   it('should throw exception when invalid month', () => {
-    expect(isFuture(2000, -1, 2000, 1)).toThrow('Invalid month!');
+    expect(() => {
+      isFuture(2000, -1, 2000, 1);
+    }).toThrow('Invalid month!');
   });
   it('should throw exception when invalid month', () => {
-    expect(isFuture(2000, 11, 2000, 1)).toThrow('Invalid month!');
+    expect(() => {
+      isFuture(2000, 12, 2000, 1);
+    }).toThrow('Invalid month!');
   });
 
   it('should be future when date is next month', () => {

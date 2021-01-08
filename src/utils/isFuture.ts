@@ -4,8 +4,8 @@ export const isFuture = (
   thisYear: number,
   thisMonth: number
 ) => {
-  if (month == -1) {
-    throw Error('Invalid month!');
+  if (month < 0 || month > 11) {
+    throw new Error('Invalid month!');
   }
   if (thisYear > year) {
     return false;
