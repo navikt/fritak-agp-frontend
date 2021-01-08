@@ -1,5 +1,5 @@
 import RestStatus from './RestStatus';
-import lagreData from './lagreData';
+import postData from './postData';
 
 export interface lagreGravideInterface {
   status: RestStatus;
@@ -96,7 +96,7 @@ const lagreGravidesoknad = (
 ): Promise<lagreGravideInterface> => {
   const bodyPayload: lagreGravidesoknadPostParametere = adaptPayload(payload);
 
-  return lagreData(basePath + '/api/v1/gravid/soeknad', bodyPayload);
+  return postData(basePath + '/api/v1/gravid/soeknad', bodyPayload);
 };
 
 export default lagreGravidesoknad;

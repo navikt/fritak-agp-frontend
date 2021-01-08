@@ -1,7 +1,7 @@
-import lagreData from './lagreData';
+import postData from './postData';
 import RestStatus from './RestStatus';
 
-describe('lagreData', () => {
+describe('postData', () => {
   it('should resolve with status 200 if the backend responds with 200', async () => {
     const mockData = {
       mocked: 'OK'
@@ -15,7 +15,7 @@ describe('lagreData', () => {
       } as unknown) as Response)
     );
 
-    expect(await lagreData('/Path', {})).toEqual({
+    expect(await postData('/Path', {})).toEqual({
       status: 200,
       validering: mockData
     });
@@ -34,7 +34,7 @@ describe('lagreData', () => {
       } as unknown) as Response)
     );
 
-    expect(await lagreData('/Path', {})).toEqual({
+    expect(await postData('/Path', {})).toEqual({
       status: 401,
       validering: mockData
     });
@@ -56,7 +56,7 @@ describe('lagreData', () => {
       } as unknown) as Response)
     );
 
-    expect(await lagreData('/Path', {})).toEqual({
+    expect(await postData('/Path', {})).toEqual({
       status: 500,
       validering: 'Dette gik galt'
     });
@@ -70,7 +70,7 @@ describe('lagreData', () => {
       } as Response)
     );
 
-    expect(await lagreData('/Path', {})).toEqual({
+    expect(await postData('/Path', {})).toEqual({
       status: RestStatus.Unknown,
       validering: []
     });
@@ -88,7 +88,7 @@ describe('lagreData', () => {
       } as Response)
     );
 
-    const resultat = lagreData('/Path', {});
+    const resultat = postData('/Path', {});
 
     jest.advanceTimersByTime(15000);
 

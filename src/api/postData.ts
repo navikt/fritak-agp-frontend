@@ -1,20 +1,21 @@
 import RestStatus from './RestStatus';
 
-export interface responsdataInterface {
+export interface Responsdata {
   status: RestStatus;
   validering: any;
 }
 
-const lagreData = async (
+const postData = async (
   path: string,
-  payload: any
-): Promise<responsdataInterface> => {
+  payload: any,
+  timeout: number = 10000
+): Promise<Responsdata> => {
   return Promise.race([
-    new Promise<responsdataInterface>((_, reject) => {
+    new Promise<Responsdata>((_, reject) => {
       const id = setTimeout(() => {
         clearTimeout(id);
         reject({ status: RestStatus.Timeout });
-      }, 10000);
+      }, timeout);
     }).catch(() => ({
       status: RestStatus.Timeout,
       validering: []
@@ -36,7 +37,7 @@ const lagreData = async (
           case RestStatus.Unauthorized:
           case RestStatus.UnprocessableEntity:
           case RestStatus.Error:
-            let returndata = await params
+            const returndata = await params
               .clone()
               .json()
               .catch(() => params.text());
@@ -59,4 +60,4 @@ const lagreData = async (
   ]);
 };
 
-export default lagreData;
+export default postData;
