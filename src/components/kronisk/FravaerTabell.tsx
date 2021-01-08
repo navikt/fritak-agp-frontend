@@ -21,17 +21,17 @@ const FravaerTabell = (props: DagerTabellProps) => {
       <thead>
         <tr key={'years-header'}>
           {years.map((year) => (
-            <th key={year} colSpan={2}>
+            <th key={'fravaer_year-' + year} colSpan={2}>
               {year}
             </th>
           ))}
         </tr>
         <tr key={'months-header'}>
           {years.map((year) => (
-            <>
-              <th key={'month-' + year}>Måned</th>
-              <th key={'days-' + year}>Dager</th>
-            </>
+            <React.Fragment key={'month_header' + year}>
+              <th>Måned</th>
+              <th>Dager</th>
+            </React.Fragment>
           ))}
         </tr>
       </thead>
@@ -40,7 +40,7 @@ const FravaerTabell = (props: DagerTabellProps) => {
           <tr key={month}>
             {years.map((year) => (
               <FravaerRow
-                key={'input' + year + '' + month}
+                key={'FravaerRow-' + year + '-' + month}
                 year={year}
                 month={MONTHS.indexOf(month)}
                 thisMonth={thisMonth}

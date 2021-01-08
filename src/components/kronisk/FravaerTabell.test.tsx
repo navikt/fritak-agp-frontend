@@ -5,7 +5,9 @@ import FravaerTabell from './FravaerTabell';
 
 describe('FravaerTabell', () => {
   it('should have no a11y violations', async () => {
-    const rendered = render(<FravaerTabell onChange={() => {}} />);
+    const rendered = render(
+      <FravaerTabell onChange={() => {}} validated={false} />
+    );
     const results = await axe(rendered.container);
 
     expect(results).toHaveNoViolations();
