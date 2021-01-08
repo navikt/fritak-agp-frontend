@@ -2,15 +2,15 @@ import RestStatus from './RestStatus';
 import postData from './postData';
 import ValidationError from './ValidationError';
 
-export interface lagreGravideResponsdata {
+export interface lagreKroniskResponsdata {
   status: RestStatus;
   validering:
     | ValidationError
-    | lagreGravideBackendError
-    | lagreGravideBackendError[];
+    | lagreKroniskBackendError
+    | lagreKroniskBackendError[];
 }
 
-export interface lagreGravidesoknadParametere {
+export interface lagreKroniskParametere {
   orgnr?: string;
   fnr?: string;
   tilrettelegge?: boolean;
@@ -22,7 +22,7 @@ export interface lagreGravidesoknadParametere {
   dokumentasjon?: string;
 }
 
-interface lagreGravidesoknadPostParametere {
+interface lagreKroniskPostParametere {
   orgnr: string;
   fnr: string;
   tilrettelegge: boolean;
@@ -34,7 +34,7 @@ interface lagreGravidesoknadPostParametere {
   dokumentasjon?: string;
 }
 
-export interface lagreGravideBackendError {
+export interface lagreKroniskBackendError {
   type: string;
   title: string;
   status: number;
@@ -43,9 +43,9 @@ export interface lagreGravideBackendError {
 }
 
 const adaptPayload = (
-  payload: lagreGravidesoknadParametere
-): lagreGravidesoknadPostParametere => {
-  const postParams: lagreGravidesoknadPostParametere = {
+  payload: lagreKroniskParametere
+): lagreKroniskPostParametere => {
+  const postParams: lagreKroniskPostParametere = {
     orgnr: payload.orgnr || '',
     fnr: payload.fnr || '',
     tilrettelegge: payload.tilrettelegge || false,
@@ -75,13 +75,13 @@ const adaptPayload = (
   return postParams;
 };
 
-const lagreGravidesoknad = (
+const lagreKronisk = (
   basePath: string,
-  payload: lagreGravidesoknadParametere
-): Promise<lagreGravideResponsdata> => {
-  const bodyPayload: lagreGravidesoknadPostParametere = adaptPayload(payload);
+  payload: lagreKroniskParametere
+): Promise<lagreKroniskResponsdata> => {
+  const bodyPayload: lagreKroniskPostParametere = adaptPayload(payload);
 
   return postData(basePath + '/api/v1/gravid/soeknad', bodyPayload);
 };
 
-export default lagreGravidesoknad;
+export default lagreKronisk;

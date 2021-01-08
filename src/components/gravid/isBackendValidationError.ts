@@ -1,17 +1,15 @@
-import {
-  lagreGravideBackendError,
-  lagreGravideValidationError
-} from '../../api/lagreGravidesoknad';
+import { lagreGravideBackendError } from '../../api/lagreGravidesoknad';
+import ValidationError from '../../api/ValidationError';
 
 function isBackendValidationError(
   beResponse:
     | lagreGravideBackendError
-    | lagreGravideValidationError
+    | ValidationError
     | lagreGravideBackendError[]
 ): beResponse is lagreGravideBackendError {
   return (
-    (beResponse as lagreGravideValidationError).violations !== undefined &&
-    (beResponse as lagreGravideValidationError).violations.length > 0
+    (beResponse as ValidationError).violations !== undefined &&
+    (beResponse as ValidationError).violations.length > 0
   );
 }
 
