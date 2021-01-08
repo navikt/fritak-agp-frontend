@@ -3,7 +3,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 
-const KroniskSide = () => {
+const Kvittering = () => {
   return (
     <Row>
       <Column>
@@ -11,13 +11,11 @@ const KroniskSide = () => {
           <Innholdstittel>Kronisk</Innholdstittel>
         </Panel>
         <Panel>
-          <Normaltekst>
-            Kommer...
-          </Normaltekst>
+          <Normaltekst>Kommer...</Normaltekst>
         </Panel>
       </Column>
     </Row>
   );
 };
 
-export default KroniskSide;
+export default Kvittering;
