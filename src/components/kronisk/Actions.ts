@@ -1,5 +1,5 @@
 import { ArbeidType } from './ArbeidType';
-import { PåkjenningerType } from './PåkjenningerType';
+import { PaakjenningerType } from './PaakjenningerType';
 
 export enum Actions {
   Reset,
@@ -11,26 +11,26 @@ export enum Actions {
   TogglePaakjenninger,
   Kommentar,
   Dokumentasjon,
-  Fravær,
+  Fravaer,
   Bekreft,
   Validate
 }
 
-export interface FraværType {
+export interface FravaerType {
   year: number;
   month: number;
-  dager?: number;
+  dager: string;
 }
 
 export interface Payload {
   fnr?: string;
   orgnr?: string;
   arbeid?: ArbeidType;
-  påkjenning?: PåkjenningerType;
+  paakjenning?: PaakjenningerType;
   bekreft?: boolean;
   progress?: boolean;
   kvittering?: boolean;
-  fravær?: FraværType;
+  fravaer?: FravaerType;
   dokumentasjon?: string;
   kommentar?: string;
 }
