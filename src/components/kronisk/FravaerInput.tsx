@@ -22,8 +22,6 @@ export const FravaerInput = (props: FravaerInputProps) => {
       id={props.month + '-' + props.year}
       feil={feil}
       value={dager}
-      autoComplete='false'
-      autoCorrect='false'
       onChange={(event) => {
         props.onChange({
           year: props.year,
