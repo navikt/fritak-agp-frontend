@@ -1,4 +1,4 @@
-export interface Årsfravær {
+export interface Aarsfravaer {
   year: number;
   jan?: number;
   feb?: number;

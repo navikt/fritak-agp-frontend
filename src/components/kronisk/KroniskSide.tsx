@@ -6,6 +6,7 @@ import {
   BekreftCheckboksPanel,
   Checkbox,
   CheckboxGruppe,
+  Feiloppsummering,
   SkjemaGruppe,
   Textarea
 } from 'nav-frontend-skjema';
@@ -17,15 +18,17 @@ import Upload from '../Upload';
 import './KroniskSide.scss';
 import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../Orgnr';
-import KroniskState, { defaultKroniskState } from './KroniskState';
+import { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
-import { ArbeidType } from './ArbeidType';
-import { PåkjenningerType } from './PåkjenningerType';
+import { PaakjenningerType } from './PaakjenningerType';
 import getBase64file from '../gravid/getBase64File';
-import DagerTabell from './DagerTabell';
+import FravaerTabell from './FravaerTabell';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
+import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 
-const KroniskSide = (props: KroniskState) => {
+const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
@@ -33,6 +36,10 @@ const KroniskSide = (props: KroniskState) => {
         dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
       });
     }
+  };
+  const handleSubmit = () => {
+    dispatch({ type: Actions.Progress, payload: { progress: true } });
+    dispatch({ type: Actions.Validate });
   };
   return (
     <Row>
@@ -63,14 +70,18 @@ const KroniskSide = (props: KroniskState) => {
           <Skillelinje />
 
           <Panel id='gravidside-panel-ansatte'>
-            <SkjemaGruppe legend='Den ansatte' aria-live='polite'>
+            <SkjemaGruppe
+              legend='Den ansatte'
+              aria-live='polite'
+              feilmeldingId={'ansatt'}
+            >
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
                     label='Fødselsnummer (11 siffer)'
-                    fnr={props.fnr}
+                    fnr={state.fnr}
                     placeholder='11 siffer'
-                    feilmelding={props.fnrError}
+                    feilmelding={state.fnrError}
                     onValidate={() => {}}
                     onChange={(fnr: string) =>
                       dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })
@@ -80,9 +91,9 @@ const KroniskSide = (props: KroniskState) => {
                 <Column sm='4' xs='6'>
                   <Orgnr
                     label='Organisasjonsnummer'
-                    orgnr={props.orgnr}
+                    orgnr={state.orgnr}
                     placeholder='9 siffer'
-                    feilmelding={props.orgnrError}
+                    feilmelding={state.orgnrError}
                     onChange={(orgnr: string) =>
                       dispatch({
                         type: Actions.Orgnr,
@@ -116,186 +127,97 @@ const KroniskSide = (props: KroniskState) => {
               </ul>
               <CheckboxGruppe
                 legend='Hva slags arbeid utfører den ansatte?'
-                feil={props.arbeidError}
+                feil={state.arbeidError}
                 feilmeldingId='arbeidsutfører'
               >
-                <Column sm='4' xs='6'>
-                  <Checkbox
-                    label='Stillesittende arbeid'
-                    value={ArbeidType.Stillesittende}
-                    id={'stillesittende'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.ToggleArbeid,
-                        payload: { arbeid: ArbeidType.Stillesittende }
-                      })
-                    }
-                    checked={props.arbeid?.includes(ArbeidType.Stillesittende)}
-                  />
-                  <Checkbox
-                    label='Moderat fysisk arbeid'
-                    value={ArbeidType.Moderat}
-                    id={'moderat'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.ToggleArbeid,
-                        payload: { arbeid: ArbeidType.Moderat }
-                      })
-                    }
-                    checked={props.arbeid?.includes(ArbeidType.Moderat)}
-                  />
-                  <Checkbox
-                    label='Fysisk krevende arbeid'
-                    value={ArbeidType.Krevende}
-                    id={'fysisk'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.ToggleArbeid,
-                        payload: { arbeid: ArbeidType.Krevende }
-                      })
-                    }
-                    checked={props.arbeid?.includes(ArbeidType.Krevende)}
-                  />
-                </Column>
+                <Row>
+                  <Column sm='4' xs='6'>
+                    {ARBEID_CHECKBOXER.map((a) => {
+                      return (
+                        <Checkbox
+                          key={a.id}
+                          label={a.label}
+                          value={a.value}
+                          id={a.id}
+                          onChange={(evt) =>
+                            dispatch({
+                              type: Actions.ToggleArbeid,
+                              payload: { arbeid: a.value }
+                            })
+                          }
+                          checked={state.arbeid?.includes(a.value)}
+                        />
+                      );
+                    })}
+                  </Column>
+                </Row>
               </CheckboxGruppe>
 
               <CheckboxGruppe
-                legend='Hvilke påkjenninger innebærer arbeidet?​'
-                feil={props.påkjenningerError}
-                feilmeldingId='påkjenninger'
+                legend='Hvilke påkjenninger innebærer arbeidet?'
+                feil={state.paakjenningerError}
+                feilmeldingId='paakjenninger'
               >
-                <Column sm='4' xs='6'>
-                  <Checkbox
-                    label='Allergener eller giftstofferd'
-                    value={PåkjenningerType.Allergener}
-                    id={'allergener'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: { påkjenning: PåkjenningerType.Allergener }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.Allergener
-                    )}
-                  />
-                  <Checkbox
-                    label='Ukomfortabel temperatur eller luftfuktighet​'
-                    value={PåkjenningerType.Ukomfortabel}
-                    id={'ukomfortabel'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: { påkjenning: PåkjenningerType.Ukomfortabel }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.Ukomfortabel
-                    )}
-                  />
-                  <Checkbox
-                    label='Stressende omgivelser'
-                    value={PåkjenningerType.Stressende}
-                    id={'stressende'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: { påkjenning: PåkjenningerType.Stressende }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.Stressende
-                    )}
-                  />
-                  <Checkbox
-                    label='Regelmessige kveldsskift eller nattskift'
-                    value={PåkjenningerType.RegelmessigKveldsskift}
-                    id={'regelmessige'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: {
-                          påkjenning: PåkjenningerType.RegelmessigKveldsskift
-                        }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.RegelmessigKveldsskift
-                    )}
-                  />
-                  <Checkbox
-                    label='Mye gåing/ståing'
-                    value={PåkjenningerType.Gåing}
-                    id={'gåing'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: { påkjenning: PåkjenningerType.Gåing }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.Gåing
-                    )}
-                  />
-                </Column>
-                <Column sm='4' xs='6'>
-                  <Checkbox
-                    label='Harde gulv'
-                    value={PåkjenningerType.HardeGulv}
-                    id={'harde'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: { påkjenning: PåkjenningerType.HardeGulv }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.HardeGulv
-                    )}
-                  />
-                  <Checkbox
-                    label='Tunge løft'
-                    value={PåkjenningerType.TungeLøft}
-                    id={'tunge'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: { påkjenning: PåkjenningerType.TungeLøft }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.TungeLøft
-                    )}
-                  />
-                  <Checkbox
-                    label='Annet, gi en kort beskrivelse:'
-                    value={PåkjenningerType.Annet}
-                    id={'annet'}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.TogglePaakjenninger,
-                        payload: { påkjenning: PåkjenningerType.Annet }
-                      })
-                    }
-                    checked={props.påkjenninger?.includes(
-                      PåkjenningerType.Annet
-                    )}
-                  />
-                  <Textarea
-                    label='annet'
-                    value={props.kommentar || ''}
-                    feil={props.kommentarError}
-                    onChange={(evt) =>
-                      dispatch({
-                        type: Actions.Kommentar,
-                        payload: { påkjenning: PåkjenningerType.Annet }
-                      })
-                    }
-                    disabled={
-                      !props.påkjenninger?.includes(PåkjenningerType.Annet)
-                    }
-                  />
-                </Column>
+                <Row>
+                  <Column sm='4' xs='6'>
+                    {PAAKJENNINGER_CHECKBOXER.filter(
+                      (value, index) => index < 5
+                    ).map((a, index) => {
+                      return (
+                        <Checkbox
+                          key={a.id}
+                          label={a.label}
+                          value={a.value}
+                          id={a.id}
+                          onChange={(evt) =>
+                            dispatch({
+                              type: Actions.TogglePaakjenninger,
+                              payload: { paakjenning: a.value }
+                            })
+                          }
+                          checked={state.paakjenninger?.includes(a.value)}
+                        />
+                      );
+                    })}
+                  </Column>
+                  <Column sm='4' xs='6'>
+                    {PAAKJENNINGER_CHECKBOXER.filter(
+                      (value, index) => index > 4
+                    ).map((a, index) => {
+                      return (
+                        <Checkbox
+                          key={a.id}
+                          label={a.label}
+                          value={a.value}
+                          id={a.id}
+                          onChange={(evt) =>
+                            dispatch({
+                              type: Actions.TogglePaakjenninger,
+                              payload: { paakjenning: a.value }
+                            })
+                          }
+                          checked={state.paakjenninger?.includes(a.value)}
+                        />
+                      );
+                    })}
+
+                    <Textarea
+                      label='annet'
+                      defaultValue={state.kommentar}
+                      value={state.kommentar || ''}
+                      feil={state.kommentarError || undefined}
+                      onChange={(evt) =>
+                        dispatch({
+                          type: Actions.Kommentar,
+                          payload: { kommentar: evt.target.value }
+                        })
+                      }
+                      disabled={
+                        !state.paakjenninger?.includes(PaakjenningerType.Annet)
+                      }
+                    />
+                  </Column>
+                </Row>
               </CheckboxGruppe>
             </SkjemaGruppe>
           </Panel>
@@ -305,7 +227,7 @@ const KroniskSide = (props: KroniskState) => {
           <Panel>
             <SkjemaGruppe
               legend='Hvis dere har fått dokumentasjon fra den ansatte'
-              feil={props.dokumentasjonError}
+              feil={state.dokumentasjonError}
               feilmeldingId='dokumentasjon'
               aria-live='polite'
             >
@@ -336,8 +258,8 @@ const KroniskSide = (props: KroniskState) => {
           <Panel>
             <SkjemaGruppe
               legend='Fraværet'
-              feil={props.fraværError}
-              feilmeldingId='fravær'
+              feil={state.fravaerError}
+              feilmeldingId='fravaer'
               aria-live='polite'
             >
               <Normaltekst>
@@ -346,15 +268,17 @@ const KroniskSide = (props: KroniskState) => {
                 arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
 
-              <DagerTabell
+              <FravaerTabell
+                validated={state.validated || false}
+                fravaer={state.fravaer}
                 onChange={(evt) => {
                   dispatch({
-                    type: Actions.Fravær,
+                    type: Actions.Fravaer,
                     payload: {
-                      fravær: {
+                      fravaer: {
                         year: evt.year,
                         month: evt.month,
-                        dager: evt.days
+                        dager: evt.dager
                       }
                     }
                   });
@@ -369,12 +293,12 @@ const KroniskSide = (props: KroniskState) => {
             <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
               <BekreftCheckboksPanel
                 label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                checked={props.bekreft || false}
-                feil={props.bekreftError}
+                checked={state.bekreft || false}
+                feil={state.bekreftError}
                 onChange={() =>
                   dispatch({
                     type: Actions.Bekreft,
-                    payload: { bekreft: !props.bekreft }
+                    payload: { bekreft: !state.bekreft }
                   })
                 }
               >
@@ -383,6 +307,21 @@ const KroniskSide = (props: KroniskState) => {
                 riktige eller fullstendige.
               </BekreftCheckboksPanel>
             </SkjemaGruppe>
+          </Panel>
+
+          {state.feilmeldinger && state.feilmeldinger.length > 0 && (
+            <Panel>
+              <Feiloppsummering
+                tittel='For å gå videre må du rette opp følgende:'
+                feil={state.feilmeldinger}
+              />
+            </Panel>
+          )}
+
+          <Panel>
+            <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
+              Send søknad
+            </Hovedknapp>
           </Panel>
         </SideIndentering>
       </Column>

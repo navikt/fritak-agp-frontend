@@ -1,15 +1,15 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { ArbeidType } from './ArbeidType';
-import { PåkjenningerType } from './PåkjenningerType';
-import { Årsfravær } from './Årsfravær';
+import { PaakjenningerType } from './PaakjenningerType';
+import { Aarsfravaer } from './Aarsfravaer';
 
 export const defaultKroniskState = (): KroniskState => {
   return {
     fnr: '',
     orgnr: '',
-    fravær: [],
+    fravaer: [],
     arbeid: [],
-    påkjenninger: [],
+    paakjenninger: [],
     kommentar: '',
     dokumentasjon: '',
     bekreft: false,
@@ -24,14 +24,14 @@ export default interface KroniskState {
   orgnrError?: string;
   arbeid?: Array<ArbeidType>;
   arbeidError?: string;
-  påkjenninger?: Array<PåkjenningerType>;
-  påkjenningerError?: string;
+  paakjenninger?: Array<PaakjenningerType>;
+  paakjenningerError?: string;
   kommentar?: string;
   kommentarError?: string;
   dokumentasjon?: string;
   dokumentasjonError?: string;
-  fravær?: Array<Årsfravær>;
-  fraværError?: string;
+  fravaer?: Array<Aarsfravaer>;
+  fravaerError?: string;
   feilmeldinger?: Array<FeiloppsummeringFeil>;
   validated?: boolean;
   progress?: boolean;

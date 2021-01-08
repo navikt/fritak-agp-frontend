@@ -74,16 +74,27 @@ describe('KroniskReducer', () => {
     expect(state.progress).toEqual(true);
   });
 
-  // TODO - Morten fikser reducer senere
-  // it('should set fravær', () => {
-  //   let state = KroniskReducer(defaultKroniskState(), {
-  //     type: Actions.Fravær,
-  //     payload: { fravær: { year: 2018, month: 10, dager: 2 } }
-  //   });
-  //   expect(state.fravær?.length).toEqual(1);
-  //   expect(state.fravær!![0].year).toEqual(2018);
-  //   expect(state.fravær!![0].okt).toEqual(2);
-  // });
+  it('should set, update and remove fravær', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.Fravaer,
+      payload: { fravaer: { year: 2018, month: 9, dager: 2 } }
+    });
+    let { fravaer } = state;
+    expect(fravaer?.length).toEqual(1);
+    let Aarsfravaer = fravaer!![0];
+    expect(Aarsfravaer.year).toEqual(2018);
+    expect(Aarsfravaer.okt).toEqual(2);
+    let state2 = KroniskReducer(state, {
+      type: Actions.Fravaer,
+      payload: { fravaer: { year: 2018, month: 9, dager: 3 } }
+    });
+    expect(state2.fravaer!![0].okt).toEqual(3);
+    let state3 = KroniskReducer(state, {
+      type: Actions.Fravaer,
+      payload: { fravaer: { year: 2018, month: 9 } }
+    });
+    expect(state3.fravaer!![0].okt).toBeUndefined();
+  });
 
   it('should set kommentar', () => {
     let state = KroniskReducer(defaultKroniskState(), {
@@ -123,12 +134,7 @@ describe('KroniskReducer', () => {
       payload: { fnr: '' }
     });
     let state2 = KroniskReducer(state1, { type: Actions.Validate });
-    expect(state2.fnrError).toBe('Mangler fnr');
-    expect(state2.feilmeldinger!!.length).toEqual(1);
-    expect(state2.feilmeldinger!![0].feilmelding).toEqual(
-      'Fødslesnummer må fylles ut'
-    );
-    expect(state2.feilmeldinger!![0].skjemaelementId).toEqual('fnr');
+    expect(state2.feilmeldinger!!.length).toBe(6);
     // TODO Mangler validering på alle felter
   });
 
@@ -138,9 +144,9 @@ describe('KroniskReducer', () => {
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toEqual('');
     expect(state.arbeid?.length).toEqual(0);
-    expect(state.påkjenninger?.length).toEqual(0);
+    expect(state.paakjenninger?.length).toEqual(0);
     expect(state.kommentar).toEqual('');
-    expect(state.fravær?.length).toEqual(0);
+    expect(state.fravaer?.length).toEqual(0);
     expect(state.progress).toBeUndefined();
     expect(state.validated).toBeUndefined();
     expect(state.kvittering).toBeUndefined();
@@ -148,8 +154,8 @@ describe('KroniskReducer', () => {
     expect(state.fnrError).toBeUndefined();
     expect(state.orgnrError).toBeUndefined();
     expect(state.arbeidError).toBeUndefined();
-    expect(state.påkjenningerError).toBeUndefined();
-    expect(state.fraværError).toBeUndefined();
+    expect(state.paakjenningerError).toBeUndefined();
+    expect(state.fravaerError).toBeUndefined();
     expect(state.bekreftError).toBeUndefined();
     expect(state.kommentarError).toBeUndefined();
     expect(state.dokumentasjonError).toBeUndefined();

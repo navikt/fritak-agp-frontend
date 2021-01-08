@@ -1,6 +1,9 @@
 import KroniskState, { defaultKroniskState } from './KroniskState';
 import { Actions, KroniskAction } from './Actions';
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
+import { Aarsfravaer } from './Aarsfravaer';
+import { validateKronisk } from './validateKronisk';
+import { MONTHS } from '../../utils/months';
+import { monthKey } from '../../utils/monthKey';
 
 const KroniskReducer = (
   state: KroniskState,
@@ -11,80 +14,93 @@ const KroniskReducer = (
   switch (action.type) {
     case Actions.Fnr:
       nextState.fnr = payload?.fnr;
-      return nextState;
+      return validateKronisk(nextState);
 
     case Actions.Orgnr:
       nextState.orgnr = payload?.orgnr;
-      return nextState;
+      return validateKronisk(nextState);
 
-    case Actions.ToggleArbeid: // Toggler en input
+    case Actions.ToggleArbeid:
       if (payload?.arbeid === undefined) {
         throw new Error('Du må spesifisere arbeidstype');
       }
       if (!nextState.arbeid) {
         nextState.arbeid = [];
       }
-      nextState.arbeid.push(payload?.arbeid!);
-      return nextState;
+      if (state.arbeid?.includes(payload?.arbeid)) {
+        nextState.arbeid.splice(state.arbeid?.indexOf(payload?.arbeid), 1);
+      } else {
+        nextState.arbeid.push(payload?.arbeid!);
+      }
+      return validateKronisk(nextState);
 
     case Actions.TogglePaakjenninger:
-      if (payload?.påkjenning === undefined) {
-        throw new Error('Du må spesifisere påkjenning');
+      if (payload?.paakjenning === undefined) {
+        throw new Error('Du må spesifisere paakjenning');
       }
-      if (!nextState.påkjenninger) {
-        nextState.påkjenninger = [];
+      if (!nextState.paakjenninger) {
+        nextState.paakjenninger = [];
       }
-      nextState.påkjenninger.push(payload?.påkjenning!);
-      return nextState;
+      if (state.paakjenninger?.includes(payload?.paakjenning)) {
+        nextState.paakjenninger.splice(
+          state.paakjenninger?.indexOf(payload?.paakjenning),
+          1
+        );
+      } else {
+        nextState.paakjenninger.push(payload?.paakjenning);
+      }
+      return validateKronisk(nextState);
 
     case Actions.Kommentar:
       nextState.kommentar = payload?.kommentar;
-      return nextState;
+      return validateKronisk(nextState);
 
     case Actions.Dokumentasjon:
       nextState.dokumentasjon = payload?.dokumentasjon;
-      return nextState;
+      return validateKronisk(nextState);
 
-    case Actions.Fravær: //
-      if (!payload?.fravær) {
+    case Actions.Fravaer: //
+      if (payload?.fravaer == undefined) {
         throw new Error('Du må spesifisere fravær');
       }
-
-      if (!nextState.fravær) {
-        nextState.fravær = [];
+      if (!nextState.fravaer) {
+        nextState.fravaer = [];
       }
+      let { fravaer } = payload;
+      const { year, month, dager } = fravaer;
+      if (month < 0 || month > 11) {
+        throw new Error('Month må være mellom 0 og 11');
+      }
+      const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
+      const monthProp = monthKey(MONTHS[month]);
+      let nextFravaer =
+        state.fravaer?.find((f) => f.year === year) ||
+        ({ year: year } as Aarsfravaer);
 
-      let { fravær } = payload;
-      const { year, month, dager } = fravær;
-      nextState.fravær.push({ year: year, [month]: dager });
-      return nextState;
+      if (!state.fravaer?.includes(nextFravaer)) {
+        nextState.fravaer?.push(nextFravaer);
+      }
+      nextFravaer[monthProp] = antallDager;
+      return validateKronisk(nextState);
 
     case Actions.Bekreft:
       nextState.bekreft = payload?.bekreft;
-      return nextState;
+      return validateKronisk(nextState);
 
     case Actions.Progress:
+      if (payload?.progress == undefined) {
+        throw new Error('Du må spesifisere progress');
+      }
       nextState.progress = payload?.progress;
-      return nextState;
+      return validateKronisk(nextState);
 
     case Actions.Kvittering:
       nextState.kvittering = payload?.kvittering;
-      return nextState;
+      return validateKronisk(nextState);
 
     case Actions.Validate:
-      // Validering av felter
-      nextState.fnrError = state.fnr == '' ? 'Mangler fnr' : '';
-      nextState.orgnrError = state.orgnr == '' ? 'Mangler orgnr' : '';
-
-      // Oppbygging av liste med feilmeldinger
-      nextState.feilmeldinger = new Array<FeiloppsummeringFeil>();
-      if (nextState.fnrError) {
-        nextState.feilmeldinger.push({
-          skjemaelementId: 'fnr',
-          feilmelding: 'Fødslesnummer må fylles ut'
-        } as FeiloppsummeringFeil);
-      }
-      return nextState;
+      nextState.validated = true;
+      return validateKronisk(nextState);
 
     case Actions.Reset:
       return Object.assign({}, defaultKroniskState());

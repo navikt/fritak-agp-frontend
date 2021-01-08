@@ -1,4 +1,4 @@
-export enum PåkjenningerType {
+export enum PaakjenningerType {
   Allergener,
   Ukomfortabel,
   Stressende,
