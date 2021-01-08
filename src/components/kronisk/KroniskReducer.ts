@@ -30,7 +30,7 @@ const KroniskReducer = (
       if (state.arbeid?.includes(payload.arbeid)) {
         nextState.arbeid.splice(state.arbeid?.indexOf(payload.arbeid), 1);
       } else {
-        nextState.arbeid.push(payload.arbeid!);
+        nextState.arbeid.push(payload.arbeid);
       }
       return validateKronisk(nextState);
 
