@@ -1,5 +1,5 @@
 import { lagreGravideBackendError } from '../../api/lagreGravidesoknad';
-import ValidationError from '../../api/ValidationError';
+import ValidationResponse from '../../api/ValidationResponse';
 import isBackendValidationError from './isBackendValidationError';
 
 describe('isBackendValidationError', () => {
@@ -15,7 +15,7 @@ describe('isBackendValidationError', () => {
   });
 
   it('should detect a validation error from the backend if the error list is empty', () => {
-    const mockError: ValidationError = {
+    const mockError: ValidationResponse = {
       violations: [
         {
           validationType: 'type',
@@ -34,7 +34,7 @@ describe('isBackendValidationError', () => {
   });
 
   it('should ignore a validation error from the backend if the error list is empty', () => {
-    const mockError: ValidationError = {
+    const mockError: ValidationResponse = {
       violations: [],
       type: 'type',
       title: 'Message',

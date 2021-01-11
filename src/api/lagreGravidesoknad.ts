@@ -1,11 +1,11 @@
 import RestStatus from './RestStatus';
 import postData from './postData';
-import ValidationError from './ValidationError';
+import ValidationResponse from './ValidationResponse';
 
 export interface lagreGravideResponsdata {
   status: RestStatus;
   validering:
-    | ValidationError
+    | ValidationResponse
     | lagreGravideBackendError
     | lagreGravideBackendError[];
 }
