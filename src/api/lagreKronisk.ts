@@ -1,11 +1,11 @@
 import RestStatus from './RestStatus';
 import postData from './postData';
-import ValidationError from './ValidationError';
+import ValidationResponse from './ValidationResponse';
 
 export interface lagreKroniskResponsdata {
   status: RestStatus;
   validering:
-    | ValidationError
+    | ValidationResponse
     | lagreKroniskBackendError
     | lagreKroniskBackendError[];
 }
