@@ -26,10 +26,10 @@ import isValidFnr from './isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
 import lagreGravidesoknad, {
-  lagreGravideInterface,
-  lagreGravidesoknadParametere,
-  lagreGravideValidationError
+  lagreGravideResponsdata,
+  lagreGravidesoknadParametere
 } from '../../api/lagreGravidesoknad';
+import ValidationError from '../../api/ValidationError';
 import RestStatus from '../../api/RestStatus';
 import environment from '../../environment';
 import { useHistory } from 'react-router-dom';
@@ -281,7 +281,7 @@ const GravidSide = (props: GravidSideProps) => {
   };
 
   const validateBackendResponse = (
-    beResponse: lagreGravideInterface
+    beResponse: lagreGravideResponsdata
   ): boolean => {
     const validering = beResponse.validering;
 
@@ -302,7 +302,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
 
     if (isBackendValidationError(validering)) {
-      ((validering as unknown) as lagreGravideValidationError).violations.forEach(
+      ((validering as unknown) as ValidationError).violations.forEach(
         (error) => {
           dispatchFeilmelding({
             type: error.propertyPath,

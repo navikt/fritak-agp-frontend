@@ -2,15 +2,15 @@ import RestStatus from './RestStatus';
 import postData from './postData';
 import ValidationError from './ValidationError';
 
-export interface lagreGravideResponsdata {
+export interface lagreKroniskResponsdata {
   status: RestStatus;
   validering:
     | ValidationError
-    | lagreGravideBackendError
-    | lagreGravideBackendError[];
+    | lagreKroniskBackendError
+    | lagreKroniskBackendError[];
 }
 
-export interface lagreGravidesoknadParametere {
+export interface lagreKroniskParametere {
   orgnr?: string;
   fnr?: string;
   tilrettelegge?: boolean;
@@ -22,7 +22,7 @@ export interface lagreGravidesoknadParametere {
   dokumentasjon?: string;
 }
 
-interface lagreGravidesoknadPostParametere {
+interface lagreKroniskPayload {
   orgnr: string;
   fnr: string;
   tilrettelegge: boolean;
@@ -34,7 +34,7 @@ interface lagreGravidesoknadPostParametere {
   dokumentasjon?: string;
 }
 
-export interface lagreGravideBackendError {
+export interface lagreKroniskBackendError {
   type: string;
   title: string;
   status: number;
@@ -42,10 +42,8 @@ export interface lagreGravideBackendError {
   instance: string;
 }
 
-const adaptPayload = (
-  payload: lagreGravidesoknadParametere
-): lagreGravidesoknadPostParametere => {
-  const postParams: lagreGravidesoknadPostParametere = {
+const adaptPayload = (payload: lagreKroniskParametere): lagreKroniskPayload => {
+  const postParams: lagreKroniskPayload = {
     orgnr: payload.orgnr || '',
     fnr: payload.fnr || '',
     tilrettelegge: payload.tilrettelegge || false,
@@ -75,13 +73,13 @@ const adaptPayload = (
   return postParams;
 };
 
-const lagreGravidesoknad = (
+const lagreKronisk = (
   basePath: string,
-  payload: lagreGravidesoknadParametere
-): Promise<lagreGravideResponsdata> => {
-  const bodyPayload: lagreGravidesoknadPostParametere = adaptPayload(payload);
+  payload: lagreKroniskParametere
+): Promise<lagreKroniskResponsdata> => {
+  const bodyPayload: lagreKroniskPayload = adaptPayload(payload);
 
-  return postData(basePath + '/api/v1/gravid/soeknad', bodyPayload);
+  return postData(basePath + '/api/v1/kronisk/soeknad', bodyPayload);
 };
 
-export default lagreGravidesoknad;
+export default lagreKronisk;

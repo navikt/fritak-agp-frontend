@@ -1,15 +1,13 @@
-import {
-  lagreGravideBackendError,
-  lagreGravideValidationError
-} from '../../api/lagreGravidesoknad';
+import { lagreGravideBackendError } from '../../api/lagreGravidesoknad';
+import ValidationError from '../../api/ValidationError';
 
 function isBackendServerError(
   beResponse:
     | lagreGravideBackendError
-    | lagreGravideValidationError
+    | ValidationError
     | lagreGravideBackendError[]
 ): beResponse is lagreGravideBackendError {
-  return !(beResponse as lagreGravideValidationError).violations;
+  return !(beResponse as ValidationError).violations;
 }
 
 export default isBackendServerError;
