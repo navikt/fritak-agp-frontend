@@ -25,57 +25,26 @@ describe('mapValidationResponse', () => {
   });
 
   it('should handle 422', () => {
+    const felter = [
+      'fnr',
+      'orgnr',
+      'kommentar',
+      'arbeidstyper',
+      'paakjenningstyper',
+      'bekreftet',
+      'dokumentasjon',
+      'fravaer'
+    ];
+    const violations = felter.map((felt) => {
+      return {
+        propertyPath: felt,
+        message: 'feil',
+        validationType: '',
+        invalidValue: true
+      };
+    });
     let response = {
-      violations: [
-        {
-          propertyPath: 'fnr',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        },
-        {
-          propertyPath: 'orgnr',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        },
-        {
-          propertyPath: 'kommentar',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        },
-        {
-          propertyPath: 'arbeidstyper',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        },
-        {
-          propertyPath: 'paakjenningstyper',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        },
-        {
-          propertyPath: 'bekreftet',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        },
-        {
-          propertyPath: 'dokumentasjon',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        },
-        {
-          propertyPath: 'fravaer',
-          message: 'feil',
-          validationType: '',
-          invalidValue: true
-        }
-      ],
+      violations: violations,
       type: 'urn:nav:helsearbeidsgiver:validation-error',
       title: 'Valideringen av input feilet',
       status: 422,
