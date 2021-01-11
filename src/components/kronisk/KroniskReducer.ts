@@ -4,6 +4,7 @@ import { Aarsfravaer } from './Aarsfravaer';
 import { validateKronisk } from './validateKronisk';
 import { MONTHS } from '../../utils/months';
 import { monthKey } from '../../utils/monthKey';
+import { mapValidationResponse } from './mapValidationResponse';
 
 const KroniskReducer = (
   state: KroniskState,
@@ -101,6 +102,12 @@ const KroniskReducer = (
     case Actions.Validate:
       nextState.validated = true;
       return validateKronisk(nextState);
+
+    case Actions.HandleResponse:
+      if (payload?.response == undefined) {
+        throw new Error('Du må spesifisere response');
+      }
+      return mapValidationResponse(payload.response, nextState);
 
     case Actions.Reset:
       return Object.assign({}, defaultKroniskState());

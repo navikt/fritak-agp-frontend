@@ -11,7 +11,7 @@ export interface ValidationProblemDetail {
   validationType: string;
   message: string;
   propertyPath: string;
-  invalidValue: string;
+  invalidValue?: any;
 }
 
 export default ValidationResponse;
