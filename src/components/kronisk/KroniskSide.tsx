@@ -30,6 +30,7 @@ import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 import lagreKronisk from '../../api/lagreKronisk';
 import environment from '../../environment';
 
+
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
