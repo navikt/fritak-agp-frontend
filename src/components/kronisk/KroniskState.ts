@@ -38,4 +38,5 @@ export default interface KroniskState {
   kvittering?: boolean;
   bekreft?: boolean;
   bekreftError?: string;
+  error?: boolean;
 }

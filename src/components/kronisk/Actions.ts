@@ -1,5 +1,6 @@
 import { ArbeidType } from './ArbeidType';
 import { PaakjenningerType } from './PaakjenningerType';
+import ValidationResponse from '../../api/ValidationResponse';
 
 export enum Actions {
   Reset,
@@ -13,7 +14,8 @@ export enum Actions {
   Dokumentasjon,
   Fravaer,
   Bekreft,
-  Validate
+  Validate,
+  HandleResponse
 }
 
 export interface FravaerType {
@@ -33,6 +35,7 @@ export interface Payload {
   fravaer?: FravaerType;
   dokumentasjon?: string;
   kommentar?: string;
+  response?: ValidationResponse;
 }
 
 export interface KroniskAction {
