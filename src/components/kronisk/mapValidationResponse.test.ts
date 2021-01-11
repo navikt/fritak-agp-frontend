@@ -28,9 +28,51 @@ describe('mapValidationResponse', () => {
     let response = {
       violations: [
         {
-          validationType: '',
-          message: 'Her kommer en feilmelding',
           propertyPath: 'fnr',
+          message: 'feil',
+          validationType: '',
+          invalidValue: true
+        },
+        {
+          propertyPath: 'orgnr',
+          message: 'feil',
+          validationType: '',
+          invalidValue: true
+        },
+        {
+          propertyPath: 'kommentar',
+          message: 'feil',
+          validationType: '',
+          invalidValue: true
+        },
+        {
+          propertyPath: 'arbeidstyper',
+          message: 'feil',
+          validationType: '',
+          invalidValue: true
+        },
+        {
+          propertyPath: 'paakjenningstyper',
+          message: 'feil',
+          validationType: '',
+          invalidValue: true
+        },
+        {
+          propertyPath: 'bekreftet',
+          message: 'feil',
+          validationType: '',
+          invalidValue: true
+        },
+        {
+          propertyPath: 'dokumentasjon',
+          message: 'feil',
+          validationType: '',
+          invalidValue: true
+        },
+        {
+          propertyPath: 'fravaer',
+          message: 'feil',
+          validationType: '',
           invalidValue: true
         }
       ],
@@ -44,12 +86,34 @@ describe('mapValidationResponse', () => {
     expect(state.progress).toEqual(false);
     expect(state.kvittering).toEqual(false);
     expect(state.error).toEqual(false);
-    expect(state.fnrError).toEqual('Her kommer en feilmelding');
-    expect(state.feilmeldinger?.length).toEqual(1);
-    expect(state.feilmeldinger![0].skjemaelementId).toEqual('fnr');
-    expect(state.feilmeldinger![0].feilmelding).toEqual(
-      'Her kommer en feilmelding'
-    );
+
+    expect(state.fnrError).toEqual('feil');
+    expect(state.orgnrError).toEqual('feil');
+    expect(state.kommentarError).toEqual('feil');
+    expect(state.arbeidError).toEqual('feil');
+    expect(state.paakjenningerError).toEqual('feil');
+    expect(state.bekreftError).toEqual('feil');
+    expect(state.dokumentasjonError).toEqual('feil');
+    expect(state.fravaerError).toEqual('feil');
+
+    const { feilmeldinger } = state;
+    expect(feilmeldinger?.length).toEqual(8);
+    expect(feilmeldinger![0].skjemaelementId).toEqual('fnr');
+    expect(feilmeldinger![0].feilmelding).toEqual('feil');
+    expect(feilmeldinger![1].skjemaelementId).toEqual('orgnr');
+    expect(feilmeldinger![1].feilmelding).toEqual('feil');
+    expect(feilmeldinger![2].skjemaelementId).toEqual('kommentar');
+    expect(feilmeldinger![2].feilmelding).toEqual('feil');
+    expect(feilmeldinger![3].skjemaelementId).toEqual('arbeidsutfører');
+    expect(feilmeldinger![3].feilmelding).toEqual('feil');
+    expect(feilmeldinger![4].skjemaelementId).toEqual('paakjenninger');
+    expect(feilmeldinger![4].feilmelding).toEqual('feil');
+    expect(feilmeldinger![5].skjemaelementId).toEqual('bekreft');
+    expect(feilmeldinger![5].feilmelding).toEqual('feil');
+    expect(feilmeldinger![6].skjemaelementId).toEqual('dokumentasjon');
+    expect(feilmeldinger![6].feilmelding).toEqual('feil');
+    expect(feilmeldinger![7].skjemaelementId).toEqual('fravaer');
+    expect(feilmeldinger![7].feilmelding).toEqual('feil');
   });
 
   it('should handle 500 and unknown status codes', () => {
