@@ -22,7 +22,7 @@ export interface lagreKroniskParametere {
   dokumentasjon?: string;
 }
 
-interface lagreKroniskPostParametere {
+interface lagreKroniskPayload {
   orgnr: string;
   fnr: string;
   tilrettelegge: boolean;
@@ -42,10 +42,8 @@ export interface lagreKroniskBackendError {
   instance: string;
 }
 
-const adaptPayload = (
-  payload: lagreKroniskParametere
-): lagreKroniskPostParametere => {
-  const postParams: lagreKroniskPostParametere = {
+const adaptPayload = (payload: lagreKroniskParametere): lagreKroniskPayload => {
+  const postParams: lagreKroniskPayload = {
     orgnr: payload.orgnr || '',
     fnr: payload.fnr || '',
     tilrettelegge: payload.tilrettelegge || false,
@@ -79,9 +77,9 @@ const lagreKronisk = (
   basePath: string,
   payload: lagreKroniskParametere
 ): Promise<lagreKroniskResponsdata> => {
-  const bodyPayload: lagreKroniskPostParametere = adaptPayload(payload);
+  const bodyPayload: lagreKroniskPayload = adaptPayload(payload);
 
-  return postData(basePath + '/api/v1/gravid/soeknad', bodyPayload);
+  return postData(basePath + '/api/v1/kronisk/soeknad', bodyPayload);
 };
 
 export default lagreKronisk;
