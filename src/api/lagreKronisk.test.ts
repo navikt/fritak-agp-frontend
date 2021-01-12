@@ -45,7 +45,12 @@ describe('lagreKronisk', () => {
     const expectedPath = '/Path/api/v1/kronisk/soeknad';
     const expectedBody = {
       body:
-        '{"fnr":"12345678901","orgnr":"123456789","bekreftet":true,"arbeidstyper":["KREVENDE"],"paakjenningstyper":["STRESSENDE"],"fravaer":[{"yearMonth":"2019-01","antallDagerMedFravaer":4},{"yearMonth":"2019-08","antallDagerMedFravaer":5},{"yearMonth":"2020-09","antallDagerMedFravaer":3},{"yearMonth":"2020-11","antallDagerMedFravaer":6},{"yearMonth":"2020-12","antallDagerMedFravaer":7},{"yearMonth":"2021-01","antallDagerMedFravaer":8},{"yearMonth":"2021-02","antallDagerMedFravaer":9}],"dokumentasjon":"base64data","paakjenningBeskrivelse":"Beskrivelse"}',
+        '{"fnr":"12345678901","orgnr":"123456789","bekreftet":true,"arbeidstyper":["KREVENDE"],"paakjenningstyper":["STRESSENDE"],' +
+        '"fravaer":[{"yearMonth":"2019-01","antallDagerMedFravaer":4},{"yearMonth":"2019-08","antallDagerMedFravaer":5},' +
+        '{"yearMonth":"2020-09","antallDagerMedFravaer":3},' +
+        '{"yearMonth":"2020-11","antallDagerMedFravaer":6},{"yearMonth":"2020-12","antallDagerMedFravaer":7},' +
+        '{"yearMonth":"2021-01","antallDagerMedFravaer":8},{"yearMonth":"2021-02","antallDagerMedFravaer":9}],' +
+        '"dokumentasjon":"base64data","paakjenningBeskrivelse":"Beskrivelse"}',
       credentials: 'include',
       headers: {
         Accept: 'application/json',
