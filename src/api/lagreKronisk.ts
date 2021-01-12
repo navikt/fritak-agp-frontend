@@ -65,22 +65,24 @@ const shortMonthName = [
 ];
 
 const convertToMonthYear = (fravaer): FravaerData[] => {
-  debugger;
-  return fravaer
-    .map((aarsfravaer) => {
-      const year = aarsfravaer.year;
-      const monthDays = Object.keys(aarsfravaer);
-      monthDays.splice(monthDays.indexOf('year'), 1);
-      return monthDays.map((monthName) => {
-        const dayNr = '00' + (shortMonthName.indexOf(monthName) + 1);
-        const paddedDayNr = dayNr.substring(dayNr.length - 2, dayNr.length);
-        return {
-          yearMonth: `${year}-${paddedDayNr}`,
-          antallDagerMedFravaer: aarsfravaer[monthName]
-        };
-      });
-    })
-    .flat();
+  if (!fravaer) {
+    return [];
+  }
+
+  return fravaer.flatMap((aarsfravaer) => {
+    const year = aarsfravaer.year;
+    const monthDays = Object.keys(aarsfravaer);
+    monthDays.splice(monthDays.indexOf('year'), 1);
+
+    return monthDays.map((monthName) => {
+      const dayNr = '00' + (shortMonthName.indexOf(monthName) + 1);
+      const paddedDayNr = dayNr.substring(dayNr.length - 2, dayNr.length);
+      return {
+        yearMonth: `${year}-${paddedDayNr}`,
+        antallDagerMedFravaer: aarsfravaer[monthName]
+      };
+    });
+  });
 };
 
 const adaptRequest = (payload: lagreKroniskParametere): lagreKroniskRequest => {
@@ -90,10 +92,16 @@ const adaptRequest = (payload: lagreKroniskParametere): lagreKroniskRequest => {
     bekreftet: payload.bekreftet || false,
     arbeidstyper: payload.arbeidstyper || [],
     paakjenningstyper: payload.paakjenningstyper || [],
-    paakjenningBeskrivelse: payload.paakjenningBeskrivelse || '',
-    fravaer: convertToMonthYear(payload.aarsFravaer),
-    dokumentasjon: payload.dokumentasjon || ''
+    fravaer: convertToMonthYear(payload.aarsFravaer)
   };
+
+  if (payload.dokumentasjon) {
+    postParams.dokumentasjon = payload.dokumentasjon;
+  }
+
+  if (payload.paakjenningBeskrivelse) {
+    postParams.paakjenningBeskrivelse = payload.paakjenningBeskrivelse;
+  }
 
   return postParams;
 };
