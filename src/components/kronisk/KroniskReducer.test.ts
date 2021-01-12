@@ -1,6 +1,8 @@
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
 import { defaultKroniskState } from './KroniskState';
+import ArbeidType from './ArbeidType';
+import PaakjenningerType from './PaakjenningerType';
 
 describe('KroniskReducer', () => {
   it('should set the fnr', () => {
@@ -27,12 +29,89 @@ describe('KroniskReducer', () => {
     expect(state.orgnr).toEqual('456');
   });
 
-  it('should set the orgnr to empty', () => {
+  it('should set the orgnr to undefined', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.Orgnr
+    });
+    expect(state.orgnr).toBeUndefined();
+  });
+
+  it('should set the orgnr to empty string', () => {
     let state = KroniskReducer(defaultKroniskState(), {
       type: Actions.Orgnr,
-      payload: { orgnr: '456' }
+      payload: { orgnr: '' }
     });
-    expect(state.orgnr).toEqual('456');
+    expect(state.orgnr).toEqual('');
+  });
+
+  it('ToggleArbeid - should set the arbeid state', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.ToggleArbeid,
+      payload: { arbeid: ArbeidType.MODERAT }
+    });
+    expect(state.arbeid).toEqual([ArbeidType.MODERAT]);
+  });
+
+  it('ToggleArbeid - should reset the arbeid state', () => {
+    const initialState = defaultKroniskState();
+    initialState.arbeid = [ArbeidType.MODERAT];
+    let state = KroniskReducer(initialState, {
+      type: Actions.ToggleArbeid,
+      payload: { arbeid: ArbeidType.MODERAT }
+    });
+    expect(state.arbeid).toEqual([]);
+  });
+
+  it('ToggleArbeid - should throw error when arbeid is undefined', () => {
+    expect(function () {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.ToggleArbeid
+      });
+    }).toThrow(new Error('Du må spesifisere arbeidstype'));
+  });
+
+  it('ToggleArbeid - should throw error when arbeid is undefined in payload', () => {
+    expect(function () {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.ToggleArbeid,
+        payload: { arbeid: undefined }
+      });
+    }).toThrowError(new Error('Du må spesifisere arbeidstype'));
+  });
+
+  it('TogglePaakjenninger - should set the ToggleArbeid', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.TogglePaakjenninger,
+      payload: { paakjenning: PaakjenningerType.REGELMESSIG }
+    });
+    expect(state.paakjenninger).toEqual([PaakjenningerType.REGELMESSIG]);
+  });
+
+  it('TogglePaakjenninger - should reset the ToggleArbeid', () => {
+    const initialState = defaultKroniskState();
+    initialState.paakjenninger = [PaakjenningerType.REGELMESSIG];
+    let state = KroniskReducer(initialState, {
+      type: Actions.TogglePaakjenninger,
+      payload: { paakjenning: PaakjenningerType.REGELMESSIG }
+    });
+    expect(state.paakjenninger).toEqual([]);
+  });
+
+  it('TogglePaakjenninger - should set the ToggleArbeid to undefined', () => {
+    expect(function () {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.TogglePaakjenninger
+      });
+    }).toThrow(new Error('Du må spesifisere paakjenning'));
+  });
+
+  it('TogglePaakjenninger - should set the ToggleArbeid to undefined med undefined i payload', () => {
+    expect(function () {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.TogglePaakjenninger,
+        payload: { paakjenning: undefined }
+      });
+    }).toThrowError(new Error('Du må spesifisere paakjenning'));
   });
 
   it('should set the bekreft to undefined', () => {
