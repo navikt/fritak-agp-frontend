@@ -12,6 +12,7 @@ const KroniskReducer = (
 ): KroniskState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
+  console.log(state);
   switch (action.type) {
     case Actions.Fnr:
       nextState.fnr = payload?.fnr;

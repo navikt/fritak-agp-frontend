@@ -54,7 +54,7 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
       feilmelding: 'Påkjenninger om den ansatte må fylles ut'
     });
   }
-  if (state.paakjenninger?.includes(PaakjenningerType.Annet)) {
+  if (state.paakjenninger?.includes(PaakjenningerType.ANNET)) {
     nextState.kommentarError = !nextState.kommentar
       ? 'Kommentar må fylles ut'
       : undefined;
