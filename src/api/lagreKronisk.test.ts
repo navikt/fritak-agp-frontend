@@ -67,7 +67,7 @@ describe('lagreKronisk', () => {
       } as unknown) as Response)
     );
 
-    const response = await lagreKronisk('/Path', mockData);
+    await lagreKronisk('/Path', mockData);
 
     expect(fetchSpy).toHaveBeenCalledWith(expectedPath, expectedBody);
   });
