@@ -4,6 +4,7 @@ import ValidationResponse from './ValidationResponse';
 import ArbeidType from '../components/kronisk/ArbeidType';
 import PaakjenningerType from '../components/kronisk/PaakjenningerType';
 import Aarsfravaer from '../components/kronisk/Aarsfravaer';
+import shortMonthName from './shortMonthName';
 
 export interface lagreKroniskResponsdata {
   status: RestStatus;
@@ -19,7 +20,6 @@ export interface lagreKroniskParametere {
   arbeidstyper?: ArbeidType[];
   paakjenningstyper?: PaakjenningerType[];
   paakjenningBeskrivelse?: string;
-  // fravaer?: FravaerData[];
   aarsFravaer?: Aarsfravaer[];
   bekreftet?: boolean;
   dokumentasjon?: string;
@@ -48,21 +48,6 @@ export interface lagreKroniskBackendError {
   detail: string;
   instance: string;
 }
-
-const shortMonthName = [
-  'jan',
-  'feb',
-  'mar',
-  'apr',
-  'mai',
-  'jun',
-  'jul',
-  'aug',
-  'sep',
-  'okt',
-  'nov',
-  'des'
-];
 
 const convertToMonthYear = (fravaer): FravaerData[] => {
   if (!fravaer) {
