@@ -1,10 +1,12 @@
 export enum PaakjenningerType {
-  Allergener,
-  Ukomfortabel,
-  Stressende,
-  RegelmessigKveldsskift,
-  Gåing,
-  HardeGulv,
-  TungeLøft,
-  Annet
+  ALLERGENER = 'ALLERGENER',
+  UKOMFORTABEL = 'UKOMFORTABEL',
+  STRESSENDE = 'STRESSENDE',
+  REGELMESSIG = 'REGELMESSIG',
+  GAAING = 'GAAING',
+  HARDE = 'HARDE',
+  TUNGE = 'TUNGE',
+  ANNET = 'ANNET'
 }
+
+export default PaakjenningerType;

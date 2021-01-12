@@ -13,3 +13,5 @@ export interface Aarsfravaer {
   nov?: number;
   des?: number;
 }
+
+export default Aarsfravaer;

@@ -1,5 +1,7 @@
 export enum ArbeidType {
-  Stillesittende,
-  Moderat,
-  Krevende
+  STILLESITTENDE = 'STILLESITTENDE',
+  MODERAT = 'MODERAT',
+  KREVENDE = 'KREVENDE'
 }
+
+export default ArbeidType;

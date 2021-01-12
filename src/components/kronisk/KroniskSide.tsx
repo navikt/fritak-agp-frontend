@@ -27,9 +27,8 @@ import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
 import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
-import lagreKronisk from '../../api/lagreKronisk';
+import lagreKronisk, { lagreKroniskParametere } from '../../api/lagreKronisk';
 import environment from '../../environment';
-
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -43,7 +42,20 @@ const KroniskSide = () => {
   const handleSubmit = async () => {
     dispatch({ type: Actions.Progress, payload: { progress: true } });
     dispatch({ type: Actions.Validate });
-    const lagerStatus = await lagreKronisk(environment.baseUrl, state);
+    const lagringsparametere: lagreKroniskParametere = {
+      orgnr: state.orgnr,
+      fnr: state.fnr,
+      arbeidstyper: state.arbeid,
+      paakjenningstyper: state.paakjenninger,
+      paakjenningBeskrivelse: state.kommentar,
+      aarsFravaer: state.fravaer,
+      bekreftet: state.bekreft,
+      dokumentasjon: state.dokumentasjon
+    };
+    const lagerStatus = await lagreKronisk(
+      environment.baseUrl,
+      lagringsparametere
+    );
   };
   return (
     <Row>
@@ -217,7 +229,7 @@ const KroniskSide = () => {
                         })
                       }
                       disabled={
-                        !state.paakjenninger?.includes(PaakjenningerType.Annet)
+                        !state.paakjenninger?.includes(PaakjenningerType.ANNET)
                       }
                     />
                   </Column>
