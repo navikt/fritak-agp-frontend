@@ -27,7 +27,7 @@ import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
 import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
-import lagreKronisk, { KroniskRequest } from '../../api/lagreKronisk';
+import postKronisk, { mapKroniskRequest } from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
 
 const KroniskSide = () => {
@@ -48,22 +48,14 @@ const KroniskSide = () => {
       state.progress === true &&
       state.submitting === true
     ) {
-      const lagringsparametere: KroniskRequest = {
-        orgnr: state.orgnr,
-        fnr: state.fnr,
-        arbeidstyper: state.arbeid,
-        paakjenningstyper: state.paakjenninger,
-        paakjenningBeskrivelse: state.kommentar,
-        aarsFravaer: state.fravaer,
-        bekreftet: state.bekreft,
-        dokumentasjon: state.dokumentasjon
-      };
-      lagreKronisk(environment.baseUrl, lagringsparametere).then((response) => {
-        dispatch({
-          type: Actions.HandleResponse,
-          payload: { response: response }
-        });
-      });
+      postKronisk(environment.baseUrl, mapKroniskRequest(state)).then(
+        (response) => {
+          dispatch({
+            type: Actions.HandleResponse,
+            payload: { response: response }
+          });
+        }
+      );
     }
   }, [
     state.validated,

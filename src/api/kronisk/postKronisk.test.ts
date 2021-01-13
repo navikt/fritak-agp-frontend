@@ -1,7 +1,7 @@
-import lagreKronisk from './lagreKronisk';
-import RestStatus from './RestStatus';
+import postKronisk from './postKronisk';
+import RestStatus from '../RestStatus';
 
-describe('lagreKronisk', () => {
+describe('postKronisk', () => {
   it('should resolve with status 200 if the backend responds with 200', async () => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve(({
@@ -16,7 +16,7 @@ describe('lagreKronisk', () => {
       } as unknown) as Response)
     );
 
-    expect(await lagreKronisk('/Path', {})).toEqual({
+    expect(await postKronisk('/Path', {})).toEqual({
       status: 200,
       violations: []
     });
@@ -30,7 +30,7 @@ describe('lagreKronisk', () => {
       } as Response)
     );
 
-    expect(await lagreKronisk('/Path', {})).toEqual({
+    expect(await postKronisk('/Path', {})).toEqual({
       status: RestStatus.Unauthorized,
       violations: []
     });
@@ -45,7 +45,7 @@ describe('lagreKronisk', () => {
       } as unknown) as Response)
     );
 
-    expect(await lagreKronisk('/Path', {})).toEqual({
+    expect(await postKronisk('/Path', {})).toEqual({
       status: RestStatus.Error,
       violations: []
     });
@@ -59,7 +59,7 @@ describe('lagreKronisk', () => {
       } as Response)
     );
 
-    expect(await lagreKronisk('/Path', {})).toEqual({
+    expect(await postKronisk('/Path', {})).toEqual({
       status: RestStatus.Unknown,
       violations: []
     });
@@ -74,7 +74,7 @@ describe('lagreKronisk', () => {
       } as Response)
     );
 
-    const resultat = lagreKronisk('/Path', {});
+    const resultat = postKronisk('/Path', {});
 
     jest.advanceTimersByTime(15000);
 
