@@ -1,20 +1,11 @@
-import RestStatus from './RestStatus';
-import postData from './postData';
 import ValidationResponse from './ValidationResponse';
 import ArbeidType from '../components/kronisk/ArbeidType';
 import PaakjenningerType from '../components/kronisk/PaakjenningerType';
 import Aarsfravaer from '../components/kronisk/Aarsfravaer';
 import shortMonthName from './shortMonthName';
+import postRequest from './postRequest';
 
-export interface lagreKroniskResponsdata {
-  status: RestStatus;
-  validering:
-    | ValidationResponse
-    | lagreKroniskBackendError
-    | lagreKroniskBackendError[];
-}
-
-export interface lagreKroniskParametere {
+export interface KroniskRequest {
   orgnr?: string;
   fnr?: string;
   arbeidstyper?: ArbeidType[];
@@ -70,7 +61,7 @@ const convertToMonthYear = (fravaer): FravaerData[] => {
   });
 };
 
-const adaptRequest = (payload: lagreKroniskParametere): lagreKroniskRequest => {
+const mapKroniskRequest = (payload: KroniskRequest): lagreKroniskRequest => {
   const postParams: lagreKroniskRequest = {
     fnr: payload.fnr || '',
     orgnr: payload.orgnr || '',
@@ -93,11 +84,12 @@ const adaptRequest = (payload: lagreKroniskParametere): lagreKroniskRequest => {
 
 const lagreKronisk = (
   basePath: string,
-  payload: lagreKroniskParametere
-): Promise<lagreKroniskResponsdata> => {
-  const bodyPayload: lagreKroniskRequest = adaptRequest(payload);
-
-  return postData(basePath + '/api/v1/kronisk/soeknad', bodyPayload);
+  payload: KroniskRequest
+): Promise<ValidationResponse> => {
+  return postRequest(
+    basePath + '/api/v1/kronisk/soeknad',
+    mapKroniskRequest(payload)
+  );
 };
 
 export default lagreKronisk;

@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -27,7 +27,7 @@ import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
 import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
-import lagreKronisk, { lagreKroniskParametere } from '../../api/lagreKronisk';
+import lagreKronisk, { KroniskRequest } from '../../api/lagreKronisk';
 import environment from '../../environment';
 
 const KroniskSide = () => {
@@ -39,24 +39,52 @@ const KroniskSide = () => {
       });
     }
   };
-  const handleSubmit = async () => {
-    dispatch({ type: Actions.Progress, payload: { progress: true } });
+  const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
-    const lagringsparametere: lagreKroniskParametere = {
-      orgnr: state.orgnr,
-      fnr: state.fnr,
-      arbeidstyper: state.arbeid,
-      paakjenningstyper: state.paakjenninger,
-      paakjenningBeskrivelse: state.kommentar,
-      aarsFravaer: state.fravaer,
-      bekreftet: state.bekreft,
-      dokumentasjon: state.dokumentasjon
-    };
-    const lagerStatus = await lagreKronisk(
-      environment.baseUrl,
-      lagringsparametere
-    );
   };
+  useEffect(() => {
+    if (
+      state.validated === true &&
+      state.progress === true &&
+      state.submitting === true
+    ) {
+      const lagringsparametere: KroniskRequest = {
+        orgnr: state.orgnr,
+        fnr: state.fnr,
+        arbeidstyper: state.arbeid,
+        paakjenningstyper: state.paakjenninger,
+        paakjenningBeskrivelse: state.kommentar,
+        aarsFravaer: state.fravaer,
+        bekreftet: state.bekreft,
+        dokumentasjon: state.dokumentasjon
+      };
+      lagreKronisk(environment.baseUrl, lagringsparametere).then((response) => {
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: { response: response }
+        });
+      });
+    }
+  }, [
+    state.validated,
+    state.progress,
+    state.feilmeldinger,
+    state.submitting,
+    state.arbeid,
+    state.bekreft,
+    state.dokumentasjon,
+    state.fnr,
+    state.fravaer,
+    state.kommentar,
+    state.orgnr,
+    state.paakjenninger
+  ]);
+  if (state.login != undefined) {
+    return <div>Login</div>;
+  }
+  if (state.kvittering != undefined) {
+    return <div>Kvittering</div>;
+  }
   return (
     <Row>
       <Column>
@@ -219,7 +247,6 @@ const KroniskSide = () => {
 
                     <Textarea
                       label='annet'
-                      defaultValue={state.kommentar}
                       value={state.kommentar || ''}
                       feil={state.kommentarError || undefined}
                       onChange={(evt) =>
