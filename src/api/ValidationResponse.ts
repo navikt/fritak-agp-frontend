@@ -1,10 +1,10 @@
 export interface ValidationResponse {
   violations: ValidationProblemDetail[];
-  type: string;
-  title: string;
+  type?: string;
+  title?: string;
   status: number;
   detail?: string;
-  instance: string;
+  instance?: string;
 }
 
 export interface ValidationProblemDetail {
