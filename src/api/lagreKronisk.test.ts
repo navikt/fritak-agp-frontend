@@ -1,4 +1,6 @@
-import lagreKronisk from './lagreKronisk';
+import ArbeidType from '../components/kronisk/ArbeidType';
+import PaakjenningerType from '../components/kronisk/PaakjenningerType';
+import lagreKronisk, { lagreKroniskParametere } from './lagreKronisk';
 import RestStatus from './RestStatus';
 
 describe('lagreKronisk', () => {
@@ -22,6 +24,52 @@ describe('lagreKronisk', () => {
       status: 200,
       validering: mockData
     });
+  });
+
+  it('should adapt the input params', async () => {
+    const mockData: lagreKroniskParametere = {
+      fnr: '12345678901',
+      orgnr: '123456789',
+      arbeidstyper: [ArbeidType.KREVENDE],
+      paakjenningstyper: [PaakjenningerType.STRESSENDE],
+      aarsFravaer: [
+        { year: 2019, jan: 4, aug: 5 },
+        { year: 2020, sep: 3, nov: 6, des: 7 },
+        { year: 2021, jan: 8, feb: 9 }
+      ],
+      bekreftet: true,
+      dokumentasjon: 'base64data',
+      paakjenningBeskrivelse: 'Beskrivelse'
+    };
+
+    const expectedPath = '/Path/api/v1/kronisk/soeknad';
+    const expectedBody = {
+      body:
+        '{"fnr":"12345678901","orgnr":"123456789","bekreftet":true,"arbeidstyper":["KREVENDE"],"paakjenningstyper":["STRESSENDE"],' +
+        '"fravaer":[{"yearMonth":"2019-01","antallDagerMedFravaer":4},{"yearMonth":"2019-08","antallDagerMedFravaer":5},' +
+        '{"yearMonth":"2020-09","antallDagerMedFravaer":3},' +
+        '{"yearMonth":"2020-11","antallDagerMedFravaer":6},{"yearMonth":"2020-12","antallDagerMedFravaer":7},' +
+        '{"yearMonth":"2021-01","antallDagerMedFravaer":8},{"yearMonth":"2021-02","antallDagerMedFravaer":9}],' +
+        '"dokumentasjon":"base64data","paakjenningBeskrivelse":"Beskrivelse"}',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
+    };
+
+    const fetchSpy = jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
+      Promise.resolve(({
+        status: 200,
+        json: () => Promise.resolve(mockData),
+        clone: () => ({ json: () => Promise.resolve(mockData) })
+      } as unknown) as Response)
+    );
+
+    await lagreKronisk('/Path', mockData);
+
+    expect(fetchSpy).toHaveBeenCalledWith(expectedPath, expectedBody);
   });
 
   it('should reject with status Unauthorized if the backend responds with 401', async () => {
