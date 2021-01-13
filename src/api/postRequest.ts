@@ -1,24 +1,13 @@
 import RestStatus from './RestStatus';
 import ValidationResponse from './ValidationResponse';
-
-export const VALID_RESPONSE_STATUSES = [
-  RestStatus.Successfully,
-  RestStatus.Created,
-  RestStatus.Error,
-  RestStatus.BadRequest,
-  RestStatus.Unauthorized,
-  RestStatus.UnprocessableEntity
-];
-
-export const findStatus = (status: number): RestStatus => {
-  return VALID_RESPONSE_STATUSES.includes(status) ? status : RestStatus.Unknown;
-};
+import { mapValidationResponse } from './mapValidationResponse';
 
 const postRequest = async (
   path: string,
   payload: any,
   timeout: number = 10000
 ): Promise<ValidationResponse> => {
+  let status = 0;
   return Promise.race([
     new Promise<ValidationResponse>((_, reject) => {
       const id = setTimeout(() => {
@@ -39,14 +28,13 @@ const postRequest = async (
       body: JSON.stringify(payload)
     })
       .then((response) => {
-        return response.json().then((data) => {
-          return {
-            status: findStatus(response.status),
-            violations: []
-          };
-        });
+        status = response.status;
+        return response.json();
       })
-      .catch((response) => {
+      .then((json: any) => {
+        return mapValidationResponse(status, json);
+      })
+      .catch(() => {
         return {
           status: RestStatus.Error,
           violations: []

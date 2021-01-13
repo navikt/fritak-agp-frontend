@@ -2,6 +2,15 @@ import postKronisk from './postKronisk';
 import RestStatus from '../RestStatus';
 
 describe('postKronisk', () => {
+  const mockFetch = (status: number, json: any) => {
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
+      Promise.resolve(({
+        status: status,
+        json: () => Promise.resolve(json)
+      } as unknown) as Response)
+    );
+  };
+
   it('should resolve with status 200 if the backend responds with 200', async () => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve(({
@@ -15,7 +24,12 @@ describe('postKronisk', () => {
           })
       } as unknown) as Response)
     );
-
+    // mockFetch(200, {
+    //   mocked: 'OK',
+    //   tiltakBeskrivelse: 'tiltak',
+    //   omplasseringAarsak: 'årsak',
+    //   dokumentasjon: 'dokumentasjon'
+    // });
     expect(await postKronisk('/Path', {})).toEqual({
       status: 200,
       violations: []
