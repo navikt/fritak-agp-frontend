@@ -37,14 +37,21 @@ const postRequest = async (
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify(payload)
-    }).then((response) => {
-      return response.json().then((data) => {
+    })
+      .then((response) => {
+        return response.json().then((data) => {
+          return {
+            status: findStatus(response.status),
+            violations: []
+          };
+        });
+      })
+      .catch((response) => {
         return {
-          status: findStatus(response.status),
+          status: RestStatus.Error,
           violations: []
         };
-      });
-    })
+      })
   ]);
 };
 

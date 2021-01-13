@@ -27,8 +27,9 @@ import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
 import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
-import postKronisk, { mapKroniskRequest } from '../../api/kronisk/postKronisk';
+import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
+import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
