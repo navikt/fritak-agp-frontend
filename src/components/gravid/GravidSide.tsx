@@ -348,18 +348,15 @@ const GravidSide = (props: GravidSideProps) => {
                 </Lenke>
                 .
                 <br />
+                <br />
+                Alle felter må fylles ut om ikke annet er oppgitt
               </Ingress>
-            </Panel>
-            <Skillelinje />
-            <Panel>
-              <Undertittel tag='span'>
-                Alle felter er obligatoriske om ikke merket annerledes
-              </Undertittel>
             </Panel>
             <Skillelinje />
 
             <Panel id='gravidside-panel-ansatte'>
-              <SkjemaGruppe legend='Den ansatte' aria-live='polite'>
+              <h2 className='gravidside-h2'>Den ansatte</h2>
+              <SkjemaGruppe aria-live='polite'>
                 <Row>
                   <Column sm='4' xs='6'>
                     <Fnr
@@ -391,10 +388,8 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
 
             <Panel>
-              <SkjemaGruppe
-                legend='Arbeidssituasjon og miljø'
-                feil={feilmelding.tilrettelegge}
-              >
+              <h2 className='gravidside-h2'>Arbeidssituasjon og miljø</h2>
+              <SkjemaGruppe feil={feilmelding.tilrettelegge}>
                 <Normaltekst>
                   Vi spør først om dere har forsøkt å løse situasjonen på
                   arbeidsplassen.
@@ -656,8 +651,10 @@ const GravidSide = (props: GravidSideProps) => {
                 <Skillelinje />
 
                 <Panel>
+                  <h2 className='gravidside-h2'>
+                    Hvis dere har fått dokumentasjon fra den ansatte
+                  </h2>
                   <SkjemaGruppe
-                    legend='Hvis dere har fått dokumentasjon fra den ansatte'
                     feil={feilmelding.dokumentasjonFeilmeldingId}
                     feilmeldingId='dokumentasjonFeilmeldingId'
                     aria-live='polite'
