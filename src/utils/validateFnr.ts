@@ -1,4 +1,4 @@
-import isValidFnr from '../../utils/isValidFnr';
+import isValidFnr from './isValidFnr';
 
 export const validateFnr = (
   orgnr?: string,
