@@ -36,6 +36,7 @@ import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
+import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -69,6 +70,7 @@ const KroniskSide = () => {
           state.bekreft || false
         )
       ).then((response) => {
+        console.log(response);
         dispatch({
           type: Actions.HandleResponse,
           payload: { response: response }

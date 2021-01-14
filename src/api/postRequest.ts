@@ -27,7 +27,7 @@ const postRequest = async (
       method: 'POST',
       body: JSON.stringify(payload)
     })
-      .then((response) => {
+      .then(async (response) => {
         status = response.status;
         return response.json();
       })
