@@ -30,6 +30,7 @@ import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
+import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -39,6 +40,9 @@ const KroniskSide = () => {
         dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
       });
     }
+  };
+  const handleLoggedoutModalClosing = () => {
+    dispatch({ type: Actions.CloseLoggedoutModal });
   };
   const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
@@ -60,6 +64,7 @@ const KroniskSide = () => {
           state.bekreft || false
         )
       ).then((response) => {
+        console.log(response);
         dispatch({
           type: Actions.HandleResponse,
           payload: { response: response }
@@ -80,12 +85,9 @@ const KroniskSide = () => {
     state.orgnr,
     state.paakjenninger
   ]);
-  if (state.login != undefined) {
-    return <div>Login</div>;
-  }
-  if (state.kvittering != undefined) {
-    return <div>Kvittering</div>;
-  }
+  // if (state.kvittering != undefined) {
+  //   return <div>Kvittering</div>;
+  // }
   return (
     <Row>
       <Column>
@@ -369,6 +371,9 @@ const KroniskSide = () => {
           </Panel>
         </SideIndentering>
       </Column>
+      {state.accessDenied && (
+        <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />
+      )}
     </Row>
   );
 };
