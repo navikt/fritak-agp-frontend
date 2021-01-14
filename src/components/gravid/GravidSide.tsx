@@ -666,8 +666,8 @@ const GravidSide = (props: GravidSideProps) => {
                       Som arbeidsgiver kan dere ikke kreve å få se
                       helseopplysninger. Men hvis den ansatte allerede har gitt
                       dere slik dokumentasjon frivillig, kan dere skanne eller
-                      ta bilde av den og laste den opp her. Vi tar imot .pdf
-                      .jpeg, .png, og de fleste formater fra smarttelefonkamera.
+                      ta bilde av den og laste den opp her. Vi tar kun imot
+                      .pdf.
                     </Normaltekst>
                     <br />
                     <Normaltekst>
@@ -678,7 +678,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Upload
                       id='upload'
                       label='Last opp dokumentasjon'
-                      extensions='.jpg,.pdf'
+                      extensions='.pdf'
                       onChange={handleUploadChanged}
                       fileSize={250000}
                     />
