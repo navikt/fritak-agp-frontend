@@ -1,5 +1,4 @@
 import postKronisk from './postKronisk';
-import RestStatus from '../RestStatus';
 import { KroniskRequest } from './KroniskRequest';
 import ArbeidType from '../../components/kronisk/ArbeidType';
 import PaakjenningerType from '../../components/kronisk/PaakjenningerType';

@@ -1,5 +1,4 @@
 import { mapKroniskRequest } from './mapKroniskRequest';
-import { defaultKroniskState } from '../../components/kronisk/KroniskState';
 import ArbeidType from '../../components/kronisk/ArbeidType';
 import PaakjenningerType from '../../components/kronisk/PaakjenningerType';
 import { Aarsfravaer } from '../../components/kronisk/Aarsfravaer';
