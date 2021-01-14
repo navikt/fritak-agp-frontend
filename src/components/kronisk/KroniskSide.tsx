@@ -30,6 +30,7 @@ import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
+import KvitteringLink from './KvitteringLink';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -83,8 +84,8 @@ const KroniskSide = () => {
   if (state.login != undefined) {
     return <div>Login</div>;
   }
-  if (state.kvittering != undefined) {
-    return <div>Kvittering</div>;
+  if (state.kvittering === true) {
+    return <KvitteringLink />;
   }
   return (
     <Row>
