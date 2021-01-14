@@ -3,15 +3,6 @@ import { Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
-import lenker from '../lenker';
-import { History } from 'history';
-import { useHistory } from 'react-router-dom';
-
-export const KvitteringLink = () => {
-  const history: History = useHistory();
-  history.push(lenker.KroniskKvittering);
-  return <div>Kvittering</div>;
-};
 
 const KroniskKvittering = () => {
   return (
