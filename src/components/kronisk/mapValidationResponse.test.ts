@@ -9,6 +9,21 @@ describe('mapValidationResponse', () => {
     type: Actions.Reset
   });
 
+  it('should handle 401', () => {
+    let response = {
+      violations: [],
+      type: 'urn:nav:helsearbeidsgiver:validation-error',
+      title: '',
+      status: 401,
+      instance: ''
+    } as ValidationResponse;
+    const state = mapValidationResponse(response, defaultState);
+    expect(state.progress).toEqual(false);
+    expect(state.kvittering).toEqual(false);
+    expect(state.error).toEqual(true);
+    expect(state.feilmeldinger?.length).toEqual(0);
+  });
+
   it('should handle 201', () => {
     let response = {
       violations: [],

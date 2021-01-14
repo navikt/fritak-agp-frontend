@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -27,8 +27,9 @@ import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
 import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
-import lagreKronisk, { lagreKroniskParametere } from '../../api/lagreKronisk';
+import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
+import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -39,24 +40,52 @@ const KroniskSide = () => {
       });
     }
   };
-  const handleSubmit = async () => {
-    dispatch({ type: Actions.Progress, payload: { progress: true } });
+  const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
-    const lagringsparametere: lagreKroniskParametere = {
-      orgnr: state.orgnr,
-      fnr: state.fnr,
-      arbeidstyper: state.arbeid,
-      paakjenningstyper: state.paakjenninger,
-      paakjenningBeskrivelse: state.kommentar,
-      aarsFravaer: state.fravaer,
-      bekreftet: state.bekreft,
-      dokumentasjon: state.dokumentasjon
-    };
-    const lagerStatus = await lagreKronisk(
-      environment.baseUrl,
-      lagringsparametere
-    );
   };
+  useEffect(() => {
+    if (
+      state.validated === true &&
+      state.progress === true &&
+      state.submitting === true
+    ) {
+      postKronisk(
+        environment.baseUrl,
+        mapKroniskRequest(
+          state.arbeid || [],
+          state.paakjenninger || [],
+          state.fravaer || [],
+          state.fnr || '',
+          state.orgnr || '',
+          state.bekreft || false
+        )
+      ).then((response) => {
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: { response: response }
+        });
+      });
+    }
+  }, [
+    state.validated,
+    state.progress,
+    state.feilmeldinger,
+    state.submitting,
+    state.arbeid,
+    state.bekreft,
+    state.dokumentasjon,
+    state.fnr,
+    state.fravaer,
+    state.kommentar,
+    state.orgnr,
+    state.paakjenninger
+  ]);
+  if (state.login != undefined) {
+    return <div>Login</div>;
+  }
+  if (state.kvittering != undefined) {
+    return <div>Kvittering</div>;
+  }
   return (
     <Row>
       <Column>
@@ -213,7 +242,6 @@ const KroniskSide = () => {
                     })}
 
                     <Textarea
-                      defaultValue={state.kommentar}
                       value={state.kommentar || ''}
                       feil={state.kommentarError || undefined}
                       onChange={(evt) =>
@@ -247,8 +275,7 @@ const KroniskSide = () => {
                 Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger.
                 Men hvis den ansatte allerede har gitt dere slik dokumentasjon
                 frivillig, kan dere skanne eller ta bilde av den og laste den
-                opp her. Vi tar imot .pdf .jpeg, .png, og de fleste formater fra
-                smarttelefonkamera.
+                opp her. Vi tar kun imot .pdf.
               </Normaltekst>
               <br />
               <Normaltekst>
@@ -258,7 +285,7 @@ const KroniskSide = () => {
               <Upload
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
-                extensions='.jpg,.pdf'
+                extensions='.pdf'
                 onChange={handleUploadChanged}
                 fileSize={250000}
               />
