@@ -279,7 +279,7 @@ const KroniskSide = () => {
               </Normaltekst>
               <br />
               <Normaltekst>
-                NAV kan også selv innhente dokumentasjon fra legen hvis det er
+                NAV vil selv innhente dokumentasjon fra legen hvis det er
                 nødvendig.
               </Normaltekst>
               <Upload
