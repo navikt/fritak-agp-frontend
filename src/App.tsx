@@ -11,6 +11,7 @@ import env from './environment';
 import lenker from './components/lenker';
 import Side from './components/Side';
 import KroniskSide from './components/kronisk/KroniskSide';
+import KroniskKvittering from './components/kronisk/KroniskKvittering';
 
 const App = () => {
   return (
@@ -28,6 +29,10 @@ const App = () => {
               <Route
                 path={lenker.GravidKvittering}
                 render={() => <GravidKvittering />}
+              />
+              <Route
+                path={lenker.KroniskKvittering}
+                render={() => <KroniskKvittering />}
               />
               <Route path={lenker.Home} render={() => <Forside />} />
             </Switch>
