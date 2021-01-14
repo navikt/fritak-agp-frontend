@@ -11,6 +11,7 @@ import env from './environment';
 import lenker from './components/lenker';
 import Side from './components/Side';
 import KroniskSide from './components/kronisk/KroniskSide';
+import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 
 const App = () => {
   return (
@@ -30,6 +31,10 @@ const App = () => {
                 render={() => <GravidKvittering />}
               />
               <Route path={lenker.Home} render={() => <Forside />} />
+              <Route
+                path={lenker.TokenFornyet}
+                render={() => <TokenFornyet />}
+              />
             </Switch>
           </Side>
         </LoginProvider>

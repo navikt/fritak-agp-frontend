@@ -4,13 +4,27 @@ import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import env from '../../environment';
 import InternLenke from './InternLenke';
+import lenker from '../lenker';
 
 interface LoggetUtAdvarselProps {
   onClose: Function;
 }
 
 const LoggetUtAdvarsel = ({ onClose }: LoggetUtAdvarselProps) => {
-  const loginServiceUrlAfterRedirect = `${env.loginServiceUrl}?refresh=true`;
+  let url = new URL(env.loginServiceUrl);
+  let params = new URLSearchParams(url.search);
+  let redirect = params.get('redirect');
+
+  const redirectParts = redirect?.split('?');
+
+  const redir =
+    redirectParts && redirectParts?.length > 1
+      ? redirectParts[0] + lenker.TokenFornyet + '?' + redirectParts[1]
+      : redirect;
+
+  params.set('redirect', redir || redirect + '');
+
+  const loginServiceUrlAfterRedirect = url.href + '?' + params.toString();
 
   const handleCloseModal = () => {
     onClose();
