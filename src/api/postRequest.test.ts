@@ -12,6 +12,21 @@ describe('postRequest', () => {
     );
   };
 
+  it('should catch exceptions', async () => {
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
+      Promise.resolve(({
+        status: 0,
+        json: () => {
+          throw new Error();
+        }
+      } as unknown) as Response)
+    );
+    expect(await postRequest('/Path', {})).toEqual({
+      status: 500,
+      violations: []
+    });
+  });
+
   it('should resolve with status 200 if the backend responds with 200', async () => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve(({
@@ -22,10 +37,6 @@ describe('postRequest', () => {
           } as ValidationResponse)
       } as unknown) as Response)
     );
-    // mockFetch(200, {
-    //   status: 200,
-    //   violations: []
-    // } as ValidationResponse)
     expect(await postRequest('/Path', {})).toEqual({
       status: 200,
       violations: []
@@ -37,7 +48,6 @@ describe('postRequest', () => {
       status: 401,
       violations: []
     } as ValidationResponse);
-
     expect(await postRequest('/Path', {})).toEqual({
       status: 401,
       violations: []
@@ -49,7 +59,6 @@ describe('postRequest', () => {
       status: 500,
       violations: []
     } as ValidationResponse);
-
     expect(await postRequest('/Path', {})).toEqual({
       status: 500,
       violations: []

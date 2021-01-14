@@ -3,7 +3,7 @@ import { FravaerData } from './KroniskRequest';
 import shortMonthName from '../shortMonthName';
 
 export const mapFravaerData = (fravaer: Array<Aarsfravaer>): FravaerData[] => {
-  if (!fravaer) {
+  if (fravaer.length == 0) {
     return [];
   }
   return fravaer.flatMap((aarsfravaer) => {
