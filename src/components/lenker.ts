@@ -4,7 +4,8 @@ enum lenker {
   Kronisk = '/kronisk',
   TokenFornyet = '/token-fornyet',
   GravidKvittering = '/gravid/kvittering',
-  KroniskKvittering = '/kronisk/kvittering'
+  KroniskKvittering = '/kronisk/kvittering',
+  TokenFornyet = '/token-fornyet'
 }
 
 export default lenker;

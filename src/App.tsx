@@ -13,6 +13,7 @@ import Side from './components/Side';
 import KroniskSide from './components/kronisk/KroniskSide';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
+import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 
 const App = () => {
   return (
