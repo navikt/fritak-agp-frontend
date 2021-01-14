@@ -107,22 +107,15 @@ const KroniskSide = () => {
               </Lenke>
               .
               <br />
+              <br />
+              Alle felter må fylles ut om ikke annet er oppgitt
             </Ingress>
           </Panel>
           <Skillelinje />
-          <Panel>
-            <Undertittel tag='span'>
-              Alle felter er obligatoriske om ikke merket annerledes
-            </Undertittel>
-          </Panel>
-          <Skillelinje />
 
-          <Panel id='gravidside-panel-ansatte'>
-            <SkjemaGruppe
-              legend='Den ansatte'
-              aria-live='polite'
-              feilmeldingId={'ansatt'}
-            >
+          <Panel id='kroniskside-panel-ansatte'>
+            <h2 className='kroniskside-h2'>Den ansatte</h2>
+            <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
@@ -156,8 +149,9 @@ const KroniskSide = () => {
 
           <Skillelinje />
 
-          <Panel>
-            <SkjemaGruppe legend='Arbeidssituasjon og miljø'>
+          <Panel id='kroniskside-panel-arbeidssituasjon'>
+            <h2 className='kroniskside-h2'>Arbeidssituasjon og miljø</h2>
+            <SkjemaGruppe>
               <Normaltekst>
                 Vi spør først om dere har forsøkt å løse situasjonen på
                 arbeidsplassen.
@@ -166,13 +160,14 @@ const KroniskSide = () => {
                 Svaret deres brukes i to forskjellige vurderinger: ​
               </Normaltekst>
 
-              <ul className='gravidside-tett-liste'>
+              <ul className='kroniskside-tett-liste'>
                 <li>
                   om vi kan hjelpe til med noe, slik at den ansatte kan stå i
                   jobben
                 </li>
                 <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
               </ul>
+              <br />
               <CheckboxGruppe
                 legend='Hva slags arbeid utfører den ansatte?'
                 feil={state.arbeidError}
@@ -272,8 +267,10 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
+            <h2 className='kroniskside-h2'>
+              Hvis dere har fått dokumentasjon fra den ansatte
+            </h2>
             <SkjemaGruppe
-              legend='Hvis dere har fått dokumentasjon fra den ansatte'
               feil={state.dokumentasjonError}
               feilmeldingId='dokumentasjon'
               aria-live='polite'
@@ -302,8 +299,8 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
+            <h2 className='kroniskside-h2'>Fraværet</h2>
             <SkjemaGruppe
-              legend='Fraværet'
               feil={state.fravaerError}
               feilmeldingId='fravaer'
               aria-live='polite'
