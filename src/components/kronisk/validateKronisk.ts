@@ -1,7 +1,7 @@
 import KroniskState from './KroniskState';
 import { validateOrgnr } from '../validation/validateOrgnr';
-import isValidOrgnr from '../gravid/isValidOrgnr';
-import isValidFnr from '../gravid/isValidFnr';
+import isValidOrgnr from '../../utils/isValidOrgnr';
+import isValidFnr from '../../utils/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';

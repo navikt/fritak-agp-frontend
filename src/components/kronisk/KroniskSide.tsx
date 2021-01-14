@@ -22,7 +22,7 @@ import { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
 import { PaakjenningerType } from './PaakjenningerType';
-import getBase64file from '../gravid/getBase64File';
+import getBase64file from '../../utils/getBase64File';
 import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
