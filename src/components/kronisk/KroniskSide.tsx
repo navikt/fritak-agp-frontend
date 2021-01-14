@@ -64,7 +64,6 @@ const KroniskSide = () => {
           state.bekreft || false
         )
       ).then((response) => {
-        console.log(response);
         dispatch({
           type: Actions.HandleResponse,
           payload: { response: response }
