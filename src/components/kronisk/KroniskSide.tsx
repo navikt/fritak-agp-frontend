@@ -49,14 +49,22 @@ const KroniskSide = () => {
       state.progress === true &&
       state.submitting === true
     ) {
-      postKronisk(environment.baseUrl, mapKroniskRequest(state)).then(
-        (response) => {
-          dispatch({
-            type: Actions.HandleResponse,
-            payload: { response: response }
-          });
-        }
-      );
+      postKronisk(
+        environment.baseUrl,
+        mapKroniskRequest(
+          state.arbeid || [],
+          state.paakjenninger || [],
+          state.fravaer || [],
+          state.fnr || '',
+          state.orgnr || '',
+          state.bekreft || false
+        )
+      ).then((response) => {
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: { response: response }
+        });
+      });
     }
   }, [
     state.validated,

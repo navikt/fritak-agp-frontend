@@ -5,50 +5,47 @@ import PaakjenningerType from '../../components/kronisk/PaakjenningerType';
 import { Aarsfravaer } from '../../components/kronisk/Aarsfravaer';
 
 describe('mapKroniskRequest', () => {
-  const buildState = () => {
-    let state = defaultKroniskState();
-    state.fnr = '123456789';
-    state.orgnr = '987654321';
-    state.bekreft = true;
-    state.arbeid = [ArbeidType.KREVENDE];
-    state.paakjenninger = [PaakjenningerType.ALLERGENER];
-    state.fravaer = Array<Aarsfravaer>();
-    state.fravaer.push({
+  const fnr = '123456789';
+  const orgnr = '987654321';
+  const bekreft = true;
+  const arbeid = [ArbeidType.KREVENDE];
+  const paakjenninger = [PaakjenningerType.ALLERGENER];
+  const fravaer = [
+    {
       year: 2020,
       jan: 5,
       feb: 3,
       dec: 12
-    } as Aarsfravaer);
-    return state;
-  };
+    } as Aarsfravaer
+  ];
 
   it('should fail when no arbeidstype', async () => {
-    const state = buildState();
-    state.arbeid = [];
     expect(() => {
-      mapKroniskRequest(state);
+      mapKroniskRequest([], paakjenninger, fravaer, fnr, orgnr, bekreft);
     }).toThrow('Må ha minst en arbeidstype');
   });
 
   it('should fail when no påkjenninger', async () => {
-    const state = buildState();
-    state.paakjenninger = [];
     expect(() => {
-      mapKroniskRequest(state);
+      mapKroniskRequest(arbeid, [], fravaer, fnr, orgnr, bekreft);
     }).toThrow('Må ha minst en påkjenningstype');
   });
 
   it('should fail when no fravær', async () => {
-    const state = buildState();
-    state.fravaer = [];
     expect(() => {
-      mapKroniskRequest(state);
+      mapKroniskRequest(arbeid, paakjenninger, [], fnr, orgnr, bekreft);
     }).toThrow('Må ha minst en fravær');
   });
 
   it('should not fail when all props', async () => {
-    const state = buildState();
-    const r = mapKroniskRequest(state);
+    const r = mapKroniskRequest(
+      arbeid,
+      paakjenninger,
+      fravaer,
+      fnr,
+      orgnr,
+      bekreft
+    );
     expect(r.fnr).toEqual('123456789');
   });
 });

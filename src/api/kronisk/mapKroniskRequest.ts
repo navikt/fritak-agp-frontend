@@ -1,23 +1,32 @@
-import KroniskState from '../../components/kronisk/KroniskState';
 import { KroniskRequest } from './KroniskRequest';
 import { mapFravaerData } from './mapFravaerData';
+import { Aarsfravaer } from '../../components/kronisk/Aarsfravaer';
+import { PaakjenningerType } from '../../components/kronisk/PaakjenningerType';
+import { ArbeidType } from '../../components/kronisk/ArbeidType';
 
-export const mapKroniskRequest = (state: KroniskState): KroniskRequest => {
-  if (!state.arbeid || state.arbeid?.length == 0) {
+export const mapKroniskRequest = (
+  arbeid: Array<ArbeidType>,
+  paakjenninger: Array<PaakjenningerType>,
+  fravaer: Array<Aarsfravaer>,
+  fnr: string,
+  orgnr: string,
+  bekreft: boolean
+): KroniskRequest => {
+  if (!arbeid || arbeid?.length == 0) {
     throw new Error('Må ha minst en arbeidstype');
   }
-  if (!state.paakjenninger || state.paakjenninger?.length == 0) {
+  if (!paakjenninger || paakjenninger?.length == 0) {
     throw new Error('Må ha minst en påkjenningstype');
   }
-  if (!state.fravaer || state.fravaer?.length == 0) {
+  if (!fravaer || fravaer?.length == 0) {
     throw new Error('Må ha minst en fravær');
   }
   return {
-    fnr: state.fnr,
-    orgnr: state.orgnr,
-    bekreftet: state.bekreft,
-    arbeidstyper: state.arbeid,
-    paakjenningstyper: state.paakjenninger,
-    fravaer: mapFravaerData(state.fravaer || [])
+    fnr: fnr,
+    orgnr: orgnr,
+    bekreftet: bekreft,
+    arbeidstyper: arbeid,
+    paakjenningstyper: paakjenninger,
+    fravaer: mapFravaerData(fravaer)
   } as KroniskRequest;
 };
