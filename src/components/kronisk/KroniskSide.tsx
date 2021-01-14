@@ -251,8 +251,7 @@ const KroniskSide = () => {
                 Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger.
                 Men hvis den ansatte allerede har gitt dere slik dokumentasjon
                 frivillig, kan dere skanne eller ta bilde av den og laste den
-                opp her. Vi tar imot .pdf .jpeg, .png, og de fleste formater fra
-                smarttelefonkamera.
+                opp her. Vi tar kun imot .pdf.
               </Normaltekst>
               <br />
               <Normaltekst>
@@ -262,7 +261,7 @@ const KroniskSide = () => {
               <Upload
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
-                extensions='.jpg,.pdf'
+                extensions='.pdf'
                 onChange={handleUploadChanged}
                 fileSize={250000}
               />
