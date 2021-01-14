@@ -1,11 +1,11 @@
 import KroniskState from './KroniskState';
-import { validateOrgnr } from '../validation/validateOrgnr';
-import isValidOrgnr from '../gravid/isValidOrgnr';
-import isValidFnr from '../gravid/isValidFnr';
+import { validateOrgnr } from '../../utils/validateOrgnr';
+import isValidOrgnr from '../../utils/isValidOrgnr';
+import isValidFnr from '../../utils/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
-import { validateFnr } from '../validation/validateFnr';
+import { validateFnr } from '../../utils/validateFnr';
 
 export const validateKronisk = (state: KroniskState): KroniskState => {
   if (!state.validated) {

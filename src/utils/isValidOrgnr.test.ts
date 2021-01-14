@@ -1,5 +1,5 @@
 import isValidOrgnr from './isValidOrgnr';
-import testOrgnr from '../../mockData/testOrgnr';
+import testOrgnr from '../mockData/testOrgnr';
 
 describe('isValidOrgnr', () => {
   it('should return true for valid orgnummer', () => {

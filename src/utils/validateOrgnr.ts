@@ -1,4 +1,4 @@
-import isValidOrgnr from '../gravid/isValidOrgnr';
+import isValidOrgnr from './isValidOrgnr';
 
 export const validateOrgnr = (
   orgnr?: string,
