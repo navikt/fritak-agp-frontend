@@ -252,6 +252,7 @@ const KroniskSide = () => {
 
                     <Textarea
                       label='Annet'
+                      id='annet'
                       value={state.kommentar || ''}
                       feil={state.kommentarError || undefined}
                       onChange={(evt) =>
