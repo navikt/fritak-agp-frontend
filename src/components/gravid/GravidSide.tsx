@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -355,7 +355,8 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
 
             <Panel id='gravidside-panel-ansatte'>
-              <h2 className='gravidside-h2'>Den ansatte</h2>
+              <Systemtittel>Den ansatte</Systemtittel>
+              <br />
               <SkjemaGruppe aria-live='polite'>
                 <Row>
                   <Column sm='4' xs='6'>
@@ -388,7 +389,8 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
 
             <Panel>
-              <h2 className='gravidside-h2'>Arbeidssituasjon og miljø</h2>
+              <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
+              <br />
               <SkjemaGruppe feil={feilmelding.tilrettelegge}>
                 <Normaltekst>
                   Vi spør først om dere har forsøkt å løse situasjonen på
@@ -651,9 +653,10 @@ const GravidSide = (props: GravidSideProps) => {
                 <Skillelinje />
 
                 <Panel>
-                  <h2 className='gravidside-h2'>
+                  <Systemtittel>
                     Hvis dere har fått dokumentasjon fra den ansatte
-                  </h2>
+                  </Systemtittel>
+                  <br />
                   <SkjemaGruppe
                     feil={feilmelding.dokumentasjonFeilmeldingId}
                     feilmeldingId='dokumentasjonFeilmeldingId'

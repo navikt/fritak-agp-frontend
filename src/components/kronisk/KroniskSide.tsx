@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -111,7 +111,8 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel id='kroniskside-panel-ansatte'>
-            <h2 className='kroniskside-h2'>Den ansatte</h2>
+            <Systemtittel>Den ansatte</Systemtittel>
+            <br />
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
@@ -147,7 +148,8 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel id='kroniskside-panel-arbeidssituasjon'>
-            <h2 className='kroniskside-h2'>Arbeidssituasjon og miljø</h2>
+            <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
+            <br />
             <SkjemaGruppe>
               <Normaltekst>
                 Vi spør først om dere har forsøkt å løse situasjonen på
@@ -242,6 +244,7 @@ const KroniskSide = () => {
                     })}
 
                     <Textarea
+                      label='Annet'
                       value={state.kommentar || ''}
                       feil={state.kommentarError || undefined}
                       onChange={(evt) =>
@@ -263,9 +266,10 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <h2 className='kroniskside-h2'>
+            <Systemtittel>
               Hvis dere har fått dokumentasjon fra den ansatte
-            </h2>
+            </Systemtittel>
+            <br />
             <SkjemaGruppe
               feil={state.dokumentasjonError}
               feilmeldingId='dokumentasjon'
@@ -295,7 +299,8 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <h2 className='kroniskside-h2'>Fraværet</h2>
+            <Systemtittel>Fraværet</Systemtittel>
+            <br />
             <SkjemaGruppe
               feil={state.fravaerError}
               feilmeldingId='fravaer'
