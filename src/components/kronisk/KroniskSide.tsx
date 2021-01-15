@@ -22,7 +22,7 @@ import { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
 import { PaakjenningerType } from './PaakjenningerType';
-import getBase64file from '../gravid/getBase64File';
+import getBase64file from '../../utils/getBase64File';
 import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
@@ -31,6 +31,7 @@ import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
+import KvitteringLink from './KvitteringLink';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -84,9 +85,10 @@ const KroniskSide = () => {
     state.orgnr,
     state.paakjenninger
   ]);
-  // if (state.kvittering != undefined) {
-  //   return <div>Kvittering</div>;
-  // }
+
+  if (state.kvittering === true) {
+    return <KvitteringLink />;
+  }
   return (
     <Row>
       <Column>
@@ -280,8 +282,7 @@ const KroniskSide = () => {
                 Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger.
                 Men hvis den ansatte allerede har gitt dere slik dokumentasjon
                 frivillig, kan dere skanne eller ta bilde av den og laste den
-                opp her. Vi tar imot .pdf .jpeg, .png, og de fleste formater fra
-                smarttelefonkamera.
+                opp her. Vi tar kun imot .pdf.
               </Normaltekst>
               <br />
               <Normaltekst>
@@ -291,7 +292,7 @@ const KroniskSide = () => {
               <Upload
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
-                extensions='.jpg,.pdf'
+                extensions='.pdf'
                 onChange={handleUploadChanged}
                 fileSize={250000}
               />

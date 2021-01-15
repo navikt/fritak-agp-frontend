@@ -2,8 +2,9 @@ enum lenker {
   Home = '/',
   Gravid = '/gravid',
   Kronisk = '/kronisk',
-  GravidKvittering = '/gravid-kvittering',
-  TokenFornyet = '/token-fornyet'
+  TokenFornyet = '/token-fornyet',
+  GravidKvittering = '/gravid/kvittering',
+  KroniskKvittering = '/kronisk/kvittering'
 }
 
 export default lenker;

@@ -22,7 +22,7 @@ import Upload from '../Upload';
 import './GravidSide.scss';
 import GravidProgress from './GravidProgress';
 import GravidStatus from './GravidStatus';
-import isValidFnr from './isValidFnr';
+import isValidFnr from '../../utils/isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
 import lagreGravidesoknad, {
@@ -41,10 +41,10 @@ import isBackendServerError from './isBackendServerError';
 import isBackendValidationError from './isBackendValidationError';
 import Lenke from 'nav-frontend-lenker';
 import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
-import isValidOrgnr from './isValidOrgnr';
+import isValidOrgnr from '../../utils/isValidOrgnr';
 import Orgnr from '../Orgnr';
 import GravidSideProps from './GravidSideProps';
-import getBase64file from './getBase64File';
+import getBase64file from '../../utils/getBase64File';
 import feilListe from '../feilListe';
 
 const initialStateFeilmelding = {};
@@ -666,8 +666,8 @@ const GravidSide = (props: GravidSideProps) => {
                       Som arbeidsgiver kan dere ikke kreve å få se
                       helseopplysninger. Men hvis den ansatte allerede har gitt
                       dere slik dokumentasjon frivillig, kan dere skanne eller
-                      ta bilde av den og laste den opp her. Vi tar imot .pdf
-                      .jpeg, .png, og de fleste formater fra smarttelefonkamera.
+                      ta bilde av den og laste den opp her. Vi tar kun imot
+                      .pdf.
                     </Normaltekst>
                     <br />
                     <Normaltekst>
@@ -678,7 +678,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Upload
                       id='upload'
                       label='Last opp dokumentasjon'
-                      extensions='.jpg,.pdf'
+                      extensions='.pdf'
                       onChange={handleUploadChanged}
                       fileSize={250000}
                     />
