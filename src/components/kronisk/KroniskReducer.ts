@@ -57,7 +57,7 @@ const KroniskReducer = (
       return validateKronisk(nextState);
 
     case Actions.Dokumentasjon:
-      nextState.dokumentasjon = payload?.dokumentasjon;
+      nextState.dokumentasjon = payload?.dokumentasjon ?? undefined;
       return validateKronisk(nextState);
 
     case Actions.Fravaer: //

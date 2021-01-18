@@ -41,6 +41,9 @@ const KroniskSide = () => {
       });
     }
   };
+  const handleDelete = () => {
+    dispatch({ type: Actions.Dokumentasjon, payload: undefined });
+  };
   const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
   };
@@ -292,6 +295,7 @@ const KroniskSide = () => {
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
                 extensions='.pdf'
                 onChange={handleUploadChanged}
+                onDelete={handleDelete}
                 fileSize={250000}
               />
             </SkjemaGruppe>

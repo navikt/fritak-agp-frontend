@@ -1,13 +1,15 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Feilmelding } from 'nav-frontend-typografi';
 import './Upload.sass';
+import { Flatknapp } from 'nav-frontend-knapper';
 
 interface UploadProps {
-  id: string
-  label: string
-  extensions: string
-  fileSize: number
-  onChange: (file?: File) => void
+  id: string;
+  label: string;
+  extensions: string;
+  fileSize: number;
+  onChange: (file?: File) => void;
+  onDelete: () => void;
 }
 
 const Upload = (props: UploadProps) => {
@@ -27,23 +29,36 @@ const Upload = (props: UploadProps) => {
     } else {
       props.onChange();
     }
-  }
+  };
+  const handleDelete = () => {
+    setFilnavn(props.label);
+    props.onDelete();
+  };
   return (
     <div>
-      <label className="knapp filknapp">
-        <input className="fileinput"
-               type="file"
-               id="fileUploader"
-               accept={props.extensions}
-               onChange={handleUpload}
-               onClick={(e: any) => e.target.value = null}/>
+      <label className='knapp filknapp'>
+        <input
+          className='fileinput'
+          type='file'
+          id='fileUploader'
+          accept={props.extensions}
+          onChange={handleUpload}
+          onClick={(e: any) => (e.target.value = null)}
+        />
         {filnavn}
       </label>
-      {feilmelding &&
-      <Feilmelding>{feilmelding}</Feilmelding>
-      }
+      {filnavn !== props.label && (
+        <>
+          <b className='fileupload-delete'>Lastet opp: </b>
+          {filnavn}
+          <Flatknapp onKeyDown={handleDelete} onClick={handleDelete}>
+            Slett
+          </Flatknapp>
+        </>
+      )}
+      {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
     </div>
   );
-}
+};
 
 export default Upload;

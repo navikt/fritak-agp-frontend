@@ -46,6 +46,7 @@ import Orgnr from '../Orgnr';
 import GravidSideProps from './GravidSideProps';
 import getBase64file from '../../utils/getBase64File';
 import feilListe from '../feilListe';
+import { Actions } from '../kronisk/Actions';
 
 const initialStateFeilmelding = {};
 
@@ -85,6 +86,9 @@ const GravidSide = (props: GravidSideProps) => {
         dispatchSkjema({ field: 'dokumentasjon', value: base64encoded });
       });
     }
+  };
+  const handleDelete = () => {
+    dispatchSkjema({ field: 'dokumentasjon', value: '' });
   };
   const isTiltakAnnet =
     skjema.tiltak && skjema.tiltak.indexOf(Tiltak.ANNET) > -1;
@@ -680,6 +684,7 @@ const GravidSide = (props: GravidSideProps) => {
                       label='Last opp dokumentasjon'
                       extensions='.pdf'
                       onChange={handleUploadChanged}
+                      onDelete={handleDelete}
                       fileSize={250000}
                     />
                   </SkjemaGruppe>
