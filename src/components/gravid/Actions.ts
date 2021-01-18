@@ -1,7 +1,7 @@
 import ValidationResponse from '../../api/ValidationResponse';
 import { Tiltak } from './Tiltak';
-import { OmplasseringForsoek } from './OmplasseringForsoek';
-import { OmplasseringAarsak } from './OmplasseringAarsak';
+import { Omplassering } from './Omplassering';
+import { Aarsak } from './Aarsak';
 
 export enum Actions {
   Reset,
@@ -27,8 +27,8 @@ export interface Payload {
   tilrettelegge?: boolean;
   tiltak?: Tiltak;
   tiltakBeskrivelse?: string;
-  omplasseringForsoek?: OmplasseringForsoek;
-  omplasseringAarsak?: OmplasseringAarsak;
+  omplasseringForsoek?: Omplassering;
+  omplasseringAarsak?: Aarsak;
   videre?: boolean;
   bekreft?: boolean;
   progress?: boolean;

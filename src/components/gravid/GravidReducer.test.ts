@@ -3,8 +3,8 @@ import { Actions } from './Actions';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
 import ValidationResponse from '../../api/ValidationResponse';
-import { OmplasseringForsoek } from './OmplasseringForsoek';
-import { OmplasseringAarsak } from './OmplasseringAarsak';
+import { Omplassering } from './Omplassering';
+import { Aarsak } from './Aarsak';
 
 describe('GravidReducer', () => {
   it('should throw error', () => {
@@ -183,16 +183,16 @@ describe('GravidReducer', () => {
   it('should set omplassering', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.OmplasseringForsoek,
-      payload: { omplasseringForsoek: OmplasseringForsoek.JA }
+      payload: { omplasseringForsoek: Omplassering.JA }
     });
-    expect(state.omplassering).toEqual(OmplasseringForsoek.JA);
+    expect(state.omplassering).toEqual(Omplassering.JA);
   });
   it('should set omplasseringAarsak', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.OmplasseringAarsak,
-      payload: { omplasseringAarsak: OmplasseringAarsak.MOTSETTER }
+      payload: { omplasseringAarsak: Aarsak.MOTSETTER }
     });
-    expect(state.omplasseringAarsak).toEqual(OmplasseringAarsak.MOTSETTER);
+    expect(state.omplasseringAarsak).toEqual(Aarsak.MOTSETTER);
   });
   it('should set tilrettelegge', () => {
     let state = GravidReducer(defaultGravidState(), {

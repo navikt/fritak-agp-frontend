@@ -2,7 +2,7 @@ import GravidState, { defaultGravidState } from './GravidState';
 import { Actions, GravidAction } from './Actions';
 import { validateGravid } from './validateGravid';
 import { mapValidationResponse } from './mapValidationResponse';
-import { OmplasseringForsoek } from './OmplasseringForsoek';
+import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
 
 const GravidReducer = (
@@ -53,7 +53,7 @@ const GravidReducer = (
         throw new Error('Du må spesifisere omplassering');
       }
       nextState.omplassering = payload?.omplasseringForsoek;
-      if (nextState.omplassering != OmplasseringForsoek.IKKE_MULIG) {
+      if (nextState.omplassering != Omplassering.IKKE_MULIG) {
         nextState.omplasseringAarsak = undefined;
       }
       return validateGravid(nextState);

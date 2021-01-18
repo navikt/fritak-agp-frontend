@@ -1,4 +1,4 @@
-export enum OmplasseringAarsak {
+export enum Aarsak {
   MOTSETTER = 'MOTSETTER',
   FAAR_IKKE_KONTAKT = 'FAAR_IKKE_KONTAKT',
   IKKE_ANDRE_OPPGAVER = 'IKKE_ANDRE_OPPGAVER',

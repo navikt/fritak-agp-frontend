@@ -1,7 +1,7 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { OmplasseringAarsak } from './OmplasseringAarsak';
+import { Aarsak } from './Aarsak';
 import { Tiltak } from './Tiltak';
-import { OmplasseringForsoek } from './OmplasseringForsoek';
+import { Omplassering } from './Omplassering';
 
 export const defaultGravidState = (state?: GravidState): GravidState => {
   return Object.assign(
@@ -26,9 +26,9 @@ export default interface GravidState {
   tiltakError?: string;
   tiltakBeskrivelse?: string;
   tiltakBeskrivelseError?: string;
-  omplassering?: OmplasseringForsoek;
+  omplassering?: Omplassering;
   omplasseringError?: string;
-  omplasseringAarsak?: OmplasseringAarsak;
+  omplasseringAarsak?: Aarsak;
   omplasseringAarsakError?: string;
 
   videre?: boolean;

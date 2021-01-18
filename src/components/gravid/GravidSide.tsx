@@ -32,9 +32,9 @@ import { defaultGravidState } from './GravidState';
 import { Actions } from './Actions';
 import TiltakCheckboxes from './TiltakCheckboxes';
 import OmplasseringCheckboxes from './OmplasseringCheckboxes';
-import OmplasseringAarsakCheckboxes from './OmplasseringAarsakCheckboxes';
+import AarsakCheckboxes from './AarsakCheckboxes';
 import { Tiltak } from './Tiltak';
-import { OmplasseringForsoek } from './OmplasseringForsoek';
+import { Omplassering } from './Omplassering';
 import environment from '../../environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
@@ -285,7 +285,7 @@ const GravidSide = (props: GravidSideProps) => {
                         })}
 
                         <RadioGruppe className='gravideside-radiogruppe-indentert'>
-                          {OmplasseringAarsakCheckboxes.map((a) => {
+                          {AarsakCheckboxes.map((a) => {
                             return (
                               <Radio
                                 key={a.value}
@@ -298,8 +298,7 @@ const GravidSide = (props: GravidSideProps) => {
                                   })
                                 }
                                 disabled={
-                                  state.omplassering !==
-                                  OmplasseringForsoek.IKKE_MULIG
+                                  state.omplassering !== Omplassering.IKKE_MULIG
                                 }
                                 checked={state.omplasseringAarsak === a.value}
                               />
