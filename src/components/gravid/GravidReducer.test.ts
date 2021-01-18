@@ -52,6 +52,12 @@ describe('GravidReducer', () => {
       payload: { tiltak: Tiltak.HJEMMEKONTOR }
     });
     expect(state.tiltak).toEqual([Tiltak.HJEMMEKONTOR]);
+
+    let state2 = GravidReducer(state, {
+      type: Actions.ToggleTiltak,
+      payload: { tiltak: Tiltak.HJEMMEKONTOR }
+    });
+    expect(state2.tiltak).toEqual([]);
   });
 
   it('should set the kvittering', () => {
