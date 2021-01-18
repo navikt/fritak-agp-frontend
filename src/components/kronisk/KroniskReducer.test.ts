@@ -156,7 +156,7 @@ describe('KroniskReducer', () => {
   it('should set, update and remove fravær', () => {
     let state = KroniskReducer(defaultKroniskState(), {
       type: Actions.Fravaer,
-      payload: { fravaer: { year: 2018, month: 9, dager: 2 } }
+      payload: { fravaer: { year: 2018, month: 9, dager: '2' } }
     });
     let { fravaer } = state;
     expect(fravaer?.length).toEqual(1);
@@ -165,12 +165,12 @@ describe('KroniskReducer', () => {
     expect(Aarsfravaer.okt).toEqual(2);
     let state2 = KroniskReducer(state, {
       type: Actions.Fravaer,
-      payload: { fravaer: { year: 2018, month: 9, dager: 3 } }
+      payload: { fravaer: { year: 2018, month: 9, dager: '3' } }
     });
     expect(state2.fravaer!![0].okt).toEqual(3);
     let state3 = KroniskReducer(state, {
       type: Actions.Fravaer,
-      payload: { fravaer: { year: 2018, month: 9 } }
+      payload: { fravaer: { year: 2018, month: 9, dager: '' } }
     });
     expect(state3.fravaer!![0].okt).toBeUndefined();
   });
