@@ -5,27 +5,6 @@ import { cleanup } from '@testing-library/react';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../lagFeil';
 
-/**
- * TODO
- * dispatch dokumentasjon ved upload
- * dispatch validate ved submit clicked
- * postGravid når validert, progress og submit
- * dispatch handleResponse etter post
- *
- * Vis progress
- * vis kvittering
- * vis feil
- * vis vanlig skjema
- *
- * vis feilmeldinger
- *
- * DEFAULT-visning: fnr, orgnr, (tilrettelegge = undefined)
- * INgen tilrettelegging:  videre (tilrettelegge = nei)
- * INgen tilrettelegging OG videre=true:  videre (tilrettelegge = nei)
- * Tilrettelagt: (tilrettelagt = ja)
- *
- */
-
 const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
