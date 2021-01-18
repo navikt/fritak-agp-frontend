@@ -120,8 +120,8 @@ describe('mapValidationResponse', () => {
       expect(state.kvittering).toEqual(false);
       expect(state.error).toEqual(true);
       expect(state.feilmeldinger?.length).toEqual(1);
-      expect(state.feilmeldinger![0].skjemaelementId).toEqual('ukjent');
-      expect(state.feilmeldinger![0].feilmelding).toEqual(
+      expect(state.feilmeldinger[0].skjemaelementId).toEqual('ukjent');
+      expect(state.feilmeldinger[0].feilmelding).toEqual(
         'Klarte ikke å sende inn skjema. Prøv igjen senere.'
       );
     });
