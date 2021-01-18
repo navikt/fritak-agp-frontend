@@ -45,7 +45,7 @@ const Upload = (props: UploadProps) => {
           onChange={handleUpload}
           onClick={(e: any) => (e.target.value = null)}
         />
-        {filnavn}
+        {props.label}
       </label>
       {filnavn !== props.label && (
         <>

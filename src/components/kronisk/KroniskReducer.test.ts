@@ -213,23 +213,23 @@ describe('KroniskReducer', () => {
       payload: { fnr: '' }
     });
     let state2 = KroniskReducer(state1, { type: Actions.Validate });
-    expect(state2.feilmeldinger!!.length).toBe(6);
+    expect(state2.feilmeldinger!!.length).toBe(3);
     // TODO Mangler validering på alle felter
   });
 
   it('should reset to defaults', () => {
     let state = KroniskReducer(defaultKroniskState(), { type: Actions.Reset });
     expect(state).toEqual(defaultKroniskState());
-    expect(state.fnr).toEqual('');
-    expect(state.orgnr).toEqual('');
-    expect(state.arbeid?.length).toEqual(0);
-    expect(state.paakjenninger?.length).toEqual(0);
-    expect(state.kommentar).toEqual('');
-    expect(state.fravaer?.length).toEqual(0);
+    expect(state.fnr).toBeUndefined();
+    expect(state.orgnr).toBeUndefined();
+    expect(state.arbeid?.length).toBeUndefined();
+    expect(state.paakjenninger?.length).toBeUndefined();
+    expect(state.kommentar).toBeUndefined();
+    expect(state.fravaer?.length).toBeUndefined();
     expect(state.progress).toBeUndefined();
     expect(state.validated).toBeUndefined();
     expect(state.kvittering).toBeUndefined();
-    expect(state.bekreft).toEqual(false);
+    expect(state.bekreft).toBeUndefined();
     expect(state.fnrError).toBeUndefined();
     expect(state.orgnrError).toBeUndefined();
     expect(state.arbeidError).toBeUndefined();
@@ -238,6 +238,6 @@ describe('KroniskReducer', () => {
     expect(state.bekreftError).toBeUndefined();
     expect(state.kommentarError).toBeUndefined();
     expect(state.dokumentasjonError).toBeUndefined();
-    expect(state.feilmeldinger?.length).toEqual(0);
+    expect(state.feilmeldinger?.length).toBeUndefined();
   });
 });

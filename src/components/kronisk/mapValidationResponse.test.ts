@@ -21,7 +21,7 @@ describe('mapValidationResponse', () => {
     expect(state.progress).toEqual(false);
     expect(state.kvittering).toEqual(false);
     expect(state.error).toEqual(true);
-    expect(state.feilmeldinger?.length).toEqual(0);
+    expect(state.feilmeldinger?.length).toEqual(undefined);
   });
 
   it('should handle 201', () => {
@@ -36,7 +36,7 @@ describe('mapValidationResponse', () => {
     expect(state.progress).toEqual(false);
     expect(state.kvittering).toEqual(true);
     expect(state.error).toEqual(false);
-    expect(state.feilmeldinger?.length).toEqual(0);
+    expect(state.feilmeldinger?.length).toEqual(undefined);
   });
 
   it('should handle 422', () => {
