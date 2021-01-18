@@ -3,7 +3,6 @@ import { Actions } from './Actions';
 import { defaultKroniskState } from './KroniskState';
 import ArbeidType from './ArbeidType';
 import PaakjenningerType from './PaakjenningerType';
-import { isFuture } from '../../utils/isFuture';
 import ValidationResponse from '../../api/ValidationResponse';
 
 describe('KroniskReducer', () => {
