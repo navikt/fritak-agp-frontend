@@ -16,7 +16,6 @@ export const mapValidationResponse = (
       nextState.accessDenied = false;
       return nextState;
     case 401:
-      console.log('401');
       nextState.kvittering = false;
       nextState.progress = false;
       nextState.error = true;

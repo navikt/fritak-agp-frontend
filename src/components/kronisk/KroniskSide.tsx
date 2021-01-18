@@ -1,11 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-<<<<<<< HEAD
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-=======
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
->>>>>>> Endre h2 til Systemtittel, satt label tilbake på textarea, men skjul via styling
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -36,7 +32,6 @@ import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
-import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -70,7 +65,6 @@ const KroniskSide = () => {
           state.bekreft || false
         )
       ).then((response) => {
-        console.log(response);
         dispatch({
           type: Actions.HandleResponse,
           payload: { response: response }

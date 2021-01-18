@@ -10,15 +10,15 @@ import Side from './components/Side';
 import KroniskSide from './components/kronisk/KroniskSide';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
-import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import injectRedirectPath from './utils/injectRedirectPath';
 import loginExpiryAPI from './api/loginExpiryAPI';
 
 const App = () => {
-  // const location = useLocation();
   loginExpiryAPI().then((loggedInStatus) => {
-    console.log(loggedInStatus);
-    if (loggedInStatus.status !== 200) {
+    if (
+      loggedInStatus.status !== 200 &&
+      !location.search.includes('loggedIn=true')
+    ) {
       const redirectedLoginServiceUrl = injectRedirectPath(
         location.pathname,
         '/fritak-agp'
@@ -26,7 +26,6 @@ const App = () => {
       window.location.href = redirectedLoginServiceUrl;
       return <div className='login-context-redirect' />;
     }
-    console.log(location.pathname);
   });
 
   return (
