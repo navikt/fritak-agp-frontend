@@ -10,7 +10,7 @@ export enum Actions {
   Tilrettelegge,
   ToggleTiltak,
   TiltakBeskrivelse,
-  Omplassering,
+  OmplasseringForsoek,
   OmplasseringAarsak,
   Videre,
   Dokumentasjon,

@@ -15,7 +15,7 @@ describe('GravidReducer', () => {
     }).toThrow();
     expect(() => {
       GravidReducer(defaultGravidState(), {
-        type: Actions.Omplassering
+        type: Actions.OmplasseringForsoek
       });
     }).toThrow();
     expect(() => {
@@ -182,7 +182,7 @@ describe('GravidReducer', () => {
   });
   it('should set omplassering', () => {
     let state = GravidReducer(defaultGravidState(), {
-      type: Actions.Omplassering,
+      type: Actions.OmplasseringForsoek,
       payload: { omplassering: Omplassering.JA }
     });
     expect(state.omplassering).toEqual(Omplassering.JA);

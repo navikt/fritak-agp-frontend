@@ -275,7 +275,7 @@ const GravidSide = (props: GravidSideProps) => {
                               name='omplassering'
                               onChange={() =>
                                 dispatch({
-                                  type: Actions.Omplassering,
+                                  type: Actions.OmplasseringForsoek,
                                   payload: { omplassering: a.value }
                                 })
                               }

@@ -48,7 +48,7 @@ const GravidReducer = (
       nextState.tiltakBeskrivelse = payload?.tiltakBeskrivelse;
       return validateGravid(nextState);
 
-    case Actions.Omplassering:
+    case Actions.OmplasseringForsoek:
       if (payload?.omplassering === undefined) {
         throw new Error('Du må spesifisere omplassering');
       }
