@@ -1,6 +1,6 @@
 import { Tiltak } from './Tiltak';
 
-const CHECKBOX_TILTAK = [
+const TiltakCheckboxes = [
   {
     label: 'Fleksibel eller tilpasset arbeidstid',
     value: Tiltak.TILPASSET_ARBEIDSTID,
@@ -23,4 +23,4 @@ const CHECKBOX_TILTAK = [
   }
 ];
 
-export default CHECKBOX_TILTAK;
+export default TiltakCheckboxes;

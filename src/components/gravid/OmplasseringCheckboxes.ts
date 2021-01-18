@@ -1,6 +1,6 @@
 import { Omplassering } from './Omplassering';
 
-const CHECKBOX_OMPLASSERING = [
+const OmplasseringCheckboxes = [
   {
     label: 'Ja',
     value: Omplassering.JA
@@ -15,4 +15,4 @@ const CHECKBOX_OMPLASSERING = [
   }
 ];
 
-export default CHECKBOX_OMPLASSERING;
+export default OmplasseringCheckboxes;

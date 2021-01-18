@@ -4,7 +4,6 @@ import isValidFnr from '../../utils/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validateFnr } from '../../utils/validateFnr';
 import GravidState from './GravidState';
-import { Tiltak } from './Tiltak';
 
 export const validateGravid = (state: GravidState): GravidState => {
   if (!state.validated) {

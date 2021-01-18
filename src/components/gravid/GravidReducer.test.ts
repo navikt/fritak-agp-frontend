@@ -2,6 +2,9 @@ import GravidReducer from './GravidReducer';
 import { Actions } from './Actions';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
+import ValidationResponse from '../../api/ValidationResponse';
+import { Omplassering } from './Omplassering';
+import { OmplasseringAarsak } from './OmplasseringAarsak';
 
 describe('GravidReducer', () => {
   it('should set the fnr', () => {
@@ -136,8 +139,45 @@ describe('GravidReducer', () => {
       payload: { fnr: '' }
     });
     let state2 = GravidReducer(state1, { type: Actions.Validate });
-    expect(state2.feilmeldinger!!.length).toBe(6);
-    // TODO Mangler validering på alle felter
+    expect(state2.validated).toBe(true);
+  });
+
+  it('should handle response', () => {
+    let state = GravidReducer(defaultGravidState(), {
+      type: Actions.HandleResponse,
+      payload: { response: {} as ValidationResponse }
+    });
+    expect(state.submitting).toBe(false);
+    expect(state.progress).toBe(false);
+    expect(state.validated).toBe(false);
+  });
+  it('should set omplassering', () => {
+    let state = GravidReducer(defaultGravidState(), {
+      type: Actions.Omplassering,
+      payload: { omplassering: Omplassering.JA }
+    });
+    expect(state.omplassering).toEqual(Omplassering.JA);
+  });
+  it('should set omplasseringAarsak', () => {
+    let state = GravidReducer(defaultGravidState(), {
+      type: Actions.OmplasseringAarsak,
+      payload: { omplasseringAarsak: OmplasseringAarsak.MOTSETTER }
+    });
+    expect(state.omplasseringAarsak).toEqual(OmplasseringAarsak.MOTSETTER);
+  });
+  it('should set tilrettelegge', () => {
+    let state = GravidReducer(defaultGravidState(), {
+      type: Actions.Tilrettelegge,
+      payload: { tilrettelegge: true }
+    });
+    expect(state.tilrettelegge).toEqual(true);
+  });
+  it('should set tilrettelegge', () => {
+    let state = GravidReducer(defaultGravidState(), {
+      type: Actions.TiltakBeskrivelse,
+      payload: { tiltakBeskrivelse: 'Joda' }
+    });
+    expect(state.tiltakBeskrivelse).toEqual('Joda');
   });
 
   it('should reset to defaults', () => {

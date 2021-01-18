@@ -1,6 +1,6 @@
 import { OmplasseringAarsak } from './OmplasseringAarsak';
 
-const CHECKBOX_OMPLASSERING_AARSAK = [
+const OmplasseringAarsakCheckboxes = [
   {
     label: 'Den ansatte motsetter seg omplassering',
     value: OmplasseringAarsak.MOTSETTER
@@ -20,4 +20,4 @@ const CHECKBOX_OMPLASSERING_AARSAK = [
   }
 ];
 
-export default CHECKBOX_OMPLASSERING_AARSAK;
+export default OmplasseringAarsakCheckboxes;

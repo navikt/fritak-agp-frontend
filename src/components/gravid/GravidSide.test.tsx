@@ -1,12 +1,7 @@
 import React from 'react';
 import GravidSide from './GravidSide';
 import { render, unmountComponentAtNode } from 'react-dom';
-import {
-  cleanup,
-  render as renderTestingLibrary,
-  screen,
-  waitFor
-} from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../lagFeil';
 
@@ -32,8 +27,6 @@ import { lagFeil } from '../lagFeil';
  */
 
 const mockHistoryPush = jest.fn();
-
-const actualRouterDom = jest.requireActual('react-router-dom') as any;
 
 jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as any),

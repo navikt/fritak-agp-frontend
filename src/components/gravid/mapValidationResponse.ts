@@ -33,10 +33,35 @@ export const mapValidationResponse = (
             nextState.orgnrError = v.message;
             feilmeldinger.push(lagFeil('orgnr', v.message));
             break;
+
+          case 'tilrettelegge':
+            feilmeldinger.push(lagFeil('tilrettelegge', v.message));
+            break;
           case 'bekreftet':
             nextState.bekreftError = v.message;
             feilmeldinger.push(lagFeil('bekreft', v.message));
             break;
+
+          case 'tiltak':
+            nextState.tiltakError = v.message;
+            feilmeldinger.push(lagFeil('tiltak', v.message));
+            break;
+
+          case 'tiltakBeskrivelse':
+            nextState.tiltakBeskrivelseError = v.message;
+            feilmeldinger.push(lagFeil('tiltakBeskrivelse', v.message));
+            break;
+
+          case 'omplassering':
+            nextState.omplasseringError = v.message;
+            feilmeldinger.push(lagFeil('omplassering', v.message));
+            break;
+
+          case 'omplasseringAarsak':
+            nextState.omplasseringAarsakError = v.message;
+            feilmeldinger.push(lagFeil('omplasseringAarsak', v.message));
+            break;
+
           case 'dokumentasjon':
             nextState.dokumentasjonError = v.message;
             feilmeldinger.push(lagFeil('dokumentasjon', v.message));
