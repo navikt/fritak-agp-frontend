@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -348,18 +348,16 @@ const GravidSide = (props: GravidSideProps) => {
                 </Lenke>
                 .
                 <br />
+                <br />
+                Alle felter må fylles ut om ikke annet er oppgitt
               </Ingress>
-            </Panel>
-            <Skillelinje />
-            <Panel>
-              <Undertittel tag='span'>
-                Alle felter er obligatoriske om ikke merket annerledes
-              </Undertittel>
             </Panel>
             <Skillelinje />
 
             <Panel id='gravidside-panel-ansatte'>
-              <SkjemaGruppe legend='Den ansatte' aria-live='polite'>
+              <Systemtittel>Den ansatte</Systemtittel>
+              <br />
+              <SkjemaGruppe aria-live='polite'>
                 <Row>
                   <Column sm='4' xs='6'>
                     <Fnr
@@ -391,10 +389,9 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
 
             <Panel>
-              <SkjemaGruppe
-                legend='Arbeidssituasjon og miljø'
-                feil={feilmelding.tilrettelegge}
-              >
+              <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
+              <br />
+              <SkjemaGruppe feil={feilmelding.tilrettelegge}>
                 <Normaltekst>
                   Vi spør først om dere har forsøkt å løse situasjonen på
                   arbeidsplassen.
@@ -656,8 +653,11 @@ const GravidSide = (props: GravidSideProps) => {
                 <Skillelinje />
 
                 <Panel>
+                  <Systemtittel>
+                    Hvis dere har fått dokumentasjon fra den ansatte
+                  </Systemtittel>
+                  <br />
                   <SkjemaGruppe
-                    legend='Hvis dere har fått dokumentasjon fra den ansatte'
                     feil={feilmelding.dokumentasjonFeilmeldingId}
                     feilmeldingId='dokumentasjonFeilmeldingId'
                     aria-live='polite'
@@ -671,9 +671,9 @@ const GravidSide = (props: GravidSideProps) => {
                     </Normaltekst>
                     <br />
                     <Normaltekst>
-                      NAV kan også selv innhente dokumentasjon fra legen hvis
-                      det ikke allerede går klart fram av en sykmelding at det
-                      er svangerskapet som er årsaken til fraværet.
+                      NAV vil selv innhente dokumentasjon fra legen hvis det
+                      ikke allerede går klart fram av en sykmelding at det er
+                      svangerskapet som er årsaken til fraværet.
                     </Normaltekst>
                     <Upload
                       id='upload'

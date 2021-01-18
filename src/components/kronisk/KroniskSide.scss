@@ -1,23 +1,27 @@
 @import "./src/variabler.sass";
 
-.gravidside-tett-liste {
+.kroniskside-tett-liste {
     margin-top: 0;
 }
 
-.gravidside-alert-gravid {
-    margin-top: 2rem;
-}
-
-.gravid-side-radiogruppe-omplassering {
+.kronisk-side-radiogruppe-omplassering {
     margin-top: 1rem;
 }
 
-#gravidside-panel-ansatte {
+#kroniskside-panel-ansatte {
     padding-bottom: 0;
 }
 
-.gravidside-lenke-knapp,
-.gravidside-lenke-knapp:active {
+#kroniskside-panel-arbeidssituasjon {
+    padding-bottom: 0;
+}
+
+label[for="textarea-annet"] {
+    display: none;
+}
+
+.kroniskside-lenke-knapp,
+.kroniskside-lenke-knapp:active {
     display: run-in;
     border: none;
     margin: 0;
@@ -27,6 +31,6 @@
     text-decoration: underline;
 }
 
-.gravideside-radiogruppe-indentert {
+.kroniskeside-radiogruppe-indentert {
     margin-left: 1rem !important;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -105,22 +105,16 @@ const KroniskSide = () => {
               </Lenke>
               .
               <br />
+              <br />
+              Alle felter må fylles ut om ikke annet er oppgitt
             </Ingress>
           </Panel>
           <Skillelinje />
-          <Panel>
-            <Undertittel tag='span'>
-              Alle felter er obligatoriske om ikke merket annerledes
-            </Undertittel>
-          </Panel>
-          <Skillelinje />
 
-          <Panel id='gravidside-panel-ansatte'>
-            <SkjemaGruppe
-              legend='Den ansatte'
-              aria-live='polite'
-              feilmeldingId={'ansatt'}
-            >
+          <Panel id='kroniskside-panel-ansatte'>
+            <Systemtittel>Den ansatte</Systemtittel>
+            <br />
+            <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
@@ -154,8 +148,10 @@ const KroniskSide = () => {
 
           <Skillelinje />
 
-          <Panel>
-            <SkjemaGruppe legend='Arbeidssituasjon og miljø'>
+          <Panel id='kroniskside-panel-arbeidssituasjon'>
+            <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
+            <br />
+            <SkjemaGruppe>
               <Normaltekst>
                 Vi spør først om dere har forsøkt å løse situasjonen på
                 arbeidsplassen.
@@ -164,13 +160,14 @@ const KroniskSide = () => {
                 Svaret deres brukes i to forskjellige vurderinger: ​
               </Normaltekst>
 
-              <ul className='gravidside-tett-liste'>
+              <ul className='kroniskside-tett-liste'>
                 <li>
                   om vi kan hjelpe til med noe, slik at den ansatte kan stå i
                   jobben
                 </li>
                 <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
               </ul>
+              <br />
               <CheckboxGruppe
                 legend='Hva slags arbeid utfører den ansatte?'
                 feil={state.arbeidError}
@@ -248,7 +245,8 @@ const KroniskSide = () => {
                     })}
 
                     <Textarea
-                      label='annet'
+                      label='Annet'
+                      id='textarea-annet'
                       value={state.kommentar || ''}
                       feil={state.kommentarError || undefined}
                       onChange={(evt) =>
@@ -270,8 +268,11 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
+            <Systemtittel>
+              Hvis dere har fått dokumentasjon fra den ansatte
+            </Systemtittel>
+            <br />
             <SkjemaGruppe
-              legend='Hvis dere har fått dokumentasjon fra den ansatte'
               feil={state.dokumentasjonError}
               feilmeldingId='dokumentasjon'
               aria-live='polite'
@@ -284,7 +285,7 @@ const KroniskSide = () => {
               </Normaltekst>
               <br />
               <Normaltekst>
-                NAV kan også selv innhente dokumentasjon fra legen hvis det er
+                NAV vil selv innhente dokumentasjon fra legen hvis det er
                 nødvendig.
               </Normaltekst>
               <Upload
@@ -300,8 +301,9 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
+            <Systemtittel>Fraværet</Systemtittel>
+            <br />
             <SkjemaGruppe
-              legend='Fraværet'
               feil={state.fravaerError}
               feilmeldingId='fravaer'
               aria-live='polite'
