@@ -24,7 +24,7 @@ const App = () => {
         '/fritak-agp'
       );
       window.location.href = redirectedLoginServiceUrl;
-      return <div className='login-context-redirect' />;
+      return <div />;
     }
   });
 
