@@ -2,16 +2,6 @@ import { validateGravid } from './validateGravid';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
 
-/**
- * tilrettelegge = undefined
- *
- * tilrettelegge = true
- *
- * tilrettelegge = false
- *
- * tilrettelegge = false & videre = false
- * tilrettelegge = false & videre = true
- */
 describe('validateGravid', () => {
   it('should show fnr error when invalid', () => {
     const state = defaultGravidState();
