@@ -34,7 +34,7 @@ import TiltakCheckboxes from './TiltakCheckboxes';
 import OmplasseringCheckboxes from './OmplasseringCheckboxes';
 import OmplasseringAarsakCheckboxes from './OmplasseringAarsakCheckboxes';
 import { Tiltak } from './Tiltak';
-import { Omplassering } from './Omplassering';
+import { OmplasseringForsoek } from './OmplasseringForsoek';
 import environment from '../../environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
@@ -276,7 +276,7 @@ const GravidSide = (props: GravidSideProps) => {
                               onChange={() =>
                                 dispatch({
                                   type: Actions.OmplasseringForsoek,
-                                  payload: { omplassering: a.value }
+                                  payload: { omplasseringForsoek: a.value }
                                 })
                               }
                               checked={state.omplassering === a.value}
@@ -298,7 +298,8 @@ const GravidSide = (props: GravidSideProps) => {
                                   })
                                 }
                                 disabled={
-                                  state.omplassering !== Omplassering.IKKE_MULIG
+                                  state.omplassering !==
+                                  OmplasseringForsoek.IKKE_MULIG
                                 }
                                 checked={state.omplasseringAarsak === a.value}
                               />

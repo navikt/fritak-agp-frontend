@@ -1,7 +1,7 @@
 import { GravidRequest } from './GravidRequest';
 import { Tiltak } from '../../components/gravid/Tiltak';
 import { OmplasseringAarsak } from '../../components/gravid/OmplasseringAarsak';
-import { Omplassering } from '../../components/gravid/Omplassering';
+import { OmplasseringForsoek } from '../../components/gravid/OmplasseringForsoek';
 
 export const mapGravidRequest = (
   fnr: string | undefined,
@@ -9,7 +9,7 @@ export const mapGravidRequest = (
   tilrettelegge: boolean | undefined,
   tiltak: Array<Tiltak> | undefined,
   tiltakBeskrivelse: string | undefined,
-  omplassering: Omplassering | undefined,
+  omplassering: OmplasseringForsoek | undefined,
   omplasseringAarsak: OmplasseringAarsak | undefined,
   dokumentasjon: string | undefined,
   bekreft: boolean | undefined

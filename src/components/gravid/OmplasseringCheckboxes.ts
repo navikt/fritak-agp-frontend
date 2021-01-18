@@ -1,17 +1,17 @@
-import { Omplassering } from './Omplassering';
+import { OmplasseringForsoek } from './OmplasseringForsoek';
 
 const OmplasseringCheckboxes = [
   {
     label: 'Ja',
-    value: Omplassering.JA
+    value: OmplasseringForsoek.JA
   },
   {
     label: 'Nei',
-    value: Omplassering.NEI
+    value: OmplasseringForsoek.NEI
   },
   {
-    label: 'Omplassering er ikke mulig - oppgi årsak:',
-    value: Omplassering.IKKE_MULIG
+    label: 'OmplasseringForsoek er ikke mulig - oppgi årsak:',
+    value: OmplasseringForsoek.IKKE_MULIG
   }
 ];
 

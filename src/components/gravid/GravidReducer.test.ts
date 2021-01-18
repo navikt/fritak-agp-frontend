@@ -3,7 +3,7 @@ import { Actions } from './Actions';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
 import ValidationResponse from '../../api/ValidationResponse';
-import { Omplassering } from './Omplassering';
+import { OmplasseringForsoek } from './OmplasseringForsoek';
 import { OmplasseringAarsak } from './OmplasseringAarsak';
 
 describe('GravidReducer', () => {
@@ -183,9 +183,9 @@ describe('GravidReducer', () => {
   it('should set omplassering', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.OmplasseringForsoek,
-      payload: { omplassering: Omplassering.JA }
+      payload: { omplasseringForsoek: OmplasseringForsoek.JA }
     });
-    expect(state.omplassering).toEqual(Omplassering.JA);
+    expect(state.omplassering).toEqual(OmplasseringForsoek.JA);
   });
   it('should set omplasseringAarsak', () => {
     let state = GravidReducer(defaultGravidState(), {
