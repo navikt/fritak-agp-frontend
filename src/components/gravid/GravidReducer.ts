@@ -49,6 +49,9 @@ const GravidReducer = (
       return validateGravid(nextState);
 
     case Actions.Omplassering:
+      if (payload?.omplassering === undefined) {
+        throw new Error('Du må spesifisere omplassering');
+      }
       nextState.omplassering = payload?.omplassering;
       if (nextState.omplassering != Omplassering.IKKE_MULIG) {
         nextState.omplasseringAarsak = undefined;
@@ -56,6 +59,9 @@ const GravidReducer = (
       return validateGravid(nextState);
 
     case Actions.OmplasseringAarsak:
+      if (payload?.omplasseringAarsak === undefined) {
+        throw new Error('Du må spesifisere årsak');
+      }
       nextState.omplasseringAarsak = payload?.omplasseringAarsak;
       return validateGravid(nextState);
 
@@ -72,9 +78,6 @@ const GravidReducer = (
       return validateGravid(nextState);
 
     case Actions.Progress:
-      if (payload?.progress == undefined) {
-        throw new Error('Du må spesifisere progress');
-      }
       nextState.progress = payload?.progress;
       return validateGravid(nextState);
 

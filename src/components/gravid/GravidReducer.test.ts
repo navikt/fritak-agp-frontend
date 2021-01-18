@@ -7,6 +7,29 @@ import { Omplassering } from './Omplassering';
 import { OmplasseringAarsak } from './OmplasseringAarsak';
 
 describe('GravidReducer', () => {
+  it('should throw error', () => {
+    expect(() => {
+      GravidReducer(defaultGravidState(), {
+        type: Actions.ToggleTiltak
+      });
+    }).toThrow();
+    expect(() => {
+      GravidReducer(defaultGravidState(), {
+        type: Actions.Omplassering
+      });
+    }).toThrow();
+    expect(() => {
+      GravidReducer(defaultGravidState(), {
+        type: Actions.OmplasseringAarsak
+      });
+    }).toThrow();
+    expect(() => {
+      GravidReducer(defaultGravidState(), {
+        type: Actions.HandleResponse
+      });
+    }).toThrow();
+  });
+
   it('should set the fnr', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Fnr,

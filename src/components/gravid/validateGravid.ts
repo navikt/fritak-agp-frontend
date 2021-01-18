@@ -4,6 +4,7 @@ import isValidFnr from '../../utils/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validateFnr } from '../../utils/validateFnr';
 import GravidState from './GravidState';
+import { Tiltak } from './Tiltak';
 
 export const validateGravid = (state: GravidState): GravidState => {
   if (!state.validated) {
@@ -43,19 +44,25 @@ export const validateGravid = (state: GravidState): GravidState => {
       });
     }
 
-    if (nextState.tiltak == undefined) {
+    if (nextState.tiltak == undefined || nextState.tiltak.length == 0) {
       nextState.tiltakError = 'Du må oppgi minst ett tiltak dere har prøvd';
       feilmeldinger.push({
         skjemaelementId: 'tiltakFeilmeldingId',
         feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
       });
     } else {
-      // if (nextState.tiltak.includes(Tiltak.ANNET) && !nextState.tiltakBeskrivelse) {
-      //   feilmeldinger.push({
-      //     skjemaelementId: 'tiltakFeilmeldingId',
-      //     feilmelding: 'Du må oppgi minst ett tiltak dere har prøvd'
-      //   });
-      // }
+      if (
+        nextState.tiltak.includes(Tiltak.ANNET) &&
+        !nextState.tiltakBeskrivelse
+      ) {
+        nextState.tiltakError = 'Beskriv hva dere har gjort';
+        feilmeldinger.push({
+          skjemaelementId: 'tiltakFeilmeldingId',
+          feilmelding: 'Du må gi en kort beskrivelse av hva dere har gjort'
+        });
+      } else {
+        nextState.tiltakError = undefined;
+      }
     }
 
     if (nextState.omplassering == undefined) {
