@@ -127,7 +127,7 @@
     "timezone-mock": "^1.1.2",
     "ts-jest": "^26.4.4",
     "yarn": "^1.22.10",
-    "yet-another-fetch-mock": "^3.4.0"
+    "yet-another-fetch-mock": "^4.1.0"
   },
   "prettier": {
     "printWidth": 120
