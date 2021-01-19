@@ -157,7 +157,7 @@ const KroniskSide = () => {
                 arbeidsplassen.
               </Normaltekst>
               <Normaltekst>
-                Svaret deres brukes i to forskjellige vurderinger: ​
+                Svaret deres brukes i to forskjellige vurderinger:
               </Normaltekst>
 
               <ul className='kroniskside-tett-liste'>
@@ -309,7 +309,7 @@ const KroniskSide = () => {
               aria-live='polite'
             >
               <Normaltekst>
-                Skriv inn antall dager med sykefravære relatert til søknaden i
+                Skriv inn antall dager med sykefravær relatert til søknaden i
                 hver måned. Dere kan gå 3 år tilbake i tid hvis både
                 arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
