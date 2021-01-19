@@ -1,7 +1,7 @@
 import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import loginExpiryAPI, { ParseExpiryDate } from './loginExpiryAPI';
 
-const mockServer = 'http://mockserver.nav.no';
+const mockServer = 'https://mockserver.nav.no';
 const mockUrl = mockServer + '/api/v1/login-expiry';
 
 jest.mock('../environment', () => ({
