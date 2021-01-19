@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, cleanup, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import '@testing-library/jest-dom/extend-expect';
 
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
 
-import '@testing-library/jest-dom/extend-expect';
-
 import lenker from './components/lenker';
+
+import loginExpiryAPI from './api/loginExpiryAPI';
 
 import KroniskSide from './components/kronisk/KroniskSide';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
@@ -23,7 +23,14 @@ jest.mock('./components/gravid/GravidSide');
 jest.mock('./components/Forside');
 jest.mock('./components/gravid/GravidKvittering');
 
+jest.mock('./api/loginExpiryAPI');
+
 describe('App', () => {
+  beforeEach(() => {
+    loginExpiryAPI.mockImplementation(
+      (): Promise<any> => Promise.resolve({ status: 200 })
+    );
+  });
   it('should show the default page', async () => {
     Forside.mockImplementation(() => <div>ForsideMock</div>);
 
