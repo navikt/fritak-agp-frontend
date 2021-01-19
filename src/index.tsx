@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import env, { EnvironmentType } from './environment';
 import { version } from '../package.json';
+import { BrowserRouter } from 'react-router-dom';
 
 // @ts-ignore
 document.querySelector('meta[name=buildNr]').setAttribute('content', version);
@@ -22,4 +23,9 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
   });
 }
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
+ReactDOM.render(
+  <BrowserRouter basename='fritak-agp'>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root') as HTMLElement
+);

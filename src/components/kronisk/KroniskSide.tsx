@@ -30,6 +30,7 @@ import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
+import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
 
 const KroniskSide = () => {
@@ -40,6 +41,9 @@ const KroniskSide = () => {
         dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
       });
     }
+  };
+  const handleLoggedoutModalClosing = () => {
+    dispatch({ type: Actions.CloseLoggedoutModal });
   };
   const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
@@ -81,9 +85,7 @@ const KroniskSide = () => {
     state.orgnr,
     state.paakjenninger
   ]);
-  if (state.login != undefined) {
-    return <div>Login</div>;
-  }
+
   if (state.kvittering === true) {
     return <KvitteringLink />;
   }
@@ -371,6 +373,9 @@ const KroniskSide = () => {
           </Panel>
         </SideIndentering>
       </Column>
+      {state.accessDenied && (
+        <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />
+      )}
     </Row>
   );
 };

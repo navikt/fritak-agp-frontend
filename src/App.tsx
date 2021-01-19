@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  EnvironmentProvider,
-  LoginProvider
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { EnvironmentProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Route, Switch } from 'react-router-dom';
 import GravidSide from './components/gravid/GravidSide';
 import Forside from './components/Forside';
 import GravidKvittering from './components/gravid/GravidKvittering';
@@ -11,34 +8,48 @@ import env from './environment';
 import lenker from './components/lenker';
 import Side from './components/Side';
 import KroniskSide from './components/kronisk/KroniskSide';
+import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
+import injectRedirectPath from './utils/injectRedirectPath';
+import loginExpiryAPI from './api/loginExpiryAPI';
 
 const App = () => {
+  loginExpiryAPI().then((loggedInStatus) => {
+    if (
+      loggedInStatus.status !== 200 &&
+      !location.search.includes('loggedIn=true')
+    ) {
+      const redirectedLoginServiceUrl = injectRedirectPath(
+        location.pathname,
+        '/fritak-agp'
+      );
+      window.location.href = redirectedLoginServiceUrl;
+      return <div />;
+    }
+  });
+
   return (
     <EnvironmentProvider
       loginServiceUrl={env.loginServiceUrl}
       sideTittel={'Søknadsskjema'}
       basePath={env.baseUrl}
     >
-      <BrowserRouter basename='fritak-agp'>
-        <LoginProvider loginServiceUrl={env.loginServiceUrl}>
-          <Side>
-            <Switch>
-              <Route path={lenker.Gravid} render={() => <GravidSide />} />
-              <Route path={lenker.Kronisk} render={() => <KroniskSide />} />
-              <Route
-                path={lenker.GravidKvittering}
-                render={() => <GravidKvittering />}
-              />
-              <Route
-                path={lenker.KroniskKvittering}
-                render={() => <KroniskKvittering />}
-              />
-              <Route path={lenker.Home} render={() => <Forside />} />
-            </Switch>
-          </Side>
-        </LoginProvider>
-      </BrowserRouter>
+      <Side>
+        <Switch>
+          <Route path={lenker.Gravid} render={() => <GravidSide />} />
+          <Route path={lenker.Kronisk} render={() => <KroniskSide />} />
+          <Route
+            path={lenker.GravidKvittering}
+            render={() => <GravidKvittering />}
+          />
+          <Route
+            path={lenker.KroniskKvittering}
+            render={() => <KroniskKvittering />}
+          />
+          <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
+          <Route path={lenker.Home} render={() => <Forside />} />
+        </Switch>
+      </Side>
     </EnvironmentProvider>
   );
 };
