@@ -21,7 +21,7 @@ describe('postRequest', () => {
         }
       } as unknown) as Response)
     );
-    expect(await postRequest('/Paths', {})).toEqual({
+    expect(await postRequest('/Path', {})).toEqual({
       status: 500,
       violations: []
     });
@@ -37,7 +37,7 @@ describe('postRequest', () => {
           } as ValidationResponse)
       } as unknown) as Response)
     );
-    expect(await postRequest('/Paths', {})).toEqual({
+    expect(await postRequest('/Path', {})).toEqual({
       status: 200,
       violations: []
     });
@@ -48,7 +48,7 @@ describe('postRequest', () => {
       status: 401,
       violations: []
     } as ValidationResponse);
-    expect(await postRequest('/Paths', {})).toEqual({
+    expect(await postRequest('/Path', {})).toEqual({
       status: 401,
       violations: []
     });
@@ -59,7 +59,7 @@ describe('postRequest', () => {
       status: 500,
       violations: []
     } as ValidationResponse);
-    expect(await postRequest('/Paths', {})).toEqual({
+    expect(await postRequest('/Path', {})).toEqual({
       status: 500,
       violations: []
     });
@@ -70,7 +70,7 @@ describe('postRequest', () => {
       status: 1234,
       violations: []
     } as ValidationResponse);
-    expect(await postRequest('/Paths', {})).toEqual({
+    expect(await postRequest('/Path', {})).toEqual({
       status: RestStatus.Unknown,
       violations: []
     });
@@ -82,7 +82,7 @@ describe('postRequest', () => {
       status: -33,
       violations: []
     } as ValidationResponse);
-    const resultat = postRequest('/Paths', {});
+    const resultat = postRequest('/Path', {});
     jest.advanceTimersByTime(15000);
     expect(await resultat).toEqual({
       status: RestStatus.Timeout,

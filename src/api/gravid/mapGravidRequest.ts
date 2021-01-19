@@ -20,7 +20,7 @@ export const mapGravidRequest = (
   if (orgnr === undefined) {
     throw new Error('Orgnr må spesifiseres');
   }
-  if (tilrettelegge == undefined) {
+  if (tilrettelegge === undefined) {
     throw new Error('Tilrettelegge må spesifiseres');
   }
   if (!bekreft) {
