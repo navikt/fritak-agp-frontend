@@ -56,7 +56,8 @@ describe('GravidReducer', () => {
 
   it('should set the orgnr to undefined', () => {
     let state = GravidReducer(defaultGravidState(), {
-      type: Actions.Orgnr
+      type: Actions.Orgnr,
+      payload: { orgnr: undefined }
     });
     expect(state.orgnr).toBeUndefined();
   });
@@ -109,7 +110,8 @@ describe('GravidReducer', () => {
 
   it('should set the bekreft to undefined', () => {
     let state = GravidReducer(defaultGravidState(), {
-      type: Actions.Bekreft
+      type: Actions.Bekreft,
+      payload: { bekreft: undefined }
     });
     expect(state.bekreft).toBeUndefined();
   });
@@ -163,12 +165,11 @@ describe('GravidReducer', () => {
   });
 
   it('should validate', () => {
-    let state1 = GravidReducer(defaultGravidState(), {
-      type: Actions.Fnr,
-      payload: { fnr: '' }
+    let state = defaultGravidState();
+    state = GravidReducer(state, {
+      type: Actions.Validate
     });
-    let state2 = GravidReducer(state1, { type: Actions.Validate });
-    expect(state2.validated).toBe(true);
+    expect(state.validated).toBe(true);
   });
 
   it('should handle response', () => {

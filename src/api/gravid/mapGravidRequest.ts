@@ -14,10 +14,10 @@ export const mapGravidRequest = (
   dokumentasjon: string | undefined,
   bekreft: boolean | undefined
 ): GravidRequest => {
-  if (!fnr) {
+  if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
   }
-  if (!orgnr) {
+  if (orgnr === undefined) {
     throw new Error('Orgnr må spesifiseres');
   }
   if (tilrettelegge == undefined) {

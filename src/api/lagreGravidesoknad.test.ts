@@ -18,7 +18,7 @@ describe('lagreGravidesoknad', () => {
       } as unknown) as Response)
     );
 
-    expect(await lagreGravidesoknad('/Path', {})).toEqual({
+    expect(await lagreGravidesoknad('/Paths', {})).toEqual({
       status: 200,
       validering: mockData
     });
@@ -33,7 +33,7 @@ describe('lagreGravidesoknad', () => {
       } as Response)
     );
 
-    expect(await lagreGravidesoknad('/Path', {})).toEqual({
+    expect(await lagreGravidesoknad('/Paths', {})).toEqual({
       status: RestStatus.Unauthorized,
       validering: {}
     });
@@ -49,7 +49,7 @@ describe('lagreGravidesoknad', () => {
       } as unknown) as Response)
     );
 
-    expect(await lagreGravidesoknad('/Path', {})).toEqual({
+    expect(await lagreGravidesoknad('/Paths', {})).toEqual({
       status: RestStatus.Error,
       validering: { iam: 'happy' }
     });
@@ -63,7 +63,7 @@ describe('lagreGravidesoknad', () => {
       } as Response)
     );
 
-    expect(await lagreGravidesoknad('/Path', {})).toEqual({
+    expect(await lagreGravidesoknad('/Paths', {})).toEqual({
       status: RestStatus.Unknown,
       validering: []
     });
@@ -81,7 +81,7 @@ describe('lagreGravidesoknad', () => {
       } as Response)
     );
 
-    const resultat = lagreGravidesoknad('/Path', {});
+    const resultat = lagreGravidesoknad('/Paths', {});
 
     jest.advanceTimersByTime(15000);
 

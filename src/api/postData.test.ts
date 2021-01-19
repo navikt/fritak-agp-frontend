@@ -15,7 +15,7 @@ describe('postData', () => {
       } as unknown) as Response)
     );
 
-    expect(await postData('/Path', {})).toEqual({
+    expect(await postData('/Paths', {})).toEqual({
       status: 200,
       validering: mockData
     });
@@ -34,7 +34,7 @@ describe('postData', () => {
       } as unknown) as Response)
     );
 
-    expect(await postData('/Path', {})).toEqual({
+    expect(await postData('/Paths', {})).toEqual({
       status: 401,
       validering: mockData
     });
@@ -56,7 +56,7 @@ describe('postData', () => {
       } as unknown) as Response)
     );
 
-    expect(await postData('/Path', {})).toEqual({
+    expect(await postData('/Paths', {})).toEqual({
       status: 500,
       validering: 'Dette gik galt'
     });
@@ -70,7 +70,7 @@ describe('postData', () => {
       } as Response)
     );
 
-    expect(await postData('/Path', {})).toEqual({
+    expect(await postData('/Paths', {})).toEqual({
       status: RestStatus.Unknown,
       validering: []
     });
@@ -88,7 +88,7 @@ describe('postData', () => {
       } as Response)
     );
 
-    const resultat = postData('/Path', {});
+    const resultat = postData('/Paths', {});
 
     jest.advanceTimersByTime(15000);
 
