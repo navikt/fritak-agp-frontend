@@ -58,7 +58,7 @@ describe('Upload', () => {
         id='1'
         label='UploadFile'
         extensions='gif'
-        fileSize={150}
+        fileSize={150000}
         onChange={mockChangeFn}
       />
     );
@@ -68,16 +68,18 @@ describe('Upload', () => {
       target: {
         files: [
           {
-            size: 200,
+            size: 200000,
             name: 'AnotherFilename'
           }
         ]
       }
     });
     expect(screen.getByText('UploadFile')).toBeInTheDocument();
-    expect(screen.getByText('Filen er for stor')).toBeInTheDocument();
+    expect(
+      screen.getByText('Filen er for stor. (Maks tillatt størrelse er 150 KB)')
+    ).toBeInTheDocument();
     expect(mockChangeFn).toHaveBeenLastCalledWith({
-      size: 200,
+      size: 200000,
       name: 'AnotherFilename'
     });
   });
