@@ -7,21 +7,22 @@ interface UploadProps {
   id: string;
   label: string;
   extensions: string;
-  fileSize: number;
+  fileSize?: number;
   onChange: (file?: File) => void;
 }
 
 const Upload = (props: UploadProps) => {
   const [filnavn, setFilnavn] = useState<string>(props.label);
   const [feilmelding, setFeilmelding] = useState<string>('');
+  const MAX_SIZE = props.fileSize || 1024 * 1000 * 10;
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event.target.files[0];
-      if (file.size > props.fileSize) {
+      if (file.size > MAX_SIZE) {
         setFilnavn(props.label);
         setFeilmelding(
           'Filen er for stor. (Maks tillatt størrelse er ' +
-            formatFilesize(props.fileSize) +
+            formatFilesize(MAX_SIZE) +
             ')'
         );
       } else {
