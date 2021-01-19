@@ -36,8 +36,6 @@ const App = () => {
     >
       <Side>
         <Switch>
-          <Route path={lenker.Gravid} render={() => <GravidSide />} />
-          <Route path={lenker.Kronisk} render={() => <KroniskSide />} />
           <Route
             path={lenker.GravidKvittering}
             render={() => <GravidKvittering />}
@@ -46,6 +44,8 @@ const App = () => {
             path={lenker.KroniskKvittering}
             render={() => <KroniskKvittering />}
           />
+          <Route path={lenker.Gravid} render={() => <GravidSide />} />
+          <Route path={lenker.Kronisk} render={() => <KroniskSide />} />
           <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
           <Route path={lenker.Home} render={() => <Forside />} />
         </Switch>
