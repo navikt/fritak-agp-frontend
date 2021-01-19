@@ -5,15 +5,6 @@ import { cleanup } from '@testing-library/react';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../lagFeil';
 
-const mockHistoryPush = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
-  useHistory: () => ({
-    push: mockHistoryPush
-  })
-}));
-
 describe('GravidSide', () => {
   let htmlDivElement: Element = document.createElement('div');
 
