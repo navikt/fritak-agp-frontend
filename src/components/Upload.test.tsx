@@ -16,6 +16,7 @@ describe('Upload', () => {
         extensions='jpg'
         fileSize={123}
         onChange={jest.fn()}
+        onDelete={jest.fn()}
       />
     );
     expect(screen.getByText('Upload')).toBeInTheDocument();
@@ -30,6 +31,7 @@ describe('Upload', () => {
         extensions='jpg'
         fileSize={123}
         onChange={mockChangeFn}
+        onDelete={jest.fn()}
       />
     );
 
@@ -60,6 +62,7 @@ describe('Upload', () => {
         extensions='gif'
         fileSize={150 * 1024}
         onChange={mockChangeFn}
+        onDelete={jest.fn()}
       />
     );
 

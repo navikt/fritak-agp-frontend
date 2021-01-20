@@ -42,6 +42,9 @@ const KroniskSide = () => {
       });
     }
   };
+  const handleDelete = () => {
+    dispatch({ type: Actions.Dokumentasjon, payload: undefined });
+  };
   const handleLoggedoutModalClosing = () => {
     dispatch({ type: Actions.CloseLoggedoutModal });
   };
@@ -295,6 +298,8 @@ const KroniskSide = () => {
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
                 extensions='.pdf'
                 onChange={handleUploadChanged}
+                onDelete={handleDelete}
+                fileSize={250000}
               />
             </SkjemaGruppe>
           </Panel>

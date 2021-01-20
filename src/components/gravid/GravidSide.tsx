@@ -57,6 +57,14 @@ const GravidSide = (props: GravidSideProps) => {
       });
     }
   };
+  const handleDelete = () => {
+    dispatch({
+      type: Actions.Dokumentasjon,
+      payload: {
+        dokumentasjon: undefined
+      }
+    });
+  };
   const handleSubmitClicked = async () => {
     dispatch({ type: Actions.Validate });
   };
@@ -368,6 +376,8 @@ const GravidSide = (props: GravidSideProps) => {
                       label='Last opp dokumentasjon'
                       extensions='.pdf'
                       onChange={handleUploadChanged}
+                      onDelete={handleDelete}
+                      fileSize={250000}
                     />
                   </SkjemaGruppe>
                 </Panel>

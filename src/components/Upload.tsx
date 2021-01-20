@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Feilmelding } from 'nav-frontend-typografi';
 import './Upload.sass';
+import { Flatknapp } from 'nav-frontend-knapper';
 import { formatFilesize } from '../utils/formatFilesize';
 
 interface UploadProps {
@@ -9,6 +10,7 @@ interface UploadProps {
   extensions: string;
   fileSize?: number;
   onChange: (file?: File) => void;
+  onDelete: () => void;
 }
 
 const Upload = (props: UploadProps) => {
@@ -34,6 +36,10 @@ const Upload = (props: UploadProps) => {
       props.onChange();
     }
   };
+  const handleDelete = () => {
+    setFilnavn(props.label);
+    props.onDelete();
+  };
   return (
     <div>
       <label className='knapp filknapp'>
@@ -45,8 +51,17 @@ const Upload = (props: UploadProps) => {
           onChange={handleUpload}
           onClick={(e: any) => (e.target.value = null)}
         />
-        {filnavn}
+        {props.label}
       </label>
+      {filnavn !== props.label && (
+        <>
+          <b className='upload-delete'>Lastet opp: </b>
+          {filnavn}
+          <Flatknapp onKeyDown={handleDelete} onClick={handleDelete}>
+            Slett
+          </Flatknapp>
+        </>
+      )}
       {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
     </div>
   );
