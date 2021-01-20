@@ -55,7 +55,7 @@ const Upload = (props: UploadProps) => {
       </label>
       {filnavn !== props.label && (
         <>
-          <b className='fileupload-delete'>Lastet opp: </b>
+          <b className='upload-delete'>Lastet opp: </b>
           {filnavn}
           <Flatknapp onKeyDown={handleDelete} onClick={handleDelete}>
             Slett
