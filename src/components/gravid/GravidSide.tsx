@@ -61,7 +61,7 @@ const GravidSide = (props: GravidSideProps) => {
     dispatch({
       type: Actions.Dokumentasjon,
       payload: {
-        dokumentasjon: ''
+        dokumentasjon: undefined
       }
     });
   };
