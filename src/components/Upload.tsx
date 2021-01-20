@@ -42,9 +42,9 @@ const Upload = (props: UploadProps) => {
   };
   return (
     <div>
-      <label className='knapp filknapp'>
+      <label className='knapp upload-filknapp'>
         <input
-          className='fileinput'
+          className='upload-fileinput'
           type='file'
           id='fileUploader'
           accept={props.extensions}
@@ -56,7 +56,7 @@ const Upload = (props: UploadProps) => {
       {filnavn !== props.label && (
         <>
           <b className='upload-delete'>Lastet opp: </b>
-          {filnavn}
+          <div className='upload-filnavn'>{filnavn}</div>
           <Flatknapp onKeyDown={handleDelete} onClick={handleDelete}>
             Slett
           </Flatknapp>
