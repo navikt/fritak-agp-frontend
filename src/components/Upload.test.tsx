@@ -16,6 +16,7 @@ describe('Upload', () => {
         extensions='jpg'
         fileSize={123}
         onChange={jest.fn()}
+        onDelete={jest.fn()}
       />
     );
     expect(screen.getByText('Upload')).toBeInTheDocument();
@@ -30,6 +31,7 @@ describe('Upload', () => {
         extensions='jpg'
         fileSize={123}
         onChange={mockChangeFn}
+        onDelete={jest.fn()}
       />
     );
 
@@ -58,8 +60,9 @@ describe('Upload', () => {
         id='1'
         label='UploadFile'
         extensions='gif'
-        fileSize={150}
+        fileSize={150 * 1024}
         onChange={mockChangeFn}
+        onDelete={jest.fn()}
       />
     );
 
@@ -68,16 +71,18 @@ describe('Upload', () => {
       target: {
         files: [
           {
-            size: 200,
+            size: 200000,
             name: 'AnotherFilename'
           }
         ]
       }
     });
     expect(screen.getByText('UploadFile')).toBeInTheDocument();
-    expect(screen.getByText('Filen er for stor')).toBeInTheDocument();
+    expect(
+      screen.getByText('Filen er for stor. (Maks tillatt størrelse er 150 KB)')
+    ).toBeInTheDocument();
     expect(mockChangeFn).toHaveBeenLastCalledWith({
-      size: 200,
+      size: 200000,
       name: 'AnotherFilename'
     });
   });

@@ -1,16 +1,26 @@
-.fileinput
+.upload-fileinput
   display: none
 
-.filknapp
+.upload-filknapp
   margin: 1rem 0
   width: 100%
   overflow: hidden
 
-.filknapp[disabled]
+.upload-filknapp[disabled]
   pointer-events: none
 
+.upload-filnavn
+  display: inline-block
+  white-space: nowrap
+  width: 10rem
+  overflow: hidden
+  text-overflow: ellipsis
+  vertical-align: sub
+
+.upload-delete
+  margin-left: 1rem
 
 @media (min-width: 992px)
-  .filknapp
+  .upload-filknapp
     width: auto
 
