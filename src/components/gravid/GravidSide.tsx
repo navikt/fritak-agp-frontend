@@ -39,6 +39,8 @@ import environment from '../../environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
 
+export const MAX_TILTAK_BESKRIVELSE = 2000;
+
 const GravidSide = (props: GravidSideProps) => {
   const [state, dispatch] = useReducer(
     GravidReducer,
@@ -267,6 +269,7 @@ const GravidSide = (props: GravidSideProps) => {
                         })
                       }
                       disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
+                      maxLength={MAX_TILTAK_BESKRIVELSE}
                     />
                   </CheckboxGruppe>
                   <SkjemaGruppe

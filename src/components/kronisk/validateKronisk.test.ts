@@ -3,6 +3,7 @@ import { defaultKroniskState } from './KroniskState';
 import PaakjenningerType from './PaakjenningerType';
 import Aarsfravaer from './Aarsfravaer';
 import ArbeidType from './ArbeidType';
+import { MAX_BESKRIVELSE } from './KroniskSide';
 
 describe('validateKronisk', () => {
   it('should not show error messages before validated', () => {
@@ -95,6 +96,32 @@ describe('validateKronisk', () => {
     state.paakjenninger = [PaakjenningerType.ANNET];
     const state2 = validateKronisk(state);
     expect(state2.kommentarError).not.toBeUndefined();
+  });
+
+  const lagTekst = (antall: number): string => {
+    let dummy = '';
+    for (let x = 0; x < antall; x++) {
+      dummy += 'a';
+    }
+    return dummy;
+  };
+
+  it('should show error when påkjenninger ANNET and too long kommentar', () => {
+    const state = defaultKroniskState();
+    state.validated = true;
+    state.paakjenninger = [PaakjenningerType.ANNET];
+    state.kommentar = lagTekst(MAX_BESKRIVELSE + 1);
+    const state2 = validateKronisk(state);
+    expect(state2.kommentarError).not.toBeUndefined();
+  });
+
+  it('should show error when påkjenninger ANNET and within max kommentar', () => {
+    const state = defaultKroniskState();
+    state.validated = true;
+    state.paakjenninger = [PaakjenningerType.ANNET];
+    state.kommentar = lagTekst(MAX_BESKRIVELSE);
+    const state2 = validateKronisk(state);
+    expect(state2.kommentarError).toBeUndefined();
   });
 
   it('should not show error when valid fravær', () => {

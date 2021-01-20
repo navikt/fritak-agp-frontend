@@ -6,6 +6,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
 import { validateFnr } from '../../utils/validateFnr';
+import { MAX_BESKRIVELSE } from './KroniskSide';
 
 export const validateKronisk = (state: KroniskState): KroniskState => {
   if (!state.validated) {
@@ -61,7 +62,14 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
     if (!nextState.kommentar) {
       feilmeldinger.push({
         skjemaelementId: 'paakjenninger',
-        feilmelding: 'Kommentar må fylles ut'
+        feilmelding: 'Beskrivelsen må fylles ut'
+      });
+    } else if (nextState?.kommentar?.length > MAX_BESKRIVELSE) {
+      nextState.kommentarError =
+        'Beskrivelsen må være mindre enn ' + MAX_BESKRIVELSE + ' tegn';
+      feilmeldinger.push({
+        skjemaelementId: 'paakjenninger',
+        feilmelding: 'Beskrivelsen av påkjenningen må være kortere'
       });
     }
   } else {

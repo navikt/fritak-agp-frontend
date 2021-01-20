@@ -5,6 +5,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validateFnr } from '../../utils/validateFnr';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
+import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 
 export const validateGravid = (state: GravidState): GravidState => {
   if (!state.validated) {
@@ -51,17 +52,27 @@ export const validateGravid = (state: GravidState): GravidState => {
         feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
       });
     } else {
-      if (
-        nextState.tiltak.includes(Tiltak.ANNET) &&
-        !nextState.tiltakBeskrivelse
-      ) {
-        nextState.tiltakError = 'Beskriv hva dere har gjort';
-        feilmeldinger.push({
-          skjemaelementId: 'tiltakFeilmeldingId',
-          feilmelding: 'Du må gi en kort beskrivelse av hva dere har gjort'
-        });
-      } else {
-        nextState.tiltakError = undefined;
+      nextState.tiltakError = undefined;
+      nextState.tiltakBeskrivelseError = undefined;
+      if (nextState.tiltak.includes(Tiltak.ANNET)) {
+        if (!nextState.tiltakBeskrivelse) {
+          nextState.tiltakError = 'Beskriv hva dere har gjort';
+          feilmeldinger.push({
+            skjemaelementId: 'tiltakFeilmeldingId',
+            feilmelding: 'Du må gi en kort beskrivelse av hva dere har gjort'
+          });
+        } else if (
+          nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE
+        ) {
+          nextState.tiltakBeskrivelseError =
+            'Beskrivelsen må være mindre enn ' +
+            MAX_TILTAK_BESKRIVELSE +
+            ' tegn';
+          feilmeldinger.push({
+            skjemaelementId: 'tiltakFeilmeldingId',
+            feilmelding: 'Du må gi en kort beskrivelse av hva dere har gjort'
+          });
+        }
       }
     }
 
