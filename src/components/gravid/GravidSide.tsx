@@ -368,7 +368,6 @@ const GravidSide = (props: GravidSideProps) => {
                       label='Last opp dokumentasjon'
                       extensions='.pdf'
                       onChange={handleUploadChanged}
-                      fileSize={250000}
                     />
                   </SkjemaGruppe>
                 </Panel>

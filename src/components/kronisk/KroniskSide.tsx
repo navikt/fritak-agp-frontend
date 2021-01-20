@@ -295,7 +295,6 @@ const KroniskSide = () => {
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
                 extensions='.pdf'
                 onChange={handleUploadChanged}
-                fileSize={250000}
               />
             </SkjemaGruppe>
           </Panel>
