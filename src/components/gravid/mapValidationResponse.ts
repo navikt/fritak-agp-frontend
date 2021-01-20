@@ -1,25 +1,25 @@
-import KroniskState from './KroniskState';
 import ValidationResponse from '../../api/ValidationResponse';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '../lagFeil';
+import GravidState from './GravidState';
 
 export const mapValidationResponse = (
   response: ValidationResponse,
-  state: KroniskState
-): KroniskState => {
+  state: GravidState
+): GravidState => {
   const nextState = Object.assign({}, state);
   switch (response.status) {
     case 201:
       nextState.kvittering = true;
       nextState.progress = false;
       nextState.error = false;
-      nextState.accessDenied = false;
+      nextState.login = false;
       return nextState;
     case 401:
       nextState.kvittering = false;
       nextState.progress = false;
       nextState.error = true;
-      nextState.accessDenied = true;
+      nextState.login = true;
       return nextState;
     case 422:
       const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -33,29 +33,38 @@ export const mapValidationResponse = (
             nextState.orgnrError = v.message;
             feilmeldinger.push(lagFeil('orgnr', v.message));
             break;
-          case 'kommentar':
-            nextState.kommentarError = v.message;
-            feilmeldinger.push(lagFeil('kommentar', v.message));
-            break;
-          case 'arbeidstyper':
-            nextState.arbeidError = v.message;
-            feilmeldinger.push(lagFeil('arbeidsutfører', v.message));
-            break;
-          case 'paakjenningstyper':
-            nextState.paakjenningerError = v.message;
-            feilmeldinger.push(lagFeil('paakjenninger', v.message));
+
+          case 'tilrettelegge':
+            feilmeldinger.push(lagFeil('tilrettelegge', v.message));
             break;
           case 'bekreftet':
             nextState.bekreftError = v.message;
             feilmeldinger.push(lagFeil('bekreft', v.message));
             break;
+
+          case 'tiltak':
+            nextState.tiltakError = v.message;
+            feilmeldinger.push(lagFeil('tiltak', v.message));
+            break;
+
+          case 'tiltakBeskrivelse':
+            nextState.tiltakBeskrivelseError = v.message;
+            feilmeldinger.push(lagFeil('tiltakBeskrivelse', v.message));
+            break;
+
+          case 'omplassering':
+            nextState.omplasseringError = v.message;
+            feilmeldinger.push(lagFeil('omplassering', v.message));
+            break;
+
+          case 'omplasseringAarsak':
+            nextState.omplasseringAarsakError = v.message;
+            feilmeldinger.push(lagFeil('omplasseringAarsak', v.message));
+            break;
+
           case 'dokumentasjon':
             nextState.dokumentasjonError = v.message;
             feilmeldinger.push(lagFeil('dokumentasjon', v.message));
-            break;
-          case 'fravaer':
-            nextState.fravaerError = v.message;
-            feilmeldinger.push(lagFeil('fravaer', v.message));
             break;
         }
       });
@@ -64,7 +73,6 @@ export const mapValidationResponse = (
       nextState.progress = false;
       nextState.error = false;
       nextState.feilmeldinger = feilmeldinger;
-      nextState.accessDenied = false;
       return nextState;
     default:
       nextState.error = true;

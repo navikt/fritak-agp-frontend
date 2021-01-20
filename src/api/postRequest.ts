@@ -27,7 +27,7 @@ const postRequest = async (
       method: 'POST',
       body: JSON.stringify(payload)
     })
-      .then((response) => {
+      .then(async (response) => {
         status = response.status;
         return response.json();
       })
@@ -36,7 +36,7 @@ const postRequest = async (
       })
       .catch(() => {
         return {
-          status: RestStatus.Error,
+          status: status || RestStatus.Error,
           violations: []
         };
       })

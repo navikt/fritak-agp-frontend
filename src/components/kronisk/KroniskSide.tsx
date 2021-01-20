@@ -30,6 +30,7 @@ import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
+import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
 
 const KroniskSide = () => {
@@ -43,6 +44,9 @@ const KroniskSide = () => {
   };
   const handleDelete = () => {
     dispatch({ type: Actions.Dokumentasjon, payload: undefined });
+  };
+  const handleLoggedoutModalClosing = () => {
+    dispatch({ type: Actions.CloseLoggedoutModal });
   };
   const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
@@ -84,9 +88,7 @@ const KroniskSide = () => {
     state.orgnr,
     state.paakjenninger
   ]);
-  if (state.login != undefined) {
-    return <div>Login</div>;
-  }
+
   if (state.kvittering === true) {
     return <KvitteringLink />;
   }
@@ -160,7 +162,7 @@ const KroniskSide = () => {
                 arbeidsplassen.
               </Normaltekst>
               <Normaltekst>
-                Svaret deres brukes i to forskjellige vurderinger: ​
+                Svaret deres brukes i to forskjellige vurderinger:
               </Normaltekst>
 
               <ul className='kroniskside-tett-liste'>
@@ -313,7 +315,7 @@ const KroniskSide = () => {
               aria-live='polite'
             >
               <Normaltekst>
-                Skriv inn antall dager med sykefravære relatert til søknaden i
+                Skriv inn antall dager med sykefravær relatert til søknaden i
                 hver måned. Dere kan gå 3 år tilbake i tid hvis både
                 arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
@@ -375,6 +377,9 @@ const KroniskSide = () => {
           </Panel>
         </SideIndentering>
       </Column>
+      {state.accessDenied && (
+        <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />
+      )}
     </Row>
   );
 };

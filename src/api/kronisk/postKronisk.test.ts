@@ -19,7 +19,7 @@ describe('postKronisk', () => {
       violations: []
     });
     expect(
-      await postKronisk('/Path', {
+      await postKronisk('/Paths', {
         orgnr: 'tiltak',
         fnr: '',
         arbeidstyper: [ArbeidType.KREVENDE],

@@ -44,10 +44,7 @@ describe('postRequest', () => {
   });
 
   it('should reject with status Unauthorized if the backend responds with 401', async () => {
-    mockFetch(401, {
-      status: 401,
-      violations: []
-    } as ValidationResponse);
+    mockFetch(401, 'You shall not pass!');
     expect(await postRequest('/Path', {})).toEqual({
       status: 401,
       violations: []
@@ -55,10 +52,7 @@ describe('postRequest', () => {
   });
 
   it('should reject with status Error if the backend responds with 500', async () => {
-    mockFetch(500, {
-      status: 500,
-      violations: []
-    } as ValidationResponse);
+    mockFetch(500, 'Backend made booboo!');
     expect(await postRequest('/Path', {})).toEqual({
       status: 500,
       violations: []
@@ -66,10 +60,7 @@ describe('postRequest', () => {
   });
 
   it('should reject with status Unknown if the backend responds with an unknown response', async () => {
-    mockFetch(1234, {
-      status: 1234,
-      violations: []
-    } as ValidationResponse);
+    mockFetch(1234, []);
     expect(await postRequest('/Path', {})).toEqual({
       status: RestStatus.Unknown,
       violations: []
@@ -78,10 +69,7 @@ describe('postRequest', () => {
 
   it('should reject with status Timeout if the backend does not respond', async () => {
     jest.useFakeTimers();
-    mockFetch(-33, {
-      status: -33,
-      violations: []
-    } as ValidationResponse);
+    mockFetch(-33, []);
     const resultat = postRequest('/Path', {});
     jest.advanceTimersByTime(15000);
     expect(await resultat).toEqual({

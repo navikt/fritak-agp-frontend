@@ -3,6 +3,7 @@ import { Actions } from './Actions';
 import { defaultKroniskState } from './KroniskState';
 import ArbeidType from './ArbeidType';
 import PaakjenningerType from './PaakjenningerType';
+import ValidationResponse from '../../api/ValidationResponse';
 
 describe('KroniskReducer', () => {
   it('should set the fnr', () => {
@@ -50,6 +51,23 @@ describe('KroniskReducer', () => {
       payload: { arbeid: ArbeidType.MODERAT }
     });
     expect(state.arbeid).toEqual([ArbeidType.MODERAT]);
+
+    state.arbeid = undefined;
+    let state2 = KroniskReducer(state, {
+      type: Actions.ToggleArbeid,
+      payload: { arbeid: ArbeidType.MODERAT }
+    });
+    expect(state2.arbeid).toEqual([ArbeidType.MODERAT]);
+  });
+
+  it('ToggleArbeid - should handle empty arbeid state', () => {
+    let state = defaultKroniskState();
+    state.arbeid = undefined;
+    let state2 = KroniskReducer(state, {
+      type: Actions.ToggleArbeid,
+      payload: { arbeid: ArbeidType.MODERAT }
+    });
+    expect(state2.arbeid).toEqual([ArbeidType.MODERAT]);
   });
 
   it('ToggleArbeid - should reset the arbeid state', () => {
@@ -114,6 +132,16 @@ describe('KroniskReducer', () => {
     }).toThrowError(new Error('Du må spesifisere paakjenning'));
   });
 
+  it('TogglePaakjenninger - should handle empty state', () => {
+    let state = defaultKroniskState();
+    state.paakjenninger = undefined;
+    let state2 = KroniskReducer(state, {
+      type: Actions.TogglePaakjenninger,
+      payload: { paakjenning: PaakjenningerType.REGELMESSIG }
+    });
+    expect(state2.paakjenninger).toEqual([PaakjenningerType.REGELMESSIG]);
+  });
+
   it('should set the bekreft to undefined', () => {
     let state = KroniskReducer(defaultKroniskState(), {
       type: Actions.Bekreft
@@ -156,7 +184,7 @@ describe('KroniskReducer', () => {
   it('should set, update and remove fravær', () => {
     let state = KroniskReducer(defaultKroniskState(), {
       type: Actions.Fravaer,
-      payload: { fravaer: { year: 2018, month: 9, dager: 2 } }
+      payload: { fravaer: { year: 2018, month: 9, dager: '2' } }
     });
     let { fravaer } = state;
     expect(fravaer?.length).toEqual(1);
@@ -165,14 +193,48 @@ describe('KroniskReducer', () => {
     expect(Aarsfravaer.okt).toEqual(2);
     let state2 = KroniskReducer(state, {
       type: Actions.Fravaer,
-      payload: { fravaer: { year: 2018, month: 9, dager: 3 } }
+      payload: { fravaer: { year: 2018, month: 9, dager: '3' } }
     });
     expect(state2.fravaer!![0].okt).toEqual(3);
     let state3 = KroniskReducer(state, {
       type: Actions.Fravaer,
-      payload: { fravaer: { year: 2018, month: 9 } }
+      payload: { fravaer: { year: 2018, month: 9, dager: '' } }
     });
     expect(state3.fravaer!![0].okt).toBeUndefined();
+  });
+
+  it('Fravaer - should handle empty state', () => {
+    let state = defaultKroniskState();
+    state.fravaer = undefined;
+    let state2 = KroniskReducer(state, {
+      type: Actions.Fravaer,
+      payload: { fravaer: { year: 2018, month: 9, dager: '' } }
+    });
+    expect(state2.fravaer?.length).toEqual(1);
+  });
+
+  it('Fravaer - should throw error when empty param', () => {
+    expect(() => {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.Fravaer,
+        payload: {}
+      });
+    }).toThrow();
+  });
+
+  it('Fravaer - should throw error when illegal month', () => {
+    expect(() => {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.Fravaer,
+        payload: { fravaer: { year: 2018, month: 12, dager: '-11' } }
+      });
+    }).toThrow();
+    expect(() => {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.Fravaer,
+        payload: { fravaer: { year: 2018, month: -1, dager: '-11' } }
+      });
+    }).toThrow();
   });
 
   it('should set kommentar', () => {
@@ -205,6 +267,50 @@ describe('KroniskReducer', () => {
       payload: { dokumentasjon: '' }
     });
     expect(state.dokumentasjon).toEqual('');
+  });
+
+  it('should set progress', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.Progress,
+      payload: { progress: true }
+    });
+    expect(state.progress).toEqual(true);
+  });
+
+  it('should set progress', () => {
+    expect(() => {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.Progress,
+        payload: {}
+      });
+    }).toThrow();
+  });
+
+  it('should set kvittering', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.Kvittering,
+      payload: { kvittering: true }
+    });
+    expect(state.kvittering).toEqual(true);
+  });
+
+  it('should handle response', () => {
+    let state = KroniskReducer(defaultKroniskState(), {
+      type: Actions.HandleResponse,
+      payload: { response: {} as ValidationResponse }
+    });
+    expect(state.submitting).toEqual(false);
+    expect(state.progress).toEqual(false);
+    expect(state.validated).toEqual(false);
+  });
+
+  it('should not allow empty response', () => {
+    expect(() => {
+      KroniskReducer(defaultKroniskState(), {
+        type: Actions.HandleResponse,
+        payload: {}
+      });
+    }).toThrow();
   });
 
   it('should validate', () => {

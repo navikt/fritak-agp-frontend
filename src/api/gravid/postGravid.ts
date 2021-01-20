@@ -1,13 +1,13 @@
 import ValidationResponse from '../ValidationResponse';
 import postRequest from '../postRequest';
-import { KroniskRequest } from './KroniskRequest';
+import { GravidRequest } from './GravidRequest';
 import { Paths } from '../Paths';
 
-const postKronisk = (
+const postGravid = (
   basePath: string,
-  request: KroniskRequest
+  request: GravidRequest
 ): Promise<ValidationResponse> => {
-  return postRequest(basePath + Paths.Kronisk, request);
+  return postRequest(basePath + Paths.Gravid, request);
 };
 
-export default postKronisk;
+export default postGravid;
