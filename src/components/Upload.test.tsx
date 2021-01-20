@@ -58,7 +58,7 @@ describe('Upload', () => {
         id='1'
         label='UploadFile'
         extensions='gif'
-        fileSize={150000}
+        fileSize={150 * 1024}
         onChange={mockChangeFn}
       />
     );
