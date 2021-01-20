@@ -17,7 +17,7 @@ const App = () => {
   loginExpiryAPI().then((loggedInStatus) => {
     if (
       loggedInStatus.status !== 200 &&
-      !location.search.includes('loggedIn=true')
+      (!location.search || !location.search.includes('loggedIn=true'))
     ) {
       const redirectedLoginServiceUrl = injectRedirectPath(
         location.pathname,

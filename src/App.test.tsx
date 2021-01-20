@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import App from './App';
@@ -26,6 +26,15 @@ jest.mock('./components/gravid/GravidKvittering');
 jest.mock('./api/loginExpiryAPI');
 
 describe('App', () => {
+  // beforeAll((): void => {
+  //   delete window.location;
+  //   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  //   // @ts-ignore
+  //   window.location = {
+  //       href: '',
+  //   };
+  // });
+
   beforeEach(() => {
     loginExpiryAPI.mockImplementation(
       (): Promise<any> => Promise.resolve({ status: 200 })
@@ -130,5 +139,59 @@ describe('App', () => {
     expect(screen.getByText('TokenFornyet')).toBeInTheDocument();
 
     cleanup();
+  });
+
+  it('should redirect to the login page', async () => {
+    delete window.location;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    window.location = {
+      hostname: 'server.nav.no',
+      href: '',
+      pathname: 'server.nav.no/login?redirect=http://server.nav.no/path/'
+    };
+
+    loginExpiryAPI.mockImplementation(
+      (): Promise<any> => Promise.resolve({ status: 401 })
+    );
+
+    Forside.mockImplementation(() => <div>ForsideMock</div>);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    await waitFor(() =>
+      expect(window.location.href).toBe(
+        'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true?redirect=https%3A%2F%2Farbeidsgiver.nav.no%2Ffritak-agp%2Fserver.nav.no%2Flogin%3Fredirect%3Dhttp%3A%2F%2Fserver.nav.no%2Fpath%2F%3FloggedIn%3Dtrue'
+      )
+    );
+  });
+
+  it('should redirect to the login page', async () => {
+    delete window.location;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    window.location = {
+      hostname: 'server.nav.no',
+      href: '',
+      pathname: 'http://server.nav.no/path/?loggedIn=true'
+    };
+
+    loginExpiryAPI.mockImplementation(
+      (): Promise<any> => Promise.resolve({ status: 401 })
+    );
+
+    Forside.mockImplementation(() => <div>ForsideMock</div>);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(window.location.href).toBe('');
   });
 });
