@@ -15,7 +15,7 @@
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
-    "pretty-please": "pretty-quick --staged --config .prettierrc.json"
+    "pretty-please": "pretty-quick --staged"
   },
   "browserslist": {
     "production": [
@@ -130,11 +130,17 @@
     "yet-another-fetch-mock": "^4.1.0"
   },
   "prettier": {
-    "printWidth": 120
+    "printWidth": 120,
+    "parser": "typescript",
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "none",
+    "filepath": "src",
+    "jsxSingleQuote": true
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx|js)'"
+      "pre-commit": "pretty-quick --staged --pattern '**/*.*(ts|tsx|js)'"
     }
   }
 }
