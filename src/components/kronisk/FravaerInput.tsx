@@ -15,13 +15,14 @@ export interface FravaerInputProps {
 export const FravaerInput = (props: FravaerInputProps) => {
   const dager = getFravaerByMonth(props.year, props.month, props.fravaer);
   const feilOppsummering = validerFravaerMaaned(props.year, props.month, dager);
+  const stringDager = !dager ? '' : '' + dager;
   const feil = feilOppsummering?.feilmelding || '';
   return (
     <Input
       label={props.month + ' ' + props.year}
       id={props.month + '-' + props.year}
       feil={feil}
-      value={dager}
+      value={stringDager}
       onChange={(event) => {
         props.onChange({
           year: props.year,

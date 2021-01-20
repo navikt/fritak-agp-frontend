@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,
@@ -22,14 +22,16 @@ import { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions } from './Actions';
 import { PaakjenningerType } from './PaakjenningerType';
-import getBase64file from '../gravid/getBase64File';
+import getBase64file from '../../utils/getBase64File';
 import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
 import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
-import lagreKronisk from '../../api/lagreKronisk';
+import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../environment';
-
+import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
+import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
+import KvitteringLink from './KvitteringLink';
 
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
@@ -40,11 +42,56 @@ const KroniskSide = () => {
       });
     }
   };
-  const handleSubmit = async () => {
-    dispatch({ type: Actions.Progress, payload: { progress: true } });
-    dispatch({ type: Actions.Validate });
-    const lagerStatus = await lagreKronisk(environment.baseUrl, state);
+  const handleDelete = () => {
+    dispatch({ type: Actions.Dokumentasjon, payload: undefined });
   };
+  const handleLoggedoutModalClosing = () => {
+    dispatch({ type: Actions.CloseLoggedoutModal });
+  };
+  const handleSubmit = () => {
+    dispatch({ type: Actions.Validate });
+  };
+  useEffect(() => {
+    if (
+      state.validated === true &&
+      state.progress === true &&
+      state.submitting === true
+    ) {
+      postKronisk(
+        environment.baseUrl,
+        mapKroniskRequest(
+          state.arbeid || [],
+          state.paakjenninger || [],
+          state.fravaer || [],
+          state.fnr || '',
+          state.orgnr || '',
+          state.bekreft || false
+        )
+      ).then((response) => {
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: { response: response }
+        });
+      });
+    }
+  }, [
+    state.validated,
+    state.progress,
+    state.feilmeldinger,
+    state.submitting,
+    state.arbeid,
+    state.bekreft,
+    state.dokumentasjon,
+    state.fnr,
+    state.fravaer,
+    state.kommentar,
+    state.orgnr,
+    state.paakjenninger
+  ]);
+
+  if (state.kvittering === true) {
+    return <KvitteringLink />;
+  }
   return (
     <Row>
       <Column>
@@ -63,22 +110,16 @@ const KroniskSide = () => {
               </Lenke>
               .
               <br />
+              <br />
+              Alle felter må fylles ut om ikke annet er oppgitt
             </Ingress>
           </Panel>
           <Skillelinje />
-          <Panel>
-            <Undertittel tag='span'>
-              Alle felter er obligatoriske om ikke merket annerledes
-            </Undertittel>
-          </Panel>
-          <Skillelinje />
 
-          <Panel id='gravidside-panel-ansatte'>
-            <SkjemaGruppe
-              legend='Den ansatte'
-              aria-live='polite'
-              feilmeldingId={'ansatt'}
-            >
+          <Panel id='kroniskside-panel-ansatte'>
+            <Systemtittel>Den ansatte</Systemtittel>
+            <br />
+            <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
@@ -112,23 +153,26 @@ const KroniskSide = () => {
 
           <Skillelinje />
 
-          <Panel>
-            <SkjemaGruppe legend='Arbeidssituasjon og miljø'>
+          <Panel id='kroniskside-panel-arbeidssituasjon'>
+            <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
+            <br />
+            <SkjemaGruppe>
               <Normaltekst>
                 Vi spør først om dere har forsøkt å løse situasjonen på
                 arbeidsplassen.
               </Normaltekst>
               <Normaltekst>
-                Svaret deres brukes i to forskjellige vurderinger: ​
+                Svaret deres brukes i to forskjellige vurderinger:
               </Normaltekst>
 
-              <ul className='gravidside-tett-liste'>
+              <ul className='kroniskside-tett-liste'>
                 <li>
                   om vi kan hjelpe til med noe, slik at den ansatte kan stå i
                   jobben
                 </li>
                 <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
               </ul>
+              <br />
               <CheckboxGruppe
                 legend='Hva slags arbeid utfører den ansatte?'
                 feil={state.arbeidError}
@@ -206,8 +250,8 @@ const KroniskSide = () => {
                     })}
 
                     <Textarea
-                      label='annet'
-                      defaultValue={state.kommentar}
+                      label='Annet'
+                      id='textarea-annet'
                       value={state.kommentar || ''}
                       feil={state.kommentarError || undefined}
                       onChange={(evt) =>
@@ -217,7 +261,7 @@ const KroniskSide = () => {
                         })
                       }
                       disabled={
-                        !state.paakjenninger?.includes(PaakjenningerType.Annet)
+                        !state.paakjenninger?.includes(PaakjenningerType.ANNET)
                       }
                     />
                   </Column>
@@ -229,8 +273,11 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
+            <Systemtittel>
+              Hvis dere har fått dokumentasjon fra den ansatte
+            </Systemtittel>
+            <br />
             <SkjemaGruppe
-              legend='Hvis dere har fått dokumentasjon fra den ansatte'
               feil={state.dokumentasjonError}
               feilmeldingId='dokumentasjon'
               aria-live='polite'
@@ -239,19 +286,19 @@ const KroniskSide = () => {
                 Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger.
                 Men hvis den ansatte allerede har gitt dere slik dokumentasjon
                 frivillig, kan dere skanne eller ta bilde av den og laste den
-                opp her. Vi tar imot .pdf .jpeg, .png, og de fleste formater fra
-                smarttelefonkamera.
+                opp her. Vi tar kun imot .pdf.
               </Normaltekst>
               <br />
               <Normaltekst>
-                NAV kan også selv innhente dokumentasjon fra legen hvis det er
+                NAV vil selv innhente dokumentasjon fra legen hvis det er
                 nødvendig.
               </Normaltekst>
               <Upload
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
-                extensions='.jpg,.pdf'
+                extensions='.pdf'
                 onChange={handleUploadChanged}
+                onDelete={handleDelete}
                 fileSize={250000}
               />
             </SkjemaGruppe>
@@ -260,14 +307,15 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
+            <Systemtittel>Fraværet</Systemtittel>
+            <br />
             <SkjemaGruppe
-              legend='Fraværet'
               feil={state.fravaerError}
               feilmeldingId='fravaer'
               aria-live='polite'
             >
               <Normaltekst>
-                Skriv inn antall dager med sykefravære relatert til søknaden i
+                Skriv inn antall dager med sykefravær relatert til søknaden i
                 hver måned. Dere kan gå 3 år tilbake i tid hvis både
                 arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
@@ -329,6 +377,9 @@ const KroniskSide = () => {
           </Panel>
         </SideIndentering>
       </Column>
+      {state.accessDenied && (
+        <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />
+      )}
     </Row>
   );
 };

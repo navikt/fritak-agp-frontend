@@ -13,6 +13,13 @@ export const mapValidationResponse = (
       nextState.kvittering = true;
       nextState.progress = false;
       nextState.error = false;
+      nextState.accessDenied = false;
+      return nextState;
+    case 401:
+      nextState.kvittering = false;
+      nextState.progress = false;
+      nextState.error = true;
+      nextState.accessDenied = true;
       return nextState;
     case 422:
       const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -57,6 +64,7 @@ export const mapValidationResponse = (
       nextState.progress = false;
       nextState.error = false;
       nextState.feilmeldinger = feilmeldinger;
+      nextState.accessDenied = false;
       return nextState;
     default:
       nextState.error = true;

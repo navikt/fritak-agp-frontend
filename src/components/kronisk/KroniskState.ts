@@ -5,15 +5,15 @@ import { Aarsfravaer } from './Aarsfravaer';
 
 export const defaultKroniskState = (): KroniskState => {
   return {
-    fnr: '',
-    orgnr: '',
-    fravaer: [],
-    arbeid: [],
-    paakjenninger: [],
-    kommentar: '',
-    dokumentasjon: '',
-    bekreft: false,
-    feilmeldinger: Array<FeiloppsummeringFeil>()
+    fnr: undefined,
+    orgnr: undefined,
+    fravaer: undefined,
+    arbeid: undefined,
+    paakjenninger: undefined,
+    kommentar: undefined,
+    dokumentasjon: undefined,
+    bekreft: undefined,
+    feilmeldinger: undefined
   };
 };
 
@@ -39,4 +39,6 @@ export default interface KroniskState {
   bekreft?: boolean;
   bekreftError?: string;
   error?: boolean;
+  accessDenied?: boolean;
+  submitting?: boolean;
 }

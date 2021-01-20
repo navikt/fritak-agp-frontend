@@ -101,13 +101,23 @@ const KroniskReducer = (
 
     case Actions.Validate:
       nextState.validated = true;
-      return validateKronisk(nextState);
+      const validatedState = validateKronisk(nextState);
+      validatedState.submitting = validatedState.feilmeldinger?.length === 0;
+      validatedState.progress = validatedState.submitting;
+      return validatedState;
 
     case Actions.HandleResponse:
       if (payload?.response == undefined) {
         throw new Error('Du må spesifisere response');
       }
+      nextState.submitting = false;
+      nextState.progress = false;
+      nextState.validated = false;
       return mapValidationResponse(payload.response, nextState);
+
+    case Actions.CloseLoggedoutModal:
+      nextState.accessDenied = false;
+      return nextState;
 
     case Actions.Reset:
       return Object.assign({}, defaultKroniskState());

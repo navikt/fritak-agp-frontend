@@ -14,6 +14,5 @@ export const getFravaerByMonth = (
   if (!a) {
     return;
   }
-  const dager = a[monthKey(MONTHS[month])];
-  return dager;
+  return a[monthKey(MONTHS[month])];
 };

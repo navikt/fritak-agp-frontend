@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -21,305 +21,94 @@ import Fnr from '../Fnr';
 import Upload from '../Upload';
 import './GravidSide.scss';
 import GravidProgress from './GravidProgress';
-import GravidStatus from './GravidStatus';
-import isValidFnr from './isValidFnr';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
-import lagreGravidesoknad, {
-  lagreGravideResponsdata,
-  lagreGravidesoknadParametere
-} from '../../api/lagreGravidesoknad';
-import ValidationResponse from '../../api/ValidationResponse';
-import RestStatus from '../../api/RestStatus';
-import environment from '../../environment';
-import { useHistory } from 'react-router-dom';
-import { History } from 'history';
-import lenker from '../lenker';
-import feilmeldingReducer from './feilmeldingReducer';
-import skjemaReducer, { skjemaState } from './skjemaReducer';
-import isBackendServerError from './isBackendServerError';
-import isBackendValidationError from './isBackendValidationError';
 import Lenke from 'nav-frontend-lenker';
-import { Omplassering, OmplasseringAarsak, Tiltak } from './gravidSideEnums';
-import isValidOrgnr from './isValidOrgnr';
 import Orgnr from '../Orgnr';
 import GravidSideProps from './GravidSideProps';
-import getBase64file from './getBase64File';
-import feilListe from '../feilListe';
-
-const initialStateFeilmelding = {};
-
-function preparePropsForState(props: GravidSideProps): skjemaState {
-  return {
-    fnr: props.fnr,
-    orgnr: props.orgnr,
-    tilrettelegge: props.tilrettelegge,
-    tiltak: props.tiltak,
-    tiltakBeskrivelse: props.tiltakBeskrivelse,
-    omplassering: props.omplassering,
-    bekreftet: props.bekreftet,
-    omplasseringAarsak: props.omplasseringAarsak
-  };
-}
+import getBase64file from '../../utils/getBase64File';
+import GravidReducer from './GravidReducer';
+import { defaultGravidState } from './GravidState';
+import { Actions } from './Actions';
+import TiltakCheckboxes from './TiltakCheckboxes';
+import OmplasseringCheckboxes from './OmplasseringCheckboxes';
+import AarsakCheckboxes from './AarsakCheckboxes';
+import { Tiltak } from './Tiltak';
+import { Omplassering } from './Omplassering';
+import environment from '../../environment';
+import postGravid from '../../api/gravid/postGravid';
+import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
 
 const GravidSide = (props: GravidSideProps) => {
-  const [skjemaStatus, setSkjemaStatus] = useState<number>(
-    props.status || GravidStatus.DEFAULT
+  const [state, dispatch] = useReducer(
+    GravidReducer,
+    props.state,
+    defaultGravidState
   );
-  const [videre, setVidere] = useState<boolean>(props.videre || false);
-  const [validated, setValidated] = useState<boolean>(props.validated || false);
-  const [submittedState, setSubmittedState] = useState<boolean>(
-    props.submitted || false
-  );
-  let submitted: boolean = submittedState;
-  const [feilmelding, dispatchFeilmelding] = useReducer(
-    feilmeldingReducer,
-    initialStateFeilmelding
-  );
-  const initialFormState = preparePropsForState(props);
-  const [skjema, dispatchSkjema] = useReducer(skjemaReducer, initialFormState);
-  const history: History = useHistory();
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
-        dispatchSkjema({ field: 'dokumentasjon', value: base64encoded });
-      });
-    }
-  };
-  const isTiltakAnnet =
-    skjema.tiltak && skjema.tiltak.indexOf(Tiltak.ANNET) > -1;
-
-  const validateFnr = (): boolean => {
-    if (!submitted || (skjema.fnr && isValidFnr(skjema.fnr))) {
-      dispatchFeilmelding({
-        type: 'ansatteFeilmeldingId',
-        feilmelding: ''
-      });
-      return true;
-    } else {
-      dispatchFeilmelding({
-        type: 'ansatteFeilmeldingId',
-        feilmelding: 'Fyll ut gyldig fødselsnummer'
-      });
-      return false;
-    }
-  };
-
-  const validateOrgnr = (): boolean => {
-    if (!submitted || (skjema.orgnr && isValidOrgnr(skjema.orgnr))) {
-      dispatchFeilmelding({
-        type: 'arbeidsgiverFeilmeldingId',
-        feilmelding: ''
-      });
-      return true;
-    } else {
-      dispatchFeilmelding({
-        type: 'arbeidsgiverFeilmeldingId',
-        feilmelding: 'Fyll ut gyldig organisasjonsnummer'
-      });
-      return false;
-    }
-  };
-
-  const validateTilrettelegge = (): boolean => {
-    if (submitted && skjema.tilrettelegge === undefined) {
-      dispatchFeilmelding({
-        type: 'tilretteleggeFeilmeldingId',
-        feilmelding: 'Spesifiser om dere har tilrettelagt arbeidsdagen'
-      });
-      return false;
-    } else {
-      dispatchFeilmelding({
-        type: 'tilretteleggeFeilmeldingId',
-        feilmelding: ''
-      });
-      return true;
-    }
-  };
-
-  const validateTiltak = (): boolean => {
-    if (submitted) {
-      if (
-        isTiltakAnnet &&
-        (!skjema.tiltakBeskrivelse || skjema.tiltakBeskrivelse.length === 0)
-      ) {
-        dispatchFeilmelding({
-          type: 'tiltakFeilmeldingId',
-          feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
+        dispatch({
+          type: Actions.Dokumentasjon,
+          payload: {
+            dokumentasjon: base64encoded
+          }
         });
-        return false;
-      }
-      if (!skjema.tiltak) {
-        dispatchFeilmelding({
-          type: 'tiltakFeilmeldingId',
-          feilmelding: 'Du må oppgi minst ett tiltak dere har prøvd'
-        });
-        return false;
-      }
+      });
     }
-    dispatchFeilmelding({
-      type: 'tiltakFeilmeldingId',
-      feilmelding: ''
+  };
+  const handleDelete = () => {
+    dispatch({
+      type: Actions.Dokumentasjon,
+      payload: {
+        dokumentasjon: undefined
+      }
     });
-    return true;
   };
-
-  const validateOmplassering = (): boolean => {
-    if (submitted && !skjema.omplassering) {
-      dispatchFeilmelding({
-        type: 'omplasseringFeilmeldingId',
-        feilmelding: 'Velg omplassering'
-      });
-      return false;
-    } else {
-      dispatchFeilmelding({
-        type: 'omplasseringFeilmeldingId',
-        feilmelding: ''
-      });
-      return true;
-    }
-  };
-
-  const validateBekreftet = (): boolean => {
-    if (submitted && !skjema.bekreftet) {
-      dispatchFeilmelding({
-        type: 'bekreftFeilmeldingId',
-        feilmelding: 'Bekreft at opplysningene er korrekt'
-      });
-      return false;
-    } else {
-      dispatchFeilmelding({
-        type: 'bekreftFeilmeldingId',
-        feilmelding: ''
-      });
-      return true;
-    }
-  };
-
-  const validateForm = (): boolean => {
-    const altValidert: boolean = skjema.tilrettelegge
-      ? [
-          validateFnr(),
-          validateOrgnr(),
-          validateTilrettelegge(),
-          validateTiltak(),
-          validateOmplassering(),
-          validateBekreftet()
-        ].every(Boolean)
-      : [
-          validateFnr(),
-          validateOrgnr(),
-          validateTilrettelegge(),
-          validateBekreftet()
-        ].every(Boolean);
-
-    submitted = !altValidert;
-    setSubmittedState(submitted);
-    return altValidert;
-  };
-
-  useEffect(() => {
-    validateForm();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [skjema]);
-
-  useEffect(() => {
-    if (validated) {
-      validateForm();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleSubmitClicked = async () => {
-    submitted = true;
-    setSubmittedState(submitted);
-    if (validateForm()) {
-      // submit
-      const payload: lagreGravidesoknadParametere = {
-        orgnr: skjema.orgnr,
-        fnr: skjema.fnr,
-        tilrettelegge: skjema.tilrettelegge,
-        tiltak: skjema.tiltak,
-        tiltakBeskrivelse: skjema.tiltakBeskrivelse,
-        omplassering: skjema.omplassering,
-        omplasseringAarsak: skjema.omplasseringAarsak,
-        bekreftet: skjema.bekreftet,
-        dokumentasjon: skjema.dokumentasjon
-      };
-
-      setSkjemaStatus(GravidStatus.IN_PROGRESS);
-      const lagringStatus = await lagreGravidesoknad(
+    dispatch({ type: Actions.Validate });
+  };
+  useEffect(() => {
+    if (
+      state.validated === true &&
+      state.progress === true &&
+      state.submitting === true
+    ) {
+      postGravid(
         environment.baseUrl,
-        payload
-      );
-
-      if (lagringStatus.status === RestStatus.Successfully) {
-        const backendStatusOK = validateBackendResponse(lagringStatus);
-
-        if (backendStatusOK) {
-          history.push(lenker.GravidKvittering);
-        }
-      }
-
-      if (lagringStatus.status === RestStatus.UnprocessableEntity) {
-        validateBackendResponse(lagringStatus);
-      }
-
-      if (lagringStatus.status === RestStatus.Unauthorized) {
-        dispatchFeilmelding({
-          type: 'General',
-          feilmelding: 'Du har ikke tilgang til å lagre.'
+        mapGravidRequest(
+          state.fnr,
+          state.orgnr,
+          state.tilrettelegge,
+          state.tiltak,
+          state.tiltakBeskrivelse,
+          state.omplassering,
+          state.omplasseringAarsak,
+          state.dokumentasjon,
+          state.bekreft
+        )
+      ).then((response) => {
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: { response: response }
         });
-      }
-
-      if (lagringStatus.status === RestStatus.Created) {
-        history.push(lenker.GravidKvittering);
-      } else {
-        setSkjemaStatus(GravidStatus.DEFAULT);
-      }
-    }
-  };
-
-  const validateBackendResponse = (
-    beResponse: lagreGravideResponsdata
-  ): boolean => {
-    const validering = beResponse.validering;
-
-    if (!beResponse.validering) {
-      dispatchFeilmelding({
-        type: 'General',
-        feilmelding: 'Lagringen gikk galt'
       });
-      return false;
     }
-
-    if (isBackendServerError(validering)) {
-      dispatchFeilmelding({
-        type: 'General',
-        feilmelding: `${validering.title} (${validering.status})`
-      });
-      return false;
-    }
-
-    if (isBackendValidationError(validering)) {
-      ((validering as unknown) as ValidationResponse).violations.forEach(
-        (error) => {
-          dispatchFeilmelding({
-            type: error.propertyPath,
-            feilmelding: error.message
-          });
-        }
-      );
-      return false;
-    }
-    return true;
-  };
-
-  const feilmeldingsliste = feilListe(feilmelding);
-  if (!feilmeldingsliste) {
-    setSubmittedState(false);
-  }
-
+  }, [
+    state.validated,
+    state.progress,
+    state.feilmeldinger,
+    state.submitting,
+    state.tilrettelegge,
+    state.omplassering,
+    state.omplasseringAarsak,
+    state.tiltak,
+    state.tiltakBeskrivelse,
+    state.fnr,
+    state.bekreft,
+    state.dokumentasjon,
+    state.orgnr
+  ]);
   return (
     <Row>
       <Column>
@@ -327,20 +116,19 @@ const GravidSide = (props: GravidSideProps) => {
           Søknad om at NAV dekker sykepenger i arbeidsgiverperioden
         </SoknadTittel>
 
-        {skjemaStatus === GravidStatus.IN_PROGRESS && <GravidProgress />}
+        {state.progress == true && <GravidProgress />}
 
-        {skjemaStatus === GravidStatus.SUCCESS && <GravidKvittering />}
+        {state.kvittering == true && <GravidKvittering />}
 
-        {skjemaStatus === GravidStatus.ERROR && <GravidFeil />}
+        {state.error == true && <GravidFeil />}
 
-        {(skjemaStatus === GravidStatus.DEFAULT ||
-          skjemaStatus === GravidStatus.BAD_REQUEST) && (
+        {state.progress != true && state.kvittering != true && (
           <SideIndentering>
             <Panel>
               <Ingress>
                 NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet
                 skyldes helseplager i svangerskapet. Dette gjelder bare hvis
-                tilrettelegging eller omplassering ikke er mulig.​ Vi bruker
+                tilrettelegging eller omplassering ikke er mulig. Vi bruker
                 opplysninger vi allerede har om sykefraværet, i tillegg til
                 svarene du gir nedenfor. Ordningen er beskrevet i{' '}
                 <Lenke href='https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20'>
@@ -353,7 +141,7 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
             <Panel>
               <Undertittel tag='span'>
-                Alle felter er obligatoriske om ikke merket annerledes
+                Alle felter må fylles ut om ikke annet er oppgitt
               </Undertittel>
             </Panel>
             <Skillelinje />
@@ -364,23 +152,29 @@ const GravidSide = (props: GravidSideProps) => {
                   <Column sm='4' xs='6'>
                     <Fnr
                       label='Fødselsnummer (11 siffer)'
-                      fnr={skjema.fnr}
+                      fnr={state.fnr}
                       placeholder='11 siffer'
-                      feilmelding={feilmelding.ansatteFeilmeldingId}
+                      feilmelding={state.fnrError}
                       onValidate={() => {}}
                       onChange={(fnr: string) =>
-                        dispatchSkjema({ field: 'fnr', value: fnr })
+                        dispatch({
+                          type: Actions.Fnr,
+                          payload: { fnr: fnr }
+                        })
                       }
                     />
                   </Column>
                   <Column sm='4' xs='6'>
                     <Orgnr
                       label='Organisasjonsnummer'
-                      orgnr={skjema.orgnr}
+                      orgnr={state.orgnr}
                       placeholder='9 siffer'
-                      feilmelding={feilmelding.arbeidsgiverFeilmeldingId}
+                      feilmelding={state.orgnrError}
                       onChange={(orgnr: string) =>
-                        dispatchSkjema({ field: 'orgnr', value: orgnr })
+                        dispatch({
+                          type: Actions.Orgnr,
+                          payload: { orgnr: orgnr }
+                        })
                       }
                     />
                   </Column>
@@ -391,16 +185,13 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
 
             <Panel>
-              <SkjemaGruppe
-                legend='Arbeidssituasjon og miljø'
-                feil={feilmelding.tilrettelegge}
-              >
+              <SkjemaGruppe legend='Arbeidssituasjon og miljø'>
                 <Normaltekst>
                   Vi spør først om dere har forsøkt å løse situasjonen på
                   arbeidsplassen.
                 </Normaltekst>
                 <Normaltekst>
-                  Svaret deres brukes i to forskjellige vurderinger: ​
+                  Svaret deres brukes i to forskjellige vurderinger:
                 </Normaltekst>
 
                 <ul className='gravidside-tett-liste'>
@@ -416,218 +207,118 @@ const GravidSide = (props: GravidSideProps) => {
                     label='Ja'
                     name='sitteplass'
                     value='ja'
-                    defaultChecked={skjema.tilrettelegge === true}
+                    defaultChecked={state.tilrettelegge === true}
                     onClick={() =>
-                      dispatchSkjema({ field: 'tilrettelegge', value: true })
+                      dispatch({
+                        type: Actions.Tilrettelegge,
+                        payload: { tilrettelegge: true }
+                      })
                     }
                   />
                   <Radio
                     label='Nei'
                     name='sitteplass'
                     value='nei'
-                    defaultChecked={skjema.tilrettelegge === false}
+                    defaultChecked={state.tilrettelegge === false}
                     onClick={() =>
-                      dispatchSkjema({ field: 'tilrettelegge', value: false })
+                      dispatch({
+                        type: Actions.Tilrettelegge,
+                        payload: { tilrettelegge: false }
+                      })
                     }
                   />
                 </RadioGruppe>
               </SkjemaGruppe>
 
-              {skjema.tilrettelegge ? (
+              {state.tilrettelegge === true ? (
                 <>
                   <CheckboxGruppe
                     legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
-                    feil={feilmelding.tiltakFeilmeldingId}
+                    feil={state.tiltakError}
                     feilmeldingId='tiltakFeilmeldingId'
                   >
-                    <Checkbox
-                      label='Fleksibel eller tilpasset arbeidstid'
-                      value={Tiltak.TILPASSET_ARBEIDSTID}
-                      id={'arbeidstid'}
-                      onChange={(evt) =>
-                        dispatchSkjema({
-                          field: Tiltak.TILPASSET_ARBEIDSTID,
-                          value: evt.currentTarget.value
-                        })
-                      }
-                      checked={
-                        skjema.tiltak &&
-                        skjema.tiltak.indexOf(Tiltak.TILPASSET_ARBEIDSTID) > -1
-                      }
-                    />
-                    <Checkbox
-                      label='Hjemmekontor'
-                      value={Tiltak.HJEMMEKONTOR}
-                      id={'hjemmekontor'}
-                      onChange={(evt) =>
-                        dispatchSkjema({
-                          field: Tiltak.HJEMMEKONTOR,
-                          value: evt.currentTarget.value
-                        })
-                      }
-                      checked={
-                        skjema.tiltak &&
-                        skjema.tiltak.indexOf(Tiltak.HJEMMEKONTOR) > -1
-                      }
-                    />
-                    <Checkbox
-                      label='Tilpassede arbeidsoppgaver'
-                      value={Tiltak.TILPASSEDE_ARBEIDSOPPGAVER}
-                      id={'oppgaver'}
-                      onChange={(evt) =>
-                        dispatchSkjema({
-                          field: Tiltak.TILPASSEDE_ARBEIDSOPPGAVER,
-                          value: evt.currentTarget.value
-                        })
-                      }
-                      checked={
-                        skjema.tiltak &&
-                        skjema.tiltak.indexOf(
-                          Tiltak.TILPASSEDE_ARBEIDSOPPGAVER
-                        ) > -1
-                      }
-                    />
-                    <Checkbox
-                      label='Annet, gi en kort beskrivelse av hva dere har gjort:'
-                      value={Tiltak.ANNET}
-                      id={'annet'}
-                      onChange={(evt) =>
-                        dispatchSkjema({
-                          field: Tiltak.ANNET,
-                          value: evt.currentTarget.value
-                        })
-                      }
-                      checked={isTiltakAnnet}
-                    />
+                    {TiltakCheckboxes.map((a) => {
+                      return (
+                        <Checkbox
+                          key={a.id}
+                          label={a.label}
+                          value={a.value}
+                          id={a.id}
+                          onChange={(evt) =>
+                            dispatch({
+                              type: Actions.ToggleTiltak,
+                              payload: { tiltak: a.value }
+                            })
+                          }
+                          checked={state.tiltak?.includes(a.value)}
+                        />
+                      );
+                    })}
+
                     <Textarea
-                      value={skjema.tiltakBeskrivelse || ''}
-                      feil={feilmelding.tilretteleggeFeilmeldingId}
+                      value={state.tiltakBeskrivelse || ''}
+                      feil={state.tiltakBeskrivelseError}
                       onChange={(evt) =>
-                        dispatchSkjema({
-                          field: 'tiltakBeskrivelse',
-                          value: evt.currentTarget.value
+                        dispatch({
+                          type: Actions.TiltakBeskrivelse,
+                          payload: {
+                            tiltakBeskrivelse: evt.currentTarget.value
+                          }
                         })
                       }
-                      disabled={!isTiltakAnnet}
+                      disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
                     />
                   </CheckboxGruppe>
                   <SkjemaGruppe
-                    feil={feilmelding.omplasseringFeilmeldingId}
+                    feil={state.omplasseringError}
                     feilmeldingId='omplasseringFeilmeldingId'
                   >
                     <div className='gravid-side-radiogruppe-omplassering'>
                       <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb?'>
-                        <Radio
-                          label='Ja'
-                          name='omplassering'
-                          onChange={() =>
-                            dispatchSkjema({
-                              field: 'omplassering',
-                              value: Omplassering.JA
-                            })
-                          }
-                          checked={skjema.omplassering === Omplassering.JA}
-                        />
-                        <Radio
-                          label='Nei'
-                          name='omplassering'
-                          checked={skjema.omplassering === Omplassering.NEI}
-                          onChange={() =>
-                            dispatchSkjema({
-                              field: 'omplassering',
-                              value: Omplassering.NEI
-                            })
-                          }
-                        />
-                        <Radio
-                          label='Omplassering er ikke mulig - oppgi årsak:'
-                          name='omplassering'
-                          onChange={() =>
-                            dispatchSkjema({
-                              field: 'omplassering',
-                              value: Omplassering.IKKE_MULIG
-                            })
-                          }
-                          checked={
-                            skjema.omplassering === Omplassering.IKKE_MULIG
-                          }
-                        />
+                        {OmplasseringCheckboxes.map((a) => {
+                          return (
+                            <Radio
+                              key={a.value}
+                              label={a.label}
+                              name='omplassering'
+                              onChange={() =>
+                                dispatch({
+                                  type: Actions.OmplasseringForsoek,
+                                  payload: { omplasseringForsoek: a.value }
+                                })
+                              }
+                              checked={state.omplassering === a.value}
+                            />
+                          );
+                        })}
+
                         <RadioGruppe className='gravideside-radiogruppe-indentert'>
-                          <Radio
-                            label='Den ansatte motsetter seg omplassering'
-                            name='omplassering-umulig'
-                            onChange={() =>
-                              dispatchSkjema({
-                                field: 'omplasseringAarsak',
-                                value: OmplasseringAarsak.MOTSETTER
-                              })
-                            }
-                            disabled={
-                              skjema.omplassering !== Omplassering.IKKE_MULIG
-                            }
-                            checked={
-                              skjema.omplasseringAarsak ===
-                              OmplasseringAarsak.MOTSETTER
-                            }
-                          />
-                          <Radio
-                            label='Vi får ikke kontakt med den ansatte'
-                            name='omplassering-umulig'
-                            onChange={() => {
-                              dispatchSkjema({
-                                field: 'omplasseringAarsak',
-                                value: OmplasseringAarsak.FAAR_IKKE_KONTAKT
-                              });
-                            }}
-                            checked={
-                              skjema.omplasseringAarsak ===
-                              OmplasseringAarsak.FAAR_IKKE_KONTAKT
-                            }
-                            disabled={
-                              skjema.omplassering !== Omplassering.IKKE_MULIG
-                            }
-                          />
-                          <Radio
-                            label='Vi har ikke andre oppgaver eller arbeidssteder å tilby'
-                            name='omplassering-umulig'
-                            onChange={() =>
-                              dispatchSkjema({
-                                field: 'omplasseringAarsak',
-                                value: OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
-                              })
-                            }
-                            checked={
-                              skjema.omplasseringAarsak ===
-                              OmplasseringAarsak.IKKE_ANDRE_OPPGAVER
-                            }
-                            disabled={
-                              skjema.omplassering !== Omplassering.IKKE_MULIG
-                            }
-                          />
-                          <Radio
-                            label='Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden​'
-                            name='omplassering-umulig'
-                            checked={
-                              skjema.omplasseringAarsak ===
-                              OmplasseringAarsak.HELSETILSTANDEN
-                            }
-                            onChange={() =>
-                              dispatchSkjema({
-                                field: 'omplasseringAarsak',
-                                value: OmplasseringAarsak.HELSETILSTANDEN
-                              })
-                            }
-                            disabled={
-                              skjema.omplassering !== Omplassering.IKKE_MULIG
-                            }
-                          />
+                          {AarsakCheckboxes.map((a) => {
+                            return (
+                              <Radio
+                                key={a.value}
+                                label={a.label}
+                                name='omplassering-umulig'
+                                onChange={() =>
+                                  dispatch({
+                                    type: Actions.OmplasseringAarsak,
+                                    payload: { omplasseringAarsak: a.value }
+                                  })
+                                }
+                                disabled={
+                                  state.omplassering !== Omplassering.IKKE_MULIG
+                                }
+                                checked={state.omplasseringAarsak === a.value}
+                              />
+                            );
+                          })}
                         </RadioGruppe>
                       </RadioGruppe>
                     </div>
                   </SkjemaGruppe>
                 </>
               ) : (
-                skjema.tilrettelegge === false && (
+                state.tilrettelegge === false && (
                   <>
                     <Skillelinje />
                     <Alertstripe
@@ -635,11 +326,16 @@ const GravidSide = (props: GravidSideProps) => {
                       type='advarsel'
                     >
                       <Normaltekst>
-                        Dere må først ha prøvd å tilrettelegge for den gravide.​
+                        Dere må først ha prøvd å tilrettelegge for den gravide.
                         Dere kan
                         <button
                           className='lenke gravidside-lenke-knapp'
-                          onClick={() => setVidere(true)}
+                          onClick={() =>
+                            dispatch({
+                              type: Actions.Videre,
+                              payload: { videre: true }
+                            })
+                          }
                         >
                           gå videre med søknaden
                         </button>
@@ -651,14 +347,14 @@ const GravidSide = (props: GravidSideProps) => {
               )}
             </Panel>
 
-            {(skjema.tilrettelegge === true || videre) && (
+            {(state.tilrettelegge === true || state.videre) && (
               <>
                 <Skillelinje />
 
                 <Panel>
                   <SkjemaGruppe
                     legend='Hvis dere har fått dokumentasjon fra den ansatte'
-                    feil={feilmelding.dokumentasjonFeilmeldingId}
+                    feil={state.dokumentasjonError}
                     feilmeldingId='dokumentasjonFeilmeldingId'
                     aria-live='polite'
                   >
@@ -666,8 +362,8 @@ const GravidSide = (props: GravidSideProps) => {
                       Som arbeidsgiver kan dere ikke kreve å få se
                       helseopplysninger. Men hvis den ansatte allerede har gitt
                       dere slik dokumentasjon frivillig, kan dere skanne eller
-                      ta bilde av den og laste den opp her. Vi tar imot .pdf
-                      .jpeg, .png, og de fleste formater fra smarttelefonkamera.
+                      ta bilde av den og laste den opp her. Vi tar kun imot
+                      .pdf.
                     </Normaltekst>
                     <br />
                     <Normaltekst>
@@ -678,8 +374,9 @@ const GravidSide = (props: GravidSideProps) => {
                     <Upload
                       id='upload'
                       label='Last opp dokumentasjon'
-                      extensions='.jpg,.pdf'
+                      extensions='.pdf'
                       onChange={handleUploadChanged}
+                      onDelete={handleDelete}
                       fileSize={250000}
                     />
                   </SkjemaGruppe>
@@ -691,12 +388,12 @@ const GravidSide = (props: GravidSideProps) => {
                   <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
                     <BekreftCheckboksPanel
                       label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                      checked={skjema.bekreftet || false}
-                      feil={feilmelding.bekreftFeilmeldingId}
+                      checked={state.bekreft || false}
+                      feil={state.bekreftError}
                       onChange={() =>
-                        dispatchSkjema({
-                          field: 'bekreftet',
-                          value: !skjema.bekreftet
+                        dispatch({
+                          type: Actions.Bekreft,
+                          payload: { bekreft: !state.bekreft }
                         })
                       }
                     >
@@ -707,11 +404,11 @@ const GravidSide = (props: GravidSideProps) => {
                   </SkjemaGruppe>
                 </Panel>
 
-                {feilmeldingsliste.length > 0 && (
+                {state.feilmeldinger.length > 0 && (
                   <Panel>
                     <Feiloppsummering
                       tittel='For å gå videre må du rette opp følgende:'
-                      feil={feilmeldingsliste}
+                      feil={state.feilmeldinger}
                     />
                   </Panel>
                 )}
