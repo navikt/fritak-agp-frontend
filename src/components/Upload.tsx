@@ -42,9 +42,9 @@ const Upload = (props: UploadProps) => {
   };
   return (
     <div>
-      <label className='knapp filknapp'>
+      <label className='knapp upload-filknapp'>
         <input
-          className='fileinput'
+          className='upload-fileinput'
           type='file'
           id='fileUploader'
           accept={props.extensions}
