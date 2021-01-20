@@ -46,7 +46,6 @@ import Orgnr from '../Orgnr';
 import GravidSideProps from './GravidSideProps';
 import getBase64file from '../../utils/getBase64File';
 import feilListe from '../feilListe';
-import { Actions } from '../kronisk/Actions';
 
 const initialStateFeilmelding = {};
 
