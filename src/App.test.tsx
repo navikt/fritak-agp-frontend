@@ -26,15 +26,6 @@ jest.mock('./components/gravid/GravidKvittering');
 jest.mock('./api/loginExpiryAPI');
 
 describe('App', () => {
-  // beforeAll((): void => {
-  //   delete window.location;
-  //   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  //   // @ts-ignore
-  //   window.location = {
-  //       href: '',
-  //   };
-  // });
-
   beforeEach(() => {
     loginExpiryAPI.mockImplementation(
       (): Promise<any> => Promise.resolve({ status: 200 })
