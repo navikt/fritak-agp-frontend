@@ -148,7 +148,7 @@ describe('App', () => {
     window.location = {
       hostname: 'server.nav.no',
       href: '',
-      pathname: 'server.nav.no/login?redirect=http://server.nav.no/path/'
+      pathname: '/the/path'
     };
 
     loginExpiryAPI.mockImplementation(
@@ -165,19 +165,19 @@ describe('App', () => {
 
     await waitFor(() =>
       expect(window.location.href).toBe(
-        'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true?redirect=https%3A%2F%2Farbeidsgiver.nav.no%2Ffritak-agp%2Fserver.nav.no%2Flogin%3Fredirect%3Dhttp%3A%2F%2Fserver.nav.no%2Fpath%2F%3FloggedIn%3Dtrue'
+        'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true?redirect=https%3A%2F%2Farbeidsgiver.nav.no%2Ffritak-agp%2F%2Fthe%2Fpath%3FloggedIn%3Dtrue'
       )
     );
   });
 
-  it('should redirect to the login page', async () => {
+  it('should not redirect to the login page', async () => {
     delete window.location;
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     window.location = {
       hostname: 'server.nav.no',
       href: '',
-      pathname: 'http://server.nav.no/path/?loggedIn=true'
+      pathname: '/the/path'
     };
 
     loginExpiryAPI.mockImplementation(
