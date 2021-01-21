@@ -1,16 +1,19 @@
 import KroniskState, { defaultKroniskState } from './KroniskState';
-import { Actions, KroniskAction } from './Actions';
+import { Actions, FravaerType, KroniskAction, Payload } from './Actions';
 import { Aarsfravaer } from './Aarsfravaer';
 import { validateKronisk } from './validateKronisk';
 import { MONTHS } from '../../utils/months';
 import { monthKey } from '../../utils/monthKey';
 import { mapValidationResponse } from './mapValidationResponse';
+import PaakjenningerType from './PaakjenningerType';
+import ValidationResponse from '../../api/ValidationResponse';
+import ArbeidType from './ArbeidType';
 
 const KroniskReducer = (
   state: KroniskState,
   action: KroniskAction
 ): KroniskState => {
-  const nextState = Object.assign({}, state);
+  const nextState: KroniskState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {
     case Actions.Fnr:
@@ -22,34 +25,14 @@ const KroniskReducer = (
       return validateKronisk(nextState);
 
     case Actions.ToggleArbeid:
-      if (payload?.arbeid === undefined) {
-        throw new Error('Du må spesifisere arbeidstype');
-      }
-      if (!nextState.arbeid) {
-        nextState.arbeid = [];
-      }
-      if (state.arbeid?.includes(payload.arbeid)) {
-        nextState.arbeid.splice(state.arbeid?.indexOf(payload.arbeid), 1);
-      } else {
-        nextState.arbeid.push(payload.arbeid);
-      }
+      throwOnMissingArbeidstatus(payload);
+      enshureArbeidIsNotUndefined(nextState);
+      toggleArbeidNextState(state, payload, nextState);
       return validateKronisk(nextState);
 
     case Actions.TogglePaakjenninger:
-      if (payload?.paakjenning === undefined) {
-        throw new Error('Du må spesifisere paakjenning');
-      }
-      if (!nextState.paakjenninger) {
-        nextState.paakjenninger = [];
-      }
-      if (state.paakjenninger?.includes(payload?.paakjenning)) {
-        nextState.paakjenninger.splice(
-          state.paakjenninger?.indexOf(payload?.paakjenning),
-          1
-        );
-      } else {
-        nextState.paakjenninger.push(payload?.paakjenning);
-      }
+      throwOnMissingPaakjenninger(payload);
+      togglePaakjenningNextState(state, payload, nextState);
       return validateKronisk(nextState);
 
     case Actions.Kommentar:
@@ -61,27 +44,14 @@ const KroniskReducer = (
       return validateKronisk(nextState);
 
     case Actions.Fravaer: //
-      if (payload?.fravaer == undefined) {
-        throw new Error('Du må spesifisere fravær');
-      }
-      if (!nextState.fravaer) {
-        nextState.fravaer = [];
-      }
-      let { fravaer } = payload;
-      const { year, month, dager } = fravaer;
-      if (month < 0 || month > 11) {
-        throw new Error('Month må være mellom 0 og 11');
-      }
-      const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
+      throwOnMissingFravaer(payload);
+      enshureFravaerIsNotUndefined(nextState);
+      let fravaer = payload?.fravaer;
+      const { year, month, dager } = fravaer as FravaerType;
+      throwOnInvalidMonth(month);
+      const antallDager = castDagerFromStringToNumber(dager);
       const monthProp = monthKey(MONTHS[month]);
-      let nextFravaer =
-        state.fravaer?.find((f) => f.year === year) ||
-        ({ year: year } as Aarsfravaer);
-
-      if (!state.fravaer?.includes(nextFravaer)) {
-        nextState.fravaer?.push(nextFravaer);
-      }
-      nextFravaer[monthProp] = antallDager;
+      updateFravaerNextState(state, year, nextState, monthProp, antallDager);
       return validateKronisk(nextState);
 
     case Actions.Bekreft:
@@ -89,9 +59,7 @@ const KroniskReducer = (
       return validateKronisk(nextState);
 
     case Actions.Progress:
-      if (payload?.progress == undefined) {
-        throw new Error('Du må spesifisere progress');
-      }
+      throwOnMissingProgress(payload);
       nextState.progress = payload?.progress;
       return validateKronisk(nextState);
 
@@ -107,13 +75,14 @@ const KroniskReducer = (
       return validatedState;
 
     case Actions.HandleResponse:
-      if (payload?.response == undefined) {
-        throw new Error('Du må spesifisere response');
-      }
+      throwOnMissingResponse(payload);
       nextState.submitting = false;
       nextState.progress = false;
       nextState.validated = false;
-      return mapValidationResponse(payload.response, nextState);
+      return mapValidationResponse(
+        payload?.response as ValidationResponse,
+        nextState
+      );
 
     case Actions.CloseLoggedoutModal:
       nextState.accessDenied = false;
@@ -128,3 +97,116 @@ const KroniskReducer = (
 };
 
 export default KroniskReducer;
+
+function updateFravaerNextState(
+  state: KroniskState,
+  year: number,
+  nextState: KroniskState,
+  monthProp: string,
+  antallDager: number | undefined
+) {
+  let nextFravaer =
+    state.fravaer?.find((f) => f.year === year) ||
+    ({ year: year } as Aarsfravaer);
+
+  if (!state.fravaer?.includes(nextFravaer)) {
+    nextState.fravaer?.push(nextFravaer);
+  }
+  nextFravaer[monthProp] = antallDager;
+}
+
+function togglePaakjenningNextState(
+  state: KroniskState,
+  payload: Payload | undefined,
+  nextState: KroniskState
+) {
+  nextState.paakjenninger = enshurePaakjenningerIsNotUndefined(nextState);
+  if (
+    state.paakjenninger?.includes(payload?.paakjenning as PaakjenningerType)
+  ) {
+    nextState.paakjenninger.splice(
+      state.paakjenninger?.indexOf(payload?.paakjenning as PaakjenningerType),
+      1
+    );
+  } else {
+    nextState.paakjenninger.push(payload?.paakjenning as PaakjenningerType);
+  }
+}
+
+function toggleArbeidNextState(
+  state: KroniskState,
+  payload: Payload | undefined,
+  nextState: KroniskState
+) {
+  nextState.arbeid = nextState.arbeid ? nextState.arbeid : [];
+
+  if (state.arbeid?.includes(payload?.arbeid as ArbeidType)) {
+    nextState.arbeid.splice(
+      state.arbeid?.indexOf(payload?.arbeid as ArbeidType),
+      1
+    );
+  } else {
+    nextState.arbeid.push(payload?.arbeid as ArbeidType);
+  }
+}
+
+function throwOnMissingResponse(payload: Payload | undefined) {
+  if (payload?.response == undefined) {
+    throw new Error('Du må spesifisere response');
+  }
+}
+
+function throwOnMissingProgress(payload: Payload | undefined) {
+  if (payload?.progress == undefined) {
+    throw new Error('Du må spesifisere progress');
+  }
+}
+
+function castDagerFromStringToNumber(dager: any) {
+  return !parseInt(dager) ? undefined : parseInt(dager);
+}
+
+function throwOnInvalidMonth(month: any) {
+  if (month < 0 || month > 11) {
+    throw new Error('Month må være mellom 0 og 11');
+  }
+}
+
+function enshureFravaerIsNotUndefined(nextState: KroniskState) {
+  if (!nextState.fravaer) {
+    nextState.fravaer = [];
+  }
+}
+
+function throwOnMissingFravaer(payload: Payload | undefined) {
+  if (payload?.fravaer == undefined) {
+    throw new Error('Du må spesifisere fravær');
+  }
+}
+
+function enshureArbeidIsNotUndefined(nextState: KroniskState) {
+  if (!nextState.arbeid) {
+    nextState.arbeid = [];
+  }
+}
+
+function enshurePaakjenningerIsNotUndefined(
+  nextState: KroniskState
+): PaakjenningerType[] {
+  if (!nextState.paakjenninger) {
+    return [];
+  }
+  return nextState.paakjenninger;
+}
+
+function throwOnMissingPaakjenninger(payload: Payload | undefined) {
+  if (payload?.paakjenning === undefined) {
+    throw new Error('Du må spesifisere paakjenning');
+  }
+}
+
+function throwOnMissingArbeidstatus(payload: Payload | undefined) {
+  if (payload?.arbeid === undefined) {
+    throw new Error('Du må spesifisere arbeidstype');
+  }
+}
