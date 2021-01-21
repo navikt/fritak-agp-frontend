@@ -5,6 +5,26 @@ import { mapValidationResponse } from './mapValidationResponse';
 import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
 
+export const validateTiltak = (
+  tiltak: Tiltak,
+  state: GravidState,
+  nextState: GravidState
+) => {
+  if (!nextState.tiltak) {
+    nextState.tiltak = [];
+  }
+  if (state.tiltak?.includes(tiltak)) {
+    nextState.tiltak.splice(state.tiltak?.indexOf(tiltak), 1);
+  } else {
+    nextState.tiltak.push(tiltak);
+  }
+  if (!nextState.tiltak || !nextState.tiltak.includes(Tiltak.ANNET)) {
+    nextState.tiltakBeskrivelse = undefined;
+  }
+  return validateGravid(nextState);
+};
+
+/* eslint complexity: ["off"] */
 const GravidReducer = (
   state: GravidState,
   action: GravidAction
@@ -31,18 +51,7 @@ const GravidReducer = (
       if (payload?.tiltak === undefined) {
         throw new Error('Du må spesifisere tiltak');
       }
-      if (!nextState.tiltak) {
-        nextState.tiltak = [];
-      }
-      if (state.tiltak?.includes(payload?.tiltak)) {
-        nextState.tiltak.splice(state.tiltak?.indexOf(payload?.tiltak), 1);
-      } else {
-        nextState.tiltak.push(payload?.tiltak);
-      }
-      if (!nextState.tiltak || !nextState.tiltak.includes(Tiltak.ANNET)) {
-        nextState.tiltakBeskrivelse = undefined;
-      }
-      return validateGravid(nextState);
+      return validateTiltak(payload.tiltak, state, nextState);
 
     case Actions.TiltakBeskrivelse:
       nextState.tiltakBeskrivelse = payload?.tiltakBeskrivelse;
