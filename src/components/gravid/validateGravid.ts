@@ -5,12 +5,16 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validateFnr } from '../../utils/validateFnr';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
+import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
+import { pushFeilmelding } from '../../utils/pushFeilmelding';
 
 export const validateGravid = (state: GravidState): GravidState => {
   if (!state.validated) {
     return state;
   }
   const nextState = Object.assign({}, state);
+  const feilmeldinger = new Array<FeiloppsummeringFeil>();
+
   nextState.fnrError = validateFnr(state.fnr, state.validated);
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.bekreftError = state.bekreft == false ? 'Mangler bekreft' : '';
@@ -21,68 +25,72 @@ export const validateGravid = (state: GravidState): GravidState => {
     nextState.fnrError = 'Ugyldig fødselsnummer';
   }
 
-  const feilmeldinger = new Array<FeiloppsummeringFeil>();
-
   if (nextState.fnrError) {
-    feilmeldinger.push({
-      skjemaelementId: 'fnr',
-      feilmelding: 'Fødselsnummer må fylles ut'
-    });
+    pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);
   }
   if (nextState.orgnrError) {
-    feilmeldinger.push({
-      skjemaelementId: 'orgnr',
-      feilmelding: 'Organisasjonsnummer må fylles ut'
-    });
+    pushFeilmelding('orgnr', 'Organisasjonsnummer må fylles ut', feilmeldinger);
   }
 
   if (!state.videre) {
     if (nextState.tilrettelegge == undefined) {
-      feilmeldinger.push({
-        skjemaelementId: 'tilretteleggeFeilmeldingId',
-        feilmelding: 'Spesifiser om dere har tilrettelagt arbeidsdagen'
-      });
+      pushFeilmelding(
+        'tilretteleggeFeilmeldingId',
+        'Spesifiser om dere har tilrettelagt arbeidsdagen',
+        feilmeldinger
+      );
     }
 
     if (nextState.tiltak == undefined || nextState.tiltak.length == 0) {
       nextState.tiltakError = 'Du må oppgi minst ett tiltak dere har prøvd';
-      feilmeldinger.push({
-        skjemaelementId: 'tiltakFeilmeldingId',
-        feilmelding: 'Spesifiser hvilke tiltak som er forsøkt'
-      });
+      pushFeilmelding(
+        'tiltakFeilmeldingId',
+        'Spesifiser hvilke tiltak som er forsøkt',
+        feilmeldinger
+      );
     } else {
-      if (
-        nextState.tiltak.includes(Tiltak.ANNET) &&
-        !nextState.tiltakBeskrivelse
-      ) {
-        nextState.tiltakError = 'Beskriv hva dere har gjort';
-        feilmeldinger.push({
-          skjemaelementId: 'tiltakFeilmeldingId',
-          feilmelding: 'Du må gi en kort beskrivelse av hva dere har gjort'
-        });
-      } else {
-        nextState.tiltakError = undefined;
+      nextState.tiltakError = undefined;
+      nextState.tiltakBeskrivelseError = undefined;
+      if (nextState.tiltak.includes(Tiltak.ANNET)) {
+        if (!nextState.tiltakBeskrivelse) {
+          nextState.tiltakError = 'Beskriv hva dere har gjort';
+          pushFeilmelding(
+            'tiltakFeilmeldingId',
+            'Du må gi en kort beskrivelse av hva dere har gjort',
+            feilmeldinger
+          );
+        } else if (
+          nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE
+        ) {
+          nextState.tiltakBeskrivelseError = `Beskrivelsen må være mindre enn ${MAX_TILTAK_BESKRIVELSE} tegn`;
+          pushFeilmelding(
+            'tiltakFeilmeldingId',
+            'Du må gi en kort beskrivelse av hva dere har gjort',
+            feilmeldinger
+          );
+        }
       }
     }
 
     if (nextState.omplassering == undefined) {
       nextState.omplasseringError = 'Velg omplassering';
-      feilmeldinger.push({
-        skjemaelementId: 'omplasseringFeilmeldingId',
-        feilmelding: 'Velg omplassering'
-      });
+      pushFeilmelding(
+        'omplasseringFeilmeldingId',
+        'Velg omplassering',
+        feilmeldinger
+      );
     }
   }
 
   if (!nextState.bekreft) {
     nextState.bekreftError = 'Bekreft at opplysningene er korrekt';
-    feilmeldinger.push({
-      skjemaelementId: 'bekreftFeilmeldingId',
-      feilmelding: 'Bekreft at opplysningene er korrekt'
-    });
+    pushFeilmelding(
+      'bekreftFeilmeldingId',
+      'Bekreft at opplysningene er korrekt',
+      feilmeldinger
+    );
   }
 
   nextState.feilmeldinger = feilmeldinger;
-
   return nextState;
 };

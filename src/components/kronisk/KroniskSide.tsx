@@ -33,6 +33,8 @@ import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
 
+export const MAX_BESKRIVELSE = 2000;
+
 const KroniskSide = () => {
   const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
@@ -263,6 +265,7 @@ const KroniskSide = () => {
                       disabled={
                         !state.paakjenninger?.includes(PaakjenningerType.ANNET)
                       }
+                      maxLength={MAX_BESKRIVELSE}
                     />
                   </Column>
                 </Row>

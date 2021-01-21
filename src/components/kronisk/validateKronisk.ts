@@ -6,6 +6,8 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
 import { validateFnr } from '../../utils/validateFnr';
+import { MAX_BESKRIVELSE } from './KroniskSide';
+import { pushFeilmelding } from '../../utils/pushFeilmelding';
 
 export const validateKronisk = (state: KroniskState): KroniskState => {
   if (!state.validated) {
@@ -31,38 +33,42 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   if (nextState.fnrError) {
-    feilmeldinger.push({
-      skjemaelementId: 'fnr',
-      feilmelding: 'Fødselsnummer må fylles ut'
-    });
+    pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);
   }
   if (nextState.orgnrError) {
-    feilmeldinger.push({
-      skjemaelementId: 'orgnr',
-      feilmelding: 'Organisasjonsnummer må fylles ut'
-    });
+    pushFeilmelding('orgnr', 'Organisasjonsnummer må fylles ut', feilmeldinger);
   }
   if (nextState.arbeidError) {
-    feilmeldinger.push({
-      skjemaelementId: 'arbeidsutfører',
-      feilmelding: 'Arbeid om den ansatte må fylles ut'
-    });
+    pushFeilmelding(
+      'arbeidsutfører',
+      'Arbeid om den ansatte må fylles ut',
+      feilmeldinger
+    );
   }
   if (nextState.paakjenningerError) {
-    feilmeldinger.push({
-      skjemaelementId: 'paakjenninger',
-      feilmelding: 'Påkjenninger om den ansatte må fylles ut'
-    });
+    pushFeilmelding(
+      'paakjenninger',
+      'Påkjenninger om den ansatte må fylles ut',
+      feilmeldinger
+    );
   }
   if (state.paakjenninger?.includes(PaakjenningerType.ANNET)) {
     nextState.kommentarError = !nextState.kommentar
       ? 'Kommentar må fylles ut'
       : undefined;
     if (!nextState.kommentar) {
-      feilmeldinger.push({
-        skjemaelementId: 'paakjenninger',
-        feilmelding: 'Kommentar må fylles ut'
-      });
+      pushFeilmelding(
+        'paakjenninger',
+        'Beskrivelsen må fylles ut',
+        feilmeldinger
+      );
+    } else if (nextState?.kommentar?.length > MAX_BESKRIVELSE) {
+      nextState.kommentarError = `Beskrivelsen må være mindre enn ${MAX_BESKRIVELSE} tegn`;
+      pushFeilmelding(
+        'paakjenninger',
+        'Beskrivelsen av påkjenningen må være kortere',
+        feilmeldinger
+      );
     }
   } else {
     nextState.kommentar = '';
@@ -84,10 +90,11 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
   nextState.feilmeldinger = nextState.feilmeldinger.concat(arbeidFeilmeldinger);
 
   if (nextState.bekreftError) {
-    nextState.feilmeldinger.push({
-      skjemaelementId: 'bekreftFeilmeldingId',
-      feilmelding: 'Bekreft at opplysningene er korrekte'
-    });
+    pushFeilmelding(
+      'bekreftFeilmeldingId',
+      'Bekreft at opplysningene er korrekte',
+      feilmeldinger
+    );
   }
   return nextState;
 };

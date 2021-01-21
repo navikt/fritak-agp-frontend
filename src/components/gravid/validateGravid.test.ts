@@ -1,6 +1,7 @@
 import { validateGravid } from './validateGravid';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
+import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 
 describe('validateGravid', () => {
   it('should show fnr error when invalid', () => {
@@ -68,5 +69,31 @@ describe('validateGravid', () => {
     state.tiltak = [Tiltak.HJEMMEKONTOR];
     const state2 = validateGravid(state);
     expect(state2.tiltakError).toBeUndefined();
+  });
+
+  const lagTekst = (antall: number): string => {
+    return '0'.repeat(antall - 1);
+  };
+
+  it('should error when tiltakBeskrivelse is too long', () => {
+    const state = defaultGravidState();
+    state.validated = true;
+    state.tilrettelegge = true;
+    state.tiltak = [Tiltak.ANNET];
+    state.tiltakBeskrivelse = lagTekst(MAX_TILTAK_BESKRIVELSE + 10);
+    const state2 = validateGravid(state);
+    expect(state2.tiltakError).toBeUndefined();
+    expect(state2.tiltakBeskrivelseError).not.toBeUndefined();
+  });
+
+  it('should not error when tiltakBeskrivelse within max', () => {
+    const state = defaultGravidState();
+    state.validated = true;
+    state.tilrettelegge = true;
+    state.tiltak = [Tiltak.ANNET];
+    state.tiltakBeskrivelse = lagTekst(MAX_TILTAK_BESKRIVELSE);
+    const state2 = validateGravid(state);
+    expect(state2.tiltakError).toBeUndefined();
+    expect(state2.tiltakBeskrivelseError).toBeUndefined();
   });
 });
