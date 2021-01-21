@@ -99,11 +99,7 @@ describe('validateKronisk', () => {
   });
 
   const lagTekst = (antall: number): string => {
-    let dummy = '';
-    for (let x = 0; x < antall; x++) {
-      dummy += 'a';
-    }
-    return dummy;
+    return '0'.repeat(antall);
   };
 
   it('should show error when påkjenninger ANNET and too long kommentar', () => {
