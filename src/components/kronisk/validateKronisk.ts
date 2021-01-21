@@ -9,6 +9,7 @@ import { validateFnr } from '../../utils/validateFnr';
 import { MAX_BESKRIVELSE } from './KroniskSide';
 import { pushFeilmelding } from '../../utils/pushFeilmelding';
 
+/* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState): KroniskState => {
   if (!state.validated) {
     return state;
