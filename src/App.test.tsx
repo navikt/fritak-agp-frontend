@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import App from './App';
@@ -130,5 +130,59 @@ describe('App', () => {
     expect(screen.getByText('TokenFornyet')).toBeInTheDocument();
 
     cleanup();
+  });
+
+  it('should redirect to the login page', async () => {
+    delete window.location;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    window.location = {
+      hostname: 'server.nav.no',
+      href: '',
+      pathname: '/the/path'
+    };
+
+    loginExpiryAPI.mockImplementation(
+      (): Promise<any> => Promise.resolve({ status: 401 })
+    );
+
+    Forside.mockImplementation(() => <div>ForsideMock</div>);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    await waitFor(() =>
+      expect(window.location.href).toBe(
+        'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true?redirect=https%3A%2F%2Farbeidsgiver.nav.no%2Ffritak-agp%2F%2Fthe%2Fpath%3FloggedIn%3Dtrue'
+      )
+    );
+  });
+
+  it('should not redirect to the login page', async () => {
+    delete window.location;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    window.location = {
+      hostname: 'server.nav.no',
+      href: '',
+      pathname: '/the/path'
+    };
+
+    loginExpiryAPI.mockImplementation(
+      (): Promise<any> => Promise.resolve({ status: 401 })
+    );
+
+    Forside.mockImplementation(() => <div>ForsideMock</div>);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(window.location.href).toBe('');
   });
 });
