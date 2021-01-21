@@ -93,7 +93,7 @@ const KroniskSide = () => {
     return <KvitteringLink />;
   }
   return (
-    <Row>
+    <Row className='kronisk-side'>
       <Column>
         <SoknadTittel>
           Søknad om at NAV dekker sykepenger i arbeidsgiverperioden
