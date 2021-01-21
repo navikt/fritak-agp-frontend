@@ -72,11 +72,7 @@ describe('validateGravid', () => {
   });
 
   const lagTekst = (antall: number): string => {
-    let dummy = '';
-    for (let x = 0; x < antall; x++) {
-      dummy += '0';
-    }
-    return dummy;
+    return '0'.repeat(antall - 1);
   };
 
   it('should error when tiltakBeskrivelse is too long', () => {
