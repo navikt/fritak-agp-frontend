@@ -62,8 +62,7 @@ export const validateGravid = (state: GravidState): GravidState => {
         } else if (
           nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE
         ) {
-          nextState.tiltakBeskrivelseError =
-            'Beskrivelsen må være mindre enn $MAX_TILTAK_BESKRIVELSE tegn';
+          nextState.tiltakBeskrivelseError = `Beskrivelsen må være mindre enn ${MAX_TILTAK_BESKRIVELSE} tegn`;
           pushFeilmelding(
             'tiltakFeilmeldingId',
             'Du må gi en kort beskrivelse av hva dere har gjort',
