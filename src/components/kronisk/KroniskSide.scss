@@ -1,36 +1,44 @@
 @import "./src/variabler.sass";
 
-.kroniskside-tett-liste {
-    margin-top: 0;
-}
+.kronisk-side {
 
-.kronisk-side-radiogruppe-omplassering {
-    margin-top: 1rem;
-}
+    .kroniskside-tett-liste {
+        margin-top: 0;
+    }
 
-#kroniskside-panel-ansatte {
-    padding-bottom: 0;
-}
+    .kronisk-side-radiogruppe-omplassering {
+        margin-top: 1rem;
+    }
 
-#kroniskside-panel-arbeidssituasjon {
-    padding-bottom: 0;
-}
+    #kroniskside-panel-ansatte {
+        padding-bottom: 0;
+    }
 
-label[for="textarea-annet"] {
-    display: none;
-}
+    #kroniskside-panel-arbeidssituasjon {
+        padding-bottom: 0;
+    }
 
-.kroniskside-lenke-knapp,
-.kroniskside-lenke-knapp:active {
-    display: run-in;
-    border: none;
-    margin: 0;
-    padding-right: 0;
-    background: transparent;
-    color: $navBla !important;
-    text-decoration: underline;
-}
+    label[for="textarea-annet"] {
+        display: none;
+    }
 
-.kroniskeside-radiogruppe-indentert {
-    margin-left: 1rem !important;
+    .kroniskside-lenke-knapp,
+    .kroniskside-lenke-knapp:active {
+        display: run-in;
+        border: none;
+        margin: 0;
+        padding-right: 0;
+        background: transparent;
+        color: $navBla !important;
+        text-decoration: underline;
+    }
+
+    .kroniskeside-radiogruppe-indentert {
+        margin-left: 1rem !important;
+    }
+
+    #textarea-annet {
+        min-height: 185px;
+    }
+
 }
