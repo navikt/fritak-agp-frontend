@@ -5,14 +5,18 @@ import { Column, Row } from 'nav-frontend-grid';
 import SideIndentering from '../SideIndentering';
 import Skillelinje from '../Skillelinje';
 import Fnr from '../Fnr';
-import { BekreftCheckboksPanel, Feiloppsummering, Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import Flatpickr from 'react-flatpickr';
+import { BekreftCheckboksPanel, Feiloppsummering, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
+import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { Link } from 'react-router-dom';
 import lenker from '../lenker';
 import './GravidKrav.scss';
+import 'flatpickr/dist/themes/material_green.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
+import dayjs from 'dayjs';
 
 export const GravidKrav = () => {
   const state = {
@@ -86,10 +90,50 @@ export const GravidKrav = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
-                  <Input label='Fra dato' inputMode='numeric' pattern='[0-9]*' />
+                  <Label htmlFor='fra dato'>
+                    <div style={{ display: 'flex' }}>Fra dato</div>
+                  </Label>
+                  <Flatpickr
+                    name='Fra dato'
+                    placeholder='dd.mm.yyyy'
+                    // value={fraDato}
+                    className={'periodeinput-input  skjemaelement__input'}
+                    options={{
+                      maxDate: dayjs(new Date()).toDate(),
+                      mode: 'range',
+                      enableTime: false,
+                      dateFormat: 'd.m.Y',
+                      altInput: true,
+                      altFormat: 'd.m.Y',
+                      locale: Norwegian,
+                      allowInput: true,
+                      clickOpens: true
+                      // onClose: (date) =>  setFraDato
+                    }}
+                  />
                 </Column>
                 <Column sm='3' xs='6'>
-                  <Input label='Til dato' inputMode='numeric' pattern='[0-9]*' />
+                  <Label htmlFor='fra dato'>
+                    <div style={{ display: 'flex' }}>Til dato</div>
+                  </Label>
+                  <Flatpickr
+                    name='Til dato'
+                    placeholder='dd.mm.yyyy'
+                    // value={tilDato}
+                    className={'periodeinput-input  skjemaelement__input'}
+                    options={{
+                      maxDate: dayjs(new Date()).toDate(),
+                      mode: 'range',
+                      enableTime: false,
+                      dateFormat: 'd.m.Y',
+                      altInput: true,
+                      altFormat: 'd.m.Y',
+                      locale: Norwegian,
+                      allowInput: true,
+                      clickOpens: true
+                      // onClose: (date) =>  setTilDato
+                    }}
+                  />
                 </Column>
                 <Column sm='3' xs='6'>
                   <Input label='Antall dager' inputMode='numeric' pattern='[0-9]*' />
