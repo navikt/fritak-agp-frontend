@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { Aarsak } from './Aarsak';
 import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
+import { ValidationState } from '../../validation/ValidationState';
 
 export const defaultGravidState = (state?: GravidState): GravidState => {
   return Object.assign(
@@ -16,7 +17,7 @@ export const defaultGravidState = (state?: GravidState): GravidState => {
   );
 };
 
-export default interface GravidState {
+export default interface GravidState extends ValidationState {
   fnr?: string;
   fnrError?: string;
   orgnr?: string;

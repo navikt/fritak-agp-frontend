@@ -2,6 +2,10 @@ import KroniskState from './KroniskState';
 import ValidationResponse from '../../api/ValidationResponse';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '../lagFeil';
+import map201 from '../../validation/map201';
+import map401 from '../../validation/map401';
+import map422 from '../../validation/map422';
+import mapDefault from '../../validation/mapDefault';
 
 export const mapFeilmeldinger = (response: ValidationResponse, state: KroniskState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -48,30 +52,12 @@ export const mapValidationResponse = (response: ValidationResponse, state: Kroni
   const nextState = Object.assign({}, state);
   switch (response.status) {
     case 201:
-      nextState.kvittering = true;
-      nextState.progress = false;
-      nextState.error = false;
-      nextState.accessDenied = false;
-      return nextState;
+      return map201(nextState);
     case 401:
-      nextState.kvittering = false;
-      nextState.progress = false;
-      nextState.error = true;
-      nextState.accessDenied = true;
-      return nextState;
+      return map401(nextState);
     case 422:
-      nextState.kvittering = false;
-      nextState.progress = false;
-      nextState.error = false;
-      nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
-      nextState.accessDenied = false;
-      return nextState;
+      return map422(nextState);
     default:
-      nextState.error = true;
-      nextState.kvittering = false;
-      nextState.progress = false;
-      nextState.feilmeldinger = new Array<FeiloppsummeringFeil>();
-      nextState.feilmeldinger.push(lagFeil('ukjent', 'Klarte ikke å sende inn skjema. Prøv igjen senere.'));
-      return nextState;
+      return mapDefault(nextState);
   }
 };

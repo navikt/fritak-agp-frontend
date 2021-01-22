@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { ArbeidType } from './ArbeidType';
 import { PaakjenningerType } from './PaakjenningerType';
 import { Aarsfravaer } from './Aarsfravaer';
+import { ValidationState } from '../../validation/ValidationState';
 
 export const defaultKroniskState = (): KroniskState => {
   return {
@@ -13,11 +14,11 @@ export const defaultKroniskState = (): KroniskState => {
     kommentar: undefined,
     dokumentasjon: undefined,
     bekreft: undefined,
-    feilmeldinger: undefined
+    feilmeldinger: Array<FeiloppsummeringFeil>()
   };
 };
 
-export default interface KroniskState {
+export default interface KroniskState extends ValidationState {
   fnr?: string;
   fnrError?: string;
   orgnr?: string;
@@ -32,7 +33,7 @@ export default interface KroniskState {
   dokumentasjonError?: string;
   fravaer?: Array<Aarsfravaer>;
   fravaerError?: string;
-  feilmeldinger?: Array<FeiloppsummeringFeil>;
+  feilmeldinger: Array<FeiloppsummeringFeil>;
   validated?: boolean;
   progress?: boolean;
   kvittering?: boolean;
