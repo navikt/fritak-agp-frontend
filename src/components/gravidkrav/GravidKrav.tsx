@@ -60,7 +60,7 @@ export const GravidKrav = () => {
           </Panel>
           <Skillelinje />
 
-          <Panel id='gravidkrav-panel-tapt-arbeidstid'>
+          <Panel id='gravidkrav-panel-den-ansatte'>
             <Systemtittel className='krav-padding-bottom'>Den ansatte</Systemtittel>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
