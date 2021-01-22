@@ -6,7 +6,7 @@ import { validateFnr } from '../../utils/validateFnr';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
-import { pushFeilmelding } from '../../utils/pushFeilmelding';
+import { pushFeilmelding } from '../../validation/pushFeilmelding';
 
 export const validateGravid = (state: GravidState): GravidState => {
   if (!state.validated) {
@@ -34,61 +34,35 @@ export const validateGravid = (state: GravidState): GravidState => {
 
   if (!state.videre) {
     if (nextState.tilrettelegge == undefined) {
-      pushFeilmelding(
-        'tilretteleggeFeilmeldingId',
-        'Spesifiser om dere har tilrettelagt arbeidsdagen',
-        feilmeldinger
-      );
+      pushFeilmelding('tilretteleggeFeilmeldingId', 'Spesifiser om dere har tilrettelagt arbeidsdagen', feilmeldinger);
     }
 
     if (nextState.tiltak == undefined || nextState.tiltak.length == 0) {
       nextState.tiltakError = 'Du må oppgi minst ett tiltak dere har prøvd';
-      pushFeilmelding(
-        'tiltakFeilmeldingId',
-        'Spesifiser hvilke tiltak som er forsøkt',
-        feilmeldinger
-      );
+      pushFeilmelding('tiltakFeilmeldingId', 'Spesifiser hvilke tiltak som er forsøkt', feilmeldinger);
     } else {
       nextState.tiltakError = undefined;
       nextState.tiltakBeskrivelseError = undefined;
       if (nextState.tiltak.includes(Tiltak.ANNET)) {
         if (!nextState.tiltakBeskrivelse) {
           nextState.tiltakError = 'Beskriv hva dere har gjort';
-          pushFeilmelding(
-            'tiltakFeilmeldingId',
-            'Du må gi en kort beskrivelse av hva dere har gjort',
-            feilmeldinger
-          );
-        } else if (
-          nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE
-        ) {
+          pushFeilmelding('tiltakFeilmeldingId', 'Du må gi en kort beskrivelse av hva dere har gjort', feilmeldinger);
+        } else if (nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE) {
           nextState.tiltakBeskrivelseError = `Beskrivelsen må være mindre enn ${MAX_TILTAK_BESKRIVELSE} tegn`;
-          pushFeilmelding(
-            'tiltakFeilmeldingId',
-            'Du må gi en kort beskrivelse av hva dere har gjort',
-            feilmeldinger
-          );
+          pushFeilmelding('tiltakFeilmeldingId', 'Du må gi en kort beskrivelse av hva dere har gjort', feilmeldinger);
         }
       }
     }
 
     if (nextState.omplassering == undefined) {
       nextState.omplasseringError = 'Velg omplassering';
-      pushFeilmelding(
-        'omplasseringFeilmeldingId',
-        'Velg omplassering',
-        feilmeldinger
-      );
+      pushFeilmelding('omplasseringFeilmeldingId', 'Velg omplassering', feilmeldinger);
     }
   }
 
   if (!nextState.bekreft) {
     nextState.bekreftError = 'Bekreft at opplysningene er korrekt';
-    pushFeilmelding(
-      'bekreftFeilmeldingId',
-      'Bekreft at opplysningene er korrekt',
-      feilmeldinger
-    );
+    pushFeilmelding('bekreftFeilmeldingId', 'Bekreft at opplysningene er korrekt', feilmeldinger);
   }
 
   nextState.feilmeldinger = feilmeldinger;

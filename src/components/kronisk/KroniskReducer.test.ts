@@ -319,8 +319,7 @@ describe('KroniskReducer', () => {
       payload: { fnr: '' }
     });
     let state2 = KroniskReducer(state1, { type: Actions.Validate });
-    expect(state2.feilmeldinger!!.length).toBe(3);
-    // TODO Mangler validering på alle felter
+    expect(state2.feilmeldinger.length).toBe(3);
   });
 
   it('should reset to defaults', () => {
@@ -344,6 +343,6 @@ describe('KroniskReducer', () => {
     expect(state.bekreftError).toBeUndefined();
     expect(state.kommentarError).toBeUndefined();
     expect(state.dokumentasjonError).toBeUndefined();
-    expect(state.feilmeldinger?.length).toBeUndefined();
+    expect(state.feilmeldinger.length).toEqual(0);
   });
 });

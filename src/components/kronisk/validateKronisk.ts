@@ -7,7 +7,7 @@ import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
 import { validateFnr } from '../../utils/validateFnr';
 import { MAX_BESKRIVELSE } from './KroniskSide';
-import { pushFeilmelding } from '../../utils/pushFeilmelding';
+import { pushFeilmelding } from '../../validation/pushFeilmelding';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState): KroniskState => {
@@ -18,10 +18,8 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
   nextState.fnrError = validateFnr(state.fnr, state.validated);
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.bekreftError = state.bekreft == false ? 'Mangler bekreft' : '';
-  nextState.paakjenningerError =
-    state.paakjenninger?.length === 0 ? 'Må velge minst ett alternativ' : '';
-  nextState.arbeidError =
-    state.arbeid?.length === 0 ? 'Må velge minst ett alternativ' : '';
+  nextState.paakjenningerError = state.paakjenninger?.length === 0 ? 'Må velge minst ett alternativ' : '';
+  nextState.arbeidError = state.arbeid?.length === 0 ? 'Må velge minst ett alternativ' : '';
 
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
     nextState.orgnrError = 'Ugyldig organisasjonsnummer';
@@ -40,36 +38,18 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
     pushFeilmelding('orgnr', 'Organisasjonsnummer må fylles ut', feilmeldinger);
   }
   if (nextState.arbeidError) {
-    pushFeilmelding(
-      'arbeidsutfører',
-      'Arbeid om den ansatte må fylles ut',
-      feilmeldinger
-    );
+    pushFeilmelding('arbeidsutfører', 'Arbeid om den ansatte må fylles ut', feilmeldinger);
   }
   if (nextState.paakjenningerError) {
-    pushFeilmelding(
-      'paakjenninger',
-      'Påkjenninger om den ansatte må fylles ut',
-      feilmeldinger
-    );
+    pushFeilmelding('paakjenninger', 'Påkjenninger om den ansatte må fylles ut', feilmeldinger);
   }
   if (state.paakjenninger?.includes(PaakjenningerType.ANNET)) {
-    nextState.kommentarError = !nextState.kommentar
-      ? 'Kommentar må fylles ut'
-      : undefined;
+    nextState.kommentarError = !nextState.kommentar ? 'Kommentar må fylles ut' : undefined;
     if (!nextState.kommentar) {
-      pushFeilmelding(
-        'paakjenninger',
-        'Beskrivelsen må fylles ut',
-        feilmeldinger
-      );
+      pushFeilmelding('paakjenninger', 'Beskrivelsen må fylles ut', feilmeldinger);
     } else if (nextState?.kommentar?.length > MAX_BESKRIVELSE) {
       nextState.kommentarError = `Beskrivelsen må være mindre enn ${MAX_BESKRIVELSE} tegn`;
-      pushFeilmelding(
-        'paakjenninger',
-        'Beskrivelsen av påkjenningen må være kortere',
-        feilmeldinger
-      );
+      pushFeilmelding('paakjenninger', 'Beskrivelsen av påkjenningen må være kortere', feilmeldinger);
     }
   } else {
     nextState.kommentar = '';
@@ -79,10 +59,7 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
 
   const arbeidFeilmeldinger = validerFravaerTabell(nextState?.fravaer || []);
 
-  if (
-    arbeidFeilmeldinger.length == 1 &&
-    arbeidFeilmeldinger[0].skjemaelementId == 'fravaer'
-  ) {
+  if (arbeidFeilmeldinger.length == 1 && arbeidFeilmeldinger[0].skjemaelementId == 'fravaer') {
     nextState.fravaerError = 'Minst en dag må fylles ut';
   } else {
     nextState.fravaerError = undefined;
@@ -91,11 +68,7 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
   nextState.feilmeldinger = nextState.feilmeldinger.concat(arbeidFeilmeldinger);
 
   if (nextState.bekreftError) {
-    pushFeilmelding(
-      'bekreftFeilmeldingId',
-      'Bekreft at opplysningene er korrekte',
-      feilmeldinger
-    );
+    pushFeilmelding('bekreftFeilmeldingId', 'Bekreft at opplysningene er korrekte', feilmeldinger);
   }
   return nextState;
 };
