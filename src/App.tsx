@@ -10,40 +10,26 @@ import Side from './components/Side';
 import KroniskSide from './components/kronisk/KroniskSide';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
+import GravidKrav from './components/gravidkrav/GravidKrav';
 import injectRedirectPath from './utils/injectRedirectPath';
 import loginExpiryAPI from './api/loginExpiryAPI';
 
 const App = () => {
   loginExpiryAPI().then((loggedInStatus) => {
-    if (
-      loggedInStatus.status === 401 &&
-      (!location.search || !location.search.includes('loggedIn=true'))
-    ) {
-      const redirectedLoginServiceUrl = injectRedirectPath(
-        location.pathname,
-        '/fritak-agp'
-      );
+    if (loggedInStatus.status === 401 && (!location.search || !location.search.includes('loggedIn=true'))) {
+      const redirectedLoginServiceUrl = injectRedirectPath(location.pathname, '/fritak-agp');
       window.location.href = redirectedLoginServiceUrl;
       return <div />;
     }
   });
 
   return (
-    <EnvironmentProvider
-      loginServiceUrl={env.loginServiceUrl}
-      sideTittel={'Søknadsskjema'}
-      basePath={env.baseUrl}
-    >
+    <EnvironmentProvider loginServiceUrl={env.loginServiceUrl} sideTittel={'Søknadsskjema'} basePath={env.baseUrl}>
       <Side>
         <Switch>
-          <Route
-            path={lenker.GravidKvittering}
-            render={() => <GravidKvittering />}
-          />
-          <Route
-            path={lenker.KroniskKvittering}
-            render={() => <KroniskKvittering />}
-          />
+          <Route path={lenker.GravidKvittering} render={() => <GravidKvittering />} />
+          <Route path={lenker.GravidKrav} render={() => <GravidKrav />} />
+          <Route path={lenker.KroniskKvittering} render={() => <KroniskKvittering />} />
           <Route path={lenker.Gravid} render={() => <GravidSide />} />
           <Route path={lenker.Kronisk} render={() => <KroniskSide />} />
           <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />

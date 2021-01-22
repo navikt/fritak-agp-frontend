@@ -15,6 +15,7 @@ import KroniskKvittering from './components/kronisk/KroniskKvittering';
 import GravidSide from './components/gravid/GravidSide';
 import Forside from './components/Forside';
 import GravidKvittering from './components/gravid/GravidKvittering';
+import GravidKrav from './components/gravidkrav/GravidKrav';
 
 jest.mock('./components/kronisk/KroniskSide');
 jest.mock('./components/tokenFornyet/TokenFornyet');
@@ -22,14 +23,13 @@ jest.mock('./components/kronisk/KroniskKvittering');
 jest.mock('./components/gravid/GravidSide');
 jest.mock('./components/Forside');
 jest.mock('./components/gravid/GravidKvittering');
+jest.mock('./components/gravidkrav/GravidKrav');
 
 jest.mock('./api/loginExpiryAPI');
 
 describe('App', () => {
   beforeEach(() => {
-    loginExpiryAPI.mockImplementation(
-      (): Promise<any> => Promise.resolve({ status: 200 })
-    );
+    loginExpiryAPI.mockImplementation((): Promise<any> => Promise.resolve({ status: 200 }));
   });
   it('should show the default page', async () => {
     Forside.mockImplementation(() => <div>ForsideMock</div>);
@@ -49,10 +49,7 @@ describe('App', () => {
     GravidKvittering.mockImplementation(() => <div>GravidKvitteringMock</div>);
 
     render(
-      <MemoryRouter
-        initialEntries={[lenker.Gravid, lenker.GravidKvittering]}
-        initialIndex={1}
-      >
+      <MemoryRouter initialEntries={[lenker.Gravid, lenker.GravidKvittering]} initialIndex={1}>
         <App />
       </MemoryRouter>
     );
@@ -66,10 +63,7 @@ describe('App', () => {
     GravidSide.mockImplementation(() => <div>GravidMock</div>);
 
     render(
-      <MemoryRouter
-        initialEntries={[lenker.Home, lenker.Gravid]}
-        initialIndex={1}
-      >
+      <MemoryRouter initialEntries={[lenker.Home, lenker.Gravid]} initialIndex={1}>
         <App />
       </MemoryRouter>
     );
@@ -80,15 +74,10 @@ describe('App', () => {
   });
 
   it('should show the kronisk kvittering', async () => {
-    KroniskKvittering.mockImplementation(() => (
-      <div>KroniskKvitteringMock</div>
-    ));
+    KroniskKvittering.mockImplementation(() => <div>KroniskKvitteringMock</div>);
 
     render(
-      <MemoryRouter
-        initialEntries={[lenker.Kronisk, lenker.KroniskKvittering]}
-        initialIndex={1}
-      >
+      <MemoryRouter initialEntries={[lenker.Kronisk, lenker.KroniskKvittering]} initialIndex={1}>
         <App />
       </MemoryRouter>
     );
@@ -102,10 +91,7 @@ describe('App', () => {
     KroniskSide.mockImplementation(() => <div>KroniskMock</div>);
 
     render(
-      <MemoryRouter
-        initialEntries={[lenker.Home, lenker.Kronisk]}
-        initialIndex={1}
-      >
+      <MemoryRouter initialEntries={[lenker.Home, lenker.Kronisk]} initialIndex={1}>
         <App />
       </MemoryRouter>
     );
@@ -119,10 +105,7 @@ describe('App', () => {
     TokenFornyet.mockImplementation(() => <div>TokenFornyet</div>);
 
     render(
-      <MemoryRouter
-        initialEntries={[lenker.Home, lenker.TokenFornyet]}
-        initialIndex={1}
-      >
+      <MemoryRouter initialEntries={[lenker.Home, lenker.TokenFornyet]} initialIndex={1}>
         <App />
       </MemoryRouter>
     );
@@ -142,9 +125,7 @@ describe('App', () => {
       pathname: '/the/path'
     };
 
-    loginExpiryAPI.mockImplementation(
-      (): Promise<any> => Promise.resolve({ status: 401 })
-    );
+    loginExpiryAPI.mockImplementation((): Promise<any> => Promise.resolve({ status: 401 }));
 
     Forside.mockImplementation(() => <div>ForsideMock</div>);
 
@@ -171,9 +152,7 @@ describe('App', () => {
       pathname: '/the/path'
     };
 
-    loginExpiryAPI.mockImplementation(
-      (): Promise<any> => Promise.resolve({ status: 401 })
-    );
+    loginExpiryAPI.mockImplementation((): Promise<any> => Promise.resolve({ status: 401 }));
 
     Forside.mockImplementation(() => <div>ForsideMock</div>);
 
@@ -184,5 +163,19 @@ describe('App', () => {
     );
 
     expect(window.location.href).toBe('');
+  });
+
+  it('should show the gravid krav side', async () => {
+    GravidKrav.mockImplementation(() => <div>GravidKravMock</div>);
+
+    render(
+      <MemoryRouter initialEntries={[lenker.Home, lenker.GravidKrav]} initialIndex={1}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('GravidKravMock')).toBeInTheDocument();
+
+    cleanup();
   });
 });
