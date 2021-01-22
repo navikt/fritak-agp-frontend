@@ -56,6 +56,7 @@ export const mapValidationResponse = (response: ValidationResponse, state: Kroni
     case 401:
       return map401(nextState);
     case 422:
+      nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
       return map422(nextState);
     default:
       return mapDefault(nextState);
