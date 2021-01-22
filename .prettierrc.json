@@ -1,8 +1,0 @@
-{
-  "parser": "typescript",
-  "singleQuote": true,
-  "bracketSpacing": true,
-  "trailingComma": "none",
-  "filepath": "src",
-  "jsxSingleQuote": true
-}
