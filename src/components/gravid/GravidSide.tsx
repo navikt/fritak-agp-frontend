@@ -20,6 +20,7 @@ import SideIndentering from '../SideIndentering';
 import Fnr from '../Fnr';
 import Upload from '../Upload';
 import './GravidSide.scss';
+import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
 import GravidKvittering from './GravidKvittering';
 import GravidFeil from './GravidFeil';
@@ -245,6 +246,7 @@ const GravidSide = (props: GravidSideProps) => {
                         })}
 
                         <Textarea
+                          className='textarea-min-hoyde'
                           value={state.tiltakBeskrivelse || ''}
                           feil={state.tiltakBeskrivelseError}
                           onChange={(evt) =>

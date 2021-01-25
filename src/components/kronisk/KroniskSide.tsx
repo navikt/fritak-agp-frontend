@@ -16,6 +16,7 @@ import SideIndentering from '../SideIndentering';
 import Fnr from '../Fnr';
 import Upload from '../Upload';
 import './KroniskSide.scss';
+import '../felles/FellesStyling.scss';
 import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../Orgnr';
 import { defaultKroniskState } from './KroniskState';
@@ -54,11 +55,7 @@ const KroniskSide = () => {
     dispatch({ type: Actions.Validate });
   };
   useEffect(() => {
-    if (
-      state.validated === true &&
-      state.progress === true &&
-      state.submitting === true
-    ) {
+    if (state.validated === true && state.progress === true && state.submitting === true) {
       postKronisk(
         environment.baseUrl,
         mapKroniskRequest(
@@ -97,16 +94,13 @@ const KroniskSide = () => {
   return (
     <Row className='kronisk-side'>
       <Column>
-        <SoknadTittel>
-          Søknad om at NAV dekker sykepenger i arbeidsgiverperioden
-        </SoknadTittel>
+        <SoknadTittel>Søknad om at NAV dekker sykepenger i arbeidsgiverperioden</SoknadTittel>
         <SideIndentering>
           <Panel>
             <Ingress>
-              NAV kan dekke sykepenger i arbeidsgiverperioden for en
-              arbeidstaker med langvarig eller kronisk sykdom. ​ Vi bruker
-              opplysninger vi allerede har om sykefraværet, i tillegg til
-              svarene du gir nedenfor. Ordningen er beskrevet i{' '}
+              NAV kan dekke sykepenger i arbeidsgiverperioden for en arbeidstaker med langvarig eller kronisk sykdom. ​
+              Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen
+              er beskrevet i{' '}
               <Lenke href='https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20'>
                 folketrygdlovens § 8-20
               </Lenke>
@@ -130,9 +124,7 @@ const KroniskSide = () => {
                     placeholder='11 siffer'
                     feilmelding={state.fnrError}
                     onValidate={() => {}}
-                    onChange={(fnr: string) =>
-                      dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })
-                    }
+                    onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
                   />
                 </Column>
                 <Column sm='4' xs='6'>
@@ -159,19 +151,11 @@ const KroniskSide = () => {
             <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
             <br />
             <SkjemaGruppe>
-              <Normaltekst>
-                Vi spør først om dere har forsøkt å løse situasjonen på
-                arbeidsplassen.
-              </Normaltekst>
-              <Normaltekst>
-                Svaret deres brukes i to forskjellige vurderinger:
-              </Normaltekst>
+              <Normaltekst>Vi spør først om dere har forsøkt å løse situasjonen på arbeidsplassen.</Normaltekst>
+              <Normaltekst>Svaret deres brukes i to forskjellige vurderinger:</Normaltekst>
 
               <ul className='kroniskside-tett-liste'>
-                <li>
-                  om vi kan hjelpe til med noe, slik at den ansatte kan stå i
-                  jobben
-                </li>
+                <li>om vi kan hjelpe til med noe, slik at den ansatte kan stå i jobben</li>
                 <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
               </ul>
               <br />
@@ -210,9 +194,7 @@ const KroniskSide = () => {
               >
                 <Row>
                   <Column sm='4' xs='6'>
-                    {PAAKJENNINGER_CHECKBOXER.filter(
-                      (value, index) => index < 5
-                    ).map((a, index) => {
+                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index < 5).map((a, index) => {
                       return (
                         <Checkbox
                           key={a.id}
@@ -231,9 +213,7 @@ const KroniskSide = () => {
                     })}
                   </Column>
                   <Column sm='4' xs='6'>
-                    {PAAKJENNINGER_CHECKBOXER.filter(
-                      (value, index) => index > 4
-                    ).map((a, index) => {
+                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index > 4).map((a, index) => {
                       return (
                         <Checkbox
                           key={a.id}
@@ -252,6 +232,7 @@ const KroniskSide = () => {
                     })}
 
                     <Textarea
+                      className='textarea-min-hoyde'
                       label='Annet'
                       id='textarea-annet'
                       value={state.kommentar || ''}
@@ -262,9 +243,7 @@ const KroniskSide = () => {
                           payload: { kommentar: evt.target.value }
                         })
                       }
-                      disabled={
-                        !state.paakjenninger?.includes(PaakjenningerType.ANNET)
-                      }
+                      disabled={!state.paakjenninger?.includes(PaakjenningerType.ANNET)}
                       maxLength={MAX_BESKRIVELSE}
                     />
                   </Column>
@@ -276,26 +255,16 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel>
-              Hvis dere har fått dokumentasjon fra den ansatte
-            </Systemtittel>
+            <Systemtittel>Hvis dere har fått dokumentasjon fra den ansatte</Systemtittel>
             <br />
-            <SkjemaGruppe
-              feil={state.dokumentasjonError}
-              feilmeldingId='dokumentasjon'
-              aria-live='polite'
-            >
+            <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
               <Normaltekst>
-                Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger.
-                Men hvis den ansatte allerede har gitt dere slik dokumentasjon
-                frivillig, kan dere skanne eller ta bilde av den og laste den
-                opp her. Vi tar kun imot .pdf.
+                Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt
+                dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. Vi tar
+                kun imot .pdf.
               </Normaltekst>
               <br />
-              <Normaltekst>
-                NAV vil selv innhente dokumentasjon fra legen hvis det er
-                nødvendig.
-              </Normaltekst>
+              <Normaltekst>NAV vil selv innhente dokumentasjon fra legen hvis det er nødvendig.</Normaltekst>
               <Upload
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
@@ -312,15 +281,10 @@ const KroniskSide = () => {
           <Panel>
             <Systemtittel>Fraværet</Systemtittel>
             <br />
-            <SkjemaGruppe
-              feil={state.fravaerError}
-              feilmeldingId='fravaer'
-              aria-live='polite'
-            >
+            <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
               <Normaltekst>
-                Skriv inn antall dager med sykefravær relatert til søknaden i
-                hver måned. Dere kan gå 3 år tilbake i tid hvis både
-                arbeidsforholdet og helseproblemene har vart så lenge.
+                Skriv inn antall dager med sykefravær relatert til søknaden i hver måned. Dere kan gå 3 år tilbake i tid
+                hvis både arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
 
               <FravaerTabell
@@ -357,19 +321,15 @@ const KroniskSide = () => {
                   })
                 }
               >
-                Jeg vet at NAV kan trekke tilbake retten til å få dekket
-                sykepengene i arbeidsgiverperioden hvis opplysningene ikke er
-                riktige eller fullstendige.
+                Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis
+                opplysningene ikke er riktige eller fullstendige.
               </BekreftCheckboksPanel>
             </SkjemaGruppe>
           </Panel>
 
           {state.feilmeldinger && state.feilmeldinger.length > 0 && (
             <Panel>
-              <Feiloppsummering
-                tittel='For å gå videre må du rette opp følgende:'
-                feil={state.feilmeldinger}
-              />
+              <Feiloppsummering tittel='For å gå videre må du rette opp følgende:' feil={state.feilmeldinger} />
             </Panel>
           )}
 
@@ -380,9 +340,7 @@ const KroniskSide = () => {
           </Panel>
         </SideIndentering>
       </Column>
-      {state.accessDenied && (
-        <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />
-      )}
+      {state.accessDenied && <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />}
     </Row>
   );
 };
