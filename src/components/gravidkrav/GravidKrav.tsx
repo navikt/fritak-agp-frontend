@@ -127,10 +127,11 @@ export const GravidKrav = () => {
                   </Label>
                 </Column>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='fra dato'>
+                  <Label htmlFor='til-dato'>
                     Til dato
                     <Flatpickr
                       name='Til dato'
+                      id='til-dato'
                       placeholder='dd.mm.yyyy'
                       // value={tilDato}
                       className={'periodeinput-input  skjemaelement__input'}
