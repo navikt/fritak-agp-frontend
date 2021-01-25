@@ -100,7 +100,7 @@ export const GravidKrav = () => {
                     className={'periodeinput-input  skjemaelement__input'}
                     options={{
                       maxDate: dayjs(new Date()).toDate(),
-                      mode: 'range',
+                      mode: 'single',
                       enableTime: false,
                       dateFormat: 'd.m.Y',
                       altInput: true,
@@ -123,7 +123,7 @@ export const GravidKrav = () => {
                     className={'periodeinput-input  skjemaelement__input'}
                     options={{
                       maxDate: dayjs(new Date()).toDate(),
-                      mode: 'range',
+                      mode: 'single',
                       enableTime: false,
                       dateFormat: 'd.m.Y',
                       altInput: true,
