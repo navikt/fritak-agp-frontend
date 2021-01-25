@@ -17,6 +17,7 @@ import './GravidKrav.scss';
 import 'flatpickr/dist/themes/material_green.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import dayjs from 'dayjs';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 
 export const GravidKrav = () => {
   const state = {
@@ -86,7 +87,18 @@ export const GravidKrav = () => {
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
             <Systemtittel className='krav-padding-bottom'>Tapt arbeidstid</Systemtittel>
-            <Ingress className='krav-padding-bottom'>Hvilken periode var den ansatte borte?</Ingress>
+            <Ingress className='krav-padding-bottom'>
+              Hvilken periode var den ansatte borte?
+              <Hjelpetekst className='krav-padding-hjelpetekst'>
+                <ul>
+                  <li>Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.</li>
+                  <li>
+                    Du må velge <strong>både</strong> første og siste dag. Er fraværet bare på én dag, velger du samme
+                    dag to ganger.
+                  </li>
+                </ul>
+              </Hjelpetekst>
+            </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
@@ -138,10 +150,38 @@ export const GravidKrav = () => {
                   />
                 </Column>
                 <Column sm='3' xs='6'>
-                  <Input label='Antall dager' inputMode='numeric' pattern='[0-9]*' />
+                  <Label htmlFor='antall-dager'>
+                    Antall dager
+                    <Hjelpetekst className='krav-padding-hjelpetekst'>
+                      Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
+                    </Hjelpetekst>
+                  </Label>
+                  <Input id='antall-dager' inputMode='numeric' pattern='[0-9]*' />
                 </Column>
                 <Column sm='3' xs='6'>
-                  <Input label='Beløp' inputMode='numeric' pattern='[0-9]*' placeholder='Kr:' />
+                  <Label htmlFor='belop'>
+                    Beløp
+                    <Hjelpetekst className='krav-padding-hjelpetekst'>
+                      <Systemtittel>Slik finner dere beløpet dere kan kreve:</Systemtittel>
+                      <ul>
+                        <li>
+                          Merk: Beløpet er før skatt, og det skal være uten feriepenger og arbeidsgiveravgift. Det
+                          beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste
+                          år.
+                        </li>
+                        <li>
+                          Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt
+                          lønn. Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
+                        </li>
+                        <li>Beregn månedsinntekten slik det ellers gjøres for sykepenger i arbeidsgiverperioden.</li>
+                        <li>Gang med 12 måneder for å finne årslønnen.</li>
+                        <li>Reduser beløpet til 6G hvis beløpet er over dette.</li>
+                        <li>Finn dagsatsen ved å dele årslønnen på antall dager dere utbetaler lønn for i året.</li>
+                        <li>Gang dagsatsen med antall dager dere krever refusjon for.</li>
+                      </ul>
+                    </Hjelpetekst>
+                  </Label>
+                  <Input id='belop' inputMode='numeric' pattern='[0-9]*' placeholder='Kr:' />
                 </Column>
               </Row>
             </SkjemaGruppe>
