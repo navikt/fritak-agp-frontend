@@ -102,52 +102,53 @@ export const GravidKrav = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='fra dato'>
-                    <div style={{ display: 'flex' }}>Fra dato</div>
+                  <Label htmlFor='fra-dato'>
+                    Fra dato
+                    <Flatpickr
+                      id='fra-dato'
+                      name='Fra dato'
+                      placeholder='dd.mm.yyyy'
+                      // value={fraDato}
+                      className={'periodeinput-input  skjemaelement__input'}
+                      options={{
+                        maxDate: dayjs(new Date()).toDate(),
+                        minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
+                        mode: 'single',
+                        enableTime: false,
+                        dateFormat: 'd.m.Y',
+                        altInput: true,
+                        altFormat: 'd.m.Y',
+                        locale: Norwegian,
+                        allowInput: true,
+                        clickOpens: true
+                        // onClose: (date) =>  setFraDato
+                      }}
+                    />
                   </Label>
-                  <Flatpickr
-                    name='Fra dato'
-                    placeholder='dd.mm.yyyy'
-                    // value={fraDato}
-                    className={'periodeinput-input  skjemaelement__input'}
-                    options={{
-                      maxDate: dayjs(new Date()).toDate(),
-                      minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
-                      mode: 'single',
-                      enableTime: false,
-                      dateFormat: 'd.m.Y',
-                      altInput: true,
-                      altFormat: 'd.m.Y',
-                      locale: Norwegian,
-                      allowInput: true,
-                      clickOpens: true
-                      // onClose: (date) =>  setFraDato
-                    }}
-                  />
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='fra dato'>
-                    <div style={{ display: 'flex' }}>Til dato</div>
+                    Til dato
+                    <Flatpickr
+                      name='Til dato'
+                      placeholder='dd.mm.yyyy'
+                      // value={tilDato}
+                      className={'periodeinput-input  skjemaelement__input'}
+                      options={{
+                        maxDate: dayjs(new Date()).toDate(),
+                        minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
+                        mode: 'single',
+                        enableTime: false,
+                        dateFormat: 'd.m.Y',
+                        altInput: true,
+                        altFormat: 'd.m.Y',
+                        locale: Norwegian,
+                        allowInput: true,
+                        clickOpens: true
+                        // onClose: (date) =>  setTilDato
+                      }}
+                    />
                   </Label>
-                  <Flatpickr
-                    name='Til dato'
-                    placeholder='dd.mm.yyyy'
-                    // value={tilDato}
-                    className={'periodeinput-input  skjemaelement__input'}
-                    options={{
-                      maxDate: dayjs(new Date()).toDate(),
-                      minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
-                      mode: 'single',
-                      enableTime: false,
-                      dateFormat: 'd.m.Y',
-                      altInput: true,
-                      altFormat: 'd.m.Y',
-                      locale: Norwegian,
-                      allowInput: true,
-                      clickOpens: true
-                      // onClose: (date) =>  setTilDato
-                    }}
-                  />
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='antall-dager'>
