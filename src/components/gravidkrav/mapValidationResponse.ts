@@ -16,6 +16,31 @@ export const mapFeilmeldinger = (response: ValidationResponse, state: GravidKrav
         feilmeldinger.push(lagFeil('fnr', v.message));
         break;
 
+      case 'fra':
+        state.fraError = v.message;
+        feilmeldinger.push(lagFeil('fra', v.message));
+        break;
+
+      case 'til':
+        state.tilError = v.message;
+        feilmeldinger.push(lagFeil('til', v.message));
+        break;
+
+      case 'dager':
+        state.dagerError = v.message;
+        feilmeldinger.push(lagFeil('dager', v.message));
+        break;
+
+      case 'beloep':
+        state.beloepError = v.message;
+        feilmeldinger.push(lagFeil('beloep', v.message));
+        break;
+
+      case 'bekreft':
+        state.bekreftError = v.message;
+        feilmeldinger.push(lagFeil('bekreft', v.message));
+        break;
+
       case 'dokumentasjon':
         state.dokumentasjonError = v.message;
         feilmeldinger.push(lagFeil('dokumentasjon', v.message));
