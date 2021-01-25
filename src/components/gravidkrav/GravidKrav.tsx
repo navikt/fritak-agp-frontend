@@ -1,5 +1,5 @@
 import React from 'react';
-import { EtikettLiten, Ingress, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { EtikettLiten, Ingress, Innholdstittel, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import SideIndentering from '../SideIndentering';
