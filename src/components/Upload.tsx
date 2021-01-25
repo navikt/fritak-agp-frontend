@@ -11,6 +11,7 @@ interface UploadProps {
   fileSize?: number;
   onChange: (file?: File) => void;
   onDelete: () => void;
+  className?: string;
 }
 
 const Upload = (props: UploadProps) => {
@@ -22,11 +23,7 @@ const Upload = (props: UploadProps) => {
       const file = event.target.files[0];
       if (file.size > MAX_SIZE) {
         setFilnavn(props.label);
-        setFeilmelding(
-          'Filen er for stor. (Maks tillatt størrelse er ' +
-            formatFilesize(MAX_SIZE) +
-            ')'
-        );
+        setFeilmelding('Filen er for stor. (Maks tillatt størrelse er ' + formatFilesize(MAX_SIZE) + ')');
       } else {
         setFilnavn(file.name);
         setFeilmelding('');
@@ -40,9 +37,11 @@ const Upload = (props: UploadProps) => {
     setFilnavn(props.label);
     props.onDelete();
   };
+
+  const cssStyling = props.className ? `knapp upload-filknapp ${props.className}` : 'knapp upload-filknapp';
   return (
     <div>
-      <label className='knapp upload-filknapp'>
+      <label className={cssStyling}>
         <input
           className='upload-fileinput'
           type='file'

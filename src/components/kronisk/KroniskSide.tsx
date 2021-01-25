@@ -113,11 +113,11 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel id='kroniskside-panel-ansatte'>
-            <Systemtittel>Den ansatte</Systemtittel>
-            <br />
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
+                  <Systemtittel>Den ansatte</Systemtittel>
+                  <br />
                   <Fnr
                     label='Fødselsnummer (11 siffer)'
                     fnr={state.fnr}
@@ -128,6 +128,8 @@ const KroniskSide = () => {
                   />
                 </Column>
                 <Column sm='4' xs='6'>
+                  <Systemtittel>Arbeidsgiveren</Systemtittel>
+                  <br />
                   <Orgnr
                     label='Organisasjonsnummer'
                     orgnr={state.orgnr}
@@ -158,7 +160,6 @@ const KroniskSide = () => {
                 <li>om vi kan hjelpe til med noe, slik at den ansatte kan stå i jobben</li>
                 <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
               </ul>
-              <br />
               <CheckboxGruppe
                 legend='Hva slags arbeid utfører den ansatte?'
                 feil={state.arbeidError}
@@ -266,6 +267,7 @@ const KroniskSide = () => {
               <br />
               <Normaltekst>NAV vil selv innhente dokumentasjon fra legen hvis det er nødvendig.</Normaltekst>
               <Upload
+                className='knapp-innsending-top'
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
                 extensions='.pdf'

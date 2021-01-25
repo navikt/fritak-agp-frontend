@@ -135,11 +135,11 @@ const GravidSide = (props: GravidSideProps) => {
             <Skillelinje />
 
             <Panel id='gravidside-panel-ansatte'>
-              <Systemtittel>Den ansatte</Systemtittel>
-              <br />
               <SkjemaGruppe aria-live='polite'>
                 <Row>
                   <Column sm='4' xs='6'>
+                    <Systemtittel>Den ansatte</Systemtittel>
+                    <br />
                     <Fnr
                       label='Fødselsnummer (11 siffer)'
                       fnr={state.fnr}
@@ -155,6 +155,8 @@ const GravidSide = (props: GravidSideProps) => {
                     />
                   </Column>
                   <Column sm='4' xs='6'>
+                    <Systemtittel>Arbeidsgiveren</Systemtittel>
+                    <br />
                     <Orgnr
                       label='Organisasjonsnummer'
                       orgnr={state.orgnr}
@@ -355,6 +357,7 @@ const GravidSide = (props: GravidSideProps) => {
                       sykmelding at det er svangerskapet som er årsaken til fraværet.
                     </Normaltekst>
                     <Upload
+                      className='knapp-innsending-top'
                       id='upload'
                       label='Last opp dokumentasjon (valgfritt)'
                       extensions='.pdf'
