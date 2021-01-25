@@ -100,6 +100,7 @@ export const GravidKrav = () => {
                     className={'periodeinput-input  skjemaelement__input'}
                     options={{
                       maxDate: dayjs(new Date()).toDate(),
+                      minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
                       mode: 'single',
                       enableTime: false,
                       dateFormat: 'd.m.Y',
@@ -123,6 +124,7 @@ export const GravidKrav = () => {
                     className={'periodeinput-input  skjemaelement__input'}
                     options={{
                       maxDate: dayjs(new Date()).toDate(),
+                      minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
                       mode: 'single',
                       enableTime: false,
                       dateFormat: 'd.m.Y',
