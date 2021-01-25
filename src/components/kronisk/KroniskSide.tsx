@@ -10,6 +10,7 @@ import {
   SkjemaGruppe,
   Textarea
 } from 'nav-frontend-skjema';
+import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Skillelinje from '../Skillelinje';
 import SoknadTittel from '../SoknadTittel';
 import SideIndentering from '../SideIndentering';
@@ -156,7 +157,7 @@ const KroniskSide = () => {
               <Normaltekst>Vi spør først om dere har forsøkt å løse situasjonen på arbeidsplassen.</Normaltekst>
               <Normaltekst>Svaret deres brukes i to forskjellige vurderinger:</Normaltekst>
 
-              <ul className='kroniskside-tett-liste'>
+              <ul className='kroniskside-tett-liste typo-normal'>
                 <li>om vi kan hjelpe til med noe, slik at den ansatte kan stå i jobben</li>
                 <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
               </ul>
@@ -259,12 +260,11 @@ const KroniskSide = () => {
             <Systemtittel>Hvis dere har fått dokumentasjon fra den ansatte</Systemtittel>
             <br />
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
-              <Normaltekst>
+              <Tekstomrade className='krav-padding-bottom' rules={[BoldRule, ParagraphRule]}>
                 Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt
-                dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. Vi tar
-                kun imot .pdf.
-              </Normaltekst>
-              <br />
+                dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. _For
+                tiden støtter vi kun filformatet .pdf._
+              </Tekstomrade>
               <Normaltekst>NAV vil selv innhente dokumentasjon fra legen hvis det er nødvendig.</Normaltekst>
               <Upload
                 className='knapp-innsending-top'

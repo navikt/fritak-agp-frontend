@@ -12,6 +12,7 @@ import {
   SkjemaGruppe,
   Textarea
 } from 'nav-frontend-skjema';
+import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Skillelinje from '../Skillelinje';
@@ -105,7 +106,7 @@ const GravidSide = (props: GravidSideProps) => {
     state.orgnr
   ]);
   return (
-    <Row>
+    <Row className='gravid-side'>
       <Column>
         <SoknadTittel>Søknad om at NAV dekker sykepenger i arbeidsgiverperioden</SoknadTittel>
 
@@ -185,7 +186,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Normaltekst>Vi spør først om dere har forsøkt å løse situasjonen på arbeidsplassen.</Normaltekst>
                     <Normaltekst>Svaret deres brukes i to forskjellige vurderinger:</Normaltekst>
 
-                    <ul className='gravidside-tett-liste'>
+                    <ul className='gravidside-tett-liste typo-normal'>
                       <li>om vi kan hjelpe til med noe, slik at den ansatte kan stå i jobben</li>
                       <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
                     </ul>
@@ -346,12 +347,11 @@ const GravidSide = (props: GravidSideProps) => {
                     feilmeldingId='dokumentasjonFeilmeldingId'
                     aria-live='polite'
                   >
-                    <Normaltekst>
+                    <Tekstomrade className='krav-padding-bottom' rules={[BoldRule, ParagraphRule]}>
                       Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har
                       gitt dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp
-                      her. Vi tar kun imot .pdf.
-                    </Normaltekst>
-                    <br />
+                      her. _For tiden støtter vi kun filformatet .pdf._
+                    </Tekstomrade>
                     <Normaltekst>
                       NAV kan også selv innhente dokumentasjon fra legen hvis det ikke allerede går klart fram av en
                       sykmelding at det er svangerskapet som er årsaken til fraværet.
