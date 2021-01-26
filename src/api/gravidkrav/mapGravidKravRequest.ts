@@ -7,7 +7,8 @@ export const mapGravidKravRequest = (
   dager: number | undefined,
   beloep: number | undefined,
   dokumentasjon: string | undefined,
-  bekreft: boolean | undefined
+  bekreft: boolean | undefined,
+  virksomhetsnummer: string | undefined
 ): GravidKravRequest => {
   if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
@@ -27,6 +28,7 @@ export const mapGravidKravRequest = (
   if (!bekreft) {
     throw new Error('Bekreft må spesifiseres');
   }
+
   return {
     identitetsnummer: fnr,
     virksomhetsnummer: '',

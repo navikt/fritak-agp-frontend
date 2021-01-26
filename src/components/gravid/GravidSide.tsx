@@ -135,7 +135,7 @@ const GravidSide = (props: GravidSideProps) => {
 
             <Skillelinje />
 
-            <Panel id='gravidside-panel-ansatte'>
+            <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
               <SkjemaGruppe aria-live='polite'>
                 <Row>
                   <Column sm='4' xs='6'>

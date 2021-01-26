@@ -14,8 +14,22 @@
         margin-top: 1rem;
     }
 
-    #gravidside-panel-ansatte {
-        padding-bottom: 0;
+    .gravidside-panel-ansatte {
+        padding-bottom: 0.5rem;
+    }
+
+    .gravid-side-radiogruppe-omplassering {
+        > .skjemagruppe.radiogruppe {
+            margin-bottom: 0;
+
+            .skjemagruppe.radiogruppe {
+                margin-bottom: 0;
+
+                &.gravideside-radiogruppe-indentert  .skjemaelement:nth-child(4) {
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 
     .gravidside-lenke-knapp,
@@ -31,5 +45,9 @@
 
     .gravideside-radiogruppe-indentert {
         margin-left: 1rem !important;
+    }
+
+    .upload-filknapp {
+        margin-bottom: 0;
     }
 }

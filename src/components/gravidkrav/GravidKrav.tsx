@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { EtikettLiten, Ingress, Innholdstittel, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
@@ -18,28 +18,24 @@ import 'flatpickr/dist/themes/material_green.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import dayjs from 'dayjs';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import GravidKravProps from './GravidKravProps';
+import GravidKravReducer from './GravidKravReducer';
+import { defaultGravidKravState } from './GravidKravState';
+import { Actions } from './Actions';
+import getBase64file from '../../utils/getBase64File';
 
-export const GravidKrav = () => {
-  const state = {
-    fnr: '',
-    fnrError: undefined,
-    dokumentasjonError: undefined,
-    accessDenied: false,
-    bekreft: false,
-    bekreftError: undefined,
-    feilmeldinger: [],
-    progress: false
-  };
+export const GravidKrav = (props: GravidKravProps) => {
+  const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
 
   const handleLoggedoutModalClosing = () => {
-    // dispatch({ type: Actions.CloseLoggedoutModal });
+    dispatch({ type: Actions.CloseLoggedoutModal });
   };
 
   const handleUploadChanged = (file?: File) => {
     if (file) {
-      // getBase64file(file).then((base64encoded: any) => {
-      //   dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
-      // });
+      getBase64file(file).then((base64encoded: any) => {
+        dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
+      });
     }
   };
 
@@ -223,12 +219,12 @@ export const GravidKrav = () => {
                 label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
                 checked={state.bekreft || false}
                 feil={state.bekreftError}
-                onChange={() => {}}
-                //   dispatch({
-                //     type: Actions.Bekreft,
-                //     payload: { bekreft: !state.bekreft }
-                //   })
-                // }
+                onChange={() =>
+                  dispatch({
+                    type: Actions.Bekreft,
+                    payload: { bekreft: !state.bekreft }
+                  })
+                }
               >
                 Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis
                 opplysningene ikke er riktige eller fullstendige.
