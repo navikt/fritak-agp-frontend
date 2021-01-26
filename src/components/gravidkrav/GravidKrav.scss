@@ -1,7 +1,18 @@
-.krav-padding-bottom {
-    padding-bottom: 1rem;
-}
+.gravidkrav {
+    .krav-padding-bottom {
+        padding-bottom: 1rem;
+    }
+    
+    .krav-padding-hjelpetekst {
+        margin-left: 1rem;
+    }
 
-.krav-padding-hjelpetekst {
-    margin-left: 1rem;
+    .datoelement {
+        width: 100%;
+    }
+
+    .gravidkrav-datolabel {
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+    }
 }

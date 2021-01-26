@@ -48,7 +48,7 @@ export const GravidKrav = () => {
   const handleDelete = () => {};
 
   return (
-    <Row>
+    <Row className='gravidkrav'>
       <Column>
         <Panel className='panel--heading'>
           <EtikettLiten>GRAVID ANSATT</EtikettLiten>
@@ -103,13 +103,13 @@ export const GravidKrav = () => {
               <Row>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='fra-dato'>
-                    Fra dato
+                    <div className='gravidkrav-datolabel'>Fra dato</div>
                     <Flatpickr
                       id='fra-dato'
                       name='Fra dato'
                       placeholder='dd.mm.yyyy'
                       // value={fraDato}
-                      className={'periodeinput-input  skjemaelement__input'}
+                      className={'periodeinput-input  skjemaelement__input datoelement'}
                       options={{
                         maxDate: dayjs(new Date()).toDate(),
                         minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
@@ -128,13 +128,13 @@ export const GravidKrav = () => {
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='til-dato'>
-                    Til dato
+                    <div className='gravidkrav-datolabel'>Til dato</div>
                     <Flatpickr
                       name='Til dato'
                       id='til-dato'
                       placeholder='dd.mm.yyyy'
                       // value={tilDato}
-                      className={'periodeinput-input  skjemaelement__input'}
+                      className={'periodeinput-input  skjemaelement__input datoelement'}
                       options={{
                         maxDate: dayjs(new Date()).toDate(),
                         minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
