@@ -3,6 +3,7 @@ import ValidationResponse from '../../api/ValidationResponse';
 export enum Actions {
   Reset,
   Fnr,
+  Orgnr,
   Fra,
   Til,
   Dager,
@@ -17,6 +18,7 @@ export enum Actions {
 
 export interface Payload {
   fnr?: string;
+  orgnr?: string;
   fra?: string;
   til?: string;
   dager?: number;

@@ -11,6 +11,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidAction): Gravid
       nextState.fnr = payload?.fnr;
       return validateGravidKrav(nextState);
 
+    case Actions.Orgnr:
+      nextState.orgnr = payload?.orgnr;
+      return validateGravidKrav(nextState);
+
     case Actions.Fra:
       nextState.fra = payload?.fra;
       return validateGravidKrav(nextState);

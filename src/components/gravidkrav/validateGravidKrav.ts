@@ -29,6 +29,10 @@ export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
     pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);
   }
 
+  if (nextState.orgnrError) {
+    pushFeilmelding('orgnr', 'Virksomhetsnummer må fylles ut', feilmeldinger);
+  }
+
   if (nextState.fraError) {
     pushFeilmelding('fra', 'Fra dato må fylles ut', feilmeldinger);
   }

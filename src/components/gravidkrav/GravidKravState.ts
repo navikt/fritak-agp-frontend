@@ -16,6 +16,8 @@ export const defaultGravidKravState = (state?: GravidKravState): GravidKravState
 export default interface GravidKravState extends ValidationState {
   fnr?: string;
   fnrError?: string;
+  orgnr?: string;
+  orgnrError?: string;
   fra?: string;
   fraError?: string;
   til?: string;
