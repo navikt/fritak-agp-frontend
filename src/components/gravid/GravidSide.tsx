@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import {
   BekreftCheckboksPanel,
   Checkbox,

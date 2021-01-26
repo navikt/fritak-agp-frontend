@@ -2,7 +2,7 @@ export interface GravidKravRequest {
   identitetsnummer: string;
   periode: Arbeidsgiverperiode;
   bekreftet: boolean;
-  dokumentasjon?: String;
+  dokumentasjon?: string;
 }
 
 export interface Arbeidsgiverperiode {
