@@ -18,13 +18,11 @@ export const FravaerInput = (props: FravaerInputProps) => {
   const feilOppsummering = validerFravaerMaaned(props.year, props.month, dager);
   const stringDager = !dager ? '' : '' + dager;
   const feil = feilOppsummering?.feilmelding || '';
-  const month = `00${props.month}`.substr(-2);
 
   return (
     <Input
       label={months[props.month] + ' ' + props.year}
       id={props.month + '-' + props.year}
-      tabIndex={+`${props.year}${month}`}
       feil={feil}
       value={stringDager}
       onChange={(event) => {
