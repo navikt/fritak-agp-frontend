@@ -54,13 +54,18 @@ export const mapValidationResponse = (response: ValidationResponse, state: Gravi
   const nextState = Object.assign({}, state);
   switch (response.status) {
     case 201:
-      return map201(nextState);
+      map201(nextState);
+      break;
     case 401:
-      return map401(nextState);
+      map401(nextState);
+      break;
     case 422:
       nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
-      return map422(nextState);
+      map422(nextState);
+      break;
     default:
-      return mapDefault(nextState);
+      mapDefault(nextState);
+      break;
   }
+  return nextState;
 };

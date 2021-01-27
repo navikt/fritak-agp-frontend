@@ -7,6 +7,7 @@ import { validateFra } from './validateFra';
 import { validateTil } from './validateTil';
 import { validateDager } from './validateDager';
 import { validateBeloep } from './validateBeloep';
+import { validateOrgnr } from '../../utils/validateOrgnr';
 
 export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   if (!state.validated) {
@@ -20,6 +21,7 @@ export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   if (state.fnr && !isValidFnr(state.fnr)) {
     nextState.fnrError = 'Ugyldig fødselsnummer';
   }
+  nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.fraError = validateFra(state.fra, state.validated);
   nextState.tilError = validateTil(state.til, state.fra, state.validated);
   nextState.dagerError = validateDager(state.dager, state.validated);

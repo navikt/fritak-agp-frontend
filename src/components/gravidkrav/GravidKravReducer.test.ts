@@ -57,7 +57,7 @@ describe('GravidKravReducer', () => {
       type: Actions.Fra,
       payload: { fra: '456' }
     });
-    expect(state.fra).toEqual('456');
+    expect(state.fra?.value).toEqual('456');
   });
 
   it('should set the til', () => {
@@ -65,7 +65,7 @@ describe('GravidKravReducer', () => {
       type: Actions.Til,
       payload: { til: '123' }
     });
-    expect(state.til).toEqual('123');
+    expect(state.til?.value).toEqual('123');
   });
 
   it('should set the dager', () => {

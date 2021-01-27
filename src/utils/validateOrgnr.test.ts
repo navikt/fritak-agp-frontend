@@ -1,10 +1,11 @@
 import { validateOrgnr } from './validateOrgnr';
 
 describe('validateOrgnr', () => {
+  it('should not give error when valid fnr', async () => {
+    expect(validateOrgnr('917404437', true)).toBeUndefined();
+  });
   it('should give error when undefined value and required', async () => {
-    expect(validateOrgnr(undefined, true)).toEqual(
-      'Mangler organisasjonsnummer'
-    );
+    expect(validateOrgnr(undefined, true)).toEqual('Mangler organisasjonsnummer');
   });
   it('should give error when empty value and required', async () => {
     expect(validateOrgnr('', true)).toEqual('Mangler organisasjonsnummer');

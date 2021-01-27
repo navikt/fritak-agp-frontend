@@ -2,6 +2,7 @@ import { Actions, GravidAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import { mapValidationResponse } from './mapValidationResponse';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
+import { parseDato } from '../../utils/Dato';
 
 const GravidKravReducer = (state: GravidKravState, action: GravidAction): GravidKravState => {
   const nextState = Object.assign({}, state);
@@ -16,11 +17,11 @@ const GravidKravReducer = (state: GravidKravState, action: GravidAction): Gravid
       return validateGravidKrav(nextState);
 
     case Actions.Fra:
-      nextState.fra = payload?.fra;
+      nextState.fra = parseDato(payload?.fra || '');
       return validateGravidKrav(nextState);
 
     case Actions.Til:
-      nextState.til = payload?.til;
+      nextState.til = parseDato(payload?.til || '');
       return validateGravidKrav(nextState);
 
     case Actions.Dager:

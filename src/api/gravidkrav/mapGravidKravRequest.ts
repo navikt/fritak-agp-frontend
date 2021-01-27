@@ -2,6 +2,7 @@ import { Arbeidsgiverperiode, GravidKravRequest } from './GravidKravRequest';
 
 export const mapGravidKravRequest = (
   fnr: string | undefined,
+  orgnr: string | undefined,
   fra: string | undefined,
   til: string | undefined,
   dager: number | undefined,
@@ -11,6 +12,9 @@ export const mapGravidKravRequest = (
 ): GravidKravRequest => {
   if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
+  }
+  if (orgnr === undefined) {
+    throw new Error('Orgnr må spesifiseres');
   }
   if (fra === undefined) {
     throw new Error('Fra må spesifiseres');
@@ -29,7 +33,7 @@ export const mapGravidKravRequest = (
   }
   return {
     identitetsnummer: fnr,
-    virksomhetsnummer: '',
+    virksomhetsnummer: orgnr,
     periode: {
       fom: fra,
       tom: til,

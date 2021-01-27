@@ -1,10 +1,7 @@
-export const validateTil = (
-  fra: string | undefined,
-  til: string | undefined,
-  required: boolean
-): string | undefined => {
-  if (til == undefined || til == '') {
-    return required ? 'Mangler til dato' : undefined;
+import { Dato } from '../../utils/Dato';
+
+export const validateTil = (til: Dato, fra: Dato, required: boolean): string | undefined => {
+  if (til.error) {
+    return required ? til.error : undefined;
   }
-  return til == undefined ? 'Må fylles ut' : '';
 };
