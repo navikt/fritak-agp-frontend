@@ -32,16 +32,27 @@ export const GravidKrav = (props: GravidKravProps) => {
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
-        dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
+        dispatch({
+          type: Actions.Dokumentasjon,
+          payload: {
+            dokumentasjon: base64encoded
+          }
+        });
       });
     }
+  };
+  const handleDelete = () => {
+    dispatch({
+      type: Actions.Dokumentasjon,
+      payload: {
+        dokumentasjon: undefined
+      }
+    });
   };
 
   const handleSubmitClicked = async () => {
     dispatch({ type: Actions.Validate });
   };
-
-  const handleDelete = () => {};
 
   return (
     <Row className='gravidkrav'>
@@ -72,7 +83,12 @@ export const GravidKrav = (props: GravidKravProps) => {
                     placeholder='11 siffer'
                     feilmelding={state.fnrError}
                     onValidate={() => {}}
-                    onChange={() => {}}
+                    onChange={(fnr: string) =>
+                      dispatch({
+                        type: Actions.Fnr,
+                        payload: { fnr: fnr }
+                      })
+                    }
                   />
                 </Column>
               </Row>
@@ -110,7 +126,19 @@ export const GravidKrav = (props: GravidKravProps) => {
                       Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
                     </Hjelpetekst>
                   </Label>
-                  <Input id='antall-dager' inputMode='numeric' pattern='[0-9]*' />
+                  <Input
+                    id='antall-dager'
+                    inputMode='numeric'
+                    pattern='[0-9]*'
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      dispatch({
+                        type: Actions.Dager,
+                        payload: {
+                          dager: Number(event.currentTarget.value)
+                        }
+                      })
+                    }
+                  />
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='belop'>
@@ -135,7 +163,20 @@ export const GravidKrav = (props: GravidKravProps) => {
                       </ul>
                     </Hjelpetekst>
                   </Label>
-                  <Input id='belop' inputMode='numeric' pattern='[0-9]*' placeholder='Kr:' />
+                  <Input
+                    id='belop'
+                    inputMode='numeric'
+                    pattern='[0-9]*'
+                    placeholder='Kr:'
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      dispatch({
+                        type: Actions.Beloep,
+                        payload: {
+                          beloep: event.currentTarget.value
+                        }
+                      })
+                    }
+                  />
                 </Column>
               </Row>
             </SkjemaGruppe>
