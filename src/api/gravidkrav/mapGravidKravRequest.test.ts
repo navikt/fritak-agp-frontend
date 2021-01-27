@@ -93,6 +93,21 @@ describe('mapGravidKravRequest', () => {
     }).toThrowError();
   });
 
+  it('should throw error when empty dokumentasjon', () => {
+    expect(() => {
+      mapGravidKravRequest(
+        '123',
+        '123',
+        parseDato('01.02.2020'),
+        parseDato('02.04.2025'),
+        2,
+        555,
+        'dokumentasjon',
+        true
+      );
+    }).not.toThrowError();
+  });
+
   it('should throw error when empty bekreft', () => {
     expect(() => {
       mapGravidKravRequest(

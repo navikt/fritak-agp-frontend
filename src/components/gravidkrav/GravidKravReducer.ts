@@ -17,11 +17,17 @@ const GravidKravReducer = (state: GravidKravState, action: GravidAction): Gravid
       return validateGravidKrav(nextState);
 
     case Actions.Fra:
-      nextState.fra = parseDato(payload?.fra || '');
+      if (payload?.fra === undefined) {
+        throw new Error('Fra dato må spesifiseres');
+      }
+      nextState.fra = parseDato(payload?.fra);
       return validateGravidKrav(nextState);
 
     case Actions.Til:
-      nextState.til = parseDato(payload?.til || '');
+      if (payload?.til === undefined) {
+        throw new Error('Til dato må spesifiseres');
+      }
+      nextState.til = parseDato(payload?.til);
       return validateGravidKrav(nextState);
 
     case Actions.Dager:
