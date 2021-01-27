@@ -55,7 +55,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   };
 
   const handleSubmitClicked = async () => {
-    console.log(state);
     dispatch({ type: Actions.Validate });
   };
 
