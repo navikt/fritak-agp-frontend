@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { EtikettLiten, Ingress, Innholdstittel, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
@@ -18,18 +18,13 @@ import 'flatpickr/dist/themes/material_green.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import dayjs from 'dayjs';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import GravidKravProps from './GravidKravProps';
+import GravidKravReducer from './GravidKravReducer';
+import { defaultGravidKravState } from './GravidKravState';
+import { Actions } from './Actions';
 
-export const GravidKrav = () => {
-  const state = {
-    fnr: '',
-    fnrError: undefined,
-    dokumentasjonError: undefined,
-    accessDenied: false,
-    bekreft: false,
-    bekreftError: undefined,
-    feilmeldinger: [],
-    progress: false
-  };
+export const GravidKrav = (props: GravidKravProps) => {
+  const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
 
   const handleLoggedoutModalClosing = () => {
     // dispatch({ type: Actions.CloseLoggedoutModal });
@@ -43,7 +38,9 @@ export const GravidKrav = () => {
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmitClicked = async () => {
+    dispatch({ type: Actions.Validate });
+  };
 
   const handleDelete = () => {};
 
@@ -244,7 +241,7 @@ export const GravidKrav = () => {
           )}
 
           <Panel>
-            <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
+            <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
               Send søknad
             </Hovedknapp>
           </Panel>
