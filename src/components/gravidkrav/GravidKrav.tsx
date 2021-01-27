@@ -211,7 +211,6 @@ export const GravidKrav = () => {
                 extensions='.pdf'
                 onChange={handleUploadChanged}
                 onDelete={handleDelete}
-                fileSize={250000}
               />
             </SkjemaGruppe>
           </Panel>
