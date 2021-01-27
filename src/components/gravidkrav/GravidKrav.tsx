@@ -14,6 +14,7 @@ import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { Link } from 'react-router-dom';
 import lenker from '../lenker';
 import './GravidKrav.scss';
+import '../felles/FellesStyling.scss';
 import 'flatpickr/dist/themes/material_green.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import dayjs from 'dayjs';
@@ -202,6 +203,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             </Tekstomrade>
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
               <Upload
+                className='knapp-innsending-top'
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
                 extensions='.pdf'

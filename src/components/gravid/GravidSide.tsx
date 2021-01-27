@@ -24,7 +24,6 @@ import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
 import GravidKvittering from './GravidKvittering';
-import GravidFeil from './GravidFeil';
 import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../Orgnr';
 import GravidSideProps from './GravidSideProps';
