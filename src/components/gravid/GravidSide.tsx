@@ -363,7 +363,6 @@ const GravidSide = (props: GravidSideProps) => {
                       extensions='.pdf'
                       onChange={handleUploadChanged}
                       onDelete={handleDelete}
-                      fileSize={250000}
                     />
                   </SkjemaGruppe>
                 </Panel>

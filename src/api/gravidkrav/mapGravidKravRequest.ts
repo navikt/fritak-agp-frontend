@@ -29,6 +29,7 @@ export const mapGravidKravRequest = (
   }
   return {
     identitetsnummer: fnr,
+    virksomhetsnummer: '',
     periode: {
       fom: fra,
       tom: til,
