@@ -38,10 +38,9 @@ const Upload = (props: UploadProps) => {
     props.onDelete();
   };
 
-  const cssStyling = props.className ? `knapp upload-filknapp ${props.className}` : 'knapp upload-filknapp';
   return (
-    <div>
-      <label className={cssStyling}>
+    <div className={props.className}>
+      <label className='knapp upload-filknapp'>
         <input
           className='upload-fileinput'
           type='file'
@@ -53,13 +52,13 @@ const Upload = (props: UploadProps) => {
         {props.label}
       </label>
       {filnavn !== props.label && (
-        <>
-          <b className='upload-delete'>Lastet opp: </b>
+        <div className='upload-deletewrapper'>
+          <strong className='upload-delete'>Lastet opp: </strong>
           <div className='upload-filnavn'>{filnavn}</div>
           <Flatknapp onKeyDown={handleDelete} onClick={handleDelete}>
             Slett
           </Flatknapp>
-        </>
+        </div>
       )}
       {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
     </div>
