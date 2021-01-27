@@ -227,7 +227,7 @@ const GravidSide = (props: GravidSideProps) => {
                 <Row>
                   <Column sm='8' xs='12'>
                     <CheckboxGruppe
-                      legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
+                      legend='Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe?'
                       feil={state.tiltakError}
                       feilmeldingId='tiltakFeilmeldingId'
                     >
