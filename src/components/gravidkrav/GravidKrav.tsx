@@ -154,10 +154,20 @@ export const GravidKrav = (props: GravidKravProps) => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
-                  <DatoVelger id='fra-dato' label='Fra dato' onChange={() => {}}></DatoVelger>
+                  <DatoVelger label='Fra dato' onChange={(fraDato: Date) => {
+                    dispatch({
+                      type: Actions.Fra,
+                      payload: { fra: fraDato ? fraDato : undefined }
+                    })
+                  }}></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
-                  <DatoVelger id='til-dato' label='Til dato' onChange={() => {}}></DatoVelger>
+                  <DatoVelger label='Til dato' onChange={(tilDate: Date) => {
+                    dispatch({
+                      type: Actions.Til,
+                      payload: { til: tilDate ? tilDate : undefined }
+                    })
+                  }}></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='antall-dager'>
