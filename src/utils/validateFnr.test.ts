@@ -1,5 +1,7 @@
 import { validateFnr } from './validateFnr';
 
+import testFnr from '../mockData/testFnr';
+
 describe('validateFnr', () => {
   it('should give error when undefined value and required', async () => {
     expect(validateFnr(undefined, true)).toEqual('Mangler fødselsnummer');
@@ -22,5 +24,10 @@ describe('validateFnr', () => {
   it('should not give error when not required and empty value', async () => {
     expect(validateFnr('', false)).toBeUndefined();
     expect(validateFnr('')).toBeUndefined();
+  });
+
+  it('should not give error when the fnr is valid and required', async () => {
+    expect(validateFnr(testFnr.GyldigeFraDolly.TestPerson1, true)).toBeUndefined();
+    expect(validateFnr(testFnr.GyldigeFraDolly.TestPerson1)).toBeUndefined();
   });
 });

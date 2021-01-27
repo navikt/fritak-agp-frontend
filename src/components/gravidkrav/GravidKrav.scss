@@ -1,8 +1,4 @@
 .gravidkrav {
-    .krav-padding-bottom {
-        padding-bottom: 1rem;
-    }
-    
     .krav-padding-hjelpetekst {
         margin-left: 1rem;
     }
@@ -14,5 +10,10 @@
     .gravidkrav-datolabel {
         margin-bottom: 0.5rem;
         margin-top: 0.5rem;
+    }
+
+    .gravidkrav-label-dato,
+    .skjemagruppe .skjemaelement {
+        margin-bottom: 0;
     }
 }

@@ -2,7 +2,7 @@ import { Aarsak } from './Aarsak';
 
 const AarsakCheckboxes = [
   {
-    label: 'Den ansatte motsetter seg omplassering',
+    label: 'Den ansatte ønsker ikke omplassering',
     value: Aarsak.MOTSETTER
   },
   {
@@ -14,8 +14,7 @@ const AarsakCheckboxes = [
     value: Aarsak.IKKE_ANDRE_OPPGAVER
   },
   {
-    label:
-      'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden',
+    label: 'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden',
     value: Aarsak.HELSETILSTANDEN
   }
 ];

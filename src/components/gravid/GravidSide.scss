@@ -6,16 +6,32 @@
         margin-bottom: 2rem;
     }
 
-    .gravidside-alert-gravid {
-        margin-top: 2rem;
+    .gravidside-panel-tiltak,
+    .gravidside-panel-arbeidssituasjon {
+        padding-bottom: 0;
     }
+
+    .skjemagruppe.radiogruppe.gravidside-radiogruppe-tilrettelegging {
+        margin-bottom: 0;
+    }
+
 
     .gravid-side-radiogruppe-omplassering {
         margin-top: 1rem;
     }
 
-    #gravidside-panel-ansatte {
-        padding-bottom: 0;
+    .gravidside-panel-ansatte {
+        padding-bottom: 0.5rem;
+    }
+
+    .gravid-side-radiogruppe-omplassering {
+        > .skjemagruppe.radiogruppe {
+            margin-bottom: 0;
+
+            .skjemagruppe.radiogruppe {
+                margin-bottom: 0;
+            }
+        }
     }
 
     .gravidside-lenke-knapp,

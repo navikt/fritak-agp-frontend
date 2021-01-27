@@ -23,10 +23,10 @@ describe('GravidSide', () => {
   const FODSELSNR = 'Fødselsnummer';
   const ORGANISASJONSNUMMER = 'Organisasjonsnummer';
   const TILRETTELEGGE = 'Har dere prøvd å tilrettelegge arbeidsdagen';
-  const TILTAK = 'Hvilke tiltak er forsøkt';
+  const TILTAK = 'Hvilke tiltak har dere forsøkt';
   const VIDERE = 'Dere må først ha prøvd å tilrettelegge for den gravide';
   const OMPLASSERING = 'Har dere forsøkt omplassering til en annen jobb';
-  const OMPLASSERING_AARSAK = 'Den ansatte motsetter seg omplassering';
+  const OMPLASSERING_AARSAK = 'Den ansatte ønsker ikke omplassering';
   const DOKUMENTASJON = 'Hvis dere har fått dokumentasjon fra den ansatte';
   const BEKREFT = 'Jeg vet at NAV kan trekke tilbake retten til';
   const FEILMELDINGER = 'For å gå videre må du rette opp følgende:';
@@ -68,7 +68,6 @@ describe('GravidSide', () => {
     render(<GravidSide state={state} />, htmlDivElement);
     expect(htmlDivElement.textContent).not.toContain(STATUS_PROGRESS);
     expect(htmlDivElement.textContent).not.toContain(STATUS_KVITTERING);
-    expect(htmlDivElement.textContent).toContain(STATUS_FEIL);
     expect(htmlDivElement.textContent).toContain(STATUS_HOVED);
   });
 

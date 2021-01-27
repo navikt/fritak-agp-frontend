@@ -19,19 +19,20 @@ import GravidKravProps from './GravidKravProps';
 import GravidKravReducer from './GravidKravReducer';
 import { defaultGravidKravState } from './GravidKravState';
 import { Actions } from './Actions';
+import getBase64file from '../../utils/getBase64File';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
 
   const handleLoggedoutModalClosing = () => {
-    // dispatch({ type: Actions.CloseLoggedoutModal });
+    dispatch({ type: Actions.CloseLoggedoutModal });
   };
 
   const handleUploadChanged = (file?: File) => {
     if (file) {
-      // getBase64file(file).then((base64encoded: any) => {
-      //   dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
-      // });
+      getBase64file(file).then((base64encoded: any) => {
+        dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
+      });
     }
   };
 
@@ -50,7 +51,7 @@ export const GravidKrav = (props: GravidKravProps) => {
         </Panel>
         <SideIndentering>
           <Panel>
-            <Ingress className='krav-padding-bottom'>
+            <Ingress className='textfelt-padding-bottom'>
               Har dere søkt om at <Link to={lenker.Gravid}>NAV dekker sykepenger i arbeidsgiverperioden</Link>, sender
               dere krav om refusjon her. Vi anbefaler at dere sender kravet før søknaden er ferdig behandlet, så unngår
               dere at det blir foreldet.
@@ -60,7 +61,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-den-ansatte'>
-            <Systemtittel className='krav-padding-bottom'>Den ansatte</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>Den ansatte</Systemtittel>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
@@ -80,8 +81,8 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='krav-padding-bottom'>Tapt arbeidstid</Systemtittel>
-            <Ingress className='krav-padding-bottom'>
+            <Systemtittel className='textfelt-padding-bottom'>Tapt arbeidstid</Systemtittel>
+            <Ingress className='textfelt-padding-bottom'>
               Hvilken periode var den ansatte borte?
               <Hjelpetekst className='krav-padding-hjelpetekst'>
                 <ul>
@@ -142,10 +143,10 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel className='krav-padding-bottom'>
+            <Systemtittel className='textfelt-padding-bottom'>
               Hvis dere har fått dokumentasjon fra den ansatte
             </Systemtittel>
-            <Tekstomrade className='krav-padding-bottom' rules={[BoldRule, ParagraphRule]}>
+            <Tekstomrade className='textfelt-padding-bottom' rules={[BoldRule, ParagraphRule]}>
               Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt
               dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. _For tiden
               støtter vi kun filformatet .pdf._
@@ -156,6 +157,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             </Tekstomrade>
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
               <Upload
+                className='knapp-innsending-top'
                 id='upload'
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
                 extensions='.pdf'
@@ -173,12 +175,12 @@ export const GravidKrav = (props: GravidKravProps) => {
                 label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
                 checked={state.bekreft || false}
                 feil={state.bekreftError}
-                onChange={() => {}}
-                //   dispatch({
-                //     type: Actions.Bekreft,
-                //     payload: { bekreft: !state.bekreft }
-                //   })
-                // }
+                onChange={() =>
+                  dispatch({
+                    type: Actions.Bekreft,
+                    payload: { bekreft: !state.bekreft }
+                  })
+                }
               >
                 Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis
                 opplysningene ikke er riktige eller fullstendige.

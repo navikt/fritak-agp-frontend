@@ -41,5 +41,9 @@
     #textarea-annet {
         min-height: 185px;
     }
+    
+    .skjemagruppe.checkboxgruppe .skjemaelement.textarea__container {
+        margin-bottom: 0;
+    }
 
 }

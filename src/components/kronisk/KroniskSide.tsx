@@ -260,7 +260,7 @@ const KroniskSide = () => {
             <Systemtittel>Hvis dere har fått dokumentasjon fra den ansatte</Systemtittel>
             <br />
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
-              <Tekstomrade className='krav-padding-bottom' rules={[BoldRule, ParagraphRule]}>
+              <Tekstomrade className='textfelt-padding-bottom' rules={[BoldRule, ParagraphRule]}>
                 Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt
                 dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. _For
                 tiden støtter vi kun filformatet .pdf._
