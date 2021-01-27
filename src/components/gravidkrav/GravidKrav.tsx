@@ -99,7 +99,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='fra-dato'>
+                  <Label htmlFor='fra-dato' className='gravidkrav-label-dato'>
                     <div className='gravidkrav-datolabel'>Fra dato</div>
                     <Flatpickr
                       id='fra-dato'
@@ -124,7 +124,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                   </Label>
                 </Column>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='til-dato'>
+                  <Label htmlFor='til-dato' className='gravidkrav-label-dato'>
                     <div className='gravidkrav-datolabel'>Til dato</div>
                     <Flatpickr
                       name='Til dato'
