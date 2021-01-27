@@ -17,6 +17,30 @@ describe('datoToString', () => {
       datoToString(parseDato('55.aa.2020'));
     }).toThrowError();
   });
+
+  it('should not map when missing values', () => {
+    expect(() => {
+      datoToString({
+        month: 1,
+        day: 5
+      });
+    }).toThrowError();
+    expect(() => {
+      datoToString({
+        year: 2020,
+        day: 5
+      });
+    }).toThrowError();
+    expect(() => {
+      datoToString({
+        year: 2020,
+        month: 1
+      });
+    }).toThrowError();
+    expect(() => {
+      datoToString({});
+    }).toThrowError();
+  });
 });
 
 describe('dato', () => {

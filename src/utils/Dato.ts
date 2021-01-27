@@ -6,6 +6,7 @@ export interface Dato {
   year?: number;
   month?: number;
   day?: number;
+  millis?: number;
 }
 
 export const datoToString = (dato: Dato): string => {
@@ -32,12 +33,6 @@ export const parseDato = (date: string): Dato => {
   const day = parseInt(arr[0]);
   const month = parseInt(arr[1]);
   const year = parseInt(arr[2]);
-  if (day < 1) {
-    return {
-      value: date,
-      error: 'Ugyldig dag'
-    };
-  }
   const v = new Date(year, month - 1, day);
   if (v.getDate() != day) {
     return {
@@ -51,10 +46,17 @@ export const parseDato = (date: string): Dato => {
       error: 'Ugyldig måned'
     };
   }
+  if (v.getFullYear() != year) {
+    return {
+      value: date,
+      error: 'Ugyldig år'
+    };
+  }
   return {
     value: date,
     day,
     month,
-    year
+    year,
+    millis: v.getTime()
   };
 };
