@@ -68,7 +68,6 @@ describe('GravidSide', () => {
     render(<GravidSide state={state} />, htmlDivElement);
     expect(htmlDivElement.textContent).not.toContain(STATUS_PROGRESS);
     expect(htmlDivElement.textContent).not.toContain(STATUS_KVITTERING);
-    expect(htmlDivElement.textContent).toContain(STATUS_FEIL);
     expect(htmlDivElement.textContent).toContain(STATUS_HOVED);
   });
 

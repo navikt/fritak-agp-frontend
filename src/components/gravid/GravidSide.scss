@@ -6,9 +6,15 @@
         margin-bottom: 2rem;
     }
 
-    .gravidside-alert-gravid {
-        margin-top: 2rem;
+    .gravidside-panel-tiltak,
+    .gravidside-panel-arbeidssituasjon {
+        padding-bottom: 0;
     }
+
+    .skjemagruppe.radiogruppe.gravidside-radiogruppe-tilrettelegging {
+        margin-bottom: 0;
+    }
+
 
     .gravid-side-radiogruppe-omplassering {
         margin-top: 1rem;
@@ -24,10 +30,6 @@
 
             .skjemagruppe.radiogruppe {
                 margin-bottom: 0;
-
-                &.gravideside-radiogruppe-indentert  .skjemaelement:nth-child(4) {
-                    margin-bottom: 0;
-                }
             }
         }
     }

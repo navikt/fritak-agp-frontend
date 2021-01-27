@@ -114,8 +114,6 @@ const GravidSide = (props: GravidSideProps) => {
 
         {state.kvittering == true && <GravidKvittering />}
 
-        {state.error == true && <GravidFeil />}
-
         {state.progress != true && state.kvittering != true && (
           <SideIndentering>
             <Panel>
@@ -177,7 +175,7 @@ const GravidSide = (props: GravidSideProps) => {
 
             <Skillelinje />
 
-            <Panel>
+            <Panel className='gravidside-panel-arbeidssituasjon'>
               <Row>
                 <Column sm='8' xs='12'>
                   <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
@@ -191,7 +189,10 @@ const GravidSide = (props: GravidSideProps) => {
                       <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
                     </ul>
 
-                    <RadioGruppe legend='Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene?'>
+                    <RadioGruppe
+                      legend='Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene?'
+                      className='gravidside-radiogruppe-tilrettelegging'
+                    >
                       <Radio
                         label='Ja'
                         name='sitteplass'
@@ -220,99 +221,101 @@ const GravidSide = (props: GravidSideProps) => {
                   </SkjemaGruppe>
                 </Column>
               </Row>
+            </Panel>
 
-              {state.tilrettelegge === true ? (
-                <>
-                  <Row>
-                    <Column sm='8' xs='12'>
-                      <CheckboxGruppe
-                        legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
-                        feil={state.tiltakError}
-                        feilmeldingId='tiltakFeilmeldingId'
-                      >
-                        {TiltakCheckboxes.map((a) => {
-                          return (
-                            <Checkbox
-                              key={a.id}
-                              label={a.label}
-                              value={a.value}
-                              id={a.id}
-                              onChange={(evt) =>
-                                dispatch({
-                                  type: Actions.ToggleTiltak,
-                                  payload: { tiltak: a.value }
-                                })
-                              }
-                              checked={state.tiltak?.includes(a.value)}
-                            />
-                          );
-                        })}
+            {state.tilrettelegge === true ? (
+              <Panel className='gravidside-panel-tiltak'>
+                <Row>
+                  <Column sm='8' xs='12'>
+                    <CheckboxGruppe
+                      legend='Hvilke tiltak er forsøkt/vurdert for at arbeidstaker skal kunne være i arbeid i svangerskapet?'
+                      feil={state.tiltakError}
+                      feilmeldingId='tiltakFeilmeldingId'
+                    >
+                      {TiltakCheckboxes.map((a) => {
+                        return (
+                          <Checkbox
+                            key={a.id}
+                            label={a.label}
+                            value={a.value}
+                            id={a.id}
+                            onChange={(evt) =>
+                              dispatch({
+                                type: Actions.ToggleTiltak,
+                                payload: { tiltak: a.value }
+                              })
+                            }
+                            checked={state.tiltak?.includes(a.value)}
+                          />
+                        );
+                      })}
 
-                        <Textarea
-                          className='textarea-min-hoyde'
-                          value={state.tiltakBeskrivelse || ''}
-                          feil={state.tiltakBeskrivelseError}
-                          onChange={(evt) =>
-                            dispatch({
-                              type: Actions.TiltakBeskrivelse,
-                              payload: {
-                                tiltakBeskrivelse: evt.currentTarget.value
-                              }
-                            })
-                          }
-                          disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
-                          maxLength={MAX_TILTAK_BESKRIVELSE}
-                        />
-                      </CheckboxGruppe>
-                    </Column>
-                  </Row>
-                  <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
-                    <div className='gravid-side-radiogruppe-omplassering'>
-                      <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb?'>
-                        {OmplasseringCheckboxes.map((a) => {
+                      <Textarea
+                        className='textarea-min-hoyde'
+                        value={state.tiltakBeskrivelse || ''}
+                        feil={state.tiltakBeskrivelseError}
+                        onChange={(evt) =>
+                          dispatch({
+                            type: Actions.TiltakBeskrivelse,
+                            payload: {
+                              tiltakBeskrivelse: evt.currentTarget.value
+                            }
+                          })
+                        }
+                        disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
+                        maxLength={MAX_TILTAK_BESKRIVELSE}
+                      />
+                    </CheckboxGruppe>
+                  </Column>
+                </Row>
+                <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
+                  <div className='gravid-side-radiogruppe-omplassering'>
+                    <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb?'>
+                      {OmplasseringCheckboxes.map((a) => {
+                        return (
+                          <Radio
+                            key={a.value}
+                            label={a.label}
+                            name='omplassering'
+                            onChange={() =>
+                              dispatch({
+                                type: Actions.OmplasseringForsoek,
+                                payload: { omplasseringForsoek: a.value }
+                              })
+                            }
+                            checked={state.omplassering === a.value}
+                          />
+                        );
+                      })}
+
+                      <RadioGruppe className='gravideside-radiogruppe-indentert'>
+                        {AarsakCheckboxes.map((a) => {
                           return (
                             <Radio
                               key={a.value}
                               label={a.label}
-                              name='omplassering'
+                              name='omplassering-umulig'
                               onChange={() =>
                                 dispatch({
-                                  type: Actions.OmplasseringForsoek,
-                                  payload: { omplasseringForsoek: a.value }
+                                  type: Actions.OmplasseringAarsak,
+                                  payload: { omplasseringAarsak: a.value }
                                 })
                               }
-                              checked={state.omplassering === a.value}
+                              disabled={state.omplassering !== Omplassering.IKKE_MULIG}
+                              checked={state.omplasseringAarsak === a.value}
                             />
                           );
                         })}
-
-                        <RadioGruppe className='gravideside-radiogruppe-indentert'>
-                          {AarsakCheckboxes.map((a) => {
-                            return (
-                              <Radio
-                                key={a.value}
-                                label={a.label}
-                                name='omplassering-umulig'
-                                onChange={() =>
-                                  dispatch({
-                                    type: Actions.OmplasseringAarsak,
-                                    payload: { omplasseringAarsak: a.value }
-                                  })
-                                }
-                                disabled={state.omplassering !== Omplassering.IKKE_MULIG}
-                                checked={state.omplasseringAarsak === a.value}
-                              />
-                            );
-                          })}
-                        </RadioGruppe>
                       </RadioGruppe>
-                    </div>
-                  </SkjemaGruppe>
-                </>
-              ) : (
-                state.tilrettelegge === false && (
-                  <>
-                    <Skillelinje />
+                    </RadioGruppe>
+                  </div>
+                </SkjemaGruppe>
+              </Panel>
+            ) : (
+              state.tilrettelegge === false && (
+                <>
+                  <Skillelinje />
+                  <Panel className='gravidside-panel-alert-gravid'>
                     <Alertstripe className='gravidside-alert-gravid' type='advarsel'>
                       <Normaltekst>
                         Dere må først ha prøvd å tilrettelegge for den gravide. Dere kan
@@ -330,10 +333,10 @@ const GravidSide = (props: GravidSideProps) => {
                         , men det er altså da sannsynlig at den blir avslått.
                       </Normaltekst>
                     </Alertstripe>
-                  </>
-                )
-              )}
-            </Panel>
+                  </Panel>
+                </>
+              )
+            )}
 
             {(state.tilrettelegge === true || state.videre) && (
               <>
