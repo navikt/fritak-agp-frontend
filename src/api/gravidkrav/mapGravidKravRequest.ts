@@ -1,10 +1,11 @@
 import { Arbeidsgiverperiode, GravidKravRequest } from './GravidKravRequest';
+import { Dato, datoToString } from '../../utils/Dato';
 
 export const mapGravidKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  fra: string | undefined,
-  til: string | undefined,
+  fra: Dato,
+  til: Dato,
   dager: number | undefined,
   beloep: number | undefined,
   dokumentasjon: string | undefined,
@@ -16,10 +17,10 @@ export const mapGravidKravRequest = (
   if (orgnr === undefined) {
     throw new Error('Orgnr må spesifiseres');
   }
-  if (fra === undefined) {
+  if (fra.error) {
     throw new Error('Fra må spesifiseres');
   }
-  if (til === undefined) {
+  if (til.error) {
     throw new Error('Til må spesifiseres');
   }
   if (dager === undefined) {
@@ -35,8 +36,8 @@ export const mapGravidKravRequest = (
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
     periode: {
-      fom: fra,
-      tom: til,
+      fom: datoToString(fra),
+      tom: datoToString(til),
       antallDagerMedRefusjon: dager,
       beloep: beloep
     } as Arbeidsgiverperiode,

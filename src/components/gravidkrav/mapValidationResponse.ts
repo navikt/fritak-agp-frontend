@@ -11,32 +11,37 @@ export const mapFeilmeldinger = (response: ValidationResponse, state: GravidKrav
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v) => {
     switch (v.propertyPath) {
-      case 'fnr':
+      case 'identitetsnummer':
         state.fnrError = v.message;
         feilmeldinger.push(lagFeil('fnr', v.message));
         break;
 
-      case 'fra':
+      case 'virksomhetsnummer':
+        state.orgnrError = v.message;
+        feilmeldinger.push(lagFeil('orgnr', v.message));
+        break;
+
+      case 'periode.fom':
         state.fraError = v.message;
         feilmeldinger.push(lagFeil('fra', v.message));
         break;
 
-      case 'til':
+      case 'periode.tom':
         state.tilError = v.message;
         feilmeldinger.push(lagFeil('til', v.message));
         break;
 
-      case 'dager':
+      case 'periode.antallDagerMedRefusjon':
         state.dagerError = v.message;
         feilmeldinger.push(lagFeil('dager', v.message));
         break;
 
-      case 'beloep':
+      case 'periode.beloep':
         state.beloepError = v.message;
         feilmeldinger.push(lagFeil('beloep', v.message));
         break;
 
-      case 'bekreft':
+      case 'bekreftet':
         state.bekreftError = v.message;
         feilmeldinger.push(lagFeil('bekreft', v.message));
         break;

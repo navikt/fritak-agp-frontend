@@ -8,6 +8,19 @@ export interface Dato {
   day?: number;
 }
 
+export const datoToString = (dato: Dato): string => {
+  if (!dato.year) {
+    throw new Error('År ikke oppgitt');
+  }
+  if (!dato.month) {
+    throw new Error('Måned ikke oppgitt');
+  }
+  if (!dato.day) {
+    throw new Error('Dag ikke oppgitt');
+  }
+  return dato.year + '-' + (dato.month < 10 ? '0' : '') + dato.month + '-' + (dato.day < 10 ? '0' : '') + dato.day;
+};
+
 export const parseDato = (date: string): Dato => {
   if (!NORWAY_REGEX.test(date)) {
     return {
@@ -25,23 +38,17 @@ export const parseDato = (date: string): Dato => {
       error: 'Ugyldig dag'
     };
   }
-  if (month < 1) {
-    return {
-      value: date,
-      error: 'Ugyldig måned'
-    };
-  }
-  if (month > 12) {
-    return {
-      value: date,
-      error: 'Ugyldig måned'
-    };
-  }
   const v = new Date(year, month - 1, day);
   if (v.getDate() != day) {
     return {
       value: date,
       error: 'Ugyldig dato'
+    };
+  }
+  if (v.getMonth() != month - 1) {
+    return {
+      value: date,
+      error: 'Ugyldig måned'
     };
   }
   return {
