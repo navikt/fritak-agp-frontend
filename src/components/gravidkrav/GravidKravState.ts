@@ -1,10 +1,13 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { ValidationState } from '../../validation/ValidationState';
+import { Dato } from '../../utils/Dato';
 
 export const defaultGravidKravState = (state?: GravidKravState): GravidKravState => {
   return Object.assign(
     {
       fnr: '',
+      fra: {},
+      til: {},
       dokumentasjon: '',
       bekreft: false,
       feilmeldinger: Array<FeiloppsummeringFeil>()
@@ -18,9 +21,9 @@ export default interface GravidKravState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  fra?: string;
+  fra: Dato;
   fraError?: string;
-  til?: string;
+  til: Dato;
   tilError?: string;
   dager?: number;
   dagerError?: string;
