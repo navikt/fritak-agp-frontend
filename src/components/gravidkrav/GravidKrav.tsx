@@ -5,19 +5,15 @@ import { Column, Row } from 'nav-frontend-grid';
 import SideIndentering from '../SideIndentering';
 import Skillelinje from '../Skillelinje';
 import Fnr from '../Fnr';
-import Flatpickr from 'react-flatpickr';
 import { BekreftCheckboksPanel, Feiloppsummering, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
-import { Norwegian } from 'flatpickr/dist/l10n/no.js';
+import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Link } from 'react-router-dom';
 import lenker from '../lenker';
 import './GravidKrav.scss';
-import '../felles/FellesStyling.scss';
-import 'flatpickr/dist/themes/material_green.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
-import dayjs from 'dayjs';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer from './GravidKravReducer';
@@ -40,7 +36,9 @@ export const GravidKrav = (props: GravidKravProps) => {
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmitClicked = async () => {
+    dispatch({ type: Actions.Validate });
+  };
 
   const handleDelete = () => {};
 
@@ -99,54 +97,10 @@ export const GravidKrav = (props: GravidKravProps) => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='fra-dato' className='gravidkrav-label-dato'>
-                    <div className='gravidkrav-datolabel'>Fra dato</div>
-                    <Flatpickr
-                      id='fra-dato'
-                      name='Fra dato'
-                      placeholder='dd.mm.yyyy'
-                      // value={fraDato}
-                      className={'periodeinput-input  skjemaelement__input datoelement'}
-                      options={{
-                        maxDate: dayjs(new Date()).toDate(),
-                        minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
-                        mode: 'single',
-                        enableTime: false,
-                        dateFormat: 'd.m.Y',
-                        altInput: true,
-                        altFormat: 'd.m.Y',
-                        locale: Norwegian,
-                        allowInput: true,
-                        clickOpens: true
-                        // onClose: (date) =>  setFraDato
-                      }}
-                    />
-                  </Label>
+                  <DatoVelger id='fra-dato' label='Fra dato' onChange={() => {}}></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='til-dato' className='gravidkrav-label-dato'>
-                    <div className='gravidkrav-datolabel'>Til dato</div>
-                    <Flatpickr
-                      name='Til dato'
-                      id='til-dato'
-                      placeholder='dd.mm.yyyy'
-                      // value={tilDato}
-                      className={'periodeinput-input  skjemaelement__input datoelement'}
-                      options={{
-                        maxDate: dayjs(new Date()).toDate(),
-                        minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
-                        mode: 'single',
-                        enableTime: false,
-                        dateFormat: 'd.m.Y',
-                        altInput: true,
-                        altFormat: 'd.m.Y',
-                        locale: Norwegian,
-                        allowInput: true,
-                        clickOpens: true
-                        // onClose: (date) =>  setTilDato
-                      }}
-                    />
-                  </Label>
+                  <DatoVelger id='til-dato' label='Til dato' onChange={() => {}}></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='antall-dager'>
@@ -241,7 +195,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           )}
 
           <Panel>
-            <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
+            <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
               Send søknad
             </Hovedknapp>
           </Panel>

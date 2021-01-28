@@ -1,10 +1,10 @@
-import { Actions, GravidAction } from './Actions';
+import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import { mapValidationResponse } from './mapValidationResponse';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDato } from '../../utils/Dato';
 
-const GravidKravReducer = (state: GravidKravState, action: GravidAction): GravidKravState => {
+const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {

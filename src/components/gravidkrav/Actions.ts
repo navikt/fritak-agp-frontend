@@ -32,7 +32,7 @@ export interface Payload {
   response?: ValidationResponse;
 }
 
-export interface GravidAction {
+export interface GravidKravAction {
   type: Actions;
   payload?: Payload;
 }
