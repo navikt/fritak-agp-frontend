@@ -10,7 +10,7 @@ export const validateTil = (fra: Dato, til: Dato, required: boolean): string | u
   if (til.error || !til.millis) {
     return til.error;
   }
-  if (fra!.millis >= til!.millis) {
+  if (fra.millis >= til.millis) {
     return 'Til dato kan ikke være før fra dato';
   }
 };
