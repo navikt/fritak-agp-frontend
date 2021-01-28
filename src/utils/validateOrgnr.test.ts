@@ -1,5 +1,5 @@
-import testOrgnr from '../mockData/testOrgnr';
 import { validateOrgnr } from './validateOrgnr';
+import testOrgnr from '../mockData/testOrgnr';
 
 describe('validateOrgnr', () => {
   it('should not give error when valid fnr', async () => {
