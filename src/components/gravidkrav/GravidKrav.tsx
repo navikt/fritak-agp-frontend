@@ -59,7 +59,6 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      console.log(state);
       postGravidKrav(
         environment.baseUrl,
         mapGravidKravRequest(
@@ -212,7 +211,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                       dispatch({
                         type: Actions.Beloep,
                         payload: {
-                          beloep: event.currentTarget.value
+                          beloep: Number(event.currentTarget.value.replace(',', '.'))
                         }
                       })
                     }

@@ -7,7 +7,7 @@ export const mapGravidKravRequest = (
   fra: Dato,
   til: Dato,
   dager: number | undefined,
-  beloep: string | undefined,
+  beloep: number | undefined,
   dokumentasjon: string | undefined,
   bekreft: boolean | undefined
 ): GravidKravRequest => {

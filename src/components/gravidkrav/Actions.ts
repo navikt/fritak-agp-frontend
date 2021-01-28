@@ -23,7 +23,7 @@ export interface Payload {
   fra?: string;
   til?: string;
   dager?: number;
-  beloep?: string;
+  beloep?: number;
   videre?: boolean;
   bekreft?: boolean;
   progress?: boolean;

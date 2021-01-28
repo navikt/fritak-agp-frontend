@@ -10,5 +10,5 @@ export interface Arbeidsgiverperiode {
   fom: string;
   tom: string;
   antallDagerMedRefusjon: number;
-  beloep: string;
+  beloep: number;
 }
