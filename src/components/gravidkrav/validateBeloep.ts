@@ -2,5 +2,6 @@ export const validateBeloep = (beloep: string | undefined, required: boolean): s
   if (beloep == undefined || beloep == '') {
     return required ? 'Mangler beløp' : undefined;
   }
+
   return beloep == undefined ? 'Må fylles ut' : '';
 };
