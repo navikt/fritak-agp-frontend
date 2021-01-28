@@ -41,5 +41,4 @@ export default interface GravidKravState extends ValidationState {
   login?: boolean;
   accessDenied?: boolean;
   submitting?: boolean;
-  accessDenied?: boolean;
 }
