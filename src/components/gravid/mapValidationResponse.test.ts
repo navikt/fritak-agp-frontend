@@ -41,8 +41,8 @@ describe('mapValidationResponse', () => {
 
   it('should handle 422', () => {
     const felter = [
-      'fnr',
-      'orgnr',
+      'identitetsnummer',
+      'virksomhetsnummer',
       'tilrettelegge',
       'tiltak',
       'tiltakBeskrivelse',
