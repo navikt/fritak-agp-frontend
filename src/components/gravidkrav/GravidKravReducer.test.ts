@@ -60,12 +60,30 @@ describe('GravidKravReducer', () => {
     expect(state.fra?.value).toEqual('456');
   });
 
+  it('should throw error for fra when empty payload', () => {
+    expect(() => {
+      GravidKravReducer(defaultGravidKravState(), {
+        type: Actions.Fra,
+        payload: { fra: undefined }
+      });
+    }).toThrowError();
+  });
+
   it('should set the til', () => {
     let state = GravidKravReducer(defaultGravidKravState(), {
       type: Actions.Til,
       payload: { til: '123' }
     });
     expect(state.til?.value).toEqual('123');
+  });
+
+  it('should throw error for fra when empty payload', () => {
+    expect(() => {
+      GravidKravReducer(defaultGravidKravState(), {
+        type: Actions.Til,
+        payload: { til: undefined }
+      });
+    }).toThrowError();
   });
 
   it('should set the dager', () => {

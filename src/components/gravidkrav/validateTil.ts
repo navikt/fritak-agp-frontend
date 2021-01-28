@@ -4,19 +4,13 @@ export const validateTil = (fra: Dato, til: Dato, required: boolean): string | u
   if (!required) {
     return;
   }
-  if (fra.error) {
+  if (fra.error || !fra.millis) {
     return fra.error;
   }
-  if (til.error) {
+  if (til.error || !til.millis) {
     return til.error;
   }
-  if (!fra.millis) {
-    return 'Ukjent feil!';
-  }
-  if (!til.millis) {
-    return 'Ukjent feil!';
-  }
-  if (fra?.millis >= til?.millis) {
+  if (fra!.millis >= til!.millis) {
     return 'Til dato kan ikke være før fra dato';
   }
 };
