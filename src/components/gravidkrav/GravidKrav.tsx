@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { EtikettLiten, Ingress, Innholdstittel, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
@@ -21,6 +21,9 @@ import GravidKravReducer from './GravidKravReducer';
 import { defaultGravidKravState } from './GravidKravState';
 import { Actions } from './Actions';
 import getBase64file from '../../utils/getBase64File';
+import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
+import environment from '../../environment';
+import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -53,6 +56,43 @@ export const GravidKrav = (props: GravidKravProps) => {
   const handleSubmitClicked = async () => {
     dispatch({ type: Actions.Validate });
   };
+
+  useEffect(() => {
+    if (state.validated === true && state.progress === true && state.submitting === true) {
+      console.log(state);
+      postGravidKrav(
+        environment.baseUrl,
+        mapGravidKravRequest(
+          state.fnr,
+          state.fra,
+          state.til,
+          state.dager,
+          state.beloep,
+          state.dokumentasjon,
+          state.bekreft,
+          state.orgnr
+        )
+      ).then((response) => {
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: { response: response }
+        });
+      });
+    }
+  }, [
+    state.validated,
+    state.progress,
+    state.feilmeldinger,
+    state.submitting,
+    state.fra,
+    state.til,
+    state.dager,
+    state.beloep,
+    state.fnr,
+    state.bekreft,
+    state.dokumentasjon,
+    state.orgnr
+  ]);
 
   return (
     <Row className='gravidkrav'>
