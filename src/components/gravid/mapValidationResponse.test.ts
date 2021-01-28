@@ -41,8 +41,8 @@ describe('mapValidationResponse', () => {
 
   it('should handle 422', () => {
     const felter = [
-      'fnr',
-      'orgnr',
+      'identitetsnummer',
+      'virksomhetsnummer',
       'tilrettelegge',
       'tiltak',
       'tiltakBeskrivelse',
@@ -121,9 +121,7 @@ describe('mapValidationResponse', () => {
       expect(state.error).toEqual(true);
       expect(state.feilmeldinger?.length).toEqual(1);
       expect(state.feilmeldinger[0].skjemaelementId).toEqual('ukjent');
-      expect(state.feilmeldinger[0].feilmelding).toEqual(
-        'Klarte ikke å sende inn skjema. Prøv igjen senere.'
-      );
+      expect(state.feilmeldinger[0].feilmelding).toEqual('Klarte ikke å sende inn skjema. Prøv igjen senere.');
     });
   });
 });

@@ -64,13 +64,13 @@ export const GravidKrav = (props: GravidKravProps) => {
         environment.baseUrl,
         mapGravidKravRequest(
           state.fnr,
+          state.orgnr,
           state.fra,
           state.til,
           state.dager,
           state.beloep,
           state.dokumentasjon,
-          state.bekreft,
-          state.orgnr
+          state.bekreft
         )
       ).then((response) => {
         dispatch({

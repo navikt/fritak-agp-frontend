@@ -23,7 +23,7 @@ export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   }
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.fraError = validateFra(state.fra, state.validated);
-  nextState.tilError = validateTil(state.til, state.fra, state.validated);
+  nextState.tilError = validateTil(state.fra, state.til, state.validated);
   nextState.dagerError = validateDager(state.dager, state.validated);
   nextState.beloepError = validateBeloep(state.beloep, state.validated);
 
