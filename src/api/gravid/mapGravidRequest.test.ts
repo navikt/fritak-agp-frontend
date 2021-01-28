@@ -111,13 +111,10 @@ describe('mapGravidRequest', () => {
       '',
       true
     );
-    expect(request.fnr).toEqual('123');
-    expect(request.orgnr).toEqual('456');
+    expect(request.identitetsnummer).toEqual('123');
+    expect(request.virksomhetsnummer).toEqual('456');
     expect(request.tilrettelegge).toEqual(true);
-    expect(request.tiltak).toEqual([
-      Tiltak.HJEMMEKONTOR,
-      Tiltak.TILPASSEDE_ARBEIDSOPPGAVER
-    ]);
+    expect(request.tiltak).toEqual([Tiltak.HJEMMEKONTOR, Tiltak.TILPASSEDE_ARBEIDSOPPGAVER]);
     expect(request.tiltakBeskrivelse).toEqual('tiltakBeskrivelse');
     expect(request.omplassering).toEqual(Omplassering.JA);
     expect(request.omplasseringAarsak).toEqual(Aarsak.FAAR_IKKE_KONTAKT);

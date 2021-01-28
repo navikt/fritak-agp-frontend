@@ -11,11 +11,11 @@ export const mapFeilmeldinger = (response: ValidationResponse, state: GravidStat
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v) => {
     switch (v.propertyPath) {
-      case 'fnr':
+      case 'identitetsnummer':
         state.fnrError = v.message;
         feilmeldinger.push(lagFeil('fnr', v.message));
         break;
-      case 'orgnr':
+      case 'virksomhetsnummer':
         state.orgnrError = v.message;
         feilmeldinger.push(lagFeil('orgnr', v.message));
         break;

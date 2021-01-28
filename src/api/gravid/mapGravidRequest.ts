@@ -27,8 +27,8 @@ export const mapGravidRequest = (
     throw new Error('Bekreft må spesifiseres');
   }
   return {
-    fnr: fnr,
-    orgnr: orgnr,
+    identitetsnummer: fnr,
+    virksomhetsnummer: orgnr,
     tilrettelegge: tilrettelegge,
     tiltak: tiltak,
     tiltakBeskrivelse: tiltakBeskrivelse,
