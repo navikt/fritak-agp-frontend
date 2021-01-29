@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { BekreftCheckboksPanel, Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Skillelinje from '../Skillelinje';
 import SoknadTittel from '../SoknadTittel';
@@ -28,6 +28,7 @@ import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 
 export const MAX_BESKRIVELSE = 2000;
 
@@ -303,24 +304,16 @@ const KroniskSide = () => {
 
           <Skillelinje />
 
-          <Panel>
-            <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
-              <BekreftCheckboksPanel
-                label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                checked={state.bekreft || false}
-                feil={state.bekreftError}
-                onChange={() =>
-                  dispatch({
-                    type: Actions.Bekreft,
-                    payload: { bekreft: !state.bekreft }
-                  })
-                }
-              >
-                Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis
-                opplysningene ikke er riktige eller fullstendige.
-              </BekreftCheckboksPanel>
-            </SkjemaGruppe>
-          </Panel>
+          <BekreftOpplysningerPanel
+            checked={state.bekreft || false}
+            feil={state.bekreftError}
+            onChange={() =>
+              dispatch({
+                type: Actions.Bekreft,
+                payload: { bekreft: !state.bekreft }
+              })
+            }
+          />
 
           <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 

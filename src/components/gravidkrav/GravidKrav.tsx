@@ -5,7 +5,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import SideIndentering from '../SideIndentering';
 import Skillelinje from '../Skillelinje';
 import Fnr from '../Fnr';
-import { BekreftCheckboksPanel, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
@@ -27,6 +27,7 @@ import environment from '../../environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import SelectDager from './SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -270,24 +271,16 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Skillelinje />
 
-          <Panel>
-            <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
-              <BekreftCheckboksPanel
-                label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                checked={state.bekreft || false}
-                feil={state.bekreftError}
-                onChange={() =>
-                  dispatch({
-                    type: Actions.Bekreft,
-                    payload: { bekreft: !state.bekreft }
-                  })
-                }
-              >
-                Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis
-                opplysningene ikke er riktige eller fullstendige.
-              </BekreftCheckboksPanel>
-            </SkjemaGruppe>
-          </Panel>
+          <BekreftOpplysningerPanel
+            checked={state.bekreft || false}
+            feil={state.bekreftError}
+            onChange={() =>
+              dispatch({
+                type: Actions.Bekreft,
+                payload: { bekreft: !state.bekreft }
+              })
+            }
+          />
 
           <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
