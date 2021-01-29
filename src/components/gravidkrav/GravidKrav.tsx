@@ -13,6 +13,7 @@ import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Link } from 'react-router-dom';
 import lenker from '../lenker';
 import './GravidKrav.scss';
+import '@navikt/helse-arbeidsgiver-felles-frontend/src/components/DatoVelger.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
