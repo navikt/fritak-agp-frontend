@@ -26,6 +26,7 @@ import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import SelectDager from './SelectDager';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -288,11 +289,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             </SkjemaGruppe>
           </Panel>
 
-          {state.feilmeldinger && state.feilmeldinger.length > 0 && (
-            <Panel>
-              <Feiloppsummering tittel='For å gå videre må du rette opp følgende:' feil={state.feilmeldinger} />
-            </Panel>
-          )}
+          <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>

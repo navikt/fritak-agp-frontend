@@ -39,6 +39,7 @@ import { Omplassering } from './Omplassering';
 import environment from '../../environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -390,11 +391,8 @@ const GravidSide = (props: GravidSideProps) => {
                   </SkjemaGruppe>
                 </Panel>
 
-                {state.feilmeldinger.length > 0 && (
-                  <Panel>
-                    <Feiloppsummering tittel='For å gå videre må du rette opp følgende:' feil={state.feilmeldinger} />
-                  </Panel>
-                )}
+                <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
+
                 <Panel>
                   <Hovedknapp onClick={handleSubmitClicked}>Send søknad</Hovedknapp>
                 </Panel>

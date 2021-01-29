@@ -34,6 +34,7 @@ import environment from '../../environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 
 export const MAX_BESKRIVELSE = 2000;
 
@@ -328,11 +329,7 @@ const KroniskSide = () => {
             </SkjemaGruppe>
           </Panel>
 
-          {state.feilmeldinger && state.feilmeldinger.length > 0 && (
-            <Panel>
-              <Feiloppsummering tittel='For å gå videre må du rette opp følgende:' feil={state.feilmeldinger} />
-            </Panel>
-          )}
+          <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
           <Panel>
             <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
