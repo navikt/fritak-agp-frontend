@@ -24,6 +24,7 @@ import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
+import SelectDager from './SelectDager';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -54,6 +55,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   };
 
   const handleSubmitClicked = async () => {
+    console.log(state);
     dispatch({ type: Actions.Validate });
   };
 
@@ -165,10 +167,9 @@ export const GravidKrav = (props: GravidKravProps) => {
                       Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
                     </Hjelpetekst>
                   </Label>
-                  <Input
+                  <SelectDager
                     id='antall-dager'
-                    inputMode='numeric'
-                    pattern='[0-9]*'
+                    value={state.dager}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       dispatch({
                         type: Actions.Dager,
