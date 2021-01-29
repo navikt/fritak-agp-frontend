@@ -20,8 +20,8 @@ export enum Actions {
 export interface Payload {
   fnr?: string;
   orgnr?: string;
-  fra?: string;
-  til?: string;
+  fra?: Date;
+  til?: Date;
   dager?: number;
   beloep?: number;
   videre?: boolean;

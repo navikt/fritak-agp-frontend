@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const NORWAY_REGEX = new RegExp('^(\\d{1,2})\\.(\\d{1,2})\\.(\\d{4})$');
 
 export interface Dato {
@@ -9,8 +11,8 @@ export interface Dato {
   millis?: number;
 }
 
-export const datoToString = (dato: Dato): string => {
-  if (!dato.year) {
+export const datoToString = (dato: Dato | undefined): string => {
+  if (!dato || !dato.year) {
     throw new Error('År ikke oppgitt');
   }
   if (!dato.month) {
@@ -20,6 +22,16 @@ export const datoToString = (dato: Dato): string => {
     throw new Error('Dag ikke oppgitt');
   }
   return dato.year + '-' + (dato.month < 10 ? '0' : '') + dato.month + '-' + (dato.day < 10 ? '0' : '') + dato.day;
+};
+
+export const parseDateTilDato = (date: Date): Dato => {
+  return {
+    value: dayjs(date).format('DD.MM.YYYY'),
+    day: date.getDate(),
+    month: date.getMonth() + 1,
+    year: date.getFullYear(),
+    millis: date.getTime()
+  };
 };
 
 export const parseDato = (date: string): Dato => {

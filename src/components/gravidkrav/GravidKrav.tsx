@@ -13,6 +13,7 @@ import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Link } from 'react-router-dom';
 import lenker from '../lenker';
 import './GravidKrav.scss';
+import '../felles/FellesStyling.scss';
 import '@navikt/helse-arbeidsgiver-felles-frontend/src/components/DatoVelger.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
@@ -154,20 +155,28 @@ export const GravidKrav = (props: GravidKravProps) => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
-                  <DatoVelger label='Fra dato' onChange={(fraDato: Date) => {
-                    dispatch({
-                      type: Actions.Fra,
-                      payload: { fra: fraDato ? fraDato : undefined }
-                    })
-                  }}></DatoVelger>
+                  <DatoVelger
+                    id='fra-dato'
+                    label='Fra dato'
+                    onChange={(fraDato: Date) => {
+                      dispatch({
+                        type: Actions.Fra,
+                        payload: { fra: fraDato ? fraDato : undefined }
+                      });
+                    }}
+                  ></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
-                  <DatoVelger label='Til dato' onChange={(tilDate: Date) => {
-                    dispatch({
-                      type: Actions.Til,
-                      payload: { til: tilDate ? tilDate : undefined }
-                    })
-                  }}></DatoVelger>
+                  <DatoVelger
+                    id='til-dato'
+                    label='Til dato'
+                    onChange={(tilDate: Date) => {
+                      dispatch({
+                        type: Actions.Til,
+                        payload: { til: tilDate ? tilDate : undefined }
+                      });
+                    }}
+                  ></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='antall-dager'>

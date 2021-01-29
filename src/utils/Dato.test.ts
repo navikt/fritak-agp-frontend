@@ -1,4 +1,4 @@
-import { datoToString, parseDato } from './Dato';
+import { datoToString, parseDateTilDato, parseDato } from './Dato';
 
 describe('datoToString', () => {
   it('should map datoToString', () => {
@@ -73,5 +73,15 @@ describe('dato', () => {
     expect(parseDato('00.12.2020').error).not.toBeUndefined();
     expect(parseDato('01.00.2020').error).not.toBeUndefined();
     expect(parseDato('35.01.2020').error).not.toBeUndefined();
+  });
+
+  it('should parse date til dato', () => {
+    expect(parseDateTilDato(new Date('2020.06.05 12:00:00'))).toEqual({
+      day: 5,
+      millis: 1591351200000,
+      month: 6,
+      value: '05.06.2020',
+      year: 2020
+    });
   });
 });

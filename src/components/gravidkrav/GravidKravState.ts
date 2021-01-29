@@ -21,9 +21,9 @@ export default interface GravidKravState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  fra: Dato;
+  fra?: Dato;
   fraError?: string;
-  til: Dato;
+  til?: Dato;
   tilError?: string;
   dager?: number;
   dagerError?: string;
