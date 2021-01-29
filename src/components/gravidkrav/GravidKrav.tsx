@@ -5,7 +5,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import SideIndentering from '../SideIndentering';
 import Skillelinje from '../Skillelinje';
 import Fnr from '../Fnr';
-import { BekreftCheckboksPanel, Feiloppsummering, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { BekreftCheckboksPanel, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';

@@ -2,14 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import {
-  BekreftCheckboksPanel,
-  Checkbox,
-  CheckboxGruppe,
-  Feiloppsummering,
-  SkjemaGruppe,
-  Textarea
-} from 'nav-frontend-skjema';
+import { BekreftCheckboksPanel, Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Skillelinje from '../Skillelinje';
 import SoknadTittel from '../SoknadTittel';

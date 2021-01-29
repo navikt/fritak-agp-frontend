@@ -6,7 +6,6 @@ import {
   BekreftCheckboksPanel,
   Checkbox,
   CheckboxGruppe,
-  Feiloppsummering,
   Radio,
   RadioGruppe,
   SkjemaGruppe,
