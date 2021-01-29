@@ -1,5 +1,5 @@
 import { datoToString, parseDateTilDato, parseDato } from './Dato';
-
+import timezone_mock from 'timezone-mock';
 describe('datoToString', () => {
   it('should map datoToString', () => {
     expect(datoToString(parseDato('05.10.2020'))).toBe('2020-10-05');
@@ -76,9 +76,11 @@ describe('dato', () => {
   });
 
   it('should parse date til dato', () => {
-    expect(parseDateTilDato(new Date('2020.06.05 12:00:00'))).toEqual({
+    timezone_mock.register('Europe/London');
+
+    expect(parseDateTilDato(new Date('2020-06-05 12:00:00'))).toEqual({
       day: 5,
-      millis: 1591351200000,
+      millis: 1591354800000,
       month: 6,
       value: '05.06.2020',
       year: 2020
