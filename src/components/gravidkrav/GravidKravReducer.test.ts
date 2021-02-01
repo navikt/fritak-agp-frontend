@@ -1,6 +1,6 @@
 import GravidKravReducer from './GravidKravReducer';
 import { Actions } from './Actions';
-import { defaultGravidKravState } from './GravidKravState';
+import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import ValidationResponse from '../../api/ValidationResponse';
 
 describe('GravidKravReducer', () => {
@@ -55,35 +55,60 @@ describe('GravidKravReducer', () => {
   it('should set the fra', () => {
     let state = GravidKravReducer(defaultGravidKravState(), {
       type: Actions.Fra,
-      payload: { fra: '456' }
+      payload: { fra: new Date('2020.06.05 12:00:00') }
     });
-    expect(state.fra?.value).toEqual('456');
+    expect(state.fra?.value).toEqual('05.06.2020');
   });
 
-  it('should throw error for fra when empty payload', () => {
+  it('should clear fra when empty payload', () => {
     expect(() => {
-      GravidKravReducer(defaultGravidKravState(), {
+      let state: GravidKravState = {
+        fra: {
+          value: '2020.05.06',
+          error: undefined,
+          year: 2020,
+          month: 5,
+          day: 6,
+          millis: 1234512344
+        },
+        feilmeldinger: []
+      };
+
+      state = GravidKravReducer(defaultGravidKravState(), {
         type: Actions.Fra,
         payload: { fra: undefined }
       });
-    }).toThrowError();
+
+      expect(state.fra).toBeUndefined();
+    });
   });
 
   it('should set the til', () => {
     let state = GravidKravReducer(defaultGravidKravState(), {
       type: Actions.Til,
-      payload: { til: '123' }
+      payload: { til: new Date('2020.06.05 12:00:00') }
     });
-    expect(state.til?.value).toEqual('123');
+    expect(state.til?.value).toEqual('05.06.2020');
   });
 
-  it('should throw error for fra when empty payload', () => {
-    expect(() => {
-      GravidKravReducer(defaultGravidKravState(), {
-        type: Actions.Til,
-        payload: { til: undefined }
-      });
-    }).toThrowError();
+  it('should clear til when empty payload', () => {
+    let state: GravidKravState = {
+      til: {
+        value: '2020.05.06',
+        error: undefined,
+        year: 2020,
+        month: 5,
+        day: 6,
+        millis: 1234512344
+      },
+      feilmeldinger: []
+    };
+
+    state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.Til,
+      payload: { til: undefined }
+    });
+    expect(state.til).toBeUndefined();
   });
 
   it('should set the dager', () => {

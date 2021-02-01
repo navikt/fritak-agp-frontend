@@ -2,16 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import {
-  BekreftCheckboksPanel,
-  Checkbox,
-  CheckboxGruppe,
-  Feiloppsummering,
-  Radio,
-  RadioGruppe,
-  SkjemaGruppe,
-  Textarea
-} from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGruppe, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -39,6 +30,8 @@ import { Omplassering } from './Omplassering';
 import environment from '../../environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -371,30 +364,19 @@ const GravidSide = (props: GravidSideProps) => {
 
                 <Skillelinje />
 
-                <Panel>
-                  <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
-                    <BekreftCheckboksPanel
-                      label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                      checked={state.bekreft || false}
-                      feil={state.bekreftError}
-                      onChange={() =>
-                        dispatch({
-                          type: Actions.Bekreft,
-                          payload: { bekreft: !state.bekreft }
-                        })
-                      }
-                    >
-                      Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis
-                      opplysningene ikke er riktige eller fullstendige.
-                    </BekreftCheckboksPanel>
-                  </SkjemaGruppe>
-                </Panel>
+                <BekreftOpplysningerPanel
+                  checked={state.bekreft || false}
+                  feil={state.bekreftError}
+                  onChange={() =>
+                    dispatch({
+                      type: Actions.Bekreft,
+                      payload: { bekreft: !state.bekreft }
+                    })
+                  }
+                />
 
-                {state.feilmeldinger.length > 0 && (
-                  <Panel>
-                    <Feiloppsummering tittel='For å gå videre må du rette opp følgende:' feil={state.feilmeldinger} />
-                  </Panel>
-                )}
+                <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
+
                 <Panel>
                   <Hovedknapp onClick={handleSubmitClicked}>Send søknad</Hovedknapp>
                 </Panel>
