@@ -1,29 +1,33 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { EtikettLiten, Ingress, Innholdstittel, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import SideIndentering from '../SideIndentering';
 import Skillelinje from '../Skillelinje';
 import Fnr from '../Fnr';
-import Flatpickr from 'react-flatpickr';
-import { BekreftCheckboksPanel, Feiloppsummering, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
-import { Norwegian } from 'flatpickr/dist/l10n/no.js';
+import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Link } from 'react-router-dom';
 import lenker from '../lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
-import 'flatpickr/dist/themes/material_green.css';
+import '@navikt/helse-arbeidsgiver-felles-frontend/src/components/DatoVelger.css';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
-import dayjs from 'dayjs';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer from './GravidKravReducer';
 import { defaultGravidKravState } from './GravidKravState';
 import { Actions } from './Actions';
 import getBase64file from '../../utils/getBase64File';
+import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
+import environment from '../../environment';
+import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
+import SelectDager from './SelectDager';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -35,14 +39,63 @@ export const GravidKrav = (props: GravidKravProps) => {
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
-        dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
+        dispatch({
+          type: Actions.Dokumentasjon,
+          payload: {
+            dokumentasjon: base64encoded
+          }
+        });
       });
     }
   };
+  const handleDelete = () => {
+    dispatch({
+      type: Actions.Dokumentasjon,
+      payload: {
+        dokumentasjon: undefined
+      }
+    });
+  };
 
-  const handleSubmit = () => {};
+  const handleSubmitClicked = async () => {
+    dispatch({ type: Actions.Validate });
+  };
 
-  const handleDelete = () => {};
+  useEffect(() => {
+    if (state.validated === true && state.progress === true && state.submitting === true) {
+      postGravidKrav(
+        environment.baseUrl,
+        mapGravidKravRequest(
+          state.fnr,
+          state.orgnr,
+          state.fra,
+          state.til,
+          state.dager,
+          state.beloep,
+          state.dokumentasjon,
+          state.bekreft
+        )
+      ).then((response) => {
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: { response: response }
+        });
+      });
+    }
+  }, [
+    state.validated,
+    state.progress,
+    state.feilmeldinger,
+    state.submitting,
+    state.fra,
+    state.til,
+    state.dager,
+    state.beloep,
+    state.fnr,
+    state.bekreft,
+    state.dokumentasjon,
+    state.orgnr
+  ]);
 
   return (
     <Row className='gravidkrav'>
@@ -73,7 +126,12 @@ export const GravidKrav = (props: GravidKravProps) => {
                     placeholder='11 siffer'
                     feilmelding={state.fnrError}
                     onValidate={() => {}}
-                    onChange={() => {}}
+                    onChange={(fnr: string) =>
+                      dispatch({
+                        type: Actions.Fnr,
+                        payload: { fnr: fnr }
+                      })
+                    }
                   />
                 </Column>
               </Row>
@@ -99,54 +157,28 @@ export const GravidKrav = (props: GravidKravProps) => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               <Row>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='fra-dato' className='gravidkrav-label-dato'>
-                    <div className='gravidkrav-datolabel'>Fra dato</div>
-                    <Flatpickr
-                      id='fra-dato'
-                      name='Fra dato'
-                      placeholder='dd.mm.yyyy'
-                      // value={fraDato}
-                      className={'periodeinput-input  skjemaelement__input datoelement'}
-                      options={{
-                        maxDate: dayjs(new Date()).toDate(),
-                        minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
-                        mode: 'single',
-                        enableTime: false,
-                        dateFormat: 'd.m.Y',
-                        altInput: true,
-                        altFormat: 'd.m.Y',
-                        locale: Norwegian,
-                        allowInput: true,
-                        clickOpens: true
-                        // onClose: (date) =>  setFraDato
-                      }}
-                    />
-                  </Label>
+                  <DatoVelger
+                    id='fra-dato'
+                    label='Fra dato'
+                    onChange={(fraDato: Date) => {
+                      dispatch({
+                        type: Actions.Fra,
+                        payload: { fra: fraDato ? fraDato : undefined }
+                      });
+                    }}
+                  ></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
-                  <Label htmlFor='til-dato' className='gravidkrav-label-dato'>
-                    <div className='gravidkrav-datolabel'>Til dato</div>
-                    <Flatpickr
-                      name='Til dato'
-                      id='til-dato'
-                      placeholder='dd.mm.yyyy'
-                      // value={tilDato}
-                      className={'periodeinput-input  skjemaelement__input datoelement'}
-                      options={{
-                        maxDate: dayjs(new Date()).toDate(),
-                        minDate: dayjs(new Date()).subtract(1, 'year').toDate(),
-                        mode: 'single',
-                        enableTime: false,
-                        dateFormat: 'd.m.Y',
-                        altInput: true,
-                        altFormat: 'd.m.Y',
-                        locale: Norwegian,
-                        allowInput: true,
-                        clickOpens: true
-                        // onClose: (date) =>  setTilDato
-                      }}
-                    />
-                  </Label>
+                  <DatoVelger
+                    id='til-dato'
+                    label='Til dato'
+                    onChange={(tilDate: Date) => {
+                      dispatch({
+                        type: Actions.Til,
+                        payload: { til: tilDate ? tilDate : undefined }
+                      });
+                    }}
+                  ></DatoVelger>
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='antall-dager'>
@@ -155,7 +187,18 @@ export const GravidKrav = (props: GravidKravProps) => {
                       Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
                     </Hjelpetekst>
                   </Label>
-                  <Input id='antall-dager' inputMode='numeric' pattern='[0-9]*' />
+                  <SelectDager
+                    id='antall-dager'
+                    value={state.dager}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      dispatch({
+                        type: Actions.Dager,
+                        payload: {
+                          dager: Number(event.currentTarget.value)
+                        }
+                      })
+                    }
+                  />
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='belop'>
@@ -180,7 +223,20 @@ export const GravidKrav = (props: GravidKravProps) => {
                       </ul>
                     </Hjelpetekst>
                   </Label>
-                  <Input id='belop' inputMode='numeric' pattern='[0-9]*' placeholder='Kr:' />
+                  <Input
+                    id='belop'
+                    inputMode='numeric'
+                    pattern='[0-9]*'
+                    placeholder='Kr:'
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      dispatch({
+                        type: Actions.Beloep,
+                        payload: {
+                          beloep: Number(event.currentTarget.value.replace(',', '.'))
+                        }
+                      })
+                    }
+                  />
                 </Column>
               </Row>
             </SkjemaGruppe>
@@ -215,33 +271,21 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Skillelinje />
 
-          <Panel>
-            <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
-              <BekreftCheckboksPanel
-                label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
-                checked={state.bekreft || false}
-                feil={state.bekreftError}
-                onChange={() =>
-                  dispatch({
-                    type: Actions.Bekreft,
-                    payload: { bekreft: !state.bekreft }
-                  })
-                }
-              >
-                Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis
-                opplysningene ikke er riktige eller fullstendige.
-              </BekreftCheckboksPanel>
-            </SkjemaGruppe>
-          </Panel>
+          <BekreftOpplysningerPanel
+            checked={state.bekreft || false}
+            feil={state.bekreftError}
+            onChange={() =>
+              dispatch({
+                type: Actions.Bekreft,
+                payload: { bekreft: !state.bekreft }
+              })
+            }
+          />
 
-          {state.feilmeldinger && state.feilmeldinger.length > 0 && (
-            <Panel>
-              <Feiloppsummering tittel='For å gå videre må du rette opp følgende:' feil={state.feilmeldinger} />
-            </Panel>
-          )}
+          <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
           <Panel>
-            <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
+            <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
               Send søknad
             </Hovedknapp>
           </Panel>

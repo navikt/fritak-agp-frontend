@@ -21,13 +21,13 @@ export default interface GravidKravState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  fra: Dato;
+  fra?: Dato;
   fraError?: string;
-  til: Dato;
+  til?: Dato;
   tilError?: string;
   dager?: number;
   dagerError?: string;
-  beloep?: string;
+  beloep?: number;
   beloepError?: string;
   dokumentasjon?: string;
   dokumentasjonError?: string;
@@ -39,6 +39,6 @@ export default interface GravidKravState extends ValidationState {
   bekreftError?: string;
   error?: boolean;
   login?: boolean;
-  submitting?: boolean;
   accessDenied?: boolean;
+  submitting?: boolean;
 }

@@ -20,10 +20,10 @@ export enum Actions {
 export interface Payload {
   fnr?: string;
   orgnr?: string;
-  fra?: string;
-  til?: string;
+  fra?: Date;
+  til?: Date;
   dager?: number;
-  beloep?: string;
+  beloep?: number;
   videre?: boolean;
   bekreft?: boolean;
   progress?: boolean;
@@ -32,7 +32,7 @@ export interface Payload {
   response?: ValidationResponse;
 }
 
-export interface GravidAction {
+export interface GravidKravAction {
   type: Actions;
   payload?: Payload;
 }
