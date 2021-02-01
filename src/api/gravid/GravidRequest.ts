@@ -1,6 +1,6 @@
 export interface GravidRequest {
-  orgnr: string;
-  fnr: string;
+  virksomhetsnummer: string;
+  identitetsnummer: string;
   tilrettelegge: boolean;
   bekreftet: boolean;
   tiltak?: string[];
