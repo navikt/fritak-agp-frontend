@@ -117,6 +117,7 @@
     "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0",
     "react-scripts": "^4.0.1",
+    "react-test-renderer": "^17.0.1",
     "snyk": "^1.437.4",
     "sonarqube-scanner": "^2.7.0",
     "timezone-mock": "^1.1.3",

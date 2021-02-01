@@ -1,4 +1,3 @@
-import env from '../environment';
 import dayjs from 'dayjs';
 
 export interface LoginExpiryResponse {
@@ -7,14 +6,10 @@ export interface LoginExpiryResponse {
 }
 
 export const ParseExpiryDate = (value) =>
-  dayjs(
-    value.replace(/([+-]\d{2})(\d{2})$/g, '$1:$2'),
-    'YYYY-MM-DDTHH:mm:ssZ[Z]',
-    'no'
-  ).toDate();
+  dayjs(value.replace(/([+-]\d{2})(\d{2})$/g, '$1:$2'), 'YYYY-MM-DDTHH:mm:ssZ[Z]', 'no').toDate();
 
-const loginExpiryAPI = (): Promise<LoginExpiryResponse> => {
-  return fetch(env.baseUrl + '/api/v1/login-expiry', {
+const LoginExpiryAPI = (baseUrl: string): Promise<LoginExpiryResponse> => {
+  return fetch(baseUrl + '/api/v1/login-expiry', {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -36,4 +31,4 @@ const loginExpiryAPI = (): Promise<LoginExpiryResponse> => {
   });
 };
 
-export default loginExpiryAPI;
+export default LoginExpiryAPI;
