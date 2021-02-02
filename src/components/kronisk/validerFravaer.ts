@@ -22,9 +22,9 @@ export const validerFravaer = (fravaer: FravaerType, state: KroniskState, nextSt
   const monthProp = monthKey(MONTHS[month]);
   const af = nextState.fravaer?.find((f) => f.year === year);
   if (af === undefined) {
-    const af = { year: year } as Aarsfravaer;
-    af[monthProp] = antallDager;
-    nextState.fravaer?.push(af);
+    const a = { year: year } as Aarsfravaer;
+    a[monthProp] = antallDager;
+    nextState.fravaer?.push(a);
   } else {
     af[monthProp] = antallDager;
   }
