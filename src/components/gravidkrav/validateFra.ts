@@ -1,7 +1,7 @@
 import { Dato } from '../../utils/Dato';
 
-export const validateFra = (fra: Dato, required: boolean): string | undefined => {
-  if (fra.error) {
+export const validateFra = (fra: Dato | undefined, required: boolean): string | undefined => {
+  if (fra && fra.error) {
     return required ? fra.error : undefined;
   }
 };

@@ -9,30 +9,14 @@ describe('Upload', () => {
     jest.resetAllMocks();
   });
   it('should render nicely', () => {
-    render(
-      <Upload
-        id='1'
-        label='Upload'
-        extensions='jpg'
-        fileSize={123}
-        onChange={jest.fn()}
-        onDelete={jest.fn()}
-      />
-    );
+    render(<Upload id='1' label='Upload' extensions='jpg' fileSize={123} onChange={jest.fn()} onDelete={jest.fn()} />);
     expect(screen.getByText('Upload')).toBeInTheDocument();
   });
 
   it('should change the button label when a file is selected', () => {
     const mockChangeFn = jest.fn();
     render(
-      <Upload
-        id='1'
-        label='Upload'
-        extensions='jpg'
-        fileSize={123}
-        onChange={mockChangeFn}
-        onDelete={jest.fn()}
-      />
+      <Upload id='1' label='Upload' extensions='jpg' fileSize={123} onChange={mockChangeFn} onDelete={jest.fn()} />
     );
 
     const uploadInput = screen.getByLabelText('Upload');
@@ -78,9 +62,7 @@ describe('Upload', () => {
       }
     });
     expect(screen.getByText('UploadFile')).toBeInTheDocument();
-    expect(
-      screen.getByText('Filen er for stor. (Maks tillatt størrelse er 150 KB)')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Filen er for stor. (Maks tillatt størrelse er 150 KB)')).toBeInTheDocument();
     expect(mockChangeFn).toHaveBeenLastCalledWith({
       size: 200000,
       name: 'AnotherFilename'
@@ -89,13 +71,7 @@ describe('Upload', () => {
 
   it('should have no a11y violations', async () => {
     const { container } = render(
-      <Upload
-        id='1'
-        label='Upload'
-        extensions='jpg'
-        fileSize={123}
-        onChange={jest.fn()}
-      />
+      <Upload id='1' label='Upload' extensions='jpg' fileSize={123} onDelete={jest.fn()} onChange={jest.fn()} />
     );
 
     const results = await axe(container);

@@ -2,7 +2,7 @@ import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import { mapValidationResponse } from './mapValidationResponse';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import { parseDato } from '../../utils/Dato';
+import { parseDateTilDato } from '../../utils/Dato';
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
   const nextState = Object.assign({}, state);
@@ -18,16 +18,18 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
 
     case Actions.Fra:
       if (payload?.fra === undefined) {
-        throw new Error('Fra dato må spesifiseres');
+        nextState.til = undefined;
+      } else {
+        nextState.fra = parseDateTilDato(payload?.fra);
       }
-      nextState.fra = parseDato(payload?.fra);
       return validateGravidKrav(nextState);
 
     case Actions.Til:
       if (payload?.til === undefined) {
-        throw new Error('Til dato må spesifiseres');
+        nextState.til = undefined;
+      } else {
+        nextState.til = parseDateTilDato(payload?.til);
       }
-      nextState.til = parseDato(payload?.til);
       return validateGravidKrav(nextState);
 
     case Actions.Dager:

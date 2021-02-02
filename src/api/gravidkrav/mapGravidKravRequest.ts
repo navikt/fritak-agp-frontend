@@ -4,13 +4,12 @@ import { Dato, datoToString } from '../../utils/Dato';
 export const mapGravidKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  fra: Dato,
-  til: Dato,
+  fra: Dato | undefined,
+  til: Dato | undefined,
   dager: number | undefined,
   beloep: number | undefined,
   dokumentasjon: string | undefined,
-  bekreft: boolean | undefined,
-  virksomhetsnummer: string | undefined
+  bekreft: boolean | undefined
 ): GravidKravRequest => {
   if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
@@ -18,10 +17,10 @@ export const mapGravidKravRequest = (
   if (orgnr === undefined) {
     throw new Error('Orgnr må spesifiseres');
   }
-  if (fra.error) {
+  if (fra?.error) {
     throw new Error('Fra må spesifiseres');
   }
-  if (til.error) {
+  if (til?.error) {
     throw new Error('Til må spesifiseres');
   }
   if (dager === undefined) {

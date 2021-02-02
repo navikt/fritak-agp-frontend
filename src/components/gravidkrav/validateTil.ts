@@ -1,6 +1,10 @@
 import { Dato } from '../../utils/Dato';
 
-export const validateTil = (fra: Dato, til: Dato, required: boolean): string | undefined => {
+export const validateTil = (fra: Dato | undefined, til: Dato | undefined, required: boolean): string | undefined => {
+  if (!fra || !til) {
+    return;
+  }
+
   if (!required) {
     return;
   }
