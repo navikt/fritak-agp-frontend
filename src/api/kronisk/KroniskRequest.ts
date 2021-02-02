@@ -7,8 +7,8 @@ export interface FravaerData {
 }
 
 export interface KroniskRequest {
-  orgnr: string;
-  fnr: string;
+  virksomhetsnummer: string;
+  identitetsnummer: string;
   arbeidstyper: ArbeidType[];
   paakjenningstyper: PaakjenningerType[];
   paakjenningBeskrivelse?: string;
