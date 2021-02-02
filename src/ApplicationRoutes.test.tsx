@@ -9,7 +9,6 @@ import KroniskSide from './components/kronisk/KroniskSide';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import GravidSide from './components/gravid/GravidSide';
-import GravidKrav from './components/gravidkrav/GravidKrav';
 
 describe('ApplicationRoutes', () => {
   const makeHistory = (path: string) => {

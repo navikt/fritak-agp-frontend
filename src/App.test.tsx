@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import App, { Application } from './App';
+import { Application } from './App';
 import { LoginRedirect } from './context/LoginContext';
 import Side from './components/Side';
 import LoginExpiryProvider from './context/LoginExpiryContext';
