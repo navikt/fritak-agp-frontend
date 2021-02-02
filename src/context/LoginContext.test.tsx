@@ -5,6 +5,8 @@ import TestRenderer from 'react-test-renderer';
 import { LoginProvider, LoginRedirect } from './LoginContext';
 
 describe('LoginContext', () => {
+  let assignMock = jest.fn();
+
   beforeEach(() => {
     delete window.location;
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -15,6 +17,10 @@ describe('LoginContext', () => {
       pathname: '/gravid',
       search: 'loggedIn=true'
     };
+  });
+
+  afterEach(() => {
+    assignMock.mockClear();
   });
 
   const makeHistory = (path: string) => {
