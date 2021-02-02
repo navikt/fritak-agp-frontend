@@ -1,43 +1,35 @@
 import React from 'react';
 import { EnvironmentProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
-import { Route, Switch } from 'react-router-dom';
-import GravidSide from './components/gravid/GravidSide';
-import Forside from './components/Forside';
-import GravidKvittering from './components/gravid/GravidKvittering';
+import { BrowserRouter } from 'react-router-dom';
 import env from './environment';
-import lenker from './components/lenker';
 import Side from './components/Side';
-import KroniskSide from './components/kronisk/KroniskSide';
-import TokenFornyet from './components/tokenFornyet/TokenFornyet';
-import KroniskKvittering from './components/kronisk/KroniskKvittering';
-import GravidKrav from './components/gravidkrav/GravidKrav';
-import injectRedirectPath from './utils/injectRedirectPath';
-import loginExpiryAPI from './api/loginExpiryAPI';
+import LoginExpiryProvider from './context/LoginExpiryContext';
+import { LoginProvider } from './context/LoginContext';
+import { ApplicationRoutes } from './ApplicationRoutes';
 
-const App = () => {
-  loginExpiryAPI().then((loggedInStatus) => {
-    if (loggedInStatus.status !== 200 && (!location.search || !location.search.includes('loggedIn=true'))) {
-      const redirectedLoginServiceUrl = injectRedirectPath(location.pathname, '/fritak-agp');
-      window.location.href = redirectedLoginServiceUrl;
-      return <div />;
-    }
-  });
+interface ApplicationProps {
+  path?: string;
+  loginStatus?: number;
+  loggedIn?: boolean;
+  loginExpiry?: number;
+}
 
-  return (
-    <EnvironmentProvider loginServiceUrl={env.loginServiceUrl} sideTittel={'Søknadsskjema'} basePath={env.baseUrl}>
-      <Side>
-        <Switch>
-          <Route path={lenker.GravidKvittering} render={() => <GravidKvittering />} />
-          <Route path={lenker.GravidKrav} render={() => <GravidKrav />} />
-          <Route path={lenker.KroniskKvittering} render={() => <KroniskKvittering />} />
-          <Route path={lenker.Gravid} render={() => <GravidSide />} />
-          <Route path={lenker.Kronisk} render={() => <KroniskSide />} />
-          <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
-          <Route path={lenker.Home} render={() => <Forside />} />
-        </Switch>
-      </Side>
-    </EnvironmentProvider>
-  );
-};
+export const Application = (props: ApplicationProps) => (
+  <EnvironmentProvider loginServiceUrl={env.loginServiceUrl} sideTittel={'Søknadsskjema'} basePath={env.baseUrl}>
+    <LoginProvider loggedIn={props.loggedIn}>
+      <LoginExpiryProvider status={props.loginStatus} loginExpiry={props.loginExpiry}>
+        <Side>
+          <ApplicationRoutes />
+        </Side>
+      </LoginExpiryProvider>
+    </LoginProvider>
+  </EnvironmentProvider>
+);
+
+const App = () => (
+  <BrowserRouter basename='fritak-agp'>
+    <Application />
+  </BrowserRouter>
+);
 
 export default App;

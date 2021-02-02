@@ -9,12 +9,6 @@ import Modal from 'react-modal';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import env, { EnvironmentType } from './environment';
 import { version } from '../package.json';
-import { BrowserRouter } from 'react-router-dom';
-
-// @ts-ignore
-document.querySelector('meta[name=buildNr]').setAttribute('content', version);
-
-Modal.setAppElement('#root');
 
 if (env.environmentMode !== EnvironmentType.LOCAL) {
   Sentry.init({
@@ -23,9 +17,9 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
   });
 }
 
-ReactDOM.render(
-  <BrowserRouter basename='fritak-agp'>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root') as HTMLElement
-);
+// @ts-ignore
+document.querySelector('meta[name=buildNr]').setAttribute('content', version);
+
+Modal.setAppElement('#root');
+
+ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);

@@ -16,7 +16,7 @@ describe('Environment', () => {
     window.location = theWindowLocation;
 
     expect(env.loginServiceUrl).toBe(
-      'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=http://localhost:3000/fritak-agp/?loggedIn=true'
+      'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true'
     );
   });
 
@@ -25,7 +25,7 @@ describe('Environment', () => {
     window.location = new URL('https://www.dev.nav.no');
 
     expect(env.loginServiceUrl).toBe(
-      'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=https://fritak-agp-frontend.dev.nav.no/fritak-agp/?loggedIn=true'
+      'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true'
     );
   });
 
@@ -33,9 +33,7 @@ describe('Environment', () => {
     // @ts-ignore
     window.location = new URL('https://www.nav.no');
 
-    expect(env.loginServiceUrl).toBe(
-      'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true'
-    );
+    expect(env.loginServiceUrl).toBe('https://loginservice.nav.no/login?redirect=XXX?loggedIn=true');
   });
 
   it('should return the baseUrl url for localhost', () => {
