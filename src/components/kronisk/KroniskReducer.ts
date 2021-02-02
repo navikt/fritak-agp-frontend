@@ -5,73 +5,11 @@ import { validateKronisk } from './validateKronisk';
 import { MONTHS } from '../../utils/months';
 import { monthKey } from '../../utils/monthKey';
 import { mapValidationResponse } from './mapValidationResponse';
-import { PaakjenningerType } from './PaakjenningerType';
-import { ArbeidType } from './ArbeidType';
+import { validerArbeid } from './validerArbeid';
+import { validerFravaer } from './validerFravaer';
+import { validerPaakjenninger } from './validerPaakjenninger';
 
-export const validerPaakjenninger = (
-  paakjenning: PaakjenningerType,
-  state: KroniskState,
-  nextState: KroniskState
-) => {
-  if (!nextState.paakjenninger) {
-    nextState.paakjenninger = [];
-  }
-  if (state.paakjenninger?.includes(paakjenning)) {
-    nextState.paakjenninger.splice(
-      state.paakjenninger?.indexOf(paakjenning),
-      1
-    );
-  } else {
-    nextState.paakjenninger.push(paakjenning);
-  }
-  return validateKronisk(nextState);
-};
-
-export const validerFravaer = (
-  fravaer: FravaerType,
-  state: KroniskState,
-  nextState: KroniskState
-) => {
-  if (!nextState.fravaer) {
-    nextState.fravaer = [];
-  }
-  const { year, month, dager } = fravaer;
-  if (month < 0 || month > 11) {
-    throw new Error('Month må være mellom 0 og 11');
-  }
-  const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
-  const monthProp = monthKey(MONTHS[month]);
-  let nextFravaer =
-    state.fravaer?.find((f) => f.year === year) ||
-    ({ year: year } as Aarsfravaer);
-
-  if (!state.fravaer?.includes(nextFravaer)) {
-    nextState.fravaer?.push(nextFravaer);
-  }
-  nextFravaer[monthProp] = antallDager;
-  return nextState;
-};
-
-export const validerArbeid = (
-  arbeid: ArbeidType,
-  state: KroniskState,
-  nextState: KroniskState
-) => {
-  if (!nextState.arbeid) {
-    nextState.arbeid = [];
-  }
-  if (state.arbeid?.includes(arbeid)) {
-    nextState.arbeid.splice(state.arbeid?.indexOf(arbeid), 1);
-  } else {
-    nextState.arbeid.push(arbeid);
-  }
-  return nextState;
-};
-
-const KroniskReducer = (
-  state: KroniskState,
-  action: KroniskAction
-): KroniskState => {
+const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {

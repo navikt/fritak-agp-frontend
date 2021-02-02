@@ -1,0 +1,33 @@
+import { FravaerType } from './Actions';
+import KroniskState from './KroniskState';
+import { monthKey } from '../../utils/monthKey';
+import { MONTHS } from '../../utils/months';
+import { Aarsfravaer } from './Aarsfravaer';
+import { isAarsFravaerEmpty } from './isAarsFravaerEmpty';
+
+const HELTALL = new RegExp('^\\d*$');
+
+export const validerFravaer = (fravaer: FravaerType, state: KroniskState, nextState: KroniskState) => {
+  if (!nextState.fravaer) {
+    nextState.fravaer = [];
+  }
+  const { year, month, dager } = fravaer;
+  if (month < 0 || month > 11) {
+    throw new Error('Month må være mellom 0 og 11');
+  }
+  if (dager.length > 0 && !HELTALL.test(dager)) {
+    throw new Error('Antall må være heltall');
+  }
+  const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
+  const monthProp = monthKey(MONTHS[month]);
+  const f = nextState.fravaer?.find((f) => f.year === year);
+  if (f === undefined) {
+    const af = { year: year } as Aarsfravaer;
+    af[monthProp] = antallDager;
+    nextState.fravaer?.push(af);
+  } else {
+    f[monthProp] = antallDager;
+  }
+  nextState.fravaer = nextState.fravaer.filter((f) => !isAarsFravaerEmpty(f));
+  return nextState;
+};
