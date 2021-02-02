@@ -1,9 +1,6 @@
 import KroniskState, { defaultKroniskState } from './KroniskState';
-import { Actions, FravaerType, KroniskAction } from './Actions';
-import { Aarsfravaer } from './Aarsfravaer';
+import { Actions, KroniskAction } from './Actions';
 import { validateKronisk } from './validateKronisk';
-import { MONTHS } from '../../utils/months';
-import { monthKey } from '../../utils/monthKey';
 import { mapValidationResponse } from './mapValidationResponse';
 import { validerArbeid } from './validerArbeid';
 import { validerFravaer } from './validerFravaer';
