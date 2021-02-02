@@ -37,8 +37,8 @@ describe('App', () => {
   it('should show Side when logged in and expiry is not empty', () => {
     expect(
       TestRenderer.create(
-        <Router history={makeHistory('/')}>
-          <Application loggedIn={true} loginStatus={1} />
+        <Router history={makeHistory('/fritak-agp/')}>
+          <Application loggedIn={true} loginStatus={2} />
         </Router>
       ).root.findByType(Side)
     );
