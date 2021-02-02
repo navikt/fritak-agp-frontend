@@ -142,7 +142,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
             <Systemtittel className='textfelt-padding-bottom'>Tapt arbeidstid</Systemtittel>
-            <Ingress className='textfelt-padding-bottom'>
+            <Ingress tag='span' className='textfelt-padding-bottom'>
               Hvilken periode var den ansatte borte?
               <Hjelpetekst className='krav-padding-hjelpetekst'>
                 <ul>
