@@ -37,14 +37,7 @@ describe('mapKroniskRequest', () => {
   });
 
   it('should not fail when all props', async () => {
-    const r = mapKroniskRequest(
-      arbeid,
-      paakjenninger,
-      fravaer,
-      fnr,
-      orgnr,
-      bekreft
-    );
-    expect(r.fnr).toEqual('123456789');
+    const r = mapKroniskRequest(arbeid, paakjenninger, fravaer, fnr, orgnr, bekreft);
+    expect(r.identitetsnummer).toEqual('123456789');
   });
 });

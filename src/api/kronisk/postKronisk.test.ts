@@ -20,8 +20,8 @@ describe('postKronisk', () => {
     });
     expect(
       await postKronisk('/Paths', {
-        orgnr: 'tiltak',
-        fnr: '',
+        virksomhetsnummer: 'tiltak',
+        identitetsnummer: '',
         arbeidstyper: [ArbeidType.KREVENDE],
         paakjenningstyper: [PaakjenningerType.ALLERGENER],
         dokumentasjon: 'dokumentasjon'
