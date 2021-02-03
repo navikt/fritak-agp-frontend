@@ -149,7 +149,6 @@ const GravidSide = (props: GravidSideProps) => {
                     <Systemtittel>Arbeidsgiveren</Systemtittel>
                     <br />
                     <Orgnr
-                      label='Organisasjonsnummer'
                       orgnr={state.orgnr}
                       placeholder='9 siffer'
                       feilmelding={state.orgnrError}

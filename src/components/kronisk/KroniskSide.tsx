@@ -127,7 +127,7 @@ const KroniskSide = () => {
                   <Systemtittel>Arbeidsgiveren</Systemtittel>
                   <br />
                   <Orgnr
-                    label='Organisasjonsnummer'
+                    label='Virksomhetsnummer'
                     orgnr={state.orgnr}
                     placeholder='9 siffer'
                     feilmelding={state.orgnrError}

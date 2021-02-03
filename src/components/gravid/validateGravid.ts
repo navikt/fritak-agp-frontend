@@ -19,7 +19,7 @@ export const validateGravid = (state: GravidState): GravidState => {
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.bekreftError = state.bekreft == false ? 'Mangler bekreft' : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
-    nextState.orgnrError = 'Ugyldig organisasjonsnummer';
+    nextState.orgnrError = 'Ugyldig virksomhetsnummer';
   }
   if (state.fnr && !isValidFnr(state.fnr)) {
     nextState.fnrError = 'Ugyldig fødselsnummer';
@@ -29,7 +29,7 @@ export const validateGravid = (state: GravidState): GravidState => {
     pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);
   }
   if (nextState.orgnrError) {
-    pushFeilmelding('orgnr', 'Organisasjonsnummer må fylles ut', feilmeldinger);
+    pushFeilmelding('orgnr', 'Virksomhetsnummeret må fylles ut', feilmeldinger);
   }
 
   if (!state.videre) {

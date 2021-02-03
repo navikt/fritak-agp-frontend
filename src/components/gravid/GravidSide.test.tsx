@@ -21,7 +21,7 @@ describe('GravidSide', () => {
     cleanup();
   });
   const FODSELSNR = 'Fødselsnummer';
-  const ORGANISASJONSNUMMER = 'Organisasjonsnummer';
+  const VIRKSOMHETSNR = 'Virksomhetsnummer';
   const TILRETTELEGGE = 'Har dere prøvd å tilrettelegge arbeidsdagen';
   const TILTAK = 'Hvilke tiltak har dere forsøkt';
   const VIDERE = 'Dere må først ha prøvd å tilrettelegge for den gravide';
@@ -80,7 +80,7 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(STATUS_HOVED);
 
     expect(htmlDivElement.textContent).toContain(FODSELSNR);
-    expect(htmlDivElement.textContent).toContain(ORGANISASJONSNUMMER);
+    expect(htmlDivElement.textContent).toContain(VIRKSOMHETSNR);
     expect(htmlDivElement.textContent).toContain(TILRETTELEGGE);
     expect(htmlDivElement.textContent).not.toContain(TILTAK);
     expect(htmlDivElement.textContent).not.toContain(OMPLASSERING);
@@ -102,7 +102,7 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(STATUS_HOVED);
 
     expect(htmlDivElement.textContent).toContain(FODSELSNR);
-    expect(htmlDivElement.textContent).toContain(ORGANISASJONSNUMMER);
+    expect(htmlDivElement.textContent).toContain(VIRKSOMHETSNR);
     expect(htmlDivElement.textContent).toContain(TILRETTELEGGE);
     expect(htmlDivElement.textContent).not.toContain(TILTAK);
     expect(htmlDivElement.textContent).not.toContain(OMPLASSERING);
@@ -125,7 +125,7 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(STATUS_HOVED);
 
     expect(htmlDivElement.textContent).toContain(FODSELSNR);
-    expect(htmlDivElement.textContent).toContain(ORGANISASJONSNUMMER);
+    expect(htmlDivElement.textContent).toContain(VIRKSOMHETSNR);
     expect(htmlDivElement.textContent).toContain(TILRETTELEGGE);
     expect(htmlDivElement.textContent).not.toContain(TILTAK);
     expect(htmlDivElement.textContent).not.toContain(OMPLASSERING);
@@ -147,7 +147,7 @@ describe('GravidSide', () => {
     expect(htmlDivElement.textContent).toContain(STATUS_HOVED);
 
     expect(htmlDivElement.textContent).toContain(FODSELSNR);
-    expect(htmlDivElement.textContent).toContain(ORGANISASJONSNUMMER);
+    expect(htmlDivElement.textContent).toContain(VIRKSOMHETSNR);
     expect(htmlDivElement.textContent).toContain(TILRETTELEGGE);
     expect(htmlDivElement.textContent).toContain(TILTAK);
     expect(htmlDivElement.textContent).toContain(OMPLASSERING);
