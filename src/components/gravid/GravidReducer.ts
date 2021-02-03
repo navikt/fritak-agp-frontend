@@ -88,7 +88,7 @@ const GravidReducer = (state: GravidState, action: GravidAction): GravidState =>
       return validateGravid(nextState);
 
     case Actions.ServerFeil:
-      nextState.showModal = false;
+      nextState.showModal = undefined;
       return validateGravid(nextState);
 
     case Actions.Validate:
