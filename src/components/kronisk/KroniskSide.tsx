@@ -52,6 +52,7 @@ const KroniskSide = () => {
   };
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
+      console.error('Denne skal ikke skje');
       postKronisk(
         environment.baseUrl,
         mapKroniskRequest(
