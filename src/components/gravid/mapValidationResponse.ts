@@ -69,6 +69,7 @@ export const mapValidationResponse = (response: ValidationResponse, state: Gravi
       nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
       return map422(nextState);
     case 500:
+    case 666:
       nextState.showModal = true;
       return map500(nextState);
     default:
