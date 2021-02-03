@@ -10,6 +10,7 @@ describe('Environment', () => {
 
   afterEach(() => {
     window.location = theWindowLocation;
+    delete window.location;
   });
 
   it('should return the loginservice url for localhost', () => {
