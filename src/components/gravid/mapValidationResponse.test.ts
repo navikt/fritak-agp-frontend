@@ -106,7 +106,7 @@ describe('mapValidationResponse', () => {
   });
 
   it('should handle 500 and unknown status codes', () => {
-    const ERRORS = [500, 666];
+    const ERRORS = [500];
     ERRORS.forEach((e) => {
       let response = {
         violations: [],
@@ -119,9 +119,7 @@ describe('mapValidationResponse', () => {
       expect(state.progress).toEqual(false);
       expect(state.kvittering).toEqual(false);
       expect(state.error).toEqual(true);
-      expect(state.feilmeldinger?.length).toEqual(1);
-      expect(state.feilmeldinger[0].skjemaelementId).toEqual('ukjent');
-      expect(state.feilmeldinger[0].feilmelding).toEqual('Klarte ikke å sende inn skjema. Prøv igjen senere.');
+      expect(state.showModal).toEqual(true);
     });
   });
 });
