@@ -195,12 +195,12 @@ describe('KroniskReducer', () => {
       type: Actions.Fravaer,
       payload: { fravaer: { year: 2018, month: 9, dager: '3' } }
     });
-    expect(state2.fravaer!![0].okt).toEqual(3);
+    expect(state2.fravaer![0].okt).toEqual(3);
     let state3 = KroniskReducer(state, {
       type: Actions.Fravaer,
       payload: { fravaer: { year: 2018, month: 9, dager: '' } }
     });
-    expect(state3.fravaer!![0].okt).toBeUndefined();
+    expect(state3.fravaer?.length).toEqual(0);
   });
 
   it('Fravaer - should handle empty state', () => {
@@ -210,7 +210,7 @@ describe('KroniskReducer', () => {
       type: Actions.Fravaer,
       payload: { fravaer: { year: 2018, month: 9, dager: '' } }
     });
-    expect(state2.fravaer?.length).toEqual(1);
+    expect(state2.fravaer?.length).toEqual(0);
   });
 
   it('Fravaer - should throw error when empty param', () => {
