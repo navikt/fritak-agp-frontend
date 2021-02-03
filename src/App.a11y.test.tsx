@@ -1,21 +1,23 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { axe } from 'jest-axe';
-
 import App from './App';
-import { MemoryRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
-describe('App', () => {
+const makeHistory = createMemoryHistory({
+  initialEntries: ['/']
+});
+
+describe('App.a11y', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
-      <MemoryRouter>
+      <Router history={makeHistory}>
         <App />
-      </MemoryRouter>
+      </Router>
     );
     const results = await axe(container);
-
     expect(results).toHaveNoViolations();
-
     cleanup();
   });
 });
