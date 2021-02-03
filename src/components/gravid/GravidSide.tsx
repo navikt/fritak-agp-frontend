@@ -62,7 +62,7 @@ const GravidSide = (props: GravidSideProps) => {
     dispatch({ type: Actions.Validate });
   };
   const handleCloseModal = () => {
-    dispatch({ type: Actions.CloseServerFeilModal });
+    dispatch({ type: Actions.ServerFeil });
   };
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {

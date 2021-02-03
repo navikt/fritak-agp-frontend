@@ -106,7 +106,7 @@ describe('mapValidationResponse', () => {
   });
 
   it('should handle 500 and unknown status codes', () => {
-    const ERRORS = [500, 666];
+    const ERRORS = [500];
     ERRORS.forEach((e) => {
       let response = {
         violations: [],

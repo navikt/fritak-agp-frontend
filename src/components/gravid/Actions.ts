@@ -19,7 +19,7 @@ export enum Actions {
   Progress,
   HandleResponse,
   Kvittering,
-  CloseServerFeilModal
+  ServerFeil
 }
 
 export interface Payload {

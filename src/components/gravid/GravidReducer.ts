@@ -87,7 +87,7 @@ const GravidReducer = (state: GravidState, action: GravidAction): GravidState =>
       nextState.kvittering = payload?.kvittering;
       return validateGravid(nextState);
 
-    case Actions.CloseServerFeilModal:
+    case Actions.ServerFeil:
       nextState.showModal = false;
       return validateGravid(nextState);
 

@@ -3,6 +3,7 @@ import ModalWrapper from 'nav-frontend-modal';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import './ServerFeilAdvarsel.sass';
+import InternLenke from './login/InternLenke';
 
 interface ServerFeilAdvarselProps {
   onClose: () => void;
@@ -27,9 +28,7 @@ const ServerFeilAdvarsel = (props: ServerFeilAdvarselProps) => {
           Prøv igjen litt senere, og{' '}
           <a href={'https://arbeidsgiver.nav.no/kontakt-oss/'}>kontakt oss gjerne dersom det ikke ordner seg.</a>
         </div>
-        <Lenke href='#' onClick={() => props.onClose()}>
-          Skjul denne meldingen.
-        </Lenke>
+        <InternLenke onClick={() => props.onClose()}>Skjul denne meldingen.</InternLenke>
       </AlertStripeFeil>
     </ModalWrapper>
   );
