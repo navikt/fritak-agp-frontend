@@ -1,7 +1,6 @@
 import React from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import Lenke from 'nav-frontend-lenker';
 import './ServerFeilAdvarsel.sass';
 import InternLenke from './login/InternLenke';
 
