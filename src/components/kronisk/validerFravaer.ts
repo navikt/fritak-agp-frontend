@@ -20,13 +20,13 @@ export const validerFravaer = (fravaer: FravaerType, state: KroniskState, nextSt
   }
   const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
   const monthProp = monthKey(MONTHS[month]);
-  const af = nextState.fravaer?.find((f) => f.year === year);
-  if (af === undefined) {
+  const aarfravaer = nextState.fravaer?.find((f) => f.year === year);
+  if (aarfravaer === undefined) {
     const a = { year: year } as Aarsfravaer;
     a[monthProp] = antallDager;
     nextState.fravaer?.push(a);
   } else {
-    af[monthProp] = antallDager;
+    aarfravaer[monthProp] = antallDager;
   }
   nextState.fravaer = nextState.fravaer.filter((f) => !isAarsFravaerEmpty(f));
   return nextState;

@@ -68,7 +68,6 @@ describe('validerFravaer', () => {
     let nextState = validerFravaer(fravaer, state, {} as KroniskState);
     expect(nextState.fravaer?.length).toEqual(1);
     expect(nextState.fravaer[0].year).toEqual(2020);
-    // expect(nextState.fravaer).toEqual(12);
     expect(nextState.fravaer[0].apr).toEqual(12);
   });
 
