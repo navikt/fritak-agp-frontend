@@ -103,7 +103,7 @@ const GravidSide = (props: GravidSideProps) => {
   ]);
   return (
     <Row className='gravid-side'>
-      <ServerFeilAdvarsel isOpen={!state.showModal} onClose={handleCloseModal} />
+      <ServerFeilAdvarsel isOpen={state.showModal} onClose={handleCloseModal} />
       <Column>
         <SoknadTittel>Søknad om at NAV dekker sykepenger i arbeidsgiverperioden</SoknadTittel>
 
