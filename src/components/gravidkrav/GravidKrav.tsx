@@ -28,12 +28,11 @@ import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest'
 import SelectDager from './SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  
+
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
   };
@@ -310,7 +309,6 @@ export const GravidKrav = (props: GravidKravProps) => {
         {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
       </Row>
     </InnloggetSide>
-
   );
 };
 
