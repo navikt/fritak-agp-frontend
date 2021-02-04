@@ -1,8 +1,8 @@
 import { KroniskRequest } from './KroniskRequest';
 import { mapFravaerData } from './mapFravaerData';
 import { Aarsfravaer } from '../../components/kronisk/Aarsfravaer';
-import { PaakjenningerType } from '../../components/kronisk/PaakjenningerType';
 import { ArbeidType } from '../../components/kronisk/ArbeidType';
+import PaakjenningerType from '../../components/kronisk/PaakjenningerType';
 
 export const mapKroniskRequest = (
   arbeid: Array<ArbeidType>,
@@ -10,7 +10,8 @@ export const mapKroniskRequest = (
   fravaer: Array<Aarsfravaer>,
   fnr: string,
   orgnr: string,
-  bekreft: boolean
+  bekreft: boolean,
+  paakjenningBeskrivelse: string | undefined
 ): KroniskRequest => {
   if (!arbeid || arbeid?.length == 0) {
     throw new Error('Må ha minst en arbeidstype');
@@ -21,12 +22,16 @@ export const mapKroniskRequest = (
   if (!fravaer || fravaer?.length == 0) {
     throw new Error('Må ha minst en fravær');
   }
+  if (paakjenninger.includes(PaakjenningerType.ANNET) && !paakjenningBeskrivelse) {
+    throw new Error('Må ha kommentar til påkjenning');
+  }
   return {
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
     bekreftet: bekreft,
     arbeidstyper: arbeid,
     paakjenningstyper: paakjenninger,
+    paakjenningBeskrivelse,
     fravaer: mapFravaerData(fravaer)
   } as KroniskRequest;
 };

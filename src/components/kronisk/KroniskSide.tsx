@@ -60,7 +60,8 @@ const KroniskSide = () => {
           state.fravaer || [],
           state.fnr || '',
           state.orgnr || '',
-          state.bekreft || false
+          state.bekreft || false,
+          state.kommentar
         )
       ).then((response) => {
         dispatch({
