@@ -22,8 +22,8 @@ export const mapKroniskRequest = (
     throw new Error('Må ha minst en fravær');
   }
   return {
-    fnr: fnr,
-    orgnr: orgnr,
+    identitetsnummer: fnr,
+    virksomhetsnummer: orgnr,
     bekreftet: bekreft,
     arbeidstyper: arbeid,
     paakjenningstyper: paakjenninger,

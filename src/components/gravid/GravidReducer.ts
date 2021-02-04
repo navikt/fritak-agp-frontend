@@ -5,11 +5,7 @@ import { mapValidationResponse } from './mapValidationResponse';
 import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
 
-export const validateTiltak = (
-  tiltak: Tiltak,
-  state: GravidState,
-  nextState: GravidState
-) => {
+export const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState) => {
   if (!nextState.tiltak) {
     nextState.tiltak = [];
   }
@@ -25,10 +21,7 @@ export const validateTiltak = (
 };
 
 /* eslint complexity: ["off"] */
-const GravidReducer = (
-  state: GravidState,
-  action: GravidAction
-): GravidState => {
+const GravidReducer = (state: GravidState, action: GravidAction): GravidState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {
@@ -92,6 +85,10 @@ const GravidReducer = (
 
     case Actions.Kvittering:
       nextState.kvittering = payload?.kvittering;
+      return validateGravid(nextState);
+
+    case Actions.ServerFeil:
+      nextState.showModal = undefined;
       return validateGravid(nextState);
 
     case Actions.Validate:

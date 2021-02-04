@@ -30,6 +30,7 @@ import { Omplassering } from './Omplassering';
 import environment from '../../environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
+import ServerFeilAdvarsel from '../ServerFeilAdvarsel';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 import Side from '../Side';
@@ -60,6 +61,9 @@ const GravidSide = (props: GravidSideProps) => {
   };
   const handleSubmitClicked = async () => {
     dispatch({ type: Actions.Validate });
+  };
+  const handleCloseModal = () => {
+    dispatch({ type: Actions.ServerFeil });
   };
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
@@ -101,6 +105,7 @@ const GravidSide = (props: GravidSideProps) => {
   return (
     <Side>
       <Row className='gravid-side'>
+        <ServerFeilAdvarsel isOpen={state.showModal} onClose={handleCloseModal} />
         <Column>
           <SoknadTittel>Søknad om at NAV dekker sykepenger i arbeidsgiverperioden</SoknadTittel>
 
