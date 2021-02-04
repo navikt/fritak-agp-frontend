@@ -1,17 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import ArbeidsgiverAPI, { Status } from '../api/ArbeidsgiverAPI';
+import ArbeidsgiverAPI, { Status as RestStatus } from '../api/ArbeidsgiverAPI';
 import Spinner from 'nav-frontend-spinner';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import env from '../environment';
 
 export const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeidsgivere: Organisasjon[]) => ({
   arbeidsgivere,
-  setArbeidsgivere: function (arbeidsgivere: Organisasjon[]) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+  setArbeidsgivere: function (arbeidsgiverListe: Organisasjon[]) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
   firma,
-  setFirma: function (firma: string) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+  setFirma: function (firmaNavn: string) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
   arbeidsgiverId,
-  setArbeidsgiverId: function (arbeidsgiverId: string) {} // eslint-disable-line @typescript-eslint/no-unused-vars
+  setArbeidsgiverId: function (virksomhetsnr: string) {} // eslint-disable-line @typescript-eslint/no-unused-vars
 });
 
 export const buildArbeidsgiver = (
@@ -43,14 +43,14 @@ interface ArbeidsgiverContextProviderProps {
 export const useArbeidsgiver = () => useContext(ArbeidsgiverContext);
 
 export const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
-  const [status, setStatus] = useState<number>(props.status || Status.NotStarted);
+  const [status, setStatus] = useState<number>(props.status || RestStatus.NotStarted);
   const [arbeidsgivere, setArbeidsgivere] = useState<Organisasjon[]>(props.arbeidsgivere || []);
   const [firma, setFirma] = useState<string>('');
   const [arbeidsgiverId, setArbeidsgiverId] = useState<string>('');
 
   useEffect(() => {
-    if (status === Status.NotStarted) {
-      setStatus(Status.Started);
+    if (status === RestStatus.NotStarted) {
+      setStatus(RestStatus.Started);
       ArbeidsgiverAPI.GetArbeidsgivere().then((res) => {
         setStatus(res.status);
         setArbeidsgivere(res.organisasjoner);
@@ -58,16 +58,16 @@ export const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) =>
     }
   }, [status]);
 
-  if (status === Status.Unauthorized) {
+  if (status === RestStatus.Unauthorized) {
     window.location.href = env.loginServiceUrl;
     return <div className='arbeidsgiver-provider-redirect' />;
   }
 
-  if (status === Status.NotStarted || status === Status.Started) {
+  if (status === RestStatus.NotStarted || status === RestStatus.Started) {
     return <Spinner type={'XXL'} className='sporenstreks-spinner' />;
   }
 
-  if (status === Status.Error || status === Status.Timeout) {
+  if (status === RestStatus.Error || status === RestStatus.Timeout) {
     return (
       <AlertStripeFeil>
         Vi får akkurat nå ikke hentet alle data. Vi jobber med å løse saken. Vennligst prøv igjen senere.
@@ -75,7 +75,7 @@ export const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) =>
     );
   }
 
-  if (status === Status.Unknown) {
+  if (status === RestStatus.Unknown) {
     return (
       <AlertStripeFeil>
         Det oppstod en ukjent feil. Vi jobber med å løse saken. Vennligst prøv igjen senere.
