@@ -60,7 +60,7 @@ describe('ArbeidsgiverAPI', () => {
           ARBEIDSGIVERE
         })
     });
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere as Promise<Response>);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere()).toStrictEqual({
       status: 401,
       organisasjoner: []
@@ -72,7 +72,7 @@ describe('ArbeidsgiverAPI', () => {
       status: 500,
       json: () => Promise.resolve({})
     });
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockError);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockError as Promise<Response>);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere()).toStrictEqual({
       status: 500,
       organisasjoner: []
@@ -84,9 +84,20 @@ describe('ArbeidsgiverAPI', () => {
       status: 401,
       json: () => Promise.resolve({})
     });
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken as Promise<Response>);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere()).toStrictEqual({
       status: 401,
+      organisasjoner: []
+    });
+  });
+
+  it('skal håndtere at ting går galt', async () => {
+    const mockToken = Promise.resolve({
+      status: 200
+    });
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken as Promise<Response>);
+    expect(await ArbeidsgiverAPI.GetArbeidsgivere()).toStrictEqual({
+      status: 500,
       organisasjoner: []
     });
   });
@@ -94,7 +105,7 @@ describe('ArbeidsgiverAPI', () => {
   it('skal håndtere timeout', async () => {
     jest.useFakeTimers();
     const mockTimeout = new Promise(() => {});
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockTimeout);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockTimeout as Promise<Response>);
     const verdi = ArbeidsgiverAPI.GetArbeidsgivere();
     jest.advanceTimersByTime(10000);
     expect(await verdi).toStrictEqual({

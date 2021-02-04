@@ -29,7 +29,6 @@ const LoginExpiryProvider = (props: LoginExpiryContextProviderProps) => {
       setStatus(2); // done
     });
   }
-
   if (status < 2) {
     return <LoginExpiryProgress />;
   }
