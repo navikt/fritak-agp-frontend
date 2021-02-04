@@ -14,7 +14,7 @@ export enum Actions {
   Progress,
   HandleResponse,
   Kvittering,
-  CloseLoggedoutModal
+  NotAuthorized
 }
 
 export interface Payload {

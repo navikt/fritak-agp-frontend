@@ -7,5 +7,6 @@ export interface ValidationState {
   progress?: boolean;
   error?: boolean;
   login?: boolean;
+  notAuthorized?: boolean;
   feilmeldinger: Array<FeiloppsummeringFeil>;
 }

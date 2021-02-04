@@ -19,6 +19,7 @@ export enum Actions {
   Progress,
   HandleResponse,
   Kvittering,
+  NotAuthorized,
   ServerFeil
 }
 
