@@ -119,7 +119,7 @@ describe('mapValidationResponse', () => {
       expect(state.progress).toEqual(false);
       expect(state.kvittering).toEqual(false);
       expect(state.error).toEqual(true);
-      expect(state.showModal).toEqual(true);
+      expect(state.serverError).toEqual(true);
     });
   });
 });

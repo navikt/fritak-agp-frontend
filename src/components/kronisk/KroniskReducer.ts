@@ -75,8 +75,8 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskStat
       nextState.validated = false;
       return mapValidationResponse(payload.response, nextState);
 
-    case Actions.CloseLoggedoutModal:
-      nextState.accessDenied = false;
+    case Actions.NotAuthorized:
+      nextState.notAuthorized = false;
       return nextState;
 
     case Actions.Reset:
