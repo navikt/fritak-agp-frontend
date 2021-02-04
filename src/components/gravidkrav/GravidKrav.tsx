@@ -33,8 +33,9 @@ import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  const handleLoggedoutModalClosing = () => {
-    dispatch({ type: Actions.CloseLoggedoutModal });
+  
+  const handleCloseNotAuthorized = () => {
+    dispatch({ type: Actions.NotAuthorized });
   };
 
   const handleUploadChanged = (file?: File) => {
@@ -315,9 +316,10 @@ export const GravidKrav = (props: GravidKravProps) => {
             </Panel>
           </SideIndentering>
         </Column>
-        {state.accessDenied && <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />}
+        {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
       </Row>
     </InnloggetSide>
+
   );
 };
 

@@ -45,8 +45,8 @@ const KroniskSide = () => {
   const handleDelete = () => {
     dispatch({ type: Actions.Dokumentasjon, payload: undefined });
   };
-  const handleLoggedoutModalClosing = () => {
-    dispatch({ type: Actions.CloseLoggedoutModal });
+  const handleCloseNotAuthorized = () => {
+    dispatch({ type: Actions.NotAuthorized });
   };
   const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
@@ -61,7 +61,8 @@ const KroniskSide = () => {
           state.fravaer || [],
           state.fnr || '',
           state.orgnr || '',
-          state.bekreft || false
+          state.bekreft || false,
+          state.kommentar
         )
       ).then((response) => {
         dispatch({
@@ -326,7 +327,7 @@ const KroniskSide = () => {
             </Panel>
           </SideIndentering>
         </Column>
-        {state.accessDenied && <LoggetUtAdvarsel onClose={handleLoggedoutModalClosing} />}
+        {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
       </Row>
     </Side>
   );

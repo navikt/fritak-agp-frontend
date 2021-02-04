@@ -34,6 +34,7 @@ import ServerFeilAdvarsel from '../ServerFeilAdvarsel';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 import Side from '../Side';
+import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -62,8 +63,11 @@ const GravidSide = (props: GravidSideProps) => {
   const handleSubmitClicked = async () => {
     dispatch({ type: Actions.Validate });
   };
-  const handleCloseModal = () => {
-    dispatch({ type: Actions.ServerFeil });
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
+  };
+  const handleCloseNotAuthorized = () => {
+    dispatch({ type: Actions.NotAuthorized });
   };
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
@@ -105,7 +109,7 @@ const GravidSide = (props: GravidSideProps) => {
   return (
     <Side>
       <Row className='gravid-side'>
-        <ServerFeilAdvarsel isOpen={state.showModal} onClose={handleCloseModal} />
+        <ServerFeilAdvarsel isOpen={state.showModal} onClose={handleCloseServerFeil} />
         <Column>
           <SoknadTittel>Søknad om at NAV dekker sykepenger i arbeidsgiverperioden</SoknadTittel>
 
@@ -392,6 +396,7 @@ const GravidSide = (props: GravidSideProps) => {
             </SideIndentering>
           )}
         </Column>
+        {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
       </Row>
     </Side>
   );
