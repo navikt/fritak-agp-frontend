@@ -7,6 +7,7 @@ import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 import { pushFeilmelding } from '../../validation/pushFeilmelding';
+import { Omplassering } from './Omplassering';
 
 export const validateGravid = (state: GravidState): GravidState => {
   if (!state.validated) {
@@ -57,6 +58,11 @@ export const validateGravid = (state: GravidState): GravidState => {
     if (nextState.omplassering == undefined) {
       nextState.omplasseringError = 'Velg omplassering';
       pushFeilmelding('omplasseringFeilmeldingId', 'Velg omplassering', feilmeldinger);
+    } else if (nextState.omplassering === Omplassering.IKKE_MULIG && nextState.omplasseringAarsak === undefined) {
+      nextState.omplasseringError = 'Oppgi årsak';
+      pushFeilmelding('omplasseringFeilmeldingId', 'Velg årsak til at omplassering ikke er mulig', feilmeldinger);
+    } else {
+      nextState.omplasseringError = undefined;
     }
   }
 
