@@ -34,7 +34,6 @@ import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
-  const { arbeidsgiverId } = useArbeidsgiver();
 
   const handleLoggedoutModalClosing = () => {
     dispatch({ type: Actions.CloseLoggedoutModal });
