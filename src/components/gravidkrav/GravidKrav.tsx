@@ -196,14 +196,14 @@ export const GravidKrav = (props: GravidKravProps) => {
                     ></DatoVelger>
                   </Column>
                   <Column sm='3' xs='6'>
-                    <Label htmlFor='antall-dager'>
+                    <Label htmlFor='dager'>
                       Antall dager
                       <Hjelpetekst className='krav-padding-hjelpetekst'>
                         Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
                       </Hjelpetekst>
                     </Label>
                     <SelectDager
-                      id='antall-dager'
+                      id='dager'
                       value={state.dager}
                       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         dispatch({
