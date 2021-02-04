@@ -15,6 +15,7 @@ export const ApplicationRoutes = () => (
     <Route path={lenker.GravidKvittering} exact={true} render={() => <GravidKvittering />} />
     <Route path={lenker.Kronisk} exact={true} render={() => <KroniskSide />} />
     <Route path={lenker.KroniskKvittering} render={() => <KroniskKvittering />} />
+    <Route path={lenker.GravidKravKvittering} exact={true} render={() => <GravidKvittering />} />
     <Route path={lenker.GravidKrav} exact={true} render={() => <GravidKrav />} />
     <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
     <Route path={lenker.Home} render={() => <Forside />} />
