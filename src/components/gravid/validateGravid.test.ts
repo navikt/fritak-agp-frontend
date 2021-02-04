@@ -2,6 +2,8 @@ import { validateGravid } from './validateGravid';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
+import { Omplassering } from './Omplassering';
+import { Aarsak } from './Aarsak';
 
 describe('validateGravid', () => {
   it('should show fnr error when invalid', () => {
@@ -69,6 +71,24 @@ describe('validateGravid', () => {
     state.tiltak = [Tiltak.HJEMMEKONTOR];
     const state2 = validateGravid(state);
     expect(state2.tiltakError).toBeUndefined();
+  });
+
+  it('should error when omplassering = umulig and aarsak empty', () => {
+    const state = defaultGravidState();
+    state.validated = true;
+    state.omplassering = Omplassering.IKKE_MULIG;
+    state.omplasseringAarsak = undefined;
+    const state2 = validateGravid(state);
+    expect(state2.omplasseringError).not.toBeUndefined();
+  });
+
+  it('should not show error when omplassering = umulig and aarsak empty', () => {
+    const state = defaultGravidState();
+    state.validated = true;
+    state.omplassering = Omplassering.IKKE_MULIG;
+    state.omplasseringAarsak = Aarsak.HELSETILSTANDEN;
+    const state2 = validateGravid(state);
+    expect(state2.omplasseringError).toBeUndefined();
   });
 
   const lagTekst = (antall: number): string => {
