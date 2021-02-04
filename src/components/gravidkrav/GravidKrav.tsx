@@ -29,7 +29,7 @@ import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest'
 import SelectDager from './SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
-import { ArbeidsgiverProvider, useArbeidsgiver } from '../../context/ArbeidsgiverContext';
+import { ArbeidsgiverProvider } from '../../context/ArbeidsgiverContext';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 export const GravidKrav = (props: GravidKravProps) => {
