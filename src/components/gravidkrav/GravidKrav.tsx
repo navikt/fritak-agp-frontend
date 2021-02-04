@@ -59,15 +59,6 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const onOrgChange = (org: Organisasjon) => {
-    dispatch({
-      type: Actions.Orgnr,
-      payload: {
-        orgnr: org.OrganizationNumber
-      }
-    });
-  };
-
   const handleSubmitClicked = async () => {
     dispatch({
       type: Actions.Validate
