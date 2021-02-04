@@ -8,5 +8,6 @@ export interface ValidationState {
   error?: boolean;
   login?: boolean;
   notAuthorized?: boolean;
+  serverError?: boolean;
   feilmeldinger: Array<FeiloppsummeringFeil>;
 }
