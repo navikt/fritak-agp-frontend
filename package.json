@@ -1,6 +1,6 @@
 {
   "name": "fritak-agp-frontend",
-  "version": "0.1.100",
+  "version": "0.1.103",
   "private": true,
   "homepage": "/fritak-agp",
   "scripts": {
@@ -34,7 +34,7 @@
   "dependencies": {
     "@navikt/bedriftsmeny": "^2.2.5",
     "@navikt/fnrvalidator": "^1.1.3",
-    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.1.48",
+    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.1.50",
     "@navikt/sif-common-core": "^6.1.30",
     "@sentry/browser": "^5.29.2",
     "dayjs": "^1.10.4",
@@ -61,7 +61,7 @@
     "nav-frontend-paneler": "^2.0.30",
     "nav-frontend-paneler-style": "^0.3.34",
     "nav-frontend-popover": "^0.0.43",
-    "nav-frontend-popover-style": "^0.0.13",
+    "nav-frontend-popover-style": "^0.0.14",
     "nav-frontend-skjema": "^3.0.50",
     "nav-frontend-skjema-style": "^2.0.30",
     "nav-frontend-spinner": "^2.0.15",
@@ -73,7 +73,7 @@
     "nav-frontend-veileder": "^2.0.39",
     "nav-frontend-veileder-style": "^2.0.28",
     "nav-frontend-veilederpanel": "^0.1.49",
-    "nav-frontend-veilederpanel-style": "^0.0.40",
+    "nav-frontend-veilederpanel-style": "^0.0.42",
     "react": "^16.14.0",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.14.0",

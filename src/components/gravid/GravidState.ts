@@ -45,5 +45,4 @@ export default interface GravidState extends ValidationState {
   error?: boolean;
   login?: boolean;
   submitting?: boolean;
-  showModal?: boolean;
 }

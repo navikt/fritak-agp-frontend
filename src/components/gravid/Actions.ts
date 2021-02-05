@@ -19,7 +19,8 @@ export enum Actions {
   Progress,
   HandleResponse,
   Kvittering,
-  ServerFeil
+  NotAuthorized,
+  HideServerError
 }
 
 export interface Payload {

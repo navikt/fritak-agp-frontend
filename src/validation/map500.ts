@@ -5,6 +5,7 @@ const map500 = (state: ValidationState): ValidationState => {
   state.progress = false;
   state.error = true;
   state.login = true;
+  state.serverError = true;
   return state;
 };
 

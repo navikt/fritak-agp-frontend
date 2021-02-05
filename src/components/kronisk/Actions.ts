@@ -16,7 +16,7 @@ export enum Actions {
   Bekreft,
   Validate,
   HandleResponse,
-  CloseLoggedoutModal
+  NotAuthorized
 }
 
 export interface FravaerType {

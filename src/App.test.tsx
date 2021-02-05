@@ -2,10 +2,10 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { Application } from './App';
 import { LoginRedirect } from './context/LoginContext';
-import Side from './components/Side';
 import LoginExpiryProvider from './context/LoginExpiryContext';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
+import { ApplicationRoutes } from './ApplicationRoutes';
 
 describe('App', () => {
   const makeHistory = (path: string) => {
@@ -40,7 +40,7 @@ describe('App', () => {
         <Router history={makeHistory('/fritak-agp/')}>
           <Application loggedIn={true} loginStatus={2} />
         </Router>
-      ).root.findByType(Side)
+      ).root.findByType(ApplicationRoutes)
     );
   });
 });

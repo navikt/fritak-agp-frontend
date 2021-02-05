@@ -48,7 +48,8 @@ describe('mapValidationResponse', () => {
       'periode.antallDagerMedRefusjon',
       'periode.beloep',
       'dokumentasjon',
-      'bekreftet'
+      'bekreftet',
+      'periode'
     ];
     const violations = felter.map((felt) => {
       return {
@@ -94,6 +95,37 @@ describe('mapValidationResponse', () => {
     expect(feilmeldinger[6].feilmelding).toEqual('feil');
     expect(feilmeldinger[7].skjemaelementId).toEqual('bekreft');
     expect(feilmeldinger[7].feilmelding).toEqual('feil');
+    expect(feilmeldinger[8].skjemaelementId).toEqual('dager');
+    expect(feilmeldinger[8].feilmelding).toEqual('feil');
+  });
+
+  it('should handle 422 for periode error without message', () => {
+    const felter = ['periode'];
+    const violations = felter.map((felt) => {
+      return {
+        propertyPath: felt,
+        message: '',
+        validationType: '',
+        invalidValue: true
+      };
+    });
+    let response = {
+      violations: violations,
+      type: 'urn:nav:helsearbeidsgiver:validation-error',
+      title: 'Valideringen av input feilet',
+      status: 422,
+      detail: 'Ett eller flere felter har feil.',
+      instance: 'about:blank'
+    } as ValidationResponse;
+    const state = mapValidationResponse(response, defaultState);
+    expect(state.progress).toEqual(false);
+    expect(state.kvittering).toEqual(false);
+    expect(state.error).toEqual(false);
+
+    const { feilmeldinger } = state;
+
+    expect(feilmeldinger[0].skjemaelementId).toEqual('dager');
+    expect(feilmeldinger[0].feilmelding).toEqual('Refusjonsdager kan ikke overstige periodelengden');
   });
 
   it('should handle 500 and unknown status codes', () => {
