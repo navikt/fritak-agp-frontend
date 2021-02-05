@@ -6,6 +6,7 @@ import map201 from '../../validation/map201';
 import map422 from '../../validation/map422';
 import map401 from '../../validation/map401';
 import mapDefault from '../../validation/mapDefault';
+import map500 from '../../validation/map500';
 
 export const mapFeilmeldinger = (response: ValidationResponse, state: GravidState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -67,6 +68,8 @@ export const mapValidationResponse = (response: ValidationResponse, state: Gravi
     case 422:
       nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
       return map422(nextState);
+    case 500:
+      return map500(nextState);
     default:
       return mapDefault(nextState);
   }

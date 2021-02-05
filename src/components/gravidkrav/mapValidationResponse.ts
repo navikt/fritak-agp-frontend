@@ -50,6 +50,12 @@ export const mapFeilmeldinger = (response: ValidationResponse, state: GravidKrav
         state.dokumentasjonError = v.message;
         feilmeldinger.push(lagFeil('dokumentasjon', v.message));
         break;
+
+      case 'periode':
+        state.dagerError = v.message;
+        feilmeldinger.push(
+          lagFeil('dager', v.message.length ? v.message : 'Refusjonsdager kan ikke overstige periodelengden')
+        );
     }
   });
   return feilmeldinger;

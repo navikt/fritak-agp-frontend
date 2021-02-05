@@ -18,7 +18,9 @@ export enum Actions {
   Validate,
   Progress,
   HandleResponse,
-  Kvittering
+  Kvittering,
+  NotAuthorized,
+  HideServerError
 }
 
 export interface Payload {

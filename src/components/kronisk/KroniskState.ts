@@ -40,6 +40,6 @@ export default interface KroniskState extends ValidationState {
   bekreft?: boolean;
   bekreftError?: string;
   error?: boolean;
-  accessDenied?: boolean;
+  notAuthorized?: boolean;
   submitting?: boolean;
 }

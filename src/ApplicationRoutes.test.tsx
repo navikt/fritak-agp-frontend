@@ -9,6 +9,7 @@ import KroniskSide from './components/kronisk/KroniskSide';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import GravidSide from './components/gravid/GravidSide';
+import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 describe('ApplicationRoutes', () => {
   const makeHistory = (path: string) => {
@@ -50,7 +51,10 @@ describe('ApplicationRoutes', () => {
   });
 
   it('should show gravid krav', () => {
-    // TODO Enable GravidKrav i test når den er rettet
-    // expect(makeRender('/gravid/krav').root.findByType(GravidKrav));
+    expect(makeRender('/gravid/krav').root.findByType(ArbeidsgiverProvider));
+  });
+
+  it('should show gravid krav kvittering', () => {
+    expect(makeRender('/gravid/krav/kvittering').root.findByType(GravidKvittering));
   });
 });
