@@ -34,7 +34,7 @@ export const FravaerRow = (props: FravaerRowProps) => {
   } else {
     return (
       <>
-        <td data-testId='empty-month' className='empty-month' />
+        <td data-testid='empty-month' className='empty-month' />
         <td className='empty-month' />
       </>
     );
