@@ -31,7 +31,7 @@ describe('ApplicationRoutes', () => {
 
   it('should show gravid søknad', () => {
     makeRender('/gravid/soknad');
-    expect(screen.getByText('GRAVID ANSATT'));
+    expect(screen.getByText('Gravid ansatt'));
     expect(screen.getByText('Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'));
   });
   it('should show gravid kvittering', () => {
@@ -50,8 +50,9 @@ describe('ApplicationRoutes', () => {
 
   it('should show gravid krav', () => {
     makeRender('/gravid/krav');
-    // expect(screen.getByText('GRAVID ANSATT'))
+    // expect(screen.getByText('Gravid ansatt'))
     // expect(screen.getByText('Kravskjema'))
+    // TODO - Må få Gravid krav til å vise
   });
   it('should show gravid krav kvittering', () => {
     makeRender('/gravid/krav/kvittering');
