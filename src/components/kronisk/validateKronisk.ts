@@ -22,7 +22,7 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
   nextState.arbeidError = state.arbeid?.length === 0 ? 'Må velge minst ett alternativ' : '';
 
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
-    nextState.orgnrError = 'Ugyldig organisasjonsnummer';
+    nextState.orgnrError = 'Ugyldig virksomhetsnummer';
   }
 
   if (state.fnr && !isValidFnr(state.fnr)) {
@@ -35,7 +35,7 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
     pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);
   }
   if (nextState.orgnrError) {
-    pushFeilmelding('orgnr', 'Organisasjonsnummer må fylles ut', feilmeldinger);
+    pushFeilmelding('orgnr', 'Virksomhetsnummer må fylles ut', feilmeldinger);
   }
   if (nextState.arbeidError) {
     pushFeilmelding('arbeidsutfører', 'Arbeid om den ansatte må fylles ut', feilmeldinger);
