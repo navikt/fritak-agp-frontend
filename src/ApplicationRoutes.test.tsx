@@ -2,7 +2,6 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import React from 'react';
-import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { render, screen } from '@testing-library/react';
 
 describe('ApplicationRoutes', () => {
@@ -14,9 +13,7 @@ describe('ApplicationRoutes', () => {
 
   const makeRoute = (path: string) => (
     <Router history={makeHistory(path)}>
-      <ArbeidsgiverProvider status={200} arbeidsgivere={[{}]}>
-        <ApplicationRoutes />
-      </ArbeidsgiverProvider>
+      <ApplicationRoutes />
     </Router>
   );
 
