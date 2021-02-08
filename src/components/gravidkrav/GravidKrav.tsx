@@ -116,7 +116,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     <InnloggetSide>
       <Row className='gravidkrav'>
         <Column>
-          <SoknadTittel subitle='GRAVID ANSATT'>Krav om refusjon av sykepenger i arbeidsgiverperioden</SoknadTittel>
+          <SoknadTittel subtitle='Gravid ansatt'>Krav om refusjon av sykepenger i arbeidsgiverperioden</SoknadTittel>
           <SideIndentering>
             <Panel>
               <Ingress className='textfelt-padding-bottom'>
