@@ -5,11 +5,12 @@ import './SoknadTittel.sass';
 
 interface SoknadTittelProps {
   children: any;
+  subitle?: string;
 }
 
 const SoknadTittel = (props: SoknadTittelProps) => (
   <Panel className='panel--heading'>
-    <EtikettLiten>SØKNADSSKJEMA</EtikettLiten>
+    <EtikettLiten>{props.subitle || 'SØKNADSSKJEMA'}</EtikettLiten>
     <Innholdstittel>{props.children}</Innholdstittel>
   </Panel>
 );

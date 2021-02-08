@@ -93,7 +93,9 @@ const KroniskSide = () => {
     <Side>
       <Row className='kronisk-side'>
         <Column>
-          <SoknadTittel>Søknad om at NAV dekker sykepenger i arbeidsgiverperioden</SoknadTittel>
+          <SoknadTittel subitle='KRONISK ELLER LANGVARIG SYKDOM'>
+            Søknad om at NAV dekker sykepenger i arbeidsgiverperioden
+          </SoknadTittel>
           <SideIndentering>
             <Panel>
               <Ingress>

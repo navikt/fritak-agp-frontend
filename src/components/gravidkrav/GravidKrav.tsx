@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { EtikettLiten, Ingress, Innholdstittel, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import SideIndentering from '../SideIndentering';
@@ -28,6 +28,7 @@ import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest'
 import SelectDager from './SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
+import SoknadTittel from '../SoknadTittel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -115,10 +116,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     <InnloggetSide>
       <Row className='gravidkrav'>
         <Column>
-          <Panel className='panel--heading'>
-            <EtikettLiten>GRAVID ANSATT</EtikettLiten>
-            <Innholdstittel>Krav om refusjon av sykepenger i arbeidsgiverperioden</Innholdstittel>
-          </Panel>
+          <SoknadTittel subitle='GRAVID ANSATT'>Krav om refusjon av sykepenger i arbeidsgiverperioden</SoknadTittel>
           <SideIndentering>
             <Panel>
               <Ingress className='textfelt-padding-bottom'>
@@ -126,7 +124,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                 dere krav om refusjon her. Vi anbefaler at dere sender kravet før søknaden er ferdig behandlet, så
                 unngår dere at det blir foreldet.
               </Ingress>
-              <Ingress>Alle felter må fylles ut om ikke annet er oppgitt</Ingress>
+              <Ingress>Alle felter må fylles ut.</Ingress>
             </Panel>
             <Skillelinje />
 
@@ -181,7 +179,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                           payload: { fra: fraDato ? fraDato : undefined }
                         });
                       }}
-                    ></DatoVelger>
+                    />
                   </Column>
                   <Column sm='3' xs='6'>
                     <DatoVelger
@@ -193,7 +191,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                           payload: { til: tilDate ? tilDate : undefined }
                         });
                       }}
-                    ></DatoVelger>
+                    />
                   </Column>
                   <Column sm='3' xs='6'>
                     <Label htmlFor='dager'>
