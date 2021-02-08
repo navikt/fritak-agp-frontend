@@ -31,7 +31,7 @@ describe('ApplicationRoutes', () => {
 
   it('should show gravid søknad', () => {
     makeRender('/gravid/soknad');
-    expect(screen.getByText('Gravid ansatt'));
+    expect(screen.getByText('GRAVID ANSATT'));
     expect(screen.getByText('Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'));
   });
   it('should show gravid kvittering', () => {
