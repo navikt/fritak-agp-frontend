@@ -24,7 +24,7 @@ const LoginExpiryProvider = (props: LoginExpiryContextProviderProps) => {
   const [loginExpiry, setLoginExpiry] = useState<Date>();
   if (status === 0) {
     setStatus(1); // In progress
-    LoginExpiryAPI(env.baseUrl).then((res) => {
+    LoginExpiryAPI(env.basePath).then((res) => {
       setLoginExpiry(res.tidspunkt);
       setStatus(2); // done
     });

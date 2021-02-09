@@ -74,7 +74,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
       postGravidKrav(
-        environment.baseUrl,
+        environment.basePath,
         mapGravidKravRequest(
           state.fnr,
           state.orgnr,

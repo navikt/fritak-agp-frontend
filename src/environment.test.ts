@@ -37,31 +37,31 @@ describe('Environment', () => {
     expect(env.loginServiceUrl).toBe('https://loginservice.nav.no/login?redirect=XXX?loggedIn=true');
   });
 
-  it('should return the baseUrl url for localhost', () => {
+  it('should return the basePath url for localhost', () => {
     // @ts-ignore
     window.location = new URL('http://localhost');
 
-    expect(env.baseUrl).toBe('https://fritakagp.dev.nav.no');
+    expect(env.basePath).toBe('https://fritakagp.dev.nav.no');
   });
 
-  it('should return the baseUrl url for preprod dev', () => {
+  it('should return the basePath url for preprod dev', () => {
     // @ts-ignore
     window.location = new URL('https://www.dev.nav.no');
 
-    expect(env.baseUrl).toBe('https://fritakagp.dev.nav.no');
+    expect(env.basePath).toBe('https://fritakagp.dev.nav.no');
   });
 
-  it('should return the baseUrl url for preprod q', () => {
+  it('should return the basePath url for preprod q', () => {
     // @ts-ignore
     window.location = new URL('https://arbeidsgiver-q.nav.no');
 
-    expect(env.baseUrl).toBe('https://fritakagp.nav.no/fritak-agp');
+    expect(env.basePath).toBe('https://fritakagp.nav.no/fritak-agp');
   });
 
-  it('should return the baseUrl url for prod', () => {
+  it('should return the basePath url for prod', () => {
     // @ts-ignore
     window.location = new URL('https://www.nav.no');
 
-    expect(env.baseUrl).toBe('https://fritakagp.nav.no/fritak-agp');
+    expect(env.basePath).toBe('https://fritakagp.nav.no/fritak-agp');
   });
 });

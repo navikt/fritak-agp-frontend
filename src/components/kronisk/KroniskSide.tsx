@@ -54,7 +54,7 @@ const KroniskSide = () => {
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
       postKronisk(
-        environment.baseUrl,
+        environment.basePath,
         mapKroniskRequest(
           state.arbeid || [],
           state.paakjenninger || [],

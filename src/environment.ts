@@ -16,7 +16,7 @@ class Environment {
     }
   }
 
-  get baseUrl() {
+  get basePath() {
     switch (this.environmentMode) {
       case EnvironmentType.PROD:
         return 'https://fritakagp.nav.no/fritak-agp';

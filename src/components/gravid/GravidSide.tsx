@@ -72,7 +72,7 @@ const GravidSide = (props: GravidSideProps) => {
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
       postGravid(
-        environment.baseUrl,
+        environment.basePath,
         mapGravidRequest(
           state.fnr,
           state.orgnr,
