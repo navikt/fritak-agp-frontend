@@ -111,7 +111,9 @@ const GravidSide = (props: GravidSideProps) => {
       <Row className='gravid-side'>
         <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
-          <SoknadTittel>Søknad om at NAV dekker sykepenger i arbeidsgiverperioden</SoknadTittel>
+          <SoknadTittel subtitle='Gravid ansatt'>
+            Søknad om at NAV dekker sykepenger i arbeidsgiverperioden
+          </SoknadTittel>
 
           {state.progress == true && <GravidProgress />}
 
@@ -160,7 +162,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <Systemtittel>Arbeidsgiveren</Systemtittel>
                       <br />
                       <Orgnr
-                        label='Organisasjonsnummer'
+                        label='Virksomhetsnummer'
                         orgnr={state.orgnr}
                         placeholder='9 siffer'
                         feilmelding={state.orgnrError}
