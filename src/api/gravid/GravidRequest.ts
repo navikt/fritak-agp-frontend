@@ -1,5 +1,3 @@
-import { Dato } from '../../utils/Dato';
-
 export interface GravidRequest {
   virksomhetsnummer: string;
   identitetsnummer: string;
