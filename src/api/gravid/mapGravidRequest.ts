@@ -2,6 +2,7 @@ import { GravidRequest } from './GravidRequest';
 import { Tiltak } from '../../components/gravid/Tiltak';
 import { Aarsak } from '../../components/gravid/Aarsak';
 import { Omplassering } from '../../components/gravid/Omplassering';
+import { Dato, datoToString } from '../../utils/Dato';
 
 export const mapGravidRequest = (
   fnr: string | undefined,
@@ -12,7 +13,8 @@ export const mapGravidRequest = (
   omplassering: Omplassering | undefined,
   omplasseringAarsak: Aarsak | undefined,
   dokumentasjon: string | undefined,
-  bekreft: boolean | undefined
+  bekreft: boolean | undefined,
+  termindato: Dato | undefined
 ): GravidRequest => {
   if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
@@ -35,6 +37,7 @@ export const mapGravidRequest = (
     omplassering: omplassering,
     omplasseringAarsak: omplasseringAarsak,
     dokumentasjon: dokumentasjon,
-    bekreftet: bekreft
+    bekreftet: bekreft,
+    termindato: termindato ? datoToString(termindato) : undefined
   };
 };

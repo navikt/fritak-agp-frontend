@@ -1,3 +1,5 @@
+import { Dato } from '../../utils/Dato';
+
 export interface GravidRequest {
   virksomhetsnummer: string;
   identitetsnummer: string;
@@ -8,4 +10,5 @@ export interface GravidRequest {
   omplassering?: string;
   omplasseringAarsak?: string;
   dokumentasjon?: string;
+  termindato?: string;
 }

@@ -20,7 +20,8 @@ export enum Actions {
   HandleResponse,
   Kvittering,
   NotAuthorized,
-  HideServerError
+  HideServerError,
+  Termindato
 }
 
 export interface Payload {
@@ -37,6 +38,7 @@ export interface Payload {
   kvittering?: boolean;
   dokumentasjon?: string;
   response?: ValidationResponse;
+  termindato?: Date;
 }
 
 export interface GravidAction {

@@ -35,6 +35,7 @@ import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 import Side from '../Side';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
+import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -82,7 +83,8 @@ const GravidSide = (props: GravidSideProps) => {
           state.omplassering,
           state.omplasseringAarsak,
           state.dokumentasjon,
-          state.bekreft
+          state.bekreft,
+          state.termindato
         )
       ).then((response) => {
         dispatch({
@@ -141,7 +143,7 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
-                    <Column sm='4' xs='6'>
+                    <Column sm='3' xs='4'>
                       <Systemtittel>Den ansatte</Systemtittel>
                       <br />
                       <Fnr
@@ -158,7 +160,21 @@ const GravidSide = (props: GravidSideProps) => {
                         }
                       />
                     </Column>
-                    <Column sm='4' xs='6'>
+                    <Column sm='3' xs='4'>
+                      <Systemtittel>Termindato (hvis kjent)</Systemtittel>
+                      <br />
+                      <DatoVelger
+                        id='termindato'
+                        label='Termindato'
+                        onChange={(termindato: Date) => {
+                          dispatch({
+                            type: Actions.Termindato,
+                            payload: { termindato: termindato ? termindato : undefined }
+                          });
+                        }}
+                      />
+                    </Column>
+                    <Column sm='3' xs='4'>
                       <Systemtittel>Arbeidsgiveren</Systemtittel>
                       <br />
                       <Orgnr
