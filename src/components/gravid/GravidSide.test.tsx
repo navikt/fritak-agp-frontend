@@ -4,19 +4,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { cleanup } from '@testing-library/react';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../lagFeil';
-
-const mockResponse = jest.fn();
-
-Object.defineProperty(window, 'location', {
-  value: {
-    hash: {
-      endsWith: mockResponse,
-      includes: mockResponse
-    },
-    assign: mockResponse
-  },
-  writable: true
-});
+import '../../mockData/mockWindowLocation';
 
 describe('GravidSide', () => {
   let htmlDivElement: Element = document.createElement('div');
