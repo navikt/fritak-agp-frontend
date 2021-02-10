@@ -1,34 +1,26 @@
 import React from 'react';
-import { EnvironmentProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { BrowserRouter } from 'react-router-dom';
-import env from './environment';
-import LoginExpiryProvider from './context/LoginExpiryContext';
-import { LoginProvider, redirectUrl } from './context/LoginContext';
+import { LoginProvider } from './context/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { ArbeidsgiverProvider } from './context/ArbeidsgiverContext';
+import env from './environment';
+import { Status } from './api/ArbeidsgiverAPI';
 
 interface ApplicationProps {
-  path?: string;
-  loginStatus?: number;
+  loginStatus?: Status;
   loggedIn?: boolean;
-  loginExpiry?: number;
+  arbeidsgivere?: Array<Organisasjon>;
+  basePath?: string;
 }
 
-export const Application = (props: ApplicationProps) => {
-  let href = window.location.href;
-  href = href.replace('?loggedIn=true', '');
-
-  const loginServiceUrl = redirectUrl(env.loginServiceUrl, href);
-
-  return (
-    <EnvironmentProvider loginServiceUrl={loginServiceUrl} sideTittel={'Søknadsskjema'} basePath={env.baseUrl}>
-      <LoginProvider loggedIn={props.loggedIn}>
-        <LoginExpiryProvider status={props.loginStatus} loginExpiry={props.loginExpiry}>
-          <ApplicationRoutes />
-        </LoginExpiryProvider>
-      </LoginProvider>
-    </EnvironmentProvider>
-  );
-};
+export const Application = ({ loggedIn, loginStatus, arbeidsgivere, basePath = env.baseUrl }: ApplicationProps) => (
+  <LoginProvider loggedIn={loggedIn} baseUrl={basePath}>
+    <ArbeidsgiverProvider basePath={basePath} status={loginStatus} arbeidsgivere={arbeidsgivere}>
+      <ApplicationRoutes />
+    </ArbeidsgiverProvider>
+  </LoginProvider>
+);
 
 const App = () => (
   <BrowserRouter basename='fritak-agp'>

@@ -7,8 +7,6 @@ import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Skillelinje from '../Skillelinje';
-import SoknadTittel from '../SoknadTittel';
-import SideIndentering from '../SideIndentering';
 import Fnr from '../Fnr';
 import Upload from '../Upload';
 import './GravidSide.scss';
@@ -107,20 +105,22 @@ const GravidSide = (props: GravidSideProps) => {
     state.orgnr
   ]);
   return (
-    <Side>
-      <Row className='gravid-side'>
+    <Side
+      bedriftsmeny={false}
+      className='gravid-side'
+      sidetittel='Søknadsskjema'
+      title='Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'
+      subtitle='Gravid ansatt'
+    >
+      <Row>
         <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
-          <SoknadTittel subtitle='Gravid ansatt'>
-            Søknad om at NAV dekker sykepenger i arbeidsgiverperioden
-          </SoknadTittel>
-
           {state.progress == true && <GravidProgress />}
 
           {state.kvittering == true && <GravidKvittering />}
 
           {state.progress != true && state.kvittering != true && (
-            <SideIndentering>
+            <div>
               <Panel>
                 <Ingress>
                   NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet.
@@ -395,7 +395,7 @@ const GravidSide = (props: GravidSideProps) => {
                   </Panel>
                 </>
               )}
-            </SideIndentering>
+            </div>
           )}
         </Column>
         {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}

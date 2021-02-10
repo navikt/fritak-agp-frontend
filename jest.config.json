@@ -1,7 +1,8 @@
 {
   "rootDir": "./src",
   "globals": {
-    "window": true
+    "window": true,
+    "location": true
   },
   "transform": {
     "^.+\\.tsx?$": "ts-jest"

@@ -1,11 +1,13 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
-import { useEnvironment } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import env from '../environment';
+import { GetLoginExpiry } from '../api/loginexpiry/LoginExpiryAPI';
+import { TilgangsfeilSide } from '../components/TilgangsfeilSide';
 
 export const buildLoginContext = (loggedIn: boolean) => ({
-  loggedIn: loggedIn,
-  setLoggedIn: (isLoggedIn: boolean) => {}
+  // loggedIn: loggedIn,
+  // setLoggedIn: (isLoggedIn: boolean) => {}
 });
 
 const LoginContext = createContext(buildLoginContext(false));
@@ -13,6 +15,8 @@ const LoginContext = createContext(buildLoginContext(false));
 interface LoginContextProviderProps {
   children: any;
   loggedIn?: boolean;
+  baseUrl: string;
+  loginExpiry?: number;
 }
 
 export const isLoggedInFromUrl = () => window.location.search.indexOf('loggedIn=true') > -1;
@@ -21,17 +25,43 @@ export const redirectUrl = (loginServiceUrl: string, href: string) => loginServi
 
 export const redirectWithoutParams = (pathname: string) => pathname.replace('/fritak-agp', '');
 
-export const LoginRedirect = () => <div className='login-context-redirect' />;
+export const LoginRedirect = () => <div className='login-provider-redirect' />;
 
-export const LoginProvider = (props: LoginContextProviderProps) => {
-  const [loggedIn, setLoggedIn] = useState<boolean>(props.loggedIn === true || isLoggedInFromUrl());
+export enum LoginStatus {
+  Checking,
+  Verified,
+  MustLogin
+}
+
+export const LoginProvider = ({ baseUrl, children, loginExpiry = 0 }: LoginContextProviderProps) => {
   const history: History = useHistory();
-  const { loginServiceUrl } = useEnvironment();
-  if (!loggedIn) {
-    window.location.href = redirectUrl(loginServiceUrl, window.location.href);
-    return <LoginRedirect />;
+  const [expiry, setExpiry] = useState<number>(loginExpiry);
+  useEffect(() => {
+    if (expiry === LoginStatus.Checking) {
+      GetLoginExpiry(baseUrl).then((loginExpiryResponse) => {
+        if (loginExpiryResponse.tidspunkt !== undefined) {
+          setExpiry(LoginStatus.Verified);
+        } else {
+          setExpiry(LoginStatus.MustLogin);
+        }
+      });
+    }
+  });
+
+  if (expiry === LoginStatus.Checking) {
+    return <div className='login-provider-checking'>Loading...</div>;
   }
+
+  if (expiry === LoginStatus.MustLogin) {
+    if (!isLoggedInFromUrl()) {
+      // Prevents infinite loop
+      window.location.href = redirectUrl(env.loginServiceUrl, window.location.href);
+      return <LoginRedirect />;
+    }
+    return <TilgangsfeilSide />;
+  }
+
   // Fjerner ?loggedIn=true fra urlen i browsern
-  history.push(redirectWithoutParams(window.location.pathname));
-  return <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>{props.children}</LoginContext.Provider>;
+  // history.push(redirectWithoutParams(window.location.pathname));
+  return <LoginContext.Provider value={{}}>{children}</LoginContext.Provider>;
 };
