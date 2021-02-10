@@ -143,7 +143,7 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
-                    <Column sm='3' xs='4'>
+                    <Column md='3' xs='12'>
                       <Systemtittel>Den ansatte</Systemtittel>
                       <br />
                       <Fnr
@@ -160,12 +160,13 @@ const GravidSide = (props: GravidSideProps) => {
                         }
                       />
                     </Column>
-                    <Column sm='3' xs='4'>
-                      <Systemtittel>Termindato (hvis kjent)</Systemtittel>
+                    <Column md='3' xs='12'>
+                      <Systemtittel>&nbsp;</Systemtittel>
                       <br />
                       <DatoVelger
+                        className='termindato'
                         id='termindato'
-                        label='Termindato'
+                        label='Termindato (dersom kjent)'
                         onChange={(termindato: Date) => {
                           dispatch({
                             type: Actions.Termindato,
@@ -174,7 +175,7 @@ const GravidSide = (props: GravidSideProps) => {
                         }}
                       />
                     </Column>
-                    <Column sm='3' xs='4'>
+                    <Column md='3' xs='12'>
                       <Systemtittel>Arbeidsgiveren</Systemtittel>
                       <br />
                       <Orgnr
