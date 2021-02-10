@@ -5,6 +5,19 @@ import { cleanup } from '@testing-library/react';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../lagFeil';
 
+const mockResponse = jest.fn();
+
+Object.defineProperty(window, 'location', {
+  value: {
+    hash: {
+      endsWith: mockResponse,
+      includes: mockResponse
+    },
+    assign: mockResponse
+  },
+  writable: true
+});
+
 describe('GravidSide', () => {
   let htmlDivElement: Element = document.createElement('div');
 
