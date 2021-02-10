@@ -106,7 +106,8 @@ const GravidSide = (props: GravidSideProps) => {
     state.fnr,
     state.bekreft,
     state.dokumentasjon,
-    state.orgnr
+    state.orgnr,
+    state.termindato
   ]);
   return (
     <Side>
