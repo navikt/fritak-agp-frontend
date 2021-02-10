@@ -5,6 +5,7 @@ import { Tiltak } from './Tiltak';
 import ValidationResponse from '../../api/ValidationResponse';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
+import timezone_mock from 'timezone-mock';
 
 describe('GravidReducer', () => {
   it('should throw error', () => {
@@ -165,11 +166,12 @@ describe('GravidReducer', () => {
   });
 
   it('should set termindato', () => {
+    timezone_mock.register('Europe/London');
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Termindato,
       payload: { termindato: new Date('2020-10-11 00:00:00') }
     });
-    expect(state.termindato).toEqual({ day: 11, millis: 1602367200000, month: 10, value: '11.10.2020', year: 2020 });
+    expect(state.termindato).toEqual({ day: 11, millis: 1602370800000, month: 10, value: '11.10.2020', year: 2020 });
   });
 
   it('should set termindato to be empty', () => {
