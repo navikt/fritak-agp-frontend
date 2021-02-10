@@ -15,7 +15,8 @@ describe('mapGravidRequest', () => {
         Omplassering.JA,
         Aarsak.FAAR_IKKE_KONTAKT,
         '',
-        true
+        true,
+        undefined
       );
     }).not.toThrow('');
   });
@@ -31,7 +32,8 @@ describe('mapGravidRequest', () => {
         Omplassering.JA,
         Aarsak.FAAR_IKKE_KONTAKT,
         '',
-        true
+        true,
+        undefined
       );
     }).not.toThrow('');
   });
@@ -47,7 +49,8 @@ describe('mapGravidRequest', () => {
         Omplassering.JA,
         Aarsak.FAAR_IKKE_KONTAKT,
         '',
-        true
+        true,
+        undefined
       );
     }).toThrow('');
   });
@@ -62,7 +65,8 @@ describe('mapGravidRequest', () => {
         Omplassering.JA,
         Aarsak.FAAR_IKKE_KONTAKT,
         '',
-        true
+        true,
+        undefined
       );
     }).toThrow('');
   });
@@ -78,7 +82,8 @@ describe('mapGravidRequest', () => {
         Omplassering.JA,
         Aarsak.FAAR_IKKE_KONTAKT,
         '',
-        true
+        true,
+        undefined
       );
     }).toThrow('');
   });
@@ -94,6 +99,7 @@ describe('mapGravidRequest', () => {
         Omplassering.JA,
         Aarsak.FAAR_IKKE_KONTAKT,
         '',
+        undefined,
         undefined
       );
     }).toThrow('Bekreft må spesifiseres');
@@ -109,7 +115,13 @@ describe('mapGravidRequest', () => {
       Omplassering.JA,
       Aarsak.FAAR_IKKE_KONTAKT,
       '',
-      true
+      true,
+      {
+        value: '12.12.2020',
+        year: 2020,
+        month: 11,
+        day: 12
+      }
     );
     expect(request.identitetsnummer).toEqual('123');
     expect(request.virksomhetsnummer).toEqual('456');
@@ -119,5 +131,6 @@ describe('mapGravidRequest', () => {
     expect(request.omplassering).toEqual(Omplassering.JA);
     expect(request.omplasseringAarsak).toEqual(Aarsak.FAAR_IKKE_KONTAKT);
     expect(request.bekreftet).toEqual(true);
+    expect(request.termindato).toEqual('2020-11-12');
   });
 });
