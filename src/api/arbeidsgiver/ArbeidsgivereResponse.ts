@@ -1,6 +1,6 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
-export interface ArbeidsgivereInterface {
+export interface ArbeidsgivereResponse {
   status: number;
   organisasjoner: Array<Organisasjon>;
 }

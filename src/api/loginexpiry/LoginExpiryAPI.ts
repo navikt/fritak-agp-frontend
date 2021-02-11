@@ -1,19 +1,14 @@
-import { Status } from '../arbeidsgiver/ArbeidsgiverAPI';
-
-export interface LoginExpiryResponse {
-  status: number;
-  tidspunkt?: Date;
-}
-
-export const ParseExpiryDate = (value: string) => new Date(value.substring(0, 23));
+import { Status } from './Status';
+import { LoginExpiryResponse } from './LoginExpiryResponse';
+import { ParseExpiryDate } from './ParseExpiryDate';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
-    case 200:
+    case Status.Successfully:
       return response.json();
-    case 401:
+    case Status.Unauthorized:
       return Promise.reject(Status.Unauthorized);
-    case 500:
+    case Status.Error:
       return Promise.reject(Status.Error);
     default:
       return Promise.reject(Status.Unknown);

@@ -1,6 +1,6 @@
 import { mapArbeidsgiver } from './mapArbeidsgiver';
 import { Status } from './Status';
-import { ArbeidsgivereInterface } from './ArbeidsgivereInterface';
+import { ArbeidsgivereResponse } from './ArbeidsgivereResponse';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
@@ -15,7 +15,7 @@ const handleStatus = (response: Response) => {
   }
 };
 
-const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereInterface> => {
+const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
   return Promise.race([
     new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
       .then(() => {
