@@ -27,6 +27,7 @@ describe('KroniskSide', () => {
   };
 
   it('should have no a11y violations', async () => {
+    jest.setTimeout(10000); // 10 second timeout
     act(() => {
       render(
         <Router history={makeHistory('/')}>
