@@ -10,3 +10,5 @@ Object.defineProperty(window, 'location', {
   },
   writable: true
 });
+
+export {};
