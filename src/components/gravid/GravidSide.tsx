@@ -171,7 +171,7 @@ const GravidSide = (props: GravidSideProps) => {
                         onChange={(termindato: Date) => {
                           dispatch({
                             type: Actions.Termindato,
-                            payload: { termindato: termindato ? termindato : undefined }
+                            payload: { termindato }
                           });
                         }}
                       />
