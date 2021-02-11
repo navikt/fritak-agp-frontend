@@ -2,6 +2,7 @@ import React from 'react';
 import KroniskSide from './KroniskSide';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
+import '../../mockData/mockWindowLocation';
 
 describe('KroniskSide', () => {
   it('should have no a11y violations', async () => {
