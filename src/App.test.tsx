@@ -6,8 +6,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testOrganisasjoner from './mockData/testOrganisasjoner';
-import { ArbeidsgiverStatus } from './context/ArbeidsgiverContext';
 import { LoginStatus } from './context/login/LoginStatus';
+import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
 
 describe('App', () => {
   let container = document.createElement('div');

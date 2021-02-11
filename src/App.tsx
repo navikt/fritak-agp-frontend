@@ -3,9 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { LoginProvider } from './context/login/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { ArbeidsgiverProvider, ArbeidsgiverStatus } from './context/ArbeidsgiverContext';
+import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
 import env from './environment';
 import { LoginStatus } from './context/login/LoginStatus';
+import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;

@@ -1,16 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import ArbeidsgiverAPI from '../api/arbeidsgiver/ArbeidsgiverAPI';
+import ArbeidsgiverAPI from '../../api/arbeidsgiver/ArbeidsgiverAPI';
 import Spinner from 'nav-frontend-spinner';
-
-interface ArbeidsgiverInterface {
-  arbeidsgivere: Array<Organisasjon>;
-  setArbeidsgivere: any;
-  firma: string;
-  setFirma: any;
-  arbeidsgiverId: string;
-  setArbeidsgiverId: any;
-}
+import ArbeidsgiverStatus from './ArbeidsgiverStatus';
+import ArbeidsgiverInterface from './ArbeidsgiverInterface';
+import buildArbeidsgiver from './buildArbeidsgiver';
 
 const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeidsgivere: Organisasjon[]) =>
   ({
@@ -18,24 +12,6 @@ const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeids
     firma,
     arbeidsgiverId
   } as ArbeidsgiverInterface);
-
-const buildArbeidsgiver = (
-  Name: string,
-  OrganizationForm: string,
-  OrganizationNumber: string,
-  ParentOrganizationNumber: string,
-  Status: string,
-  Type: string
-): Organisasjon => {
-  return {
-    Name,
-    OrganizationForm,
-    OrganizationNumber,
-    ParentOrganizationNumber,
-    Status,
-    Type
-  };
-};
 
 const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));
 
@@ -49,16 +25,6 @@ interface ArbeidsgiverContextProviderProps {
 }
 
 const useArbeidsgiver = () => useContext(ArbeidsgiverContext);
-
-export enum ArbeidsgiverStatus {
-  NotStarted = -1,
-  Started = 1,
-  Successfully = 200,
-  Unknown = -2,
-  Timeout = -3,
-  Error = 500,
-  Unauthorized = 401
-}
 
 const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
   const [loadingStatus, setLoadingStatus] = useState<number>(props.status || ArbeidsgiverStatus.NotStarted);
