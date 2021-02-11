@@ -12,14 +12,14 @@ interface BackendOrganisasjon {
 
 export const mapArbeidsgiver = (backendData: BackendOrganisasjon[]): Organisasjon[] =>
   backendData.map(
-    (o) =>
+    (backendOrganisasjon) =>
       ({
-        Name: o.name,
-        Type: o.type,
-        OrganizationNumber: o.organizationNumber,
-        OrganizationForm: o.organizationForm,
-        Status: o.status,
-        ParentOrganizationNumber: o.parentOrganizationNumber
+        Name: backendOrganisasjon.name,
+        Type: backendOrganisasjon.type,
+        OrganizationNumber: backendOrganisasjon.organizationNumber,
+        OrganizationForm: backendOrganisasjon.organizationForm,
+        Status: backendOrganisasjon.status,
+        ParentOrganizationNumber: backendOrganisasjon.parentOrganizationNumber
       } as Organisasjon)
   );
 

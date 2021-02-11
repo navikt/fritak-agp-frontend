@@ -1,6 +1,6 @@
 import React from 'react';
 import Side from './Side';
-import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Router } from 'react-router-dom';

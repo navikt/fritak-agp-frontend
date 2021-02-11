@@ -5,12 +5,7 @@ import env from '../environment';
 import { GetLoginExpiry } from '../api/loginexpiry/LoginExpiryAPI';
 import { TilgangsfeilSide } from '../components/login/TilgangsfeilSide';
 
-export const buildLoginContext = (loggedIn: boolean) => ({
-  // loggedIn: loggedIn,
-  // setLoggedIn: (isLoggedIn: boolean) => {}
-});
-
-const LoginContext = createContext(buildLoginContext(false));
+const LoginContext = createContext({});
 
 export const isLoggedInFromUrl = () => window.location.search.indexOf('loggedIn=true') > -1;
 
@@ -34,12 +29,7 @@ interface LoginContextProviderProps {
   status?: LoginStatus;
 }
 
-export const LoginProvider = ({
-  loginServiceUrl,
-  baseUrl,
-  children,
-  status = LoginStatus.Checking
-}: LoginContextProviderProps) => {
+export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking }: LoginContextProviderProps) => {
   const history: History = useHistory();
   const [expiry, setExpiry] = useState<number>(status);
   useEffect(() => {
@@ -71,7 +61,5 @@ export const LoginProvider = ({
     return <TilgangsfeilSide />;
   }
 
-  // Fjerner ?loggedIn=true fra urlen i browsern
-  // history.push(redirectWithoutParams(window.location.pathname));
   return <LoginContext.Provider value={{}}>{children}</LoginContext.Provider>;
 };
