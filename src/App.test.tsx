@@ -6,8 +6,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testOrganisasjoner from './mockData/testOrganisasjoner';
-import { LoginStatus } from './context/LoginContext';
 import { ArbeidsgiverStatus } from './context/ArbeidsgiverContext';
+import { LoginStatus } from './context/login/LoginStatus';
 
 describe('App', () => {
   let container = document.createElement('div');
@@ -23,7 +23,7 @@ describe('App', () => {
   const ARBEIDSGIVERE = testOrganisasjoner;
   const INGEN_ARBEIDSGIVERE = [];
   const APPLICATION_ROUTES = 'application-routes';
-  const LOGIN_REDIRECT = 'login-provider-redirect';
+  const LOGIN_REDIRECT = 'login-redirect';
   const SPINNER = 'login-provider-checking';
 
   it('should show spinner while loading expiry', () => {

@@ -1,9 +1,10 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { LoginProvider, LoginStatus } from './LoginContext';
+import { LoginProvider } from './LoginContext';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
+import { LoginStatus } from './LoginStatus';
 
 describe('LoginContext', () => {
   let assignMock = jest.fn();
@@ -39,21 +40,21 @@ describe('LoginContext', () => {
     act(() => {
       render(
         <Router history={makeHistory('/')}>
-          <LoginProvider baseUrl='' status={LoginStatus.MustLogin}>
+          <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.MustLogin}>
             ChildrenHere
           </LoginProvider>
         </Router>,
         container
       );
     });
-    expect(container).toContainHTML('login-provider-redirect');
+    expect(container).toContainHTML('login-redirect');
   });
 
   it('should show children', () => {
     act(() => {
       render(
         <Router history={makeHistory('/')}>
-          <LoginProvider baseUrl='' status={LoginStatus.Verified}>
+          <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.Verified}>
             ChildrenHere
           </LoginProvider>
         </Router>,
@@ -67,7 +68,7 @@ describe('LoginContext', () => {
     act(() => {
       render(
         <Router history={makeHistory('/')}>
-          <LoginProvider baseUrl='' status={LoginStatus.Checking}>
+          <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.Checking}>
             ChildrenHere
           </LoginProvider>
         </Router>,
@@ -81,7 +82,7 @@ describe('LoginContext', () => {
     act(() => {
       render(
         <Router history={makeHistory('/')}>
-          <LoginProvider baseUrl='' status={LoginStatus.Failed}>
+          <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.Failed}>
             ChildrenHere
           </LoginProvider>
         </Router>,

@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 
 describe('KroniskSide', () => {
   const makeHistory = (path: string) => {
@@ -16,7 +17,7 @@ describe('KroniskSide', () => {
   it('should have no a11y violations', async () => {
     const rendered = render(
       <Router history={makeHistory('/')}>
-        <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
+        <ArbeidsgiverProvider arbeidsgivere={testOrganisasjoner} status={Status.Successfully}>
           <KroniskSide />
         </ArbeidsgiverProvider>
       </Router>

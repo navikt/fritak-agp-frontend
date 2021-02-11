@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { LoginProvider, LoginStatus } from './context/LoginContext';
+import { LoginProvider } from './context/login/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { ArbeidsgiverProvider, ArbeidsgiverStatus } from './context/ArbeidsgiverContext';
 import env from './environment';
+import { LoginStatus } from './context/login/LoginStatus';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;
