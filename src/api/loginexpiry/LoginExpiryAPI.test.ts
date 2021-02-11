@@ -1,4 +1,5 @@
-import { GetLoginExpiry, ParseExpiryDate } from './LoginExpiryAPI';
+import { GetLoginExpiry } from './LoginExpiryAPI';
+import { ParseExpiryDate } from './ParseExpiryDate';
 
 describe('loginExpiryAPI', () => {
   it('should ParseExpiryDate with no timezone', async () => {
