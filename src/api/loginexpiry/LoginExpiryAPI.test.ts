@@ -1,4 +1,5 @@
-import LoginExpiryAPI, { ParseExpiryDate } from './LoginExpiryAPI';
+import { GetLoginExpiry } from './LoginExpiryAPI';
+import { ParseExpiryDate } from './ParseExpiryDate';
 
 describe('loginExpiryAPI', () => {
   it('should ParseExpiryDate with no timezone', async () => {
@@ -16,7 +17,7 @@ describe('loginExpiryAPI', () => {
       json: () => Promise.resolve(input)
     } as Response);
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
-    const loginExpiry = await LoginExpiryAPI('');
+    const loginExpiry = await GetLoginExpiry('');
     expect(loginExpiry.tidspunkt).toEqual(new Date(2020, 0, 23, 8, 27, 57, 125));
   });
 
@@ -26,7 +27,7 @@ describe('loginExpiryAPI', () => {
       json: () => Promise.resolve()
     } as Response);
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
-    const loginExpiry = await LoginExpiryAPI('');
+    const loginExpiry = await GetLoginExpiry('');
     expect(loginExpiry.tidspunkt).toBeUndefined();
   });
 });

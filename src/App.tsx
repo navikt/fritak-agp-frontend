@@ -1,34 +1,33 @@
 import React from 'react';
-import { EnvironmentProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { BrowserRouter } from 'react-router-dom';
-import env from './environment';
-import LoginExpiryProvider from './context/LoginExpiryContext';
-import { LoginProvider, redirectUrl } from './context/LoginContext';
+import { LoginProvider } from './context/login/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { ArbeidsgiverProvider, ArbeidsgiverStatus } from './context/ArbeidsgiverContext';
+import env from './environment';
+import { LoginStatus } from './context/login/LoginStatus';
 
 interface ApplicationProps {
-  path?: string;
-  loginStatus?: number;
-  loggedIn?: boolean;
-  loginExpiry?: number;
+  loginStatus?: LoginStatus;
+  arbeidsgiverStatus?: ArbeidsgiverStatus;
+  arbeidsgivere?: Array<Organisasjon>;
+  basePath?: string;
+  loginServiceUrl?: string;
 }
 
-export const Application = (props: ApplicationProps) => {
-  let href = window.location.href;
-  href = href.replace('?loggedIn=true', '');
-
-  const loginServiceUrl = redirectUrl(env.loginServiceUrl, href);
-
-  return (
-    <EnvironmentProvider loginServiceUrl={loginServiceUrl} sideTittel={'Søknadsskjema'} basePath={env.baseUrl}>
-      <LoginProvider loggedIn={props.loggedIn}>
-        <LoginExpiryProvider status={props.loginStatus} loginExpiry={props.loginExpiry}>
-          <ApplicationRoutes />
-        </LoginExpiryProvider>
-      </LoginProvider>
-    </EnvironmentProvider>
-  );
-};
+export const Application = ({
+  loginStatus = LoginStatus.Checking,
+  arbeidsgiverStatus = ArbeidsgiverStatus.NotStarted,
+  arbeidsgivere,
+  basePath = env.baseUrl,
+  loginServiceUrl = env.loginServiceUrl
+}: ApplicationProps) => (
+  <LoginProvider baseUrl={basePath} status={loginStatus} loginServiceUrl={loginServiceUrl}>
+    <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
+      <ApplicationRoutes />
+    </ArbeidsgiverProvider>
+  </LoginProvider>
+);
 
 const App = () => (
   <BrowserRouter basename='fritak-agp'>

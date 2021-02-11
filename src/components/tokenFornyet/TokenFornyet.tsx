@@ -5,7 +5,7 @@ import { Container, Row } from 'nav-frontend-grid';
 import Side from '../Side';
 
 export const TokenFornyet = () => (
-  <Side>
+  <Side bedriftsmeny={false} sidetittel='Søknadsskjema' title='Innloggingen er fornyet' subtitle='Innlogging'>
     <Container className={'side__innhold'}>
       <Row>
         <Panel>

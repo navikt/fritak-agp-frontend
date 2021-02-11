@@ -1,6 +1,6 @@
+import { mapArbeidsgiver } from './mapArbeidsgiver';
 import { Status } from './Status';
-import { LoginExpiryResponse } from './LoginExpiryResponse';
-import { ParseExpiryDate } from './ParseExpiryDate';
+import { ArbeidsgivereResponse } from './ArbeidsgivereResponse';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
@@ -15,18 +15,20 @@ const handleStatus = (response: Response) => {
   }
 };
 
-export const GetLoginExpiry = (basePath: string): Promise<LoginExpiryResponse> => {
+const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
   return Promise.race([
     new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
       .then(() => {
         return {
-          status: Status.Timeout
+          status: Status.Timeout,
+          organisasjoner: []
         };
       })
       .catch(() => ({
-        status: Status.Timeout
+        status: Status.Timeout,
+        organisasjoner: []
       })),
-    fetch(basePath + '/api/v1/login-expiry', {
+    fetch(basePath + '/api/v1/arbeidsgivere', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -37,10 +39,13 @@ export const GetLoginExpiry = (basePath: string): Promise<LoginExpiryResponse> =
       .then(handleStatus)
       .then((json) => ({
         status: Status.Successfully,
-        tidspunkt: ParseExpiryDate(json)
+        organisasjoner: mapArbeidsgiver(json)
       }))
       .catch((status) => ({
-        status: status
+        status: status,
+        organisasjoner: []
       }))
   ]);
 };
+
+export default { GetArbeidsgivere: GetArbeidsgivere };
