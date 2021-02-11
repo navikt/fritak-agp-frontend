@@ -7,7 +7,7 @@ import { Router } from 'react-router-dom';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { createMemoryHistory } from 'history';
 import testOrganisasjoner from '../mockData/testOrganisasjoner';
-import { ArbeidsgiverStatus } from '../context/ArbeidsgiverContext';
+import { ArbeidsgiverStatus } from '../context/arbeidsgiver/ArbeidsgiverContext';
 
 describe('Side', () => {
   let container = document.createElement('div');
