@@ -1,17 +1,17 @@
-import { Status } from './Status';
 import { LoginExpiryResponse } from './LoginExpiryResponse';
 import { ParseExpiryDate } from './ParseExpiryDate';
+import HttpStatus from '../HttpStatus';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
-    case Status.Successfully:
+    case HttpStatus.Successfully:
       return response.json();
-    case Status.Unauthorized:
-      return Promise.reject(Status.Unauthorized);
-    case Status.Error:
-      return Promise.reject(Status.Error);
+    case HttpStatus.Unauthorized:
+      return Promise.reject(HttpStatus.Unauthorized);
+    case HttpStatus.Error:
+      return Promise.reject(HttpStatus.Error);
     default:
-      return Promise.reject(Status.Unknown);
+      return Promise.reject(HttpStatus.Unknown);
   }
 };
 
@@ -20,11 +20,11 @@ export const GetLoginExpiry = (basePath: string): Promise<LoginExpiryResponse> =
     new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
       .then(() => {
         return {
-          status: Status.Timeout
+          status: HttpStatus.Timeout
         };
       })
       .catch(() => ({
-        status: Status.Timeout
+        status: HttpStatus.Timeout
       })),
     fetch(basePath + '/api/v1/login-expiry', {
       headers: {
@@ -36,7 +36,7 @@ export const GetLoginExpiry = (basePath: string): Promise<LoginExpiryResponse> =
     })
       .then(handleStatus)
       .then((json) => ({
-        status: Status.Successfully,
+        status: HttpStatus.Successfully,
         tidspunkt: ParseExpiryDate(json)
       }))
       .catch((status) => ({

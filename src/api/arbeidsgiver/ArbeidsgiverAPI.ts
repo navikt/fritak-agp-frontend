@@ -1,17 +1,17 @@
 import { mapArbeidsgiver } from './mapArbeidsgiver';
-import { Status } from './Status';
 import { ArbeidsgivereResponse } from './ArbeidsgivereResponse';
+import HttpStatus from '../HttpStatus';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
-    case Status.Successfully:
+    case HttpStatus.Successfully:
       return response.json();
-    case Status.Unauthorized:
-      return Promise.reject(Status.Unauthorized);
-    case Status.Error:
-      return Promise.reject(Status.Error);
+    case HttpStatus.Unauthorized:
+      return Promise.reject(HttpStatus.Unauthorized);
+    case HttpStatus.Error:
+      return Promise.reject(HttpStatus.Error);
     default:
-      return Promise.reject(Status.Unknown);
+      return Promise.reject(HttpStatus.Unknown);
   }
 };
 
@@ -20,12 +20,12 @@ const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
     new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
       .then(() => {
         return {
-          status: Status.Timeout,
+          status: HttpStatus.Timeout,
           organisasjoner: []
         };
       })
       .catch(() => ({
-        status: Status.Timeout,
+        status: HttpStatus.Timeout,
         organisasjoner: []
       })),
     fetch(basePath + '/api/v1/arbeidsgivere', {
@@ -38,7 +38,7 @@ const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
     })
       .then(handleStatus)
       .then((json) => ({
-        status: Status.Successfully,
+        status: HttpStatus.Successfully,
         organisasjoner: mapArbeidsgiver(json)
       }))
       .catch((status) => ({

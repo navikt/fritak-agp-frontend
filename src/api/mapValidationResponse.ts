@@ -1,23 +1,20 @@
-import RestStatus from './RestStatus';
+import HttpStatus from './HttpStatus';
 import ValidationResponse from './ValidationResponse';
 
 export const VALID_RESPONSE_STATUSES = [
-  RestStatus.Successfully,
-  RestStatus.Created,
-  RestStatus.Error,
-  RestStatus.BadRequest,
-  RestStatus.Unauthorized,
-  RestStatus.UnprocessableEntity
+  HttpStatus.Successfully,
+  HttpStatus.Created,
+  HttpStatus.Error,
+  HttpStatus.BadRequest,
+  HttpStatus.Unauthorized,
+  HttpStatus.UnprocessableEntity
 ];
 
-export const findStatus = (status: number): RestStatus => {
-  return VALID_RESPONSE_STATUSES.includes(status) ? status : RestStatus.Unknown;
+export const findStatus = (status: number): HttpStatus => {
+  return VALID_RESPONSE_STATUSES.includes(status) ? status : HttpStatus.Unknown;
 };
 
-export const mapValidationResponse = (
-  status: number,
-  json: any
-): ValidationResponse => {
+export const mapValidationResponse = (status: number, json: any): ValidationResponse => {
   return {
     status: findStatus(status),
     violations: json['violations'] || []

@@ -122,9 +122,9 @@ describe('GravidKravReducer', () => {
   it('should set the beløp', () => {
     let state = GravidKravReducer(defaultGravidKravState(), {
       type: Actions.Beloep,
-      payload: { beloep: '233' }
+      payload: { beloep: 233 }
     });
-    expect(state.beloep).toEqual('233');
+    expect(state.beloep).toEqual(233);
   });
 
   it('should set the kvittering', () => {
