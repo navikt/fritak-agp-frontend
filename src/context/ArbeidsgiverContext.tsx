@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import ArbeidsgiverAPI, { Status } from '../api/ArbeidsgiverAPI';
 import Spinner from 'nav-frontend-spinner';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 
 interface ArbeidsgiverInterface {
   arbeidsgivere: Array<Organisasjon>;
@@ -42,34 +41,44 @@ const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));
 
 interface ArbeidsgiverContextProviderProps {
   children: any;
-  status?: Status;
+  status?: ArbeidsgiverStatus;
   arbeidsgivere?: Organisasjon[];
   firma?: string;
   arbeidsgiverId?: string;
-  basePath: string;
+  baseUrl: string;
 }
 
 const useArbeidsgiver = () => useContext(ArbeidsgiverContext);
 
+export enum ArbeidsgiverStatus {
+  NotStarted = -1,
+  Started = 1,
+  Successfully = 200,
+  Unknown = -2,
+  Timeout = -3,
+  Error = 500,
+  Unauthorized = 401
+}
+
 const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
-  const [status, setStatus] = useState<number>(props.status || Status.NotStarted);
+  const [loadingStatus, setLoadingStatus] = useState<number>(props.status || ArbeidsgiverStatus.NotStarted);
   const [arbeidsgivere, setArbeidsgivere] = useState<Organisasjon[]>(props.arbeidsgivere || []);
   const [firma, setFirma] = useState<string>(props.firma || '');
   const [arbeidsgiverId, setArbeidsgiverId] = useState<string>(props.arbeidsgiverId || '');
   const [ready, setReady] = useState<boolean>();
 
   useEffect(() => {
-    if (status == Status.NotStarted) {
-      setStatus(Status.Started);
-      ArbeidsgiverAPI.GetArbeidsgivere(props.basePath).then((res) => {
-        setStatus(res.status);
+    if (loadingStatus == ArbeidsgiverStatus.NotStarted) {
+      setLoadingStatus(ArbeidsgiverStatus.Started);
+      ArbeidsgiverAPI.GetArbeidsgivere(props.baseUrl).then((res) => {
+        setLoadingStatus(res.status);
         setArbeidsgivere(res.organisasjoner);
         setReady(ready);
       });
     }
-  }, [status, ready, props.basePath]);
+  }, [loadingStatus, ready, props.baseUrl]);
 
-  if (status === Status.NotStarted || status === Status.Started) {
+  if (loadingStatus === ArbeidsgiverStatus.NotStarted || loadingStatus === ArbeidsgiverStatus.Started) {
     return <Spinner type={'XXL'} className='arbeidsgiver-context-spinner' />;
   }
 

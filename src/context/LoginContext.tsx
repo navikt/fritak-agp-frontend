@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import env from '../environment';
 import { GetLoginExpiry } from '../api/loginexpiry/LoginExpiryAPI';
-import { TilgangsfeilSide } from '../components/TilgangsfeilSide';
+import { TilgangsfeilSide } from '../components/login/TilgangsfeilSide';
 
 export const buildLoginContext = (loggedIn: boolean) => ({
   // loggedIn: loggedIn,
@@ -11,13 +11,6 @@ export const buildLoginContext = (loggedIn: boolean) => ({
 });
 
 const LoginContext = createContext(buildLoginContext(false));
-
-interface LoginContextProviderProps {
-  children: any;
-  loggedIn?: boolean;
-  baseUrl: string;
-  loginExpiry?: number;
-}
 
 export const isLoggedInFromUrl = () => window.location.search.indexOf('loggedIn=true') > -1;
 
@@ -30,19 +23,36 @@ export const LoginRedirect = () => <div className='login-provider-redirect' />;
 export enum LoginStatus {
   Checking,
   Verified,
-  MustLogin
+  MustLogin,
+  Failed
 }
 
-export const LoginProvider = ({ baseUrl, children, loginExpiry = 0 }: LoginContextProviderProps) => {
+interface LoginContextProviderProps {
+  children: any;
+  baseUrl: string;
+  loginServiceUrl: string;
+  status?: LoginStatus;
+}
+
+export const LoginProvider = ({
+  loginServiceUrl,
+  baseUrl,
+  children,
+  status = LoginStatus.Checking
+}: LoginContextProviderProps) => {
   const history: History = useHistory();
-  const [expiry, setExpiry] = useState<number>(loginExpiry);
+  const [expiry, setExpiry] = useState<number>(status);
   useEffect(() => {
     if (expiry === LoginStatus.Checking) {
       GetLoginExpiry(baseUrl).then((loginExpiryResponse) => {
-        if (loginExpiryResponse.tidspunkt !== undefined) {
-          setExpiry(LoginStatus.Verified);
+        if (loginExpiryResponse.tidspunkt === undefined) {
+          if (isLoggedInFromUrl()) {
+            setExpiry(LoginStatus.Failed);
+          } else {
+            setExpiry(LoginStatus.MustLogin);
+          }
         } else {
-          setExpiry(LoginStatus.MustLogin);
+          setExpiry(LoginStatus.Verified);
         }
       });
     }
@@ -53,11 +63,11 @@ export const LoginProvider = ({ baseUrl, children, loginExpiry = 0 }: LoginConte
   }
 
   if (expiry === LoginStatus.MustLogin) {
-    if (!isLoggedInFromUrl()) {
-      // Prevents infinite loop
-      window.location.href = redirectUrl(env.loginServiceUrl, window.location.href);
-      return <LoginRedirect />;
-    }
+    window.location.href = redirectUrl(env.loginServiceUrl, window.location.href);
+    return <LoginRedirect />;
+  }
+
+  if (expiry == LoginStatus.Failed) {
     return <TilgangsfeilSide />;
   }
 

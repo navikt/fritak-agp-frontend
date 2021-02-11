@@ -1,22 +1,28 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { LoginProvider } from './context/LoginContext';
+import { LoginProvider, LoginStatus } from './context/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { ArbeidsgiverProvider } from './context/ArbeidsgiverContext';
+import { ArbeidsgiverProvider, ArbeidsgiverStatus } from './context/ArbeidsgiverContext';
 import env from './environment';
-import { Status } from './api/ArbeidsgiverAPI';
 
 interface ApplicationProps {
-  loginStatus?: Status;
-  loggedIn?: boolean;
+  loginStatus?: LoginStatus;
+  arbeidsgiverStatus?: ArbeidsgiverStatus;
   arbeidsgivere?: Array<Organisasjon>;
   basePath?: string;
+  loginServiceUrl?: string;
 }
 
-export const Application = ({ loggedIn, loginStatus, arbeidsgivere, basePath = env.baseUrl }: ApplicationProps) => (
-  <LoginProvider loggedIn={loggedIn} baseUrl={basePath}>
-    <ArbeidsgiverProvider basePath={basePath} status={loginStatus} arbeidsgivere={arbeidsgivere}>
+export const Application = ({
+  loginStatus = LoginStatus.Checking,
+  arbeidsgiverStatus = ArbeidsgiverStatus.NotStarted,
+  arbeidsgivere,
+  basePath = env.baseUrl,
+  loginServiceUrl = env.loginServiceUrl
+}: ApplicationProps) => (
+  <LoginProvider baseUrl={basePath} status={loginStatus} loginServiceUrl={loginServiceUrl}>
+    <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
       <ApplicationRoutes />
     </ArbeidsgiverProvider>
   </LoginProvider>

@@ -1,11 +1,13 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import TestRenderer from 'react-test-renderer';
-import { LoginProvider, LoginRedirect } from './LoginContext';
+import { LoginProvider, LoginStatus } from './LoginContext';
+import { act } from 'react-dom/test-utils';
+import { render, unmountComponentAtNode } from 'react-dom';
 
 describe('LoginContext', () => {
   let assignMock = jest.fn();
+  let container = document.createElement('div');
 
   beforeEach(() => {
     delete window.location;
@@ -17,10 +19,14 @@ describe('LoginContext', () => {
       pathname: '/gravid',
       search: 'loggedIn=true'
     };
+    container = document.createElement('div');
+    document.body.appendChild(container);
   });
 
   afterEach(() => {
     assignMock.mockClear();
+    unmountComponentAtNode(container);
+    container.remove();
   });
 
   const makeHistory = (path: string) => {
@@ -29,23 +35,59 @@ describe('LoginContext', () => {
     return history;
   };
 
-  it('should redirect to loginProver when not logged in', () => {
-    expect(
-      TestRenderer.create(
+  it('should redirect to loginProvider', () => {
+    act(() => {
+      render(
         <Router history={makeHistory('/')}>
-          <LoginProvider loggedIn={false}>ChildrenHere</LoginProvider>
-        </Router>
-      ).root.find(LoginRedirect)
-    );
+          <LoginProvider baseUrl='' status={LoginStatus.MustLogin}>
+            ChildrenHere
+          </LoginProvider>
+        </Router>,
+        container
+      );
+    });
+    expect(container).toContainHTML('login-provider-redirect');
   });
 
-  it('should remove loginProvider parameter from url on callback', () => {
-    expect(
-      TestRenderer.create(
+  it('should show children', () => {
+    act(() => {
+      render(
         <Router history={makeHistory('/')}>
-          <LoginProvider loggedIn={true}>ChildrenHere</LoginProvider>
-        </Router>
-      ).toJSON()
-    ).toContain('ChildrenHere');
+          <LoginProvider baseUrl='' status={LoginStatus.Verified}>
+            ChildrenHere
+          </LoginProvider>
+        </Router>,
+        container
+      );
+    });
+    expect(container).toContainHTML('ChildrenHere');
+  });
+
+  it('should show checking', () => {
+    act(() => {
+      render(
+        <Router history={makeHistory('/')}>
+          <LoginProvider baseUrl='' status={LoginStatus.Checking}>
+            ChildrenHere
+          </LoginProvider>
+        </Router>,
+        container
+      );
+    });
+    expect(container).toContainHTML('login-provider-checking');
+  });
+
+  it('should show failed', () => {
+    act(() => {
+      render(
+        <Router history={makeHistory('/')}>
+          <LoginProvider baseUrl='' status={LoginStatus.Failed}>
+            ChildrenHere
+          </LoginProvider>
+        </Router>,
+        container
+      );
+    });
+    expect(container).toContainHTML('tilgangsfeil-side');
   });
 });

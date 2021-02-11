@@ -3,13 +3,13 @@ import { Column, Container, Row } from 'nav-frontend-grid';
 import Lenke from 'nav-frontend-lenker';
 import './Side.sass';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
+import { IngenTilgangAdvarsel } from './login/IngenTilgangAdvarsel';
 
 interface SideProps {
   children: React.ReactNode;
@@ -19,14 +19,6 @@ interface SideProps {
   subtitle: string;
   bedriftsmeny?: boolean;
 }
-
-const IngenTilgangAdvarsel = () => (
-  <AlertStripeAdvarsel>
-    <p>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</p>
-    <p>Tildeling av roller foregår i Altinn</p>
-    <Link to='/min-side-arbeidsgiver/informasjon-om-tilgangsstyring'>Les mer om roller og tilganger.</Link>
-  </AlertStripeAdvarsel>
-);
 
 const Side = (props: SideProps) => {
   const history: History = useHistory();
@@ -59,8 +51,8 @@ const Side = (props: SideProps) => {
             <Column>
               <SoknadTittel subtitle={props.subtitle}>{props.title}</SoknadTittel>
               <SideIndentering>
-                {props.bedriftsmeny === true && arbeidsgivere.length === 0 && <IngenTilgangAdvarsel />}
-                {(arbeidsgivere.length > 0 || !props.bedriftsmeny) && props.children}
+                {!skalSkjule(props.bedriftsmeny, arbeidsgivere) && props.children}
+                {skalSkjule(props.bedriftsmeny, arbeidsgivere) && <IngenTilgangAdvarsel />}
               </SideIndentering>
             </Column>
           </Row>
@@ -68,6 +60,10 @@ const Side = (props: SideProps) => {
       </main>
     </div>
   );
+};
+
+const skalSkjule = (bedriftsmeny: boolean | undefined, arbeidsgivere: Array<Organisasjon>) => {
+  return arbeidsgivere.length === 0 && bedriftsmeny === true;
 };
 
 export default Side;
