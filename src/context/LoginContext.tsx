@@ -1,6 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { History } from 'history';
 import env from '../environment';
 import { GetLoginExpiry } from '../api/loginexpiry/LoginExpiryAPI';
 import { TilgangsfeilSide } from '../components/login/TilgangsfeilSide';
@@ -30,7 +28,6 @@ interface LoginContextProviderProps {
 }
 
 export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking }: LoginContextProviderProps) => {
-  const history: History = useHistory();
   const [expiry, setExpiry] = useState<number>(status);
   useEffect(() => {
     if (expiry === LoginStatus.Checking) {

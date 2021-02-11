@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import ArbeidsgiverAPI, { Status } from '../api/ArbeidsgiverAPI';
+import ArbeidsgiverAPI from '../api/ArbeidsgiverAPI';
 import Spinner from 'nav-frontend-spinner';
 
 interface ArbeidsgiverInterface {
