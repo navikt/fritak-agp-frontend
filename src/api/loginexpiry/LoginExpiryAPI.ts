@@ -1,4 +1,4 @@
-import { Status } from '../ArbeidsgiverAPI';
+import { Status } from '../arbeidsgiver/ArbeidsgiverAPI';
 
 export interface LoginExpiryResponse {
   status: number;

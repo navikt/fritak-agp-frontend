@@ -1,51 +1,14 @@
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-
-interface BackendOrganisasjon {
-  name: string;
-  type: string;
-  parentOrganizationNumber?: string;
-  organizationForm: string;
-  organizationNumber: string;
-  socialSecurityNumber?: string;
-  status: string;
-}
-
-export const mapArbeidsgiver = (backendData: BackendOrganisasjon[]): Organisasjon[] =>
-  backendData.map(
-    (backendOrganisasjon) =>
-      ({
-        Name: backendOrganisasjon.name,
-        Type: backendOrganisasjon.type,
-        OrganizationNumber: backendOrganisasjon.organizationNumber,
-        OrganizationForm: backendOrganisasjon.organizationForm,
-        Status: backendOrganisasjon.status,
-        ParentOrganizationNumber: backendOrganisasjon.parentOrganizationNumber
-      } as Organisasjon)
-  );
-
-export interface ArbeidsgivereInterface {
-  status: number;
-  organisasjoner: Array<Organisasjon>;
-}
-
-// eslint-disable-next-line no-unused-vars
-export enum Status {
-  NotStarted = -1,
-  Started = 1,
-  Successfully = 200,
-  Unknown = -2,
-  Timeout = -3,
-  Error = 500,
-  Unauthorized = 401
-}
+import { mapArbeidsgiver } from './mapArbeidsgiver';
+import { Status } from './Status';
+import { ArbeidsgivereInterface } from './ArbeidsgivereInterface';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
-    case 200:
+    case Status.Successfully:
       return response.json();
-    case 401:
+    case Status.Unauthorized:
       return Promise.reject(Status.Unauthorized);
-    case 500:
+    case Status.Error:
       return Promise.reject(Status.Error);
     default:
       return Promise.reject(Status.Unknown);
