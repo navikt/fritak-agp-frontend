@@ -4,6 +4,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { cleanup } from '@testing-library/react';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../lagFeil';
+import '../../mockData/mockWindowLocation';
 
 describe('GravidSide', () => {
   let htmlDivElement: Element = document.createElement('div');

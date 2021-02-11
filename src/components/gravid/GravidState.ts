@@ -3,6 +3,7 @@ import { Aarsak } from './Aarsak';
 import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
 import { ValidationState } from '../../validation/ValidationState';
+import { Dato } from '../../utils/Dato';
 
 export const defaultGravidState = (state?: GravidState): GravidState => {
   return Object.assign(
@@ -45,4 +46,5 @@ export default interface GravidState extends ValidationState {
   error?: boolean;
   login?: boolean;
   submitting?: boolean;
+  termindato?: Dato;
 }

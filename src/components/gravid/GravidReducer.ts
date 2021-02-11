@@ -4,6 +4,7 @@ import { validateGravid } from './validateGravid';
 import { mapValidationResponse } from './mapValidationResponse';
 import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
+import { parseDateTilDato } from '../../utils/Dato';
 
 export const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState) => {
   if (!nextState.tiltak) {
@@ -109,6 +110,14 @@ const GravidReducer = (state: GravidState, action: GravidAction): GravidState =>
 
     case Actions.Reset:
       return Object.assign({}, defaultGravidState());
+
+    case Actions.Termindato:
+      if (payload?.termindato === undefined) {
+        nextState.termindato = undefined;
+      } else {
+        nextState.termindato = parseDateTilDato(payload?.termindato);
+      }
+      return validateGravid(nextState);
 
     default:
       throw new Error(`Ugyldig action: ${action.type}`);

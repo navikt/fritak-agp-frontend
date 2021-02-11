@@ -33,6 +33,7 @@ import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 import Side from '../Side';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
+import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -80,7 +81,8 @@ const GravidSide = (props: GravidSideProps) => {
           state.omplassering,
           state.omplasseringAarsak,
           state.dokumentasjon,
-          state.bekreft
+          state.bekreft,
+          state.termindato
         )
       ).then((response) => {
         dispatch({
@@ -102,7 +104,8 @@ const GravidSide = (props: GravidSideProps) => {
     state.fnr,
     state.bekreft,
     state.dokumentasjon,
-    state.orgnr
+    state.orgnr,
+    state.termindato
   ]);
   return (
     <Side
@@ -141,7 +144,7 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
-                    <Column sm='4' xs='6'>
+                    <Column md='3' xs='12'>
                       <Systemtittel>Den ansatte</Systemtittel>
                       <br />
                       <Fnr
@@ -158,7 +161,22 @@ const GravidSide = (props: GravidSideProps) => {
                         }
                       />
                     </Column>
-                    <Column sm='4' xs='6'>
+                    <Column md='3' xs='12'>
+                      <Systemtittel>&nbsp;</Systemtittel>
+                      <br />
+                      <DatoVelger
+                        className='termindato'
+                        id='termindato'
+                        label='Termindato (dersom kjent)'
+                        onChange={(termindato: Date) => {
+                          dispatch({
+                            type: Actions.Termindato,
+                            payload: { termindato }
+                          });
+                        }}
+                      />
+                    </Column>
+                    <Column md='3' xs='12'>
                       <Systemtittel>Arbeidsgiveren</Systemtittel>
                       <br />
                       <Orgnr

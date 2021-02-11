@@ -6,6 +6,7 @@ import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import testOrganisasjoner from '../../mockData/testOrganisasjoner';
+import '../../mockData/mockWindowLocation';
 
 describe('KroniskSide', () => {
   const makeHistory = (path: string) => {

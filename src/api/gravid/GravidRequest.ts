@@ -8,4 +8,5 @@ export interface GravidRequest {
   omplassering?: string;
   omplasseringAarsak?: string;
   dokumentasjon?: string;
+  termindato?: string;
 }
