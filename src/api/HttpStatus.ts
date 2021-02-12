@@ -1,4 +1,4 @@
-enum RestStatus {
+enum HttpStatus {
   NotStarted = -1,
   Started = 1,
   Successfully = 200,
@@ -11,4 +11,4 @@ enum RestStatus {
   UnprocessableEntity = 422
 }
 
-export default RestStatus;
+export default HttpStatus;

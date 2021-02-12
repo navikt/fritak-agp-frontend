@@ -1,5 +1,5 @@
 import postRequest from './postRequest';
-import RestStatus from './RestStatus';
+import HttpStatus from './HttpStatus';
 import ValidationResponse from './ValidationResponse';
 
 describe('postRequest', () => {
@@ -62,7 +62,7 @@ describe('postRequest', () => {
   it('should reject with status Unknown if the backend responds with an unknown response', async () => {
     mockFetch(1234, []);
     expect(await postRequest('/Path', {})).toEqual({
-      status: RestStatus.Unknown,
+      status: HttpStatus.Unknown,
       violations: []
     });
   });
@@ -73,7 +73,7 @@ describe('postRequest', () => {
     const resultat = postRequest('/Path', {});
     jest.advanceTimersByTime(15000);
     expect(await resultat).toEqual({
-      status: RestStatus.Timeout,
+      status: HttpStatus.Timeout,
       violations: []
     });
     jest.useRealTimers();
