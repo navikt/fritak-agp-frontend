@@ -26,7 +26,7 @@ export const getGrunnbelop = (): Promise<grunnbelopResponse> => {
       .catch(() => ({
         status: HttpStatus.Timeout
       })),
-    fetch(environment.gronnbelopUrl, {
+    fetch(environment.grunnbelopUrl, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
