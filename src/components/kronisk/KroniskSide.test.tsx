@@ -10,6 +10,8 @@ import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 
 describe('KroniskSide', () => {
+  jest.setTimeout(10000); // 10 second timeout
+
   let container = document.createElement('div');
   beforeEach(() => {
     container = document.createElement('div');
@@ -27,7 +29,6 @@ describe('KroniskSide', () => {
   };
 
   it('should have no a11y violations', async () => {
-    jest.setTimeout(10000); // 10 second timeout
     act(() => {
       render(
         <Router history={makeHistory('/')}>
