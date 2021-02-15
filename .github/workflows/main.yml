@@ -7,7 +7,7 @@ on:
 
 env:
   APP: fritak-agp-frontend
-  IMAGE: ghcr.io/navikt/fritak-agp-frontend:${{ github.sha }}
+  DOCKER_IMAGE: ghcr.io/navikt/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -72,8 +72,8 @@ jobs:
           password: ${{ secrets.GHCR_PUSH_TOKEN }}
       - name: Build and publish Docker image
         run: |
-          docker build --pull --tag ${{ IMAGE }}  .
-          docker push ${{ IMAGE }}
+          docker build --pull --tag ${{ DOCKER_IMAGE }}  .
+          docker push ${{ DOCKER_IMAGE }}
 
   Deploy:
     needs: [Docker]
