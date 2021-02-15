@@ -75,8 +75,8 @@ jobs:
           password: ${{ secrets.GHCR_PUSH_TOKEN }}
       - name: Build and publish Docker image
         run: |
-          docker build --pull --tag ${IMAGE_BASE}:${TAG}  .
-          docker push ${IMAGE_BASE}:${TAG}
+          docker build --pull --tag ${ IMAGE_BASE }:${{ github.sha }}  .
+          docker push ${ IMAGE_BASE }:${{ github.sha }}
 
   Deploy:
     needs: [Docker]
