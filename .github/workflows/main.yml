@@ -77,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@master
         env:
           TEAM: helsearbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
