@@ -12,6 +12,7 @@ env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  IMAGE_BASE: ghcr.io/navikt/fritak-agp-frontend
 
 jobs:
 
@@ -66,11 +67,16 @@ jobs:
         with:
           name: fritak-frontend-artifact
           path: build
+      - name: Login to GitHub Packages Docker Registry
+        uses: docker/login-action@${{ github.sha }}
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.NAIS_ORG_GHCR_USERNAME }}
+          password: ${{ secrets.NAIS_ORG_GHCR_TOKEN }}
       - name: Build and publish Docker image
         run: |
-          docker build --tag ${IMAGE} --tag ${LATEST_TAG} .
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-          docker push ${DOCKER_IMAGE_NAME}
+          docker build --pull --tag ${IMAGE_BASE}:${TAG}  .
+          docker push ${IMAGE_BASE}:${TAG}
 
   Deploy:
     needs: [Docker]
