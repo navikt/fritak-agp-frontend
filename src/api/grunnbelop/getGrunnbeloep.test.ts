@@ -1,6 +1,6 @@
-import getGrunnbelop from './getGrunnbelop';
+import getGrunnbeloep from './getGrunnbeloep';
 
-describe('getGrunnbelop', () => {
+describe('getGrunnbeloep', () => {
   it('should return status and a string when stuff is OK and it is a time string', async () => {
     const input = {
       dato: '2019-05-01',
@@ -15,7 +15,7 @@ describe('getGrunnbelop', () => {
       json: () => Promise.resolve(input)
     } as Response);
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
-    const grunnbelop = await getGrunnbelop();
+    const grunnbelop = await getGrunnbeloep();
     expect(grunnbelop.grunnbelop).toEqual(input);
   });
 
@@ -25,7 +25,7 @@ describe('getGrunnbelop', () => {
       json: () => Promise.resolve()
     } as Response);
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
-    const grunnbelop = await getGrunnbelop();
+    const grunnbelop = await getGrunnbeloep();
     expect(grunnbelop.grunnbelop).toBeUndefined();
   });
 });

@@ -1,9 +1,9 @@
-export interface grunnbelopResponse {
+export interface grunnbeloepResponse {
   status: number;
-  grunnbelop?: Grunnbelop;
+  grunnbeloep?: Grunnbeloep;
 }
 
-export interface Grunnbelop {
+export interface Grunnbeloep {
   dato: string;
   grunnbeloep: number;
   grunnbeloepPerMaaned: number;

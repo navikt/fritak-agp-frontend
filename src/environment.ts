@@ -37,7 +37,7 @@ class Environment {
     return EnvironmentType.PROD;
   }
 
-  get grunnbelopUrl() {
+  get grunnbeloepUrl() {
     return 'https://g.nav.no/api/v1/grunnbeloep';
     // https://g.nav.no/api/v1/grunnbeloep?dato=2020-02-12 hvis man trenger å spørre på dato
   }

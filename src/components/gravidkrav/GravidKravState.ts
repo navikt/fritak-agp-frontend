@@ -10,6 +10,7 @@ export const defaultGravidKravState = (state?: GravidKravState): GravidKravState
       til: {},
       dokumentasjon: '',
       bekreft: false,
+      isOpenKontrollsporsmaalLonn: false,
       feilmeldinger: Array<FeiloppsummeringFeil>()
     },
     state || {}
@@ -41,4 +42,7 @@ export default interface GravidKravState extends ValidationState {
   login?: boolean;
   notAuthorized?: boolean;
   submitting?: boolean;
+  isOpenKontrollsporsmaalLonn: boolean;
+  gDagsbeloep?: number;
+  kontrollDager?: number;
 }

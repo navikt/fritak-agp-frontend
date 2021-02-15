@@ -28,6 +28,9 @@ import SelectDager from './SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 import Side from '../Side';
+import KontrollsporsmaalLonn from '../felles/KontrollsporsmaalLonn';
+import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
+import dayjs from 'dayjs';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -35,6 +38,10 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
+  };
+
+  const closeKontrollsporsmaalLønn = () => {
+    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
   };
 
   const handleUploadChanged = (file?: File) => {
@@ -61,6 +68,29 @@ export const GravidKrav = (props: GravidKravProps) => {
   const handleSubmitClicked = async () => {
     dispatch({
       type: Actions.Validate
+    });
+
+    if (state.gDagsbeloep ?? 0 < (state.beloep ?? 0 / (state.dager ?? 1))) {
+      dispatch({
+        type: Actions.OpenKontrollsporsmaalLonn
+      });
+    }
+  };
+
+  const fraDatoValgt = (fraDato: Date) => {
+    if (fraDato) {
+      getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
+        if (grunnbeloepRespons.grunnbeloep) {
+          dispatch({
+            type: Actions.Grunnbeloep,
+            payload: { grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep }
+          });
+        }
+      });
+    }
+    dispatch({
+      type: Actions.Fra,
+      payload: { fra: fraDato }
     });
   };
 
@@ -177,10 +207,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                     id='fra-dato'
                     label='Fra dato'
                     onChange={(fraDato: Date) => {
-                      dispatch({
-                        type: Actions.Fra,
-                        payload: { fra: fraDato ? fraDato : undefined }
-                      });
+                      fraDatoValgt(fraDato);
                     }}
                   />
                 </Column>
@@ -302,12 +329,17 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              Send søknad
+              Send kravet
             </Hovedknapp>
           </Panel>
         </Column>
         {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
       </Row>
+      <KontrollsporsmaalLonn
+        onClose={alert}
+        isOpen={state.isOpenKontrollsporsmaalLonn}
+        onCloseCancel={closeKontrollsporsmaalLønn}
+      />
     </Side>
   );
 };

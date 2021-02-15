@@ -1,4 +1,4 @@
-import { grunnbelopResponse } from './grunnbelopResponse';
+import { grunnbeloepResponse } from './grunnbeloepResponse';
 import HttpStatus from '../HttpStatus';
 import environment from '../../environment';
 
@@ -15,7 +15,12 @@ const handleStatus = (response: Response) => {
   }
 };
 
-export const getGrunnbelop = (): Promise<grunnbelopResponse> => {
+export const getGrunnbeloep = (isoDato?: String): Promise<grunnbeloepResponse> => {
+  let grunnbeloepUrl = environment.grunnbeloepUrl;
+  if (isoDato) {
+    grunnbeloepUrl = `${grunnbeloepUrl}?dato=${isoDato}`;
+  }
+
   return Promise.race([
     new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
       .then(() => {
@@ -26,7 +31,9 @@ export const getGrunnbelop = (): Promise<grunnbelopResponse> => {
       .catch(() => ({
         status: HttpStatus.Timeout
       })),
-    fetch(environment.grunnbelopUrl, {
+    fetch(grunnbeloepUrl, {
+      credentials: 'include',
+      mode: 'cors',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -44,4 +51,4 @@ export const getGrunnbelop = (): Promise<grunnbelopResponse> => {
   ]);
 };
 
-export default getGrunnbelop;
+export default getGrunnbeloep;

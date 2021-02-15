@@ -1,0 +1,25 @@
+.kontrollsporsmaal-lonn {
+    &.kontrollsporsmaal-lonn-bigair {
+        padding: 2rem;;
+    }
+
+    .kontrollsporsmaal-lonn-arbeidsdager {
+        max-width: 5rem;
+    }
+
+    .kontrollsporsmaal-lonn-input-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .kontrollsporsmaal-lonn-forklaring {
+        margin-left: 1rem;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .kontrollsporsmaal-lonn-lenke {
+        display: inline-block;
+        margin-left: 2rem;
+    }
+}
