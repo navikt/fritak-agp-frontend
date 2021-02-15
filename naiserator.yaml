@@ -6,8 +6,8 @@ metadata:
   labels:
     team: helsearbeidsgiver
 spec:
-  image: {{image}}
-  port: 3000
+  image: {{ image }}
+  port: 8080
   ingresses:
     - '{{{ingress}}}'
   liveness:
