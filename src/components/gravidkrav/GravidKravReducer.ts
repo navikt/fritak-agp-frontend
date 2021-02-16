@@ -84,6 +84,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       setGrunnbeloep(payload, nextState);
       return nextState;
 
+    case Actions.KontrollDager:
+      nextState.kontrollDager = payload?.kontrollDager;
+      return nextState;
+
     case Actions.Reset:
       return Object.assign({}, defaultGravidKravState());
 

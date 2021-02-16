@@ -44,6 +44,11 @@ export const GravidKrav = (props: GravidKravProps) => {
     dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
   };
 
+  const closeKontrollsporsmaalLønnDager = (dager: number | undefined) => {
+    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: dager } });
+    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
+  };
+
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
@@ -134,7 +139,8 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.fnr,
     state.bekreft,
     state.dokumentasjon,
-    state.orgnr
+    state.orgnr,
+    state.kontrollDager
   ]);
 
   if (!!state.kvittering) {
@@ -336,7 +342,7 @@ export const GravidKrav = (props: GravidKravProps) => {
         {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
       </Row>
       <KontrollsporsmaalLonn
-        onClose={alert}
+        onCloseWithDays={closeKontrollsporsmaalLønnDager}
         isOpen={state.isOpenKontrollsporsmaalLonn}
         onCloseCancel={closeKontrollsporsmaalLønn}
       />

@@ -5,11 +5,10 @@ import { Input, Label } from 'nav-frontend-skjema';
 import './KontrollsporsmaalLonn.scss';
 import { v4 as uuid } from 'uuid';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Link } from 'react-router-dom';
 import Lenke from 'nav-frontend-lenker';
 
 interface KontrollsporsmaalLonnProps {
-  onClose: (dager: number | undefined) => void;
+  onCloseWithDays: (dager: number | undefined) => void;
   isOpen: boolean;
   onCloseCancel: () => void;
 }
@@ -19,7 +18,7 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
   const inputId = uuid();
 
   const onRequestClose = () => {
-    props.onClose(dager);
+    props.onCloseWithDays(dager);
   };
 
   const onCloseCancel = () => {
@@ -57,7 +56,7 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
         </Normaltekst>
       </div>
       <Hovedknapp onClick={onRequestClose}>Send kravet</Hovedknapp>
-      <Lenke href='#' onClick={onRequestClose} className='kontrollsporsmaal-lonn-lenke'>
+      <Lenke href='#' onClick={onCloseCancel} className='kontrollsporsmaal-lonn-lenke'>
         Avbryt og gå tilbake til skjema
       </Lenke>
     </ModalWrapper>

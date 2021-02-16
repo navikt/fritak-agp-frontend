@@ -17,7 +17,8 @@ export enum Actions {
   NotAuthorized,
   CloseKontrollsporsmaalLonn,
   OpenKontrollsporsmaalLonn,
-  Grunnbeloep
+  Grunnbeloep,
+  KontrollDager
 }
 
 export interface Payload {
@@ -34,6 +35,7 @@ export interface Payload {
   dokumentasjon?: string;
   response?: ValidationResponse;
   grunnbeloep?: number;
+  kontrollDager?: number;
 }
 
 export interface GravidKravAction {
