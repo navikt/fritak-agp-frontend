@@ -9,6 +9,7 @@ env:
   APP: fritak-agp-frontend
   IMAGE_BASE: ghcr.io/navikt/fritak-agp-frontend
   TAG: ${{ github.sha }}
+  IMAGE: ghcr.io/navikt/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -89,7 +90,7 @@ jobs:
           RESOURCE: naiserator.yaml
           VARS: nais/dev-gcp.json
           REF: ${{ env.COMMIT }}
-          IMAGE: ${IMAGE_BASE}:${TAG}
+          IMAGE: ${{ env.IMAGE }}
 
   Versjon:
     needs: [Deploy]
