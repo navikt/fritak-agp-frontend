@@ -32,7 +32,6 @@ export const getGrunnbeloep = (isoDato?: String): Promise<grunnbeloepResponse> =
         status: HttpStatus.Timeout
       })),
     fetch(grunnbeloepUrl, {
-      credentials: 'include',
       mode: 'cors',
       headers: {
         Accept: 'application/json',
@@ -43,7 +42,7 @@ export const getGrunnbeloep = (isoDato?: String): Promise<grunnbeloepResponse> =
       .then(handleStatus)
       .then((json) => ({
         status: HttpStatus.Successfully,
-        grunnbelop: json
+        grunnbeloep: json
       }))
       .catch((status) => ({
         status: status

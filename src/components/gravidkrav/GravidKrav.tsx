@@ -66,15 +66,15 @@ export const GravidKrav = (props: GravidKravProps) => {
   };
 
   const handleSubmitClicked = async () => {
-    dispatch({
-      type: Actions.Validate
-    });
-
-    if (state.gDagsbeloep ?? 0 < (state.beloep ?? 0 / (state.dager ?? 1))) {
+    if ((state.gDagsbeloep ?? 0) < (state.beloep ?? 0) / (state.dager ?? 1)) {
       dispatch({
         type: Actions.OpenKontrollsporsmaalLonn
       });
     }
+
+    dispatch({
+      type: Actions.Validate
+    });
   };
 
   const fraDatoValgt = (fraDato: Date) => {
