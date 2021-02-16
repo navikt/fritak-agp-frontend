@@ -99,7 +99,7 @@ const KroniskSide = () => {
         <Column>
           <Panel>
             <Ingress>
-              NAV kan dekke sykepenger i arbeidsgiverperioden for en arbeidstaker med langvarig eller kronisk sykdom. Vi
+              NAV kan dekke sykepenger i arbeidsgiverperioden for en ansatt med langvarig eller kronisk sykdom. Vi
               bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen er
               beskrevet i{' '}
               <Lenke href='https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20'>
