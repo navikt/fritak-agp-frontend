@@ -89,7 +89,7 @@ jobs:
           RESOURCE: naiserator.yaml
           VARS: nais/dev-gcp.json
           REF: ${{ env.COMMIT }}
-          IMAGE: ${{ env.IMAGE }}
+          IMAGE: ${IMAGE_BASE}:${TAG}
 
   Versjon:
     needs: [Deploy]
