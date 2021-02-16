@@ -7,8 +7,6 @@ on:
 
 env:
   APP: fritak-agp-frontend
-  IMAGE_BASE: ghcr.io/navikt/fritak-agp-frontend
-  TAG: ${{ github.sha }}
   IMAGE: ghcr.io/navikt/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -101,7 +99,7 @@ jobs:
         with:
           node-version: '12.x'
       - run: |
-          git config --global user.email "helsearbeidsgiver@nav.no"
-          git config --global user.name "HelseArbeidsgiver"
+          git config --local user.email "helsearbeidsgiver@nav.no"
+          git config --local user.name "HelseArbeidsgiver"
           npm version patch
           git push
