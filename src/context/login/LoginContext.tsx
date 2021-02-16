@@ -5,6 +5,7 @@ import { LoginStatus } from './LoginStatus';
 import { LoginRedirect } from './LoginRedirect';
 import { LoginChecking } from './LoginChecking';
 import { isLoggedInFromUrl } from './isLoggedInFromUrl';
+import dayjs from 'dayjs';
 
 const LoginContext = createContext({});
 
@@ -20,7 +21,7 @@ export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking
   useEffect(() => {
     if (expiry === LoginStatus.Checking) {
       GetLoginExpiry(baseUrl).then((loginExpiryResponse) => {
-        if (loginExpiryResponse.tidspunkt === undefined) {
+        if (loginExpiryResponse.tidspunkt === undefined || dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs())) {
           if (isLoggedInFromUrl()) {
             setExpiry(LoginStatus.Failed);
           } else {
