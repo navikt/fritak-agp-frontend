@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 
 const BASE_PATH = '/fritak-agp';
-const HOME_FOLDER = './build';
+const HOME_FOLDER = '../build';
 const PORT = process.env.PORT || 8080;
 
 const startServer = () => {
