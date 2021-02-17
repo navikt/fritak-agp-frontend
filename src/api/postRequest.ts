@@ -24,11 +24,10 @@ const postRequest = async (path: string, payload: any, timeout: number = 10000):
       body: JSON.stringify(payload)
     })
       .then(async (response) => {
-        status = response.status;
-        return response.json();
-      })
-      .then((json: any) => {
-        return mapValidationResponse(status, json);
+        if (response.status == HttpStatus.UnprocessableEntity) {
+          return mapValidationResponse(response.status, response.json());
+        }
+        return mapValidationResponse(response.status, {});
       })
       .catch(() => {
         return {

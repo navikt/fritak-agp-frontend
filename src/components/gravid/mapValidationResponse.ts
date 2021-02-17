@@ -7,6 +7,8 @@ import map422 from '../../validation/map422';
 import map401 from '../../validation/map401';
 import mapDefault from '../../validation/mapDefault';
 import map500 from '../../validation/map500';
+import HttpStatus from '../../api/HttpStatus';
+import map400 from '../../validation/map400';
 
 export const mapFeilmeldinger = (response: ValidationResponse, state: GravidState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -61,14 +63,16 @@ export const mapFeilmeldinger = (response: ValidationResponse, state: GravidStat
 export const mapValidationResponse = (response: ValidationResponse, state: GravidState): GravidState => {
   const nextState = Object.assign({}, state);
   switch (response.status) {
-    case 201:
+    case HttpStatus.Created:
       return map201(nextState);
-    case 401:
+    case HttpStatus.BadRequest:
+      return map400(nextState);
+    case HttpStatus.Unauthorized:
       return map401(nextState);
-    case 422:
+    case HttpStatus.UnprocessableEntity:
       nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
       return map422(nextState);
-    case 500:
+    case HttpStatus.Error:
       return map500(nextState);
     default:
       return mapDefault(nextState);

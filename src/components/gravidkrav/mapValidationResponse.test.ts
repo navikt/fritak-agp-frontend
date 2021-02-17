@@ -9,6 +9,18 @@ describe('mapValidationResponse', () => {
     type: Actions.Reset
   });
 
+  it('should handle 400', () => {
+    let response = {
+      status: 400
+    } as ValidationResponse;
+    const state = mapValidationResponse(response, defaultState);
+    expect(state.progress).toEqual(false);
+    expect(state.kvittering).toEqual(false);
+    expect(state.error).toBeUndefined();
+    expect(state.serverError).toEqual(true);
+    expect(state.feilmeldinger?.length).toEqual(0);
+  });
+
   it('should handle 401', () => {
     let response = {
       violations: [],
