@@ -1,10 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { GetLoginExpiry } from '../../api/loginexpiry/LoginExpiryAPI';
+import GetLoginExpiry from '../../api/loginexpiry/LoginExpiryAPI';
 import { TilgangsfeilSide } from '../../components/login/TilgangsfeilSide';
 import { LoginStatus } from './LoginStatus';
 import { LoginRedirect } from './LoginRedirect';
 import { LoginChecking } from './LoginChecking';
-import { isLoggedInFromUrl } from './isLoggedInFromUrl';
+import isLoggedInFromUrl from './isLoggedInFromUrl';
 import dayjs from 'dayjs';
 
 const LoginContext = createContext({});
@@ -21,11 +21,13 @@ export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking
   useEffect(() => {
     if (expiry === LoginStatus.Checking) {
       GetLoginExpiry(baseUrl).then((loginExpiryResponse) => {
-        if (loginExpiryResponse.tidspunkt === undefined || dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs())) {
-          if (dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs())) {
+        if (
+          loginExpiryResponse.tidspunkt === undefined ||
+          (loginExpiryResponse.tidspunkt && dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs()))
+        ) {
+          if (loginExpiryResponse.tidspunkt && dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs())) {
             setExpiry(LoginStatus.MustLogin);
-          }
-          if (isLoggedInFromUrl()) {
+          } else if (isLoggedInFromUrl()) {
             setExpiry(LoginStatus.Failed);
           } else {
             setExpiry(LoginStatus.MustLogin);

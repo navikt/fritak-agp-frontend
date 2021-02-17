@@ -6,6 +6,17 @@ import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { LoginStatus } from './LoginStatus';
 
+import timezone_mock from 'timezone-mock';
+import MockDate from 'mockdate';
+import { waitFor } from '@testing-library/react';
+
+timezone_mock.register('Europe/London');
+// import GetLoginExpiry from '../../api/loginexpiry/LoginExpiryAPI';
+
+// jest.mock('../../api/loginexpiry/LoginExpiryAPI');
+
+// GetLoginExpiry.mockImplementation(() => Promise.resolve(42));
+
 describe('LoginContext', () => {
   let assignMock = jest.fn();
   let container = document.createElement('div');
@@ -65,6 +76,13 @@ describe('LoginContext', () => {
   });
 
   it('should show checking', () => {
+    // const mockGetLoginExpiry = GetLoginExpiry as jest.Mocked<typeof GetLoginExpiry>;
+
+    // mockGetLoginExpiry.mockImplementation(() => Promise.resolve(
+    //   {
+    //     status: 200,
+    //     tidspunkt: new Date()
+    //   }));
     act(() => {
       render(
         <Router history={makeHistory('/')}>
@@ -90,5 +108,127 @@ describe('LoginContext', () => {
       );
     });
     expect(container).toContainHTML('tilgangsfeil-side');
+  });
+
+  it('should show login-redirect when the token has expired', () => {
+    const input = '2020-01-23T08:27:57.125+0000';
+    const mockApi = Promise.resolve({
+      status: 200,
+      json: () => Promise.resolve(input)
+    } as Response);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+
+    MockDate.set('2020-01-23T08:28:57.125+0000');
+
+    act(() => {
+      render(
+        <Router history={makeHistory('/')}>
+          <LoginProvider loginServiceUrl='http://mock.it' baseUrl='http://mock.it'>
+            ChildrenHere
+          </LoginProvider>
+        </Router>,
+        container
+      );
+    });
+
+    waitFor(() => {
+      expect(container).toContainHTML('login-redirect');
+    });
+  });
+
+  it('should show tilgangsfeil-side when the token has expired', () => {
+    const input = '2020-01-23T08:27:57.125+0000';
+    const mockApi = Promise.resolve({
+      status: 401,
+      json: () => Promise.resolve(undefined)
+    } as Response);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+
+    MockDate.set('2020-01-23T08:26:57.125+0000');
+
+    render(
+      <Router history={makeHistory('/page?loggedIn=true')}>
+        <LoginProvider loginServiceUrl='http://mock.it' baseUrl='http://mock.it'>
+          ChildrenHere
+        </LoginProvider>
+      </Router>,
+      container
+    );
+
+    waitFor(() => {
+      expect(container).toContainHTML('tilgangsfeil-side');
+    });
+  });
+
+  it('should show login-redirect when the token has expired and the loggedIn param is in the url', () => {
+    const input = '2020-01-23T08:27:57.125+0000';
+    const mockApi = Promise.resolve({
+      status: 200,
+      json: () => Promise.resolve(input)
+    } as Response);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+
+    MockDate.set('2020-01-23T08:28:57.125+0000');
+
+    render(
+      <Router history={makeHistory('/page?loggedIn=true')}>
+        <LoginProvider loginServiceUrl='http://mock.it' baseUrl='http://mock.it'>
+          ChildrenHere
+        </LoginProvider>
+      </Router>,
+      container
+    );
+
+    waitFor(() => {
+      expect(container).toContainHTML('login-redirect');
+    });
+  });
+
+  it('should show the children when everything is OK', () => {
+    const input = '2020-01-23T08:27:57.125+0000';
+    const mockApi = Promise.resolve({
+      status: 200,
+      json: () => Promise.resolve(input)
+    } as Response);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+
+    MockDate.set('2020-01-23T08:22:57.125+0000');
+
+    render(
+      <Router history={makeHistory('/page?loggedIn=true')}>
+        <LoginProvider loginServiceUrl='http://mock.it' baseUrl='http://mock.it'>
+          ChildrenHere
+        </LoginProvider>
+      </Router>,
+      container
+    );
+
+    waitFor(() => {
+      expect(container).toContainHTML('ChildrenHere');
+    });
+  });
+
+  it('should roll over and die when everything fails', () => {
+    const input = '2020-01-23T08:27:57.125+0000';
+    const mockApi = Promise.resolve({
+      status: 500,
+      json: () => Promise.resolve(undefined)
+    } as Response);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+
+    MockDate.set('2020-01-23T08:29:57.125+0000');
+
+    render(
+      <Router history={makeHistory('/page')}>
+        <LoginProvider loginServiceUrl='http://mock.it' baseUrl='http://mock.it'>
+          ChildrenHere
+        </LoginProvider>
+      </Router>,
+      container
+    );
+
+    waitFor(() => {
+      expect(container).toContainHTML('login-redirect');
+    });
   });
 });
