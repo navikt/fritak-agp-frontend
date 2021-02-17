@@ -8,6 +8,7 @@ import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
+import { mockHistory } from '../../mockData/mockHistory';
 
 describe('KroniskSide', () => {
   jest.setTimeout(10000); // 10 second timeout
@@ -22,16 +23,10 @@ describe('KroniskSide', () => {
     container.remove();
   });
 
-  const makeHistory = (path: string) => {
-    const history = createMemoryHistory();
-    history.push(path);
-    return history;
-  };
-
   it('should have no a11y violations', async () => {
     act(() => {
       render(
-        <Router history={makeHistory('/')}>
+        <Router history={mockHistory('/')}>
           <ArbeidsgiverProvider arbeidsgivere={testOrganisasjoner} status={Status.Successfully}>
             <KroniskSide />
           </ArbeidsgiverProvider>

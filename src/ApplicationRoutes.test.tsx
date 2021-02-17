@@ -5,6 +5,7 @@ import React from 'react';
 import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { mockHistory } from './mockData/mockHistory';
 
 describe('ApplicationRoutes', () => {
   let container = document.createElement('div');
@@ -20,14 +21,8 @@ describe('ApplicationRoutes', () => {
     container.remove();
   });
 
-  const makeHistory = (path: string) => {
-    const history = createMemoryHistory();
-    history.push(path);
-    return history;
-  };
-
   const makeRoute = (path: string) => (
-    <Router history={makeHistory(path)}>
+    <Router history={mockHistory(path)}>
       <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
         <ApplicationRoutes />
       </ArbeidsgiverProvider>
@@ -72,7 +67,7 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/kronisk/soknad/kvittering'), container);
     });
-    expect(container.textContent).toContain('Kravet er mottatt');
+    expect(container.textContent).toContain('Søknaden er mottatt');
   });
 
   it('should show gravid krav', () => {
