@@ -12,6 +12,19 @@ describe('postRequest', () => {
     );
   };
 
+  it('should catch BadRequest', async () => {
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
+      Promise.resolve(({
+        status: 400,
+        json: () => {}
+      } as unknown) as Response)
+    );
+    expect(await postRequest('/Path', {})).toEqual({
+      status: 400,
+      violations: []
+    });
+  });
+
   it('should catch exceptions', async () => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.reject());
     expect(await postRequest('/Path', {})).toEqual({
