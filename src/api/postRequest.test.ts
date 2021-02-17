@@ -13,12 +13,7 @@ describe('postRequest', () => {
   };
 
   it('should catch exceptions', async () => {
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
-        status: 500,
-        json: () => {}
-      } as unknown) as Response)
-    );
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.reject());
     expect(await postRequest('/Path', {})).toEqual({
       status: 500,
       violations: []
