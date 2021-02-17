@@ -15,10 +15,8 @@ describe('postRequest', () => {
   it('should catch exceptions', async () => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve(({
-        status: 0,
-        json: () => {
-          throw new Error();
-        }
+        status: 500,
+        json: () => {}
       } as unknown) as Response)
     );
     expect(await postRequest('/Path', {})).toEqual({
