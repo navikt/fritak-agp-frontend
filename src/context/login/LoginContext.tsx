@@ -22,7 +22,7 @@ export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking
   useEffect(() => {
     if (expiry === LoginStatus.Checking) {
       GetLoginExpiry(baseUrl).then((loginExpiryResponse) => {
-        if (loginExpiryResponse.tidspunkt === undefined || isExpiredTokenTimestamp(loginExpiryResponse)) {
+        if (isUndefinedOrExpiredTimestamp(loginExpiryResponse)) {
           if (isExpiredTokenTimestamp(loginExpiryResponse)) {
             setExpiry(LoginStatus.MustLogin);
           } else if (isLoggedInFromUrl()) {
@@ -47,6 +47,10 @@ export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking
   }
   return <LoginContext.Provider value={{}}>{children}</LoginContext.Provider>;
 };
+
+function isUndefinedOrExpiredTimestamp(loginExpiryResponse: LoginExpiryResponse) {
+  return loginExpiryResponse.tidspunkt === undefined || isExpiredTokenTimestamp(loginExpiryResponse);
+}
 
 function isExpiredTokenTimestamp(loginExpiryResponse: LoginExpiryResponse): boolean | undefined {
   return loginExpiryResponse.tidspunkt && dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs());
