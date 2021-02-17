@@ -11,11 +11,6 @@ import MockDate from 'mockdate';
 import { waitFor } from '@testing-library/react';
 
 timezone_mock.register('Europe/London');
-// import GetLoginExpiry from '../../api/loginexpiry/LoginExpiryAPI';
-
-// jest.mock('../../api/loginexpiry/LoginExpiryAPI');
-
-// GetLoginExpiry.mockImplementation(() => Promise.resolve(42));
 
 describe('LoginContext', () => {
   let assignMock = jest.fn();
@@ -76,13 +71,6 @@ describe('LoginContext', () => {
   });
 
   it('should show checking', () => {
-    // const mockGetLoginExpiry = GetLoginExpiry as jest.Mocked<typeof GetLoginExpiry>;
-
-    // mockGetLoginExpiry.mockImplementation(() => Promise.resolve(
-    //   {
-    //     status: 200,
-    //     tidspunkt: new Date()
-    //   }));
     act(() => {
       render(
         <Router history={makeHistory('/')}>
