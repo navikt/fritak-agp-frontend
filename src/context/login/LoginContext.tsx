@@ -6,6 +6,7 @@ import { LoginRedirect } from './LoginRedirect';
 import { LoginChecking } from './LoginChecking';
 import isLoggedInFromUrl from './isLoggedInFromUrl';
 import dayjs from 'dayjs';
+import { LoginExpiryResponse } from '../../api/loginexpiry/LoginExpiryResponse';
 
 const LoginContext = createContext({});
 
@@ -21,11 +22,8 @@ export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking
   useEffect(() => {
     if (expiry === LoginStatus.Checking) {
       GetLoginExpiry(baseUrl).then((loginExpiryResponse) => {
-        if (
-          loginExpiryResponse.tidspunkt === undefined ||
-          (loginExpiryResponse.tidspunkt && dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs()))
-        ) {
-          if (loginExpiryResponse.tidspunkt && dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs())) {
+        if (loginExpiryResponse.tidspunkt === undefined || isExpiredTokenTimestamp(loginExpiryResponse)) {
+          if (isExpiredTokenTimestamp(loginExpiryResponse)) {
             setExpiry(LoginStatus.MustLogin);
           } else if (isLoggedInFromUrl()) {
             setExpiry(LoginStatus.Failed);
@@ -49,3 +47,7 @@ export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking
   }
   return <LoginContext.Provider value={{}}>{children}</LoginContext.Provider>;
 };
+
+function isExpiredTokenTimestamp(loginExpiryResponse: LoginExpiryResponse): boolean | undefined {
+  return loginExpiryResponse.tidspunkt && dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs());
+}

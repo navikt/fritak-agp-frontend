@@ -125,7 +125,6 @@ describe('LoginContext', () => {
   });
 
   it('should show tilgangsfeil-side when the token has expired', () => {
-    const input = '2020-01-23T08:27:57.125+0000';
     const mockApi = Promise.resolve({
       status: 401,
       json: () => Promise.resolve(undefined)
@@ -197,7 +196,6 @@ describe('LoginContext', () => {
   });
 
   it('should roll over and die when everything fails', () => {
-    const input = '2020-01-23T08:27:57.125+0000';
     const mockApi = Promise.resolve({
       status: 500,
       json: () => Promise.resolve(undefined)
