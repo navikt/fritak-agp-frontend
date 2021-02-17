@@ -22,6 +22,9 @@ export const LoginProvider = ({ baseUrl, children, status = LoginStatus.Checking
     if (expiry === LoginStatus.Checking) {
       GetLoginExpiry(baseUrl).then((loginExpiryResponse) => {
         if (loginExpiryResponse.tidspunkt === undefined || dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs())) {
+          if (dayjs(loginExpiryResponse.tidspunkt).isBefore(dayjs())) {
+            setExpiry(LoginStatus.MustLogin);
+          }
           if (isLoggedInFromUrl()) {
             setExpiry(LoginStatus.Failed);
           } else {

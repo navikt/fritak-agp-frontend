@@ -1,1 +1,3 @@
-export const ParseExpiryDate = (value: string) => new Date(value.substring(0, 23));
+import dayjs from 'dayjs';
+
+export const ParseExpiryDate = (value: string) => dayjs(value).toDate();
