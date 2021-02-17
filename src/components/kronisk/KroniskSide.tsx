@@ -284,7 +284,7 @@ const KroniskSide = () => {
             <br />
             <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
               <Normaltekst>
-                Skriv inn antall dager med sykefravær relatert til søknaden i hver måned. Dere kan gå 3 år tilbake i tid
+                Skriv inn antall dager med sykefravær relatert til søknaden i hver måned. Dere kan gå 2 år tilbake i tid
                 hvis både arbeidsforholdet og helseproblemene har vart så lenge.
               </Normaltekst>
 
