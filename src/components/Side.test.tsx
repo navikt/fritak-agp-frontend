@@ -7,7 +7,7 @@ import { Router } from 'react-router-dom';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testOrganisasjoner from '../mockData/testOrganisasjoner';
 import ArbeidsgiverStatus from '../context/arbeidsgiver/ArbeidsgiverStatus';
-import { mockHistory } from '../mockData/mockHistory';
+import mockHistory from '../mockData/mockHistory';
 
 describe('Side', () => {
   let container = document.createElement('div');

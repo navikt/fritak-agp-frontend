@@ -4,7 +4,7 @@ import React from 'react';
 import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { mockHistory } from './mockData/mockHistory';
+import mockHistory from './mockData/mockHistory';
 
 describe('ApplicationRoutes', () => {
   let container = document.createElement('div');

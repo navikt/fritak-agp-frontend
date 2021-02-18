@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import KvitteringLink from './KvitteringLink';
 import { Router } from 'react-router-dom';
-import { mockHistory } from '../../mockData/mockHistory';
+import mockHistory from '../../mockData/mockHistory';
 
 describe('KvitteringLink', () => {
   it('should have no a11y violations', async () => {

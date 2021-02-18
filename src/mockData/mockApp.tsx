@@ -3,7 +3,7 @@ import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-
 import React from 'react';
 import { LoginProvider } from '../context/login/LoginContext';
 import { LoginStatus } from '../context/login/LoginStatus';
-import { mockHistory } from './mockHistory';
+import mockHistory from './mockHistory';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { ApplicationRoutes } from '../ApplicationRoutes';
 import testOrganisasjoner from './testOrganisasjoner';

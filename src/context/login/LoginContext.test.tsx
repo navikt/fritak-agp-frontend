@@ -4,7 +4,7 @@ import { LoginProvider } from './LoginContext';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { LoginStatus } from './LoginStatus';
-import { mockHistory } from '../../mockData/mockHistory';
+import mockHistory from '../../mockData/mockHistory';
 
 describe('LoginContext', () => {
   let assignMock = jest.fn();

@@ -5,7 +5,7 @@ import { axe } from 'jest-axe';
 import { Router } from 'react-router-dom';
 import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { mockHistory } from '../mockData/mockHistory';
+import mockHistory from '../mockData/mockHistory';
 
 describe('Forside', () => {
   const ARBEIDSGIVERE = [{ Name: '' } as Organisasjon];

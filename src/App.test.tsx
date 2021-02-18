@@ -7,7 +7,7 @@ import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testOrganisasjoner from './mockData/testOrganisasjoner';
 import { LoginStatus } from './context/login/LoginStatus';
 import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
-import { mockHistory } from './mockData/mockHistory';
+import mockHistory from './mockData/mockHistory';
 
 describe('App', () => {
   let container = document.createElement('div');
