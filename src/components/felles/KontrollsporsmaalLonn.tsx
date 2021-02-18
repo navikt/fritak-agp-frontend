@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
-import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Input, Label } from 'nav-frontend-skjema';
 import './KontrollsporsmaalLonn.scss';
 import { v4 as uuid } from 'uuid';

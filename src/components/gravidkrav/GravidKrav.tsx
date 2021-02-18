@@ -226,7 +226,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                     onChange={(tilDate: Date) => {
                       dispatch({
                         type: Actions.Til,
-                        payload: { til: tilDate ? tilDate : undefined }
+                        payload: { til: tilDate }
                       });
                     }}
                   />
@@ -323,7 +323,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <BekreftOpplysningerPanel
-            checked={state.bekreft || false}
+            checked={!!state.bekreft}
             feil={state.bekreftError}
             onChange={() =>
               dispatch({

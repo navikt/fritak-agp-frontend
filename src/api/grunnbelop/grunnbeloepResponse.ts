@@ -1,4 +1,4 @@
-export interface grunnbeloepResponse {
+export interface GrunnbeloepResponse {
   status: number;
   grunnbeloep?: Grunnbeloep;
 }

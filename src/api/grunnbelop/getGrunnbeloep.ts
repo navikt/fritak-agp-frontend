@@ -1,4 +1,4 @@
-import { grunnbeloepResponse } from './grunnbeloepResponse';
+import { GrunnbeloepResponse } from './GrunnbeloepResponse';
 import HttpStatus from '../HttpStatus';
 import environment from '../../environment';
 
@@ -15,7 +15,7 @@ const handleStatus = (response: Response) => {
   }
 };
 
-export const getGrunnbeloep = (isoDato?: String): Promise<grunnbeloepResponse> => {
+export const getGrunnbeloep = (isoDato?: string): Promise<GrunnbeloepResponse> => {
   let grunnbeloepUrl = environment.grunnbeloepUrl;
   if (isoDato) {
     grunnbeloepUrl = `${grunnbeloepUrl}?dato=${isoDato}`;
