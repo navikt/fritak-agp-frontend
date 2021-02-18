@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import KvitteringLink from './KvitteringLink';
 import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import { mockHistory } from '../../mockData/mockHistory';
 
 describe('KvitteringLink', () => {

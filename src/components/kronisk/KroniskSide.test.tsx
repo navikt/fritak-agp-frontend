@@ -3,7 +3,6 @@ import KroniskSide from './KroniskSide';
 import { axe } from 'jest-axe';
 import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';
 import { act } from 'react-dom/test-utils';

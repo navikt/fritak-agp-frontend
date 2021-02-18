@@ -1,6 +1,5 @@
 import React from 'react';
 import { Application } from './App';
-import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';

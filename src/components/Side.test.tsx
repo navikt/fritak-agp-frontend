@@ -5,7 +5,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Router } from 'react-router-dom';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { createMemoryHistory } from 'history';
 import testOrganisasjoner from '../mockData/testOrganisasjoner';
 import ArbeidsgiverStatus from '../context/arbeidsgiver/ArbeidsgiverStatus';
 import { mockHistory } from '../mockData/mockHistory';
