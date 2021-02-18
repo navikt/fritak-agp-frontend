@@ -14,9 +14,9 @@ describe('getGrunnbeloep', () => {
       status: 200,
       json: () => Promise.resolve(input)
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
-    const grunnbelop = await getGrunnbeloep();
-    expect(grunnbelop.grunnbelop).toEqual(input);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.resolve(mockApi));
+    const resultat = await getGrunnbeloep();
+    expect(resultat.grunnbeloep).toEqual(input);
   });
 
   it('should return a status and empty string when endpoint is not found', async () => {

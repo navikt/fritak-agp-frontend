@@ -8,7 +8,7 @@ import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
-import { DatoVelger, useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Link, Redirect } from 'react-router-dom';
 import lenker from '../lenker';
 import './GravidKrav.scss';
@@ -31,6 +31,7 @@ import Side from '../Side';
 import KontrollsporsmaalLonn from '../felles/KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
+import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -71,12 +72,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   };
 
   const handleSubmitClicked = async () => {
-    if ((state.gDagsbeloep ?? 0) < (state.beloep ?? 0) / (state.dager ?? 1)) {
-      dispatch({
-        type: Actions.OpenKontrollsporsmaalLonn
-      });
-    }
-
     dispatch({
       type: Actions.Validate
     });
@@ -107,7 +102,12 @@ export const GravidKrav = (props: GravidKravProps) => {
   }, [arbeidsgiverId]);
 
   useEffect(() => {
-    if (state.validated === true && state.progress === true && state.submitting === true) {
+    if (
+      state.validated === true &&
+      state.progress === true &&
+      state.submitting === true &&
+      state.isOpenKontrollsporsmaalLonn === false
+    ) {
       postGravidKrav(
         environment.baseUrl,
         mapGravidKravRequest(
@@ -118,7 +118,8 @@ export const GravidKrav = (props: GravidKravProps) => {
           state.dager,
           state.beloep,
           state.dokumentasjon,
-          state.bekreft
+          state.bekreft,
+          state.kontrollDager
         )
       ).then((response) => {
         dispatch({
@@ -140,7 +141,8 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.kontrollDager
+    state.kontrollDager,
+    state.isOpenKontrollsporsmaalLonn
   ]);
 
   if (!!state.kvittering) {

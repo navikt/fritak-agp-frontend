@@ -217,6 +217,22 @@ describe('GravidKravReducer', () => {
     expect(state.validated).toBe(false);
   });
 
+  it('should set Grunnbeloep to 345 when grunnbeloep is 14950', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.Grunnbeloep,
+      payload: { grunnbeloep: 14950 }
+    });
+    expect(state.gDagsbeloep).toEqual(345);
+  });
+
+  it('should set Grunnbeloep to undefined when 0 is given as param', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.Grunnbeloep,
+      payload: { grunnbeloep: 0 }
+    });
+    expect(state.gDagsbeloep).toEqual(undefined);
+  });
+
   it('should reset to defaults', () => {
     let state = GravidKravReducer(defaultGravidKravState(), { type: Actions.Reset });
     expect(state).toEqual(defaultGravidKravState());
