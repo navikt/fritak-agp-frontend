@@ -1,24 +1,10 @@
 import postRequest from './postRequest';
 import HttpStatus from './HttpStatus';
-import ValidationResponse from './ValidationResponse';
+import mockFetch from '../mockData/mockFetch';
 
 describe('postRequest', () => {
-  const mockFetch = (status: number, json: any) => {
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
-        status: status,
-        json: () => Promise.resolve(json)
-      } as unknown) as Response)
-    );
-  };
-
   it('should catch BadRequest', async () => {
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
-        status: 400,
-        json: () => {}
-      } as unknown) as Response)
-    );
+    mockFetch(400, {});
     expect(await postRequest('/Path', {})).toEqual({
       status: 400,
       violations: []
@@ -34,15 +20,7 @@ describe('postRequest', () => {
   });
 
   it('should resolve with status 200 if the backend responds with 200', async () => {
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
-        status: 200,
-        json: () =>
-          Promise.resolve({
-            status: 200
-          } as ValidationResponse)
-      } as unknown) as Response)
-    );
+    mockFetch(200, {});
     expect(await postRequest('/Path', {})).toEqual({
       status: 200,
       violations: []
@@ -66,9 +44,9 @@ describe('postRequest', () => {
   });
 
   it('should reject with status Unknown if the backend responds with an unknown response', async () => {
-    mockFetch(1234, []);
+    mockFetch(505, []);
     expect(await postRequest('/Path', {})).toEqual({
-      status: HttpStatus.Unknown,
+      status: 505,
       violations: []
     });
   });

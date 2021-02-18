@@ -1,9 +1,12 @@
 import HttpStatus from './HttpStatus';
 import ValidationResponse from './ValidationResponse';
-import { mapValidationResponse } from './mapValidationResponse';
+
+export const mapViolations = (status: number, json: any): ValidationResponse => ({
+  status,
+  violations: json['violations'] || []
+});
 
 const postRequest = async (path: string, payload: any, timeout: number = 10000): Promise<ValidationResponse> => {
-  let status = 0;
   return Promise.race([
     new Promise<ValidationResponse>((_, reject) => {
       const id = setTimeout(() => {
@@ -23,15 +26,12 @@ const postRequest = async (path: string, payload: any, timeout: number = 10000):
       method: 'POST',
       body: JSON.stringify(payload)
     })
-      .then(async (response) => {
-        if (response.status == HttpStatus.UnprocessableEntity) {
-          return mapValidationResponse(response.status, response.json());
-        }
-        return mapValidationResponse(response.status, {});
-      })
+      .then(async (response) =>
+        mapViolations(response.status, response.status == HttpStatus.UnprocessableEntity ? response.json() : {})
+      )
       .catch(() => {
         return {
-          status: status || HttpStatus.Error,
+          status: HttpStatus.Error,
           violations: []
         };
       })

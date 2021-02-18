@@ -1,16 +1,9 @@
 import ValidationResponse from '../../api/ValidationResponse';
+import GravidState from './GravidState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '../lagFeil';
-import GravidState from './GravidState';
-import map201 from '../../validation/map201';
-import map422 from '../../validation/map422';
-import map401 from '../../validation/map401';
-import mapDefault from '../../validation/mapDefault';
-import map500 from '../../validation/map500';
-import HttpStatus from '../../api/HttpStatus';
-import map400 from '../../validation/map400';
 
-export const mapFeilmeldinger = (response: ValidationResponse, state: GravidState) => {
+const mapGravidFeilmeldinger = (response: ValidationResponse, state: GravidState): FeiloppsummeringFeil[] => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v) => {
     switch (v.propertyPath) {
@@ -60,21 +53,4 @@ export const mapFeilmeldinger = (response: ValidationResponse, state: GravidStat
   return feilmeldinger;
 };
 
-export const mapValidationResponse = (response: ValidationResponse, state: GravidState): GravidState => {
-  const nextState = Object.assign({}, state);
-  switch (response.status) {
-    case HttpStatus.Created:
-      return map201(nextState);
-    case HttpStatus.BadRequest:
-      return map400(nextState);
-    case HttpStatus.Unauthorized:
-      return map401(nextState);
-    case HttpStatus.UnprocessableEntity:
-      nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
-      return map422(nextState);
-    case HttpStatus.Error:
-      return map500(nextState);
-    default:
-      return mapDefault(nextState);
-  }
-};
+export default mapGravidFeilmeldinger;

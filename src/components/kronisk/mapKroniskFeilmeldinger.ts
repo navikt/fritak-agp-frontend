@@ -1,23 +1,17 @@
-import KroniskState from './KroniskState';
 import ValidationResponse from '../../api/ValidationResponse';
+import KroniskState from './KroniskState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '../lagFeil';
-import map201 from '../../validation/map201';
-import map401 from '../../validation/map401';
-import map422 from '../../validation/map422';
-import mapDefault from '../../validation/mapDefault';
-import HttpStatus from '../../api/HttpStatus';
-import map400 from '../../validation/map400';
 
-export const mapFeilmeldinger = (response: ValidationResponse, state: KroniskState) => {
+const mapKroniskFeilmeldinger = (response: ValidationResponse, state: KroniskState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v) => {
     switch (v.propertyPath) {
-      case 'fnr':
+      case 'identitetsnummer':
         state.fnrError = v.message;
         feilmeldinger.push(lagFeil('fnr', v.message));
         break;
-      case 'orgnr':
+      case 'virksomhetsnummer':
         state.orgnrError = v.message;
         feilmeldinger.push(lagFeil('orgnr', v.message));
         break;
@@ -50,19 +44,4 @@ export const mapFeilmeldinger = (response: ValidationResponse, state: KroniskSta
   return feilmeldinger;
 };
 
-export const mapValidationResponse = (response: ValidationResponse, state: KroniskState): KroniskState => {
-  const nextState = Object.assign({}, state);
-  switch (response.status) {
-    case HttpStatus.Created:
-      return map201(nextState);
-    case HttpStatus.BadRequest:
-      return map400(nextState);
-    case HttpStatus.Unauthorized:
-      return map401(nextState);
-    case HttpStatus.UnprocessableEntity:
-      nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
-      return map422(nextState);
-    default:
-      return mapDefault(nextState);
-  }
-};
+export default mapKroniskFeilmeldinger;
