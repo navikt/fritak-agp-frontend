@@ -3,22 +3,16 @@ import Forside from './Forside';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import mockHistory from '../mockData/mockHistory';
 
 describe('Forside', () => {
-  const makeHistory = (path: string) => {
-    const history = createMemoryHistory();
-    history.push(path);
-    return history;
-  };
-
   const ARBEIDSGIVERE = [{ Name: '' } as Organisasjon];
 
   it('should have no a11y violations', async () => {
     const rendered = render(
-      <Router history={makeHistory('/')}>
+      <Router history={mockHistory('/')}>
         <ArbeidsgiverProvider arbeidsgivere={ARBEIDSGIVERE} status={Status.Successfully}>
           <Forside />
         </ArbeidsgiverProvider>

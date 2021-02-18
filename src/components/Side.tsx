@@ -15,8 +15,8 @@ interface SideProps {
   children: React.ReactNode;
   className?: string;
   sidetittel: string;
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   bedriftsmeny?: boolean;
 }
 
@@ -24,7 +24,7 @@ const Side = (props: SideProps) => {
   const history: History = useHistory();
   const { arbeidsgivere, setArbeidsgiverId, setFirma } = useArbeidsgiver();
   return (
-    <div className={'side ' + props.className}>
+    <div className={'side ' + (props.className ? props.className : '')}>
       <Bedriftsmeny
         history={history}
         onOrganisasjonChange={(org: Organisasjon) => {
@@ -49,7 +49,8 @@ const Side = (props: SideProps) => {
         <Container className={'side__innhold'}>
           <Row>
             <Column>
-              <SoknadTittel subtitle={props.subtitle}>{props.title}</SoknadTittel>
+              {props.title && <SoknadTittel subtitle={props.subtitle}>{props.title}</SoknadTittel>}
+
               <SideIndentering>
                 {!skalSkjule(props.bedriftsmeny, arbeidsgivere) && props.children}
                 {skalSkjule(props.bedriftsmeny, arbeidsgivere) && <IngenTilgangAdvarsel />}

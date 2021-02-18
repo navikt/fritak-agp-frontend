@@ -1,6 +1,5 @@
 import React from 'react';
 import { Application } from './App';
-import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
@@ -8,6 +7,7 @@ import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testOrganisasjoner from './mockData/testOrganisasjoner';
 import { LoginStatus } from './context/login/LoginStatus';
 import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
+import mockHistory from './mockData/mockHistory';
 
 describe('App', () => {
   let container = document.createElement('div');
@@ -62,11 +62,6 @@ describe('App', () => {
     expect(container).toContainHTML(APPLICATION_ROUTES);
   });
 
-  const makeHistory = (path: string) => {
-    const history = createMemoryHistory();
-    history.push(path);
-    return history;
-  };
   const makeRouter = (
     path: string,
     status: ArbeidsgiverStatus,
@@ -74,7 +69,7 @@ describe('App', () => {
     arbeidsgivere: Array<Organisasjon>
   ) => {
     return (
-      <Router history={makeHistory(path)}>
+      <Router history={mockHistory(path)}>
         <Application arbeidsgiverStatus={status} loginStatus={loginStatus} arbeidsgivere={arbeidsgivere} />
       </Router>
     );
