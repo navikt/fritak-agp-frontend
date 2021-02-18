@@ -47,7 +47,7 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
           bredde='XS'
           inputMode='numeric'
           pattern='[0-9]*'
-          value={dager}
+          defaultValue={dager}
           className='kontrollsporsmaal-lonn-arbeidsdager'
           onChange={(event) => setDager(Number(event.target.value))}
         />
