@@ -33,14 +33,14 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
       closeButton={false}
       isOpen={props.isOpen}
     >
-      <Innholdstittel className='textfelt-padding-dobbel-bottom'>
-        Kontrollspørsmål for lønn som overstiger 6g
-      </Innholdstittel>
-      <Normaltekst className='textfelt-padding-dobbel-bottom'>
-        For å kunne regne presist ut hvor mye dere har rett på i støtte trenger vi å vite litt mer om hvordan den
-        ansatte kompenseres. ….Berit - her har du sikkert ei god formulering.
+      <Innholdstittel className='textfelt-padding-dobbel-bottom'>Det ser ut som om lønnen overstiger 6G</Innholdstittel>
+      <Normaltekst>
+        Vanligvis kan ikke dagsatsen overstige 1/260 av 6G*. For enkelte arbeidstidsordninger kan NAV likevel godkjenne
+        en høyere dagsats, forutsatt at årslønnen ikke overstiger 6G.
       </Normaltekst>
-      <Label htmlFor={inputId}>Arbeidsdager per år i følge ansettelsesavtalen</Label>
+      <Normaltekst className='textfelt-padding-bottom'>Oppgi antall dager dere utbetaler lønn for i året:</Normaltekst>
+      <Normaltekst className='textfelt-padding-dobbel-bottom'>* G=folketrygdens grunnbeløp</Normaltekst>
+      <Label htmlFor={inputId}>Oppgi antall dager dere utbetaler lønn for i året:</Label>
       <div className='kontrollsporsmaal-lonn-input-wrapper textfelt-padding-dobbel-bottom'>
         <Input
           id={inputId}
