@@ -5,7 +5,6 @@ import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { LoginStatus } from './LoginStatus';
 import mockHistory from '../../mockData/mockHistory';
-
 import timezone_mock from 'timezone-mock';
 import MockDate from 'mockdate';
 import { waitFor } from '@testing-library/react';
@@ -104,7 +103,7 @@ describe('LoginContext', () => {
 
     act(() => {
       render(
-        <Router history={makeHistory('/')}>
+        <Router history={mockHistory('/')}>
           <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
             ChildrenHere
           </LoginProvider>
@@ -128,7 +127,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:26:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page?loggedIn=true')}>
+      <Router history={mockHistory('/page?loggedIn=true')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>
@@ -152,7 +151,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:28:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page?loggedIn=true')}>
+      <Router history={mockHistory('/page?loggedIn=true')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>
@@ -176,7 +175,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:22:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page?loggedIn=true')}>
+      <Router history={mockHistory('/page?loggedIn=true')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>
@@ -199,7 +198,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:29:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page')}>
+      <Router history={mockHistory('/page')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>
