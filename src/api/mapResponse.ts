@@ -15,16 +15,16 @@ const mapResponse = (
 ): ValidationState => {
   const nextState = Object.assign({}, state);
   switch (response.status) {
-    case HttpStatus.Created: // Alt gikk bra!
+    case HttpStatus.Created:
       return map201(nextState);
-    case HttpStatus.BadRequest: // Frontend boo-boo
+    case HttpStatus.BadRequest:
       return map400(nextState);
-    case HttpStatus.Unauthorized: // Access denied
+    case HttpStatus.Unauthorized:
       return map401(nextState);
-    case HttpStatus.UnprocessableEntity: // Valideringsfeil
+    case HttpStatus.UnprocessableEntity:
       nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
       return map422(nextState);
-    case HttpStatus.Error: // Server boo boo
+    case HttpStatus.Error:
       return map500(nextState);
     default:
       return nextState;
