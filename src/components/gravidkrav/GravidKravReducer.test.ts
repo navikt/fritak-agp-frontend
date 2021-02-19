@@ -288,11 +288,12 @@ describe('GravidKravReducer', () => {
   });
 
   it('should throw un undefined action', () => {
-    let state = GravidKravReducer(defaultGravidKravState(), {
+    GravidKravReducer(defaultGravidKravState(), {
       type: Actions.OpenKontrollsporsmaalLonn
     });
     expect(() => {
       GravidKravReducer(defaultGravidKravState(), {
+        // @ts-ignore
         type: Actions.ThisIsNotAnAction
       });
     }).toThrow();
