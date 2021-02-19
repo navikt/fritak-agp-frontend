@@ -4,18 +4,12 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import KvitteringLink from './KvitteringLink';
 import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import mockHistory from '../../mockData/mockHistory';
 
 describe('KvitteringLink', () => {
-  const makeHistory = (path: string) => {
-    const history = createMemoryHistory();
-    history.push(path);
-    return history;
-  };
-
   it('should have no a11y violations', async () => {
     const { container } = render(
-      <Router history={makeHistory('/fritak-agp')}>
+      <Router history={mockHistory('/fritak-agp')}>
         <KvitteringLink />
       </Router>
     );

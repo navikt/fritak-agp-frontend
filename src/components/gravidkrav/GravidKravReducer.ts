@@ -1,8 +1,8 @@
 import { Actions, GravidKravAction, Payload } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
-import { mapValidationResponse } from './mapValidationResponse';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato } from '../../utils/Dato';
+import { mapValidationResponse } from './mapValidationResponse';
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
   const nextState = Object.assign({}, state);
@@ -70,7 +70,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       nextState.validated = false;
       nextState.progress = false;
       nextState.submitting = false;
-
       return mapValidationResponse(payload.response, nextState);
 
     case Actions.OpenKontrollsporsmaalLonn:

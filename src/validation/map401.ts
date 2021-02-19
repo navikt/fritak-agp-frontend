@@ -1,10 +1,11 @@
 import { ValidationState } from './ValidationState';
 
+/**
+ * Not authorized
+ */
 const map401 = (state: ValidationState): ValidationState => {
-  state.kvittering = false;
+  state.notAuthorized = true;
   state.progress = false;
-  state.error = true;
-  state.login = true;
   return state;
 };
 

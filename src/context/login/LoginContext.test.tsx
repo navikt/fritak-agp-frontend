@@ -1,11 +1,10 @@
 import React from 'react';
-import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { LoginProvider } from './LoginContext';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { LoginStatus } from './LoginStatus';
-
+import mockHistory from '../../mockData/mockHistory';
 import timezone_mock from 'timezone-mock';
 import MockDate from 'mockdate';
 import { waitFor } from '@testing-library/react';
@@ -36,16 +35,10 @@ describe('LoginContext', () => {
     container.remove();
   });
 
-  const makeHistory = (path: string) => {
-    const history = createMemoryHistory();
-    history.push(path);
-    return history;
-  };
-
   it('should redirect to loginProvider', () => {
     act(() => {
       render(
-        <Router history={makeHistory('/')}>
+        <Router history={mockHistory('/')}>
           <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.MustLogin}>
             ChildrenHere
           </LoginProvider>
@@ -59,7 +52,7 @@ describe('LoginContext', () => {
   it('should show children', () => {
     act(() => {
       render(
-        <Router history={makeHistory('/')}>
+        <Router history={mockHistory('/')}>
           <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.Verified}>
             ChildrenHere
           </LoginProvider>
@@ -73,7 +66,7 @@ describe('LoginContext', () => {
   it('should show checking', () => {
     act(() => {
       render(
-        <Router history={makeHistory('/')}>
+        <Router history={mockHistory('/')}>
           <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.Checking}>
             ChildrenHere
           </LoginProvider>
@@ -87,7 +80,7 @@ describe('LoginContext', () => {
   it('should show failed', () => {
     act(() => {
       render(
-        <Router history={makeHistory('/')}>
+        <Router history={mockHistory('/')}>
           <LoginProvider loginServiceUrl='' baseUrl='' status={LoginStatus.Failed}>
             ChildrenHere
           </LoginProvider>
@@ -110,7 +103,7 @@ describe('LoginContext', () => {
 
     act(() => {
       render(
-        <Router history={makeHistory('/')}>
+        <Router history={mockHistory('/')}>
           <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
             ChildrenHere
           </LoginProvider>
@@ -134,7 +127,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:26:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page?loggedIn=true')}>
+      <Router history={mockHistory('/page?loggedIn=true')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>
@@ -158,7 +151,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:28:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page?loggedIn=true')}>
+      <Router history={mockHistory('/page?loggedIn=true')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>
@@ -182,7 +175,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:22:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page?loggedIn=true')}>
+      <Router history={mockHistory('/page?loggedIn=true')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>
@@ -205,7 +198,7 @@ describe('LoginContext', () => {
     MockDate.set('2020-01-23T08:29:57.125+0000');
 
     render(
-      <Router history={makeHistory('/page')}>
+      <Router history={mockHistory('/page')}>
         <LoginProvider loginServiceUrl='https://mock.it' baseUrl='https://mock.it'>
           ChildrenHere
         </LoginProvider>

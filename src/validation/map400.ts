@@ -1,12 +1,12 @@
 import { ValidationState } from './ValidationState';
 
 /**
- * Server Error
+ * Bad request
  */
-const map500 = (state: ValidationState): ValidationState => {
+const map400 = (state: ValidationState): ValidationState => {
   state.progress = false;
   state.serverError = true;
   return state;
 };
 
-export default map500;
+export default map400;
