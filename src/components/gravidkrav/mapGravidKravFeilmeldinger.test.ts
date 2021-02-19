@@ -32,22 +32,17 @@ describe('mapGravidKravFeilmeldinger', () => {
 
     expect(feilmeldinger.length).toEqual(9);
     expect(feilmeldinger[0].skjemaelementId).toEqual('fnr');
-    expect(feilmeldinger[0].feilmelding).toEqual('feil');
     expect(feilmeldinger[1].skjemaelementId).toEqual('orgnr');
-    expect(feilmeldinger[1].feilmelding).toEqual('feil');
     expect(feilmeldinger[2].skjemaelementId).toEqual('fra');
-    expect(feilmeldinger[2].feilmelding).toEqual('feil');
     expect(feilmeldinger[3].skjemaelementId).toEqual('til');
-    expect(feilmeldinger[3].feilmelding).toEqual('feil');
     expect(feilmeldinger[4].skjemaelementId).toEqual('dager');
-    expect(feilmeldinger[4].feilmelding).toEqual('feil');
     expect(feilmeldinger[5].skjemaelementId).toEqual('beloep');
-    expect(feilmeldinger[5].feilmelding).toEqual('feil');
     expect(feilmeldinger[6].skjemaelementId).toEqual('bekreft');
-    expect(feilmeldinger[6].feilmelding).toEqual('feil');
     expect(feilmeldinger[7].skjemaelementId).toEqual('dokumentasjon');
-    expect(feilmeldinger[7].feilmelding).toEqual('feil');
     expect(feilmeldinger[8].skjemaelementId).toEqual('dager');
-    expect(feilmeldinger[8].feilmelding).toEqual('feil');
+
+    for (let i = 0; i < 9; i++) {
+      expect(feilmeldinger[i].feilmelding).toEqual('feil');
+    }
   });
 });
