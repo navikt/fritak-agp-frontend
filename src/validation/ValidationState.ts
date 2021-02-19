@@ -1,13 +1,12 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 
 export interface ValidationState {
-  kvittering?: boolean;
-  submitting?: boolean;
-  validated?: boolean;
-  progress?: boolean;
-  error?: boolean;
-  login?: boolean;
-  notAuthorized?: boolean;
-  serverError?: boolean;
+  validated?: boolean; // Validert gyldig
+  error?: boolean; // Valideringsfeil
+  submitting?: boolean; // Submit knapp ble trykket
+  progress?: boolean; // Sendt til backend og venter på svar
+  notAuthorized?: boolean; // Bruker må autentisere seg på nytt
+  serverError?: boolean; // Server hadde internal feil
+  kvittering?: boolean; // Mottatt godkjent svar fra backend
   feilmeldinger: Array<FeiloppsummeringFeil>;
 }

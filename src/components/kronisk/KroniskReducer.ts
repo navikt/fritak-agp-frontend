@@ -1,10 +1,11 @@
 import KroniskState, { defaultKroniskState } from './KroniskState';
 import { Actions, KroniskAction } from './Actions';
 import { validateKronisk } from './validateKronisk';
-import { mapValidationResponse } from './mapValidationResponse';
 import { validerArbeid } from './validerArbeid';
 import { validerFravaer } from './validerFravaer';
 import { validerPaakjenninger } from './validerPaakjenninger';
+import mapResponse from '../../api/mapResponse';
+import mapKroniskFeilmeldinger from './mapKroniskFeilmeldinger';
 
 const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskState => {
   const nextState = Object.assign({}, state);
@@ -73,7 +74,7 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskStat
       nextState.submitting = false;
       nextState.progress = false;
       nextState.validated = false;
-      return mapValidationResponse(payload.response, nextState);
+      return mapResponse(payload.response, nextState, mapKroniskFeilmeldinger);
 
     case Actions.NotAuthorized:
       nextState.notAuthorized = false;

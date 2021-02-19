@@ -1,8 +1,9 @@
 import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
-import { mapValidationResponse } from './mapValidationResponse';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato } from '../../utils/Dato';
+import mapResponse from '../../api/mapResponse';
+import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
   const nextState = Object.assign({}, state);
@@ -70,7 +71,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       nextState.submitting = false;
       nextState.progress = false;
       nextState.validated = false;
-      return mapValidationResponse(payload.response, nextState);
+      return mapResponse(payload.response, nextState, mapGravidKravFeilmeldinger);
 
     case Actions.Reset:
       return Object.assign({}, defaultGravidKravState());

@@ -1,10 +1,11 @@
 import GravidState, { defaultGravidState } from './GravidState';
 import { Actions, GravidAction } from './Actions';
 import { validateGravid } from './validateGravid';
-import { mapValidationResponse } from './mapValidationResponse';
 import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
 import { parseDateTilDato } from '../../utils/Dato';
+import mapResponse from '../../api/mapResponse';
+import mapGravidFeilmeldinger from './mapGravidFeilmeldinger';
 
 export const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState) => {
   if (!nextState.tiltak) {
@@ -106,7 +107,7 @@ const GravidReducer = (state: GravidState, action: GravidAction): GravidState =>
       nextState.submitting = false;
       nextState.progress = false;
       nextState.validated = false;
-      return mapValidationResponse(payload.response, nextState);
+      return mapResponse(payload.response, nextState, mapGravidFeilmeldinger);
 
     case Actions.Reset:
       return Object.assign({}, defaultGravidState());
