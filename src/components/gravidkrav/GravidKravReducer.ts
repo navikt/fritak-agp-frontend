@@ -67,9 +67,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       if (payload?.response == undefined) {
         throw new Error('Du må spesifisere response');
       }
-      nextState.submitting = false;
-      nextState.progress = false;
       nextState.validated = false;
+      nextState.progress = false;
+      nextState.submitting = false;
+
       return mapValidationResponse(payload.response, nextState);
 
     case Actions.OpenKontrollsporsmaalLonn:
