@@ -26,6 +26,29 @@ describe('getGrunnbeloep', () => {
     } as Response);
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const grunnbelop = await getGrunnbeloep();
-    expect(grunnbelop.grunnbelop).toBeUndefined();
+    expect(grunnbelop.grunnbeloep).toBeUndefined();
+    expect(grunnbelop.status).toBe(-2);
+  });
+
+  it('should return a status of 401 and empty string when access is denied', async () => {
+    const mockApi = Promise.resolve({
+      status: 401,
+      json: () => Promise.resolve()
+    } as Response);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    const grunnbelop = await getGrunnbeloep();
+    expect(grunnbelop.grunnbeloep).toBeUndefined();
+    expect(grunnbelop.status).toBe(401);
+  });
+
+  it('should return a status of 401 and empty string when server errors', async () => {
+    const mockApi = Promise.resolve({
+      status: 500,
+      json: () => Promise.resolve()
+    } as Response);
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    const grunnbelop = await getGrunnbeloep();
+    expect(grunnbelop.grunnbeloep).toBeUndefined();
+    expect(grunnbelop.status).toBe(500);
   });
 });
