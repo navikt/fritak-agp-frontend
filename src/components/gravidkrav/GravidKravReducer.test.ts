@@ -60,6 +60,14 @@ describe('GravidKravReducer', () => {
     expect(state.fra?.value).toEqual('05.06.2020');
   });
 
+  it('should set the fra', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.Fra,
+      payload: { fra: undefined }
+    });
+    expect(state.fra?.value).toBeUndefined();
+  });
+
   it('should clear fra when empty payload', () => {
     expect(() => {
       let state: GravidKravState = {
@@ -233,6 +241,36 @@ describe('GravidKravReducer', () => {
     expect(state.gDagsbeloep).toEqual(undefined);
   });
 
+  it('should set kontrollDager to 345 when grunnbeloep is 14950 and action is KontrollDager', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.KontrollDager,
+      payload: { kontrollDager: 14950 }
+    });
+    expect(state.kontrollDager).toEqual(14950);
+  });
+
+  it('should set kontrollDager to 0 when 0 is given as param and action is KontrollDager', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.KontrollDager,
+      payload: { kontrollDager: 0 }
+    });
+    expect(state.kontrollDager).toEqual(0);
+  });
+
+  it('should set isOpenKontrollsporsmaalLonn to false when CloseKontrollsporsmaalLonn is action', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.CloseKontrollsporsmaalLonn
+    });
+    expect(state.isOpenKontrollsporsmaalLonn).toBeFalsy();
+  });
+
+  it('should set isOpenKontrollsporsmaalLonn to true when OpenKontrollsporsmaalLonn is action', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.OpenKontrollsporsmaalLonn
+    });
+    expect(state.isOpenKontrollsporsmaalLonn).toBeTruthy();
+  });
+
   it('should reset to defaults', () => {
     let state = GravidKravReducer(defaultGravidKravState(), { type: Actions.Reset });
     expect(state).toEqual(defaultGravidKravState());
@@ -247,5 +285,16 @@ describe('GravidKravReducer', () => {
     expect(state.bekreftError).toBeUndefined();
     expect(state.dokumentasjonError).toBeUndefined();
     expect(state.feilmeldinger?.length).toEqual(0);
+  });
+
+  it('should throw un undefined action', () => {
+    let state = GravidKravReducer(defaultGravidKravState(), {
+      type: Actions.OpenKontrollsporsmaalLonn
+    });
+    expect(() => {
+      GravidKravReducer(defaultGravidKravState(), {
+        type: Actions.ThisIsNotAnAction
+      });
+    }).toThrow();
   });
 });
