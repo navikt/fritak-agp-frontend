@@ -72,12 +72,12 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       nextState.validated = false;
       return mapValidationResponse(payload.response, nextState);
 
-    case Actions.CloseKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = false;
-      return nextState;
-
     case Actions.OpenKontrollsporsmaalLonn:
       nextState.isOpenKontrollsporsmaalLonn = true;
+      return nextState;
+
+    case Actions.CloseKontrollsporsmaalLonn:
+      nextState.isOpenKontrollsporsmaalLonn = false;
       return nextState;
 
     case Actions.Grunnbeloep:
