@@ -63,7 +63,7 @@ describe('postRequest', () => {
     jest.useRealTimers();
   });
 
-  it('should reject with status Unauthorized if the backend responds with 401', async () => {
+  it('should pass on the violation when the server responds with 422', async () => {
     const expected = [
       {
         validationType: 'RefusjonsdagerKanIkkeOverstigePeriodelengdenConstraint',
