@@ -293,7 +293,7 @@ describe('GravidKravReducer', () => {
     });
     expect(() => {
       GravidKravReducer(defaultGravidKravState(), {
-        // @ts-ignore
+        // @ts-ignore ts2339
         type: Actions.ThisIsNotAnAction
       });
     }).toThrow();
