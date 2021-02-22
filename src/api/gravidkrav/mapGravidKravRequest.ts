@@ -9,7 +9,8 @@ export const mapGravidKravRequest = (
   dager: number | undefined,
   beloep: number | undefined,
   dokumentasjon: string | undefined,
-  bekreft: boolean | undefined
+  bekreft: boolean | undefined,
+  kontrollDager: number | undefined
 ): GravidKravRequest => {
   if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
@@ -40,7 +41,8 @@ export const mapGravidKravRequest = (
       fom: datoToString(fra),
       tom: datoToString(til),
       antallDagerMedRefusjon: dager,
-      beloep: beloep
+      beloep: beloep,
+      kontrollDager: kontrollDager
     } as Arbeidsgiverperiode,
     dokumentasjon: dokumentasjon,
     bekreftet: bekreft

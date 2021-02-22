@@ -14,7 +14,11 @@ export enum Actions {
   Progress,
   HandleResponse,
   Kvittering,
-  NotAuthorized
+  NotAuthorized,
+  CloseKontrollsporsmaalLonn,
+  OpenKontrollsporsmaalLonn,
+  Grunnbeloep,
+  KontrollDager
 }
 
 export interface Payload {
@@ -30,6 +34,8 @@ export interface Payload {
   kvittering?: boolean;
   dokumentasjon?: string;
   response?: ValidationResponse;
+  grunnbeloep?: number;
+  kontrollDager?: number;
 }
 
 export interface GravidKravAction {

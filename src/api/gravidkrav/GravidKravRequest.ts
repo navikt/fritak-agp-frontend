@@ -11,4 +11,5 @@ export interface Arbeidsgiverperiode {
   tom: string;
   antallDagerMedRefusjon: number;
   beloep: number;
+  kontrollDager?: number;
 }

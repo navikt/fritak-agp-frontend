@@ -1,4 +1,4 @@
-import { Actions, GravidKravAction } from './Actions';
+import { Actions, GravidKravAction, Payload } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato } from '../../utils/Dato';
@@ -68,10 +68,26 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       if (payload?.response == undefined) {
         throw new Error('Du må spesifisere response');
       }
-      nextState.submitting = false;
-      nextState.progress = false;
       nextState.validated = false;
-      return mapResponse(payload.response, nextState, mapGravidKravFeilmeldinger);
+      nextState.progress = false;
+      nextState.submitting = false;
+      return mapResponse(payload.response, nextState, mapGravidKravFeilmeldinger) as GravidKravState;
+
+    case Actions.OpenKontrollsporsmaalLonn:
+      nextState.isOpenKontrollsporsmaalLonn = true;
+      return nextState;
+
+    case Actions.CloseKontrollsporsmaalLonn:
+      nextState.isOpenKontrollsporsmaalLonn = false;
+      return nextState;
+
+    case Actions.Grunnbeloep:
+      setGrunnbeloep(payload, nextState);
+      return nextState;
+
+    case Actions.KontrollDager:
+      nextState.kontrollDager = payload?.kontrollDager;
+      return nextState;
 
     case Actions.Reset:
       return Object.assign({}, defaultGravidKravState());
@@ -82,3 +98,13 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
 };
 
 export default GravidKravReducer;
+
+function setGrunnbeloep(payload: Payload | undefined, nextState: GravidKravState) {
+  if (payload?.grunnbeloep) {
+    const aarsGrunnbeloep = payload.grunnbeloep * 6;
+    const dagsGrunnbeloep = aarsGrunnbeloep / 260;
+    nextState.gDagsbeloep = dagsGrunnbeloep;
+  } else {
+    nextState.gDagsbeloep = undefined;
+  }
+}
