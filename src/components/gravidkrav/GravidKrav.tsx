@@ -41,11 +41,11 @@ export const GravidKrav = (props: GravidKravProps) => {
     dispatch({ type: Actions.NotAuthorized });
   };
 
-  const closeKontrollsporsmaalLønn = () => {
+  const closeKontrollsporsmaalLonn = () => {
     dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
   };
 
-  const closeKontrollsporsmaalLønnDager = (dager: number | undefined) => {
+  const closeKontrollsporsmaalLonnDager = (dager: number | undefined) => {
     dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: dager } });
     dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
   };
@@ -344,9 +344,9 @@ export const GravidKrav = (props: GravidKravProps) => {
         {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
       </Row>
       <KontrollsporsmaalLonn
-        onCloseWithDays={closeKontrollsporsmaalLønnDager}
+        onClose={closeKontrollsporsmaalLonnDager}
         isOpen={state.isOpenKontrollsporsmaalLonn}
-        onCloseCancel={closeKontrollsporsmaalLønn}
+        onCancelClick={closeKontrollsporsmaalLonn}
       />
     </Side>
   );

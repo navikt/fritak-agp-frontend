@@ -9,7 +9,7 @@ describe('KontrollsporsmaalLonn', () => {
     const isOpen = true;
     const mockClose = jest.fn();
 
-    render(<KontrollsporsmaalLonn onCloseCancel={mockCancel} onCloseWithDays={mockClose} isOpen={isOpen} />);
+    render(<KontrollsporsmaalLonn onCancelClick={mockCancel} onClose={mockClose} isOpen={isOpen} />);
 
     expect(screen.getByText(/Det ser ut som om lønnen overstiger 6G/)).toBeInTheDocument();
   });
@@ -19,7 +19,7 @@ describe('KontrollsporsmaalLonn', () => {
     const isOpen = true;
     const mockClose = jest.fn();
 
-    render(<KontrollsporsmaalLonn onCloseCancel={mockCancel} onCloseWithDays={mockClose} isOpen={isOpen} />);
+    render(<KontrollsporsmaalLonn onCancelClick={mockCancel} onClose={mockClose} isOpen={isOpen} />);
 
     const cancelLink = screen.getByText(/Avbryt og/);
 
@@ -33,7 +33,7 @@ describe('KontrollsporsmaalLonn', () => {
     const isOpen = true;
     const mockClose = jest.fn();
 
-    render(<KontrollsporsmaalLonn onCloseCancel={mockCancel} onCloseWithDays={mockClose} isOpen={isOpen} />);
+    render(<KontrollsporsmaalLonn onCancelClick={mockCancel} onClose={mockClose} isOpen={isOpen} />);
 
     const daysInput = screen.getByLabelText(/Oppgi antall dager dere/);
 
@@ -51,9 +51,7 @@ describe('KontrollsporsmaalLonn', () => {
     const isOpen = true;
     const mockClose = jest.fn();
 
-    const rendered = render(
-      <KontrollsporsmaalLonn onCloseCancel={mockCancel} onCloseWithDays={mockClose} isOpen={isOpen} />
-    );
+    const rendered = render(<KontrollsporsmaalLonn onCancelClick={mockCancel} onClose={mockClose} isOpen={isOpen} />);
 
     const results = await axe(rendered.container);
 

@@ -8,9 +8,9 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 
 interface KontrollsporsmaalLonnProps {
-  onCloseWithDays: (dager: number | undefined) => void;
+  onClose: (dager: number | undefined) => void;
   isOpen?: boolean;
-  onCloseCancel: () => void;
+  onCancelClick: () => void;
 }
 
 const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
@@ -18,11 +18,11 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
   const inputId = uuid();
 
   const onRequestClose = () => {
-    props.onCloseWithDays(dager);
+    props.onClose(dager);
   };
 
-  const onCloseCancel = () => {
-    props.onCloseCancel();
+  const onCancelClick = () => {
+    props.onCancelClick();
   };
 
   return (
@@ -56,7 +56,7 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
         </Normaltekst>
       </div>
       <Hovedknapp onClick={onRequestClose}>Send kravet</Hovedknapp>
-      <Lenke href='#' onClick={onCloseCancel} className='kontrollsporsmaal-lonn-lenke'>
+      <Lenke href='#' onClick={onCancelClick} className='kontrollsporsmaal-lonn-lenke'>
         Avbryt og gå tilbake til skjema
       </Lenke>
     </ModalWrapper>
