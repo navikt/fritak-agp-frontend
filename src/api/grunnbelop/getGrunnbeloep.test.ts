@@ -51,4 +51,27 @@ describe('getGrunnbeloep', () => {
     expect(grunnbelop.grunnbeloep).toBeUndefined();
     expect(grunnbelop.status).toBe(500);
   });
+
+  it('should return status and a string when stuff is OK and it is a time string and an isoDate is given', async () => {
+    const input = {
+      dato: '2019-05-01',
+      grunnbeloep: 99858,
+      grunnbeloepPerMaaned: 8322,
+      gjennomsnittPerAar: 98866,
+      omregningsfaktor: 1.030707
+    };
+
+    const mockApi = Promise.resolve({
+      status: 200,
+      json: () => Promise.resolve(input)
+    } as Response);
+    const fetchSpy = jest.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.resolve(mockApi));
+    const resultat = await getGrunnbeloep('2020-01-01');
+    expect(resultat.grunnbeloep).toEqual(input);
+    expect(fetchSpy).toHaveBeenLastCalledWith('https://g.nav.no/api/v1/grunnbeloep?dato=2020-01-01', {
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      method: 'GET',
+      mode: 'cors'
+    });
+  });
 });
