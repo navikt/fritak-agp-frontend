@@ -19,7 +19,7 @@ describe('getGrunnbeloep', () => {
     expect(resultat.grunnbeloep).toEqual(input);
   });
 
-  it('should return a status and empty string when endpoint is not found', async () => {
+  it('should return a status of -2 (Unknown) and empty string when the response is unknown', async () => {
     const mockApi = Promise.resolve({
       status: 402,
       json: () => Promise.resolve()

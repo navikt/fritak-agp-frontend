@@ -16,10 +16,7 @@ const handleStatus = (response: Response) => {
 };
 
 export const getGrunnbeloep = (isoDato?: string): Promise<GrunnbeloepResponse> => {
-  let grunnbeloepUrl = environment.grunnbeloepUrl;
-  if (isoDato) {
-    grunnbeloepUrl = `${grunnbeloepUrl}?dato=${isoDato}`;
-  }
+  const grunnbeloepUrl = isoDato ? `${environment.grunnbeloepUrl}?dato=${isoDato}` : environment.grunnbeloepUrl;
 
   return Promise.race([
     new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
