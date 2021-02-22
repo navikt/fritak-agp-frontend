@@ -7,7 +7,6 @@ import { validateFra } from './validateFra';
 import { validateTil } from './validateTil';
 import { validateDager } from './validateDager';
 import { validateBeloep } from './validateBeloep';
-import { validateOrgnr } from '../../utils/validateOrgnr';
 
 export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   if (!state.validated) {
@@ -21,7 +20,6 @@ export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   if (state.fnr && !isValidFnr(state.fnr)) {
     nextState.fnrError = 'Ugyldig fødselsnummer';
   }
-  nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.fraError = validateFra(state.fra, state.validated);
   nextState.tilError = validateTil(state.fra, state.til, state.validated);
   nextState.dagerError = validateDager(state.dager, state.validated);
@@ -29,10 +27,6 @@ export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
 
   if (nextState.fnrError) {
     pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);
-  }
-
-  if (nextState.orgnrError) {
-    pushFeilmelding('orgnr', 'Virksomhetsnummer må fylles ut', feilmeldinger);
   }
 
   if (nextState.fraError) {

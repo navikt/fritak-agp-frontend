@@ -12,11 +12,6 @@ const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidK
         feilmeldinger.push(lagFeil('fnr', v.message));
         break;
 
-      case 'virksomhetsnummer':
-        state.orgnrError = v.message;
-        feilmeldinger.push(lagFeil('orgnr', v.message));
-        break;
-
       case 'periode.fom':
         state.fraError = v.message;
         feilmeldinger.push(lagFeil('fra', v.message));

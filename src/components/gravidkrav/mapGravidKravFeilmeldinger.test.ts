@@ -5,7 +5,6 @@ import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 describe('mapGravidKravFeilmeldinger', () => {
   const ALLE_FELTER = [
     'identitetsnummer',
-    'virksomhetsnummer',
     'periode.fom',
     'periode.tom',
     'periode.antallDagerMedRefusjon',
@@ -20,7 +19,6 @@ describe('mapGravidKravFeilmeldinger', () => {
     const feilmeldinger = mapGravidKravFeilmeldinger(mockValidationResponse(0, ALLE_FELTER), state);
 
     expect(state.fnrError).not.toBeUndefined();
-    expect(state.orgnrError).not.toBeUndefined();
     expect(state.bekreftError).not.toBeUndefined();
     expect(state.fraError).not.toBeUndefined();
     expect(state.tilError).not.toBeUndefined();
@@ -30,18 +28,17 @@ describe('mapGravidKravFeilmeldinger', () => {
     expect(state.dokumentasjonError).not.toBeUndefined();
     expect(state.dagerError).not.toBeUndefined();
 
-    expect(feilmeldinger.length).toEqual(9);
+    expect(feilmeldinger.length).toEqual(8);
     expect(feilmeldinger[0].skjemaelementId).toEqual('fnr');
-    expect(feilmeldinger[1].skjemaelementId).toEqual('orgnr');
-    expect(feilmeldinger[2].skjemaelementId).toEqual('fra');
-    expect(feilmeldinger[3].skjemaelementId).toEqual('til');
-    expect(feilmeldinger[4].skjemaelementId).toEqual('dager');
-    expect(feilmeldinger[5].skjemaelementId).toEqual('beloep');
-    expect(feilmeldinger[6].skjemaelementId).toEqual('bekreft');
-    expect(feilmeldinger[7].skjemaelementId).toEqual('dokumentasjon');
-    expect(feilmeldinger[8].skjemaelementId).toEqual('dager');
+    expect(feilmeldinger[1].skjemaelementId).toEqual('fra');
+    expect(feilmeldinger[2].skjemaelementId).toEqual('til');
+    expect(feilmeldinger[3].skjemaelementId).toEqual('dager');
+    expect(feilmeldinger[4].skjemaelementId).toEqual('beloep');
+    expect(feilmeldinger[5].skjemaelementId).toEqual('bekreft');
+    expect(feilmeldinger[6].skjemaelementId).toEqual('dokumentasjon');
+    expect(feilmeldinger[7].skjemaelementId).toEqual('dager');
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 8; i++) {
       expect(feilmeldinger[i].feilmelding).toEqual('feil');
     }
   });
