@@ -9,5 +9,4 @@ export interface ValidationState {
   serverError?: boolean; // Server hadde internal feil
   kvittering?: boolean; // Mottatt godkjent svar fra backend
   feilmeldinger: Array<FeiloppsummeringFeil>;
-  // isOpenKontrollsporsmaalLonn: boolean;
 }
