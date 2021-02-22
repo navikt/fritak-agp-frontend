@@ -42,7 +42,7 @@ export default interface GravidKravState extends ValidationState {
   login?: boolean;
   notAuthorized?: boolean;
   submitting?: boolean;
-  isOpenKontrollsporsmaalLonn: boolean;
+  isOpenKontrollsporsmaalLonn?: boolean;
   gDagsbeloep?: number;
   kontrollDager?: number;
 }

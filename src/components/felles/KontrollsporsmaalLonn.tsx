@@ -9,7 +9,7 @@ import Lenke from 'nav-frontend-lenker';
 
 interface KontrollsporsmaalLonnProps {
   onCloseWithDays: (dager: number | undefined) => void;
-  isOpen: boolean;
+  isOpen?: boolean;
   onCloseCancel: () => void;
 }
 
@@ -31,7 +31,7 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
       contentLabel='Kontrollspørsmål for lønn som overstiger 6g'
       className='kontrollsporsmaal-lonn kontrollsporsmaal-lonn-bigair'
       closeButton={false}
-      isOpen={props.isOpen}
+      isOpen={!!props.isOpen}
     >
       <Innholdstittel className='textfelt-padding-dobbel-bottom'>Det ser ut som om lønnen overstiger 6G</Innholdstittel>
       <Normaltekst>
