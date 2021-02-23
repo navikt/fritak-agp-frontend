@@ -7,8 +7,8 @@ enum lenker {
   KroniskKvittering = '/kronisk/soknad/kvittering',
   GravidKrav = '/gravid/krav',
   GravidKravKvittering = '/gravid/krav/kvittering',
-  Kronisk_Krav = '/kronisk/krav',
-  Kronisk_Krav_Kvittering = '/kronisk/krav/kvittering'
+  KroniskKrav = '/kronisk/krav',
+  KroniskKravKvittering = '/kronisk/krav/kvittering'
 }
 
 export default lenker;
