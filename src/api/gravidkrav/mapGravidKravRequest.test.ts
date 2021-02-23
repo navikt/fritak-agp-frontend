@@ -13,7 +13,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       );
     }).toThrowError();
   });
@@ -28,7 +29,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       );
     }).toThrowError();
   });
@@ -43,7 +45,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       );
     }).toThrowError();
   });
@@ -58,7 +61,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
@@ -73,7 +77,8 @@ describe('mapGravidKravRequest', () => {
         undefined,
         3000,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
@@ -88,7 +93,8 @@ describe('mapGravidKravRequest', () => {
         2,
         undefined,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
@@ -103,7 +109,8 @@ describe('mapGravidKravRequest', () => {
         2,
         555,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).not.toThrowError();
   });
@@ -118,7 +125,8 @@ describe('mapGravidKravRequest', () => {
         2,
         33,
         'dokumentasjon',
-        undefined
+        undefined,
+        5
       );
     }).toThrowError();
   });
@@ -133,7 +141,8 @@ describe('mapGravidKravRequest', () => {
         2,
         undefined,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
@@ -148,7 +157,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       )
     ).toEqual({
       identitetsnummer: '123',
