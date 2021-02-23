@@ -71,7 +71,7 @@
     "nav-frontend-veileder": "^2.0.40",
     "nav-frontend-veileder-style": "^2.0.29",
     "nav-frontend-veilederpanel": "^0.1.49",
-    "nav-frontend-veilederpanel-style": "^0.0.43",
+    "nav-frontend-veilederpanel-style": "^0.0.45",
     "react": "^16.14.0",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.14.0",
