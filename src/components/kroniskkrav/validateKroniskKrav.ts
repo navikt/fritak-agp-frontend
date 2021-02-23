@@ -3,7 +3,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validateFnr } from '../../utils/validateFnr';
 import KroniskKravState from './KroniskKravState';
 import { pushFeilmelding } from '../../validation/pushFeilmelding';
-import { validateFra } from './validateFra';
+import validateFra from '../../validation/validateFra';
 import validateTil from '../../validation/validateTil';
 import { validateDager } from './validateDager';
 import { validateBeloep } from './validateBeloep';
