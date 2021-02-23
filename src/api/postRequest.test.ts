@@ -62,4 +62,46 @@ describe('postRequest', () => {
     });
     jest.useRealTimers();
   });
+
+  it('should pass on the violation when the server responds with 422', async () => {
+    const expected = [
+      {
+        validationType: 'RefusjonsdagerKanIkkeOverstigePeriodelengdenConstraint',
+        message: '',
+        propertyPath: 'periode',
+        invalidValue: {
+          fom: '2021-02-01',
+          tom: '2021-02-02',
+          antallDagerMedRefusjon: 9,
+          beloep: 123.0
+        }
+      }
+    ];
+
+    const response = {
+      violations: [
+        {
+          validationType: 'RefusjonsdagerKanIkkeOverstigePeriodelengdenConstraint',
+          message: '',
+          propertyPath: 'periode',
+          invalidValue: {
+            fom: '2021-02-01',
+            tom: '2021-02-02',
+            antallDagerMedRefusjon: 9,
+            beloep: 123.0
+          }
+        }
+      ],
+      type: 'urn:nav:helsearbeidsgiver:validation-error',
+      title: 'Valideringen av input feilet',
+      status: 422,
+      detail: 'Ett eller flere felter har feil.',
+      instance: 'about:blank'
+    };
+    mockFetch(422, response);
+    expect(await postRequest('/Path', {})).toEqual({
+      status: 422,
+      violations: expected
+    });
+  });
 });

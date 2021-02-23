@@ -27,7 +27,7 @@ const postRequest = async (path: string, payload: any, timeout: number = 10000):
       body: JSON.stringify(payload)
     })
       .then(async (response) =>
-        mapViolations(response.status, response.status == HttpStatus.UnprocessableEntity ? response.json() : {})
+        mapViolations(response.status, response.status === HttpStatus.UnprocessableEntity ? await response.json() : {})
       )
       .catch(() => {
         return {
