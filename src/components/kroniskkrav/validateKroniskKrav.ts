@@ -5,8 +5,8 @@ import KroniskKravState from './KroniskKravState';
 import { pushFeilmelding } from '../../validation/pushFeilmelding';
 import validateFra from '../../validation/validateFra';
 import validateTil from '../../validation/validateTil';
-import { validateDager } from './validateDager';
-import { validateBeloep } from './validateBeloep';
+import validateDager from '../../validation/validateDager';
+import validateBeloep from '../../validation/validateBeloep';
 import { validateOrgnr } from '../../utils/validateOrgnr';
 import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 
