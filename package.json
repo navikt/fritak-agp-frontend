@@ -10,7 +10,7 @@
     "build:css": "less-watch-compiler --run-once --config less.json",
     "dev": "npm-run-all -p start:*",
     "build": "npm run build:css && npm run build:js",
-    "test": "snyk test && react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
+    "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
     "pretty-please": "pretty-quick --staged"
