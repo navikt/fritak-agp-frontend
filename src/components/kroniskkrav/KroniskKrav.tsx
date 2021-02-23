@@ -18,7 +18,6 @@ import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';
 import { defaultKroniskKravState } from './KroniskKravState';
 import { Actions } from './Actions';
-import getBase64file from '../../utils/getBase64File';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
@@ -46,27 +45,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const closeKontrollsporsmaalLonnDager = (dager: number | undefined) => {
     dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: dager } });
     dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
-  };
-
-  const handleUploadChanged = (file?: File) => {
-    if (file) {
-      getBase64file(file).then((base64encoded: any) => {
-        dispatch({
-          type: Actions.Dokumentasjon,
-          payload: {
-            dokumentasjon: base64encoded
-          }
-        });
-      });
-    }
-  };
-  const handleDelete = () => {
-    dispatch({
-      type: Actions.Dokumentasjon,
-      payload: {
-        dokumentasjon: undefined
-      }
-    });
   };
 
   const handleSubmitClicked = async () => {
