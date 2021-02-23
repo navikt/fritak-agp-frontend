@@ -24,7 +24,7 @@ import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
-import SelectDager from './SelectDager';
+import SelectDager from '../felles/SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 import Side from '../Side';
