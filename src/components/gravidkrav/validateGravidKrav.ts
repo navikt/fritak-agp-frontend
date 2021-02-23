@@ -4,7 +4,7 @@ import { validateFnr } from '../../utils/validateFnr';
 import GravidKravState from './GravidKravState';
 import { pushFeilmelding } from '../../validation/pushFeilmelding';
 import { validateFra } from './validateFra';
-import { validateTil } from './validateTil';
+import validateTil from '../../validation/validateTil';
 import { validateDager } from './validateDager';
 import { validateBeloep } from './validateBeloep';
 import { validateOrgnr } from '../../utils/validateOrgnr';
