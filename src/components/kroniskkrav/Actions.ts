@@ -18,7 +18,9 @@ export enum Actions {
   CloseKontrollsporsmaalLonn,
   OpenKontrollsporsmaalLonn,
   Grunnbeloep,
-  KontrollDager
+  KontrollDager,
+  AddPeriod,
+  DeletePeriod
 }
 
 export interface Payload {
@@ -36,6 +38,7 @@ export interface Payload {
   response?: ValidationResponse;
   grunnbeloep?: number;
   kontrollDager?: number;
+  periode?: number;
 }
 
 export interface KroniskKravAction {

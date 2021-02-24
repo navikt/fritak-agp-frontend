@@ -1,14 +1,15 @@
 import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
 import { Dato, datoToString } from '../../utils/Dato';
+import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
 
 export const mapKroniskKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  fra: Dato | undefined,
-  til: Dato | undefined,
-  dager: number | undefined,
-  beloep: number | undefined,
-  dokumentasjon: string | undefined,
+  periode: Array<KroniskKravPeriode> | undefined,
+  // fra: Dato | undefined,
+  // til: Dato | undefined,
+  // dager: number | undefined,
+  // beloep: number | undefined,
   bekreft: boolean | undefined,
   kontrollDager: number | undefined
 ): KroniskKravRequest => {
@@ -18,35 +19,39 @@ export const mapKroniskKravRequest = (
   if (orgnr === undefined) {
     throw new Error('Orgnr må spesifiseres');
   }
-  if (fra?.error) {
-    throw new Error('Fra må spesifiseres');
-  }
-  if (til?.error) {
-    throw new Error('Til må spesifiseres');
-  }
-  if (dager === undefined) {
-    throw new Error('Dager må spesifiseres');
-  }
-  if (beloep === undefined) {
-    throw new Error('Beløp må spesifiseres');
+
+  if (periode) {
+    periode.forEach((enkeltPeriode) => {
+      if (enkeltPeriode.fra?.error) {
+        throw new Error('Fra må spesifiseres');
+      }
+      if (enkeltPeriode.til?.error) {
+        throw new Error('Til må spesifiseres');
+      }
+      if (enkeltPeriode.dager === undefined) {
+        throw new Error('Dager må spesifiseres');
+      }
+      if (enkeltPeriode.beloep === undefined) {
+        throw new Error('Beløp må spesifiseres');
+      }
+    });
   }
   if (!bekreft) {
     throw new Error('Bekreft må spesifiseres');
   }
 
+  const periodeData = periode?.map((enkeltPeriode) => ({
+    fom: datoToString(enkeltPeriode.fra),
+    tom: datoToString(enkeltPeriode.til),
+    antallDagerMedRefusjon: enkeltPeriode.dager,
+    beloep: enkeltPeriode.beloep
+  }));
+
   return {
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
-    periode: [
-      {
-        fom: datoToString(fra),
-        tom: datoToString(til),
-        antallDagerMedRefusjon: dager,
-        beloep: beloep,
-        kontrollDager: kontrollDager
-      }
-    ] as [Arbeidsgiverperiode],
-    dokumentasjon: dokumentasjon,
-    bekreftet: bekreft
+    periode: periodeData as [Arbeidsgiverperiode],
+    bekreftet: bekreft,
+    kontrollDager: kontrollDager
   };
 };

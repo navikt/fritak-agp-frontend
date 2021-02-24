@@ -29,6 +29,7 @@ import KontrollsporsmaalLonn from '../felles/KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import Lenke from 'nav-frontend-lenker';
 
 export const KroniskKrav = (props: KroniskKravProps) => {
   const [state, dispatch] = useReducer(KroniskKravReducer, props.state, defaultKroniskKravState);
@@ -53,13 +54,31 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     });
   };
 
-  const fraDatoValgt = (fraDato: Date) => {
+  const leggTilPeriode = () => {
+    dispatch({
+      type: Actions.AddPeriod
+    });
+  };
+
+  const fjernPeriode = (periode: number) => {
+    dispatch({
+      type: Actions.DeletePeriod,
+      payload: {
+        periode: periode
+      }
+    });
+  };
+
+  const fraDatoValgt = (fraDato: Date, periode: number) => {
     if (fraDato) {
       getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
         if (grunnbeloepRespons.grunnbeloep) {
           dispatch({
             type: Actions.Grunnbeloep,
-            payload: { grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep }
+            payload: {
+              grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep,
+              periode: periode
+            }
           });
         }
       });
@@ -86,17 +105,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     ) {
       postKroniskKrav(
         environment.baseUrl,
-        mapKroniskKravRequest(
-          state.fnr,
-          state.orgnr,
-          state.fra,
-          state.til,
-          state.dager,
-          state.beloep,
-          state.dokumentasjon,
-          state.bekreft,
-          state.kontrollDager
-        )
+        mapKroniskKravRequest(state.fnr, state.orgnr, state.periode, state.bekreft, state.kontrollDager)
       ).then((response) => {
         dispatch({
           type: Actions.HandleResponse,
@@ -109,15 +118,10 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.progress,
     state.feilmeldinger,
     state.submitting,
-    state.fra,
-    state.til,
-    state.dager,
-    state.beloep,
+    state.periode,
     state.fnr,
     state.bekreft,
-    state.dokumentasjon,
     state.orgnr,
-    state.kontrollDager,
     state.isOpenKontrollsporsmaalLonn
   ]);
 
@@ -186,90 +190,105 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
-              <Row>
-                <Column sm='3' xs='6'>
-                  <DatoVelger
-                    id='fra-dato'
-                    label='Fra dato'
-                    onChange={(fraDato: Date) => {
-                      fraDatoValgt(fraDato);
-                    }}
-                  />
-                </Column>
-                <Column sm='3' xs='6'>
-                  <DatoVelger
-                    id='til-dato'
-                    label='Til dato'
-                    onChange={(tilDate: Date) => {
-                      dispatch({
-                        type: Actions.Til,
-                        payload: { til: tilDate }
-                      });
-                    }}
-                  />
-                </Column>
-                <Column sm='3' xs='6'>
-                  <Label htmlFor='dager'>
-                    Antall dager
-                    <Hjelpetekst className='krav-padding-hjelpetekst'>
-                      Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
-                    </Hjelpetekst>
-                  </Label>
-                  <SelectDager
-                    id='dager'
-                    value={state.dager}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      dispatch({
-                        type: Actions.Dager,
-                        payload: {
-                          dager: Number(event.currentTarget.value)
-                        }
-                      })
-                    }
-                  />
-                </Column>
-                <Column sm='3' xs='6'>
-                  <Label htmlFor='belop'>
-                    Beløp
-                    <Hjelpetekst className='krav-padding-hjelpetekst'>
-                      <Systemtittel>Slik finner dere beløpet dere kan kreve:</Systemtittel>
-                      <ul>
-                        <li>
-                          Merk: Beløpet er før skatt, og det skal være uten feriepenger og arbeidsgiveravgift. Det
-                          beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste
-                          år.
-                        </li>
-                        <li>
-                          Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt
-                          lønn. Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
-                        </li>
-                        <li>Beregn månedsinntekten slik det ellers gjøres for sykepenger i arbeidsgiverperioden.</li>
-                        <li>Gang med 12 måneder for å finne årslønnen.</li>
-                        <li>Reduser beløpet til 6G hvis beløpet er over dette.</li>
-                        <li>Finn dagsatsen ved å dele årslønnen på antall dager dere utbetaler lønn for i året.</li>
-                        <li>Gang dagsatsen med antall dager dere krever refusjon for.</li>
-                      </ul>
-                    </Hjelpetekst>
-                  </Label>
-                  <Input
-                    id='belop'
-                    inputMode='numeric'
-                    pattern='[0-9]*'
-                    placeholder='Kr:'
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      dispatch({
-                        type: Actions.Beloep,
-                        payload: {
-                          beloep: Number(event.currentTarget.value.replace(',', '.'))
-                        }
-                      })
-                    }
-                  />
-                </Column>
-              </Row>
+              {state.periode?.map((enkeltPeriode, index) => (
+                <Row
+                  key={
+                    (enkeltPeriode.fra?.value ?? index.toString()) +
+                    (enkeltPeriode.til?.value ?? index.toString()) +
+                    (enkeltPeriode.beloep ?? index.toString())
+                  }
+                  className={index > 0 ? 'hide-labels' : ''}
+                >
+                  <Column sm='3' xs='6'>
+                    <DatoVelger
+                      id={`fra-dato-${index}`}
+                      label='Fra dato'
+                      onChange={(fraDato: Date) => {
+                        fraDatoValgt(fraDato, index);
+                      }}
+                    />
+                  </Column>
+                  <Column sm='3' xs='6'>
+                    <DatoVelger
+                      id={`til-dato-${index}`}
+                      label='Til dato'
+                      onChange={(tilDate: Date) => {
+                        dispatch({
+                          type: Actions.Til,
+                          payload: {
+                            til: tilDate,
+                            periode: index
+                          }
+                        });
+                      }}
+                    />
+                  </Column>
+                  <Column sm='3' xs='6'>
+                    <Label htmlFor={`dager-${index}`}>
+                      Antall dager
+                      <Hjelpetekst className='krav-padding-hjelpetekst'>
+                        Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
+                      </Hjelpetekst>
+                    </Label>
+                    <SelectDager
+                      id={`dager-${index}`}
+                      value={state.periode && state.periode[index].dager}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        dispatch({
+                          type: Actions.Dager,
+                          payload: {
+                            dager: Number(event.currentTarget.value)
+                          }
+                        })
+                      }
+                    />
+                  </Column>
+                  <Column sm='3' xs='6'>
+                    <Label htmlFor={`belop-${index}`}>
+                      Beløp
+                      <Hjelpetekst className='krav-padding-hjelpetekst'>
+                        <Systemtittel>Slik finner dere beløpet dere kan kreve:</Systemtittel>
+                        <ul>
+                          <li>
+                            Merk: Beløpet er før skatt, og det skal være uten feriepenger og arbeidsgiveravgift. Det
+                            beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene
+                            neste år.
+                          </li>
+                          <li>
+                            Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt
+                            lønn. Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
+                          </li>
+                          <li>Beregn månedsinntekten slik det ellers gjøres for sykepenger i arbeidsgiverperioden.</li>
+                          <li>Gang med 12 måneder for å finne årslønnen.</li>
+                          <li>Reduser beløpet til 6G hvis beløpet er over dette.</li>
+                          <li>Finn dagsatsen ved å dele årslønnen på antall dager dere utbetaler lønn for i året.</li>
+                          <li>Gang dagsatsen med antall dager dere krever refusjon for.</li>
+                        </ul>
+                      </Hjelpetekst>
+                    </Label>
+                    <Input
+                      id={`belop-${index}`}
+                      inputMode='numeric'
+                      pattern='[0-9]*'
+                      placeholder='Kr:'
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        dispatch({
+                          type: Actions.Beloep,
+                          payload: {
+                            beloep: Number(event.currentTarget.value.replace(',', '.')),
+                            periode: index
+                          }
+                        })
+                      }
+                    />
+                  </Column>
+                </Row>
+              ))}
             </SkjemaGruppe>
           </Panel>
-
+          <Lenke href='#' onClick={leggTilPeriode}>
+            + Legg til en fraværsperiode
+          </Lenke>
           <Skillelinje />
 
           <BekreftOpplysningerPanel

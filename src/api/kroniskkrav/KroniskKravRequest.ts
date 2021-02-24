@@ -4,6 +4,7 @@ export interface KroniskKravRequest {
   periode: [Arbeidsgiverperiode];
   bekreftet: boolean;
   dokumentasjon?: string;
+  kontrollDager?: number;
 }
 
 export interface Arbeidsgiverperiode {
@@ -11,7 +12,6 @@ export interface Arbeidsgiverperiode {
   tom: string;
   antallDagerMedRefusjon: number;
   beloep: number;
-  kontrollDager?: number;
 }
 
 export default KroniskKravRequest;

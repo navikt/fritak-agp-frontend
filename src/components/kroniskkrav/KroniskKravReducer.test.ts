@@ -55,9 +55,15 @@ describe('KroniskKravReducer', () => {
   it('should set the fra', () => {
     let state = KroniskKravReducer(defaultKroniskKravState(), {
       type: Actions.Fra,
-      payload: { fra: new Date('2020.06.05 12:00:00') }
+      payload: {
+        fra: new Date('2020.06.05 12:00:00'),
+        periode: 0
+      }
     });
-    expect(state.fra?.value).toEqual('05.06.2020');
+
+    console.log(state.periode);
+
+    expect(state.periode && state?.periode[0]?.fra?.value).toEqual('05.06.2020');
   });
 
   it('should set the fra', () => {
@@ -189,22 +195,6 @@ describe('KroniskKravReducer', () => {
       payload: { progress: true }
     });
     expect(state.progress).toEqual(true);
-  });
-
-  it('should set dokumentasjon', () => {
-    let state = KroniskKravReducer(defaultKroniskKravState(), {
-      type: Actions.Dokumentasjon,
-      payload: { dokumentasjon: 'Joda' }
-    });
-    expect(state.dokumentasjon).toEqual('Joda');
-  });
-
-  it('should set dokumentasjon to be empty', () => {
-    let state = KroniskKravReducer(defaultKroniskKravState(), {
-      type: Actions.Dokumentasjon,
-      payload: { dokumentasjon: '' }
-    });
-    expect(state.dokumentasjon).toEqual('');
   });
 
   it('should validate', () => {

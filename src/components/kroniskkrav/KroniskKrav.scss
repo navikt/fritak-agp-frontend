@@ -17,4 +17,14 @@
     .skjemagruppe .skjemaelement {
         margin-bottom: 0;
     }
+
+    .hide-labels {
+        label {
+            display: none;
+        }
+
+        .skjemaelement {
+            padding-top: 1rem;
+        }
+    } 
 }

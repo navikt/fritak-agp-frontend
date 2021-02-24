@@ -5,7 +5,7 @@ import { lagFeil } from '../lagFeil';
 
 const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
-  response.violations.forEach((v) => {
+  response.violations.forEach((v, index) => {
     switch (v.propertyPath) {
       case 'identitetsnummer':
         state.fnrError = v.message;
@@ -18,22 +18,53 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         break;
 
       case 'periode.fom':
-        state.fraError = v.message;
+        if (state.periode && state.periode[index]) {
+          state.periode[index].fraError = v.message;
+        } else {
+          state.periode = state.periode ?? [];
+          state.periode[index] = {
+            fraError: v.message
+          };
+        }
         feilmeldinger.push(lagFeil('fra', v.message));
         break;
 
       case 'periode.tom':
-        state.tilError = v.message;
+        if (state.periode && state.periode[index]) {
+          state.periode[index].tilError = v.message;
+        } else {
+          state.periode = state.periode ?? [];
+          state.periode[index] = {
+            tilError: v.message
+          };
+        }
+
         feilmeldinger.push(lagFeil('til', v.message));
         break;
 
       case 'periode.antallDagerMedRefusjon':
-        state.dagerError = v.message;
+        if (state.periode && state.periode[index]) {
+          state.periode[index].dagerError = v.message;
+        } else {
+          state.periode = state.periode ?? [];
+          state.periode[index] = {
+            dagerError: v.message
+          };
+        }
+
         feilmeldinger.push(lagFeil('dager', v.message));
         break;
 
       case 'periode.beloep':
-        state.beloepError = v.message;
+        if (state.periode && state.periode[index]) {
+          state.periode[index].beloepError = v.message;
+        } else {
+          state.periode = state.periode ?? [];
+          state.periode[index] = {
+            beloepError: v.message
+          };
+        }
+
         feilmeldinger.push(lagFeil('beloep', v.message));
         break;
 
@@ -42,13 +73,8 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         feilmeldinger.push(lagFeil('bekreft', v.message));
         break;
 
-      case 'dokumentasjon':
-        state.dokumentasjonError = v.message;
-        feilmeldinger.push(lagFeil('dokumentasjon', v.message));
-        break;
-
       case 'periode':
-        state.dagerError = v.message;
+        state.periodeError = v.message;
         feilmeldinger.push(
           lagFeil('dager', v.message.length ? v.message : 'Refusjonsdager kan ikke overstige periodelengden')
         );

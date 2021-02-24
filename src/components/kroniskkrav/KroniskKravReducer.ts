@@ -8,6 +8,9 @@ import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction): KroniskKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
+
+  nextState.periode = nextState.periode ?? [];
+
   switch (action.type) {
     case Actions.Fnr:
       nextState.fnr = payload?.fnr;
@@ -18,31 +21,38 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
       return validateKroniskKrav(nextState);
 
     case Actions.Fra:
-      if (payload?.fra === undefined) {
-        nextState.til = undefined;
-      } else {
-        nextState.fra = parseDateTilDato(payload?.fra);
+      if (payload?.periode !== undefined) {
+        if (payload?.fra === undefined) {
+          nextState[payload?.periode].fra = undefined;
+        } else {
+          nextState[payload?.periode].fra = parseDateTilDato(payload?.fra);
+        }
       }
+      console.log('nextState', nextState);
+      console.log('periode', payload?.periode);
+
       return validateKroniskKrav(nextState);
 
     case Actions.Til:
-      if (payload?.til === undefined) {
-        nextState.til = undefined;
-      } else {
-        nextState.til = parseDateTilDato(payload?.til);
+      if (!!payload?.periode) {
+        if (payload?.til === undefined) {
+          nextState[payload?.periode].til = undefined;
+        } else {
+          nextState[payload?.periode].til = parseDateTilDato(payload?.til);
+        }
       }
       return validateKroniskKrav(nextState);
 
     case Actions.Dager:
-      nextState.dager = payload?.dager;
+      if (!!payload?.periode) {
+        nextState[payload?.periode].dager = payload?.dager;
+      }
       return validateKroniskKrav(nextState);
 
     case Actions.Beloep:
-      nextState.beloep = payload?.beloep;
-      return validateKroniskKrav(nextState);
-
-    case Actions.Dokumentasjon:
-      nextState.dokumentasjon = payload?.dokumentasjon;
+      if (!!payload?.periode) {
+        nextState[payload?.periode].beloep = payload?.beloep;
+      }
       return validateKroniskKrav(nextState);
 
     case Actions.Bekreft:
@@ -87,6 +97,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
 
     case Actions.KontrollDager:
       nextState.kontrollDager = payload?.kontrollDager;
+      return nextState;
+
+    case Actions.AddPeriod:
+      nextState.periode = nextState.periode ? [...nextState.periode, { fra: {}, til: {} }] : [{ fra: {}, til: {} }];
       return nextState;
 
     case Actions.Reset:

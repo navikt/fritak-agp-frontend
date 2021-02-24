@@ -6,9 +6,12 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
   return Object.assign(
     {
       fnr: '',
-      fra: {},
-      til: {},
-      dokumentasjon: '',
+      periode: [
+        {
+          fra: {},
+          til: {}
+        }
+      ],
       bekreft: false,
       isOpenKontrollsporsmaalLonn: false,
       feilmeldinger: Array<FeiloppsummeringFeil>()
@@ -22,16 +25,8 @@ export default interface KroniskKravState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  fra?: Dato;
-  fraError?: string;
-  til?: Dato;
-  tilError?: string;
-  dager?: number;
-  dagerError?: string;
-  beloep?: number;
-  beloepError?: string;
-  dokumentasjon?: string;
-  dokumentasjonError?: string;
+  periode?: Array<KroniskKravPeriode>;
+  periodeError?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
   validated?: boolean;
   progress?: boolean;
@@ -45,4 +40,15 @@ export default interface KroniskKravState extends ValidationState {
   isOpenKontrollsporsmaalLonn?: boolean;
   gDagsbeloep?: number;
   kontrollDager?: number;
+}
+
+export interface KroniskKravPeriode {
+  fra?: Dato;
+  fraError?: string;
+  til?: Dato;
+  tilError?: string;
+  dager?: number;
+  dagerError?: string;
+  beloep?: number;
+  beloepError?: string;
 }
