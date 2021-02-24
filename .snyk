@@ -30,4 +30,11 @@ ignore:
     - react-scripts > jest > jest-cli > @jest/core > @jest/reporters > jest-runtime > yargs > y18n:
         reason: None given
         expires: '2020-12-24T09:59:33.734Z'
+  SNYK-JS-URLPARSE-1078283:
+    - '@navikt/sif-common-core > @navikt/appstatus-react > @sanity/client > get-it > url-parse':
+        reason: None given
+        expires: '2021-03-26T09:58:20.734Z'
+    - '@navikt/sif-common-core > @navikt/appstatus-react > @sanity/client > @sanity/eventsource > eventsource > original > url-parse':
+        reason: None given
+        expires: '2021-03-26T09:58:20.734Z'
 patch: {}
