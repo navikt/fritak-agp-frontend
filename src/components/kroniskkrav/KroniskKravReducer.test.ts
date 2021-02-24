@@ -69,22 +69,26 @@ describe('KroniskKravReducer', () => {
   it('should set the fra', () => {
     let state = KroniskKravReducer(defaultKroniskKravState(), {
       type: Actions.Fra,
-      payload: { fra: undefined }
+      payload: { fra: undefined, periode: 0 }
     });
-    expect(state.fra?.value).toBeUndefined();
+    expect(state.periode && state.periode[0]?.fra?.value).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
     expect(() => {
       let state: KroniskKravState = {
-        fra: {
-          value: '2020.05.06',
-          error: undefined,
-          year: 2020,
-          month: 5,
-          day: 6,
-          millis: 1234512344
-        },
+        periode: [
+          {
+            fra: {
+              value: '2020.05.06',
+              error: undefined,
+              year: 2020,
+              month: 5,
+              day: 6,
+              millis: 1234512344
+            }
+          }
+        ],
         feilmeldinger: []
       };
 
@@ -93,52 +97,59 @@ describe('KroniskKravReducer', () => {
         payload: { fra: undefined }
       });
 
-      expect(state.fra).toBeUndefined();
+      expect(state.periode && state.periode[0].fra).toBeUndefined();
     });
   });
 
   it('should set the til', () => {
     let state = KroniskKravReducer(defaultKroniskKravState(), {
       type: Actions.Til,
-      payload: { til: new Date('2020.06.05 12:00:00') }
+      payload: {
+        til: new Date('2020.06.05 12:00:00'),
+        periode: 0
+      }
     });
-    expect(state.til?.value).toEqual('05.06.2020');
+    expect(state.periode && state.periode[0].til?.value).toEqual('05.06.2020');
   });
 
   it('should clear til when empty payload', () => {
     let state: KroniskKravState = {
-      til: {
-        value: '2020.05.06',
-        error: undefined,
-        year: 2020,
-        month: 5,
-        day: 6,
-        millis: 1234512344
-      },
+      periode: [
+        {
+          til: {
+            value: '2020.05.06',
+            error: undefined,
+            year: 2020,
+            month: 5,
+            day: 6,
+            millis: 1234512344
+          }
+        }
+      ],
       feilmeldinger: []
     };
 
     state = KroniskKravReducer(defaultKroniskKravState(), {
       type: Actions.Til,
-      payload: { til: undefined }
+      payload: { til: undefined, periode: 0 }
     });
-    expect(state.til).toBeUndefined();
+    expect(state.periode && state.periode[0].til).toBeUndefined();
   });
 
   it('should set the dager', () => {
     let state = KroniskKravReducer(defaultKroniskKravState(), {
       type: Actions.Dager,
-      payload: { dager: 3 }
+      payload: { dager: 3, periode: 0 }
     });
-    expect(state.dager).toEqual(3);
+    expect(state.periode && state.periode[0].dager).toEqual(3);
   });
 
   it('should set the beløp', () => {
     let state = KroniskKravReducer(defaultKroniskKravState(), {
       type: Actions.Beloep,
-      payload: { beloep: 233 }
+      payload: { beloep: 233, periode: 0 }
     });
-    expect(state.beloep).toEqual(233);
+    expect(state.periode && state.periode[0].beloep).toEqual(233);
   });
 
   it('should set the kvittering', () => {
@@ -273,7 +284,6 @@ describe('KroniskKravReducer', () => {
     expect(state.fnrError).toBeUndefined();
     expect(state.orgnrError).toBeUndefined();
     expect(state.bekreftError).toBeUndefined();
-    expect(state.dokumentasjonError).toBeUndefined();
     expect(state.feilmeldinger?.length).toEqual(0);
   });
 

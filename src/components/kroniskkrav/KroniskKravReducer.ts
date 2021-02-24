@@ -23,35 +23,33 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
     case Actions.Fra:
       if (payload?.periode !== undefined) {
         if (payload?.fra === undefined) {
-          nextState[payload?.periode].fra = undefined;
+          nextState.periode[payload.periode].fra = undefined;
         } else {
-          nextState[payload?.periode].fra = parseDateTilDato(payload?.fra);
+          nextState.periode[payload.periode].fra = parseDateTilDato(payload.fra);
         }
       }
-      console.log('nextState', nextState);
-      console.log('periode', payload?.periode);
 
       return validateKroniskKrav(nextState);
 
     case Actions.Til:
-      if (!!payload?.periode) {
+      if (payload?.periode !== undefined) {
         if (payload?.til === undefined) {
-          nextState[payload?.periode].til = undefined;
+          nextState.periode[payload.periode].til = undefined;
         } else {
-          nextState[payload?.periode].til = parseDateTilDato(payload?.til);
+          nextState.periode[payload.periode].til = parseDateTilDato(payload?.til);
         }
       }
       return validateKroniskKrav(nextState);
 
     case Actions.Dager:
-      if (!!payload?.periode) {
-        nextState[payload?.periode].dager = payload?.dager;
+      if (payload?.periode !== undefined) {
+        nextState.periode[payload?.periode].dager = payload?.dager;
       }
       return validateKroniskKrav(nextState);
 
     case Actions.Beloep:
-      if (!!payload?.periode) {
-        nextState[payload?.periode].beloep = payload?.beloep;
+      if (payload?.periode !== undefined) {
+        nextState.periode[payload.periode].beloep = payload?.beloep;
       }
       return validateKroniskKrav(nextState);
 
