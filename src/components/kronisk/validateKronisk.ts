@@ -17,9 +17,10 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
   const nextState = Object.assign({}, state);
   nextState.fnrError = validateFnr(state.fnr, state.validated);
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
-  nextState.bekreftError = state.bekreft == false ? 'Mangler bekreft' : '';
-  nextState.paakjenningerError = state.paakjenninger?.length === 0 ? 'Må velge minst ett alternativ' : '';
-  nextState.arbeidError = state.arbeid?.length === 0 ? 'Må velge minst ett alternativ' : '';
+  nextState.bekreftError = state.bekreft ? '' : 'Mangler bekreft';
+  nextState.paakjenningerError =
+    state.paakjenninger && state.paakjenninger.length > 0 ? '' : 'Må velge minst ett alternativ';
+  nextState.arbeidError = state.arbeid && state.arbeid.length > 0 ? '' : 'Må velge minst ett alternativ';
 
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
     nextState.orgnrError = 'Ugyldig virksomhetsnummer';
@@ -65,10 +66,10 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
     nextState.fravaerError = undefined;
   }
 
-  nextState.feilmeldinger = nextState.feilmeldinger.concat(arbeidFeilmeldinger);
-
   if (nextState.bekreftError) {
     pushFeilmelding('bekreftFeilmeldingId', 'Bekreft at opplysningene er korrekte', feilmeldinger);
   }
+
+  nextState.feilmeldinger = nextState.feilmeldinger.concat(arbeidFeilmeldinger);
   return nextState;
 };
