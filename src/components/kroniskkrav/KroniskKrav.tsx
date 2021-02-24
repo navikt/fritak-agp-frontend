@@ -232,12 +232,13 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                     </Label>
                     <SelectDager
                       id={`dager-${index}`}
-                      value={state.periode && state.periode[index].dager}
+                      value={state.periode && state.periode[index] ? state.periode[index].dager : null}
                       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         dispatch({
                           type: Actions.Dager,
                           payload: {
-                            dager: Number(event.currentTarget.value)
+                            dager: Number(event.currentTarget.value),
+                            periode: index
                           }
                         })
                       }

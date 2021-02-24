@@ -61,8 +61,6 @@ describe('KroniskKravReducer', () => {
       }
     });
 
-    console.log(state.periode);
-
     expect(state.periode && state?.periode[0]?.fra?.value).toEqual('05.06.2020');
   });
 

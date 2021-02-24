@@ -6,10 +6,6 @@ export const mapKroniskKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
   periode: Array<KroniskKravPeriode> | undefined,
-  // fra: Dato | undefined,
-  // til: Dato | undefined,
-  // dager: number | undefined,
-  // beloep: number | undefined,
   bekreft: boolean | undefined,
   kontrollDager: number | undefined
 ): KroniskKravRequest => {

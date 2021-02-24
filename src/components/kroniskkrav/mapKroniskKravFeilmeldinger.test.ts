@@ -11,26 +11,26 @@ describe('mapKroniskKravFeilmeldinger', () => {
     'periode.antallDagerMedRefusjon',
     'periode.beloep',
     'bekreftet',
-    'dokumentasjon',
     'periode'
   ];
 
   it('should map all violations', () => {
     const state = defaultKroniskKravState();
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, ALLE_FELTER), state);
-
     expect(state.fnrError).not.toBeUndefined();
     expect(state.orgnrError).not.toBeUndefined();
     expect(state.bekreftError).not.toBeUndefined();
-    expect(state.fraError).not.toBeUndefined();
-    expect(state.tilError).not.toBeUndefined();
-    expect(state.dagerError).not.toBeUndefined();
-    expect(state.beloepError).not.toBeUndefined();
+    const fraError = !!state?.periode ? state?.periode[2]?.fraError : '';
+    expect(fraError).not.toBeUndefined();
+    const tilError = !!state?.periode ? state?.periode[3]?.tilError : '';
+    expect(tilError).not.toBeUndefined();
+    const dagerError = !!state?.periode ? state?.periode[4]?.dagerError : '';
+    expect(dagerError).not.toBeUndefined();
+    const beloepError = !!state?.periode ? state?.periode[5]?.beloepError : '';
+    expect(beloepError).not.toBeUndefined();
     expect(state.bekreftError).not.toBeUndefined();
-    expect(state.dokumentasjonError).not.toBeUndefined();
-    expect(state.dagerError).not.toBeUndefined();
 
-    expect(feilmeldinger.length).toEqual(9);
+    expect(feilmeldinger.length).toEqual(8);
     expect(feilmeldinger[0].skjemaelementId).toEqual('fnr');
     expect(feilmeldinger[1].skjemaelementId).toEqual('orgnr');
     expect(feilmeldinger[2].skjemaelementId).toEqual('fra');
@@ -38,10 +38,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     expect(feilmeldinger[4].skjemaelementId).toEqual('dager');
     expect(feilmeldinger[5].skjemaelementId).toEqual('beloep');
     expect(feilmeldinger[6].skjemaelementId).toEqual('bekreft');
-    expect(feilmeldinger[7].skjemaelementId).toEqual('dokumentasjon');
-    expect(feilmeldinger[8].skjemaelementId).toEqual('dager');
+    expect(feilmeldinger[7].skjemaelementId).toEqual('dager');
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 8; i++) {
       expect(feilmeldinger[i].feilmelding).toEqual('feil');
     }
   });
