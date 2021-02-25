@@ -1,7 +1,7 @@
 import KroniskKravState from './KroniskKravState';
 
-interface GravidKravProps {
+interface KroniskKravProps {
   state?: KroniskKravState;
 }
 
-export default GravidKravProps;
+export default KroniskKravProps;

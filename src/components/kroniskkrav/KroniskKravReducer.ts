@@ -124,13 +124,3 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
 };
 
 export default KroniskKravReducer;
-
-function setGrunnbeloep(payload: Payload | undefined, nextState: KroniskKravState) {
-  if (payload?.grunnbeloep) {
-    const aarsGrunnbeloep = payload.grunnbeloep * 6;
-    const dagsGrunnbeloep = aarsGrunnbeloep / 260;
-    nextState.gDagsbeloep = dagsGrunnbeloep;
-  } else {
-    nextState.gDagsbeloep = undefined;
-  }
-}
