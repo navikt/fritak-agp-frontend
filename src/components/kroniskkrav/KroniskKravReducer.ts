@@ -5,6 +5,7 @@ import { parseDateTilDato } from '../../utils/Dato';
 import mapResponse from '../../api/mapResponse';
 import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
+import setGrunnbeloep from './setGrunnbeloep';
 
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction): KroniskKravState => {
   const nextState = Object.assign({}, state);
