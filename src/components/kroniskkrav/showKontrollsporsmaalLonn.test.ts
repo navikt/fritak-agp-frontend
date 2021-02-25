@@ -13,7 +13,7 @@ describe('showKontrollsporsmaalLonn', () => {
         beloep: 2500
       }
     ] as unknown) as Array<KroniskKravPeriode>;
-    expect(showKontrollsporsmaalLonn({ gDagsbeloep: 1000, periode: periode } as KroniskKravState)).toBeTruthy();
+    expect(showKontrollsporsmaalLonn({ gDagsbeloep: 1000, perioder: periode } as KroniskKravState)).toBeTruthy();
   });
 
   it('should return false when belop/dager is lover than gDagsbeloep', () => {
@@ -27,6 +27,6 @@ describe('showKontrollsporsmaalLonn', () => {
         beloep: 1500
       }
     ] as unknown) as Array<KroniskKravPeriode>;
-    expect(showKontrollsporsmaalLonn({ gDagsbeloep: 1000, periode: periode } as KroniskKravState)).toBeFalsy();
+    expect(showKontrollsporsmaalLonn({ gDagsbeloep: 1000, perioder: periode } as KroniskKravState)).toBeFalsy();
   });
 });

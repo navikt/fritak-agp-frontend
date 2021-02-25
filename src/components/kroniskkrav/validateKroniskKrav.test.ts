@@ -23,7 +23,7 @@ describe('validateKroniskKrav', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.fnr = '123';
-    state.fra = parseDato('14.14.2014');
+    state.perioder = [{ fra: parseDato('14.14.2014') }];
     const state2 = validateKroniskKrav(state);
     expect(state2.fnrError).not.toBeUndefined();
   });
@@ -32,9 +32,10 @@ describe('validateKroniskKrav', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.fnr = '123';
-    state.til = parseDato('14.14.2014');
+    state.perioder = [{ til: parseDato('14.14.2014') }];
     const state2 = validateKroniskKrav(state);
-    expect(state2.til?.error).not.toBeUndefined();
+    expect(state2.perioder).not.toBeUndefined();
+    expect(state2.perioder ? state2.perioder[0].til?.error : undefined).not.toBeUndefined();
   });
 
   it('should not show errors until validation flagged', () => {
@@ -43,10 +44,11 @@ describe('validateKroniskKrav', () => {
     expect(state2.feilmeldinger?.length).toEqual(0);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
-    expect(state2.fraError).toBeUndefined();
-    expect(state2.tilError).toBeUndefined();
-    expect(state2.dagerError).toBeUndefined();
-    expect(state2.beloepError).toBeUndefined();
+    expect(state2.perioder).not.toBeUndefined();
+    expect(state2.perioder ? state2.perioder[0].fraError : 'defined').toBeUndefined();
+    expect(state2.perioder ? state2.perioder[0].tilError : 'defined').toBeUndefined();
+    expect(state2.perioder ? state2.perioder[0].dagerError : 'defined').toBeUndefined();
+    expect(state2.perioder ? state2.perioder[0].beloepError : 'defined').toBeUndefined();
     expect(state2.bekreftError).toBeUndefined();
   });
 });

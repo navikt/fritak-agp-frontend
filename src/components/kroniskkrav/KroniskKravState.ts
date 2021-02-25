@@ -7,7 +7,7 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
   return Object.assign(
     {
       fnr: '',
-      periode: [
+      perioder: [
         {
           fra: {},
           til: {},
@@ -27,7 +27,7 @@ export default interface KroniskKravState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  periode?: Array<KroniskKravPeriode>;
+  perioder?: Array<KroniskKravPeriode>;
   periodeError?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
   validated?: boolean;

@@ -1,11 +1,11 @@
 import KroniskKravState from './KroniskKravState';
 
 const showKontrollsporsmaalLonn = (state: KroniskKravState): boolean => {
-  const sumDager = state.periode?.reduce((total, aktuellPeriode) => {
+  const sumDager = state.perioder?.reduce((total, aktuellPeriode) => {
     return total + (aktuellPeriode.dager ?? 0);
   }, 0);
 
-  const sumBeloep = state.periode?.reduce((total, aktuellPeriode) => {
+  const sumBeloep = state.perioder?.reduce((total, aktuellPeriode) => {
     return total + (aktuellPeriode.beloep ?? 0);
   }, 0);
 

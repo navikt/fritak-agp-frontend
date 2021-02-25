@@ -18,11 +18,11 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         break;
 
       case 'periode.fom':
-        if (state.periode && state.periode[index]) {
-          state.periode[index].fraError = v.message;
+        if (state.perioder && state.perioder[index]) {
+          state.perioder[index].fraError = v.message;
         } else {
-          state.periode = state.periode ?? [];
-          state.periode[index] = {
+          state.perioder = state.perioder ?? [];
+          state.perioder[index] = {
             fraError: v.message
           };
         }
@@ -30,11 +30,11 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         break;
 
       case 'periode.tom':
-        if (state.periode && state.periode[index]) {
-          state.periode[index].tilError = v.message;
+        if (state.perioder && state.perioder[index]) {
+          state.perioder[index].tilError = v.message;
         } else {
-          state.periode = state.periode ?? [];
-          state.periode[index] = {
+          state.perioder = state.perioder ?? [];
+          state.perioder[index] = {
             tilError: v.message
           };
         }
@@ -43,11 +43,11 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         break;
 
       case 'periode.antallDagerMedRefusjon':
-        if (state.periode && state.periode[index]) {
-          state.periode[index].dagerError = v.message;
+        if (state.perioder && state.perioder[index]) {
+          state.perioder[index].dagerError = v.message;
         } else {
-          state.periode = state.periode ?? [];
-          state.periode[index] = {
+          state.perioder = state.perioder ?? [];
+          state.perioder[index] = {
             dagerError: v.message
           };
         }
@@ -56,11 +56,11 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         break;
 
       case 'periode.beloep':
-        if (state.periode && state.periode[index]) {
-          state.periode[index].beloepError = v.message;
+        if (state.perioder && state.perioder[index]) {
+          state.perioder[index].beloepError = v.message;
         } else {
-          state.periode = state.periode ?? [];
-          state.periode[index] = {
+          state.perioder = state.perioder ?? [];
+          state.perioder[index] = {
             beloepError: v.message
           };
         }

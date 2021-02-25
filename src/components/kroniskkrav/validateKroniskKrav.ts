@@ -24,7 +24,7 @@ export const validateKroniskKrav = (state: KroniskKravState): KroniskKravState =
   }
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
 
-  nextState.periode?.forEach((aktuellPeriode) => {
+  nextState.perioder?.forEach((aktuellPeriode) => {
     aktuellPeriode.fraError = validateFra(aktuellPeriode.fra, !!state.validated);
     aktuellPeriode.tilError = validateTil(aktuellPeriode.fra, aktuellPeriode.til, !!state.validated);
     aktuellPeriode.dagerError = validateDager(aktuellPeriode.dager, !!state.validated);
@@ -41,7 +41,7 @@ export const validateKroniskKrav = (state: KroniskKravState): KroniskKravState =
     pushFeilmelding('orgnr', 'Virksomhetsnummer må fylles ut', feilmeldinger);
   }
 
-  nextState.periode?.forEach((aktuellPeriode) => {
+  nextState.perioder?.forEach((aktuellPeriode) => {
     if (aktuellPeriode.fraError) {
       pushFeilmelding('fra', 'Fra dato må fylles ut', feilmeldinger);
     }

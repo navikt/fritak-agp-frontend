@@ -157,7 +157,7 @@ describe('mapKroniskKravRequest', () => {
     ).toEqual({
       identitetsnummer: '123',
       virksomhetsnummer: '456',
-      periode: [
+      perioder: [
         {
           fom: '2020-02-01',
           tom: '2025-04-03',

@@ -9,8 +9,7 @@ import { v4 as uuid } from 'uuid';
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction): KroniskKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
-
-  nextState.periode = nextState.periode ? nextState.periode : [{ fra: {}, til: {}, uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder ? nextState.perioder : [{ fra: {}, til: {}, uniqueKey: uuid() }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -24,9 +23,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
     case Actions.Fra:
       if (payload?.periode !== undefined) {
         if (payload?.fra === undefined) {
-          nextState.periode[payload.periode].fra = undefined;
+          nextState.perioder[payload.periode].fra = undefined;
         } else {
-          nextState.periode[payload.periode].fra = parseDateTilDato(payload.fra);
+          nextState.perioder[payload.periode].fra = parseDateTilDato(payload.fra);
         }
       }
 
@@ -35,22 +34,22 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
     case Actions.Til:
       if (payload?.periode !== undefined) {
         if (payload?.til === undefined) {
-          nextState.periode[payload.periode].til = undefined;
+          nextState.perioder[payload.periode].til = undefined;
         } else {
-          nextState.periode[payload.periode].til = parseDateTilDato(payload.til);
+          nextState.perioder[payload.periode].til = parseDateTilDato(payload.til);
         }
       }
       return validateKroniskKrav(nextState);
 
     case Actions.Dager:
       if (payload?.periode !== undefined) {
-        nextState.periode[payload?.periode].dager = payload?.dager;
+        nextState.perioder[payload?.periode].dager = payload?.dager;
       }
       return validateKroniskKrav(nextState);
 
     case Actions.Beloep:
       if (payload?.periode !== undefined) {
-        nextState.periode[payload.periode].beloep = payload?.beloep;
+        nextState.perioder[payload.periode].beloep = payload?.beloep;
       }
       return validateKroniskKrav(nextState);
 
@@ -65,6 +64,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
     case Actions.Kvittering:
       nextState.kvittering = payload?.kvittering;
       return validateKroniskKrav(nextState);
+
+    case Actions.NotAuthorized:
+      nextState.notAuthorized = false;
+      return nextState;
 
     case Actions.Validate:
       nextState.validated = true;
@@ -100,14 +103,14 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
 
     case Actions.AddPeriod:
       const key = uuid();
-      nextState.periode = nextState.periode
-        ? [...nextState.periode, { fra: {}, til: {}, uniqueKey: key }]
+      nextState.perioder = nextState.perioder
+        ? [...nextState.perioder, { fra: {}, til: {}, uniqueKey: key }]
         : [{ fra: {}, til: {}, uniqueKey: key }];
       return nextState;
 
     case Actions.DeletePeriod:
       if (payload?.periode) {
-        nextState.periode.splice(payload?.periode, 1);
+        nextState.perioder.splice(payload?.periode, 1);
       }
 
       return nextState;

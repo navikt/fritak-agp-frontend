@@ -1,7 +1,7 @@
 export interface KroniskKravRequest {
   identitetsnummer: string;
   virksomhetsnummer: string;
-  periode: [Arbeidsgiverperiode];
+  perioder: [Arbeidsgiverperiode];
   bekreftet: boolean;
   dokumentasjon?: string;
   kontrollDager?: number;

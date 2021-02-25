@@ -1,11 +1,11 @@
 import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
-import { datoToString } from '../../utils/Dato';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
+import mapPeriodeData from './mapPeriodeData';
 
 export const mapKroniskKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  periode: Array<KroniskKravPeriode> | undefined,
+  perioder: Array<KroniskKravPeriode> | undefined,
   bekreft: boolean | undefined,
   kontrollDager: number | undefined
 ): KroniskKravRequest => {
@@ -16,8 +16,8 @@ export const mapKroniskKravRequest = (
     throw new Error('Orgnr må spesifiseres');
   }
 
-  if (periode) {
-    periode.forEach((enkeltPeriode) => {
+  if (perioder) {
+    perioder.forEach((enkeltPeriode) => {
       if (enkeltPeriode.fra?.error) {
         throw new Error('Fra må spesifiseres');
       }
@@ -36,22 +36,13 @@ export const mapKroniskKravRequest = (
     throw new Error('Bekreft må spesifiseres');
   }
 
-  const periodeData = periode ? mapPeriodeData(periode) : [];
+  const periodeData = perioder ? mapPeriodeData(perioder) : [];
 
   return {
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
-    periode: periodeData as [Arbeidsgiverperiode],
+    perioder: periodeData as [Arbeidsgiverperiode],
     bekreftet: bekreft,
     kontrollDager: kontrollDager
   };
-};
-
-const mapPeriodeData = (periode: KroniskKravPeriode[]) => {
-  return periode.map((enkeltPeriode) => ({
-    fom: datoToString(enkeltPeriode.fra),
-    tom: datoToString(enkeltPeriode.til),
-    antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
-    beloep: enkeltPeriode.beloep ?? 0
-  }));
 };

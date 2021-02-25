@@ -61,7 +61,7 @@ describe('KroniskKravReducer', () => {
       }
     });
 
-    expect(state.periode && state?.periode[0]?.fra?.value).toEqual('05.06.2020');
+    expect(state.perioder && state?.perioder[0]?.fra?.value).toEqual('05.06.2020');
   });
 
   it('should set the fra', () => {
@@ -69,13 +69,13 @@ describe('KroniskKravReducer', () => {
       type: Actions.Fra,
       payload: { fra: undefined, periode: 0 }
     });
-    expect(state.periode && state.periode[0]?.fra?.value).toBeUndefined();
+    expect(state.perioder && state.perioder[0]?.fra?.value).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
     expect(() => {
       let state: KroniskKravState = {
-        periode: [
+        perioder: [
           {
             fra: {
               value: '2020.05.06',
@@ -95,7 +95,7 @@ describe('KroniskKravReducer', () => {
         payload: { fra: undefined }
       });
 
-      expect(state.periode && state.periode[0].fra).toBeUndefined();
+      expect(state.perioder && state.perioder[0].fra).toBeUndefined();
     });
   });
 
@@ -107,12 +107,12 @@ describe('KroniskKravReducer', () => {
         periode: 0
       }
     });
-    expect(state.periode && state.periode[0].til?.value).toEqual('05.06.2020');
+    expect(state.perioder && state.perioder[0].til?.value).toEqual('05.06.2020');
   });
 
   it('should clear til when empty payload', () => {
     let state: KroniskKravState = {
-      periode: [
+      perioder: [
         {
           til: {
             value: '2020.05.06',
@@ -131,7 +131,7 @@ describe('KroniskKravReducer', () => {
       type: Actions.Til,
       payload: { til: undefined, periode: 0 }
     });
-    expect(state.periode && state.periode[0].til).toBeUndefined();
+    expect(state.perioder && state.perioder[0].til).toBeUndefined();
   });
 
   it('should set the dager', () => {
@@ -139,7 +139,7 @@ describe('KroniskKravReducer', () => {
       type: Actions.Dager,
       payload: { dager: 3, periode: 0 }
     });
-    expect(state.periode && state.periode[0].dager).toEqual(3);
+    expect(state.perioder && state.perioder[0].dager).toEqual(3);
   });
 
   it('should set the beløp', () => {
@@ -147,7 +147,7 @@ describe('KroniskKravReducer', () => {
       type: Actions.Beloep,
       payload: { beloep: 233, periode: 0 }
     });
-    expect(state.periode && state.periode[0].beloep).toEqual(233);
+    expect(state.perioder && state.perioder[0].beloep).toEqual(233);
   });
 
   it('should set the kvittering', () => {
@@ -273,14 +273,14 @@ describe('KroniskKravReducer', () => {
   it('should reset to defaults', () => {
     const defaultState = defaultKroniskKravState();
     let state = KroniskKravReducer(defaultState, { type: Actions.Reset });
-    expect(state.periode).not.toBeUndefined();
-    expect(defaultState.periode).not.toBeUndefined();
+    expect(state.perioder).not.toBeUndefined();
+    expect(defaultState.perioder).not.toBeUndefined();
 
-    expect(state.periode ? state.periode[0].uniqueKey : undefined).not.toBeUndefined();
-    expect(defaultState.periode ? defaultState.periode[0].uniqueKey : undefined).not.toBeUndefined();
+    expect(state.perioder ? state.perioder[0].uniqueKey : undefined).not.toBeUndefined();
+    expect(defaultState.perioder ? defaultState.perioder[0].uniqueKey : undefined).not.toBeUndefined();
 
-    if (state.periode) delete state.periode[0].uniqueKey;
-    if (defaultState.periode) delete defaultState.periode[0].uniqueKey;
+    if (state.perioder) delete state.perioder[0].uniqueKey;
+    if (defaultState.perioder) delete defaultState.perioder[0].uniqueKey;
     expect(state).toEqual(defaultState);
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toBeUndefined();

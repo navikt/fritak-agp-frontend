@@ -4,10 +4,9 @@ import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import Skillelinje from '../Skillelinje';
 import Fnr from '../Fnr';
-import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
-import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Link, Redirect } from 'react-router-dom';
 import lenker from '../lenker';
 import './KroniskKrav.scss';
@@ -21,13 +20,10 @@ import { Actions } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
-import SelectDager from '../felles/SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel';
 import Side from '../Side';
 import KontrollsporsmaalLonn from '../felles/KontrollsporsmaalLonn';
-import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import dayjs from 'dayjs';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
@@ -61,37 +57,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     });
   };
 
-  const fjernPeriode = (periode: number): void => {
-    dispatch({
-      type: Actions.DeletePeriod,
-      payload: {
-        periode: periode
-      }
-    });
-  };
-
-  const fraDatoValgt = (fraDato: Date, periode: number) => {
-    if (fraDato) {
-      getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
-        if (grunnbeloepRespons.grunnbeloep) {
-          dispatch({
-            type: Actions.Grunnbeloep,
-            payload: {
-              grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep
-            }
-          });
-        }
-      });
-    }
-    dispatch({
-      type: Actions.Fra,
-      payload: {
-        fra: fraDato,
-        periode: periode
-      }
-    });
-  };
-
   useEffect(() => {
     dispatch({
       type: Actions.Orgnr,
@@ -108,7 +73,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     ) {
       postKroniskKrav(
         environment.baseUrl,
-        mapKroniskKravRequest(state.fnr, state.orgnr, state.periode, state.bekreft, state.kontrollDager)
+        mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.kontrollDager)
       ).then((response) => {
         dispatch({
           type: Actions.HandleResponse,
@@ -121,7 +86,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.progress,
     state.feilmeldinger,
     state.submitting,
-    state.periode,
+    state.perioder,
     state.fnr,
     state.bekreft,
     state.orgnr,
@@ -193,7 +158,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
-              {state.periode?.map((enkeltPeriode, index) => (
+              {state.perioder?.map((enkeltPeriode, index) => (
                 <KravPeriode
                   dispatch={dispatch}
                   enkeltPeriode={enkeltPeriode}
