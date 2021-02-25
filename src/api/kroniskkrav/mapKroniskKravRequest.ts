@@ -1,5 +1,5 @@
 import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
-import { Dato, datoToString } from '../../utils/Dato';
+import { datoToString } from '../../utils/Dato';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
 
 export const mapKroniskKravRequest = (
@@ -36,12 +36,7 @@ export const mapKroniskKravRequest = (
     throw new Error('Bekreft må spesifiseres');
   }
 
-  const periodeData = periode?.map((enkeltPeriode) => ({
-    fom: datoToString(enkeltPeriode.fra),
-    tom: datoToString(enkeltPeriode.til),
-    antallDagerMedRefusjon: enkeltPeriode.dager,
-    beloep: enkeltPeriode.beloep
-  }));
+  const periodeData = periode ? mapPeriodeData(periode) : [];
 
   return {
     identitetsnummer: fnr,
@@ -50,4 +45,13 @@ export const mapKroniskKravRequest = (
     bekreftet: bekreft,
     kontrollDager: kontrollDager
   };
+};
+
+const mapPeriodeData = (periode: KroniskKravPeriode[]) => {
+  return periode.map((enkeltPeriode) => ({
+    fom: datoToString(enkeltPeriode.fra),
+    tom: datoToString(enkeltPeriode.til),
+    antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
+    beloep: enkeltPeriode.beloep ?? 0
+  }));
 };

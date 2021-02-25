@@ -1,6 +1,7 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { ValidationState } from '../../validation/ValidationState';
 import { Dato } from '../../utils/Dato';
+import { v4 as uuid } from 'uuid';
 
 export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravState => {
   return Object.assign(
@@ -9,7 +10,8 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
       periode: [
         {
           fra: {},
-          til: {}
+          til: {},
+          uniqueKey: uuid()
         }
       ],
       bekreft: false,
@@ -51,4 +53,5 @@ export interface KroniskKravPeriode {
   dagerError?: string;
   beloep?: number;
   beloepError?: string;
+  uniqueKey?: string;
 }

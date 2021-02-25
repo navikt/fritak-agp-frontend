@@ -27,4 +27,13 @@
             padding-top: 1rem;
         }
     } 
+
+    .periodewrapper {
+        position: relative;
+
+        .slett-periode {
+            position: absolute;
+            bottom: 0.5rem;
+        }
+    }
 }

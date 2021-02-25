@@ -4,12 +4,13 @@ import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
 import { parseDateTilDato } from '../../utils/Dato';
 import mapResponse from '../../api/mapResponse';
 import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
+import { v4 as uuid } from 'uuid';
 
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction): KroniskKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
 
-  nextState.periode = nextState.periode ?? [];
+  nextState.periode = nextState.periode ? nextState.periode : [{ fra: {}, til: {}, uniqueKey: uuid() }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -36,7 +37,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
         if (payload?.til === undefined) {
           nextState.periode[payload.periode].til = undefined;
         } else {
-          nextState.periode[payload.periode].til = parseDateTilDato(payload?.til);
+          nextState.periode[payload.periode].til = parseDateTilDato(payload.til);
         }
       }
       return validateKroniskKrav(nextState);
@@ -98,7 +99,17 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
       return nextState;
 
     case Actions.AddPeriod:
-      nextState.periode = nextState.periode ? [...nextState.periode, { fra: {}, til: {} }] : [{ fra: {}, til: {} }];
+      const key = uuid();
+      nextState.periode = nextState.periode
+        ? [...nextState.periode, { fra: {}, til: {}, uniqueKey: key }]
+        : [{ fra: {}, til: {}, uniqueKey: key }];
+      return nextState;
+
+    case Actions.DeletePeriod:
+      if (payload?.periode) {
+        nextState.periode.splice(payload?.periode, 1);
+      }
+
       return nextState;
 
     case Actions.Reset:

@@ -271,8 +271,11 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should reset to defaults', () => {
-    let state = KroniskKravReducer(defaultKroniskKravState(), { type: Actions.Reset });
-    expect(state).toEqual(defaultKroniskKravState());
+    const defaultState = defaultKroniskKravState();
+    let state = KroniskKravReducer(defaultState, { type: Actions.Reset });
+    if (state.periode) delete state.periode[0].uniqueKey;
+    if (defaultState.periode) delete defaultState.periode[0].uniqueKey;
+    expect(state).toEqual(defaultState);
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toBeUndefined();
     expect(state.progress).toBeUndefined();

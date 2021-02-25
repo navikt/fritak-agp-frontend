@@ -18,7 +18,7 @@ export const validateKroniskKrav = (state: KroniskKravState): KroniskKravState =
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   nextState.fnrError = validateFnr(state.fnr, state.validated);
-  nextState.bekreftError = state.bekreft == false ? 'Mangler bekreft' : '';
+  nextState.bekreftError = !state.bekreft ? 'Mangler bekreft' : '';
   if (state.fnr && !isValidFnr(state.fnr)) {
     nextState.fnrError = 'Ugyldig fødselsnummer';
   }
