@@ -1,4 +1,4 @@
-import { Actions, GravidKravAction, Payload } from './Actions';
+import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato } from '../../utils/Dato';

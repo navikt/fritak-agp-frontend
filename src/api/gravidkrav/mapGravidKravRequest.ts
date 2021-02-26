@@ -41,10 +41,10 @@ export const mapGravidKravRequest = (
       fom: datoToString(fra),
       tom: datoToString(til),
       antallDagerMedRefusjon: dager,
-      beloep: beloep,
-      kontrollDager: kontrollDager
+      beloep: beloep
     } as Arbeidsgiverperiode,
     dokumentasjon: dokumentasjon,
-    bekreftet: bekreft
+    bekreftet: bekreft,
+    kontrollDager: kontrollDager
   };
 };
