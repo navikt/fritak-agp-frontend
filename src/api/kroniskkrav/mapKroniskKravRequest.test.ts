@@ -123,6 +123,12 @@ describe('mapKroniskKravRequest', () => {
     }).toThrowError();
   });
 
+  it('should throw error when empty periode', () => {
+    expect(() => {
+      mapKroniskKravRequest('123', '123', undefined, true, 5);
+    }).toThrowError();
+  });
+
   it('should throw error when error in beløp', () => {
     const periode = [
       {
@@ -138,7 +144,7 @@ describe('mapKroniskKravRequest', () => {
     }).toThrowError();
   });
 
-  it('should not fail when fnr is 0', () => {
+  it('should not fail when fnr is 123', () => {
     expect(
       mapKroniskKravRequest(
         '123',
@@ -166,6 +172,38 @@ describe('mapKroniskKravRequest', () => {
         }
       ] as [Arbeidsgiverperiode],
       bekreftet: true
+    } as KroniskKravRequest);
+  });
+
+  it('should not fail when fnr is 123 and kontrollDager is 120', () => {
+    expect(
+      mapKroniskKravRequest(
+        '123',
+        '456',
+        [
+          {
+            fra: parseDato('01.02.2020'),
+            til: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
+        true,
+        120
+      )
+    ).toEqual({
+      identitetsnummer: '123',
+      virksomhetsnummer: '456',
+      perioder: [
+        {
+          fom: '2020-02-01',
+          tom: '2025-04-03',
+          antallDagerMedRefusjon: 5,
+          beloep: 3000
+        }
+      ] as [Arbeidsgiverperiode],
+      bekreftet: true,
+      kontrollDager: 120
     } as KroniskKravRequest);
   });
 });

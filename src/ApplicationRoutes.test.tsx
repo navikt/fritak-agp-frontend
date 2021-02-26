@@ -82,4 +82,18 @@ describe('ApplicationRoutes', () => {
     });
     expect(container.textContent).toContain('Søknaden er mottatt');
   });
+
+  it('should show kronisk krav', () => {
+    act(() => {
+      render(makeRoute('/kronisk/krav'), container);
+    });
+    expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYK ANSATT');
+    expect(container.textContent).toContain('Krav om refusjon av sykepenger i arbeidsgiverperioden');
+  });
+  it('should show kronisk krav kvittering', () => {
+    act(() => {
+      render(makeRoute('/kronisk/krav/kvittering'), container);
+    });
+    expect(container.textContent).toContain('Kravet er mottatt');
+  });
 });

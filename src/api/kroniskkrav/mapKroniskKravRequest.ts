@@ -16,22 +16,25 @@ export const mapKroniskKravRequest = (
     throw new Error('Orgnr må spesifiseres');
   }
 
-  if (perioder) {
-    perioder.forEach((enkeltPeriode) => {
-      if (enkeltPeriode.fra?.error) {
-        throw new Error('Fra må spesifiseres');
-      }
-      if (enkeltPeriode.til?.error) {
-        throw new Error('Til må spesifiseres');
-      }
-      if (enkeltPeriode.dager === undefined) {
-        throw new Error('Dager må spesifiseres');
-      }
-      if (enkeltPeriode.beloep === undefined) {
-        throw new Error('Beløp må spesifiseres');
-      }
-    });
+  if (!perioder) {
+    throw new Error('Perioder må spesifiseres');
   }
+
+  perioder.forEach((enkeltPeriode) => {
+    if (enkeltPeriode.fra?.error) {
+      throw new Error('Fra må spesifiseres');
+    }
+    if (enkeltPeriode.til?.error) {
+      throw new Error('Til må spesifiseres');
+    }
+    if (enkeltPeriode.dager === undefined) {
+      throw new Error('Dager må spesifiseres');
+    }
+    if (enkeltPeriode.beloep === undefined) {
+      throw new Error('Beløp må spesifiseres');
+    }
+  });
+
   if (!bekreft) {
     throw new Error('Bekreft må spesifiseres');
   }
