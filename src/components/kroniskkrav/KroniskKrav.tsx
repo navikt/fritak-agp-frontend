@@ -128,7 +128,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                     fnr={state.fnr}
                     placeholder='11 siffer'
                     feilmelding={state.fnrError}
-                    onValidate={() => {}}
                     onChange={(fnr: string) =>
                       dispatch({
                         type: Actions.Fnr,
