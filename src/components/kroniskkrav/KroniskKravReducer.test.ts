@@ -1,6 +1,6 @@
 import KroniskKravReducer from './KroniskKravReducer';
 import { Actions } from './Actions';
-import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
+import { defaultKroniskKravState } from './KroniskKravState';
 import ValidationResponse from '../../api/ValidationResponse';
 
 describe('KroniskKravReducer', () => {
@@ -74,23 +74,7 @@ describe('KroniskKravReducer', () => {
 
   it('should clear fra when empty payload', () => {
     expect(() => {
-      let state: KroniskKravState = {
-        perioder: [
-          {
-            fra: {
-              value: '2020.05.06',
-              error: undefined,
-              year: 2020,
-              month: 5,
-              day: 6,
-              millis: 1234512344
-            }
-          }
-        ],
-        feilmeldinger: []
-      };
-
-      state = KroniskKravReducer(defaultKroniskKravState(), {
+      const state = KroniskKravReducer(defaultKroniskKravState(), {
         type: Actions.Fra,
         payload: { fra: undefined }
       });
@@ -111,23 +95,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should clear til when empty payload', () => {
-    let state: KroniskKravState = {
-      perioder: [
-        {
-          til: {
-            value: '2020.05.06',
-            error: undefined,
-            year: 2020,
-            month: 5,
-            day: 6,
-            millis: 1234512344
-          }
-        }
-      ],
-      feilmeldinger: []
-    };
-
-    state = KroniskKravReducer(defaultKroniskKravState(), {
+    const state = KroniskKravReducer(defaultKroniskKravState(), {
       type: Actions.Til,
       payload: { til: undefined, periode: 0 }
     });

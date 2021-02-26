@@ -1,4 +1,4 @@
-import { Actions, KroniskKravAction, Payload } from './Actions';
+import { Actions, KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
 import { parseDateTilDato } from '../../utils/Dato';
