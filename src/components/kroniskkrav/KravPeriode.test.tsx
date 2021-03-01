@@ -34,10 +34,11 @@ describe('KravPeriode', () => {
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
   });
 
-  it('should show second row', async () => {
+  it('should show a random row', async () => {
     const mockDispatch = jest.fn();
+    const randomRow = Math.floor(Math.random() * 1000) + 1;
 
-    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} />);
+    render(<KravPeriode dispatch={mockDispatch} index={randomRow} enkeltPeriode={enkeltPeriode} />);
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
