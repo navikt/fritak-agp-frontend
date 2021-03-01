@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const SelectDager = (props) => {
   const keyUuid = uuidv4();
-  const dager: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  const dager: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
   return (
     <Select {...props}>
       {dager.map((dag) => (
