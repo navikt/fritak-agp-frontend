@@ -5,7 +5,9 @@ import GravidKvittering from './components/gravid/GravidKvittering';
 import KroniskSide from './components/kronisk/KroniskSide';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
 import GravidKrav from './components/gravidkrav/GravidKrav';
+import KroniskKrav from './components/kroniskkrav/KroniskKrav';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
+import KravKvittering from './components/kravkvittering/KravKvittering';
 import Forside from './components/Forside';
 import React from 'react';
 
@@ -18,6 +20,8 @@ export const ApplicationRoutes = () => (
       <Route path={lenker.KroniskKvittering} render={() => <KroniskKvittering />} />
       <Route path={lenker.GravidKravKvittering} exact={true} render={() => <GravidKvittering />} />
       <Route path={lenker.GravidKrav} exact={true} render={() => <GravidKrav />} />
+      <Route path={lenker.KroniskKravKvittering} exact={true} render={() => <KravKvittering />} />
+      <Route path={lenker.KroniskKrav} exact={true} render={() => <KroniskKrav />} />
       <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
       <Route path={lenker.Home} render={() => <Forside />} />
     </Switch>

@@ -13,7 +13,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       );
     }).toThrowError();
   });
@@ -28,7 +29,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       );
     }).toThrowError();
   });
@@ -43,7 +45,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       );
     }).toThrowError();
   });
@@ -58,7 +61,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
@@ -73,7 +77,8 @@ describe('mapGravidKravRequest', () => {
         undefined,
         3000,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
@@ -88,7 +93,8 @@ describe('mapGravidKravRequest', () => {
         2,
         undefined,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
@@ -103,7 +109,8 @@ describe('mapGravidKravRequest', () => {
         2,
         555,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).not.toThrowError();
   });
@@ -118,7 +125,8 @@ describe('mapGravidKravRequest', () => {
         2,
         33,
         'dokumentasjon',
-        undefined
+        undefined,
+        5
       );
     }).toThrowError();
   });
@@ -133,12 +141,13 @@ describe('mapGravidKravRequest', () => {
         2,
         undefined,
         'dokumentasjon',
-        true
+        true,
+        5
       );
     }).toThrowError();
   });
 
-  it('should not fail when fnr is 0', () => {
+  it('should not fail when fnr is 123', () => {
     expect(
       mapGravidKravRequest(
         '123',
@@ -148,7 +157,8 @@ describe('mapGravidKravRequest', () => {
         5,
         3000,
         'dokumentasjon',
-        true
+        true,
+        undefined
       )
     ).toEqual({
       identitetsnummer: '123',
@@ -161,6 +171,34 @@ describe('mapGravidKravRequest', () => {
       } as Arbeidsgiverperiode,
       dokumentasjon: 'dokumentasjon',
       bekreftet: true
+    } as GravidKravRequest);
+  });
+
+  it('should not fail when fnr is 123 and we have kontrollDager', () => {
+    expect(
+      mapGravidKravRequest(
+        '123',
+        '456',
+        parseDato('01.02.2020'),
+        parseDato('03.04.2025'),
+        5,
+        3000,
+        'dokumentasjon',
+        true,
+        120
+      )
+    ).toEqual({
+      identitetsnummer: '123',
+      virksomhetsnummer: '456',
+      periode: {
+        fom: '2020-02-01',
+        tom: '2025-04-03',
+        antallDagerMedRefusjon: 5,
+        beloep: 3000
+      } as Arbeidsgiverperiode,
+      dokumentasjon: 'dokumentasjon',
+      bekreftet: true,
+      kontrollDager: 120
     } as GravidKravRequest);
   });
 });

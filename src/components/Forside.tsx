@@ -23,6 +23,9 @@ const Forside = () => {
           <Normaltekst>
             Gå til skjema for <Link to={lenker.Kronisk}>kronisk syke</Link>
           </Normaltekst>
+          <Normaltekst>
+            Gå til skjema for <Link to={lenker.KroniskKrav}>kronisk syke krav</Link>
+          </Normaltekst>
         </Column>
       </Row>
     </Side>

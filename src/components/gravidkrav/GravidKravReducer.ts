@@ -1,9 +1,10 @@
-import { Actions, GravidKravAction, Payload } from './Actions';
+import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato } from '../../utils/Dato';
 import mapResponse from '../../api/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
+import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
   const nextState = Object.assign({}, state);
@@ -98,13 +99,3 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
 };
 
 export default GravidKravReducer;
-
-function setGrunnbeloep(payload: Payload | undefined, nextState: GravidKravState) {
-  if (payload?.grunnbeloep) {
-    const aarsGrunnbeloep = payload.grunnbeloep * 6;
-    const dagsGrunnbeloep = aarsGrunnbeloep / 260;
-    nextState.gDagsbeloep = dagsGrunnbeloep;
-  } else {
-    nextState.gDagsbeloep = undefined;
-  }
-}

@@ -7,7 +7,7 @@ interface FnrProps {
   feilmelding?: string;
   placeholder: string;
   onChange: (fnr: string) => void;
-  onValidate: (valid: boolean) => void;
+  onValidate?: (valid: boolean) => void;
 }
 
 const Fnr = (props: FnrProps) => {
@@ -17,7 +17,7 @@ const Fnr = (props: FnrProps) => {
       placeholder={props.placeholder}
       id='ansatteFeilmeldingId'
       label={props.label}
-      onValidate={(valid) => props.onValidate(valid)}
+      onValidate={(valid) => (props.onValidate ? props.onValidate(valid) : null)}
       onChange={(evt) => props.onChange(evt.target.value)}
       feil={props.feilmelding}
     />

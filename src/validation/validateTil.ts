@@ -1,4 +1,4 @@
-import { Dato } from '../../utils/Dato';
+import { Dato } from '../utils/Dato';
 
 export const validateTil = (fra: Dato | undefined, til: Dato | undefined, required: boolean): string | undefined => {
   if (!fra || !til) {
@@ -18,3 +18,5 @@ export const validateTil = (fra: Dato | undefined, til: Dato | undefined, requir
     return 'Til dato kan ikke være før fra dato';
   }
 };
+
+export default validateTil;

@@ -1,0 +1,39 @@
+.kroniskkrav {
+    .krav-padding-hjelpetekst {
+        margin-left: 1rem;
+        position: absolute;
+    }
+
+    .datoelement {
+        width: 100%;
+    }
+
+    .kroniskkrav-datolabel {
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .kroniskkrav-label-dato,
+    .skjemagruppe .skjemaelement {
+        margin-bottom: 0;
+    }
+
+    .hide-labels {
+        label {
+            display: none;
+        }
+
+        .skjemaelement {
+            padding-top: 1rem;
+        }
+    } 
+
+    .periodewrapper {
+        position: relative;
+
+        .slett-periode {
+            position: absolute;
+            bottom: 0.5rem;
+        }
+    }
+}

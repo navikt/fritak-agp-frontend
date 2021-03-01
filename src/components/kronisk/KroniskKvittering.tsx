@@ -34,7 +34,7 @@ const KroniskKvittering = () => {
 
           <Panel>
             <div>
-              <InternLenke to={lenker.Kronisk_Krav}>Send krav om refusjon</InternLenke>
+              <InternLenke to={lenker.KroniskKrav}>Send krav om refusjon</InternLenke>
             </div>
             <div>
               <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>

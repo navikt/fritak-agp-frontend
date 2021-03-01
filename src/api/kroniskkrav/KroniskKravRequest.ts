@@ -1,7 +1,7 @@
-export interface GravidKravRequest {
+export interface KroniskKravRequest {
   identitetsnummer: string;
   virksomhetsnummer: string;
-  periode: Arbeidsgiverperiode;
+  perioder: [Arbeidsgiverperiode];
   bekreftet: boolean;
   dokumentasjon?: string;
   kontrollDager?: number;
@@ -13,3 +13,5 @@ export interface Arbeidsgiverperiode {
   antallDagerMedRefusjon: number;
   beloep: number;
 }
+
+export default KroniskKravRequest;
