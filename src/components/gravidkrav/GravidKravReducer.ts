@@ -11,14 +11,17 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
   const { payload } = action;
   switch (action.type) {
     case Actions.Fnr:
+      cancelSubmit(nextState);
       nextState.fnr = payload?.fnr;
       return validateGravidKrav(nextState);
 
     case Actions.Orgnr:
+      cancelSubmit(nextState);
       nextState.orgnr = payload?.orgnr;
       return validateGravidKrav(nextState);
 
     case Actions.Fra:
+      cancelSubmit(nextState);
       if (payload?.fra === undefined) {
         nextState.til = undefined;
       } else {
@@ -27,6 +30,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       return validateGravidKrav(nextState);
 
     case Actions.Til:
+      cancelSubmit(nextState);
       if (payload?.til === undefined) {
         nextState.til = undefined;
       } else {
@@ -35,18 +39,22 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       return validateGravidKrav(nextState);
 
     case Actions.Dager:
+      cancelSubmit(nextState);
       nextState.dager = payload?.dager;
       return validateGravidKrav(nextState);
 
     case Actions.Beloep:
+      cancelSubmit(nextState);
       nextState.beloep = payload?.beloep;
       return validateGravidKrav(nextState);
 
     case Actions.Dokumentasjon:
+      cancelSubmit(nextState);
       nextState.dokumentasjon = payload?.dokumentasjon;
       return validateGravidKrav(nextState);
 
     case Actions.Bekreft:
+      cancelSubmit(nextState);
       nextState.bekreft = payload?.bekreft;
       return validateGravidKrav(nextState);
 
@@ -99,3 +107,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
 };
 
 export default GravidKravReducer;
+
+const cancelSubmit = (state: GravidKravState) => {
+  state.submitting = false;
+  return state;
+};

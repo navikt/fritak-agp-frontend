@@ -14,14 +14,17 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
 
   switch (action.type) {
     case Actions.Fnr:
+      cancelSubmit(nextState);
       nextState.fnr = payload?.fnr;
       return validateKroniskKrav(nextState);
 
     case Actions.Orgnr:
+      cancelSubmit(nextState);
       nextState.orgnr = payload?.orgnr;
       return validateKroniskKrav(nextState);
 
     case Actions.Fra:
+      cancelSubmit(nextState);
       if (payload?.periode !== undefined) {
         if (payload?.fra === undefined) {
           nextState.perioder[payload.periode].fra = undefined;
@@ -33,6 +36,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
       return validateKroniskKrav(nextState);
 
     case Actions.Til:
+      cancelSubmit(nextState);
       if (payload?.periode !== undefined) {
         if (payload?.til === undefined) {
           nextState.perioder[payload.periode].til = undefined;
@@ -43,18 +47,21 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
       return validateKroniskKrav(nextState);
 
     case Actions.Dager:
+      cancelSubmit(nextState);
       if (payload?.periode !== undefined) {
         nextState.perioder[payload?.periode].dager = payload?.dager;
       }
       return validateKroniskKrav(nextState);
 
     case Actions.Beloep:
+      cancelSubmit(nextState);
       if (payload?.periode !== undefined) {
         nextState.perioder[payload.periode].beloep = payload?.beloep;
       }
       return validateKroniskKrav(nextState);
 
     case Actions.Bekreft:
+      cancelSubmit(nextState);
       nextState.bekreft = payload?.bekreft;
       return validateKroniskKrav(nextState);
 
@@ -125,3 +132,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
 };
 
 export default KroniskKravReducer;
+
+const cancelSubmit = (state: KroniskKravState) => {
+  state.submitting = false;
+  return state;
+};
