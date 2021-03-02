@@ -80,7 +80,7 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/gravid/krav/kvittering'), container);
     });
-    expect(container.textContent).toContain('Søknaden er mottatt');
+    expect(container.textContent).toContain('Kravet er mottatt');
   });
 
   it('should show kronisk krav', () => {
