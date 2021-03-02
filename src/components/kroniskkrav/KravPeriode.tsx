@@ -50,7 +50,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
       }
     });
   };
-  console.log(props.enkeltPeriode);
 
   return (
     <Row className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}>
