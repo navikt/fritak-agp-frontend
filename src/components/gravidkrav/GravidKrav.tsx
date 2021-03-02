@@ -217,6 +217,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                     onChange={(fraDato: Date) => {
                       fraDatoValgt(fraDato);
                     }}
+                    feilmelding={state.fraError}
                   />
                 </Column>
                 <Column sm='3' xs='6'>
@@ -229,6 +230,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                         payload: { til: tilDate }
                       });
                     }}
+                    feilmelding={state.tilError}
                   />
                 </Column>
                 <Column sm='3' xs='6'>
@@ -249,6 +251,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                         }
                       })
                     }
+                    feil={state.dagerError}
                   />
                 </Column>
                 <Column sm='3' xs='6'>
@@ -287,6 +290,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                         }
                       })
                     }
+                    feil={state.beloepError}
                   />
                 </Column>
               </Row>

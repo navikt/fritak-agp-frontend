@@ -25,7 +25,11 @@ describe('validateTil', () => {
     expect(validateTil(undefined, parseDato('03.04.2020'), true)).toBeUndefined();
   });
 
-  it('should not show errors when til is undefined', () => {
-    expect(validateTil(parseDato('03.04.2020'), undefined, true)).toBeUndefined();
+  // it('should not show errors when til is undefined', () => {
+  //   expect(validateTil(parseDato('03.04.2020'), undefined, true)).toBeUndefined();
+  // });
+
+  it('should show error when til is undefined', () => {
+    expect(validateTil(parseDato('03.04.2020'), undefined, true)).not.toBeUndefined();
   });
 });

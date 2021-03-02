@@ -6,6 +6,7 @@ import Lenke from 'nav-frontend-lenker';
 import { Input, Label } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
+import { isPropertySignature } from 'typescript';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager';
 import { Actions } from './Actions';
@@ -50,6 +51,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
       }
     });
   };
+  console.log(props.enkeltPeriode);
 
   return (
     <Row className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}>
@@ -60,6 +62,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           onChange={(fraDato: Date) => {
             fraDatoValgt(fraDato, props.index);
           }}
+          feilmelding={props.enkeltPeriode.fraError}
         />
       </Column>
       <Column sm='3' xs='6'>
@@ -75,6 +78,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               }
             });
           }}
+          feilmelding={props.enkeltPeriode.tilError}
         />
       </Column>
       <Column sm='2' xs='6'>
@@ -96,6 +100,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               }
             })
           }
+          feil={props.enkeltPeriode.dagerError}
         />
       </Column>
       <Column sm='2' xs='6'>
@@ -130,11 +135,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
             dispatch({
               type: Actions.Beloep,
               payload: {
-                beloep: Number(event.currentTarget.value.replace(',', '.')),
+                beloep: event.currentTarget.value ? Number(event.currentTarget.value.replace(',', '.')) : undefined,
                 periode: props.index
               }
             })
           }
+          feil={props.enkeltPeriode.beloepError}
         />
       </Column>
       <Column>
