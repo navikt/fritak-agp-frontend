@@ -5,23 +5,24 @@ import { parseDateTilDato } from '../../utils/Dato';
 import mapResponse from '../../api/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
+import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {
     case Actions.Fnr:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       nextState.fnr = payload?.fnr;
       return validateGravidKrav(nextState);
 
     case Actions.Orgnr:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       nextState.orgnr = payload?.orgnr;
       return validateGravidKrav(nextState);
 
     case Actions.Fra:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       if (payload?.fra === undefined) {
         nextState.til = undefined;
       } else {
@@ -30,7 +31,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       return validateGravidKrav(nextState);
 
     case Actions.Til:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       if (payload?.til === undefined) {
         nextState.til = undefined;
       } else {
@@ -39,22 +40,22 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       return validateGravidKrav(nextState);
 
     case Actions.Dager:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       nextState.dager = payload?.dager;
       return validateGravidKrav(nextState);
 
     case Actions.Beloep:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       nextState.beloep = payload?.beloep;
       return validateGravidKrav(nextState);
 
     case Actions.Dokumentasjon:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       nextState.dokumentasjon = payload?.dokumentasjon;
       return validateGravidKrav(nextState);
 
     case Actions.Bekreft:
-      cancelSubmit(nextState);
+      nextState.submitting = false;
       nextState.bekreft = payload?.bekreft;
       return validateGravidKrav(nextState);
 
@@ -69,6 +70,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
     case Actions.Validate:
       nextState.validated = true;
       const validatedState = validateGravidKrav(nextState);
+      validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(nextState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
@@ -107,8 +109,3 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
 };
 
 export default GravidKravReducer;
-
-const cancelSubmit = (state: GravidKravState) => {
-  state.submitting = false;
-  return state;
-};

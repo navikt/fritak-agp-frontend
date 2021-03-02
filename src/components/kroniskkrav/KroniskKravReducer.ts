@@ -6,6 +6,7 @@ import mapResponse from '../../api/mapResponse';
 import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import setGrunnbeloep from './setGrunnbeloep';
+import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction): KroniskKravState => {
   const nextState = Object.assign({}, state);
@@ -80,6 +81,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
     case Actions.Validate:
       nextState.validated = true;
       const validatedState = validateKroniskKrav(nextState);
+      validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(validatedState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
@@ -132,8 +134,3 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction):
 };
 
 export default KroniskKravReducer;
-
-const cancelSubmit = (state: KroniskKravState) => {
-  state.submitting = false;
-  return state;
-};
