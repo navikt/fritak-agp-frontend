@@ -6,7 +6,6 @@ import Lenke from 'nav-frontend-lenker';
 import { Input, Label } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
-import { isPropertySignature } from 'typescript';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager';
 import { Actions } from './Actions';
