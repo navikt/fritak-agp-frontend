@@ -8,65 +8,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testFnr from '../../mockData/testFnr';
+import testOrganisasjon from '../../mockData/testOrganisasjoner';
 
-const arbeidsgivere: Organisasjon[] = [
-  {
-    Name: 'ANSTENDIG BJØRN KOMMUNE',
-    Type: 'Enterprise',
-    ParentOrganizationNumber: 'null',
-    OrganizationForm: 'KOMM',
-    OrganizationNumber: '810007672',
-    Status: 'Active'
-  },
-  {
-    Name: 'ANSTENDIG PIGGSVIN BRANNVESEN',
-    Type: 'Business',
-    ParentOrganizationNumber: '810007702',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '810008032',
-    Status: 'Active'
-  },
-  {
-    Name: 'ANSTENDIG PIGGSVIN BARNEHAGE',
-    Type: 'Business',
-    ParentOrganizationNumber: '810007702',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '810007842',
-    Status: 'Active'
-  },
-  {
-    Name: 'ANSTENDIG PIGGSVIN BYDEL',
-    Type: 'Enterprise',
-    ParentOrganizationNumber: 'null',
-    OrganizationForm: 'ORGL',
-    OrganizationNumber: '810007702',
-    Status: 'Active'
-  },
-  {
-    Name: 'ANSTENDIG PIGGSVIN SYKEHJEM',
-    Type: 'Business',
-    ParentOrganizationNumber: '810007702',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '810007982',
-    Status: 'Active'
-  },
-  {
-    Name: 'SKOPPUM OG SANDØY',
-    Type: 'Business',
-    ParentOrganizationNumber: 'null',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '911206722',
-    Status: 'Active'
-  },
-  {
-    Name: 'SKJERSTAD OG KJØRSVIKBUGEN',
-    Type: 'Enterprise',
-    ParentOrganizationNumber: 'null',
-    OrganizationForm: 'AS',
-    OrganizationNumber: '911212218',
-    Status: 'Active'
-  }
-];
+const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 
 describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {

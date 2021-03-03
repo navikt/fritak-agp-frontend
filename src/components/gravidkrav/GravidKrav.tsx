@@ -32,6 +32,7 @@ import KontrollsporsmaalLonn from '../felles/KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import stringishToNumber from '../../utils/stringishToNumber';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -247,7 +248,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                       dispatch({
                         type: Actions.Dager,
                         payload: {
-                          dager: event.currentTarget.value ? Number(event.currentTarget.value) : undefined
+                          dager: stringishToNumber(event.currentTarget.value)
                         }
                       })
                     }
@@ -286,9 +287,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                       dispatch({
                         type: Actions.Beloep,
                         payload: {
-                          beloep: event.currentTarget.value
-                            ? Number(event.currentTarget.value.replace(',', '.'))
-                            : undefined
+                          beloep: stringishToNumber(event.currentTarget.value)
                         }
                       })
                     }

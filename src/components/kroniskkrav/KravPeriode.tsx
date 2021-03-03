@@ -11,6 +11,7 @@ import SelectDager from '../felles/SelectDager';
 import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
+import stringishToNumber from '../../utils/stringishToNumber';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -97,7 +98,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             dispatch({
               type: Actions.Dager,
               payload: {
-                dager: event.currentTarget.value ? Number(event.currentTarget.value) : undefined,
+                dager: stringishToNumber(event.currentTarget.value),
                 periode: props.index
               }
             })
@@ -137,7 +138,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             dispatch({
               type: Actions.Beloep,
               payload: {
-                beloep: event.currentTarget.value ? Number(event.currentTarget.value.replace(',', '.')) : undefined,
+                beloep: stringishToNumber(event.currentTarget.value),
                 periode: props.index
               }
             })
