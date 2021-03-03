@@ -8,6 +8,12 @@ import GravidKrav from './components/gravidkrav/GravidKrav';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import Forside from './components/Forside';
 import React from 'react';
+import {
+  NotifikasjonSideGravidKrav,
+  NotifikasjonSideGravidSoknad,
+  NotifikasjonSideKroniskKrav,
+  NotifikasjonSideKroniskSoknad
+} from './components/notifikasjon/NotifikasjonController';
 
 export const ApplicationRoutes = () => (
   <div className='application-routes'>
@@ -19,6 +25,10 @@ export const ApplicationRoutes = () => (
       <Route path={lenker.GravidKravKvittering} exact={true} render={() => <GravidKvittering />} />
       <Route path={lenker.GravidKrav} exact={true} render={() => <GravidKrav />} />
       <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
+      <Route path={lenker.NotifikasjonGravidSoknad} render={() => <NotifikasjonSideGravidSoknad />} />
+      <Route path={lenker.NotifikasjonGravidKrav} render={() => <NotifikasjonSideGravidKrav />} />
+      <Route path={lenker.NotifikasjonKroniskSoknad} render={() => <NotifikasjonSideKroniskSoknad />} />
+      <Route path={lenker.NotifikasjonKroniskKrav} render={() => <NotifikasjonSideKroniskKrav />} />
       <Route path={lenker.Home} render={() => <Forside />} />
     </Switch>
   </div>
