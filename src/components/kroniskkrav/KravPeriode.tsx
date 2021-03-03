@@ -10,6 +10,7 @@ import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager';
 import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
+import './KravPeriode.scss';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -52,7 +53,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
   };
 
   return (
-    <Row className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}>
+    <Row
+      className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}
+      data-testid='krav-periode-wrapper'
+    >
       <Column sm='3' xs='6'>
         <DatoVelger
           id={`fra-dato-${props.index}`}

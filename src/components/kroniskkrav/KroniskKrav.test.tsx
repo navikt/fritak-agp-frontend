@@ -1,16 +1,78 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
+import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import testFnr from '../../mockData/testFnr';
+
+const arbeidsgivere: Organisasjon[] = [
+  {
+    Name: 'ANSTENDIG BJØRN KOMMUNE',
+    Type: 'Enterprise',
+    ParentOrganizationNumber: 'null',
+    OrganizationForm: 'KOMM',
+    OrganizationNumber: '810007672',
+    Status: 'Active'
+  },
+  {
+    Name: 'ANSTENDIG PIGGSVIN BRANNVESEN',
+    Type: 'Business',
+    ParentOrganizationNumber: '810007702',
+    OrganizationForm: 'BEDR',
+    OrganizationNumber: '810008032',
+    Status: 'Active'
+  },
+  {
+    Name: 'ANSTENDIG PIGGSVIN BARNEHAGE',
+    Type: 'Business',
+    ParentOrganizationNumber: '810007702',
+    OrganizationForm: 'BEDR',
+    OrganizationNumber: '810007842',
+    Status: 'Active'
+  },
+  {
+    Name: 'ANSTENDIG PIGGSVIN BYDEL',
+    Type: 'Enterprise',
+    ParentOrganizationNumber: 'null',
+    OrganizationForm: 'ORGL',
+    OrganizationNumber: '810007702',
+    Status: 'Active'
+  },
+  {
+    Name: 'ANSTENDIG PIGGSVIN SYKEHJEM',
+    Type: 'Business',
+    ParentOrganizationNumber: '810007702',
+    OrganizationForm: 'BEDR',
+    OrganizationNumber: '810007982',
+    Status: 'Active'
+  },
+  {
+    Name: 'SKOPPUM OG SANDØY',
+    Type: 'Business',
+    ParentOrganizationNumber: 'null',
+    OrganizationForm: 'BEDR',
+    OrganizationNumber: '911206722',
+    Status: 'Active'
+  },
+  {
+    Name: 'SKJERSTAD OG KJØRSVIKBUGEN',
+    Type: 'Enterprise',
+    ParentOrganizationNumber: 'null',
+    OrganizationForm: 'AS',
+    OrganizationNumber: '911212218',
+    Status: 'Active'
+  }
+];
 
 describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
       <MemoryRouter>
-        <ArbeidsgiverProvider>
+        <ArbeidsgiverProvider baseUrl='/base/url'>
           <KroniskKrav />
         </ArbeidsgiverProvider>
       </MemoryRouter>
@@ -20,5 +82,76 @@ describe('KroniskKrav', () => {
     expect(results).toHaveNoViolations();
 
     cleanup();
+  });
+
+  it('should show warnings when input is missing', () => {
+    render(
+      <MemoryRouter>
+        <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={200} arbeidsgiverId='810007842' baseUrl='/base/url'>
+          <KroniskKrav />
+        </ArbeidsgiverProvider>
+      </MemoryRouter>
+    );
+    const submitButton = screen.getByText(/Send kravet/);
+
+    submitButton.click();
+
+    expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler fra dato/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler til dato/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler dager/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler beløp/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
+
+    expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Fra dato må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Til dato må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Dager må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Beløp må fylles ut/)).toBeInTheDocument();
+  });
+
+  it('should show warnings when input is missing, and the warning should dissapear when fixed', () => {
+    render(
+      <MemoryRouter>
+        <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={200} arbeidsgiverId='810007842' baseUrl='/base/url'>
+          <KroniskKrav />
+        </ArbeidsgiverProvider>
+      </MemoryRouter>
+    );
+    const submitButton = screen.getByText(/Send kravet/);
+    const fnrInput = screen.getByLabelText(/Fødselsnummer/);
+    const selectDager = screen.queryAllByLabelText(/Antall dager/)[1];
+    const BelopInput = screen.queryAllByLabelText(/Beløp/)[1];
+    const bekreftCheckbox = screen.getByText(/Jeg bekrefter at/);
+
+    submitButton.click();
+
+    expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler fra dato/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler til dato/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler dager/)).toBeInTheDocument();
+    expect(screen.getByText(/Mangler beløp/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
+
+    expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Fra dato må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Til dato må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Dager må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/Beløp må fylles ut/)).toBeInTheDocument();
+
+    userEvent.type(fnrInput, testFnr.GyldigeFraDolly.TestPerson1);
+    expect(screen.queryByText(/Mangler fødselsnummer/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Fødselsnummer må fylles ut/)).not.toBeInTheDocument();
+
+    userEvent.selectOptions(selectDager, '3');
+    expect(screen.queryByText(/Mangler dager/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
+
+    userEvent.type(BelopInput, '123');
+    expect(screen.queryByText(/Mangler beløp/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Beløp må fylles ut/)).not.toBeInTheDocument();
+
+    userEvent.click(bekreftCheckbox);
+    expect(screen.queryByText(/Bekreft at opplysningene er korrekt/)).not.toBeInTheDocument();
   });
 });
