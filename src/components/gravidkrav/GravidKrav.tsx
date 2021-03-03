@@ -77,7 +77,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const fraDatoValgt = (fraDato: Date) => {
+  const fraDatoValgt = (fraDato?: Date) => {
     if (fraDato) {
       getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
         if (grunnbeloepRespons.grunnbeloep) {

@@ -21,7 +21,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
 
     case Actions.Fra:
       if (payload?.fra === undefined) {
-        nextState.til = undefined;
+        nextState.fra = undefined;
       } else {
         nextState.fra = parseDateTilDato(payload?.fra);
       }
