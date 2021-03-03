@@ -1,14 +1,9 @@
 import { NotifikasjonPayload } from './NotifikasjonPayload';
+import Actions from './Actions';
 
 export interface NotifikasjonAction {
   type: Actions;
   payload?: NotifikasjonPayload;
-}
-
-export enum Actions {
-  Reset,
-  HandleResponse,
-  HandleError
 }
 
 export default NotifikasjonAction;

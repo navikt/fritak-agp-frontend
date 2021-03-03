@@ -1,26 +1,14 @@
 import React, { useEffect, useReducer } from 'react';
 import GetHandler from '../../api/fetch/GetHandler';
-import NotifikasjonReducer from './NotifikasjonReducer';
+import NotifikasjonReducer from './state/NotifikasjonReducer';
 import SideRamme from '../SideRamme';
-import NotifikasjonType from './NotifikasjonType';
-import getNotifikasjonUrl from './getNotifikasjonUrl';
-import { defaultNotitikasjonState, NotifikasjonState } from './NotifikasjonState';
-import { Actions, NotifikasjonAction } from './NotifikasjonAction';
+import NotifikasjonType from './felles/NotifikasjonType';
+import getNotifikasjonUrl from './utils/getNotifikasjonUrl';
+import { defaultNotitikasjonState, NotifikasjonState } from './state/NotifikasjonState';
+import { NotifikasjonAction } from './state/NotifikasjonAction';
 import { useParams } from 'react-router-dom';
 import NotifikasjonView from './NotifikasjonView';
-
-export const NotifikasjonSideGravidSoknad = () => (
-  <NotifikasjonController notifikasjonType={NotifikasjonType.GravidSoknad} />
-);
-export const NotifikasjonSideGravidKrav = () => (
-  <NotifikasjonController notifikasjonType={NotifikasjonType.GravidSoknad} />
-);
-export const NotifikasjonSideKroniskSoknad = () => (
-  <NotifikasjonController notifikasjonType={NotifikasjonType.GravidSoknad} />
-);
-export const NotifikasjonSideKroniskKrav = () => (
-  <NotifikasjonController notifikasjonType={NotifikasjonType.GravidSoknad} />
-);
+import Actions from './state/Actions';
 
 interface NotifikasjonStateProps {
   notifikasjonState?: NotifikasjonState;

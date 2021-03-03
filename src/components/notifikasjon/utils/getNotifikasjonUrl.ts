@@ -1,5 +1,5 @@
-import NotifikasjonType from './NotifikasjonType';
-import env from '../../environment';
+import NotifikasjonType from '../felles/NotifikasjonType';
+import env from '../../../environment';
 
 const getNotifikasjonUrl = (uuid: string, notifikasjonType: NotifikasjonType, baseurl: string = env.baseUrl) => {
   switch (notifikasjonType) {

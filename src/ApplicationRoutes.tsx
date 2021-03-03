@@ -8,12 +8,10 @@ import GravidKrav from './components/gravidkrav/GravidKrav';
 import TokenFornyet from './components/tokenFornyet/TokenFornyet';
 import Forside from './components/Forside';
 import React from 'react';
-import {
-  NotifikasjonSideGravidKrav,
-  NotifikasjonSideGravidSoknad,
-  NotifikasjonSideKroniskKrav,
-  NotifikasjonSideKroniskSoknad
-} from './components/notifikasjon/NotifikasjonController';
+import { GravidSoknadController } from './components/notifikasjon/gravid/soknad/GravidSoknadController';
+import { GravidKravController } from './components/notifikasjon/gravid/krav/GravidKravController';
+import { KroniskSoknadController } from './components/notifikasjon/kronisk/soknad/KroniskSoknadController';
+import { KroniskKravController } from './components/notifikasjon/kronisk/krav/KroniskKravController';
 
 export const ApplicationRoutes = () => (
   <div className='application-routes'>
@@ -25,10 +23,10 @@ export const ApplicationRoutes = () => (
       <Route path={lenker.GravidKravKvittering} exact={true} render={() => <GravidKvittering />} />
       <Route path={lenker.GravidKrav} exact={true} render={() => <GravidKrav />} />
       <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
-      <Route path={lenker.NotifikasjonGravidSoknad} render={() => <NotifikasjonSideGravidSoknad />} />
-      <Route path={lenker.NotifikasjonGravidKrav} render={() => <NotifikasjonSideGravidKrav />} />
-      <Route path={lenker.NotifikasjonKroniskSoknad} render={() => <NotifikasjonSideKroniskSoknad />} />
-      <Route path={lenker.NotifikasjonKroniskKrav} render={() => <NotifikasjonSideKroniskKrav />} />
+      <Route path={lenker.NotifikasjonGravidSoknad} render={() => <GravidSoknadController />} />
+      <Route path={lenker.NotifikasjonGravidKrav} render={() => <GravidKravController />} />
+      <Route path={lenker.NotifikasjonKroniskSoknad} render={() => <KroniskSoknadController />} />
+      <Route path={lenker.NotifikasjonKroniskKrav} render={() => <KroniskKravController />} />
       <Route path={lenker.Home} render={() => <Forside />} />
     </Switch>
   </div>

@@ -1,8 +1,9 @@
 import { defaultNotitikasjonState } from './NotifikasjonState';
 import NotifikasjonReducer from './NotifikasjonReducer';
-import { Actions, NotifikasjonAction } from './NotifikasjonAction';
-import HttpStatus from '../../api/HttpStatus';
-import NotifikasjonType from './NotifikasjonType';
+import { NotifikasjonAction } from './NotifikasjonAction';
+import HttpStatus from '../../../api/HttpStatus';
+import NotifikasjonType from '../felles/NotifikasjonType';
+import { Actions } from './Actions';
 
 describe('NotikasjonRedudcer', () => {
   it('should handle response', () => {

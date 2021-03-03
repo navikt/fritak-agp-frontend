@@ -1,5 +1,6 @@
 import { defaultNotitikasjonState, NotifikasjonState } from './NotifikasjonState';
-import { Actions, NotifikasjonAction } from './NotifikasjonAction';
+import { NotifikasjonAction } from './NotifikasjonAction';
+import Actions from './Actions';
 
 const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonAction): NotifikasjonState => {
   const nextState = Object.assign({}, state);

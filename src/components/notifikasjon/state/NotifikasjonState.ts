@@ -1,5 +1,5 @@
-import NotifikasjonType from './NotifikasjonType';
-import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
+import NotifikasjonType from '../felles/NotifikasjonType';
+import { GravidSoknadResponse } from '../../../api/gravid/GravidSoknadResponse';
 
 export interface NotifikasjonState {
   status?: number;

@@ -1,5 +1,5 @@
 import formatOmplassering from './formatOmplassering';
-import { Omplassering } from '../../gravid/Omplassering';
+import { Omplassering } from '../../../gravid/Omplassering';
 
 describe('formatOmplassering', () => {
   it('should format ja', () => {

@@ -2,6 +2,7 @@ export interface GravidSoknadResponse {
   id: string;
   opprettet: string;
   virksomhetsnummer: string;
+  virksomhetsnavn: string;
   identitetsnummer: string;
   tilrettelegge: boolean;
   tiltak: string[];

@@ -1,4 +1,4 @@
-import { Omplassering } from '../../gravid/Omplassering';
+import { Omplassering } from '../../../gravid/Omplassering';
 
 const formatOmplassering = (omplassering: string, omplasseringAarsak: string) => {
   switch (omplassering) {

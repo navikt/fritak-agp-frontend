@@ -1,5 +1,5 @@
 import getNotifikasjonUrl from './getNotifikasjonUrl';
-import NotifikasjonType from './NotifikasjonType';
+import NotifikasjonType from '../felles/NotifikasjonType';
 
 describe('getNotifikasjonUrl', () => {
   const UUID = 'kj5b23587hdjhb';

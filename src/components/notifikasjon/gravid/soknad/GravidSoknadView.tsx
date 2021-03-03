@@ -1,7 +1,7 @@
 import React from 'react';
-import { GravidSoknadResponse } from '../../../api/gravid/GravidSoknadResponse';
-import NotifikasjonInnhold from '../NotifikasjonInnhold';
-import NotifikasjonType from '../NotifikasjonType';
+import { GravidSoknadResponse } from '../../../../api/gravid/GravidSoknadResponse';
+import NotifikasjonInnhold from '../../felles/NotifikasjonInnhold';
+import NotifikasjonType from '../../felles/NotifikasjonType';
 import formatOmplassering from './formatOmplassering';
 import formatTilrettelegge from './formatTilrettelegge';
 import formatDokumentasjon from './formatDokumentasjon';

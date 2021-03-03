@@ -1,10 +1,10 @@
-import { NotifikasjonState } from './NotifikasjonState';
-import { NotifikasjonSpinner } from './NotifikasjonSpinner';
+import { NotifikasjonState } from './state/NotifikasjonState';
+import { NotifikasjonSpinner } from './felles/NotifikasjonSpinner';
 import HttpStatus from '../../api/HttpStatus';
-import { NotifikasjonUkjent } from './NotifikasjonUkjent';
-import NotifikasjonType from './NotifikasjonType';
-import NotifikasjonFeilmelding from './NotifikasjonFeilmelding';
-import GravidSoknadView from './gravid/GravidSoknadView';
+import { NotifikasjonUkjent } from './felles/NotifikasjonUkjent';
+import NotifikasjonType from './felles/NotifikasjonType';
+import NotifikasjonFeilmelding from './felles/NotifikasjonFeilmelding';
+import GravidSoknadView from './gravid/soknad/GravidSoknadView';
 import React from 'react';
 
 const NotifikasjonView = (state: NotifikasjonState) => {
