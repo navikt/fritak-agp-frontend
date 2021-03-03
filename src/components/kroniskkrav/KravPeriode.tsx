@@ -93,7 +93,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             dispatch({
               type: Actions.Dager,
               payload: {
-                dager: Number(event.currentTarget.value),
+                dager: event.currentTarget.value ? Number(event.currentTarget.value) : undefined,
                 periode: props.index
               }
             })

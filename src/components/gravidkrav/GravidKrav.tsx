@@ -247,7 +247,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                       dispatch({
                         type: Actions.Dager,
                         payload: {
-                          dager: Number(event.currentTarget.value)
+                          dager: event.currentTarget.value ? Number(event.currentTarget.value) : undefined
                         }
                       })
                     }
@@ -286,7 +286,9 @@ export const GravidKrav = (props: GravidKravProps) => {
                       dispatch({
                         type: Actions.Beloep,
                         payload: {
-                          beloep: Number(event.currentTarget.value.replace(',', '.'))
+                          beloep: event.currentTarget.value
+                            ? Number(event.currentTarget.value.replace(',', '.'))
+                            : undefined
                         }
                       })
                     }
