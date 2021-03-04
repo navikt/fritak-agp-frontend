@@ -38,11 +38,17 @@ describe('NotifikasjonView', () => {
     </Router>
   );
 
-  it('should show not found', () => {
+  it('should handle notfound', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.NotFound;
     state.notifikasjonType = NotifikasjonType.GravidSoknad;
+    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(FANT_IKKE);
+  });
 
+  it('should handle Unauthorized', () => {
+    const state = defaultNotitikasjonState();
+    state.status = HttpStatus.Unauthorized;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(FANT_IKKE);
   });
@@ -53,14 +59,14 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain(STATUS_PROGRESS);
   });
 
-  it('should error', () => {
+  it('should handle errors', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Error;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 
-  it('should error when timeout', () => {
+  it('should handle timeout', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Timeout;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
@@ -75,6 +81,13 @@ describe('NotifikasjonView', () => {
     } as GravidSoknadResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
+  });
+
+  it('should handle empty Gravid Søknad', () => {
+    const state = defaultNotitikasjonState();
+    state.status = HttpStatus.Successfully;
+    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 
   it('should show Gravid Krav', () => {});

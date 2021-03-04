@@ -7,6 +7,7 @@ import Panel from 'nav-frontend-paneler';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import GravidSoknadFooter from '../gravid/soknad/GravidSoknadFooter';
 
 interface NotifikasjonInnholdProps {
   children: any;
@@ -14,12 +15,6 @@ interface NotifikasjonInnholdProps {
   dato?: string;
   type: NotifikasjonType;
 }
-
-const GravidSoknadFooter = () => (
-  <Lenke href='https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/sykepenger/kronisk-syk-arbeidstaker'>
-    Om du vil, kan du lese om arbeidsgiverens rett til å få dekket utgiftene.
-  </Lenke>
-);
 
 const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
   return (
