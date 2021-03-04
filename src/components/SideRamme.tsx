@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Row } from 'nav-frontend-grid';
 import './SideRamme.sass';
 
-interface SideRamme {
+interface SideRammeProps {
   children: any;
 }
 
-const SideRamme = (props: SideRamme) => {
+const SideRamme = (props: SideRammeProps) => {
   return (
     <main className='side-ramme'>
       <Container>

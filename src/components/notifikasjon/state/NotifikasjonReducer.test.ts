@@ -39,6 +39,4 @@ describe('NotikasjonRedudcer', () => {
     expect(state.notifikasjonType).toBeUndefined();
     expect(state.status).toBeUndefined();
   });
-
-  it('should throw error when action not implemented', () => {});
 });

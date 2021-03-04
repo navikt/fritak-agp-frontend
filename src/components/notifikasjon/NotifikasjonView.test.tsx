@@ -7,7 +7,6 @@ import NotifikasjonType from './felles/NotifikasjonType';
 import mockHistory from '../../mockData/mockHistory';
 import { Router } from 'react-router-dom';
 import HttpStatus from '../../api/HttpStatus';
-import testGravidSoknadResponse from '../../mockData/testGravidSoknadResponse';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 
 describe('NotifikasjonView', () => {
@@ -28,7 +27,6 @@ describe('NotifikasjonView', () => {
 
   const STATUS_PROGRESS = 'Venter...';
   const FANT_IKKE = 'Fant ikke';
-  const SENDT_AV = '22018520056';
   const FEILMELDING = 'Det oppstod en feil';
   const INNHOLD = 'Informasjon om sykepenger';
 
@@ -90,9 +88,9 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 
-  it('should show Gravid Krav', () => {});
-
-  it('should show Kronisk Søknad', () => {});
-
-  it('should show Kronisk Krav', () => {});
+  // it('should show Gravid Krav', () => {});
+  //
+  // it('should show Kronisk Søknad', () => {});
+  //
+  // it('should show Kronisk Krav', () => {});
 });
