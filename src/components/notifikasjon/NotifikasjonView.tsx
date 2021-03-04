@@ -13,6 +13,8 @@ const NotifikasjonView = (state: NotifikasjonState) => {
       return <NotifikasjonSpinner />;
     case HttpStatus.NotFound:
       return <NotifikasjonUkjent />;
+    case HttpStatus.Unauthorized:
+      return <NotifikasjonUkjent />;
     case HttpStatus.Successfully:
       switch (state.notifikasjonType) {
         case NotifikasjonType.GravidSoknad:

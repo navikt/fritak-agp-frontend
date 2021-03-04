@@ -1,4 +1,4 @@
 import React from 'react';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
-export const NotifikasjonUkjent = () => <AlertStripeFeil className='notifikasjon__ukjent'>Fant ikke</AlertStripeFeil>;
+export const NotifikasjonUkjent = () => <AlertStripeInfo className='notifikasjon__ukjent'>Fant ikke</AlertStripeInfo>;

@@ -3,7 +3,7 @@ import NotifikasjonReducer from './NotifikasjonReducer';
 import { NotifikasjonAction } from './NotifikasjonAction';
 import HttpStatus from '../../../api/HttpStatus';
 import NotifikasjonType from '../felles/NotifikasjonType';
-import { Actions } from './Actions';
+import Actions from './Actions';
 
 describe('NotikasjonRedudcer', () => {
   it('should handle response', () => {
