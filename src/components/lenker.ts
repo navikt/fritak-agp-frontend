@@ -1,7 +1,6 @@
 enum lenker {
   Home = '/',
   TokenFornyet = '/token-fornyet',
-  Notifikasjon = '/notifikasjon',
   NotifikasjonGravidSoknad = '/notifikasjon/gravid/soknad/:uuid',
   NotifikasjonGravidKrav = '/notifikasjon/kronisk/krav/:uuid',
   NotifikasjonKroniskSoknad = '/notifikasjon/gravid/soknad/:uuid',

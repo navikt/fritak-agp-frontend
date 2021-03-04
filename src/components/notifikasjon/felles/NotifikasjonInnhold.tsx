@@ -23,7 +23,7 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
         <Column>
           <div className={'notifikasjon-innhold__path'}>
             <Lenke href='/min-side-arbeidsgiver/'>Ditt NAV / </Lenke>
-            <Lenke href={lenker.Notifikasjon}>Beskjeder / </Lenke>
+            <Lenke href=''>Beskjeder / </Lenke>
             <Lenke href=''>Din arbeidsgiver har søkt om utvidet støtte</Lenke>
           </div>
         </Column>
