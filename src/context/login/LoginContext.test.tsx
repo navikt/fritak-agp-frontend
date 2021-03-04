@@ -8,6 +8,7 @@ import mockHistory from '../../mockData/mockHistory';
 import timezone_mock from 'timezone-mock';
 import MockDate from 'mockdate';
 import { waitFor } from '@testing-library/react';
+import mockFetch from '../../mockData/mockFetch';
 
 timezone_mock.register('Europe/London');
 
@@ -93,14 +94,8 @@ describe('LoginContext', () => {
 
   it('should show login-redirect when the token has expired', () => {
     const input = '2020-01-23T08:27:57.125+0000';
-    const mockApi = Promise.resolve({
-      status: 200,
-      json: () => Promise.resolve(input)
-    } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
-
+    mockFetch(200, input);
     MockDate.set('2020-01-23T08:28:57.125+0000');
-
     act(() => {
       render(
         <Router history={mockHistory('/')}>
