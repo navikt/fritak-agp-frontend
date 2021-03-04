@@ -8,7 +8,6 @@ import validateTil from '../../validation/validateTil';
 import validateDager from '../../validation/validateDager';
 import validateBeloep from '../../validation/validateBeloep';
 import { validateOrgnr } from '../../utils/validateOrgnr';
-import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 
 export const validateKroniskKrav = (state: KroniskKravState): KroniskKravState => {
   if (!state.validated) {
@@ -30,8 +29,6 @@ export const validateKroniskKrav = (state: KroniskKravState): KroniskKravState =
     aktuellPeriode.dagerError = validateDager(aktuellPeriode.dager, !!state.validated);
     aktuellPeriode.beloepError = validateBeloep(aktuellPeriode.beloep, !!state.validated);
   });
-
-  nextState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(nextState);
 
   if (nextState.fnrError) {
     pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);

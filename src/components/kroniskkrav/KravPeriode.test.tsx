@@ -20,18 +20,19 @@ describe('KravPeriode', () => {
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).not.toBeInTheDocument();
+    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row periodewrapper');
   });
 
   it('should show second row', async () => {
     const mockDispatch = jest.fn();
 
     render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} />);
-
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
+    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row hide-labels periodewrapper');
   });
 
   it('should show a random row', async () => {
@@ -41,7 +42,7 @@ describe('KravPeriode', () => {
     render(<KravPeriode dispatch={mockDispatch} index={randomRow} enkeltPeriode={enkeltPeriode} />);
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
@@ -55,7 +56,7 @@ describe('KravPeriode', () => {
     const slettButton = screen.queryByText(/Slett/);
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
     expect(slettButton).toBeInTheDocument();

@@ -8,7 +8,6 @@ import validateTil from '../../validation/validateTil';
 import validateDager from '../../validation/validateDager';
 import validateBeloep from '../../validation/validateBeloep';
 import { validateOrgnr } from '../../utils/validateOrgnr';
-import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 
 export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   if (!state.validated) {
@@ -27,8 +26,6 @@ export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   nextState.tilError = validateTil(state.fra, state.til, state.validated);
   nextState.dagerError = validateDager(state.dager, state.validated);
   nextState.beloepError = validateBeloep(state.beloep, state.validated);
-
-  nextState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(nextState);
 
   if (nextState.fnrError) {
     pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);

@@ -5,6 +5,7 @@ import { parseDateTilDato } from '../../utils/Dato';
 import mapResponse from '../../api/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
+import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
   const nextState = Object.assign({}, state);
@@ -20,7 +21,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
 
     case Actions.Fra:
       if (payload?.fra === undefined) {
-        nextState.til = undefined;
+        nextState.fra = undefined;
       } else {
         nextState.fra = parseDateTilDato(payload?.fra);
       }
@@ -61,6 +62,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
     case Actions.Validate:
       nextState.validated = true;
       const validatedState = validateGravidKrav(nextState);
+      validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(nextState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;

@@ -10,6 +10,8 @@ import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager';
 import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
+import './KravPeriode.scss';
+import stringishToNumber from '../../utils/stringishToNumber';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -52,7 +54,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
   };
 
   return (
-    <Row className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}>
+    <Row
+      className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}
+      data-testid='krav-periode-wrapper'
+    >
       <Column sm='3' xs='6'>
         <DatoVelger
           id={`fra-dato-${props.index}`}
@@ -60,6 +65,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           onChange={(fraDato: Date) => {
             fraDatoValgt(fraDato, props.index);
           }}
+          feilmelding={props.enkeltPeriode.fraError}
         />
       </Column>
       <Column sm='3' xs='6'>
@@ -75,6 +81,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               }
             });
           }}
+          feilmelding={props.enkeltPeriode.tilError}
         />
       </Column>
       <Column sm='2' xs='6'>
@@ -91,11 +98,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
             dispatch({
               type: Actions.Dager,
               payload: {
-                dager: Number(event.currentTarget.value),
+                dager: stringishToNumber(event.currentTarget.value),
                 periode: props.index
               }
             })
           }
+          feil={props.enkeltPeriode.dagerError}
         />
       </Column>
       <Column sm='2' xs='6'>
@@ -130,11 +138,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
             dispatch({
               type: Actions.Beloep,
               payload: {
-                beloep: Number(event.currentTarget.value.replace(',', '.')),
+                beloep: stringishToNumber(event.currentTarget.value),
                 periode: props.index
               }
             })
           }
+          feil={props.enkeltPeriode.beloepError}
         />
       </Column>
       <Column>

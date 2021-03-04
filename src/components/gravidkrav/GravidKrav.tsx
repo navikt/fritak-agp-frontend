@@ -32,6 +32,7 @@ import KontrollsporsmaalLonn from '../felles/KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import stringishToNumber from '../../utils/stringishToNumber';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
@@ -77,7 +78,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const fraDatoValgt = (fraDato: Date) => {
+  const fraDatoValgt = (fraDato?: Date) => {
     if (fraDato) {
       getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
         if (grunnbeloepRespons.grunnbeloep) {
@@ -217,6 +218,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                     onChange={(fraDato: Date) => {
                       fraDatoValgt(fraDato);
                     }}
+                    feilmelding={state.fraError}
                   />
                 </Column>
                 <Column sm='3' xs='6'>
@@ -229,6 +231,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                         payload: { til: tilDate }
                       });
                     }}
+                    feilmelding={state.tilError}
                   />
                 </Column>
                 <Column sm='3' xs='6'>
@@ -245,10 +248,11 @@ export const GravidKrav = (props: GravidKravProps) => {
                       dispatch({
                         type: Actions.Dager,
                         payload: {
-                          dager: Number(event.currentTarget.value)
+                          dager: stringishToNumber(event.currentTarget.value)
                         }
                       })
                     }
+                    feil={state.dagerError}
                   />
                 </Column>
                 <Column sm='3' xs='6'>
@@ -283,10 +287,11 @@ export const GravidKrav = (props: GravidKravProps) => {
                       dispatch({
                         type: Actions.Beloep,
                         payload: {
-                          beloep: Number(event.currentTarget.value.replace(',', '.'))
+                          beloep: stringishToNumber(event.currentTarget.value)
                         }
                       })
                     }
+                    feil={state.beloepError}
                   />
                 </Column>
               </Row>
