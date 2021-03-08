@@ -131,22 +131,6 @@ describe('mapGravidKravRequest', () => {
     }).toThrowError();
   });
 
-  it('should throw error when error in beløp', () => {
-    expect(() => {
-      mapGravidKravRequest(
-        '123',
-        '123',
-        parseDato('01.02.2020'),
-        parseDato('02.04.2025'),
-        2,
-        undefined,
-        'dokumentasjon',
-        true,
-        5
-      );
-    }).toThrowError();
-  });
-
   it('should not fail when fnr is 123', () => {
     expect(
       mapGravidKravRequest(

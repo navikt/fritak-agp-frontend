@@ -7,5 +7,4 @@ export const validateOrgnr = (orgnr?: string, required: boolean = false): string
   if (!isValidOrgnr(orgnr)) {
     return required ? 'Ugyldig virksomhetsnummer' : undefined;
   }
-  return;
 };

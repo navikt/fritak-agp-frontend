@@ -2,11 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { MONTHS } from '../../utils/months';
 import { maxDaysInMonth } from '../../utils/maxDaysInMonth';
 
-export const validerFravaerMaaned = (
-  year: number,
-  month: number,
-  dag?: number
-): FeiloppsummeringFeil | undefined => {
+export const validerFravaerMaaned = (year: number, month: number, dag?: number): FeiloppsummeringFeil | undefined => {
   if (!dag) {
     return;
   }
@@ -14,21 +10,13 @@ export const validerFravaerMaaned = (
   if (dag < 0) {
     return {
       skjemaelementId: MONTHS[month] + '-' + year,
-      feilmelding:
-        MONTHS[month] + ' ' + year + ' må være mindre enn ' + maxDays + ' dager'
+      feilmelding: MONTHS[month] + ' ' + year + ' må være mindre enn ' + maxDays + ' dager'
     };
   }
   if (dag > maxDays) {
     return {
       skjemaelementId: MONTHS[month] + '-' + year,
-      feilmelding:
-        MONTHS[month] +
-        ' ' +
-        year +
-        ' må være mindre eller lik ' +
-        maxDays +
-        ' dager'
+      feilmelding: MONTHS[month] + ' ' + year + ' må være mindre eller lik ' + maxDays + ' dager'
     };
   }
-  return;
 };

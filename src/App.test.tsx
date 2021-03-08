@@ -39,9 +39,9 @@ describe('App', () => {
     act(() => {
       render(makeRouter('/', ArbeidsgiverStatus.NotStarted, LoginStatus.MustLogin, INGEN_ARBEIDSGIVERE), container);
     });
-    // expect(container).not.toContain(SPINNER);
+    expect(container).not.toContain(SPINNER);
     expect(container).toContainHTML(LOGIN_REDIRECT);
-    // expect(container).not.toContain(APPLICATION_ROUTES);
+    expect(container).not.toContain(APPLICATION_ROUTES);
   });
 
   it('should prevent infinite loop', () => {
