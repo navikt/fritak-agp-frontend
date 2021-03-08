@@ -6,7 +6,6 @@ import ArbeidType from './ArbeidType';
 import { MAX_BESKRIVELSE } from './KroniskSide';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
-import { FravaerType } from './Actions';
 
 describe('validateKronisk', () => {
   it('should not show error messages before validated', () => {
