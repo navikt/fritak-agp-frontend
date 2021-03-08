@@ -4,7 +4,7 @@ import HttpStatus from '../../api/HttpStatus';
 import { NotifikasjonUkjent } from './felles/NotifikasjonUkjent';
 import NotifikasjonType from './felles/NotifikasjonType';
 import NotifikasjonFeilmelding from './felles/NotifikasjonFeilmelding';
-import GravidSoknadView from './gravid/soknad/GravidSoknadView';
+import GravidKravView from './gravid/krav/GravidKravView';
 import React from 'react';
 
 const NotifikasjonView = (state: NotifikasjonState) => {
@@ -21,7 +21,13 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           if (!state.gravidSoknadResponse) {
             return <NotifikasjonFeilmelding />;
           }
-          return <GravidSoknadView gravidSoknadResponse={state.gravidSoknadResponse} />;
+          return <GravidKravView gravidSoknadResponse={state.gravidSoknadResponse} />;
+
+        case NotifikasjonType.GravidKrav:
+          if (!state.gravidSoknadResponse) {
+            return <NotifikasjonFeilmelding />;
+          }
+          return <GravidKravView gravidSoknadResponse={state.gravidSoknadResponse} />;
         default:
           return <NotifikasjonFeilmelding />;
       }
