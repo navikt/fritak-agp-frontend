@@ -1,13 +1,12 @@
 import React from 'react';
-import Side from './Side';
-import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import Side, { showChildren } from './Side';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Router } from 'react-router-dom';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import testOrganisasjoner from '../mockData/testOrganisasjoner';
 import ArbeidsgiverStatus from '../context/arbeidsgiver/ArbeidsgiverStatus';
 import mockHistory from '../mockData/mockHistory';
+import { ArbeidsgiverProvider } from '../context/arbeidsgiver/ArbeidsgiverContext';
 
 describe('Side', () => {
   let container = document.createElement('div');
@@ -30,7 +29,7 @@ describe('Side', () => {
   ) => {
     return (
       <Router history={mockHistory('/')}>
-        <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={status}>
+        <ArbeidsgiverProvider baseUrl='' arbeidsgivere={arbeidsgivere} status={status}>
           <Side bedriftsmeny={required} sidetittel='Skjema' title={title} subtitle=''>
             {BARNE_NODER}
           </Side>
@@ -41,7 +40,7 @@ describe('Side', () => {
 
   const IKKE_RETTIGHETER = 'Du har ikke rettigheter';
   const BARNE_NODER = 'barnenoder';
-  const ARBEIDSGIVERE = testOrganisasjoner;
+  const ARBEIDSGIVERE = [{ Name: '' } as Organisasjon];
   const UTEN_ARBEIDSGIVERE = [];
   const SOKNAD_TITTEL = 'soknadtittel';
 
@@ -53,13 +52,13 @@ describe('Side', () => {
     expect(container.textContent).toContain(IKKE_RETTIGHETER);
   });
 
-  // it('should show children - required and arbeidsgivere', () => {
-  //   act(() => {
-  //     render(buildSide(true, ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully), container);
-  //   });
-  //   expect(container.textContent).toContain(BARNE_NODER);
-  //   expect(container.textContent).not.toContain(IKKE_RETTIGHETER);
-  // });
+  it('should show children - required and arbeidsgivere', () => {
+    act(() => {
+      render(buildSide(true, ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, 'SØKNADSSKJEMA'), container);
+    });
+    expect(container.textContent).toContain(BARNE_NODER);
+    expect(container.textContent).not.toContain(IKKE_RETTIGHETER);
+  });
 
   it('should show children - not required and empty arbeidsgivere', () => {
     act(() => {
@@ -93,5 +92,13 @@ describe('Side', () => {
     expect(container.textContent).toContain(BARNE_NODER);
     expect(container.textContent).not.toContain(IKKE_RETTIGHETER);
     expect(container.textContent).toContain('TITTELEN');
+  });
+
+  it('should ikke vise barn', () => {
+    expect(showChildren(true, UTEN_ARBEIDSGIVERE)).toBe(false);
+  });
+
+  it('should vise barna', () => {
+    expect(showChildren(true, ARBEIDSGIVERE)).toBe(true);
   });
 });

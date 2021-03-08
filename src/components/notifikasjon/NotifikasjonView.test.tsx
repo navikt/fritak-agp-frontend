@@ -87,10 +87,4 @@ describe('NotifikasjonView', () => {
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
-
-  // it('should show Gravid Krav', () => {});
-  //
-  // it('should show Kronisk Søknad', () => {});
-  //
-  // it('should show Kronisk Krav', () => {});
 });

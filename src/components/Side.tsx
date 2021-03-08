@@ -52,8 +52,8 @@ const Side = (props: SideProps) => {
               {props.title && <SoknadTittel subtitle={props.subtitle}>{props.title}</SoknadTittel>}
 
               <SideIndentering>
-                {!skalSkjule(props.bedriftsmeny, arbeidsgivere) && props.children}
-                {skalSkjule(props.bedriftsmeny, arbeidsgivere) && <IngenTilgangAdvarsel />}
+                {showChildren(props.bedriftsmeny, arbeidsgivere) && props.children}
+                {!showChildren(props.bedriftsmeny, arbeidsgivere) && <IngenTilgangAdvarsel />}
               </SideIndentering>
             </Column>
           </Row>
@@ -63,8 +63,8 @@ const Side = (props: SideProps) => {
   );
 };
 
-const skalSkjule = (bedriftsmeny: boolean | undefined, arbeidsgivere: Array<Organisasjon>) => {
-  return arbeidsgivere.length === 0 && bedriftsmeny === true;
+export const showChildren = (bedriftsmeny: boolean | undefined, arbeidsgivere: Array<Organisasjon>) => {
+  return bedriftsmeny === false || arbeidsgivere.length > 0;
 };
 
 export default Side;

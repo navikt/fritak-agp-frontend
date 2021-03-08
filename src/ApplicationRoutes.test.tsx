@@ -1,10 +1,12 @@
 import { Router } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import React from 'react';
-import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import mockHistory from './mockData/mockHistory';
+import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
+import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 describe('ApplicationRoutes', () => {
   let container = document.createElement('div');
@@ -20,9 +22,9 @@ describe('ApplicationRoutes', () => {
     container.remove();
   });
 
-  const makeRoute = (path: string) => (
+  const makeRoute = (path: string, arbeidsgivere: Array<Organisasjon> = [{ Name: '' } as Organisasjon]) => (
     <Router history={mockHistory(path)}>
-      <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={ArbeidsgiverStatus.Successfully} baseUrl=''>
         <ApplicationRoutes />
       </ArbeidsgiverProvider>
     </Router>
@@ -49,6 +51,15 @@ describe('ApplicationRoutes', () => {
     expect(container.textContent).toContain('GRAVID ANSATT');
     expect(container.textContent).toContain('Søknad om at NAV dekker sykepenger i arbeidsgiverperioden');
   });
+
+  it('should show gravid søknad when no arbeidsgivere', () => {
+    act(() => {
+      render(makeRoute('/gravid/soknad', []), container);
+    });
+    expect(container.textContent).toContain('GRAVID ANSATT');
+    expect(container.textContent).toContain('Søknad om at NAV dekker sykepenger i arbeidsgiverperioden');
+  });
+
   it('should show gravid kvittering', () => {
     act(() => {
       render(makeRoute('/gravid/soknad/kvittering'), container);
@@ -59,6 +70,12 @@ describe('ApplicationRoutes', () => {
   it('should show kronisk søknad', () => {
     act(() => {
       render(makeRoute('/kronisk/soknad'), container);
+    });
+    expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYKDOM');
+  });
+  it('should show kronisk søknad when no arbeidsgivere', () => {
+    act(() => {
+      render(makeRoute('/kronisk/soknad', []), container);
     });
     expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYKDOM');
   });
