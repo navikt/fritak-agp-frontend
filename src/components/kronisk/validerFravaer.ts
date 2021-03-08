@@ -5,8 +5,6 @@ import { MONTHS } from '../../utils/months';
 import { Aarsfravaer } from './Aarsfravaer';
 import { isAarsFravaerEmpty } from './isAarsFravaerEmpty';
 
-const HELTALL = new RegExp('^\\d*$');
-
 export const validerFravaer = (fravaer: FravaerType, state: KroniskState, nextState: KroniskState) => {
   if (!nextState.fravaer) {
     nextState.fravaer = [];
@@ -14,9 +12,6 @@ export const validerFravaer = (fravaer: FravaerType, state: KroniskState, nextSt
   const { year, month, dager } = fravaer;
   if (month < 0 || month > 11) {
     throw new Error('Month må være mellom 0 og 11');
-  }
-  if (dager.length > 0 && !HELTALL.test(dager)) {
-    throw new Error('Antall må være heltall');
   }
   const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
   const monthProp = monthKey(MONTHS[month]);
