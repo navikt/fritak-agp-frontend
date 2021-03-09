@@ -12,7 +12,7 @@ import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import dayjs from 'dayjs';
 
-const adaptKravState = (krav: KroniskKravResponse): GravidKravResponse => {
+export const adaptKravState = (krav: KroniskKravResponse): GravidKravResponse => {
   const adaptedKrav: GravidKravResponse = {
     id: krav.id,
     opprettet: krav.opprettet,

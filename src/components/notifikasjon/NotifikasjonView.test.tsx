@@ -9,6 +9,7 @@ import { Router } from 'react-router-dom';
 import HttpStatus from '../../api/HttpStatus';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
+import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 
 describe('NotifikasjonView', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -106,25 +107,37 @@ describe('NotifikasjonView', () => {
     } as GravidKravResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
+    expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
+    expect(htmlDivElement.textContent).toContain('kr 1234');
   });
 
   it('should show Kronisk Krav', () => {
     const state = defaultNotitikasjonState();
 
     state.status = HttpStatus.Successfully;
-    state.gravidKravResponse = {
+    state.kroniskKravResponse = ({
       id: '1',
       opprettet: '2020-01-01',
       virksomhetsnummer: '123',
       virksomhetsnavn: 'Virksomhet',
-      periode: {
-        fom: '2020-01-02',
-        tom: '2020-02-03',
-        beloep: 1234
-      }
-    } as GravidKravResponse;
+      perioder: [
+        {
+          fom: '2020-01-02',
+          tom: '2020-02-03',
+          beloep: 1234
+        },
+        {
+          fom: '2020-05-04',
+          tom: '2020-06-05',
+          beloep: 1234
+        }
+      ]
+    } as unknown) as KroniskKravResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
+    expect(htmlDivElement.textContent).toContain('02.01.20 - 05.06.20');
+    expect(htmlDivElement.textContent).toContain('kr 2468');
+    expect(htmlDivElement.textContent).toContain('innen 15.01.20');
   });
 
   // it('should show Kronisk Søknad', () => {});

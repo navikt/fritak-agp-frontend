@@ -22,6 +22,8 @@ const GravidKravView = ({ gravidKravResponse }: GravidSoknadNotifikasjonProps) =
   const tom = formaterDato(gravidKravResponse.periode.tom);
   const respondByDate = inTwoWeeks(gravidKravResponse.opprettet);
 
+  console.log('gravidKravResponse', gravidKravResponse);
+
   return (
     <NotifikasjonInnhold
       title='Informasjon om sykepenger'
