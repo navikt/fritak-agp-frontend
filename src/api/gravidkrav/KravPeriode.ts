@@ -1,5 +1,3 @@
-import KravPeriode from '../../components/kroniskkrav/KravPeriode';
-
 interface KravPeriode {
   fom: string;
   tom: string;
