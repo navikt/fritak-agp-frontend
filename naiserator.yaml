@@ -32,8 +32,3 @@ spec:
     requests:
       cpu: 400m
       memory: 256Mi
-  env:
-    - name: API_BACKEND_URL
-      value: '{{{api-url}}}'
-    - name: LOGIN_URL
-      value: '{{{login-url}}}'

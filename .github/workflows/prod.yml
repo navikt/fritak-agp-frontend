@@ -1,0 +1,94 @@
+name: Bygg og deploy main
+
+on:
+  release:
+    types: [released]
+
+env:
+  APP: fritak-agp-frontend
+  IMAGE: ghcr.io/navikt/fritak-agp-frontend:${{ github.sha }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+
+  Bygg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - run: npm ci
+      - run: npm run-script build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: fritak-frontend-artifact
+          path: ${{ github.workspace }}/build/**/*
+
+  Kodekvalitet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm ci --no-build
+      - run: npm test
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  Eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm ci
+      - run: npm run-script lint
+
+
+  Snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  Docker:
+    needs: [Kodekvalitet,Eslint,Bygg]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/download-artifact@v2
+        with:
+          name: fritak-frontend-artifact
+          path: build
+      - name: Login to GitHub Packages Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_PUSH_USERNAME }}
+          password: ${{ secrets.GHCR_PUSH_TOKEN }}
+      - name: Build and publish Docker image
+        run: |
+          docker build --pull --tag ${{ env.IMAGE }}  .
+          docker push ${{ env.IMAGE }}
+
+  Deploy:
+    needs: [Docker]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: nais/deploy/actions/deploy@master
+        env:
+          TEAM: helsearbeidsgiver
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: naiserator.yaml
+          VARS: nais/prod-gcp.json
+          REF: ${{ env.COMMIT }}
+          IMAGE: ${{ env.IMAGE }}
