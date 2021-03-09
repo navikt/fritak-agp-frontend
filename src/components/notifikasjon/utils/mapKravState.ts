@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
 
-const adaptKravState = (krav: KroniskKravResponse): GravidKravResponse => ({
+const mapKravState = (krav: KroniskKravResponse): GravidKravResponse => ({
   id: krav.id,
   opprettet: krav.opprettet,
   sendtAv: krav.sendtAv,
@@ -22,4 +22,4 @@ const adaptKravState = (krav: KroniskKravResponse): GravidKravResponse => ({
   virksomhetsnavn: krav.virksomhetsnavn
 });
 
-export default adaptKravState;
+export default mapKravState;
