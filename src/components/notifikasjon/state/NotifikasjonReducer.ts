@@ -1,6 +1,7 @@
 import { defaultNotitikasjonState, NotifikasjonState } from './NotifikasjonState';
 import { NotifikasjonAction } from './NotifikasjonAction';
 import Actions from './Actions';
+import NotifikasjonType from '../felles/NotifikasjonType';
 
 const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonAction): NotifikasjonState => {
   const nextState = Object.assign({}, state);
@@ -10,7 +11,18 @@ const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonActio
       nextState.status = payload?.status;
       nextState.uuid = payload?.uuid;
       nextState.notifikasjonType = payload?.notifikasjonsType;
-      nextState.gravidSoknadResponse = payload?.json;
+      if (nextState.notifikasjonType === NotifikasjonType.GravidSoknad) {
+        nextState.gravidSoknadResponse = payload?.json;
+      }
+
+      if (nextState.notifikasjonType === NotifikasjonType.GravidKrav) {
+        nextState.gravidKravResponse = payload?.json;
+      }
+
+      if (nextState.notifikasjonType === NotifikasjonType.KroniskKrav) {
+        nextState.kroniskKravResponse = payload?.json;
+      }
+
       return nextState;
     case Actions.HandleError:
       nextState.status = payload?.status;

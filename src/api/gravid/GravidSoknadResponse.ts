@@ -14,5 +14,4 @@ export interface GravidSoknadResponse {
   harVedlegg: boolean;
   journalpostId: string;
   oppgaveId: string;
-  periode?: any;
 }

@@ -8,6 +8,7 @@ import mockHistory from '../../mockData/mockHistory';
 import { Router } from 'react-router-dom';
 import HttpStatus from '../../api/HttpStatus';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
+import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 
 describe('NotifikasjonView', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -88,9 +89,43 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 
-  // it('should show Gravid Krav', () => {});
-  //
+  it('should show Gravid Krav', () => {
+    const state = defaultNotitikasjonState();
+
+    state.status = HttpStatus.Successfully;
+    state.gravidKravResponse = {
+      id: '1',
+      opprettet: '2020-01-01',
+      virksomhetsnummer: '123',
+      virksomhetsnavn: 'Virksomhet',
+      periode: {
+        fom: '2020-01-02',
+        tom: '2020-02-03',
+        beloep: 1234
+      }
+    } as GravidKravResponse;
+    render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(INNHOLD);
+  });
+
+  it('should show Kronisk Krav', () => {
+    const state = defaultNotitikasjonState();
+
+    state.status = HttpStatus.Successfully;
+    state.gravidKravResponse = {
+      id: '1',
+      opprettet: '2020-01-01',
+      virksomhetsnummer: '123',
+      virksomhetsnavn: 'Virksomhet',
+      periode: {
+        fom: '2020-01-02',
+        tom: '2020-02-03',
+        beloep: 1234
+      }
+    } as GravidKravResponse;
+    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(INNHOLD);
+  });
+
   // it('should show Kronisk Søknad', () => {});
-  //
-  // it('should show Kronisk Krav', () => {});
 });
