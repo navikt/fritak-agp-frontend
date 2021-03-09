@@ -8,9 +8,9 @@ const getNotifikasjonUrl = (uuid: string, notifikasjonType: NotifikasjonType, ba
     case NotifikasjonType.GravidKrav:
       return baseurl + '/api/v1/gravid/krav/' + uuid;
     case NotifikasjonType.KroniskSoknad:
-      return baseurl + '/api/v1/gravid/soeknad/' + uuid;
+      return baseurl + '/api/v1/kronisk/soeknad/' + uuid;
     case NotifikasjonType.KroniskKrav:
-      return baseurl + '/api/v1/gravid/krav/' + uuid;
+      return baseurl + '/api/v1/kronisk/krav/' + uuid;
     default:
       throw new Error('Ikke laget ennå');
   }

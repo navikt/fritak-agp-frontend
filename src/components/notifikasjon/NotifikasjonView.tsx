@@ -6,6 +6,7 @@ import NotifikasjonType from './felles/NotifikasjonType';
 import NotifikasjonFeilmelding from './felles/NotifikasjonFeilmelding';
 import GravidSoknadView from './gravid/soknad/GravidSoknadView';
 import React from 'react';
+import KroniskSoknadView from './kronisk/soknad/KroniskSoknadView';
 
 const NotifikasjonView = (state: NotifikasjonState) => {
   switch (state.status) {
@@ -22,6 +23,11 @@ const NotifikasjonView = (state: NotifikasjonState) => {
             return <NotifikasjonFeilmelding />;
           }
           return <GravidSoknadView gravidSoknadResponse={state.gravidSoknadResponse} />;
+        case NotifikasjonType.KroniskSoknad:
+          if (!state.kroniskSoknadResponse) {
+            return <NotifikasjonFeilmelding />;
+          }
+          return <KroniskSoknadView kroniskSoknadResponse={state.kroniskSoknadResponse} />;
         default:
           return <NotifikasjonFeilmelding />;
       }

@@ -9,6 +9,7 @@ import { NotifikasjonAction } from './state/NotifikasjonAction';
 import { useParams } from 'react-router-dom';
 import NotifikasjonView from './NotifikasjonView';
 import Actions from './state/Actions';
+import NotifikasjonPayload from './state/NotifikasjonPayload';
 
 interface NotifikasjonStateProps {
   notifikasjonState?: NotifikasjonState;
@@ -21,7 +22,7 @@ const NotifikasjonController = ({
 }: NotifikasjonStateProps) => {
   const [state, dispatch] = useReducer(NotifikasjonReducer, notifikasjonState, defaultNotitikasjonState);
   state.notifikasjonType = notifikasjonType;
-  let { uuid } = useParams(); // '9a6709da-c481-4166-97e5-80fbcc90cb4f'
+  let { uuid } = useParams();
   useEffect(() => {
     if (state.status == undefined) {
       GetHandler(getNotifikasjonUrl(uuid, notifikasjonType))
@@ -32,17 +33,16 @@ const NotifikasjonController = ({
               notifikasjonsType: notifikasjonType,
               json: await response.json,
               status: response.status
-            }
+            } as NotifikasjonPayload
           } as NotifikasjonAction);
         })
         .catch((status) => {
           dispatch({
             type: Actions.HandleError,
             payload: {
-              notifikasjonType: notifikasjonType,
               status: status,
-              notifikasjonsType: NotifikasjonType.GravidSoknad
-            }
+              notifikasjonsType: notifikasjonType
+            } as NotifikasjonPayload
           } as NotifikasjonAction);
         });
     }

@@ -1,4 +1,4 @@
-import { NotifikasjonPayload } from './NotifikasjonPayload';
+import NotifikasjonPayload from './NotifikasjonPayload';
 import Actions from './Actions';
 
 export interface NotifikasjonAction {
