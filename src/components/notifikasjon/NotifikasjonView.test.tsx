@@ -102,13 +102,13 @@ describe('NotifikasjonView', () => {
       periode: {
         fom: '2020-01-02',
         tom: '2020-02-03',
-        beloep: 1234
+        beloep: 1234.5
       }
     } as GravidKravResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
     expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
-    expect(htmlDivElement.textContent).toContain('kr 1234');
+    expect(htmlDivElement.textContent).toContain('234,50');
   });
 
   it('should handle empty Gravid Krav', () => {
@@ -143,7 +143,7 @@ describe('NotifikasjonView', () => {
     render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
     expect(htmlDivElement.textContent).toContain('02.01.20 - 05.06.20');
-    expect(htmlDivElement.textContent).toContain('kr 2468');
+    expect(htmlDivElement.textContent).toContain('468,00');
     expect(htmlDivElement.textContent).toContain('innen 15.01.20');
   });
 

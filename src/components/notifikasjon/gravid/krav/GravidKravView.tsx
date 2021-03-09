@@ -17,10 +17,15 @@ const inTwoWeeks = (dato: string) => {
   return dayjs(dato).add(14, 'days').format('DD.MM.YY');
 };
 
+const formatNumberForCurrency = (num: number): string => {
+  return new Intl.NumberFormat('nb-NO', { style: 'currency', currency: 'NOK' }).format(num);
+};
+
 const GravidKravView = ({ gravidKravResponse }: GravidSoknadNotifikasjonProps) => {
   const fom = formaterDato(gravidKravResponse.periode.fom);
   const tom = formaterDato(gravidKravResponse.periode.tom);
   const respondByDate = inTwoWeeks(gravidKravResponse.opprettet);
+  const belop = formatNumberForCurrency(gravidKravResponse.periode.beloep);
 
   return (
     <NotifikasjonInnhold
@@ -29,8 +34,8 @@ const GravidKravView = ({ gravidKravResponse }: GravidSoknadNotifikasjonProps) =
       dato={gravidKravResponse.opprettet}
     >
       <Normaltekst className='textfelt-padding-bottom'>
-        Arbeidsgiveren din, {gravidKravResponse.virksomhetsnavn}, har søkt om å få igjen kr{' '}
-        {gravidKravResponse.periode.beloep} i sykepenger for dagene {fom} - {tom}.
+        Arbeidsgiveren din, {gravidKravResponse.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for dagene{' '}
+        {fom} - {tom}.
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
         Hvis det ikke stemmer at du var borte på grunn av sykdom disse dagene, ber vi deg si fra til NAV innen{' '}
