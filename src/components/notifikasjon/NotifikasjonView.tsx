@@ -9,7 +9,7 @@ import GravidSoknadView from './gravid/soknad/GravidSoknadView';
 
 import React from 'react';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
-import adaptKravState from './utils/adaptKravState';
+import mapKravState from './utils/mapKravState';
 
 const NotifikasjonView = (state: NotifikasjonState) => {
   switch (state.status) {
@@ -31,7 +31,7 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           if (!state.kroniskKravResponse) {
             return <NotifikasjonFeilmelding />;
           }
-          const kravState: GravidKravResponse = adaptKravState(state.kroniskKravResponse);
+          const kravState: GravidKravResponse = mapKravState(state.kroniskKravResponse);
           return <GravidKravView gravidKravResponse={kravState} />;
 
         case NotifikasjonType.GravidKrav:

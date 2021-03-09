@@ -1,8 +1,8 @@
 import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
-import adaptKravState from './adaptKravState';
+import mapKravState from './mapKravState';
 
-describe('adaptKravState', () => {
+describe('mapKravState', () => {
   it('shold convert the thing correctly', () => {
     const input: KroniskKravResponse = {
       id: 'f68a073b-9bed-45c1-aa1a-4dad2de52c2e',
@@ -44,7 +44,7 @@ describe('adaptKravState', () => {
       virksomhetsnummer: '810007842'
     };
 
-    expect(adaptKravState(input)).toEqual(expected);
+    expect(mapKravState(input)).toEqual(expected);
   });
 
   it('shold convert the thing with two perioder correctly', () => {
@@ -94,7 +94,7 @@ describe('adaptKravState', () => {
       virksomhetsnummer: '810007842'
     };
 
-    expect(adaptKravState(input)).toEqual(expected);
+    expect(mapKravState(input)).toEqual(expected);
   });
 
   it('shold convert the thing with four perioder correctly', () => {
@@ -156,6 +156,6 @@ describe('adaptKravState', () => {
       virksomhetsnummer: '810007842'
     };
 
-    expect(adaptKravState(input)).toEqual(expected);
+    expect(mapKravState(input)).toEqual(expected);
   });
 });

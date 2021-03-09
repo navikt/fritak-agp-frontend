@@ -8,9 +8,9 @@ interface GravidKravResponse {
   identitetsnummer: string;
   periode: KravPeriode;
   harVedlegg: boolean;
-  kontrollDager: number;
+  kontrollDager: number | null;
   journalpostId: string;
-  oppgaveId: number;
+  oppgaveId: string | null;
   virksomhetsnavn: string;
 }
 

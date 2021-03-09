@@ -18,7 +18,7 @@ const adaptKravState = (krav: KroniskKravResponse): GravidKravResponse => ({
   harVedlegg: krav.harVedlegg,
   kontrollDager: krav.kontrollDager,
   journalpostId: krav.journalpostId,
-  oppgaveId: krav.oppgaveId,
+  oppgaveId: krav.oppgaveId ?? null,
   virksomhetsnavn: krav.virksomhetsnavn
 });
 
