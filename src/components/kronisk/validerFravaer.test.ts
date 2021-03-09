@@ -56,8 +56,6 @@ describe('validerFravaer', () => {
     }).toThrowError();
   });
 
-  it('should throw Error when illegal dager', () => {});
-
   it('should set value', () => {
     let state = {} as KroniskState;
     let fravaer = {

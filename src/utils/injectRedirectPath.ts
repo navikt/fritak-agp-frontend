@@ -12,14 +12,11 @@ function injectRedirectPath(injectedPath: string, clean: string = ''): string {
   const redirectParts = redirect?.split('?');
 
   const redir =
-    redirectParts && redirectParts?.length > 1
-      ? redirectParts[0] + injectedPath + '?' + redirectParts[1]
-      : redirect;
+    redirectParts && redirectParts?.length > 1 ? redirectParts[0] + injectedPath + '?' + redirectParts[1] : redirect;
 
   params.set('redirect', redir || redirect + '');
 
-  const loginServiceUrlAfterRedirect = url.href + '?' + params.toString();
-  return loginServiceUrlAfterRedirect;
+  return url.href + '?' + params.toString();
 }
 
 export default injectRedirectPath;

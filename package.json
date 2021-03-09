@@ -1,6 +1,6 @@
 {
   "name": "fritak-agp-frontend",
-  "version": "0.1.128",
+  "version": "0.1.130",
   "private": true,
   "homepage": "/fritak-agp",
   "scripts": {
@@ -116,7 +116,6 @@
     "react-scripts": "^4.0.2",
     "react-test-renderer": "^17.0.1",
     "snyk": "^1.459.0",
-    "sonarqube-scanner": "^2.7.0",
     "timezone-mock": "^1.1.3",
     "ts-jest": "^26.5.1",
     "yet-another-fetch-mock": "^4.1.0"

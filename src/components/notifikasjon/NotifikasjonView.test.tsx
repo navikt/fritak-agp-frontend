@@ -90,6 +90,7 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 
+
   it('should show Gravid Krav', () => {
     const state = defaultNotitikasjonState();
 
@@ -139,6 +140,4 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain('kr 2468');
     expect(htmlDivElement.textContent).toContain('innen 15.01.20');
   });
-
-  // it('should show Kronisk Søknad', () => {});
 });

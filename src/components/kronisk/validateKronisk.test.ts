@@ -4,6 +4,8 @@ import PaakjenningerType from './PaakjenningerType';
 import Aarsfravaer from './Aarsfravaer';
 import ArbeidType from './ArbeidType';
 import { MAX_BESKRIVELSE } from './KroniskSide';
+import testFnr from '../../mockData/testFnr';
+import testOrgnr from '../../mockData/testOrgnr';
 
 describe('validateKronisk', () => {
   it('should not show error messages before validated', () => {
@@ -32,14 +34,27 @@ describe('validateKronisk', () => {
 
   it('should not show error messages when validated and valid values', () => {
     const state = defaultKroniskState();
+    state.fnr = testFnr.GyldigeFraDolly.TestPerson1;
+    state.orgnr = testOrgnr.GyldigeOrgnr.TestOrg1;
+    state.arbeid = [ArbeidType.KREVENDE];
+    state.paakjenninger = [PaakjenningerType.ALLERGENER];
+    state.fravaer = [
+      {
+        year: 2020,
+        jan: 1,
+        mar: 3,
+        des: 12
+      } as Aarsfravaer
+    ];
+    state.bekreft = true;
     state.validated = true;
     const state2 = validateKronisk(state);
-    expect(state2.fnrError).not.toBeUndefined();
-    expect(state2.orgnrError).not.toBeUndefined();
-    expect(state2.arbeidError).not.toBeUndefined();
-    expect(state2.paakjenningerError).not.toBeUndefined();
-    expect(state2.fravaerError).not.toBeUndefined();
-    expect(state2.bekreftError).not.toBeUndefined();
+    expect(state2.fnrError).toBeUndefined();
+    expect(state2.orgnrError).toBeUndefined();
+    expect(state2.arbeidError).toBe('');
+    expect(state2.paakjenningerError).toBe('');
+    expect(state2.fravaerError).toBeUndefined();
+    expect(state2.bekreftError).toBe('');
   });
 
   it('should show error when invalid fnr', () => {
