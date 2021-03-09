@@ -90,7 +90,6 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 
-
   it('should show Gravid Krav', () => {
     const state = defaultNotitikasjonState();
 
@@ -110,6 +109,13 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain(INNHOLD);
     expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
     expect(htmlDivElement.textContent).toContain('kr 1234');
+  });
+
+  it('should handle empty Gravid Krav', () => {
+    const state = defaultNotitikasjonState();
+    state.status = HttpStatus.Successfully;
+    render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 
   it('should show Kronisk Krav', () => {
@@ -139,5 +145,12 @@ describe('NotifikasjonView', () => {
     expect(htmlDivElement.textContent).toContain('02.01.20 - 05.06.20');
     expect(htmlDivElement.textContent).toContain('kr 2468');
     expect(htmlDivElement.textContent).toContain('innen 15.01.20');
+  });
+
+  it('should handle empty Kronisk Krav', () => {
+    const state = defaultNotitikasjonState();
+    state.status = HttpStatus.Successfully;
+    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 });

@@ -6,7 +6,7 @@ interface KroniskKravResponse {
   sendtAv: string;
   virksomhetsnummer: string;
   identitetsnummer: string;
-  perioder: [KravPeriode];
+  perioder: Array<KravPeriode>;
   harVedlegg: boolean;
   kontrollDager: number;
   journalpostId: string;
