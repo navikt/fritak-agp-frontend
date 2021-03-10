@@ -43,7 +43,7 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
             </Row>
             <Row>
               <Column className='notifikasjon__footer'>
-                {props.type == NotifikasjonType.GravidSoknad && <GravidSoknadFooter />}
+                {props.type === NotifikasjonType.GravidSoknad && <GravidSoknadFooter />}
               </Column>
             </Row>
           </Panel>

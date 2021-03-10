@@ -21,14 +21,16 @@ describe('NotikasjonRedudcer', () => {
 
   it('should handle error', () => {
     let state = NotifikasjonReducer(defaultNotitikasjonState(), {
-      type: Actions.HandleResponse,
+      type: Actions.HandleError,
       payload: {
         notifikasjonsType: NotifikasjonType.GravidSoknad,
-        status: HttpStatus.Error
+        status: HttpStatus.Error,
+        uuid: 'uuid-uuid-uuid'
       }
     } as NotifikasjonAction);
     expect(state.notifikasjonType).toEqual(NotifikasjonType.GravidSoknad);
     expect(state.status).toEqual(HttpStatus.Error);
+    expect(state.uuid).toEqual('uuid-uuid-uuid');
   });
 
   it('should handle reset', () => {

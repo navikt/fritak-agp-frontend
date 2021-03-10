@@ -12,14 +12,16 @@ const GetPromise = (path: string) =>
   }).then(async (response) => {
     switch (response.status) {
       case HttpStatus.Successfully:
+      case HttpStatus.UnprocessableEntity:
         return {
           status: response.status,
           json: await response.json()
         } as FetchResponse;
-      case HttpStatus.UnprocessableEntity:
-        return response.json();
       default:
-        return Promise.reject(response.status);
+        return Promise.reject({
+          status: response.status,
+          json: {}
+        });
     }
   });
 

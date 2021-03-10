@@ -11,16 +11,30 @@ describe('mapGravidRequest', () => {
 
   it('should handle 404', async () => {
     mockFetch(404, {});
-    await expect(GetPromise(API_PATH)).rejects.toEqual(404);
+    await expect(GetPromise(API_PATH)).rejects.toEqual({
+      status: 404,
+      json: {}
+    });
   });
 
   it('should handle 500', async () => {
     mockFetch(500, {});
-    await expect(GetPromise(API_PATH)).rejects.toEqual(500);
+    await expect(GetPromise(API_PATH)).rejects.toEqual({
+      status: 500,
+      json: {}
+    });
   });
 
   it('should handle 505', async () => {
     mockFetch(505, {});
-    await expect(GetPromise(API_PATH)).rejects.toEqual(505);
+    await expect(GetPromise(API_PATH)).rejects.toEqual({
+      status: 505,
+      json: {}
+    });
+  });
+
+  it('should handle 422', async () => {
+    mockFetch(422, { user: 'human' });
+    await expect(GetPromise(API_PATH)).resolves.toEqual({ json: { user: 'human' }, status: 422 });
   });
 });

@@ -15,33 +15,36 @@ interface NotifikasjonStateProps {
   notifikasjonType: NotifikasjonType;
 }
 
+interface NotifikasjonParams {
+  uuid: string;
+}
+
 const NotifikasjonController = ({
   notifikasjonState,
   notifikasjonType = NotifikasjonType.Ukjent
 }: NotifikasjonStateProps) => {
   const [state, dispatch] = useReducer(NotifikasjonReducer, notifikasjonState, defaultNotitikasjonState);
   state.notifikasjonType = notifikasjonType;
-  let { uuid } = useParams(); // '9a6709da-c481-4166-97e5-80fbcc90cb4f'
+  let { uuid }: NotifikasjonParams = useParams(); // '9a6709da-c481-4166-97e5-80fbcc90cb4f'
   useEffect(() => {
-    if (state.status == undefined) {
+    if (state.status === undefined) {
       GetHandler(getNotifikasjonUrl(uuid, notifikasjonType))
-        .then(async (response) => {
+        .then((response) => {
           dispatch({
             type: Actions.HandleResponse,
             payload: {
               notifikasjonsType: notifikasjonType,
-              json: await response.json,
+              json: response.json,
               status: response.status
             }
           } as NotifikasjonAction);
         })
-        .catch((status) => {
+        .catch((response) => {
           dispatch({
             type: Actions.HandleError,
             payload: {
-              notifikasjonType: notifikasjonType,
-              status: status,
-              notifikasjonsType: NotifikasjonType.GravidSoknad
+              status: response.status,
+              notifikasjonsType: notifikasjonType
             }
           } as NotifikasjonAction);
         });
