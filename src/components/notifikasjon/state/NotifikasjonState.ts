@@ -2,6 +2,7 @@ import NotifikasjonType from '../felles/NotifikasjonType';
 import { GravidSoknadResponse } from '../../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
+import KroniskSoknadResponse from '../../../api/kronisk/KroniskSoknadResponse';
 
 export interface NotifikasjonState {
   status?: number;

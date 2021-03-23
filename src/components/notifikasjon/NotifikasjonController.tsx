@@ -44,10 +44,9 @@ const NotifikasjonController = ({
           dispatch({
             type: Actions.HandleError,
             payload: {
-            } as NotifikasjonPayload
               status: response.status,
               notifikasjonsType: notifikasjonType
-            }
+            } as NotifikasjonPayload
           } as NotifikasjonAction);
         });
     }
