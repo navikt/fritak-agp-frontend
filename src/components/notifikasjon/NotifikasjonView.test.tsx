@@ -10,6 +10,9 @@ import HttpStatus from '../../api/HttpStatus';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
+import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
+import ArbeidType from '../kronisk/ArbeidType';
+import PaakjenningerType from '../kronisk/PaakjenningerType';
 
 describe('NotifikasjonView', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -151,6 +154,36 @@ describe('NotifikasjonView', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Successfully;
     render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(FEILMELDING);
+  });
+
+  it('should show Kronisk Søknad', () => {
+    const state = defaultNotitikasjonState();
+
+    state.status = HttpStatus.Successfully;
+    state.kroniskSoknadResponse = {
+      id: '1',
+      opprettet: '2020-01-01',
+      virksomhetsnummer: '123',
+      virksomhetsnavn: 'Virksomhet',
+      arbeidstyper: [ArbeidType.STILLESITTENDE],
+      paakjenningstyper: [PaakjenningerType.UKOMFORTABEL],
+      paakjenningBeskrivelse: '',
+      fravaer: [],
+      sendtAv: '',
+      harVedlegg: false,
+      journalpostId: '123',
+      oppgaveId: 'abc'
+    } as KroniskSoknadResponse;
+    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad), htmlDivElement);
+    expect(htmlDivElement.textContent).toContain(INNHOLD);
+    expect(htmlDivElement.textContent).toContain('Påkjenninger på arbeidsstedet');
+  });
+
+  it('should handle empty Kronisk Søknad', () => {
+    const state = defaultNotitikasjonState();
+    state.status = HttpStatus.Successfully;
+    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(FEILMELDING);
   });
 });

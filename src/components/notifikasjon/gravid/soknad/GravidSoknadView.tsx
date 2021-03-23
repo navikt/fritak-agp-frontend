@@ -20,7 +20,7 @@ const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProp
       dato={gravidSoknadResponse.opprettet}
     >
       <p>
-        Arbeidsgiveren din, {gravidSoknadResponse.virksomhetsnummer}, har i dag søkt om utvidet støtte fra NAV angående
+        Arbeidsgiveren din, {gravidSoknadResponse.virksomhetsnavn}, har i dag søkt om utvidet støtte fra NAV angående
         sykepenger til deg. NAV har en egen ordning når sykefraværet blir høyere på grunn av svangerskap. Vanligvis skal
         arbeidsgiveren dekke de første 16 dagene av et sykefravær. Nå søker arbeidsgiveren din om at NAV dekker
         sykepengene dine fra første dag.

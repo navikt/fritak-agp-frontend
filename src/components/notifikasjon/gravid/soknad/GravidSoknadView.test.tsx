@@ -5,7 +5,7 @@ import { GravidSoknadResponse } from '../../../../api/gravid/GravidSoknadRespons
 
 describe('GravidSoknadView', () => {
   const notifikasjon = {
-    virksomhetsnummer: '123___987',
+    virksomhetsnavn: 'Kari Normann',
     tilrettelegge: true,
     tiltak: ['HJEMMEKONTOR', 'TILPASSEDE_ARBEIDSOPPGAVER', 'TILPASSET_ARBEIDSTID', 'ANNET'],
     tiltakBeskrivelse: 'personlig beskrivelse av tiltaket her',
@@ -17,7 +17,7 @@ describe('GravidSoknadView', () => {
 
   it('should show all fields', () => {
     render(<GravidSoknadView gravidSoknadResponse={notifikasjon} />);
-    expect(screen.getByText(/123___987/)).toBeInTheDocument();
+    expect(screen.getByText(/Kari Normann/)).toBeInTheDocument();
     expect(screen.getByText(/Tilrettelegging av arbeidsdagen /)).toBeInTheDocument();
     expect(screen.getByText(/hjemmekontor/)).toBeInTheDocument();
     expect(screen.getByText(/tilpassede arbeidsoppgaver/)).toBeInTheDocument();
