@@ -13,7 +13,6 @@ import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 import ArbeidType from '../kronisk/ArbeidType';
 import PaakjenningerType from '../kronisk/PaakjenningerType';
-import { FravaerData } from '../../api/kronisk/KroniskRequest';
 
 describe('NotifikasjonView', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -170,12 +169,7 @@ describe('NotifikasjonView', () => {
       arbeidstyper: [ArbeidType.STILLESITTENDE],
       paakjenningstyper: [PaakjenningerType.UKOMFORTABEL],
       paakjenningBeskrivelse: '',
-      fravaer: [
-        {
-          yearMonth: 'okt-2020',
-          antallDagerMedFravaer: 1
-        }
-      ],
+      fravaer: [],
       sendtAv: '',
       harVedlegg: false,
       journalpostId: '123',
