@@ -1,7 +1,6 @@
 import React from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Lenke from 'nav-frontend-lenker';
-import lenker from '../../lenker';
 import NotifikasjonType from './NotifikasjonType';
 import Panel from 'nav-frontend-paneler';
 import dayjs from 'dayjs';
