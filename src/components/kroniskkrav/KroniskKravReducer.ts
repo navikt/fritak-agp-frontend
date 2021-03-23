@@ -1,8 +1,8 @@
 import { Actions, KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
-import { parseDateTilDato } from '../../utils/Dato';
-import mapResponse from '../../api/mapResponse';
+import { parseDateTilDato } from '../../utils/dato/Dato';
+import mapResponse from '../../state/validation/mapResponse';
 import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import setGrunnbeloep from './setGrunnbeloep';

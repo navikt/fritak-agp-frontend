@@ -1,4 +1,4 @@
-import { Dato } from '../utils/Dato';
+import { Dato } from '../utils/dato/Dato';
 
 export const validateFra = (fra: Dato | undefined, required: boolean): string | undefined => {
   if (!fra?.value) {

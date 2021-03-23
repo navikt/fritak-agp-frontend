@@ -2,7 +2,7 @@ import React from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import './ServerFeilAdvarsel.sass';
-import InternLenke from './login/InternLenke';
+import InternLenke from '../InternLenke/InternLenke';
 
 interface ServerFeilAdvarselProps {
   onClose: () => void;

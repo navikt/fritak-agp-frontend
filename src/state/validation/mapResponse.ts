@@ -1,11 +1,11 @@
 import ValidationResponse from './ValidationResponse';
-import HttpStatus from './HttpStatus';
-import map201 from '../validation/map201';
-import map400 from '../validation/map400';
-import map401 from '../validation/map401';
-import map422 from '../validation/map422';
-import map500 from '../validation/map500';
-import { ValidationState } from '../validation/ValidationState';
+import HttpStatus from '../../api/HttpStatus';
+import map201 from './map201';
+import map400 from './map400';
+import map401 from './map401';
+import map422 from './map422';
+import map500 from './map500';
+import { ValidationState } from './ValidationState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 
 const mapResponse = (

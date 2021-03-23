@@ -2,8 +2,8 @@ import React from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
-import lenker from './lenker';
-import Side from './Side';
+import lenker from '../config/lenker';
+import Side from './felles/Side/Side';
 
 const Forside = () => {
   return (

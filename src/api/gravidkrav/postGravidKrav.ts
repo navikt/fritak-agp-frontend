@@ -1,6 +1,6 @@
-import ValidationResponse from '../ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 import postRequest from '../postRequest';
-import { Paths } from '../Paths';
+import { Paths } from '../../config/Paths';
 import { GravidKravRequest } from './GravidKravRequest';
 
 const postGravidKrav = (basePath: string, request: GravidKravRequest): Promise<ValidationResponse> => {

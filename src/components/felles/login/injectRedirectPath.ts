@@ -1,4 +1,4 @@
-import env from '../environment';
+import env from '../../../config/environment';
 
 function injectRedirectPath(injectedPath: string, clean: string = ''): string {
   let url = new URL(env.loginServiceUrl);

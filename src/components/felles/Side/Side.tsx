@@ -8,8 +8,8 @@ import { History } from 'history';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { useArbeidsgiver } from '../context/arbeidsgiver/ArbeidsgiverContext';
-import { IngenTilgangAdvarsel } from './login/IngenTilgangAdvarsel';
+import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
+import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
 
 interface SideProps {
   children: React.ReactNode;

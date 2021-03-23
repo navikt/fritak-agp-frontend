@@ -1,12 +1,12 @@
 import { Route, Switch } from 'react-router-dom';
-import lenker from './components/lenker';
+import lenker from './config/lenker';
 import GravidSide from './components/gravid/GravidSide';
 import GravidKvittering from './components/gravid/GravidKvittering';
 import KroniskSide from './components/kronisk/KroniskSide';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
 import GravidKrav from './components/gravidkrav/GravidKrav';
 import KroniskKrav from './components/kroniskkrav/KroniskKrav';
-import TokenFornyet from './components/tokenFornyet/TokenFornyet';
+import TokenFornyet from './components/felles/login/TokenFornyet';
 import KravKvittering from './components/kravkvittering/KravKvittering';
 import Forside from './components/Forside';
 import React from 'react';

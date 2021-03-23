@@ -4,7 +4,7 @@ import { validateKronisk } from './validateKronisk';
 import { validerArbeid } from './validerArbeid';
 import { validerFravaer } from './validerFravaer';
 import { validerPaakjenninger } from './validerPaakjenninger';
-import mapResponse from '../../api/mapResponse';
+import mapResponse from '../../state/validation/mapResponse';
 import mapKroniskFeilmeldinger from './mapKroniskFeilmeldinger';
 
 const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskState => {

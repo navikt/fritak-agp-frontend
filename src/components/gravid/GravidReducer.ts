@@ -3,8 +3,8 @@ import { Actions, GravidAction } from './Actions';
 import { validateGravid } from './validateGravid';
 import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
-import { parseDateTilDato } from '../../utils/Dato';
-import mapResponse from '../../api/mapResponse';
+import { parseDateTilDato } from '../../utils/dato/Dato';
+import mapResponse from '../../state/validation/mapResponse';
 import mapGravidFeilmeldinger from './mapGravidFeilmeldinger';
 
 export const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState) => {

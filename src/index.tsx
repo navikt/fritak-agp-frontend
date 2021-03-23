@@ -7,7 +7,7 @@ import App from './App';
 import './index.css';
 import Modal from 'react-modal';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import env, { EnvironmentType } from './environment';
+import env, { EnvironmentType } from './config/environment';
 import { version } from '../package.json';
 
 if (env.environmentMode !== EnvironmentType.LOCAL) {

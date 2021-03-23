@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { Feilmelding } from 'nav-frontend-typografi';
 import './Upload.sass';
 import { Flatknapp } from 'nav-frontend-knapper';
-import { formatFilesize } from '../utils/formatFilesize';
+import { formatFilesize } from '../../../utils/formatFilesize';
 
 interface UploadProps {
   id: string;

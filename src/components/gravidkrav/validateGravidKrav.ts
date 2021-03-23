@@ -1,13 +1,13 @@
-import isValidFnr from '../../utils/isValidFnr';
+import isValidFnr from '../../validation/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { validateFnr } from '../../utils/validateFnr';
+import { validateFnr } from '../../validation/validateFnr';
 import GravidKravState from './GravidKravState';
-import { pushFeilmelding } from '../../validation/pushFeilmelding';
+import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import validateFra from '../../validation/validateFra';
 import validateTil from '../../validation/validateTil';
 import validateDager from '../../validation/validateDager';
 import validateBeloep from '../../validation/validateBeloep';
-import { validateOrgnr } from '../../utils/validateOrgnr';
+import { validateOrgnr } from '../../validation/validateOrgnr';
 
 export const validateGravidKrav = (state: GravidKravState): GravidKravState => {
   if (!state.validated) {
