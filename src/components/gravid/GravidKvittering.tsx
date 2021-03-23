@@ -3,7 +3,7 @@ import React from 'react';
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
-import lenker from '../lenker';
+import lenker from '../../config/lenker';
 
 const GravidKvittering = () => (
   <Panel className='gravid-soknad-kvittering'>

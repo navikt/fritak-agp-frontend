@@ -1,5 +1,5 @@
 import { mapGravidKravRequest } from './mapGravidKravRequest';
-import { parseDato } from '../../utils/Dato';
+import { parseDato } from '../../utils/dato/Dato';
 import { Arbeidsgiverperiode, GravidKravRequest } from './GravidKravRequest';
 
 describe('mapGravidKravRequest', () => {

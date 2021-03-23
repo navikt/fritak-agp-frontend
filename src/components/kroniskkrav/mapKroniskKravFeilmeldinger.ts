@@ -1,7 +1,7 @@
-import ValidationResponse from '../../api/ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 import KroniskKravState from './KroniskKravState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { lagFeil } from '../lagFeil';
+import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 
 const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();

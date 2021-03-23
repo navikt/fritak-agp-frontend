@@ -1,4 +1,4 @@
-import ValidationResponse, { ValidationProblemDetail } from '../api/ValidationResponse';
+import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
 
 const mockValidationResponse = (status: number, felter: string[]) => {
   return {

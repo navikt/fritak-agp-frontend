@@ -1,6 +1,6 @@
 import React from 'react';
 import { redirectUrl } from './redirectUrl';
-import env from '../../environment';
+import env from '../../config/environment';
 
 export const LoginRedirect = () => {
   window.location.href = redirectUrl(env.loginServiceUrl, window.location.href);

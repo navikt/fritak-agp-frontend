@@ -1,7 +1,7 @@
 import KroniskKravReducer from './KroniskKravReducer';
 import { Actions } from './Actions';
 import { defaultKroniskKravState } from './KroniskKravState';
-import ValidationResponse from '../../api/ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 describe('KroniskKravReducer', () => {
   it('should throw error', () => {

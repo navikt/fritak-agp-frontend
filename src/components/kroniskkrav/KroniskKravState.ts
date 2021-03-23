@@ -1,6 +1,6 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { ValidationState } from '../../validation/ValidationState';
-import { Dato } from '../../utils/Dato';
+import { ValidationState } from '../../state/validation/ValidationState';
+import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
 
 export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravState => {

@@ -1,7 +1,7 @@
 import GravidKravReducer from './GravidKravReducer';
 import { Actions } from './Actions';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import ValidationResponse from '../../api/ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 describe('GravidKravReducer', () => {
   it('should throw error', () => {

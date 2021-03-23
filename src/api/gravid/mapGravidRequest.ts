@@ -2,7 +2,7 @@ import { GravidRequest } from './GravidRequest';
 import { Tiltak } from '../../components/gravid/Tiltak';
 import { Aarsak } from '../../components/gravid/Aarsak';
 import { Omplassering } from '../../components/gravid/Omplassering';
-import { Dato, datoToString } from '../../utils/Dato';
+import { Dato, datoToString } from '../../utils/dato/Dato';
 
 export const mapGravidRequest = (
   fnr: string | undefined,

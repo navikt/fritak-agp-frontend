@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import GetHandler from '../../api/fetch/GetHandler';
 import NotifikasjonReducer from './state/NotifikasjonReducer';
-import SideRamme from '../SideRamme';
+import SideRamme from '../felles/Side/SideRamme';
 import NotifikasjonType from './felles/NotifikasjonType';
 import getNotifikasjonUrl from './utils/getNotifikasjonUrl';
 import { defaultNotitikasjonState, NotifikasjonState } from './state/NotifikasjonState';

@@ -1,12 +1,12 @@
-import { validateOrgnr } from '../../utils/validateOrgnr';
-import isValidOrgnr from '../../utils/isValidOrgnr';
-import isValidFnr from '../../utils/isValidFnr';
+import { validateOrgnr } from '../../validation/validateOrgnr';
+import isValidOrgnr from '../../validation/isValidOrgnr';
+import isValidFnr from '../../validation/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { validateFnr } from '../../utils/validateFnr';
+import { validateFnr } from '../../validation/validateFnr';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
-import { pushFeilmelding } from '../../validation/pushFeilmelding';
+import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import { Omplassering } from './Omplassering';
 
 export const validateGravid = (state: GravidState): GravidState => {
