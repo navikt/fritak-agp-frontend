@@ -1,6 +1,7 @@
 import NotifikasjonType from '../felles/NotifikasjonType';
 import { GravidSoknadResponse } from '../../../api/gravid/GravidSoknadResponse';
-import KroniskSoknadResponse from '../../../api/kronisk/KroniskSoknadResponse';
+import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
+import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
 
 export interface NotifikasjonState {
   status?: number;
@@ -9,6 +10,8 @@ export interface NotifikasjonState {
   gravidSoknadResponse?: GravidSoknadResponse;
   kroniskSoknadResponse?: KroniskSoknadResponse;
   pathname?: string;
+  gravidKravResponse?: GravidKravResponse;
+  kroniskKravResponse?: KroniskKravResponse;
 }
 
 export const defaultNotitikasjonState = (state?: NotifikasjonState): NotifikasjonState => {

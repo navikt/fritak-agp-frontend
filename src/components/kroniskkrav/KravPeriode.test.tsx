@@ -37,7 +37,7 @@ describe('KravPeriode', () => {
 
   it('should show a random row', async () => {
     const mockDispatch = jest.fn();
-    const randomRow = Math.floor(Math.random() * 1000) + 1;
+    const randomRow = 667;
 
     render(<KravPeriode dispatch={mockDispatch} index={randomRow} enkeltPeriode={enkeltPeriode} />);
 

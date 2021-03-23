@@ -16,33 +16,38 @@ interface NotifikasjonStateProps {
   notifikasjonType: NotifikasjonType;
 }
 
+interface NotifikasjonParams {
+  uuid: string;
+}
+
 const NotifikasjonController = ({
   notifikasjonState,
   notifikasjonType = NotifikasjonType.Ukjent
 }: NotifikasjonStateProps) => {
   const [state, dispatch] = useReducer(NotifikasjonReducer, notifikasjonState, defaultNotitikasjonState);
   state.notifikasjonType = notifikasjonType;
-  let { uuid } = useParams();
+  let { uuid }: NotifikasjonParams = useParams();
   useEffect(() => {
-    if (state.status == undefined) {
+    if (state.status === undefined) {
       GetHandler(getNotifikasjonUrl(uuid, notifikasjonType))
-        .then(async (response) => {
+        .then((response) => {
           dispatch({
             type: Actions.HandleResponse,
             payload: {
               notifikasjonsType: notifikasjonType,
-              json: await response.json,
+              json: response.json,
               status: response.status
             } as NotifikasjonPayload
           } as NotifikasjonAction);
         })
-        .catch((status) => {
+        .catch((response) => {
           dispatch({
             type: Actions.HandleError,
             payload: {
-              status: status,
-              notifikasjonsType: notifikasjonType
             } as NotifikasjonPayload
+              status: response.status,
+              notifikasjonsType: notifikasjonType
+            }
           } as NotifikasjonAction);
         });
     }
