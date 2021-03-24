@@ -70,19 +70,7 @@ describe('GravidKravReducer', () => {
 
   it('should clear fra when empty payload', () => {
     expect(() => {
-      let state: GravidKravState = {
-        fra: {
-          value: '2020.05.06',
-          error: undefined,
-          year: 2020,
-          month: 5,
-          day: 6,
-          millis: 1234512344
-        },
-        feilmeldinger: []
-      };
-
-      state = GravidKravReducer(defaultGravidKravState(), {
+      let state = GravidKravReducer(defaultGravidKravState(), {
         type: Actions.Fra,
         payload: { fra: undefined }
       });
@@ -100,19 +88,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should clear til when empty payload', () => {
-    let state: GravidKravState = {
-      til: {
-        value: '2020.05.06',
-        error: undefined,
-        year: 2020,
-        month: 5,
-        day: 6,
-        millis: 1234512344
-      },
-      feilmeldinger: []
-    };
-
-    state = GravidKravReducer(defaultGravidKravState(), {
+    let state = GravidKravReducer(defaultGravidKravState(), {
       type: Actions.Til,
       payload: { til: undefined }
     });

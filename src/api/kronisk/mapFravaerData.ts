@@ -1,6 +1,20 @@
 import Aarsfravaer from '../../components/kronisk/Aarsfravaer';
 import { FravaerData } from './KroniskRequest';
-import shortMonthName from '../shortMonthName';
+
+const shortMonthName = Object.freeze([
+  'jan',
+  'feb',
+  'mar',
+  'apr',
+  'mai',
+  'jun',
+  'jul',
+  'aug',
+  'sep',
+  'okt',
+  'nov',
+  'des'
+]);
 
 export const mapFravaerData = (fravaer: Array<Aarsfravaer>): FravaerData[] => {
   if (fravaer.length == 0) {
