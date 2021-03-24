@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import GetLoginExpiry from '../../api/loginexpiry/LoginExpiryAPI';
-import { TilgangsfeilSide } from '../../components/login/TilgangsfeilSide';
+import { TilgangsfeilSide } from '../../components/felles/login/TilgangsfeilSide';
 import { LoginStatus } from './LoginStatus';
 import { LoginRedirect } from './LoginRedirect';
 import { LoginChecking } from './LoginChecking';

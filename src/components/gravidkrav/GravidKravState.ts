@@ -1,6 +1,6 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { ValidationState } from '../../validation/ValidationState';
-import { Dato } from '../../utils/Dato';
+import { ValidationState } from '../../state/validation/ValidationState';
+import { Dato } from '../../utils/dato/Dato';
 
 export const defaultGravidKravState = (state?: GravidKravState): GravidKravState => {
   return Object.assign(

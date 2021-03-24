@@ -3,7 +3,7 @@ import { Actions } from './Actions';
 import { defaultKroniskState } from './KroniskState';
 import ArbeidType from './ArbeidType';
 import PaakjenningerType from './PaakjenningerType';
-import ValidationResponse from '../../api/ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 describe('KroniskReducer', () => {
   it('should set the fnr', () => {

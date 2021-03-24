@@ -1,6 +1,6 @@
 import { GrunnbeloepResponse } from './GrunnbeloepResponse';
 import HttpStatus from '../HttpStatus';
-import environment from '../../environment';
+import environment from '../../config/environment';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {

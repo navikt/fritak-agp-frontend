@@ -1,6 +1,6 @@
 import { validateGravidKrav } from './validateGravidKrav';
 import { defaultGravidKravState } from './GravidKravState';
-import { parseDato } from '../../utils/Dato';
+import { parseDato } from '../../utils/dato/Dato';
 
 describe('validateGravidKrav', () => {
   it('should show fnr error when invalid', () => {

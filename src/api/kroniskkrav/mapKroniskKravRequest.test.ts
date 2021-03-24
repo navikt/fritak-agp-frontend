@@ -1,5 +1,5 @@
 import { mapKroniskKravRequest } from './mapKroniskKravRequest';
-import { parseDato } from '../../utils/Dato';
+import { parseDato } from '../../utils/dato/Dato';
 import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
 
 describe('mapKroniskKravRequest', () => {

@@ -1,6 +1,6 @@
 import { validateKroniskKrav } from './validateKroniskKrav';
 import { defaultKroniskKravState } from './KroniskKravState';
-import { parseDato } from '../../utils/Dato';
+import { parseDato } from '../../utils/dato/Dato';
 
 describe('validateKroniskKrav', () => {
   it('should show fnr error when invalid', () => {

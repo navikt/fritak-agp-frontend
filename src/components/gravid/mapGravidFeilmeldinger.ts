@@ -1,7 +1,7 @@
-import ValidationResponse from '../../api/ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidState from './GravidState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { lagFeil } from '../lagFeil';
+import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 
 const mapGravidFeilmeldinger = (response: ValidationResponse, state: GravidState): FeiloppsummeringFeil[] => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();

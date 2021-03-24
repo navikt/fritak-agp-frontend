@@ -4,7 +4,7 @@ import { LoginProvider } from './context/login/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
-import env from './environment';
+import env from './config/environment';
 import i18n from './locales/i18n';
 import { LoginStatus } from './context/login/LoginStatus';
 import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';

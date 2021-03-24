@@ -7,7 +7,7 @@ import { Input, Label } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import SelectDager from '../felles/SelectDager';
+import SelectDager from '../felles/SelectDager/SelectDager';
 import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';

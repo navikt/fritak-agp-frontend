@@ -1,8 +1,8 @@
 import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import { parseDateTilDato } from '../../utils/Dato';
-import mapResponse from '../../api/mapResponse';
+import { parseDateTilDato } from '../../utils/dato/Dato';
+import mapResponse from '../../state/validation/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
 import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
