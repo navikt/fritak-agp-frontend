@@ -11,27 +11,11 @@ const translatedKeys: IncludedKeys = {
   },
 
   [Keys.DEN_ANSATTE]: {
-    nb: 'Tittel NB',
-    nn: 'Tittel NN',
-    en: 'Tittel EN'
+    nb: 'DEN_ANSATTE NB',
+    nn: 'DEN_ANSATTE NN',
+    en: 'DEN_ANSATTE EN'
   }
 };
-
-// const translatedStatus: IncludedStatus = {
-//   [Status.INNVILGET]: {
-//     nb: 'Innvilget',
-//     nn: 'Innvilga',
-//     en: 'Approved'
-//   },
-// };
-
-// const translatedErrors: IncludedErrors = {
-//   [ErrorType.TOOLOWAMOUNT]: {
-//     nb: 'Beløpet er for lavt.',
-//     nn: 'Beløpet er for lågt',
-//     en: 'Amount is too low.'
-//   },
-// }
 
 type IncludedKeys = {
   [P in Keys]: {
@@ -39,22 +23,8 @@ type IncludedKeys = {
   };
 };
 
-// type IncludedStatus = {
-//   [P in Keys]: {
-//     [P in Languages]: string;
-//   };
-// };
-//
-// type IncludedErrors = {
-//   [P in ErrorType]: {
-//     [P in Languages]: string;
-//   };
-// };
-
-const allTranslations: IncludedKeys /*& IncludedStatus& IncludedErrors*/ = {
+const allTranslations: IncludedKeys = {
   ...translatedKeys
-  // ...translatedStatus,
-  // ...translatedErrors
 };
 
 export enum Languages {
@@ -64,7 +34,7 @@ export enum Languages {
 }
 
 export const translationsToJson = (lan: Languages): {} => {
-  let translatedKeys = {};
-  Object.keys(allTranslations).map((e) => (translatedKeys[e] = allTranslations[e][lan]));
-  return translatedKeys;
+  let allTranslatedKeys = {};
+  Object.keys(allTranslations).map((e) => (allTranslatedKeys[e] = allTranslations[e][lan]));
+  return allTranslatedKeys;
 };
