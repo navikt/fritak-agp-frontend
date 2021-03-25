@@ -19,7 +19,7 @@ const translatedKeys: IncludedKeys = {
 
 type IncludedKeys = {
   [P in Keys]: {
-    [P in Languages]: string;
+    [L in Languages]: string;
   };
 };
 
