@@ -34,11 +34,15 @@ import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/Bekreft
 import Side from '../felles/Side/Side';
 import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
 import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { useTranslation } from 'react-i18next';
+import { GravidKeys } from '../../locales/GravidKeys';
+import { CommonKeys } from '../../locales/CommonKeys';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
 const GravidSide = (props: GravidSideProps) => {
   const [state, dispatch] = useReducer(GravidReducer, props.state, defaultGravidState);
+  const { t } = useTranslation();
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
@@ -113,7 +117,7 @@ const GravidSide = (props: GravidSideProps) => {
       className='gravid-side'
       sidetittel='Søknadsskjema'
       title='Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'
-      subtitle='Gravid ansatt'
+      subtitle={t(CommonKeys.SUB_TITLE_GRAVID)}
     >
       <Row>
         <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
@@ -126,11 +130,9 @@ const GravidSide = (props: GravidSideProps) => {
             <div>
               <Panel>
                 <Ingress>
-                  NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet.
-                  Dette gjelder bare hvis tilrettelegging eller omplassering ikke er mulig. Vi bruker opplysninger vi
-                  allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen er beskrevet i{' '}
+                  {t(GravidKeys.HEADER)}
                   <Lenke href='https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20'>
-                    folketrygdlovens § 8-20
+                    {t(CommonKeys.FOLKETRYGDLOVEN)}
                   </Lenke>
                   .
                   <br />
