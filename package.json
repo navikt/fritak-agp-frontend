@@ -1,6 +1,6 @@
 {
   "name": "fritak-agp-frontend",
-  "version": "0.1.141",
+  "version": "0.1.142",
   "private": true,
   "homepage": "/fritak-agp",
   "scripts": {
@@ -34,7 +34,6 @@
     "dayjs": "^1.10.4",
     "i18next": "^20.0.0",
     "nav-frontend-alertstriper": "^3.0.50",
-    "nav-frontend-alertstriper-style": "^2.0.36",
     "nav-frontend-alertstriper-style": "^2.0.37",
     "nav-frontend-chevron": "^1.0.28",
     "nav-frontend-chevron-style": "^0.3.9",
