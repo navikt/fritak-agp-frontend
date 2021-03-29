@@ -1,5 +1,5 @@
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
-import { datoToString } from '../../utils/Dato';
+import { datoToString } from '../../utils/dato/Dato';
 
 const mapPeriodeData = (perioder: KroniskKravPeriode[]) => {
   return perioder.map((enkeltPeriode) => ({

@@ -2,8 +2,8 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { Aarsak } from './Aarsak';
 import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
-import { ValidationState } from '../../validation/ValidationState';
-import { Dato } from '../../utils/Dato';
+import { ValidationState } from '../../state/validation/ValidationState';
+import { Dato } from '../../utils/dato/Dato';
 
 export const defaultGravidState = (state?: GravidState): GravidState => {
   return Object.assign(

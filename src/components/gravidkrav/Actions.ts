@@ -1,4 +1,4 @@
-import ValidationResponse from '../../api/ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 export enum Actions {
   Reset,

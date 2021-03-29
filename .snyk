@@ -37,4 +37,11 @@ ignore:
     - '@navikt/sif-common-core > @navikt/appstatus-react > @sanity/client > @sanity/eventsource > eventsource > original > url-parse':
         reason: None given
         expires: '2021-03-26T09:58:20.734Z'
+  SNYK-JS-HTMLPARSESTRINGIFY2-1079307:
+    - html-parse-stringify2:
+        reason: None given
+        expires: '2021-04-24T09:50:35.507Z'
+    - react-i18next > html-parse-stringify2:
+        reason: None given
+        expires: '2021-04-24T09:50:35.507Z'
 patch: {}

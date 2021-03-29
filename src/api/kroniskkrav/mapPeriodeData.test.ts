@@ -1,5 +1,5 @@
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
-import { parseDato } from '../../utils/Dato';
+import { parseDato } from '../../utils/dato/Dato';
 import mapPeriodeData from './mapPeriodeData';
 
 describe('mapPeriodeData', () => {

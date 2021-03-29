@@ -3,7 +3,7 @@ import GravidSide from './GravidSide';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { cleanup } from '@testing-library/react';
 import { defaultGravidState } from './GravidState';
-import { lagFeil } from '../lagFeil';
+import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 import '../../mockData/mockWindowLocation';
 
 describe('GravidSide', () => {

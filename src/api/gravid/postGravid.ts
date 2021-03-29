@@ -1,12 +1,9 @@
-import ValidationResponse from '../ValidationResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 import postRequest from '../postRequest';
 import { GravidRequest } from './GravidRequest';
-import { Paths } from '../Paths';
+import { Paths } from '../../config/Paths';
 
-const postGravid = (
-  basePath: string,
-  request: GravidRequest
-): Promise<ValidationResponse> => {
+const postGravid = (basePath: string, request: GravidRequest): Promise<ValidationResponse> => {
   return postRequest(basePath + Paths.Gravid, request);
 };
 

@@ -6,10 +6,10 @@ import NotifikasjonType from './felles/NotifikasjonType';
 import NotifikasjonFeilmelding from './felles/NotifikasjonFeilmelding';
 import GravidKravView from './gravid/krav/GravidKravView';
 import GravidSoknadView from './gravid/soknad/GravidSoknadView';
-
 import React from 'react';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import mapKravState from './utils/mapKravState';
+import KroniskSoknadView from './kronisk/soknad/KroniskSoknadView';
 
 const NotifikasjonView = (state: NotifikasjonState) => {
   switch (state.status) {
@@ -27,6 +27,18 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           }
           return <GravidSoknadView gravidSoknadResponse={state.gravidSoknadResponse} />;
 
+        case NotifikasjonType.GravidKrav:
+          if (!state.gravidKravResponse) {
+            return <NotifikasjonFeilmelding />;
+          }
+          return <GravidKravView gravidKravResponse={state.gravidKravResponse} />;
+
+        case NotifikasjonType.KroniskSoknad:
+          if (!state.kroniskSoknadResponse) {
+            return <NotifikasjonFeilmelding />;
+          }
+          return <KroniskSoknadView kroniskSoknadResponse={state.kroniskSoknadResponse} />;
+
         case NotifikasjonType.KroniskKrav:
           if (!state.kroniskKravResponse) {
             return <NotifikasjonFeilmelding />;
@@ -34,11 +46,6 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           const kravState: GravidKravResponse = mapKravState(state.kroniskKravResponse);
           return <GravidKravView gravidKravResponse={kravState} />;
 
-        case NotifikasjonType.GravidKrav:
-          if (!state.gravidKravResponse) {
-            return <NotifikasjonFeilmelding />;
-          }
-          return <GravidKravView gravidKravResponse={state.gravidKravResponse} />;
         default:
           return <NotifikasjonFeilmelding />;
       }

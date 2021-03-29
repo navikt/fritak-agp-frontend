@@ -1,5 +1,5 @@
 import { Redirect } from 'react-router-dom';
-import lenker from '../lenker';
+import lenker from '../../config/lenker';
 import React from 'react';
 
 const KvitteringLink = () => {

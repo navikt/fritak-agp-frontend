@@ -1,5 +1,5 @@
 import { validateTil } from './validateTil';
-import { parseDato } from '../utils/Dato';
+import { parseDato } from '../utils/dato/Dato';
 
 describe('validateTil', () => {
   it('should not show errors when valid', () => {

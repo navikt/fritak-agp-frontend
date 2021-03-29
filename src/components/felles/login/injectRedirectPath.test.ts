@@ -1,9 +1,8 @@
 import injectRedirectPath from './injectRedirectPath';
 
-import env from '../environment';
+import env from '../../../config/environment';
 
-const mockServer =
-  'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true';
+const mockServer = 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp/?loggedIn=true';
 
 describe('injectRedirectPath', () => {
   it('should inject stuff', () => {
@@ -23,9 +22,7 @@ describe('injectRedirectPath', () => {
   });
 
   it('should not inject if we dont have commas', () => {
-    jest
-      .spyOn(env, 'loginServiceUrl', 'get')
-      .mockReturnValue('https://loginservice.nav.no/login/nocommas/for/you');
+    jest.spyOn(env, 'loginServiceUrl', 'get').mockReturnValue('https://loginservice.nav.no/login/nocommas/for/you');
 
     expect(injectRedirectPath('/fritak-agp/path-part', '/fritak-agp')).toEqual(
       'https://loginservice.nav.no/login/nocommas/for/you?redirect=null'

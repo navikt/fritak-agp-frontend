@@ -1,4 +1,4 @@
-import { Dato } from '../utils/Dato';
+import { Dato } from '../utils/dato/Dato';
 
 export const validateTil = (fra: Dato | undefined, til: Dato | undefined, required: boolean): string | undefined => {
   if (!til?.value) {

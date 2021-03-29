@@ -3,6 +3,7 @@ import React from 'react';
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
+import lenker from '../../config/lenker';
 
 const GravidKvittering = () => (
   <Panel className='gravid-soknad-kvittering'>
@@ -27,7 +28,7 @@ const GravidKvittering = () => (
 
     <Panel>
       <div>
-        <Lenke href='/'>Still krav om refusjon</Lenke>
+        <Lenke href={lenker.GravidKrav}>Still krav om refusjon</Lenke>
       </div>
       <div>
         <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>

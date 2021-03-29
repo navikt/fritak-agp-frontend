@@ -28,12 +28,7 @@ export const InternLenke: React.FC<InternLenkeProps> = ({
     );
   } else {
     return (
-      <Lenke
-        className={className}
-        href='#'
-        onClick={onClick}
-        onKeyDown={onKeyDown}
-      >
+      <Lenke className={className} href='#' onClick={onClick} onKeyDown={onKeyDown}>
         {children}
       </Lenke>
     );
