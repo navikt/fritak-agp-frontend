@@ -7,8 +7,12 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Side from '../felles/Side/Side';
 import lenker from '../../config/lenker';
 import InternLenke from '../felles/InternLenke/InternLenke';
+import LangKey from '../../locale/LangKey';
+import { useTranslation } from 'react-i18next';
 
 const KroniskKvittering = () => {
+  const { t } = useTranslation();
+
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
       <Row>
@@ -40,7 +44,7 @@ const KroniskKvittering = () => {
               <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
             </div>
             <div>
-              <Lenke href='/min-side-arbeidsgiver/'>Min side arbeidsgiver</Lenke>
+              <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
             </div>
           </Panel>
         </Panel>

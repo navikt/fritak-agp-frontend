@@ -1,20 +1,21 @@
+import LangKey from '../../locale/LangKey';
 import { Aarsak } from './Aarsak';
 
 const AarsakCheckboxes = [
   {
-    label: 'Den ansatte ønsker ikke omplassering',
+    label: LangKey.GRAVID_SIDE_OMPLASSERING_MOTSETTER_SEG,
     value: Aarsak.MOTSETTER
   },
   {
-    label: 'Vi får ikke kontakt med den ansatte',
+    label: LangKey.GRAVID_SIDE_OMPLASSERING_FAAR_IKKE_KONTAKT,
     value: Aarsak.FAAR_IKKE_KONTAKT
   },
   {
-    label: 'Vi har ikke andre oppgaver eller arbeidssteder å tilby',
+    label: LangKey.GRAVID_SIDE_OMPLASSERING_IKKE_ANDRE_OPPGAVER,
     value: Aarsak.IKKE_ANDRE_OPPGAVER
   },
   {
-    label: 'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden',
+    label: LangKey.GRAVID_SIDE_OMPLASSERING_HELSETILSTANDEN,
     value: Aarsak.HELSETILSTANDEN
   }
 ];

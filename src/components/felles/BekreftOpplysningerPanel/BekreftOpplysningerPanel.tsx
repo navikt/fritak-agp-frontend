@@ -1,6 +1,8 @@
 import Panel from 'nav-frontend-paneler';
 import { BekreftCheckboksPanel, SkjemaGruppe } from 'nav-frontend-skjema';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import LangKey from '../../../locale/LangKey';
 
 interface BekreftOpplysningerPanelProps {
   checked: boolean;
@@ -9,17 +11,18 @@ interface BekreftOpplysningerPanelProps {
 }
 
 const BekreftOpplysningerPanel = (props: BekreftOpplysningerPanelProps) => {
+  const { t } = useTranslation();
+
   return (
     <Panel>
       <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
         <BekreftCheckboksPanel
-          label='Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.'
+          label={t(LangKey.BEKREFT_OPPLYSNINGER_OVERSKRIFT)}
           checked={props.checked}
           feil={props.feil}
           onChange={props.onChange}
         >
-          Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis opplysningene
-          ikke er riktige eller fullstendige.
+          {t(LangKey.BEKREFT_OPPLYSNINGER_BESKRIVELSE)}
         </BekreftCheckboksPanel>
       </SkjemaGruppe>
     </Panel>

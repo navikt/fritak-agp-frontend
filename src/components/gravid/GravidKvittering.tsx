@@ -4,40 +4,46 @@ import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker from '../../config/lenker';
+import LangKey from '../../locale/LangKey';
+import { useTranslation } from 'react-i18next';
 
-const GravidKvittering = () => (
-  <Panel className='gravid-soknad-kvittering'>
-    <Panel>
-      <Sidetittel>Søknaden er mottatt</Sidetittel>
-    </Panel>
+const GravidKvittering = () => {
+  const { t } = useTranslation();
 
-    <Panel>
-      <Normaltekst>
-        En kvittering er sendt til meldingsboksen deres i <Lenke href='https://www.altinn.no'>Altinn</Lenke>. Den
-        ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte oss, er det tilstrekkelig å oppgi
-        fødselsnummeret til den ansatte.
-      </Normaltekst>
-    </Panel>
+  return (
+    <Panel className='gravid-soknad-kvittering'>
+      <Panel>
+        <Sidetittel>Søknaden er mottatt</Sidetittel>
+      </Panel>
 
-    <Panel>
-      <Alertstripe type='advarsel'>
-        NB: Ikke vent! Vi anbefaler å <Lenke href='/'>stille krav om refusjon</Lenke> så snart som mulig på grunn av at
-        foreldelsesfristen for kravet kan bli overskredet mens vi behandler denne søknaden.
-      </Alertstripe>
-    </Panel>
+      <Panel>
+        <Normaltekst>
+          En kvittering er sendt til meldingsboksen deres i <Lenke href='https://www.altinn.no'>Altinn</Lenke>. Den
+          ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte oss, er det tilstrekkelig å oppgi
+          fødselsnummeret til den ansatte.
+        </Normaltekst>
+      </Panel>
 
-    <Panel>
-      <div>
-        <Lenke href={lenker.GravidKrav}>Still krav om refusjon</Lenke>
-      </div>
-      <div>
-        <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
-      </div>
-      <div>
-        <Lenke href='/min-side-arbeidsgiver/'>Min side arbeidsgiver</Lenke>
-      </div>
+      <Panel>
+        <Alertstripe type='advarsel'>
+          NB: Ikke vent! Vi anbefaler å <Lenke href='/'>stille krav om refusjon</Lenke> så snart som mulig på grunn av
+          at foreldelsesfristen for kravet kan bli overskredet mens vi behandler denne søknaden.
+        </Alertstripe>
+      </Panel>
+
+      <Panel>
+        <div>
+          <Lenke href={lenker.GravidKrav}>Still krav om refusjon</Lenke>
+        </div>
+        <div>
+          <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
+        </div>
+        <div>
+          <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
+        </div>
+      </Panel>
     </Panel>
-  </Panel>
-);
+  );
+};
 
 export default GravidKvittering;

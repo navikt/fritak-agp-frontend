@@ -10,6 +10,8 @@ import SideIndentering from './SideIndentering';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
+import { useTranslation } from 'react-i18next';
+import LangKey from '../../../locale/LangKey';
 
 interface SideProps {
   children: React.ReactNode;
@@ -22,6 +24,7 @@ interface SideProps {
 
 const Side = (props: SideProps) => {
   const history: History = useHistory();
+  const { t } = useTranslation();
   const { arbeidsgivere, setArbeidsgiverId, setFirma } = useArbeidsgiver();
   return (
     <div className={'side ' + (props.className ? props.className : '')}>
@@ -40,7 +43,7 @@ const Side = (props: SideProps) => {
           <Row>
             <Column>
               <div className={'side__minside_arbeidsgiver'}>
-                <Lenke href='/min-side-arbeidsgiver/'>&lt;&lt; Min side arbeidsgiver</Lenke>
+                <Lenke href='/min-side-arbeidsgiver/'>&lt;&lt; {t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
               </div>
             </Column>
           </Row>
