@@ -49,7 +49,6 @@ describe('GravidSide', () => {
   const TILTAK_ERROR = 'Du må oppgi minst ett tiltak dere har prøvd';
   const OMPLASSERING_ERROR = 'Velg omplassering';
 
-
   it('skal vise progress mens venter på svar', () => {
     const state = defaultGravidState();
     state.progress = true;

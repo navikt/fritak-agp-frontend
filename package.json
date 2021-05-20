@@ -86,7 +86,7 @@
   "snyk": true,
   "devDependencies": {
     "@testing-library/jest-dom": "5.x",
-    "@testing-library/react": "^10.4.9",
+    "@testing-library/react": "10.x",
     "@testing-library/user-event": "13.x",
     "@types/jest": "26.x",
     "@types/jest-axe": "3.x",
