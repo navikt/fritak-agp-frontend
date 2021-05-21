@@ -173,7 +173,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <Systemtittel>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
                       <br />
                       <Orgnr
-                        label={t(LangKey.VIRKSOMHETSNUMMER)}
+                        label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                         orgnr={state.orgnr}
                         placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
                         feilmelding={state.orgnrError}
@@ -237,7 +237,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Row>
                     <Column sm='8' xs='12'>
                       <CheckboxGruppe
-                        legend={t(LangKey.GRAVID_SIDE_TILTAK)}
+                        legend={t(LangKey.GRAVID_SIDE_TILTAK_TITTEL)}
                         feil={state.tiltakError}
                         feilmeldingId='tiltakFeilmeldingId'
                       >
@@ -279,7 +279,7 @@ const GravidSide = (props: GravidSideProps) => {
                   </Row>
                   <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
                     <div className='gravid-side-radiogruppe-omplassering'>
-                      <RadioGruppe legend={t(LangKey.GRAVID_SIDE_OMPLASSERING)}>
+                      <RadioGruppe legend={t(LangKey.GRAVID_SIDE_OMPLASSERING_TITTEL)}>
                         {OmplasseringCheckboxes.map((a) => {
                           return (
                             <Radio

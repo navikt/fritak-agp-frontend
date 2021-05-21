@@ -4,31 +4,41 @@ import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 import '../../mockData/mockWindowLocation';
 import { render, screen } from '@testing-library/react';
-import LocaleProvider from '../../locale/LocaleProvider';
-import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
 const AllTheProviders: FC = ({ children }) => {
   return (
-    <MemoryRouter>
-      <LocaleProvider>{children}</LocaleProvider>
-    </MemoryRouter>
-  );
-};
+    <div>
+      {children}
+    </div>
+  )
+}
+
+jest.mock('nav-frontend-tekstomrade', () => {
+  return {
+    __esModule: true,
+    BoldRule: true,
+    LinebreakRule: true,
+    HighlightRule: true,
+    default: ({children}) => {
+      return <div>{children}</div>;
+    },
+  };
+});
 
 describe('GravidSide', () => {
-  const FODSELSNR = /Fødselsnummer/;
-  const VIRKSOMHETSNR = /Virksomhetsnummer/;
-  const TILRETTELEGGE = /Har dere prøvd å tilrettelegge arbeidsdagen/;
-  const TILTAK = /Hvilke tiltak har dere forsøkt/;
-  const VIDERE = /Dere må først ha prøvd å tilrettelegge for den gravide/;
-  const OMPLASSERING = /Har dere forsøkt omplassering til en annen jobb/;
-  const OMPLASSERING_AARSAK = /Den ansatte ønsker ikke omplassering/;
-  const DOKUMENTASJON = /Hvis dere har fått dokumentasjon fra den ansatte/;
-  const BEKREFT = /Jeg vet at NAV kan trekke tilbake retten til/;
+  const FODSELSNR = /FODSELSNUMMER_LABEL/;
+  const VIRKSOMHETSNR = /VIRKSOMHETSNUMMER_LABEL/;
+  const TILRETTELEGGE = /GRAVID_SIDE_TILRETTELEGGING/;
+  const GRAVID_SIDE_TILTAK_TITTEL = /GRAVID_SIDE_TILTAK_TITTEL/;
+  const VIDERE = /GRAVID_SIDE_IKKE_KOMPLETT_1/;
+  const OMPLASSERING = /GRAVID_SIDE_OMPLASSERING_TITTEL/;
+  const OMPLASSERING_AARSAK = /GRAVID_SIDE_OMPLASSERING_MOTSETTER_SEG/;
+  const DOKUMENTASJON = /GRAVID_SIDE_DOKUMENTASJON_TITTEL/;
+  const BEKREFT = /BEKREFT_OPPLYSNINGER_BESKRIVELSE/;
   const FEILMELDINGER = /For å gå videre må du rette opp følgende:/;
-  const SEND_KNAPP = /Send søknad/;
-  const STATUS_HOVED = /NAV kan dekke sykepenger i arbeidsgiverperioden/;
+  const SEND_KNAPP = /GRAVID_SIDE_SEND_SOKNAD/;
+  const STATUS_HOVED = /GRAVID_SIDE_INGRESS/;
   const STATUS_PROGRESS = /Vennligst vent/;
   const STATUS_KVITTERING = /Søknaden er mottatt/;
   const STATUS_FEIL = /Det oppstod en feil/;
@@ -39,13 +49,7 @@ describe('GravidSide', () => {
   const TILTAK_ERROR = 'Du må oppgi minst ett tiltak dere har prøvd';
   const OMPLASSERING_ERROR = 'Velg omplassering';
 
-  afterEach(() => {
-    // unmountComponentAtNode(htmlDivElement);
-    // htmlDivElement.remove();
-    // htmlDivElement = document.createElement('div');
-    jest.restoreAllMocks();
-    // cleanup();
-  });
+
   it('skal vise progress mens venter på svar', () => {
     const state = defaultGravidState();
     state.progress = true;
@@ -117,14 +121,14 @@ describe('GravidSide', () => {
     expect(screen.getByText(TILRETTELEGGE)).toBeInTheDocument();
 
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
-    expect(screen.queryByText(TILTAK)).not.toBeInTheDocument();
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
 
-    const neiSjekkboks = screen.getByLabelText(/Nei/);
+    const neiSjekkboks = screen.getByLabelText(/NEI/);
 
     userEvent.click(neiSjekkboks);
 
     expect(screen.getByText(VIDERE)).toBeInTheDocument();
-    expect(screen.queryByText(TILTAK)).not.toBeInTheDocument();
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
 
     expect(screen.queryByText(OMPLASSERING)).not.toBeInTheDocument();
     expect(screen.queryByText(OMPLASSERING_AARSAK)).not.toBeInTheDocument();
@@ -148,7 +152,7 @@ describe('GravidSide', () => {
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
     expect(screen.getByText(TILRETTELEGGE)).toBeInTheDocument();
-    expect(screen.queryByText(TILTAK)).not.toBeInTheDocument();
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
     expect(screen.queryByText(OMPLASSERING)).not.toBeInTheDocument();
     expect(screen.queryByText(OMPLASSERING_AARSAK)).not.toBeInTheDocument();
 
@@ -163,15 +167,17 @@ describe('GravidSide', () => {
     const state = defaultGravidState();
     render(<GravidSide state={state} />, { wrapper: AllTheProviders });
 
-    const jaSjekkboks = screen.getByLabelText(/Ja/);
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
+    expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
 
+    const jaSjekkboks = screen.getByLabelText(/JA/);
     userEvent.click(jaSjekkboks);
 
-    expect(screen.getByText(TILTAK)).toBeInTheDocument();
+    expect(screen.getByText(GRAVID_SIDE_TILTAK_TITTEL)).toBeInTheDocument();
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
 
     expect(screen.getByText(TILRETTELEGGE)).toBeInTheDocument();
-    expect(screen.getByText(TILTAK)).toBeInTheDocument();
+    expect(screen.getByText(GRAVID_SIDE_TILTAK_TITTEL)).toBeInTheDocument();
     expect(screen.getByText(OMPLASSERING)).toBeInTheDocument();
     expect(screen.getByText(OMPLASSERING_AARSAK)).toBeInTheDocument();
     expect(screen.getByText(DOKUMENTASJON)).toBeInTheDocument();
@@ -192,13 +198,15 @@ describe('GravidSide', () => {
     state.omplasseringError = OMPLASSERING_ERROR;
     state.bekreftError = BEKREFT_ERROR;
 
+
     render(<GravidSide state={state} />, { wrapper: AllTheProviders });
 
-    const jaSjekkboks = screen.getByLabelText(/Ja/);
+    const jaSjekkboks = screen.getByLabelText(/JA/);
     userEvent.click(jaSjekkboks);
 
-    const submitKnapp = screen.getByText(/Send søknad/);
+    const submitKnapp = screen.getByText(/GRAVID_SIDE_SEND_SOKNAD/);
     userEvent.click(submitKnapp);
+
 
     expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
     expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
@@ -223,13 +231,13 @@ describe('GravidSide', () => {
 
     render(<GravidSide state={state} />, { wrapper: AllTheProviders });
 
-    const neiSjekkboks = screen.getByLabelText(/Nei/);
+    const neiSjekkboks = screen.getByLabelText(/NEI/);
     userEvent.click(neiSjekkboks);
 
-    const videreKnapp = screen.getByText(/gå videre med søknaden/);
+    const videreKnapp = screen.getByText(/GRAVID_SIDE_IKKE_KOMPLETT_2/);
     userEvent.click(videreKnapp);
 
-    const submitKnapp = screen.getByText(/Send søknad/);
+    const submitKnapp = screen.getByText(/GRAVID_SIDE_SEND_SOKNAD/);
     userEvent.click(submitKnapp);
 
     render(<GravidSide state={state} />, { wrapper: AllTheProviders });

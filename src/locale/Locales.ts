@@ -69,7 +69,7 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene?',
     en: 'Have you tried to arrange the working day so that the pregnant woman can work despite the health problems?'
   },
-  GRAVID_SIDE_TILTAK: {
+  GRAVID_SIDE_TILTAK_TITTEL: {
     nb: 'Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe?',
     en: 'What measures have you tried or considered for the employee to work?'
   },
@@ -89,7 +89,7 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Annet, gi en kort beskrivelse av hva dere har gjort:',
     en: 'Other, give a brief description of what you have done:'
   },
-  GRAVID_SIDE_OMPLASSERING: {
+  GRAVID_SIDE_OMPLASSERING_TITTEL: {
     nb: 'Har dere forsøkt omplassering til en annen jobb?',
     en: 'Have you tried relocation to another job?'
   },
@@ -157,7 +157,7 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Arbeidsgiveren',
     en: 'The employer'
   },
-  VIRKSOMHETSNUMMER: {
+  VIRKSOMHETSNUMMER_LABEL: {
     nb: 'Virksomhetsnummer',
     en: 'Company number'
   },
