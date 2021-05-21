@@ -90,7 +90,8 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.fnr,
     state.bekreft,
     state.orgnr,
-    state.isOpenKontrollsporsmaalLonn
+    state.isOpenKontrollsporsmaalLonn,
+    state.kontrollDager
   ]);
 
   if (!!state.kvittering) {
