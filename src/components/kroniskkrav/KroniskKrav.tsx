@@ -11,7 +11,7 @@ import { Link, Redirect } from 'react-router-dom';
 import lenker from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
-import '@navikt/helse-arbeidsgiver-felles-frontend/src/components/DatoVelger.css';
+import '@navikt/helse-arbeidsgiver-felles-frontend/lib/js/components/DatoVelger.css';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';
@@ -90,7 +90,8 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.fnr,
     state.bekreft,
     state.orgnr,
-    state.isOpenKontrollsporsmaalLonn
+    state.isOpenKontrollsporsmaalLonn,
+    state.kontrollDager
   ]);
 
   if (!!state.kvittering) {
