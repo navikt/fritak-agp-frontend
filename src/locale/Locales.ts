@@ -33,7 +33,8 @@ const Locales: Record<LangKey, Locale> = {
     nb:
       'NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet. Dette gjelder bare hvis tilrettelegging' +
       ' eller omplassering ikke er mulig. Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
-      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\nAlle felter må fylles ut om ikke annet er oppgitt',
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\nAlle felter må' +
+      ' fylles ut om ikke annet er oppgitt',
     en:
       'NAV can cover sickness benefits during the employer period if the absence is due to health problems during pregnancy. This only applies ' +
       'if facilitation or relocation is not possible. We use information we already have about sick leave, in addition to the answers you give below.' +

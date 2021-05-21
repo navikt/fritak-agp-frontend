@@ -21,7 +21,7 @@ link: [link name](link url)
 const Oversettelse = ({ langKey, variables }: OversettelseProps) => {
   const { t } = useTranslation();
   return (
-    <Tekstomrade rules={[ListeRule, UListeRule, HighlightRule, BoldRule, LenkeRule, LinebreakRule]}>
+    <Tekstomrade as='span' rules={[ListeRule, UListeRule, HighlightRule, BoldRule, LenkeRule, LinebreakRule]}>
       {t(langKey, variables)}
     </Tekstomrade>
   );

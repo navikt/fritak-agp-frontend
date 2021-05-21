@@ -9,6 +9,7 @@ import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverCon
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
+import LocaleProvider from '../../locale/LocaleProvider';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 
@@ -16,9 +17,11 @@ describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
       <MemoryRouter>
-        <ArbeidsgiverProvider baseUrl='/base/url'>
-          <KroniskKrav />
-        </ArbeidsgiverProvider>
+        <LocaleProvider>
+          <ArbeidsgiverProvider baseUrl='/base/url'>
+            <KroniskKrav />
+          </ArbeidsgiverProvider>
+        </LocaleProvider>
       </MemoryRouter>
     );
     const results = await axe(container);
@@ -31,9 +34,16 @@ describe('KroniskKrav', () => {
   it('should show warnings when input is missing', () => {
     render(
       <MemoryRouter>
-        <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={200} arbeidsgiverId='810007842' baseUrl='/base/url'>
-          <KroniskKrav />
-        </ArbeidsgiverProvider>
+        <LocaleProvider>
+          <ArbeidsgiverProvider
+            arbeidsgivere={arbeidsgivere}
+            status={200}
+            arbeidsgiverId='810007842'
+            baseUrl='/base/url'
+          >
+            <KroniskKrav />
+          </ArbeidsgiverProvider>
+        </LocaleProvider>
       </MemoryRouter>
     );
     const submitButton = screen.getByText(/Send kravet/);
@@ -57,9 +67,16 @@ describe('KroniskKrav', () => {
   it('should show warnings when input is missing, and the warning should dissapear when fixed', () => {
     render(
       <MemoryRouter>
-        <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={200} arbeidsgiverId='810007842' baseUrl='/base/url'>
-          <KroniskKrav />
-        </ArbeidsgiverProvider>
+        <LocaleProvider>
+          <ArbeidsgiverProvider
+            arbeidsgivere={arbeidsgivere}
+            status={200}
+            arbeidsgiverId='810007842'
+            baseUrl='/base/url'
+          >
+            <KroniskKrav />
+          </ArbeidsgiverProvider>
+        </LocaleProvider>
       </MemoryRouter>
     );
     const submitButton = screen.getByText(/Send kravet/);
