@@ -28,7 +28,7 @@ describe('App', () => {
 
   it('should show spinner while loading expiry', () => {
     act(() => {
-      render(makeRouter('/', ArbeidsgiverStatus.NotStarted, LoginStatus.Checking, INGEN_ARBEIDSGIVERE), container);
+      render(makeRouter('/nb', ArbeidsgiverStatus.NotStarted, LoginStatus.Checking, INGEN_ARBEIDSGIVERE), container);
     });
     expect(container).toContainHTML(SPINNER);
     expect(container).not.toContainHTML(LOGIN_REDIRECT);
@@ -37,7 +37,7 @@ describe('App', () => {
 
   it('should redirect when not logged in', async () => {
     act(() => {
-      render(makeRouter('/', ArbeidsgiverStatus.NotStarted, LoginStatus.MustLogin, INGEN_ARBEIDSGIVERE), container);
+      render(makeRouter('/nb', ArbeidsgiverStatus.NotStarted, LoginStatus.MustLogin, INGEN_ARBEIDSGIVERE), container);
     });
     expect(container).not.toContain(SPINNER);
     expect(container).toContainHTML(LOGIN_REDIRECT);
@@ -46,7 +46,7 @@ describe('App', () => {
 
   it('should prevent infinite loop', () => {
     act(() => {
-      render(makeRouter('/', ArbeidsgiverStatus.NotStarted, LoginStatus.MustLogin, INGEN_ARBEIDSGIVERE), container);
+      render(makeRouter('/nb', ArbeidsgiverStatus.NotStarted, LoginStatus.MustLogin, INGEN_ARBEIDSGIVERE), container);
     });
     expect(container).not.toContainHTML(SPINNER);
     expect(container).toContainHTML(LOGIN_REDIRECT);
@@ -55,7 +55,7 @@ describe('App', () => {
 
   it('should show ApplicationRoutes when logged in', () => {
     act(() => {
-      render(makeRouter('/', ArbeidsgiverStatus.Successfully, LoginStatus.Verified, ARBEIDSGIVERE), container);
+      render(makeRouter('/nb', ArbeidsgiverStatus.Successfully, LoginStatus.Verified, ARBEIDSGIVERE), container);
     });
     expect(container).not.toContainHTML(SPINNER);
     expect(container).not.toContainHTML(LOGIN_REDIRECT);
