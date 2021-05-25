@@ -4,8 +4,12 @@ import Panel from 'nav-frontend-paneler';
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import Side from '../felles/Side/Side';
+import LangKey from '../../locale/LangKey';
+import { useTranslation } from 'react-i18next';
 
 const KravKvittering = () => {
+  const { t } = useTranslation();
+
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
       <Row>
@@ -28,7 +32,7 @@ const KravKvittering = () => {
               <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
             </Normaltekst>
             <Normaltekst>
-              <Lenke href='/min-side-arbeidsgiver/'>Min side arbeidsgiver</Lenke>
+              <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
             </Normaltekst>
           </Panel>
         </Panel>

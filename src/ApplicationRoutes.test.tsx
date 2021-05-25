@@ -32,84 +32,84 @@ describe('ApplicationRoutes', () => {
 
   it('should show default', () => {
     act(() => {
-      render(makeRoute('/'), container);
+      render(makeRoute('/nb'), container);
     });
     expect(container.textContent).toContain('Skjema for gravide og kronisk syke');
   });
 
   it('should show token fornyet', () => {
     act(() => {
-      render(makeRoute('/token-fornyet'), container);
+      render(makeRoute('/nb/token-fornyet'), container);
     });
     expect(container.textContent).toContain('Innloggingen er fornyet');
   });
 
   it('should show gravid søknad', () => {
     act(() => {
-      render(makeRoute('/gravid/soknad'), container);
+      render(makeRoute('/nb/gravid/soknad'), container);
     });
-    expect(container.textContent).toContain('GRAVID ANSATT');
-    expect(container.textContent).toContain('Søknad om at NAV dekker sykepenger i arbeidsgiverperioden');
+    expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
+    expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
   });
 
   it('should show gravid søknad when no arbeidsgivere', () => {
     act(() => {
-      render(makeRoute('/gravid/soknad', []), container);
+      render(makeRoute('/nb/gravid/soknad', []), container);
     });
-    expect(container.textContent).toContain('GRAVID ANSATT');
-    expect(container.textContent).toContain('Søknad om at NAV dekker sykepenger i arbeidsgiverperioden');
+    expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
+    expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
   });
 
   it('should show gravid kvittering', () => {
     act(() => {
-      render(makeRoute('/gravid/soknad/kvittering'), container);
+      render(makeRoute('/nb/gravid/soknad/kvittering'), container);
     });
     expect(container.textContent).toContain('Søknaden er mottatt');
   });
 
   it('should show kronisk søknad', () => {
     act(() => {
-      render(makeRoute('/kronisk/soknad'), container);
+      render(makeRoute('/nb/kronisk/soknad'), container);
     });
     expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYKDOM');
   });
   it('should show kronisk søknad when no arbeidsgivere', () => {
     act(() => {
-      render(makeRoute('/kronisk/soknad', []), container);
+      render(makeRoute('/nb/kronisk/soknad', []), container);
     });
     expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYKDOM');
   });
   it('should show kronisk kvittering', () => {
     act(() => {
-      render(makeRoute('/kronisk/soknad/kvittering'), container);
+      render(makeRoute('/nb/kronisk/soknad/kvittering'), container);
     });
     expect(container.textContent).toContain('Søknaden er mottatt');
   });
 
   it('should show gravid krav', () => {
     act(() => {
-      render(makeRoute('/gravid/krav'), container);
+      render(makeRoute('/nb/gravid/krav'), container);
     });
     expect(container.textContent).toContain('Kravskjema');
     expect(container.textContent).toContain('GRAVID ANSATT');
   });
   it('should show gravid krav kvittering', () => {
     act(() => {
-      render(makeRoute('/gravid/krav/kvittering'), container);
+      render(makeRoute('/nb/gravid/krav/kvittering'), container);
     });
     expect(container.textContent).toContain('Kravet er mottatt');
   });
 
   it('should show kronisk krav', () => {
     act(() => {
-      render(makeRoute('/kronisk/krav'), container);
+      render(makeRoute('/nb/kronisk/krav'), container);
     });
     expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYK ANSATT');
     expect(container.textContent).toContain('Krav om refusjon av sykepenger i arbeidsgiverperioden');
   });
   it('should show kronisk krav kvittering', () => {
     act(() => {
-      render(makeRoute('/kronisk/krav/kvittering'), container);
+      render(makeRoute('/nb/kronisk/krav/kvittering'), container);
     });
     expect(container.textContent).toContain('Kravet er mottatt');
   });
