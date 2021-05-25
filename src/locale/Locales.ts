@@ -188,6 +188,10 @@ const Locales: Record<LangKey, Locale> = {
   MIN_SIDE_ARBEIDSGIVER: {
     nb: 'Min side arbeidsgiver',
     en: 'My page employer'
+  },
+  DET_OPPSTOD_EN_FEIL: {
+    nb: 'Det oppstod en feil',
+    en: 'An error has occurred'
   }
 };
 
