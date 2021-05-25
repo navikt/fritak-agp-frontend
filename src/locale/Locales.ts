@@ -171,6 +171,14 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Still krav om refusjon',
     en: 'Claim a refund'
   },
+  GRAVID_KVITTERING_SENDER_INN: {
+    nb: 'Vi sender inn søknaden',
+    en: 'We are submitting the application'
+  },
+  GRAVID_KVITTERING_VENNLIGST_VENT: {
+    nb: 'Vennligst vent...',
+    en: 'Please wait...'
+  },
   DEN_ANSATTE: {
     nb: 'Den ansatte',
     en: 'The employee'

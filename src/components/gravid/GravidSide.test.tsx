@@ -39,7 +39,7 @@ describe('GravidSide', () => {
   const FEILMELDINGER = /For å gå videre må du rette opp følgende:/;
   const SEND_KNAPP = /GRAVID_SIDE_SEND_SOKNAD/;
   const STATUS_HOVED = /GRAVID_SIDE_INGRESS/;
-  const STATUS_PROGRESS = /Vennligst vent/;
+  const STATUS_PROGRESS = /GRAVID_KVITTERING_VENNLIGST_VENT/;
   const STATUS_KVITTERING = /GRAVID_KVITTERING_TITTEL/;
   const STATUS_FEIL = /Det oppstod en feil/;
 
