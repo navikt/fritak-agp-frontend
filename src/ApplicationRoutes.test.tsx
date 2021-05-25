@@ -64,7 +64,7 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/gravid/soknad/kvittering'), container);
     });
-    expect(container.textContent).toContain('Søknaden er mottatt');
+    expect(container.textContent).toContain('GRAVIDKVITTERINGTITTEL'); //textContent inneholder bare tekst. Ikke f.eks _ pga oversetter komponenten.
   });
 
   it('should show kronisk søknad', () => {

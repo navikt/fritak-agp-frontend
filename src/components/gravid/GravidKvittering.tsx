@@ -5,41 +5,36 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
-import { useTranslation } from 'react-i18next';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
 
 const GravidKvittering = () => {
-  const { t } = useTranslation();
-
   return (
     <Panel className='gravid-soknad-kvittering'>
       <Panel>
-        <Sidetittel>Søknaden er mottatt</Sidetittel>
+        <Sidetittel><Oversettelse langKey={LangKey.GRAVID_KVITTERING_TITTEL}/></Sidetittel>
       </Panel>
 
       <Panel>
         <Normaltekst>
-          En kvittering er sendt til meldingsboksen deres i <Lenke href='https://www.altinn.no'>Altinn</Lenke>. Den
-          ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte oss, er det tilstrekkelig å oppgi
-          fødselsnummeret til den ansatte.
+          <Oversettelse langKey={LangKey.GRAVID_KVITTERING_INGRESS}/>
         </Normaltekst>
       </Panel>
 
       <Panel>
         <Alertstripe type='advarsel'>
-          NB: Ikke vent! Vi anbefaler å <Lenke href='/'>stille krav om refusjon</Lenke> så snart som mulig på grunn av
-          at foreldelsesfristen for kravet kan bli overskredet mens vi behandler denne søknaden.
+          <Oversettelse langKey={LangKey.GRAVID_KVITTERING_ADVARSEL} />
         </Alertstripe>
       </Panel>
 
       <Panel>
         <div>
-          <Lenke href={lenker.GravidKrav}>Still krav om refusjon</Lenke>
+          <Lenke href={lenker.GravidKrav}><Oversettelse langKey={LangKey.GRAVID_KVITTERING_KRAV} /></Lenke>
         </div>
         <div>
-          <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
+          <Lenke href='https://loginservice.nav.no/slo'><Oversettelse langKey={LangKey.LOGG_UT} /></Lenke>
         </div>
         <div>
-          <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
+          <Lenke href='/min-side-arbeidsgiver/'><Oversettelse langKey={LangKey.MIN_SIDE_ARBEIDSGIVER} /></Lenke>
         </div>
       </Panel>
     </Panel>

@@ -149,6 +149,28 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Den ansatte vil ikke fungere i en annen jobb på grunn av helsetilstanden',
     en: 'The employee will not function in another job due to the state of health'
   },
+  GRAVID_KVITTERING_TITTEL: {
+    nb: 'Søknaden er mottatt',
+    en: 'The application has been received'
+  },
+  GRAVID_KVITTERING_INGRESS: {
+    nb: 'En kvittering er sendt til meldingsboksen deres i [Altinn](https://www.altinn.no). Den' +
+    ' ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte oss, er det tilstrekkelig å oppgi' +
+    ' fødselsnummeret til den ansatte.',
+    en: 'A receipt has been sent to their message box in [Altinn](https://www.altinn.no). The' +
+    ' employee in question has also been notified of the application. If you need to contact us,' +
+    ' it is sufficient to provide the employee\'s national id-number.'
+  },
+  GRAVID_KVITTERING_ADVARSEL: {
+    nb: 'NB: Ikke vent! Vi anbefaler å [stille krav om refusjon](/) så snart som mulig på grunn av at' +
+    ' foreldelsesfristen for kravet kan bli overskredet mens vi behandler denne søknaden.',
+    en: 'NB: Do not wait! We recommend [claiming a refund](/) as soon as possible due to the fact that the' +
+    ' limitation period for the claim may be exceeded while we process this application.'
+  },
+  GRAVID_KVITTERING_KRAV: {
+    nb: 'Still krav om refusjon',
+    en: 'Claim a refund'
+  },
   DEN_ANSATTE: {
     nb: 'Den ansatte',
     en: 'The employee'
@@ -192,6 +214,10 @@ const Locales: Record<LangKey, Locale> = {
   DET_OPPSTOD_EN_FEIL: {
     nb: 'Det oppstod en feil',
     en: 'An error has occurred'
+  },
+  LOGG_UT: {
+    nb: 'Logg ut',
+    en: 'Log out'
   }
 };
 

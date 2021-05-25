@@ -40,7 +40,7 @@ describe('GravidSide', () => {
   const SEND_KNAPP = /GRAVID_SIDE_SEND_SOKNAD/;
   const STATUS_HOVED = /GRAVID_SIDE_INGRESS/;
   const STATUS_PROGRESS = /Vennligst vent/;
-  const STATUS_KVITTERING = /Søknaden er mottatt/;
+  const STATUS_KVITTERING = /GRAVID_KVITTERING_TITTEL/;
   const STATUS_FEIL = /Det oppstod en feil/;
 
   const FNR_ERROR = 'fnrError';
