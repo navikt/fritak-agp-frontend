@@ -1,18 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 import '../../mockData/mockWindowLocation';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-const AllTheProviders: FC = ({ children }) => {
-  return (
-    <div>
-      {children}
-    </div>
-  )
-}
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -52,7 +44,7 @@ describe('GravidSide', () => {
   it('skal vise progress mens venter på svar', () => {
     const state = defaultGravidState();
     state.progress = true;
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     expect(screen.getByText(STATUS_PROGRESS)).toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -63,7 +55,7 @@ describe('GravidSide', () => {
   it('skal vise kvittering', () => {
     const state = defaultGravidState();
     state.kvittering = true;
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.getByText(STATUS_KVITTERING)).toBeInTheDocument();
@@ -71,20 +63,9 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_HOVED)).not.toBeInTheDocument();
   });
 
-  // it('skal vise feil etter innsending', () => {
-  //   const state = defaultGravidState();
-  //   state.error = true;
-  //   render(<GravidSide state={state} />, { wrapper: AllTheProviders });
-
-  //   expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
-  //   expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
-  //   expect(screen.getByText(STATUS_FEIL)).toBeInTheDocument();
-  //   expect(screen.queryByText(STATUS_HOVED)).not.toBeInTheDocument();
-  // });
-
   it('skal vise spørsmål om tilrettelegging', () => {
     const state = defaultGravidState();
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -108,7 +89,7 @@ describe('GravidSide', () => {
   it('skal vise gå videre når man ikke har klikket for at man har tilrettelagt', () => {
     const state = defaultGravidState();
 
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -141,7 +122,7 @@ describe('GravidSide', () => {
     const state = defaultGravidState();
     state.tilrettelegge = false;
     state.videre = true;
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -164,7 +145,7 @@ describe('GravidSide', () => {
 
   it('skal vise tilrettelegging', () => {
     const state = defaultGravidState();
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
@@ -188,17 +169,14 @@ describe('GravidSide', () => {
 
   it('skal vise valideringfeil for tilrettelagt', () => {
     const state = defaultGravidState();
-    // state.tilrettelegge = true;
-    // state.submitting = true;
-    // state.validated = true;
-    // state.fnrError = FNR_ERROR;
+
     state.orgnrError = ORG_ERROR;
     state.tiltakError = TILTAK_ERROR;
     state.omplasseringError = OMPLASSERING_ERROR;
     state.bekreftError = BEKREFT_ERROR;
 
 
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     const jaSjekkboks = screen.getByLabelText(/JA/);
     userEvent.click(jaSjekkboks);
@@ -219,16 +197,13 @@ describe('GravidSide', () => {
 
   it('skal vise valideringfeil ikke tilrettelagt', () => {
     const state = defaultGravidState();
-    // state.tilrettelegge = false;
-    // state.validated = true;
-    // state.submitting = true;
-    // state.videre = true;
+
     state.fnrError = FNR_ERROR;
     state.orgnrError = ORG_ERROR;
     state.bekreftError = BEKREFT_ERROR;
     state.feilmeldinger = [lagFeil('', '')];
 
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     const neiSjekkboks = screen.getByLabelText(/NEI/);
     userEvent.click(neiSjekkboks);
@@ -239,7 +214,7 @@ describe('GravidSide', () => {
     const submitKnapp = screen.getByText(/GRAVID_SIDE_SEND_SOKNAD/);
     userEvent.click(submitKnapp);
 
-    render(<GravidSide state={state} />, { wrapper: AllTheProviders });
+    render(<GravidSide state={state} />);
 
     expect(screen.getByText(FNR_ERROR)).toBeInTheDocument();
     expect(screen.getByText(ORG_ERROR)).toBeInTheDocument();
