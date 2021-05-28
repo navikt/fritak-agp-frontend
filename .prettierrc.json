@@ -1,0 +1,11 @@
+{
+  "printWidth": 120,
+  "singleQuote": true,
+
+  "bracketSpacing": true,
+  "trailingComma": "none",
+  "embeddedLanguageFormatting": "off",
+
+  "filepath": "src",
+  "jsxSingleQuote": true
+}
