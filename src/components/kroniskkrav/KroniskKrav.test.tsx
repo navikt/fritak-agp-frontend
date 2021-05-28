@@ -1,24 +1,24 @@
-import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
-import userEvent from '@testing-library/user-event';
+import React from "react";
+import { render, cleanup, screen } from "@testing-library/react";
+import { axe } from "jest-axe";
+import userEvent from "@testing-library/user-event";
 
-import KroniskKrav from './KroniskKrav';
-import { MemoryRouter } from 'react-router-dom';
-import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import testFnr from '../../mockData/testFnr';
-import testOrganisasjon from '../../mockData/testOrganisasjoner';
-import LocaleProvider from '../../locale/LocaleProvider';
+import KroniskKrav from "./KroniskKrav";
+import { MemoryRouter } from "react-router-dom";
+import { ArbeidsgiverProvider } from "../../context/arbeidsgiver/ArbeidsgiverContext";
+import { Organisasjon } from "@navikt/bedriftsmeny/lib/organisasjon";
+import testFnr from "../../mockData/testFnr";
+import testOrganisasjon from "../../mockData/testOrganisasjoner";
+import LocaleProvider from "../../locale/LocaleProvider";
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 
-describe('KroniskKrav', () => {
-  it('should have no a11y violations', async () => {
+describe("KroniskKrav", () => {
+  it("should have no a11y violations", async () => {
     const { container } = render(
       <MemoryRouter>
         <LocaleProvider>
-          <ArbeidsgiverProvider baseUrl='/base/url'>
+          <ArbeidsgiverProvider baseUrl="/base/url">
             <KroniskKrav />
           </ArbeidsgiverProvider>
         </LocaleProvider>
@@ -31,15 +31,15 @@ describe('KroniskKrav', () => {
     cleanup();
   });
 
-  it('should show warnings when input is missing', () => {
+  it("should show warnings when input is missing", () => {
     render(
       <MemoryRouter>
         <LocaleProvider>
           <ArbeidsgiverProvider
             arbeidsgivere={arbeidsgivere}
             status={200}
-            arbeidsgiverId='810007842'
-            baseUrl='/base/url'
+            arbeidsgiverId="810007842"
+            baseUrl="/base/url"
           >
             <KroniskKrav />
           </ArbeidsgiverProvider>
@@ -55,7 +55,9 @@ describe('KroniskKrav', () => {
     expect(screen.getByText(/Mangler til dato/)).toBeInTheDocument();
     expect(screen.getByText(/Mangler dager/)).toBeInTheDocument();
     expect(screen.getByText(/Mangler beløp/)).toBeInTheDocument();
-    expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
+    expect(
+      screen.getAllByText(/Bekreft at opplysningene er korrekt/).length
+    ).toBe(2);
 
     expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
     expect(screen.getByText(/Fra dato må fylles ut/)).toBeInTheDocument();
@@ -64,15 +66,15 @@ describe('KroniskKrav', () => {
     expect(screen.getByText(/Beløp må fylles ut/)).toBeInTheDocument();
   });
 
-  it('should show warnings when input is missing, and the warning should dissapear when fixed', () => {
+  it("should show warnings when input is missing, and the warning should dissapear when fixed", () => {
     render(
       <MemoryRouter>
         <LocaleProvider>
           <ArbeidsgiverProvider
             arbeidsgivere={arbeidsgivere}
             status={200}
-            arbeidsgiverId='810007842'
-            baseUrl='/base/url'
+            arbeidsgiverId="810007842"
+            baseUrl="/base/url"
           >
             <KroniskKrav />
           </ArbeidsgiverProvider>
@@ -92,7 +94,9 @@ describe('KroniskKrav', () => {
     expect(screen.getByText(/Mangler til dato/)).toBeInTheDocument();
     expect(screen.getByText(/Mangler dager/)).toBeInTheDocument();
     expect(screen.getByText(/Mangler beløp/)).toBeInTheDocument();
-    expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
+    expect(
+      screen.getAllByText(/Bekreft at opplysningene er korrekt/).length
+    ).toBe(2);
 
     expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
     expect(screen.getByText(/Fra dato må fylles ut/)).toBeInTheDocument();
@@ -102,17 +106,21 @@ describe('KroniskKrav', () => {
 
     userEvent.type(fnrInput, testFnr.GyldigeFraDolly.TestPerson1);
     expect(screen.queryByText(/Mangler fødselsnummer/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Fødselsnummer må fylles ut/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Fødselsnummer må fylles ut/)
+    ).not.toBeInTheDocument();
 
-    userEvent.selectOptions(selectDager, '3');
+    userEvent.selectOptions(selectDager, "3");
     expect(screen.queryByText(/Mangler dager/)).not.toBeInTheDocument();
     expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
 
-    userEvent.type(BelopInput, '123');
+    userEvent.type(BelopInput, "123");
     expect(screen.queryByText(/Mangler beløp/)).not.toBeInTheDocument();
     expect(screen.queryByText(/Beløp må fylles ut/)).not.toBeInTheDocument();
 
     userEvent.click(bekreftCheckbox);
-    expect(screen.queryByText(/Bekreft at opplysningene er korrekt/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Bekreft at opplysningene er korrekt/)
+    ).not.toBeInTheDocument();
   });
 });
