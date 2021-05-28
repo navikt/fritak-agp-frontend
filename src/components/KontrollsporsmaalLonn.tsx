@@ -6,6 +6,8 @@ import './KontrollsporsmaalLonn.scss';
 import { v4 as uuid } from 'uuid';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
+import { useTranslation } from 'react-i18next';
+import LangKey from '../locale/LangKey';
 
 interface KontrollsporsmaalLonnProps {
   onClose: (dager: number | undefined) => void;
@@ -16,6 +18,7 @@ interface KontrollsporsmaalLonnProps {
 const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
   const [dager, setDager] = useState<number | undefined>(undefined);
   const inputId = uuid();
+  const { t } = useTranslation();
 
   const onRequestClose = () => {
     props.onClose(dager);
@@ -28,19 +31,20 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
   return (
     <ModalWrapper
       onRequestClose={onRequestClose}
-      contentLabel='Kontrollspørsmål for lønn som overstiger 6g'
+      contentLabel={t(LangKey.KONTROLLSPORSMAL_LONN_CONTENT_LABEL)}
       className='kontrollsporsmaal-lonn kontrollsporsmaal-lonn-bigair'
       closeButton={false}
       isOpen={!!props.isOpen}
     >
-      <Innholdstittel className='textfelt-padding-dobbel-bottom'>Det ser ut som om lønnen overstiger 6G</Innholdstittel>
-      <Normaltekst>
-        Vanligvis kan ikke dagsatsen overstige 1/260 av 6G*. For enkelte arbeidstidsordninger kan NAV likevel godkjenne
-        en høyere dagsats, forutsatt at årslønnen ikke overstiger 6G.
+      <Innholdstittel className='textfelt-padding-dobbel-bottom'>
+        {t(LangKey.KONTROLLSPORSMAL_LONN_TITTEL)}
+      </Innholdstittel>
+      <Normaltekst>{t(LangKey.KONTROLLSPORSMAL_LONN_INGRESS)}</Normaltekst>
+      <Normaltekst className='textfelt-padding-bottom'>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Normaltekst>
+      <Normaltekst className='textfelt-padding-dobbel-bottom'>
+        {t(LangKey.KONTROLLSPORSMAL_LONN_GRUNNBELOP)}
       </Normaltekst>
-      <Normaltekst className='textfelt-padding-bottom'>Oppgi antall dager dere utbetaler lønn for i året:</Normaltekst>
-      <Normaltekst className='textfelt-padding-dobbel-bottom'>* G=folketrygdens grunnbeløp</Normaltekst>
-      <Label htmlFor={inputId}>Oppgi antall dager dere utbetaler lønn for i året:</Label>
+      <Label htmlFor={inputId}>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
       <div className='kontrollsporsmaal-lonn-input-wrapper textfelt-padding-dobbel-bottom'>
         <Input
           id={inputId}
@@ -52,12 +56,12 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
           onChange={(event) => setDager(Number(event.target.value))}
         />
         <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-          (260 dager er vanlig for en ordinær 100% stilling)
+          {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
         </Normaltekst>
       </div>
-      <Hovedknapp onClick={onRequestClose}>Send kravet</Hovedknapp>
+      <Hovedknapp onClick={onRequestClose}>{t(LangKey.KONTROLLSPORSMAL_LONN_SEND)}</Hovedknapp>
       <Lenke href='#' onClick={onCancelClick} className='kontrollsporsmaal-lonn-lenke'>
-        Avbryt og gå tilbake til skjema
+        {t(LangKey.KONTROLLSPORSMAL_LONN_AVBRYT)}
       </Lenke>
     </ModalWrapper>
   );

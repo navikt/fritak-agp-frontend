@@ -11,7 +11,7 @@ describe('KontrollsporsmaalLonn', () => {
 
     render(<KontrollsporsmaalLonn onCancelClick={mockCancel} onClose={mockClose} isOpen={isOpen} />);
 
-    expect(screen.getByText(/Det ser ut som om lønnen overstiger 6G/)).toBeInTheDocument();
+    expect(screen.getByText(/KONTROLLSPORSMAL_LONN_TITTEL/)).toBeInTheDocument();
   });
 
   it('should call the cancel method when cancel is clicked', () => {
@@ -21,7 +21,7 @@ describe('KontrollsporsmaalLonn', () => {
 
     render(<KontrollsporsmaalLonn onCancelClick={mockCancel} onClose={mockClose} isOpen={isOpen} />);
 
-    const cancelLink = screen.getByText(/Avbryt og/);
+    const cancelLink = screen.getByText(/KONTROLLSPORSMAL_LONN_AVBRYT/);
 
     cancelLink.click();
 
@@ -35,11 +35,11 @@ describe('KontrollsporsmaalLonn', () => {
 
     render(<KontrollsporsmaalLonn onCancelClick={mockCancel} onClose={mockClose} isOpen={isOpen} />);
 
-    const daysInput = screen.getByLabelText(/Oppgi antall dager dere/);
+    const daysInput = screen.getByLabelText(/KONTROLLSPORSMAL_LONN_DAGER/);
 
     fireEvent.change(daysInput, { target: { value: '23' } });
 
-    const submitButton = screen.getByText(/Send kravet/);
+    const submitButton = screen.getByText(/KONTROLLSPORSMAL_LONN_SEND/);
 
     submitButton.click();
 

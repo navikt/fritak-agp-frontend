@@ -242,6 +242,42 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Confirm that the information is correct'
   },
+  KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
+    nb: 'Kontrollspørsmål for lønn som overstiger 6G',
+    en: 'Control questions for salaries exceeding 6G'
+  },
+  KONTROLLSPORSMAL_LONN_TITTEL: {
+    nb: 'Det ser ut som om lønnen overstiger 6G',
+    en: 'It looks like the salary exceeds 6G '
+  },
+  KONTROLLSPORSMAL_LONN_INGRESS: {
+    nb:
+      'Vanligvis kan ikke dagsatsen overstige 1/260 av 6G*. For enkelte arbeidstidsordninger kan NAV likevel godkjenne' +
+      ' en høyere dagsats, forutsatt at årslønnen ikke overstiger 6G.',
+    en:
+      'Generally, the daily rate cannot exceed 1/260 of 6G *. For some working time schemes, NAV can still approve a higher' +
+      ' daily rate, provided that the annual salary does not exceed 6G. '
+  },
+  KONTROLLSPORSMAL_LONN_DAGER: {
+    nb: 'Oppgi antall dager dere utbetaler lønn for i året:',
+    en: 'Enter the number of days you pay wages for a year:'
+  },
+  KONTROLLSPORSMAL_LONN_GRUNNBELOP: {
+    nb: '* G=folketrygdens grunnbeløp',
+    en: '* G=the National Insurance basic amount '
+  },
+  KONTROLLSPORSMAL_LONN_FORKLARING_DAGER: {
+    nb: '(260 dager er vanlig for en ordinær 100% stilling)',
+    en: '(260 days is usual for an ordinary 100% position)'
+  },
+  KONTROLLSPORSMAL_LONN_SEND: {
+    nb: 'Send kravet',
+    en: 'Submit claim'
+  },
+  KONTROLLSPORSMAL_LONN_AVBRYT: {
+    nb: 'Avbryt og gå tilbake til skjema',
+    en: 'Cancel and return to form '
+  },
   DEN_ANSATTE: {
     nb: 'Den ansatte',
     en: 'The employee'
