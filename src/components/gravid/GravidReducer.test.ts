@@ -6,28 +6,34 @@ import ValidationResponse from '../../state/validation/ValidationResponse';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import timezone_mock from 'timezone-mock';
+import { i18n } from 'i18next';
+
+const translationMock = {
+  t: (param: any) => param
+}
+
 
 describe('GravidReducer', () => {
   it('should throw error', () => {
     expect(() => {
       GravidReducer(defaultGravidState(), {
         type: Actions.ToggleTiltak
-      });
+      }, translationMock as unknown as i18n);
     }).toThrow();
     expect(() => {
       GravidReducer(defaultGravidState(), {
         type: Actions.OmplasseringForsoek
-      });
+      }, translationMock as unknown as i18n);
     }).toThrow();
     expect(() => {
       GravidReducer(defaultGravidState(), {
         type: Actions.OmplasseringAarsak
-      });
+      }, translationMock as unknown as i18n);
     }).toThrow();
     expect(() => {
       GravidReducer(defaultGravidState(), {
         type: Actions.HandleResponse
-      });
+      }, translationMock as unknown as i18n);
     }).toThrow();
   });
 
@@ -35,7 +41,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Fnr,
       payload: { fnr: '123' }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.fnr).toEqual('123');
   });
 
@@ -43,7 +49,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Fnr,
       payload: { fnr: '' }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.fnr).toEqual('');
   });
 
@@ -51,7 +57,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Orgnr,
       payload: { orgnr: '456' }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.orgnr).toEqual('456');
   });
 
@@ -59,7 +65,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Orgnr,
       payload: { orgnr: undefined }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.orgnr).toBeUndefined();
   });
 
@@ -67,7 +73,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Orgnr,
       payload: { orgnr: '' }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.orgnr).toEqual('');
   });
 
@@ -75,13 +81,13 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.ToggleTiltak,
       payload: { tiltak: Tiltak.HJEMMEKONTOR }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.tiltak).toEqual([Tiltak.HJEMMEKONTOR]);
 
     let state2 = GravidReducer(state, {
       type: Actions.ToggleTiltak,
       payload: { tiltak: Tiltak.HJEMMEKONTOR }
-    });
+    }, translationMock as unknown as i18n);
     expect(state2.tiltak).toEqual([]);
   });
 
@@ -89,7 +95,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Kvittering,
       payload: { kvittering: true }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.kvittering).toBe(true);
   });
 
@@ -97,7 +103,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Progress,
       payload: { progress: true }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.progress).toBe(true);
   });
 
@@ -105,7 +111,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Videre,
       payload: { videre: true }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.videre).toBe(true);
   });
 
@@ -113,7 +119,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Bekreft,
       payload: { bekreft: undefined }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.bekreft).toBeUndefined();
   });
 
@@ -121,7 +127,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Bekreft,
       payload: { bekreft: true }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.bekreft).toEqual(true);
   });
 
@@ -129,7 +135,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Bekreft,
       payload: { bekreft: false }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.bekreft).toEqual(false);
   });
 
@@ -137,7 +143,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Progress,
       payload: { progress: false }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.progress).toEqual(false);
   });
 
@@ -145,7 +151,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Progress,
       payload: { progress: true }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.progress).toEqual(true);
   });
 
@@ -153,7 +159,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Dokumentasjon,
       payload: { dokumentasjon: 'Joda' }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.dokumentasjon).toEqual('Joda');
   });
 
@@ -161,7 +167,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Dokumentasjon,
       payload: { dokumentasjon: '' }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.dokumentasjon).toEqual('');
   });
 
@@ -170,7 +176,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Termindato,
       payload: { termindato: new Date('2020-10-11 00:00:00') }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.termindato).toEqual({ day: 11, millis: 1602370800000, month: 10, value: '11.10.2020', year: 2020 });
   });
 
@@ -178,7 +184,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Termindato,
       payload: { termindato: undefined }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.termindato).toBeUndefined();
   });
 
@@ -186,7 +192,7 @@ describe('GravidReducer', () => {
     let state = defaultGravidState();
     state = GravidReducer(state, {
       type: Actions.Validate
-    });
+    }, translationMock as unknown as i18n);
     expect(state.validated).toBe(true);
   });
 
@@ -194,7 +200,7 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.HandleResponse,
       payload: { response: {} as ValidationResponse }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.submitting).toBe(false);
     expect(state.progress).toBe(false);
     expect(state.validated).toBe(false);
@@ -203,33 +209,33 @@ describe('GravidReducer', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.OmplasseringForsoek,
       payload: { omplasseringForsoek: Omplassering.JA }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.omplassering).toEqual(Omplassering.JA);
   });
   it('should set omplasseringAarsak', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.OmplasseringAarsak,
       payload: { omplasseringAarsak: Aarsak.MOTSETTER }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.omplasseringAarsak).toEqual(Aarsak.MOTSETTER);
   });
   it('should set tilrettelegge', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.Tilrettelegge,
       payload: { tilrettelegge: true }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.tilrettelegge).toEqual(true);
   });
   it('should set tilrettelegge', () => {
     let state = GravidReducer(defaultGravidState(), {
       type: Actions.TiltakBeskrivelse,
       payload: { tiltakBeskrivelse: 'Joda' }
-    });
+    }, translationMock as unknown as i18n);
     expect(state.tiltakBeskrivelse).toEqual('Joda');
   });
 
   it('should reset to defaults', () => {
-    let state = GravidReducer(defaultGravidState(), { type: Actions.Reset });
+    let state = GravidReducer(defaultGravidState(), { type: Actions.Reset }, translationMock as unknown as i18n);
     expect(state).toEqual(defaultGravidState());
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toEqual('');

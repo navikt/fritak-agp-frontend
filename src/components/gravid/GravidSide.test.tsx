@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 import '../../mockData/mockWindowLocation';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import LocaleProvider from '../../locale/LocaleProvider';
+import { MemoryRouter } from 'react-router';
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -17,6 +19,19 @@ jest.mock('nav-frontend-tekstomrade', () => {
     },
   };
 });
+
+jest.mock('react-i18next', () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+        t: (str) => str,
+      },
+    };
+  },
+}));
 
 describe('GravidSide', () => {
   const FODSELSNR = /FODSELSNUMMER_LABEL/;
@@ -37,7 +52,7 @@ describe('GravidSide', () => {
 
   const FNR_ERROR = 'fnrError';
   const ORG_ERROR = 'orgError';
-  const BEKREFT_ERROR = 'Bekreft at opplysningene er korrekt';
+  const BEKREFT_ERROR = 'GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT';
   const TILTAK_ERROR = 'Du må oppgi minst ett tiltak dere har prøvd';
   const OMPLASSERING_ERROR = 'Velg omplassering';
 
@@ -186,13 +201,13 @@ describe('GravidSide', () => {
 
 
     expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
-    expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_FODSELSNUMMER/)).toBeInTheDocument();
     expect(screen.getByText(/Mangler virksomhetsnummer/)).toBeInTheDocument();
-    expect(screen.getByText(/Virksomhetsnummer må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Du må oppgi minst ett tiltak dere har prøvd/)).toBeInTheDocument();
-    expect(screen.getByText(/Spesifiser hvilke tiltak som er forsøkt/)).toBeInTheDocument();
-    expect(screen.getAllByText(/Velg omplassering/).length).toBe(2);
-    expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER/)).toBeInTheDocument();
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_FEIL/)).toBeInTheDocument();
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL/)).toBeInTheDocument();
+    expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL/).length).toBe(2);
+    expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/).length).toBe(2);
   });
 
   it('skal vise valideringfeil ikke tilrettelagt', () => {
@@ -218,6 +233,6 @@ describe('GravidSide', () => {
 
     expect(screen.getByText(FNR_ERROR)).toBeInTheDocument();
     expect(screen.getByText(ORG_ERROR)).toBeInTheDocument();
-    expect(screen.getAllByText(BEKREFT_ERROR).length).toBe(2);
+    expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/).length).toBe(2);
   });
 });
