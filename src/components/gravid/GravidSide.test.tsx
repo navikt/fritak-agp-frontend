@@ -1,12 +1,10 @@
-import React, { FC } from "react";
+import React from "react";
 import GravidSide from "./GravidSide";
 import { defaultGravidState } from "./GravidState";
 import { lagFeil } from "../felles/Feilmeldingspanel/lagFeil";
 import "../../mockData/mockWindowLocation";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import LocaleProvider from "../../locale/LocaleProvider";
-import { MemoryRouter } from "react-router";
 
 jest.mock("nav-frontend-tekstomrade", () => {
   return {
@@ -21,12 +19,11 @@ jest.mock("nav-frontend-tekstomrade", () => {
 });
 
 jest.mock("react-i18next", () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => {
     return {
       t: (str) => str,
       i18n: {
-        changeLanguage: () => new Promise(() => {}),
+        changeLanguage: () => new Promise(() => ({})),
         t: (str) => str,
       },
     };

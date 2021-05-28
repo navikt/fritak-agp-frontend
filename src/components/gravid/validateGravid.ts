@@ -24,7 +24,7 @@ export const validateGravid = (
   nextState.fnrError = validateFnr(state.fnr, state.validated);
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.bekreftError =
-    state.bekreft == false
+    state.bekreft
       ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT)
       : "";
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
