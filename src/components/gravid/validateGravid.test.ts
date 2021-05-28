@@ -4,13 +4,18 @@ import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
+import { i18n } from 'i18next';
+
+const translationMock = {
+  t: (param: any) => param
+};
 
 describe('validateGravid', () => {
   it('should show fnr error when invalid', () => {
     const state = defaultGravidState();
     state.validated = true;
     state.fnr = '123';
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
 
@@ -18,13 +23,13 @@ describe('validateGravid', () => {
     const state = defaultGravidState();
     state.validated = true;
     state.orgnr = '123';
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.orgnrError).not.toBeUndefined();
   });
 
   it('should not show errors until validation flagged', () => {
     const state = defaultGravidState();
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.feilmeldinger?.length).toEqual(0);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
@@ -37,7 +42,7 @@ describe('validateGravid', () => {
   it('should show warning when not tilrettelegge', () => {
     const state = defaultGravidState();
     state.tilrettelegge = false;
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.videre).toBeUndefined();
     expect(state2.feilmeldinger.length).toEqual(0);
   });
@@ -46,7 +51,7 @@ describe('validateGravid', () => {
     const state = defaultGravidState();
     state.validated = true;
     state.tilrettelegge = true;
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.fnrError).not.toBeUndefined();
     expect(state2.orgnrError).not.toBeUndefined();
     expect(state2.tiltakError).not.toBeUndefined();
@@ -60,8 +65,8 @@ describe('validateGravid', () => {
     state.validated = true;
     state.tilrettelegge = true;
     state.tiltak = [Tiltak.ANNET];
-    const state2 = validateGravid(state);
-    expect(state2.tiltakError).toEqual('Beskriv hva dere har gjort');
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
+    expect(state2.tiltakError).toEqual('GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL');
   });
 
   it('should error when tiltak is not ANNET and not empty beskrivelse', () => {
@@ -69,7 +74,7 @@ describe('validateGravid', () => {
     state.validated = true;
     state.tilrettelegge = true;
     state.tiltak = [Tiltak.HJEMMEKONTOR];
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.tiltakError).toBeUndefined();
   });
 
@@ -78,8 +83,8 @@ describe('validateGravid', () => {
     state.validated = true;
     state.omplassering = Omplassering.IKKE_MULIG;
     state.omplasseringAarsak = undefined;
-    const state2 = validateGravid(state);
-    expect(state2.omplasseringError).not.toBeUndefined();
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
+    expect(state2.omplasseringError).toBe('GRAVID_VALIDERING_MANGLER_OMPLASSERING_ARSAK');
   });
 
   it('should not show error when omplassering = umulig and aarsak empty', () => {
@@ -87,7 +92,7 @@ describe('validateGravid', () => {
     state.validated = true;
     state.omplassering = Omplassering.IKKE_MULIG;
     state.omplasseringAarsak = Aarsak.HELSETILSTANDEN;
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.omplasseringError).toBeUndefined();
   });
 
@@ -101,9 +106,9 @@ describe('validateGravid', () => {
     state.tilrettelegge = true;
     state.tiltak = [Tiltak.ANNET];
     state.tiltakBeskrivelse = lagTekst(MAX_TILTAK_BESKRIVELSE + 10);
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.tiltakError).toBeUndefined();
-    expect(state2.tiltakBeskrivelseError).not.toBeUndefined();
+    expect(state2.tiltakBeskrivelseError).toBe('GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE_GRENSE');
   });
 
   it('should not error when tiltakBeskrivelse within max', () => {
@@ -112,7 +117,7 @@ describe('validateGravid', () => {
     state.tilrettelegge = true;
     state.tiltak = [Tiltak.ANNET];
     state.tiltakBeskrivelse = lagTekst(MAX_TILTAK_BESKRIVELSE);
-    const state2 = validateGravid(state);
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.tiltakError).toBeUndefined();
     expect(state2.tiltakBeskrivelseError).toBeUndefined();
   });

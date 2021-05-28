@@ -1,9 +1,8 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { Reducer, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
-import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Skillelinje from '../felles/Skillelinje/Skillelinje';
@@ -13,13 +12,12 @@ import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
 import GravidKvittering from './GravidKvittering';
-import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../felles/Orgnr/Orgnr';
 import GravidSideProps from './GravidSideProps';
 import getBase64file from '../../utils/getBase64File';
 import GravidReducer from './GravidReducer';
-import { defaultGravidState } from './GravidState';
-import { Actions } from './Actions';
+import GravidState, { defaultGravidState } from './GravidState';
+import { Actions, GravidAction } from './Actions';
 import TiltakCheckboxes from './TiltakCheckboxes';
 import OmplasseringCheckboxes from './OmplasseringCheckboxes';
 import AarsakCheckboxes from './AarsakCheckboxes';
@@ -34,11 +32,24 @@ import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/Bekreft
 import Side from '../felles/Side/Side';
 import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
 import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { useTranslation } from 'react-i18next';
+import { i18n } from 'i18next';
+import LangKey from '../../locale/LangKey';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
 const GravidSide = (props: GravidSideProps) => {
-  const [state, dispatch] = useReducer(GravidReducer, props.state, defaultGravidState);
+  const { t, i18n } = useTranslation();
+
+  const GravidReducerSettOpp =
+    (Translate: i18n): Reducer<GravidState, GravidAction> =>
+    (bulkState: GravidState, action: GravidAction) =>
+      GravidReducer(bulkState, action, Translate);
+
+  const GravidReducerI18n: Reducer<GravidState, GravidAction> = GravidReducerSettOpp(i18n);
+
+  const [state, dispatch] = useReducer(GravidReducerI18n, props.state, defaultGravidState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
@@ -111,9 +122,9 @@ const GravidSide = (props: GravidSideProps) => {
     <Side
       bedriftsmeny={false}
       className='gravid-side'
-      sidetittel='Søknadsskjema'
-      title='Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'
-      subtitle='Gravid ansatt'
+      sidetittel={t(LangKey.SOKNADSSKJEMA)}
+      title={t(LangKey.GRAVID_SIDE_TITTEL)}
+      subtitle={t(LangKey.GRAVID_SIDE_UNDERTITTEL)}
     >
       <Row>
         <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
@@ -126,16 +137,7 @@ const GravidSide = (props: GravidSideProps) => {
             <div>
               <Panel>
                 <Ingress>
-                  NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet.
-                  Dette gjelder bare hvis tilrettelegging eller omplassering ikke er mulig. Vi bruker opplysninger vi
-                  allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen er beskrevet i{' '}
-                  <Lenke href='https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20'>
-                    folketrygdlovens § 8-20
-                  </Lenke>
-                  .
-                  <br />
-                  <br />
-                  Alle felter må fylles ut om ikke annet er oppgitt
+                  <Oversettelse langKey={LangKey.GRAVID_SIDE_INGRESS} />
                 </Ingress>
               </Panel>
 
@@ -145,12 +147,12 @@ const GravidSide = (props: GravidSideProps) => {
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
                     <Column md='3' xs='12'>
-                      <Systemtittel>Den ansatte</Systemtittel>
+                      <Systemtittel>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
                       <br />
                       <Fnr
-                        label='Fødselsnummer (11 siffer)'
+                        label={t(LangKey.FODSELSNUMMER_LABEL)}
                         fnr={state.fnr}
-                        placeholder='11 siffer'
+                        placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                         feilmelding={state.fnrError}
                         onValidate={() => {}}
                         onChange={(fnr: string) =>
@@ -167,7 +169,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <DatoVelger
                         className='termindato'
                         id='termindato'
-                        label='Termindato (dersom kjent)'
+                        label={t(LangKey.GRAVID_SIDE_TERMINDATO)}
                         onChange={(termindato: Date) => {
                           dispatch({
                             type: Actions.Termindato,
@@ -177,12 +179,12 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Systemtittel>Arbeidsgiveren</Systemtittel>
+                      <Systemtittel>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
                       <br />
                       <Orgnr
-                        label='Virksomhetsnummer'
+                        label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                         orgnr={state.orgnr}
-                        placeholder='9 siffer'
+                        placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
                         feilmelding={state.orgnrError}
                         onChange={(orgnr: string) =>
                           dispatch({
@@ -201,23 +203,16 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel className='gravidside-panel-arbeidssituasjon'>
                 <Row>
                   <Column sm='8' xs='12'>
-                    <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
+                    <Systemtittel>{t(LangKey.GRAVID_SIDE_ARBEIDSMILJO)}</Systemtittel>
                     <br />
                     <SkjemaGruppe>
-                      <Normaltekst>Vi spør først om dere har forsøkt å løse situasjonen på arbeidsplassen.</Normaltekst>
-                      <Normaltekst>Svaret deres brukes i to forskjellige vurderinger:</Normaltekst>
-
-                      <ul className='gravidside-tett-liste typo-normal'>
-                        <li>om vi kan hjelpe til med noe, slik at den ansatte kan stå i jobben</li>
-                        <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
-                      </ul>
-
+                      <Oversettelse langKey={LangKey.GRAVID_SIDE_ARBEIDSMILJO_INGRESS} />
                       <RadioGruppe
-                        legend='Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene?'
+                        legend={t(LangKey.GRAVID_SIDE_TILRETTELEGGING)}
                         className='gravidside-radiogruppe-tilrettelegging'
                       >
                         <Radio
-                          label='Ja'
+                          label={t(LangKey.JA)}
                           name='sitteplass'
                           value='ja'
                           defaultChecked={state.tilrettelegge === true}
@@ -229,7 +224,7 @@ const GravidSide = (props: GravidSideProps) => {
                           }
                         />
                         <Radio
-                          label='Nei'
+                          label={t(LangKey.NEI)}
                           name='sitteplass'
                           value='nei'
                           defaultChecked={state.tilrettelegge === false}
@@ -251,7 +246,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Row>
                     <Column sm='8' xs='12'>
                       <CheckboxGruppe
-                        legend='Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe?'
+                        legend={t(LangKey.GRAVID_SIDE_TILTAK_TITTEL)}
                         feil={state.tiltakError}
                         feilmeldingId='tiltakFeilmeldingId'
                       >
@@ -259,7 +254,7 @@ const GravidSide = (props: GravidSideProps) => {
                           return (
                             <Checkbox
                               key={a.id}
-                              label={a.label}
+                              label={t(a.label)}
                               value={a.value}
                               id={a.id}
                               onChange={(evt) =>
@@ -293,12 +288,12 @@ const GravidSide = (props: GravidSideProps) => {
                   </Row>
                   <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
                     <div className='gravid-side-radiogruppe-omplassering'>
-                      <RadioGruppe legend='Har dere forsøkt omplassering til en annen jobb?'>
+                      <RadioGruppe legend={t(LangKey.GRAVID_SIDE_OMPLASSERING_TITTEL)}>
                         {OmplasseringCheckboxes.map((a) => {
                           return (
                             <Radio
                               key={a.value}
-                              label={a.label}
+                              label={t(a.label)}
                               name='omplassering'
                               onChange={() =>
                                 dispatch({
@@ -316,7 +311,7 @@ const GravidSide = (props: GravidSideProps) => {
                             return (
                               <Radio
                                 key={a.value}
-                                label={a.label}
+                                label={t(a.label)}
                                 name='omplassering-umulig'
                                 onChange={() =>
                                   dispatch({
@@ -341,7 +336,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Panel className='gravidside-panel-alert-gravid'>
                       <Alertstripe className='gravidside-alert-gravid' type='advarsel'>
                         <Normaltekst>
-                          Dere må først ha prøvd å tilrettelegge for den gravide. Dere kan
+                          {t(LangKey.GRAVID_SIDE_IKKE_KOMPLETT_1)}
                           <button
                             className='lenke gravidside-lenke-knapp'
                             onClick={() =>
@@ -351,9 +346,9 @@ const GravidSide = (props: GravidSideProps) => {
                               })
                             }
                           >
-                            gå videre med søknaden
+                            {t(LangKey.GRAVID_SIDE_IKKE_KOMPLETT_2)}
                           </button>
-                          , men det er altså da sannsynlig at den blir avslått.
+                          {t(LangKey.GRAVID_SIDE_IKKE_KOMPLETT_3)}
                         </Normaltekst>
                       </Alertstripe>
                     </Panel>
@@ -366,26 +361,18 @@ const GravidSide = (props: GravidSideProps) => {
                   <Skillelinje />
 
                   <Panel>
-                    <Systemtittel>Hvis dere har fått dokumentasjon fra den ansatte</Systemtittel>
+                    <Systemtittel>{t(LangKey.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}</Systemtittel>
                     <br />
                     <SkjemaGruppe
                       feil={state.dokumentasjonError}
                       feilmeldingId='dokumentasjonFeilmeldingId'
                       aria-live='polite'
                     >
-                      <Tekstomrade className='textfelt-padding-bottom' rules={[BoldRule, ParagraphRule]}>
-                        Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede
-                        har gitt dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den
-                        opp her. _For tiden støtter vi kun filformatet .pdf._
-                      </Tekstomrade>
-                      <Normaltekst>
-                        NAV vil selv innhente dokumentasjon fra legen hvis det ikke allerede går klart fram av en
-                        sykmelding at det er svangerskapet som er årsaken til fraværet.
-                      </Normaltekst>
+                      <Oversettelse langKey={LangKey.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
                       <Upload
                         className='knapp-innsending-top'
                         id='upload'
-                        label='Last opp dokumentasjon (valgfritt)'
+                        label={t(LangKey.GRAVID_SIDE_OPPLASTINGSKNAPP)}
                         extensions='.pdf'
                         onChange={handleUploadChanged}
                         onDelete={handleDelete}
@@ -409,7 +396,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
                   <Panel>
-                    <Hovedknapp onClick={handleSubmitClicked}>Send søknad</Hovedknapp>
+                    <Hovedknapp onClick={handleSubmitClicked}>{t(LangKey.GRAVID_SIDE_SEND_SOKNAD)}</Hovedknapp>
                   </Panel>
                 </>
               )}
