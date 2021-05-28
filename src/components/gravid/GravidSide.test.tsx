@@ -1,12 +1,12 @@
-import React from "react";
-import GravidSide from "./GravidSide";
-import { defaultGravidState } from "./GravidState";
-import { lagFeil } from "../felles/Feilmeldingspanel/lagFeil";
-import "../../mockData/mockWindowLocation";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import React from 'react';
+import GravidSide from './GravidSide';
+import { defaultGravidState } from './GravidState';
+import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
+import '../../mockData/mockWindowLocation';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-jest.mock("nav-frontend-tekstomrade", () => {
+jest.mock('nav-frontend-tekstomrade', () => {
   return {
     __esModule: true,
     BoldRule: true,
@@ -14,23 +14,23 @@ jest.mock("nav-frontend-tekstomrade", () => {
     HighlightRule: true,
     default: ({ children }) => {
       return <div>{children}</div>;
-    },
+    }
   };
 });
 
-jest.mock("react-i18next", () => ({
+jest.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str) => str,
       i18n: {
         changeLanguage: () => new Promise(() => ({})),
-        t: (str) => str,
-      },
+        t: (str) => str
+      }
     };
-  },
+  }
 }));
 
-describe("GravidSide", () => {
+describe('GravidSide', () => {
   const FODSELSNR = /FODSELSNUMMER_LABEL/;
   const VIRKSOMHETSNR = /VIRKSOMHETSNUMMER_LABEL/;
   const TILRETTELEGGE = /GRAVID_SIDE_TILRETTELEGGING/;
@@ -47,13 +47,13 @@ describe("GravidSide", () => {
   const STATUS_KVITTERING = /GRAVID_KVITTERING_TITTEL/;
   const STATUS_FEIL = /Det oppstod en feil/;
 
-  const FNR_ERROR = "fnrError";
-  const ORG_ERROR = "orgError";
-  const BEKREFT_ERROR = "GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT";
-  const TILTAK_ERROR = "Du må oppgi minst ett tiltak dere har prøvd";
-  const OMPLASSERING_ERROR = "Velg omplassering";
+  const FNR_ERROR = 'fnrError';
+  const ORG_ERROR = 'orgError';
+  const BEKREFT_ERROR = 'GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT';
+  const TILTAK_ERROR = 'Du må oppgi minst ett tiltak dere har prøvd';
+  const OMPLASSERING_ERROR = 'Velg omplassering';
 
-  it("skal vise progress mens venter på svar", () => {
+  it('skal vise progress mens venter på svar', () => {
     const state = defaultGravidState();
     state.progress = true;
     render(<GravidSide state={state} />);
@@ -64,7 +64,7 @@ describe("GravidSide", () => {
     expect(screen.queryByText(STATUS_HOVED)).not.toBeInTheDocument();
   });
 
-  it("skal vise kvittering", () => {
+  it('skal vise kvittering', () => {
     const state = defaultGravidState();
     state.kvittering = true;
     render(<GravidSide state={state} />);
@@ -75,7 +75,7 @@ describe("GravidSide", () => {
     expect(screen.queryByText(STATUS_HOVED)).not.toBeInTheDocument();
   });
 
-  it("skal vise spørsmål om tilrettelegging", () => {
+  it('skal vise spørsmål om tilrettelegging', () => {
     const state = defaultGravidState();
     render(<GravidSide state={state} />);
 
@@ -98,7 +98,7 @@ describe("GravidSide", () => {
     expect(screen.queryByText(SEND_KNAPP)).not.toBeInTheDocument();
   });
 
-  it("skal vise gå videre når man ikke har klikket for at man har tilrettelagt", () => {
+  it('skal vise gå videre når man ikke har klikket for at man har tilrettelagt', () => {
     const state = defaultGravidState();
 
     render(<GravidSide state={state} />);
@@ -113,18 +113,14 @@ describe("GravidSide", () => {
     expect(screen.getByText(TILRETTELEGGE)).toBeInTheDocument();
 
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
 
     const neiSjekkboks = screen.getByLabelText(/NEI/);
 
     userEvent.click(neiSjekkboks);
 
     expect(screen.getByText(VIDERE)).toBeInTheDocument();
-    expect(
-      screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
 
     expect(screen.queryByText(OMPLASSERING)).not.toBeInTheDocument();
     expect(screen.queryByText(OMPLASSERING_AARSAK)).not.toBeInTheDocument();
@@ -134,7 +130,7 @@ describe("GravidSide", () => {
     expect(screen.queryByText(SEND_KNAPP)).not.toBeInTheDocument();
   });
 
-  it("skal vise ikke tilrettelagt", () => {
+  it('skal vise ikke tilrettelagt', () => {
     const state = defaultGravidState();
     state.tilrettelegge = false;
     state.videre = true;
@@ -148,9 +144,7 @@ describe("GravidSide", () => {
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
     expect(screen.getByText(TILRETTELEGGE)).toBeInTheDocument();
-    expect(
-      screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
     expect(screen.queryByText(OMPLASSERING)).not.toBeInTheDocument();
     expect(screen.queryByText(OMPLASSERING_AARSAK)).not.toBeInTheDocument();
 
@@ -161,13 +155,11 @@ describe("GravidSide", () => {
     expect(screen.getByText(SEND_KNAPP)).toBeInTheDocument();
   });
 
-  it("skal vise tilrettelegging", () => {
+  it('skal vise tilrettelegging', () => {
     const state = defaultGravidState();
     render(<GravidSide state={state} />);
 
-    expect(
-      screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
 
     const jaSjekkboks = screen.getByLabelText(/JA/);
@@ -187,7 +179,7 @@ describe("GravidSide", () => {
     expect(screen.queryByText(FEILMELDINGER)).not.toBeInTheDocument();
   });
 
-  it("skal vise valideringfeil for tilrettelagt", () => {
+  it('skal vise valideringfeil for tilrettelagt', () => {
     const state = defaultGravidState();
 
     state.orgnrError = ORG_ERROR;
@@ -204,36 +196,22 @@ describe("GravidSide", () => {
     userEvent.click(submitKnapp);
 
     expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
-    expect(
-      screen.getByText(/GRAVID_VALIDERING_MANGLER_FODSELSNUMMER/)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_FODSELSNUMMER/)).toBeInTheDocument();
     expect(screen.getByText(/Mangler virksomhetsnummer/)).toBeInTheDocument();
-    expect(
-      screen.getByText(/GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER/)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_FEIL/)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL/)
-    ).toBeInTheDocument();
-    expect(
-      screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL/)
-        .length
-    ).toBe(2);
-    expect(
-      screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/)
-        .length
-    ).toBe(2);
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER/)).toBeInTheDocument();
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_FEIL/)).toBeInTheDocument();
+    expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL/)).toBeInTheDocument();
+    expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL/).length).toBe(2);
+    expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/).length).toBe(2);
   });
 
-  it("skal vise valideringfeil ikke tilrettelagt", () => {
+  it('skal vise valideringfeil ikke tilrettelagt', () => {
     const state = defaultGravidState();
 
     state.fnrError = FNR_ERROR;
     state.orgnrError = ORG_ERROR;
     state.bekreftError = BEKREFT_ERROR;
-    state.feilmeldinger = [lagFeil("", "")];
+    state.feilmeldinger = [lagFeil('', '')];
 
     render(<GravidSide state={state} />);
 
@@ -250,9 +228,6 @@ describe("GravidSide", () => {
 
     expect(screen.getByText(FNR_ERROR)).toBeInTheDocument();
     expect(screen.getByText(ORG_ERROR)).toBeInTheDocument();
-    expect(
-      screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/)
-        .length
-    ).toBe(2);
+    expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/).length).toBe(2);
   });
 });

@@ -14,7 +14,7 @@ enum lenker {
   GravidKrav = '/:language/gravid/krav',
   GravidKravKvittering = '/:language/gravid/krav/kvittering',
   KroniskKrav = '/:language/kronisk/krav',
-  KroniskKravKvittering = '/:language/kronisk/krav/kvittering',
+  KroniskKravKvittering = '/:language/kronisk/krav/kvittering'
   /*
   Home = '/',
   TokenFornyet = '/token-fornyet',
@@ -33,7 +33,6 @@ enum lenker {
   */
 }
 
-export const buildLenke = (lenke: lenker, lang: Language) =>
-  lenke.replace(':language', lang);
+export const buildLenke = (lenke: lenker, lang: Language) => lenke.replace(':language', lang);
 
 export default lenker;

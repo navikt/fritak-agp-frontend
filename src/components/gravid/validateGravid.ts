@@ -1,20 +1,17 @@
-import { validateOrgnr } from "../../validation/validateOrgnr";
-import isValidOrgnr from "../../validation/isValidOrgnr";
-import isValidFnr from "../../validation/isValidFnr";
-import { FeiloppsummeringFeil } from "nav-frontend-skjema";
-import { validateFnr } from "../../validation/validateFnr";
-import GravidState from "./GravidState";
-import { Tiltak } from "./Tiltak";
-import { MAX_TILTAK_BESKRIVELSE } from "./GravidSide";
-import { pushFeilmelding } from "../felles/Feilmeldingspanel/pushFeilmelding";
-import { Omplassering } from "./Omplassering";
-import { i18n } from "i18next";
-import LangKey from "../../locale/LangKey";
+import { validateOrgnr } from '../../validation/validateOrgnr';
+import isValidOrgnr from '../../validation/isValidOrgnr';
+import isValidFnr from '../../validation/isValidFnr';
+import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
+import { validateFnr } from '../../validation/validateFnr';
+import GravidState from './GravidState';
+import { Tiltak } from './Tiltak';
+import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
+import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { Omplassering } from './Omplassering';
+import { i18n } from 'i18next';
+import LangKey from '../../locale/LangKey';
 
-export const validateGravid = (
-  state: GravidState,
-  translate: i18n
-): GravidState => {
+export const validateGravid = (state: GravidState, translate: i18n): GravidState => {
   if (!state.validated) {
     return state;
   }
@@ -23,49 +20,34 @@ export const validateGravid = (
 
   nextState.fnrError = validateFnr(state.fnr, state.validated);
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
-  nextState.bekreftError =
-    state.bekreft
-      ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT)
-      : "";
+  nextState.bekreftError = state.bekreft ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
     nextState.orgnrError = translate.t(LangKey.GRAVID_VALIDERING_UGYLDIG_ORGNR);
   }
   if (state.fnr && !isValidFnr(state.fnr)) {
-    nextState.fnrError = translate.t(
-      LangKey.GRAVID_VALIDERING_UGYLDIG_FODSELSNUMER
-    );
+    nextState.fnrError = translate.t(LangKey.GRAVID_VALIDERING_UGYLDIG_FODSELSNUMER);
   }
 
   if (nextState.fnrError) {
-    pushFeilmelding(
-      "fnr",
-      translate.t(LangKey.GRAVID_VALIDERING_MANGLER_FODSELSNUMMER),
-      feilmeldinger
-    );
+    pushFeilmelding('fnr', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_FODSELSNUMMER), feilmeldinger);
   }
   if (nextState.orgnrError) {
-    pushFeilmelding(
-      "orgnr",
-      translate.t(LangKey.GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER),
-      feilmeldinger
-    );
+    pushFeilmelding('orgnr', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER), feilmeldinger);
   }
 
   if (!state.videre) {
     if (nextState.tilrettelegge == undefined) {
       pushFeilmelding(
-        "tilretteleggeFeilmeldingId",
+        'tilretteleggeFeilmeldingId',
         translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILRETTELEGGING),
         feilmeldinger
       );
     }
 
     if (nextState.tiltak == undefined || nextState.tiltak.length == 0) {
-      nextState.tiltakError = translate.t(
-        LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_FEIL
-      );
+      nextState.tiltakError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_FEIL);
       pushFeilmelding(
-        "tiltakFeilmeldingId",
+        'tiltakFeilmeldingId',
         translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL),
         feilmeldinger
       );
@@ -74,23 +56,18 @@ export const validateGravid = (
       nextState.tiltakBeskrivelseError = undefined;
       if (nextState.tiltak.includes(Tiltak.ANNET)) {
         if (!nextState.tiltakBeskrivelse) {
-          nextState.tiltakError = translate.t(
-            LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL
-          );
+          nextState.tiltakError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL);
           pushFeilmelding(
-            "tiltakFeilmeldingId",
+            'tiltakFeilmeldingId',
             translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE),
             feilmeldinger
           );
-        } else if (
-          nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE
-        ) {
-          nextState.tiltakBeskrivelseError = translate.t(
-            LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE_GRENSE,
-            { maxLengde: MAX_TILTAK_BESKRIVELSE }
-          );
+        } else if (nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE) {
+          nextState.tiltakBeskrivelseError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE_GRENSE, {
+            maxLengde: MAX_TILTAK_BESKRIVELSE
+          });
           pushFeilmelding(
-            "tiltakFeilmeldingId",
+            'tiltakFeilmeldingId',
             translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE),
             feilmeldinger
           );
@@ -99,23 +76,16 @@ export const validateGravid = (
     }
 
     if (nextState.omplassering == undefined) {
-      nextState.omplasseringError = translate.t(
-        LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL
-      );
+      nextState.omplasseringError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL);
       pushFeilmelding(
-        "omplasseringFeilmeldingId",
+        'omplasseringFeilmeldingId',
         translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL),
         feilmeldinger
       );
-    } else if (
-      nextState.omplassering === Omplassering.IKKE_MULIG &&
-      nextState.omplasseringAarsak === undefined
-    ) {
-      nextState.omplasseringError = translate.t(
-        LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_ARSAK
-      );
+    } else if (nextState.omplassering === Omplassering.IKKE_MULIG && nextState.omplasseringAarsak === undefined) {
+      nextState.omplasseringError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_ARSAK);
       pushFeilmelding(
-        "omplasseringFeilmeldingId",
+        'omplasseringFeilmeldingId',
         translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_UMULIG),
         feilmeldinger
       );
@@ -125,11 +95,9 @@ export const validateGravid = (
   }
 
   if (!nextState.bekreft) {
-    nextState.bekreftError = translate.t(
-      LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT
-    );
+    nextState.bekreftError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT);
     pushFeilmelding(
-      "bekreftFeilmeldingId",
+      'bekreftFeilmeldingId',
       translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT),
       feilmeldinger
     );

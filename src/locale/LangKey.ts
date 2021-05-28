@@ -59,7 +59,7 @@ enum LangKey {
   NEI = 'NEI',
   MIN_SIDE_ARBEIDSGIVER = 'MIN_SIDE_ARBEIDSGIVER',
   DET_OPPSTOD_EN_FEIL = 'DET_OPPSTOD_EN_FEIL',
-  LOGG_UT = 'LOGG_UT',
+  LOGG_UT = 'LOGG_UT'
 }
 
 export default LangKey;

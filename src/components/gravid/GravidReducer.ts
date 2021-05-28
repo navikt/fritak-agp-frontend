@@ -1,19 +1,14 @@
-import GravidState, { defaultGravidState } from "./GravidState";
-import { Actions, GravidAction } from "./Actions";
-import { validateGravid } from "./validateGravid";
-import { Omplassering } from "./Omplassering";
-import { Tiltak } from "./Tiltak";
-import { parseDateTilDato } from "../../utils/dato/Dato";
-import mapResponse from "../../state/validation/mapResponse";
-import mapGravidFeilmeldinger from "./mapGravidFeilmeldinger";
-import { i18n } from "i18next";
+import GravidState, { defaultGravidState } from './GravidState';
+import { Actions, GravidAction } from './Actions';
+import { validateGravid } from './validateGravid';
+import { Omplassering } from './Omplassering';
+import { Tiltak } from './Tiltak';
+import { parseDateTilDato } from '../../utils/dato/Dato';
+import mapResponse from '../../state/validation/mapResponse';
+import mapGravidFeilmeldinger from './mapGravidFeilmeldinger';
+import { i18n } from 'i18next';
 
-export const validateTiltak = (
-  tiltak: Tiltak,
-  state: GravidState,
-  nextState: GravidState,
-  translate: i18n
-) => {
+export const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState, translate: i18n) => {
   if (!nextState.tiltak) {
     nextState.tiltak = [];
   }
@@ -29,11 +24,7 @@ export const validateTiltak = (
 };
 
 /* eslint complexity: ["off"] */
-const GravidReducer = (
-  state: GravidState,
-  action: GravidAction,
-  translate: i18n
-): GravidState => {
+const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n): GravidState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {
@@ -54,7 +45,7 @@ const GravidReducer = (
 
     case Actions.ToggleTiltak:
       if (payload?.tiltak === undefined) {
-        throw new Error("Du må spesifisere tiltak");
+        throw new Error('Du må spesifisere tiltak');
       }
       return validateTiltak(payload.tiltak, state, nextState, translate);
 
@@ -64,7 +55,7 @@ const GravidReducer = (
 
     case Actions.OmplasseringForsoek:
       if (payload?.omplasseringForsoek === undefined) {
-        throw new Error("Du må spesifisere omplassering");
+        throw new Error('Du må spesifisere omplassering');
       }
       nextState.omplassering = payload?.omplasseringForsoek;
       if (nextState.omplassering != Omplassering.IKKE_MULIG) {
@@ -74,7 +65,7 @@ const GravidReducer = (
 
     case Actions.OmplasseringAarsak:
       if (payload?.omplasseringAarsak === undefined) {
-        throw new Error("Du må spesifisere årsak");
+        throw new Error('Du må spesifisere årsak');
       }
       nextState.omplasseringAarsak = payload?.omplasseringAarsak;
       return validateGravid(nextState, translate);
@@ -112,7 +103,7 @@ const GravidReducer = (
 
     case Actions.HandleResponse:
       if (payload?.response == undefined) {
-        throw new Error("Du må spesifisere response");
+        throw new Error('Du må spesifisere response');
       }
       nextState.submitting = false;
       nextState.progress = false;
