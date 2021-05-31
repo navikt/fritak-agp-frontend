@@ -6,6 +6,7 @@ import Lenke from 'nav-frontend-lenker';
 import Side from '../felles/Side/Side';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
 
 const KravKvittering = () => {
   const { t } = useTranslation();
@@ -15,21 +16,16 @@ const KravKvittering = () => {
       <Row>
         <Panel>
           <Panel>
-            <Sidetittel>Kravet er mottatt</Sidetittel>
+            <Sidetittel>{t(LangKey.KRAV_KVITTERING_TITTEL)}</Sidetittel>
+          </Panel>
+
+          <Panel>
+            <Oversettelse langKey={LangKey.KRAV_KVITTERING_INGRESS} />
           </Panel>
 
           <Panel>
             <Normaltekst>
-              En kvittering er sendt til meldingsboksen deres i <Lenke href='https://www.altinn.no'>Altinn</Lenke>.
-            </Normaltekst>
-            <Normaltekst>
-              Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.
-            </Normaltekst>
-          </Panel>
-
-          <Panel>
-            <Normaltekst>
-              <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
+              <Lenke href='https://loginservice.nav.no/slo'>{t(LangKey.LOGG_UT)}</Lenke>
             </Normaltekst>
             <Normaltekst>
               <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>

@@ -9,8 +9,8 @@ import Upload from '../felles/Upload/Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
 import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
-import { Link, Redirect } from 'react-router-dom';
-import lenker from '../../config/lenker';
+import { Link, Redirect, useParams } from 'react-router-dom';
+import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
 import '@navikt/helse-arbeidsgiver-felles-frontend/lib/js/components/DatoVelger.css';
@@ -33,10 +33,12 @@ import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import stringishToNumber from '../../utils/stringishToNumber';
+import PathParams from '../../locale/PathParams';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
+  let { language } = useParams<PathParams>();
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -147,7 +149,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   ]);
 
   if (!!state.kvittering) {
-    return <Redirect to={lenker.GravidKravKvittering} />;
+    return <Redirect to={buildLenke(lenker.GravidKravKvittering, language)} />;
   }
 
   return (

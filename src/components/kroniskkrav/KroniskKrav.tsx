@@ -7,8 +7,8 @@ import Fnr from '../felles/Fnr/Fnr';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
-import { Link, Redirect } from 'react-router-dom';
-import lenker from '../../config/lenker';
+import { Link, Redirect, useParams } from 'react-router-dom';
+import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
 import '@navikt/helse-arbeidsgiver-felles-frontend/lib/js/components/DatoVelger.css';
@@ -27,10 +27,12 @@ import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
+import PathParams from '../../locale/PathParams';
 
 export const KroniskKrav = (props: KroniskKravProps) => {
   const [state, dispatch] = useReducer(KroniskKravReducer, props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
+  let { language } = useParams<PathParams>();
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -95,7 +97,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   ]);
 
   if (!!state.kvittering) {
-    return <Redirect to={lenker.KroniskKravKvittering} />;
+    return <Redirect to={buildLenke(lenker.KroniskKravKvittering, language)} />;
   }
 
   return (

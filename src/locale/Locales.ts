@@ -278,6 +278,18 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Avbryt og gå tilbake til skjema',
     en: 'Cancel and return to form '
   },
+  KRAV_KVITTERING_TITTEL: {
+    nb: 'Kravet er mottatt',
+    en: 'The claim has been received '
+  },
+  KRAV_KVITTERING_INGRESS: {
+    nb:
+      'En kvittering er sendt til meldingsboksen deres i [Altinn](https://www.altinn.no).\n\n' +
+      'Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.',
+    en:
+      'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
+      "If you need to contact us, it is sufficient to provide the employee's national id-number."
+  },
   DEN_ANSATTE: {
     nb: 'Den ansatte',
     en: 'The employee'

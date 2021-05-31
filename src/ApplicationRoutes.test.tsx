@@ -97,7 +97,7 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/gravid/krav/kvittering'), container);
     });
-    expect(container.textContent).toContain('Kravet er mottatt');
+    expect(container.textContent).toContain('KRAV_KVITTERING_TITTEL');
   });
 
   it('should show kronisk krav', () => {
@@ -111,6 +111,6 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/kronisk/krav/kvittering'), container);
     });
-    expect(container.textContent).toContain('Kravet er mottatt');
+    expect(container.textContent).toContain('KRAV_KVITTERING_TITTEL');
   });
 });
