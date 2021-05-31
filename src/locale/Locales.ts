@@ -41,8 +41,8 @@ const Locales: Record<LangKey, Locale> = {
       '\n\nAll fields must be filled out unless otherwise stated'
   },
   GRAVID_SIDE_TERMINDATO: {
-    nb: 'Termindato (dersom kjent)',
-    en: 'Due date (if known)'
+    nb: 'Termindato',
+    en: 'Due date'
   },
   GRAVID_SIDE_ARBEIDSMILJO: {
     nb: 'Arbeidssituasjon og miljø',
