@@ -1,13 +1,18 @@
 import { validateGravidKrav } from './validateGravidKrav';
 import { defaultGravidKravState } from './GravidKravState';
 import { parseDato } from '../../utils/dato/Dato';
+import { i18n } from 'i18next';
+
+const translationMock = {
+  t: (param: any) => param
+};
 
 describe('validateGravidKrav', () => {
   it('should show fnr error when invalid', () => {
     const state = defaultGravidKravState();
     state.validated = true;
     state.fnr = '123';
-    const state2 = validateGravidKrav(state);
+    const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
 
@@ -15,7 +20,7 @@ describe('validateGravidKrav', () => {
     const state = defaultGravidKravState();
     state.validated = true;
     state.orgnr = '123';
-    const state2 = validateGravidKrav(state);
+    const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
     expect(state2.orgnrError).not.toBeUndefined();
   });
 
@@ -24,7 +29,7 @@ describe('validateGravidKrav', () => {
     state.validated = true;
     state.fnr = '123';
     state.fra = parseDato('14.14.2014');
-    const state2 = validateGravidKrav(state);
+    const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
 
@@ -33,13 +38,13 @@ describe('validateGravidKrav', () => {
     state.validated = true;
     state.fnr = '123';
     state.til = parseDato('14.14.2014');
-    const state2 = validateGravidKrav(state);
-    expect(state2.til.error).not.toBeUndefined();
+    const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
+    expect(state2.til?.error).not.toBeUndefined();
   });
 
   it('should not show errors until validation flagged', () => {
     const state = defaultGravidKravState();
-    const state2 = validateGravidKrav(state);
+    const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
     expect(state2.feilmeldinger?.length).toEqual(0);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();

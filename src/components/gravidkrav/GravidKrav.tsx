@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, Reducer } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
@@ -18,8 +18,8 @@ import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer from './GravidKravReducer';
-import { defaultGravidKravState } from './GravidKravState';
-import { Actions } from './Actions';
+import GravidKravState, { defaultGravidKravState } from './GravidKravState';
+import { Actions, GravidKravAction } from './Actions';
 import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
@@ -37,12 +37,21 @@ import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import { i18n } from 'i18next';
 
 export const GravidKrav = (props: GravidKravProps) => {
-  const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
+  const { t, i18n } = useTranslation();
+
+  const GravidKravReducerSettOpp =
+    (Translate: i18n): Reducer<GravidKravState, GravidKravAction> =>
+    (bulkState: GravidKravState, action: GravidKravAction) =>
+      GravidKravReducer(bulkState, action, Translate);
+
+  const GravidKravReducerI18n: Reducer<GravidKravState, GravidKravAction> = GravidKravReducerSettOpp(i18n);
+
+  const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language } = useParams<PathParams>();
-  const { t } = useTranslation();
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -155,6 +164,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   if (!!state.kvittering) {
     return <Redirect to={buildLenke(lenker.GravidKravKvittering, language)} />;
   }
+  const lenkeGravid = buildLenke(lenker.Gravid, language);
 
   return (
     <Side
@@ -168,10 +178,7 @@ export const GravidKrav = (props: GravidKravProps) => {
         <Column>
           <Panel>
             <Ingress className='textfelt-padding-bottom'>
-              <Oversettelse
-                langKey={LangKey.GRAVID_KRAV_SIDETITTEL_INGRESS}
-                variables={{ lenkeGravid: buildLenke(lenker.Gravid, language) }}
-              />
+              <Oversettelse langKey={LangKey.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
             </Ingress>
             <Ingress>{t(LangKey.ALLE_FELT_PAKREVD)}</Ingress>
           </Panel>

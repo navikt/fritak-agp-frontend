@@ -25,8 +25,8 @@ export const LenkeRule: Rule = {
 
     return {
       type: Link,
-      props: { to: description, className: 'lenke' },
-      children: href
+      props: { to: href, className: 'lenke' },
+      children: description
     };
   }
 };

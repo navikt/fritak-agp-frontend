@@ -6,18 +6,19 @@ import mapResponse from '../../state/validation/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
 import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
+import { i18n } from 'i18next';
 
-const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): GravidKravState => {
+const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, translate: i18n): GravidKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {
     case Actions.Fnr:
       nextState.fnr = payload?.fnr;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Orgnr:
       nextState.orgnr = payload?.orgnr;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Fra:
       if (payload?.fra === undefined) {
@@ -25,7 +26,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       } else {
         nextState.fra = parseDateTilDato(payload?.fra);
       }
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Til:
       if (payload?.til === undefined) {
@@ -33,35 +34,35 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction): Gr
       } else {
         nextState.til = parseDateTilDato(payload?.til);
       }
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Dager:
       nextState.dager = payload?.dager;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Beloep:
       nextState.beloep = payload?.beloep;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Dokumentasjon:
       nextState.dokumentasjon = payload?.dokumentasjon;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Bekreft:
       nextState.bekreft = payload?.bekreft;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Progress:
       nextState.progress = payload?.progress;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Kvittering:
       nextState.kvittering = payload?.kvittering;
-      return validateGravidKrav(nextState);
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Validate:
       nextState.validated = true;
-      const validatedState = validateGravidKrav(nextState);
+      const validatedState = validateGravidKrav(nextState, translate);
       validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(nextState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;

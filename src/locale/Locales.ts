@@ -348,6 +348,42 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'LAST OPP LEGEERKLÆRINGEN (valgfritt)',
     en: "UPLOAD THE DOCTOR'S DECLARATION (optional)"
   },
+  GRAVID_KRAV_VALIDERING_BEKREFT_MANGLER: {
+    nb: 'Mangler bekreft',
+    en: 'Missing confirm'
+  },
+  GRAVID_KRAV_VALIDERING_FNR_UGYLDIG: {
+    nb: 'Ugyldig fødselsnummer',
+    en: 'Invalid national id-nnumber'
+  },
+  GRAVID_KRAV_VALIDERING_FNR_MANGLER: {
+    nb: 'Fødselsnummer må fylles ut',
+    en: 'National id-number is missing'
+  },
+  GRAVID_KRAV_VALIDERING_VIRKSOMHETSNR_MANGLER: {
+    nb: 'Virksomhetsnummer må fylles ut',
+    en: 'Business number has to be filled out'
+  },
+  GRAVID_KRAV_VALIDERING_DATO_FRA_MANGLER: {
+    nb: 'Fra dato må fylles ut',
+    en: 'From date has to be filled out'
+  },
+  GRAVID_KRAV_VALIDERING_DATO_TIL_MANGLER: {
+    nb: 'Til dato må fylles ut',
+    en: 'To date has to be filled out'
+  },
+  GRAVID_KRAV_VALIDERING_DAGER_MANGLER: {
+    nb: 'Dager må fylles ut',
+    en: 'Days have to be filled out'
+  },
+  GRAVID_KRAV_VALIDERING_BELOP_MANGLER: {
+    nb: 'Beløp må fylles ut',
+    en: 'Amount has to be filled out'
+  },
+  GRAVID_KRAV_VALIDERING_BEKREFT_KORREKT: {
+    nb: 'Bekreft at opplysningene er korrekt',
+    en: 'Confirm that the information is correct'
+  },
   KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
     nb: 'Kontrollspørsmål for lønn som overstiger 6G',
     en: 'Control questions for salaries exceeding 6G'
@@ -406,7 +442,7 @@ const Locales: Record<LangKey, Locale> = {
   },
   VIRKSOMHETSNUMMER_LABEL: {
     nb: 'Virksomhetsnummer',
-    en: 'Company number'
+    en: 'Business number'
   },
   VIRKSOMHETSNUMMER_PLACEHOLDER: {
     nb: '9 siffer',
