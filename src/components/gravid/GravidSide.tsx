@@ -170,6 +170,7 @@ const GravidSide = (props: GravidSideProps) => {
                         className='termindato'
                         id='termindato'
                         label={t(LangKey.GRAVID_SIDE_TERMINDATO)}
+                        feilmelding={state.termindatoError}
                         onChange={(termindato: Date) => {
                           dispatch({
                             type: Actions.Termindato,
