@@ -34,11 +34,15 @@ import dayjs from 'dayjs';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import stringishToNumber from '../../utils/stringishToNumber';
 import PathParams from '../../locale/PathParams';
+import { useTranslation } from 'react-i18next';
+import LangKey from '../../locale/LangKey';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducer, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  let { language } = useParams<PathParams>();
+  const { language } = useParams<PathParams>();
+  const { t } = useTranslation();
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -156,31 +160,32 @@ export const GravidKrav = (props: GravidKravProps) => {
     <Side
       bedriftsmeny={true}
       className='gravidkrav'
-      sidetittel='Kravskjema'
-      title='Krav om refusjon av sykepenger i arbeidsgiverperioden'
-      subtitle='Gravid ansatt'
+      sidetittel={t(LangKey.GRAVID_KRAV_SIDETITTEL_LITEN)}
+      title={t(LangKey.GRAVID_KRAV_SIDETITTEL_STOR)}
+      subtitle={t(LangKey.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
     >
       <Row>
         <Column>
           <Panel>
             <Ingress className='textfelt-padding-bottom'>
-              Har dere søkt om at <Link to={lenker.Gravid}>NAV dekker sykepenger i arbeidsgiverperioden</Link>, sender
-              dere krav om refusjon her. Vi anbefaler at dere sender kravet før søknaden er ferdig behandlet, så unngår
-              dere at det blir foreldet.
+              <Oversettelse
+                langKey={LangKey.GRAVID_KRAV_SIDETITTEL_INGRESS}
+                variables={{ lenkeGravid: buildLenke(lenker.Gravid, language) }}
+              />
             </Ingress>
-            <Ingress>Alle felter må fylles ut.</Ingress>
+            <Ingress>{t(LangKey.ALLE_FELT_PAKREVD)}</Ingress>
           </Panel>
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-den-ansatte'>
-            <Systemtittel className='textfelt-padding-bottom'>Den ansatte</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
-                    label='Fødselsnummer (11 siffer)'
+                    label={t(LangKey.FODSELSNUMMER_LABEL)}
                     fnr={state.fnr}
-                    placeholder='11 siffer'
+                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
                     onValidate={() => {}}
                     onChange={(fnr: string) =>
@@ -198,17 +203,11 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='textfelt-padding-bottom'>Tapt arbeidstid</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.GRAVID_KRAV_ARBEIDSTID_TAPT)}</Systemtittel>
             <Ingress tag='span' className='textfelt-padding-bottom'>
-              Hvilken periode var den ansatte borte?
+              {t(LangKey.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
               <Hjelpetekst className='krav-padding-hjelpetekst'>
-                <ul>
-                  <li>Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.</li>
-                  <li>
-                    Du må velge <strong>både</strong> første og siste dag. Er fraværet bare på én dag, velger du samme
-                    dag to ganger.
-                  </li>
-                </ul>
+                <Oversettelse langKey={LangKey.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
@@ -216,7 +215,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                 <Column sm='3' xs='6'>
                   <DatoVelger
                     id='fra-dato'
-                    label='Fra dato'
+                    label={t(LangKey.FRA_DATO)}
                     onChange={(fraDato: Date) => {
                       fraDatoValgt(fraDato);
                     }}
@@ -226,7 +225,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                 <Column sm='3' xs='6'>
                   <DatoVelger
                     id='til-dato'
-                    label='Til dato'
+                    label={t(LangKey.TIL_DATO)}
                     onChange={(tilDate: Date) => {
                       dispatch({
                         type: Actions.Til,
@@ -238,9 +237,9 @@ export const GravidKrav = (props: GravidKravProps) => {
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='dager'>
-                    Antall dager
+                    {t(LangKey.GRAVID_KRAV_DAGER_ANTALL)}
                     <Hjelpetekst className='krav-padding-hjelpetekst'>
-                      Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
+                      {t(LangKey.GRAVID_KRAV_DAGER_HJELPETEKST)}
                     </Hjelpetekst>
                   </Label>
                   <SelectDager
@@ -259,32 +258,17 @@ export const GravidKrav = (props: GravidKravProps) => {
                 </Column>
                 <Column sm='3' xs='6'>
                   <Label htmlFor='belop'>
-                    Beløp
+                    {t(LangKey.BELOP)}
                     <Hjelpetekst className='krav-padding-hjelpetekst'>
-                      <Systemtittel>Slik finner dere beløpet dere kan kreve:</Systemtittel>
-                      <ul>
-                        <li>
-                          Merk: Beløpet er før skatt, og det skal være uten feriepenger og arbeidsgiveravgift. Det
-                          beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste
-                          år.
-                        </li>
-                        <li>
-                          Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt
-                          lønn. Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
-                        </li>
-                        <li>Beregn månedsinntekten slik det ellers gjøres for sykepenger i arbeidsgiverperioden.</li>
-                        <li>Gang med 12 måneder for å finne årslønnen.</li>
-                        <li>Reduser beløpet til 6G hvis beløpet er over dette.</li>
-                        <li>Finn dagsatsen ved å dele årslønnen på antall dager dere utbetaler lønn for i året.</li>
-                        <li>Gang dagsatsen med antall dager dere krever refusjon for.</li>
-                      </ul>
+                      <Systemtittel>{t(LangKey.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
+                      <Oversettelse langKey={LangKey.GRAVID_KRAV_BELOP_HJELPETEKST} />
                     </Hjelpetekst>
                   </Label>
                   <Input
                     id='belop'
                     inputMode='numeric'
                     pattern='[0-9]*'
-                    placeholder='Kr:'
+                    placeholder={t(LangKey.KRONER)}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       dispatch({
                         type: Actions.Beloep,
@@ -304,22 +288,14 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel>
             <Systemtittel className='textfelt-padding-bottom'>
-              Hvis dere har fått dokumentasjon fra den ansatte
+              {t(LangKey.GRAVID_KRAV_DOKUMENTASJON_TITTEL)}
             </Systemtittel>
-            <Tekstomrade className='textfelt-padding-bottom' rules={[BoldRule, ParagraphRule]}>
-              Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt
-              dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. _For tiden
-              støtter vi kun filformatet .pdf._
-            </Tekstomrade>
-            <Tekstomrade>
-              NAV vil selv innhente dokumentasjon fra legen hvis det ikke allerede går klart fram av en sykmelding at
-              det er svangerskapet som er årsaken til fraværet.
-            </Tekstomrade>
+            <Oversettelse langKey={LangKey.GRAVID_KRAV_DOKUMENTASJON_INGRESS} />
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
               <Upload
                 className='knapp-innsending-top'
                 id='upload'
-                label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
+                label={t(LangKey.GRAVID_KRAV_LAST_OPP)}
                 extensions='.pdf'
                 onChange={handleUploadChanged}
                 onDelete={handleDelete}
@@ -344,7 +320,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              Send kravet
+              {t(LangKey.GRAVID_KRAV_LONN_SEND)}
             </Hovedknapp>
           </Panel>
         </Column>

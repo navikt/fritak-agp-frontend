@@ -28,11 +28,14 @@ import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext'
 import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
 import PathParams from '../../locale/PathParams';
+import LangKey from '../../locale/LangKey';
+import { useTranslation } from 'react-i18next';
 
 export const KroniskKrav = (props: KroniskKravProps) => {
   const [state, dispatch] = useReducer(KroniskKravReducer, props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   let { language } = useParams<PathParams>();
+  const { t } = useTranslation();
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -117,7 +120,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på
               godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.
             </Ingress>
-            <Ingress>Alle felter må fylles ut.</Ingress>
+            <Ingress>{t(LangKey.ALLE_FELT_PAKREVD)}</Ingress>
           </Panel>
           <Skillelinje />
 
@@ -127,9 +130,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
-                    label='Fødselsnummer (11 siffer)'
+                    label={t(LangKey.FODSELSNUMMER_LABEL)}
                     fnr={state.fnr}
-                    placeholder='11 siffer'
+                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
                     onChange={(fnr: string) =>
                       dispatch({

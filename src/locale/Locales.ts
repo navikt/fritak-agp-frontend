@@ -242,6 +242,112 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Confirm that the information is correct'
   },
+  GRAVID_KRAV_SIDETITTEL_LITEN: {
+    nb: 'Kravskjema',
+    en: 'Claim form'
+  },
+  GRAVID_KRAV_SIDETITTEL_STOR: {
+    nb: 'Krav om refusjon av sykepenger i arbeidsgiverperioden',
+    en: 'Claim for reimbursement of sickness benefits during the employer period'
+  },
+  GRAVID_KRAV_SIDETITTEL_SUBTITLE: {
+    nb: 'Gravid ansatt',
+    en: 'Pregnant employee'
+  },
+  GRAVID_KRAV_SIDETITTEL_INGRESS: {
+    nb:
+      'Har dere søkt om at [NAV dekker sykepenger i arbeidsgiverperioden]({{lenkeGravid}}), sender ' +
+      'dere krav om refusjon her. Vi anbefaler at dere sender kravet før søknaden er ferdig behandlet, så unngår ' +
+      'dere at det blir foreldet.',
+    en:
+      'If you have applied for [NAV to cover sickness benefits during the employer period]({{lenkeGravid}}), you send a ' +
+      'claim for reimbursement here. We recommend that you send the claim before the application has been processed, ' +
+      'so you avoid it becoming obsolete.'
+  },
+  GRAVID_KRAV_ARBEIDSTID_TAPT: {
+    nb: 'Tapt arbeidstid',
+    en: 'Lost working hours '
+  },
+  GRAVID_KRAV_ARBEIDSTID_PERIODE: {
+    nb: 'Hvilken periode var den ansatte borte?',
+    en: 'What period was the employee away? '
+  },
+  GRAVID_KRAV_ARBEIDSTID_HJELPETEKST: {
+    nb:
+      '-##' +
+      '--Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
+      '--Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.\n' +
+      '##-',
+    en:
+      '-##' +
+      '--From and including the first to and including the last day of absence in the employer period.\n' +
+      '--You must choose _both_ the first and last day. If the absence is only for one day, you choose the same day twice.\n' +
+      '##-'
+  },
+  GRAVID_KRAV_DAGER_ANTALL: {
+    nb: 'Antall dager',
+    en: 'Number of days'
+  },
+  GRAVID_KRAV_DAGER_HJELPETEKST: {
+    nb: 'Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.',
+    en: 'Weekends and public holidays can be included if they are part of the regular working hours.'
+  },
+  GRAVID_KRAV_BELOP_TITTEL: {
+    nb: 'Slik finner dere beløpet dere kan kreve:',
+    en: "Here's how to find the amount you can claim:"
+  },
+  GRAVID_KRAV_BELOP_HJELPETEKST: {
+    nb:
+      '-##' +
+      '--Merk: Beløpet er før skatt, og det skal være uten feriepenger og arbeidsgiveravgift. Det ' +
+      'beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste år.\n' +
+      '--Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt ' +
+      'lønn. Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.\n' +
+      '--Beregn månedsinntekten slik det ellers gjøres for sykepenger i arbeidsgiverperioden.\n' +
+      '--Gang med 12 måneder for å finne årslønnen.\n' +
+      '--Reduser beløpet til 6G hvis beløpet er over dette.\n' +
+      '--Finn dagsatsen ved å dele årslønnen på antall dager dere utbetaler lønn for i året.\n' +
+      '--Gang dagsatsen med antall dager dere krever refusjon for.\n' +
+      '##-',
+    en:
+      '-##' +
+      "--Note: The amount is before tax, and it must be without holiday pay and employer's contribution. The " +
+      'holiday pay is calculated from what NAV reimburses. You will be paid the refund of the holiday pay next year.\n' +
+      '--Clarify the number of days you can claim a refund for. Only include days it should have been paid ' +
+      'payment. Weekends and public holidays can be included if they are part of the regular working hours.\n' +
+      '--Calculate the monthly income as is otherwise done for sickness benefits during the employer period.\n' +
+      '--Multiply by 12 months to find the annual salary.\n' +
+      '--Reduce the amount to 6G if the amount is above this.\n' +
+      '--Find the daily rate by dividing the annual salary by the number of days you pay the salary for the year.\n' +
+      '--Multiply the daily rate by the number of days you claim a refund for.\n' +
+      '##-'
+  },
+  GRAVID_KRAV_DOKUMENTASJON_TITTEL: {
+    nb: 'Hvis dere har fått dokumentasjon fra den ansatte',
+    en: 'If you have received documentation from the employee'
+  },
+  GRAVID_KRAV_DOKUMENTASJON_INGRESS: {
+    nb:
+      'Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt ' +
+      'dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. _For tiden ' +
+      'støtter vi kun filformatet .pdf._\n\n' +
+      'NAV vil selv innhente dokumentasjon fra legen hvis det ikke allerede går klart fram av en sykmelding at ' +
+      'det er svangerskapet som er årsaken til fraværet.',
+    en:
+      'As an employer, you can not demand to see health information. But if the employee has already given you ' +
+      'such documentation voluntarily, you can scan or take a picture of it and upload it here. Currently we only ' +
+      'support the .pdf._ file format\n\n' +
+      'NAV will itself obtain documentation from the doctor if it is not already clear from a sick note that it is ' +
+      'the pregnancy that is the reason for the absence.'
+  },
+  GRAVID_KRAV_LONN_SEND: {
+    nb: 'Send kravet',
+    en: 'Submit claim'
+  },
+  GRAVID_KRAV_LAST_OPP: {
+    nb: 'LAST OPP LEGEERKLÆRINGEN (valgfritt)',
+    en: "UPLOAD THE DOCTOR'S DECLARATION (optional)"
+  },
   KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
     nb: 'Kontrollspørsmål for lønn som overstiger 6G',
     en: 'Control questions for salaries exceeding 6G'
@@ -337,6 +443,26 @@ const Locales: Record<LangKey, Locale> = {
   LOGG_UT: {
     nb: 'Logg ut',
     en: 'Log out'
+  },
+  ALLE_FELT_PAKREVD: {
+    nb: 'Alle felter må fylles ut.',
+    en: 'All fields are mandatory.'
+  },
+  FRA_DATO: {
+    nb: 'Fra dato',
+    en: 'From date'
+  },
+  TIL_DATO: {
+    nb: 'Til dato',
+    en: 'To date'
+  },
+  BELOP: {
+    nb: 'Beløp',
+    en: 'Amount'
+  },
+  KRONER: {
+    nb: 'Kr:',
+    en: 'Kr:'
   }
 };
 

@@ -90,8 +90,8 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/gravid/krav'), container);
     });
-    expect(container.textContent).toContain('Kravskjema');
-    expect(container.textContent).toContain('GRAVID ANSATT');
+    expect(container.textContent).toContain('GRAVID_KRAV_SIDETITTEL_STOR');
+    expect(container.textContent).toContain('GRAVID_KRAV_SIDETITTEL_SUBTITLE');
   });
   it('should show gravid krav kvittering', () => {
     act(() => {
