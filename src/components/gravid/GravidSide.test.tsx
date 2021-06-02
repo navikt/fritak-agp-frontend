@@ -18,6 +18,18 @@ jest.mock('nav-frontend-tekstomrade', () => {
   };
 });
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => ({})),
+        t: (str: string) => str
+      }
+    };
+  }
+}));
+
 describe('GravidSide', () => {
   const FODSELSNR = /FODSELSNUMMER_LABEL/;
   const VIRKSOMHETSNR = /VIRKSOMHETSNUMMER_LABEL/;
