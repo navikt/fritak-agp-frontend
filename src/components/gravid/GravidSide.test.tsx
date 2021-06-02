@@ -13,22 +13,10 @@ jest.mock('nav-frontend-tekstomrade', () => {
     LinebreakRule: true,
     HighlightRule: true,
     default: ({ children }) => {
-      return <div>{children}</div>;
+      return <span>{children}</span>;
     }
   };
 });
-
-jest.mock('react-i18next', () => ({
-  useTranslation: () => {
-    return {
-      t: (str) => str,
-      i18n: {
-        changeLanguage: () => new Promise(() => ({})),
-        t: (str) => str
-      }
-    };
-  }
-}));
 
 describe('GravidSide', () => {
   const FODSELSNR = /FODSELSNUMMER_LABEL/;
