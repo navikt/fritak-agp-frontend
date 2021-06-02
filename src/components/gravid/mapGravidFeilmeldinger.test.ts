@@ -12,7 +12,8 @@ describe('mapGravidFeilmeldinger', () => {
     'omplassering',
     'omplasseringAarsak',
     'dokumentasjon',
-    'bekreftet'
+    'bekreftet',
+    'termindato'
   ];
 
   it('should map all violations', () => {
@@ -27,8 +28,9 @@ describe('mapGravidFeilmeldinger', () => {
     expect(state.omplasseringError).not.toBeUndefined();
     expect(state.omplasseringAarsakError).not.toBeUndefined();
     expect(state.dokumentasjonError).not.toBeUndefined();
+    expect(state.termindatoError).not.toBeUndefined();
 
-    expect(feilmeldinger.length).toEqual(9);
+    expect(feilmeldinger.length).toEqual(10);
     expect(feilmeldinger[0].skjemaelementId).toEqual('fnr');
     expect(feilmeldinger[1].skjemaelementId).toEqual('orgnr');
     expect(feilmeldinger[2].skjemaelementId).toEqual('tilrettelegge');
@@ -38,8 +40,9 @@ describe('mapGravidFeilmeldinger', () => {
     expect(feilmeldinger[6].skjemaelementId).toEqual('omplasseringAarsak');
     expect(feilmeldinger[7].skjemaelementId).toEqual('dokumentasjon');
     expect(feilmeldinger[8].skjemaelementId).toEqual('bekreft');
+    expect(feilmeldinger[9].skjemaelementId).toEqual('termindato');
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 10; i++) {
       expect(feilmeldinger[i].feilmelding).toEqual('feil');
     }
   });
