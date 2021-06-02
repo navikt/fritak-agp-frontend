@@ -1,17 +1,21 @@
 import React from 'react';
 import Side from '../Side/Side';
 import Alertstripe from 'nav-frontend-alertstriper';
+import LangKey from '../../../locale/LangKey';
+import { useTranslation } from 'react-i18next';
 
 export const TilgangsfeilSide = () => {
+  const { t } = useTranslation();
+
   return (
     <Side
       className='tilgangsfeil-side'
-      sidetittel='Søknadsskjema'
-      title='Skjema for gravide og kronisk syke'
-      subtitle='Det oppstod en feil'
+      sidetittel={t(LangKey.TILGANGSFEIL_SIDETITTEL)}
+      title={t(LangKey.TILGANGSFEIL_TITTEL)}
+      subtitle={t(LangKey.TILGANGSFEIL_UNDERTITTEL)}
       bedriftsmeny={false}
     >
-      <Alertstripe type='feil'>Vi klarte ikke logge deg inn. Vennligst prøv igjen senere.</Alertstripe>
+      <Alertstripe type='feil'>{t(LangKey.TILGANGSFEIL_MELDING)}</Alertstripe>
     </Side>
   );
 };

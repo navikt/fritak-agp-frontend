@@ -2,6 +2,8 @@ import React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Lenke from 'nav-frontend-lenker';
+import { useTranslation } from 'react-i18next';
+import LangKey from '../../../locale/LangKey';
 
 interface OrgnrProps {
   label: string;
@@ -12,6 +14,8 @@ interface OrgnrProps {
 }
 
 const Orgnr = (props: OrgnrProps) => {
+  const { t } = useTranslation();
+
   return (
     <Input
       value={props.orgnr}
@@ -21,9 +25,10 @@ const Orgnr = (props: OrgnrProps) => {
         <div style={{ display: 'flex' }}>
           {props.label}
           <Hjelpetekst style={{ marginLeft: '0.5rem' }}>
-            Vi spør etter virksomhetsnummer, ikke organisasjonsnummer. <br />
+            {t(LangKey.ORGNR_HJELPETEKST)}
+            <br />
             <Lenke href='https://www.altinn.no/starte-og-drive/starte/registrering/organisasjonsnummer-virksomhetsnummer/'>
-              Se hva som er forskjellen
+              {t(LangKey.ORGNR_LENKE)}
             </Lenke>
           </Hjelpetekst>
         </div>

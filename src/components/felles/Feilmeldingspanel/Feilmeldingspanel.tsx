@@ -1,16 +1,20 @@
 import Panel from 'nav-frontend-paneler';
 import { Feiloppsummering, FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import LangKey from '../../../locale/LangKey';
 
 interface FeilmeldingspanelProps {
   feilmeldinger: Array<FeiloppsummeringFeil>;
 }
 
 const Feilmeldingspanel = (props: FeilmeldingspanelProps) => {
+  const { t } = useTranslation();
+
   if (props.feilmeldinger && props.feilmeldinger.length > 0) {
     return (
       <Panel>
-        <Feiloppsummering tittel='For å gå videre må du rette opp følgende:' feil={props.feilmeldinger} />
+        <Feiloppsummering tittel={t(LangKey.FEILMELDINGSPANEL_TITTEL)} feil={props.feilmeldinger} />
       </Panel>
     );
   } else {

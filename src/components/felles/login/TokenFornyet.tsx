@@ -3,21 +3,32 @@ import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Container, Row } from 'nav-frontend-grid';
 import Side from '../Side/Side';
+import { useTranslation } from 'react-i18next';
+import LangKey from '../../../locale/LangKey';
+import Oversettelse from '../Oversettelse/Oversettelse';
 
-export const TokenFornyet = () => (
-  <Side bedriftsmeny={false} sidetittel='Søknadsskjema' title='Innloggingen er fornyet' subtitle='Innlogging'>
-    <Container className={'side__innhold'}>
-      <Row>
-        <Panel>
-          <Innholdstittel>Innloggingen er fornyet</Innholdstittel>
-        </Panel>
-        <Panel>
-          <Normaltekst>Du har nå fornyet innloggingen med en time.</Normaltekst>
-          <Normaltekst>Dette vinduet kan nå lukkes.</Normaltekst>
-        </Panel>
-      </Row>
-    </Container>
-  </Side>
-);
+export const TokenFornyet = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Side
+      bedriftsmeny={false}
+      sidetittel={t(LangKey.TOKEN_FORNYET_SIDETITTEL)}
+      title={t(LangKey.TOKEN_FORNYET_TITTEL)}
+      subtitle={t(LangKey.TOKEN_FORNYET_UNDERTITTEL)}
+    >
+      <Container className={'side__innhold'}>
+        <Row>
+          <Panel>
+            <Innholdstittel>{t(LangKey.TOKEN_FORNYET_INNHOLDSTITTEL)}</Innholdstittel>
+          </Panel>
+          <Panel>
+            <Oversettelse langKey={LangKey.TOKEN_FORNYET_TEKST} />
+          </Panel>
+        </Row>
+      </Container>
+    </Side>
+  );
+};
 
 export default TokenFornyet;

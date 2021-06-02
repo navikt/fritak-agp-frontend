@@ -5,6 +5,9 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import InternLenke from '../InternLenke/InternLenke';
 import lenker from '../../../config/lenker';
 import injectRedirectPath from './injectRedirectPath';
+import Oversettelse from '../Oversettelse/Oversettelse';
+import LangKey from '../../../locale/LangKey';
+import { useTranslation } from 'react-i18next';
 
 interface LoggetUtAdvarselProps {
   onClose: Function;
@@ -12,6 +15,7 @@ interface LoggetUtAdvarselProps {
 
 const LoggetUtAdvarsel = ({ onClose }: LoggetUtAdvarselProps) => {
   const loginServiceUrlAfterRedirect = injectRedirectPath(lenker.TokenFornyet);
+  const { t } = useTranslation();
 
   const handleCloseModal = () => {
     onClose();
@@ -27,19 +31,9 @@ const LoggetUtAdvarsel = ({ onClose }: LoggetUtAdvarselProps) => {
       shouldCloseOnOverlayClick={false}
     >
       <AlertStripeFeil className='logget-ut-advarsel__innhold'>
-        <Innholdstittel>Du er blitt logget ut, følg instruksjonene for ikke å miste data</Innholdstittel>
-        <ul>
-          <li>Ikke lukk dette vinduet</li>
-          <li>
-            <a href={loginServiceUrlAfterRedirect} rel='noopener noreferrer' target='_blank'>
-              Åpne ID-Porten (innlogging) i nytt vindu ved å klikke på denne lenken.
-            </a>
-          </li>
-          <li>Logg inn på nytt i ID-porten.</li>
-          <li>Returner til dette vinduet.</li>
-          <li>Lukk denne meldingen og klikk igjen på knappen “Send søknad om refusjon”</li>
-        </ul>
-        <InternLenke onClick={() => handleCloseModal()}>Jeg har logget inn på nytt - lukk dette vinduet</InternLenke>
+        <Innholdstittel>{t(LangKey.LOGGET_UT_ADVARSEL_TITTEL)}</Innholdstittel>
+        <Oversettelse langKey={LangKey.LOGGET_UT_ADVARSEL_TEKST} variables={{ loginServiceUrlAfterRedirect }} />
+        <InternLenke onClick={() => handleCloseModal()}>{t(LangKey.LOGGET_UT_ADVARSEL_LUKK)}</InternLenke>
       </AlertStripeFeil>
     </ModalWrapper>
   );

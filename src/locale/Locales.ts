@@ -432,6 +432,83 @@ const Locales: Record<LangKey, Locale> = {
       'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
       "If you need to contact us, it is sufficient to provide the employee's national id-number."
   },
+  FEILMELDINGSPANEL_TITTEL: {
+    nb: 'For å gå videre må du rette opp følgende:',
+    en: 'To proceed, you must correct the following:'
+  },
+  INGEN_TILGANG_ADVARSEL_TEKST: {
+    nb: 'Du har ikke rettigheter til å søke om refusjon for noen bedrifter\n' + 'Tildeling av roller foregår i Altinn',
+    en:
+      'You do not have the right to apply for a refund for any companies.\n' +
+      'Assignment of roles takes place in Altinn'
+  },
+  INGEN_TILGANG_ADVARSEL_LENKE: {
+    nb: 'Les mer om roller og tilganger.',
+    en: 'Read more about roles and accesses.'
+  },
+  LOGGET_UT_ADVARSEL_TITTEL: {
+    nb: 'Du er blitt logget ut, følg instruksjonene for ikke å miste data',
+    en: 'Read more about roles and accesses.'
+  },
+  LOGGET_UT_ADVARSEL_TEKST: {
+    nb:
+      '-##' +
+      '--Ikke lukk dette vinduet\n' +
+      '--[Åpne ID-Porten (innlogging) i nytt vindu ved å klikke på denne lenken.]({{loginServiceUrlAfterRedirect}})\n' +
+      '--Logg inn på nytt i ID-porten.\n' +
+      '--Returner til dette vinduet.\n' +
+      '--Lukk denne meldingen og klikk igjen på knappen “Send søknad om refusjon"\n' +
+      '##-',
+
+    en:
+      '-##' +
+      '--Do not close this window\n' +
+      '--[Open ID-Porten (login) in a new window by clicking on this link.]({{loginServiceUrlAfterRedirect}})\n' +
+      '--Log in again in ID porten.\n' +
+      '--Return to this window.\n' +
+      '--Close this message and click again on the button "Send application for refund"\n' +
+      '##-'
+  },
+  LOGGET_UT_ADVARSEL_LUKK: {
+    nb: 'Jeg har logget inn på nytt - lukk dette vinduet',
+    en: "I'm logged in again - close this window"
+  },
+  TILGANGSFEIL_TITTEL: {
+    nb: 'Skjema for gravide og kronisk syke',
+    en: 'Form for pregnant women and the chronically ill'
+  },
+  TILGANGSFEIL_UNDERTITTEL: {
+    nb: 'Det oppstod en feil',
+    en: 'An error occurred'
+  },
+  TILGANGSFEIL_SIDETITTEL: {
+    nb: 'Søknadsskjema',
+    en: 'Application form'
+  },
+  TILGANGSFEIL_MELDING: {
+    nb: 'Vi klarte ikke logge deg inn. Vennligst prøv igjen senere.',
+    en: 'We were unable to log you in. Please try again later.'
+  },
+  TOKEN_FORNYET_SIDETITTEL: {
+    nb: 'Søknadsskjema',
+    en: 'Application form'
+  },
+  TOKEN_FORNYET_TITTEL: {
+    nb: 'Innloggingen er fornyet',
+    en: 'The login has been renewed'
+  },
+  TOKEN_FORNYET_UNDERTITTEL: {
+    nb: 'Innlogging',
+    en: 'Login'
+  },
+  TOKEN_FORNYET_INNHOLDSTITTEL: {
+    nb: 'Innloggingen er fornyet',
+    en: 'The login has been renewed'
+  },
+  TOKEN_FORNYET_TEKST: {
+    nb: 'Du har nå fornyet innloggingen med en time.\n\nDette vinduet kan nå lukkes.',
+    en: 'You have now renewed your login by one hour.\n\nThis window can now be closed.'
+  },
   DEN_ANSATTE: {
     nb: 'Den ansatte',
     en: 'The employee'
@@ -455,6 +532,14 @@ const Locales: Record<LangKey, Locale> = {
   FODSELSNUMMER_PLACEHOLDER: {
     nb: '11 siffer',
     en: '11 digits'
+  },
+  ORGNR_HJELPETEKST: {
+    nb: 'Vi spør etter virksomhetsnummer, ikke organisasjonsnummer.',
+    en: 'We ask for company number, not organization number.'
+  },
+  ORGNR_LENKE: {
+    nb: 'Se hva som er forskjellen',
+    en: 'See what the difference is'
   },
   SOKNADSSKJEMA: {
     nb: 'Søknadsskjema',
