@@ -9,19 +9,6 @@ import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import mockHistory from '../../mockData/mockHistory';
 
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate hook can use it without a warning being shown
-  useTranslation: () => {
-    return {
-      t: (str) => str,
-      i18n: {
-        changeLanguage: () => new Promise(() => {}),
-        t: (str) => str
-      }
-    };
-  }
-}));
-
 describe('KroniskSide', () => {
   jest.setTimeout(10000); // 10 second timeout
 
