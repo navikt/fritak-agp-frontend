@@ -10,7 +10,7 @@ import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
-import { validateTermindato } from '../../validation/validateTermindato';
+import validateTermindato from '../../validation/validateTermindato';
 
 export const validateGravid = (state: GravidState, translate: i18n): GravidState => {
   if (!state.validated) {

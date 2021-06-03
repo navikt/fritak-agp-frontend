@@ -9,3 +9,5 @@ export const validateTermindato = (termindato: Dato | undefined, required: boole
     return required ? termindato.error : undefined;
   }
 };
+
+export default validateTermindato;
