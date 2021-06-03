@@ -12,6 +12,7 @@ import testOrganisasjon from '../../mockData/testOrganisasjoner';
 import LocaleProvider from '../../locale/LocaleProvider';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
+jest.unmock('react-i18next');
 
 describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {
