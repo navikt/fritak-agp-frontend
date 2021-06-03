@@ -37,6 +37,10 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
     pushFeilmelding('orgnr', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER), feilmeldinger);
   }
 
+  if (nextState.termindatoError) {
+    pushFeilmelding('termindato', 'Mangler termindato', feilmeldinger);
+  }
+
   if (!state.videre) {
     if (nextState.tilrettelegge == undefined) {
       pushFeilmelding(

@@ -5,6 +5,7 @@ import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import { i18n } from 'i18next';
+import { parseDato } from '../../utils/dato/Dato';
 
 const translationMock = {
   t: (param: any) => param
@@ -17,6 +18,14 @@ describe('validateGravid', () => {
     state.fnr = '123';
     const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.fnrError).not.toBeUndefined();
+  });
+
+  it('should show termindato error when invalid', () => {
+    const state = defaultGravidState();
+    state.validated = true;
+    state.termindato = parseDato('14.14.2014');
+    const state2 = validateGravid(state, translationMock as unknown as i18n);
+    expect(state2.termindatoError).not.toBeUndefined();
   });
 
   it('should show orgnr error when invalid', () => {
@@ -32,6 +41,7 @@ describe('validateGravid', () => {
     const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.feilmeldinger?.length).toEqual(0);
     expect(state2.fnrError).toBeUndefined();
+    expect(state2.termindatoError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
     expect(state2.tiltakError).toBeUndefined();
     expect(state2.omplasseringError).toBeUndefined();
@@ -53,11 +63,12 @@ describe('validateGravid', () => {
     state.tilrettelegge = true;
     const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.fnrError).not.toBeUndefined();
+    expect(state2.termindatoError).not.toBeUndefined();
     expect(state2.orgnrError).not.toBeUndefined();
     expect(state2.tiltakError).not.toBeUndefined();
     expect(state2.omplasseringError).not.toBeUndefined();
     expect(state2.bekreftError).not.toBeUndefined();
-    expect(state2.feilmeldinger.length).toEqual(5);
+    expect(state2.feilmeldinger.length).toEqual(6);
   });
 
   it('should error when tiltak is ANNET and empty beskrivelse', () => {
