@@ -198,6 +198,10 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Fødselsnummer må fylles ut',
     en: 'National identitynumber must be filled out'
   },
+  GRAVID_VALIDERING_MANGLER_TERMINDATO: {
+    nb: 'Termindato må fylles ut',
+    en: 'Due date must be filled out'
+  },
   GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER: {
     nb: 'Virksomhetsnummer må fylles ut',
     en: 'Business number must be filled out'
