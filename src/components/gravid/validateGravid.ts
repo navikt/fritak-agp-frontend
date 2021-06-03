@@ -20,7 +20,11 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   nextState.fnrError = validateFnr(state.fnr, state.validated);
-  nextState.termindatoError = validateTermindato(state.termindato, state.validated);
+  nextState.termindatoError = validateTermindato(
+    state.termindato,
+    state.validated,
+    translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TERMINDATO)
+  );
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.bekreftError = state.bekreft ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
