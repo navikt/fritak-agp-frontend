@@ -47,4 +47,5 @@ export default interface GravidState extends ValidationState {
   login?: boolean;
   submitting?: boolean;
   termindato?: Dato;
+  termindatoError?: string;
 }

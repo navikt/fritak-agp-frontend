@@ -10,6 +10,7 @@ import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
+import validateTermindato from '../../validation/validateTermindato';
 
 export const validateGravid = (state: GravidState, translate: i18n): GravidState => {
   if (!state.validated) {
@@ -19,6 +20,11 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   nextState.fnrError = validateFnr(state.fnr, state.validated);
+  nextState.termindatoError = validateTermindato(
+    state.termindato,
+    state.validated,
+    translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TERMINDATO)
+  );
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.bekreftError = state.bekreft ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
@@ -33,6 +39,10 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   }
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER), feilmeldinger);
+  }
+
+  if (nextState.termindatoError) {
+    pushFeilmelding('termindato', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TERMINDATO), feilmeldinger);
   }
 
   if (!state.videre) {
