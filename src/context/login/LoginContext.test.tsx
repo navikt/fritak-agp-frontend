@@ -17,6 +17,8 @@ describe('LoginContext', () => {
   let container = document.createElement('div');
 
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     delete window.location;
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore

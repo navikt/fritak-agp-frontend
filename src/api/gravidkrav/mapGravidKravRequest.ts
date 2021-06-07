@@ -37,12 +37,14 @@ export const mapGravidKravRequest = (
   return {
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
-    periode: {
-      fom: datoToString(fra),
-      tom: datoToString(til),
-      antallDagerMedRefusjon: dager,
-      beloep: beloep
-    } as Arbeidsgiverperiode,
+    perioder: [
+      {
+        fom: datoToString(fra),
+        tom: datoToString(til),
+        antallDagerMedRefusjon: dager,
+        beloep: beloep
+      } as Arbeidsgiverperiode
+    ],
     dokumentasjon: dokumentasjon,
     bekreftet: bekreft,
     kontrollDager: kontrollDager

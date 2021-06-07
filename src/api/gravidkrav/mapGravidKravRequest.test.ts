@@ -147,12 +147,14 @@ describe('mapGravidKravRequest', () => {
     ).toEqual({
       identitetsnummer: '123',
       virksomhetsnummer: '456',
-      periode: {
-        fom: '2020-02-01',
-        tom: '2025-04-03',
-        antallDagerMedRefusjon: 5,
-        beloep: 3000
-      } as Arbeidsgiverperiode,
+      perioder: [
+        {
+          fom: '2020-02-01',
+          tom: '2025-04-03',
+          antallDagerMedRefusjon: 5,
+          beloep: 3000
+        } as Arbeidsgiverperiode
+      ],
       dokumentasjon: 'dokumentasjon',
       bekreftet: true
     } as GravidKravRequest);
@@ -174,12 +176,14 @@ describe('mapGravidKravRequest', () => {
     ).toEqual({
       identitetsnummer: '123',
       virksomhetsnummer: '456',
-      periode: {
-        fom: '2020-02-01',
-        tom: '2025-04-03',
-        antallDagerMedRefusjon: 5,
-        beloep: 3000
-      } as Arbeidsgiverperiode,
+      perioder: [
+        {
+          fom: '2020-02-01',
+          tom: '2025-04-03',
+          antallDagerMedRefusjon: 5,
+          beloep: 3000
+        } as Arbeidsgiverperiode
+      ],
       dokumentasjon: 'dokumentasjon',
       bekreftet: true,
       kontrollDager: 120

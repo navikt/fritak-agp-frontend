@@ -8,6 +8,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../locale/LangKey';
+import InternLenke from './felles/InternLenke/InternLenke';
 
 interface KontrollsporsmaalLonnProps {
   onClose: (dager: number | undefined) => void;
@@ -21,6 +22,11 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
   const { t } = useTranslation();
 
   const onRequestClose = () => {
+    props.onClose(dager);
+  };
+
+  const onRequestCloseClick = (event: React.MouseEvent) => {
+    event.preventDefault();
     props.onClose(dager);
   };
 
@@ -59,10 +65,10 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
           {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
         </Normaltekst>
       </div>
-      <Hovedknapp onClick={onRequestClose}>{t(LangKey.KONTROLLSPORSMAL_LONN_SEND)}</Hovedknapp>
-      <Lenke href='#' onClick={onCancelClick} className='kontrollsporsmaal-lonn-lenke'>
+      <Hovedknapp onClick={onRequestCloseClick}>{t(LangKey.KONTROLLSPORSMAL_LONN_SEND)}</Hovedknapp>
+      <InternLenke onClick={onCancelClick} className='kontrollsporsmaal-lonn-lenke'>
         {t(LangKey.KONTROLLSPORSMAL_LONN_AVBRYT)}
-      </Lenke>
+      </InternLenke>
     </ModalWrapper>
   );
 };

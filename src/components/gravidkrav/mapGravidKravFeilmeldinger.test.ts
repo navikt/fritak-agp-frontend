@@ -12,7 +12,7 @@ describe('mapGravidKravFeilmeldinger', () => {
     'periode.beloep',
     'bekreftet',
     'dokumentasjon',
-    'periode'
+    'perioder'
   ];
 
   it('should map all violations', () => {

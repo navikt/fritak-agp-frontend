@@ -9,12 +9,11 @@ import Upload from '../felles/Upload/Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
 import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
-import { Link, Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
 import '@navikt/helse-arbeidsgiver-felles-frontend/lib/js/components/DatoVelger.css';
-import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer from './GravidKravReducer';
@@ -119,7 +118,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   useEffect(() => {
     if (
-      state.validated === true &&
+      // state.validated === true &&
       state.progress === true &&
       state.submitting === true &&
       state.isOpenKontrollsporsmaalLonn === false
@@ -145,7 +144,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       });
     }
   }, [
-    state.validated,
+    // state.validated,
     state.progress,
     state.feilmeldinger,
     state.submitting,
