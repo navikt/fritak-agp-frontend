@@ -118,7 +118,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   useEffect(() => {
     if (
-      // state.validated === true &&
+      state.validated === true &&
       state.progress === true &&
       state.submitting === true &&
       state.isOpenKontrollsporsmaalLonn === false
@@ -144,7 +144,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       });
     }
   }, [
-    // state.validated,
+    state.validated,
     state.progress,
     state.feilmeldinger,
     state.submitting,

@@ -5,7 +5,6 @@ import { Input, Label } from 'nav-frontend-skjema';
 import './KontrollsporsmaalLonn.scss';
 import { v4 as uuid } from 'uuid';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Lenke from 'nav-frontend-lenker';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../locale/LangKey';
 import InternLenke from './felles/InternLenke/InternLenke';
