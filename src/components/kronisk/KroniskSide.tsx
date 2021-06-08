@@ -154,13 +154,12 @@ const KroniskSide = () => {
             <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
             <br />
             <SkjemaGruppe>
-              <Normaltekst>Vi spør først om dere har forsøkt å løse situasjonen på arbeidsplassen.</Normaltekst>
-              <Normaltekst>Svaret deres brukes i to forskjellige vurderinger:</Normaltekst>
+              <Normaltekst>
+                Vi spør først om arbeidsdagen og hvordan den påvirker den ansatte. Svaret deres brukes til å vurdere om
+                NAV skal dekke sykepenger i arbeidsgiverperioden.
+              </Normaltekst>
+              <br />
 
-              <ul className='kroniskside-tett-liste typo-normal'>
-                <li>om vi kan hjelpe til med noe, slik at den ansatte kan stå i jobben</li>
-                <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
-              </ul>
               <CheckboxGruppe
                 legend='Hva slags arbeid utfører den ansatte?'
                 feil={state.arbeidError}
