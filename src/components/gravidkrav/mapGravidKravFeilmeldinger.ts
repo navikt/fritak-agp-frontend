@@ -5,8 +5,7 @@ import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 
 const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
-  debugger;
-  console.log(response.violations);
+
   response.violations.forEach((v) => {
     switch (v.propertyPath) {
       case 'identitetsnummer':
