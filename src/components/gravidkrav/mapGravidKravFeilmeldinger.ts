@@ -5,6 +5,7 @@ import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 
 const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
+
   response.violations.forEach((v) => {
     switch (v.propertyPath) {
       case 'identitetsnummer':
@@ -47,7 +48,7 @@ const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidK
         feilmeldinger.push(lagFeil('dokumentasjon', v.message));
         break;
 
-      case 'periode':
+      case 'perioder':
         state.dagerError = v.message;
         feilmeldinger.push(
           lagFeil('dager', v.message.length ? v.message : 'Refusjonsdager kan ikke overstige periodelengden')

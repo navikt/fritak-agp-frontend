@@ -16,6 +16,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     return state;
   }
   const nextState = Object.assign({}, state);
+
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   nextState.fnrError = validateFnr(state.fnr, state.validated);
@@ -42,7 +43,11 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   }
 
   if (nextState.tilError) {
-    pushFeilmelding('til', translate.t(LangKey.GRAVID_KRAV_VALIDERING_DATO_TIL_MANGLER), feilmeldinger);
+    pushFeilmelding(
+      'til',
+      !!nextState.tilError ? nextState.tilError : translate.t(LangKey.GRAVID_KRAV_VALIDERING_DATO_TIL_MANGLER),
+      feilmeldinger
+    );
   }
 
   if (nextState.dagerError) {
