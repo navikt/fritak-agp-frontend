@@ -269,8 +269,8 @@ const Locales: Record<LangKey, Locale> = {
       'so you avoid it becoming obsolete.'
   },
   GRAVID_KRAV_ARBEIDSTID_TAPT: {
-    nb: 'Tapt arbeidstid',
-    en: 'Lost working hours '
+    nb: 'Fraværsperiode',
+    en: 'Period of absence'
   },
   GRAVID_KRAV_ARBEIDSTID_PERIODE: {
     nb: 'Hvilken periode var den ansatte borte?',
