@@ -423,4 +423,44 @@ describe('GravidKravReducer', () => {
       );
     }).toThrow();
   });
+
+  it('should add a periode', () => {
+    let state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.AddPeriode,
+        payload: {}
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.perioder?.length).toBe(2);
+  });
+
+  it('should add a periode and remove a periode', () => {
+    const initialState = defaultGravidKravState();
+    // @ts-ignore
+    const initialPeriodeId = initialState.perioder[0].uniqueKey;
+
+    let state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.AddPeriode,
+        payload: {}
+      },
+      translationMock as unknown as i18n
+    );
+
+    expect(state.perioder?.length).toBe(2);
+
+    let newState = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.DeletePeriode,
+        payload: { itemId: initialPeriodeId }
+      },
+      translationMock as unknown as i18n
+    );
+
+    expect(newState.perioder?.length).toBe(1);
+  });
 });

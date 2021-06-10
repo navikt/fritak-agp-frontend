@@ -296,7 +296,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                       // disabled={item.accepted}
                       onClick={(event) => {
                         dispatch({
-                          type: Actions.DeleteItem,
+                          type: Actions.DeletePeriode,
                           payload: {
                             itemId: periode.uniqueKey
                           }
@@ -314,7 +314,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                     <LeggTilKnapp
                       onClick={() => {
                         dispatch({
-                          type: Actions.AddItem,
+                          type: Actions.AddPeriode,
                           payload: {}
                         });
                       }}

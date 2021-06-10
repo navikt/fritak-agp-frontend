@@ -113,7 +113,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Reset:
       return Object.assign({}, defaultGravidKravState());
 
-    case Actions.AddItem:
+    case Actions.AddPeriode:
       if (nextState.perioder.length >= MAX_PERIODER) {
         return nextState;
       }
@@ -122,7 +122,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       });
       return nextState;
 
-    case Actions.DeleteItem:
+    case Actions.DeletePeriode:
       checkItemId(payload?.itemId);
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
       return validateGravidKrav(nextState, translate);

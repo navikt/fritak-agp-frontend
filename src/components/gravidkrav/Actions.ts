@@ -19,8 +19,8 @@ export enum Actions {
   OpenKontrollsporsmaalLonn,
   Grunnbeloep,
   KontrollDager,
-  AddItem,
-  DeleteItem
+  AddPeriode,
+  DeletePeriode
 }
 
 export interface Payload {
