@@ -98,6 +98,19 @@ describe('GravidKravReducer', () => {
     expect(state.perioder[0].fom.value).toEqual('05.06.2020');
   });
 
+  it('should throw on fom when itemId is missing', () => {
+    expect(() => {
+      GravidKravReducer(
+        defaultGravidKravState(),
+        {
+          type: Actions.Fra,
+          payload: { fom: undefined }
+        },
+        translationMock as unknown as i18n
+      );
+    }).toThrow();
+  });
+
   it('should clear fom when empty payload', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
@@ -148,6 +161,19 @@ describe('GravidKravReducer', () => {
     expect(state.perioder[0].tom).toBeUndefined();
   });
 
+  it('should throw on tom when itemId is missing', () => {
+    expect(() => {
+      GravidKravReducer(
+        defaultGravidKravState(),
+        {
+          type: Actions.Til,
+          payload: { tom: undefined }
+        },
+        translationMock as unknown as i18n
+      );
+    }).toThrow();
+  });
+
   it('should set the dager', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
@@ -162,6 +188,20 @@ describe('GravidKravReducer', () => {
     );
     // @ts-ignore
     expect(state.perioder[0].dager).toEqual(3);
+  });
+
+  it('should throw on dager when itemId is missing', () => {
+    expect(() => {
+      GravidKravReducer(
+        defaultGravidKravState(),
+        {
+          // @ts-ignore ts2339
+          type: Actions.Dager,
+          payload: { dager: 3 }
+        },
+        translationMock as unknown as i18n
+      );
+    }).toThrow();
   });
 
   it('should set the beløp', () => {
