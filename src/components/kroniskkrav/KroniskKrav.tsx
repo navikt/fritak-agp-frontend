@@ -149,7 +149,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Skillelinje />
 
           <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='textfelt-padding-bottom'>Tapt arbeidstid</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.KRONISK_KRAV_ARBEIDSTID_TAPT)}</Systemtittel>
             <Ingress tag='span' className='textfelt-padding-bottom'>
               Hvilken periode var den ansatte borte?
               <Hjelpetekst className='krav-padding-hjelpetekst'>

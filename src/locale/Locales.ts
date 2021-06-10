@@ -269,8 +269,8 @@ const Locales: Record<LangKey, Locale> = {
       'so you avoid it becoming obsolete.'
   },
   GRAVID_KRAV_ARBEIDSTID_TAPT: {
-    nb: 'Tapt arbeidstid',
-    en: 'Lost working hours '
+    nb: 'Fraværsperiode',
+    en: 'Period of absence'
   },
   GRAVID_KRAV_ARBEIDSTID_PERIODE: {
     nb: 'Hvilken periode var den ansatte borte?',
@@ -399,6 +399,10 @@ const Locales: Record<LangKey, Locale> = {
     en:
       'We first ask about the workday and how it effects the employe. Your answer is used to decide whether NAV are going' +
       ' to cover sickness benefits during the employer period'
+  },
+  KRONISK_KRAV_ARBEIDSTID_TAPT: {
+    nb: 'Fraværsperiode',
+    en: 'Period of absence'
   },
   KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
     nb: 'Kontrollspørsmål for lønn som overstiger 6G',
