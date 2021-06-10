@@ -35,7 +35,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     pushFeilmelding('orgnr', translate.t(LangKey.GRAVID_KRAV_VALIDERING_VIRKSOMHETSNR_MANGLER), feilmeldinger);
   }
 
-  const nextPerioder = state.perioder?.map((periode) => {
+  state.perioder?.forEach((periode) => {
     periode.fomError = validateFra(periode.fom, !!nextState.validated);
     periode.tomError = validateTil(periode.fom, periode.tom, !!nextState.validated);
     periode.dagerError = validateDager(periode.dager, !!nextState.validated);

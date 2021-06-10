@@ -1,5 +1,5 @@
 import { Arbeidsgiverperiode, GravidKravRequest } from './GravidKravRequest';
-import { Dato, datoToString } from '../../utils/dato/Dato';
+import { datoToString } from '../../utils/dato/Dato';
 import { Periode } from '../../components/gravidkrav/GravidKravState';
 
 export const mapGravidKravRequest = (
