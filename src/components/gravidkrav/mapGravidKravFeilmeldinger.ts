@@ -12,7 +12,7 @@ const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidK
     switch (violation.propertyPath) {
       case 'identitetsnummer':
         state.fnrError = violation.message;
-        feilmeldinger.push(lagFeil('fnr', violation.message));
+        feilmeldinger.push(lagFeil('ansatteFeilmeldingId', violation.message));
         break;
 
       case 'virksomhetsnummer':
@@ -50,7 +50,7 @@ const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidK
 
       case 'bekreftet':
         state.bekreftError = violation.message;
-        feilmeldinger.push(lagFeil('bekreft-' + uniqueKey, violation.message));
+        feilmeldinger.push(lagFeil('bekreft', violation.message));
         break;
 
       case 'dokumentasjon':
@@ -64,7 +64,7 @@ const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidK
         }
         feilmeldinger.push(
           lagFeil(
-            'dager',
+            'dager-' + uniqueKey,
             violation.message.length ? violation.message : 'Refusjonsdager kan ikke overstige periodelengden'
           )
         );

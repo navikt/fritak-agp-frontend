@@ -81,91 +81,104 @@ describe('GravidKravReducer', () => {
     expect(state.orgnr).toEqual('');
   });
 
-  it('should set the fra', () => {
+  it('should set the fom', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Fra,
-        payload: { fra: new Date('2020.06.05 12:00:00') }
+        payload: { fom: new Date('2020.06.05 12:00:00'), itemId }
       },
       translationMock as unknown as i18n
     );
-    expect(state.fra?.value).toEqual('05.06.2020');
+
+    // @ts-ignore
+    expect(state.perioder[0].fom.value).toEqual('05.06.2020');
   });
 
-  it('should set the fra', () => {
+  it('should clear fom when empty payload', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Fra,
-        payload: { fra: undefined }
+        payload: { fom: undefined, itemId }
       },
       translationMock as unknown as i18n
     );
-    expect(state.fra?.value).toBeUndefined();
+
+    // @ts-ignore
+    expect(state.perioder[0].fom?.value).toBeUndefined();
   });
 
-  it('should clear fra when empty payload', () => {
-    expect(() => {
-      let state = GravidKravReducer(
-        defaultGravidKravState(),
-        {
-          type: Actions.Fra,
-          payload: { fra: undefined }
-        },
-        translationMock as unknown as i18n
-      );
+  it('should set the tom', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-      expect(state.fra).toBeUndefined();
-    });
-  });
-
-  it('should set the til', () => {
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Til,
-        payload: { til: new Date('2020.06.05 12:00:00') }
+        payload: { tom: new Date('2020.06.05 12:00:00'), itemId }
       },
       translationMock as unknown as i18n
     );
-    expect(state.til?.value).toEqual('05.06.2020');
+
+    // @ts-ignore
+    expect(state.perioder[0].tom.value).toEqual('05.06.2020');
   });
 
-  it('should clear til when empty payload', () => {
+  it('should clear tom when empty payload', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Til,
-        payload: { til: undefined }
+        payload: { tom: undefined, itemId }
       },
       translationMock as unknown as i18n
     );
-    expect(state.til).toBeUndefined();
+    // @ts-ignore
+    expect(state.perioder[0].tom).toBeUndefined();
   });
 
   it('should set the dager', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Dager,
-        payload: { dager: 3 }
+        payload: { dager: 3, itemId }
       },
       translationMock as unknown as i18n
     );
-    expect(state.dager).toEqual(3);
+    // @ts-ignore
+    expect(state.perioder[0].dager).toEqual(3);
   });
 
   it('should set the beløp', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Beloep,
-        payload: { beloep: 233 }
+        payload: { beloep: 233, itemId }
       },
       translationMock as unknown as i18n
     );
-    expect(state.beloep).toEqual(233);
+
+    // @ts-ignore
+    expect(state.perioder[0].beloep).toEqual(233);
   });
 
   it('should set the kvittering', () => {
@@ -373,12 +386,14 @@ describe('GravidKravReducer', () => {
   });
 
   it('should reset to defaults', () => {
-    let state = GravidKravReducer(
-      defaultGravidKravState(),
-      { type: Actions.Reset },
-      translationMock as unknown as i18n
-    );
-    expect(state).toEqual(defaultGravidKravState());
+    const defaultState = defaultGravidKravState();
+    let state = GravidKravReducer(defaultState, { type: Actions.Reset }, translationMock as unknown as i18n);
+    const tmpState = Object.assign({}, state);
+    // @ts-ignore
+    delete state.perioder[0].uniqueKey;
+    // @ts-ignore
+    delete defaultState.perioder[0].uniqueKey;
+    expect(tmpState).toEqual(defaultState);
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toBeUndefined();
     expect(state.progress).toBeUndefined();
