@@ -28,6 +28,8 @@ import KvitteringLink from './KvitteringLink';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Side from '../felles/Side/Side';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import LangKey from '../../locale/LangKey';
 
 export const MAX_BESKRIVELSE = 2000;
 
@@ -154,13 +156,10 @@ const KroniskSide = () => {
             <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
             <br />
             <SkjemaGruppe>
-              <Normaltekst>Vi spør først om dere har forsøkt å løse situasjonen på arbeidsplassen.</Normaltekst>
-              <Normaltekst>Svaret deres brukes i to forskjellige vurderinger:</Normaltekst>
+              <Oversettelse langKey={LangKey.KRONISK_SIDE_ARBEIDSMILJO_INGRESS} />
+              <br />
+              <br />
 
-              <ul className='kroniskside-tett-liste typo-normal'>
-                <li>om vi kan hjelpe til med noe, slik at den ansatte kan stå i jobben</li>
-                <li>om vi skal dekke sykepenger i arbeidsgiverperioden</li>
-              </ul>
               <CheckboxGruppe
                 legend='Hva slags arbeid utfører den ansatte?'
                 feil={state.arbeidError}
