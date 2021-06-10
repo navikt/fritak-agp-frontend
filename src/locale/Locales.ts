@@ -388,6 +388,18 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Confirm that the information is correct'
   },
+  KRONISK_SIDE_ARBEIDSMILJO: {
+    nb: 'Arbeidssituasjon og miljø',
+    en: 'Work situation and environment'
+  },
+  KRONISK_SIDE_ARBEIDSMILJO_INGRESS: {
+    nb:
+      'Vi spør først om arbeidsdagen og hvordan den påvirker den ansatte. Svaret deres brukes til å vurdere om NAV skal' +
+      ' dekke sykepenger i arbeidsgiverperioden',
+    en:
+      'We first ask about the workday and how it effects the employe. Your answer is used to decide whether NAV are going' +
+      ' to cover sickness benefits during the employer period'
+  },
   KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
     nb: 'Kontrollspørsmål for lønn som overstiger 6G',
     en: 'Control questions for salaries exceeding 6G'
