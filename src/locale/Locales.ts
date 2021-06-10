@@ -400,6 +400,10 @@ const Locales: Record<LangKey, Locale> = {
       'We first ask about the workday and how it effects the employe. Your answer is used to decide whether NAV are going' +
       ' to cover sickness benefits during the employer period'
   },
+  KRONISK_KRAV_ARBEIDSTID_TAPT: {
+    nb: 'Fraværsperiode',
+    en: 'Period of absence'
+  },
   KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
     nb: 'Kontrollspørsmål for lønn som overstiger 6G',
     en: 'Control questions for salaries exceeding 6G'
