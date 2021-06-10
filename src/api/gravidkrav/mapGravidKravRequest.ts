@@ -5,10 +5,6 @@ import { Periode } from '../../components/gravidkrav/GravidKravState';
 export const mapGravidKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  // fra: Dato | undefined,
-  // til: Dato | undefined,
-  // dager: number | undefined,
-  // beloep: number | undefined,
   perioder: Array<Periode> | undefined,
   dokumentasjon: string | undefined,
   bekreft: boolean | undefined,
