@@ -176,7 +176,9 @@ export const GravidKrav = (props: GravidKravProps) => {
             <Ingress className='textfelt-padding-bottom'>
               <Oversettelse langKey={LangKey.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
             </Ingress>
-            <Ingress>{t(LangKey.ALLE_FELT_PAKREVD)}</Ingress>
+            <Ingress>
+              <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
+            </Ingress>
           </Panel>
           <Skillelinje />
 

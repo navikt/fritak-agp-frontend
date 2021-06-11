@@ -260,13 +260,17 @@ const Locales: Record<LangKey, Locale> = {
   },
   GRAVID_KRAV_SIDETITTEL_INGRESS: {
     nb:
-      'Har dere søkt om at [NAV dekker sykepenger i arbeidsgiverperioden]({{lenkeGravid}}), sender ' +
-      'dere krav om refusjon her. Vi anbefaler at dere sender kravet før søknaden er ferdig behandlet, så unngår ' +
-      'dere at det blir foreldet.',
+      '_Fraværet må skyldes svangerskapet_\n' +
+      'Fraværet dere søker refusjon for, må skyldes helseplager i svangerskapet.\n\n' +
+      '_Send kravet før søknaden er behandlet_\n' +
+      'Vi anbefaler at dere sender dette refusjonskravet før selve [søknaden]({{lenkeGravid}}) er ferdig behandlet. ' +
+      'Slik unngår dere at kravet blir foreldet.',
     en:
-      'If you have applied for [NAV to cover sickness benefits during the employer period]({{lenkeGravid}}), you send a ' +
-      'claim for reimbursement here. We recommend that you send the claim before the application has been processed, ' +
-      'so you avoid it becoming obsolete.'
+      '_Period of absence must be caused by the pregnancy_\n' +
+      'The period of absence you are seeking reimbursement from, must be caused by health issues during pregnancy. \n\n' +
+      '_Send claim before the application has been processed_\n' +
+      'We recommend that you send the claim before the application has been processed. ' +
+      'So you avoid it becoming obsolete.'
   },
   GRAVID_KRAV_ARBEIDSTID_TAPT: {
     nb: 'Fraværsperiode',
@@ -590,8 +594,12 @@ const Locales: Record<LangKey, Locale> = {
     en: 'Log out'
   },
   ALLE_FELT_PAKREVD: {
-    nb: 'Alle felter må fylles ut.',
-    en: 'All fields are mandatory.'
+    nb:
+      'Vi sender en melding til den ansatte med informasjon om at du har sendt refusjonskravet.\n' +
+      'Alle felter må fylles ut.',
+    en:
+      'We will send a message to the employee notifying them about your reimbursement claim.\n' +
+      'All fields are mandatory.'
   },
   FRA_DATO: {
     nb: 'Fra dato',
