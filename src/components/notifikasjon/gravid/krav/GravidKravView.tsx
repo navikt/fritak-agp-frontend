@@ -4,6 +4,7 @@ import NotifikasjonType from '../../felles/NotifikasjonType';
 import { Normaltekst } from 'nav-frontend-typografi';
 import dayjs from 'dayjs';
 import GravidKravResponse from '../../../../api/gravidkrav/GravidKravResponse';
+import formatNumberForCurrency from './FormatNumberForCurrency';
 
 export interface GravidSoknadNotifikasjonProps {
   gravidKravResponse: GravidKravResponse;
@@ -15,10 +16,6 @@ const formaterDato = (dato: string) => {
 
 const inTwoWeeks = (dato: string) => {
   return dayjs(dato).add(14, 'days').format('DD.MM.YY');
-};
-
-const formatNumberForCurrency = (num: number): string => {
-  return new Intl.NumberFormat('nb-NO', { style: 'currency', currency: 'NOK' }).format(num);
 };
 
 const GravidKravView = ({ gravidKravResponse }: GravidSoknadNotifikasjonProps) => {

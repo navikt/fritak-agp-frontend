@@ -111,7 +111,7 @@ describe('NotifikasjonView', () => {
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
     expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
-    expect(htmlDivElement.textContent).toContain('234,50');
+    expect(htmlDivElement.textContent).toContain('kr 1 234,50');
   });
 
   it('should handle empty Gravid Krav', () => {
@@ -125,7 +125,7 @@ describe('NotifikasjonView', () => {
     const state = defaultNotitikasjonState();
 
     state.status = HttpStatus.Successfully;
-    state.kroniskKravResponse = ({
+    state.kroniskKravResponse = {
       id: '1',
       opprettet: '2020-01-01',
       virksomhetsnummer: '123',
@@ -142,7 +142,7 @@ describe('NotifikasjonView', () => {
           beloep: 1234
         }
       ]
-    } as unknown) as KroniskKravResponse;
+    } as unknown as KroniskKravResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
     expect(htmlDivElement.textContent).toContain('02.01.20 - 05.06.20');
