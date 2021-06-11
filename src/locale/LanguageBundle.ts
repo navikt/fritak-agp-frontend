@@ -604,6 +604,14 @@ const LanguageBundle: Record<LangKey, Locale> = {
   KRONER: {
     nb: 'Kr:',
     en: 'Kr:'
+  },
+  GRAVID_KRAV_LEGG_TIL_PERIODE: {
+    nb: '+ Legg til en fraværsperiode',
+    en: '+ Add an absence period'
+  },
+  SLETT_LABEL: {
+    nb: 'Slett',
+    en: 'Delete'
   }
 };
 
