@@ -8,7 +8,7 @@ import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../felles/Upload/Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
-import { DatoVelger, useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { DatoVelger, Side, useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -26,7 +26,6 @@ import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest'
 import SelectDager from '../felles/SelectDager/SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
-import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
