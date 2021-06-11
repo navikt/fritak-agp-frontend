@@ -1,8 +1,8 @@
 import GravidKravReducer from './GravidKravReducer';
 import { Actions } from './Actions';
-import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { defaultGravidKravState } from './GravidKravState';
 import { i18n } from 'i18next';
+import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const translationMock = {
   t: (param: any) => param

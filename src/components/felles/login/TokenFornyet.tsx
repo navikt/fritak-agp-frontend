@@ -1,5 +1,5 @@
 import React from 'react';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Container, Row } from 'nav-frontend-grid';
 import { useTranslation } from 'react-i18next';
