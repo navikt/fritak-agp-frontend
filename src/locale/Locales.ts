@@ -388,6 +388,10 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Confirm that the information is correct'
   },
+  GRAVID_KRAV_LEGG_TIL_PERIODE: {
+    nb: '+ Legg til en fraværsperiode',
+    en: '+ Add an absence period'
+  },
   KRONISK_SIDE_ARBEIDSMILJO: {
     nb: 'Arbeidssituasjon og miljø',
     en: 'Work situation and environment'
@@ -604,6 +608,10 @@ const Locales: Record<LangKey, Locale> = {
   KRONER: {
     nb: 'Kr:',
     en: 'Kr:'
+  },
+  SLETT_LABEL: {
+    nb: 'Slett',
+    en: 'Delete'
   }
 };
 

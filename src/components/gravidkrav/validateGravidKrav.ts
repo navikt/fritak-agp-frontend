@@ -24,39 +24,55 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   if (state.fnr && !isValidFnr(state.fnr)) {
     nextState.fnrError = translate.t(LangKey.GRAVID_KRAV_VALIDERING_FNR_UGYLDIG);
   }
+
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
-  nextState.fraError = validateFra(state.fra, state.validated);
-  nextState.tilError = validateTil(state.fra, state.til, state.validated);
-  nextState.dagerError = validateDager(state.dager, state.validated);
-  nextState.beloepError = validateBeloep(state.beloep, state.validated);
 
   if (nextState.fnrError) {
-    pushFeilmelding('fnr', translate.t(LangKey.GRAVID_KRAV_VALIDERING_FNR_MANGLER), feilmeldinger);
+    pushFeilmelding('ansatteFeilmeldingId', translate.t(LangKey.GRAVID_KRAV_VALIDERING_FNR_MANGLER), feilmeldinger);
   }
 
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', translate.t(LangKey.GRAVID_KRAV_VALIDERING_VIRKSOMHETSNR_MANGLER), feilmeldinger);
   }
 
-  if (nextState.fraError) {
-    pushFeilmelding('fra', translate.t(LangKey.GRAVID_KRAV_VALIDERING_DATO_FRA_MANGLER), feilmeldinger);
-  }
+  state.perioder?.forEach((periode) => {
+    periode.fomError = validateFra(periode.fom, !!nextState.validated);
+    periode.tomError = validateTil(periode.fom, periode.tom, !!nextState.validated);
+    periode.dagerError = validateDager(periode.dager, !!nextState.validated);
+    periode.beloepError = validateBeloep(periode.beloep, !!nextState.validated);
 
-  if (nextState.tilError) {
-    pushFeilmelding(
-      'til',
-      !!nextState.tilError ? nextState.tilError : translate.t(LangKey.GRAVID_KRAV_VALIDERING_DATO_TIL_MANGLER),
-      feilmeldinger
-    );
-  }
+    if (periode.fomError) {
+      pushFeilmelding(
+        'fra-dato-' + periode.uniqueKey,
+        translate.t(LangKey.GRAVID_KRAV_VALIDERING_DATO_FRA_MANGLER),
+        feilmeldinger
+      );
+    }
 
-  if (nextState.dagerError) {
-    pushFeilmelding('dager', translate.t(LangKey.GRAVID_KRAV_VALIDERING_DAGER_MANGLER), feilmeldinger);
-  }
+    if (periode.tomError) {
+      pushFeilmelding(
+        'til-dato-' + periode.uniqueKey,
+        !!periode.tomError ? periode.tomError : translate.t(LangKey.GRAVID_KRAV_VALIDERING_DATO_TIL_MANGLER),
+        feilmeldinger
+      );
+    }
 
-  if (nextState.beloepError) {
-    pushFeilmelding('beloep', translate.t(LangKey.GRAVID_KRAV_VALIDERING_BELOP_MANGLER), feilmeldinger);
-  }
+    if (periode.dagerError) {
+      pushFeilmelding(
+        'dager-' + periode.uniqueKey,
+        translate.t(LangKey.GRAVID_KRAV_VALIDERING_DAGER_MANGLER),
+        feilmeldinger
+      );
+    }
+
+    if (periode.beloepError) {
+      pushFeilmelding(
+        'belop-' + periode.uniqueKey,
+        translate.t(LangKey.GRAVID_KRAV_VALIDERING_BELOP_MANGLER),
+        feilmeldinger
+      );
+    }
+  });
 
   if (!nextState.bekreft) {
     nextState.bekreftError = translate.t(LangKey.GRAVID_KRAV_VALIDERING_BEKREFT_KORREKT);
