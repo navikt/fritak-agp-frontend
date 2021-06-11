@@ -11,7 +11,6 @@ import { Link, Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
-import '@navikt/helse-arbeidsgiver-felles-frontend/lib/js/components/DatoVelger.css';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';

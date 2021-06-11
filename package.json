@@ -115,10 +115,8 @@
     "sass": "1.x",
     "snyk": "1.x",
     "timezone-mock": "1.x",
+    "ts-jest": "^27.0.3",
     "yet-another-fetch-mock": "4.x"
-  },
-  "resolutions": {
-    "postcss": "^8.2.10"
   },
   "peerDependencies": {
     "@babel/core": "7.13.0"

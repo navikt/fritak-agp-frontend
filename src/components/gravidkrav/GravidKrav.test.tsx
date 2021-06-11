@@ -10,7 +10,7 @@ describe('GravidKrav', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
       <MemoryRouter>
-        <ArbeidsgiverProvider>
+        <ArbeidsgiverProvider baseUrl={''}>
           <GravidKrav />
         </ArbeidsgiverProvider>
       </MemoryRouter>

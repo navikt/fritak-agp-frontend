@@ -13,7 +13,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
-import '@navikt/helse-arbeidsgiver-felles-frontend/lib/js/components/DatoVelger.css';
+
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer from './GravidKravReducer';
