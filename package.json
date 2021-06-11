@@ -14,7 +14,8 @@
     "prepare": "husky install"
   },
   "engines": {
-    "node": "^14.9"
+    "node": ">=14",
+    "yarn": ">=1.22"
   },
   "engineStrict": true,
   "browserslist": {
@@ -34,7 +35,7 @@
   "dependencies": {
     "@navikt/bedriftsmeny": "3.x",
     "@navikt/fnrvalidator": "1.x",
-    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.1.63",
+    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.2.1",
     "@navikt/nav-dekoratoren-moduler": "1.x",
     "@sentry/browser": "6.x",
     "dayjs": "1.x",
