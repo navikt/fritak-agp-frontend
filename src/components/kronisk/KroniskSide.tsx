@@ -27,9 +27,9 @@ import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
+import Side from '../felles/Side/Side';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import LangKey from '../../locale/LangKey';
-import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_BESKRIVELSE = 2000;
 

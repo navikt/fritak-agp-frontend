@@ -1,17 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { LoginProvider } from './context/login/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
 import env from './config/environment';
-import {
-  LoginStatus,
-  ArbeidsgiverProvider,
-  ArbeidsgiverStatus,
-  LanguageProvider,
-  LoginProvider
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
-import LanguageBundle from './locale/LanguageBundle';
-import i18next from 'i18next';
+import { LoginStatus } from './context/login/LoginStatus';
+import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
+import LocaleProvider from './locale/LocaleProvider';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;
@@ -29,19 +25,19 @@ export const Application = ({
   loginServiceUrl = env.loginServiceUrl
 }: ApplicationProps) => (
   <Route path='/:language(nb|en)/*'>
-    <LoginProvider baseUrl={basePath} status={loginStatus} loginServiceUrl={loginServiceUrl}>
-      <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
-        <ApplicationRoutes />
-      </ArbeidsgiverProvider>
-    </LoginProvider>
+    <LocaleProvider>
+      <LoginProvider baseUrl={basePath} status={loginStatus} loginServiceUrl={loginServiceUrl}>
+        <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
+          <ApplicationRoutes />
+        </ArbeidsgiverProvider>
+      </LoginProvider>
+    </LocaleProvider>
   </Route>
 );
 
 const App = () => (
   <BrowserRouter basename='fritak-agp'>
-    <LanguageProvider languages={['nb', 'en']} bundle={LanguageBundle} i18n={i18next}>
-      <Application />
-    </LanguageProvider>
+    <Application />
   </BrowserRouter>
 );
 

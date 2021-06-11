@@ -1,57 +1,72 @@
+import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidKravState from './GravidKravState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
-import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
-  response.violations.forEach((v) => {
-    switch (v.propertyPath) {
+  response.violations.forEach((violation, rowIndex) => {
+    const uniqueKey = state.perioder ? state.perioder[rowIndex].uniqueKey : 'uniqueKey';
+
+    switch (violation.propertyPath) {
       case 'identitetsnummer':
-        state.fnrError = v.message;
-        feilmeldinger.push(lagFeil('fnr', v.message));
+        state.fnrError = violation.message;
+        feilmeldinger.push(lagFeil('ansatteFeilmeldingId', violation.message));
         break;
 
       case 'virksomhetsnummer':
-        state.orgnrError = v.message;
-        feilmeldinger.push(lagFeil('orgnr', v.message));
+        state.orgnrError = violation.message;
+        feilmeldinger.push(lagFeil('orgnr', violation.message));
         break;
 
       case 'periode.fom':
-        state.fraError = v.message;
-        feilmeldinger.push(lagFeil('fra', v.message));
+        if (state.perioder) {
+          state.perioder[rowIndex].fomError = violation.message;
+        }
+        feilmeldinger.push(lagFeil('fra-dato-' + uniqueKey, violation.message));
         break;
 
       case 'periode.tom':
-        state.tilError = v.message;
-        feilmeldinger.push(lagFeil('til', v.message));
+        if (state.perioder) {
+          state.perioder[rowIndex].tomError = violation.message;
+        }
+        feilmeldinger.push(lagFeil('til-dato-' + uniqueKey, violation.message));
         break;
 
       case 'periode.antallDagerMedRefusjon':
-        state.dagerError = v.message;
-        feilmeldinger.push(lagFeil('dager', v.message));
+        if (state.perioder) {
+          state.perioder[rowIndex].dagerError = violation.message;
+        }
+        feilmeldinger.push(lagFeil('dager-' + uniqueKey, violation.message));
         break;
 
       case 'periode.beloep':
-        state.beloepError = v.message;
-        feilmeldinger.push(lagFeil('beloep', v.message));
+        if (state.perioder) {
+          state.perioder[rowIndex].beloepError = violation.message;
+        }
+        feilmeldinger.push(lagFeil('beloep-' + uniqueKey, violation.message));
         break;
 
       case 'bekreftet':
-        state.bekreftError = v.message;
-        feilmeldinger.push(lagFeil('bekreft', v.message));
+        state.bekreftError = violation.message;
+        feilmeldinger.push(lagFeil('bekreft', violation.message));
         break;
 
       case 'dokumentasjon':
-        state.dokumentasjonError = v.message;
-        feilmeldinger.push(lagFeil('dokumentasjon', v.message));
+        state.dokumentasjonError = violation.message;
+        feilmeldinger.push(lagFeil('dokumentasjon', violation.message));
         break;
 
       case 'perioder':
-        state.dagerError = v.message;
+        if (state.perioder) {
+          state.perioder[rowIndex].dagerError = violation.message;
+        }
         feilmeldinger.push(
-          lagFeil('dager', v.message.length ? v.message : 'Refusjonsdager kan ikke overstige periodelengden')
+          lagFeil(
+            'dager-' + uniqueKey,
+            violation.message.length ? violation.message : 'Refusjonsdager kan ikke overstige periodelengden'
+          )
         );
     }
   });

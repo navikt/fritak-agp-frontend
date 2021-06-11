@@ -1,7 +1,7 @@
+import ValidationResponse from '../../state/validation/ValidationResponse';
 import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
-import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export enum Actions {
   Reset,

@@ -6,11 +6,22 @@ import mapResponse from '../../state/validation/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
 import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
+import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
+
+export const MAX_PERIODER = 50;
+
+const checkItemId = (itemId?: string) => {
+  if (itemId === undefined) {
+    throw new Error('itemId kan ikke være undefined');
+  }
+};
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, translate: i18n): GravidKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
+  nextState.perioder = nextState.perioder ? nextState.perioder : [{ uniqueKey: uuid() }];
+
   switch (action.type) {
     case Actions.Fnr:
       nextState.fnr = payload?.fnr;
@@ -21,27 +32,33 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return validateGravidKrav(nextState, translate);
 
     case Actions.Fra:
-      if (payload?.fra === undefined) {
-        nextState.fra = undefined;
-      } else {
-        nextState.fra = parseDateTilDato(payload?.fra);
-      }
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fom
+        ? parseDateTilDato(payload.fom)
+        : undefined;
+
       return validateGravidKrav(nextState, translate);
 
     case Actions.Til:
-      if (payload?.til === undefined) {
-        nextState.til = undefined;
-      } else {
-        nextState.til = parseDateTilDato(payload?.til);
-      }
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.tom
+        ? parseDateTilDato(payload.tom)
+        : undefined;
+
       return validateGravidKrav(nextState, translate);
 
     case Actions.Dager:
-      nextState.dager = payload?.dager;
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.dager = payload?.dager;
+
       return validateGravidKrav(nextState, translate);
 
     case Actions.Beloep:
-      nextState.beloep = payload?.beloep;
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.beloep = payload?.beloep;
+
       return validateGravidKrav(nextState, translate);
 
     case Actions.Dokumentasjon:
@@ -95,6 +112,20 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Reset:
       return Object.assign({}, defaultGravidKravState());
+
+    case Actions.AddPeriode:
+      if (nextState.perioder.length >= MAX_PERIODER) {
+        return nextState;
+      }
+      nextState.perioder.push({
+        uniqueKey: uuid()
+      });
+      return nextState;
+
+    case Actions.DeletePeriode:
+      checkItemId(payload?.itemId);
+      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
+      return validateGravidKrav(nextState, translate);
 
     default:
       throw new Error(`Ugyldig action: ${action.type}`);

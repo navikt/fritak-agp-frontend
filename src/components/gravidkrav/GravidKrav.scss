@@ -17,4 +17,15 @@
     .skjemagruppe .skjemaelement {
         margin-bottom: 0;
     }
+
+    .not-first-row .skjemaelement__label,
+    .not-first-row .skjemaelement .skjemaelement__label,
+    .not-first-row .hjelpelabel > .hjelpetekst,
+    .not-first-row .hjelpetekst-refusjon  > .hjelpetekst {
+        display: none;
+    }
+
+    .first-row .slett-knapp {
+        margin-top: 2rem;
+    }
 }

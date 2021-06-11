@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import GetHandler from '../../api/fetch/GetHandler';
 import NotifikasjonReducer from './state/NotifikasjonReducer';
+import SideRamme from '../felles/Side/SideRamme';
 import NotifikasjonType from './felles/NotifikasjonType';
 import getNotifikasjonUrl from './utils/getNotifikasjonUrl';
 import { defaultNotitikasjonState, NotifikasjonState } from './state/NotifikasjonState';
@@ -9,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import NotifikasjonView from './NotifikasjonView';
 import Actions from './state/Actions';
 import NotifikasjonPayload from './state/NotifikasjonPayload';
-import { SideRamme } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 interface NotifikasjonStateProps {
   notifikasjonState?: NotifikasjonState;

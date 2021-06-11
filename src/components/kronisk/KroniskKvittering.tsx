@@ -4,11 +4,11 @@ import Panel from 'nav-frontend-paneler';
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import Side from '../felles/Side/Side';
 import lenker from '../../config/lenker';
 import InternLenke from '../felles/InternLenke/InternLenke';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
