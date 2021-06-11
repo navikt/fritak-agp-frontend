@@ -1,6 +1,6 @@
 import { ArbeidType } from './ArbeidType';
 import { PaakjenningerType } from './PaakjenningerType';
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export enum Actions {
   Reset,

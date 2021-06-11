@@ -1,8 +1,11 @@
 import { Router } from 'react-router-dom';
-import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import {
+  LoginStatus,
+  ArbeidsgiverProvider,
+  ArbeidsgiverStatus,
+  LoginProvider
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import React from 'react';
-import { LoginProvider } from '../context/login/LoginContext';
-import { LoginStatus } from '../context/login/LoginStatus';
 import mockHistory from './mockHistory';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { ApplicationRoutes } from '../ApplicationRoutes';

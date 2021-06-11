@@ -3,8 +3,8 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
 import lenker, { buildLenke } from '../config/lenker';
-import Side from './felles/Side/Side';
 import Language from '../locale/Language';
+import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const Forside = () => {
   return (

@@ -2,7 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { ArbeidType } from './ArbeidType';
 import { PaakjenningerType } from './PaakjenningerType';
 import { Aarsfravaer } from './Aarsfravaer';
-import { ValidationState } from '../../state/validation/ValidationState';
+import { ValidationState } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const defaultKroniskState = (): KroniskState => {
   return {

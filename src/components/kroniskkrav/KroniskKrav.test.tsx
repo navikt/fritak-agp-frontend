@@ -5,11 +5,12 @@ import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
-import LocaleProvider from '../../locale/LocaleProvider';
+import { ArbeidsgiverProvider, LanguageProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import LanguageBundle from '../../locale/LanguageBundle';
+import i18next from 'i18next';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 jest.unmock('react-i18next');
@@ -18,11 +19,11 @@ describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
       <MemoryRouter>
-        <LocaleProvider>
+        <LanguageProvider bundle={LanguageBundle} languages={['nb']} i18n={i18next}>
           <ArbeidsgiverProvider baseUrl='/base/url'>
             <KroniskKrav />
           </ArbeidsgiverProvider>
-        </LocaleProvider>
+        </LanguageProvider>
       </MemoryRouter>
     );
     const results = await axe(container);
@@ -35,7 +36,7 @@ describe('KroniskKrav', () => {
   it('should show warnings when input is missing', () => {
     render(
       <MemoryRouter>
-        <LocaleProvider>
+        <LanguageProvider bundle={LanguageBundle} languages={['nb']} i18n={i18next}>
           <ArbeidsgiverProvider
             arbeidsgivere={arbeidsgivere}
             status={200}
@@ -44,7 +45,7 @@ describe('KroniskKrav', () => {
           >
             <KroniskKrav />
           </ArbeidsgiverProvider>
-        </LocaleProvider>
+        </LanguageProvider>
       </MemoryRouter>
     );
     const submitButton = screen.getByText(/Send kravet/);
@@ -68,7 +69,7 @@ describe('KroniskKrav', () => {
   it('should show warnings when input is missing, and the warning should dissapear when fixed', () => {
     render(
       <MemoryRouter>
-        <LocaleProvider>
+        <LanguageProvider bundle={LanguageBundle} languages={['nb']} i18n={i18next}>
           <ArbeidsgiverProvider
             arbeidsgivere={arbeidsgivere}
             status={200}
@@ -77,7 +78,7 @@ describe('KroniskKrav', () => {
           >
             <KroniskKrav />
           </ArbeidsgiverProvider>
-        </LocaleProvider>
+        </LanguageProvider>
       </MemoryRouter>
     );
     const submitButton = screen.getByText(/Send kravet/);

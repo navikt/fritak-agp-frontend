@@ -8,7 +8,7 @@ import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../felles/Upload/Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
-import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { DatoVelger, Side, useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -16,7 +16,7 @@ import '../felles/FellesStyling.scss';
 
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
-import GravidKravReducer, { MAX_PERIODER } from './GravidKravReducer';
+import GravidKravReducer from './GravidKravReducer';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { Actions, GravidKravAction } from './Actions';
 import getBase64file from '../../utils/getBase64File';
@@ -26,19 +26,15 @@ import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest'
 import SelectDager from '../felles/SelectDager/SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
-import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
-import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import stringishToNumber from '../../utils/stringishToNumber';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import { i18n } from 'i18next';
-import LeggTilKnapp from '../felles/leggtilknapp/LeggTilKnapp';
-import Slettknapp from '../felles/slettknapp/Slettknapp';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -53,7 +49,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language } = useParams<PathParams>();
-  const showDeleteButton = state.perioder && state.perioder.length > 1;
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -95,9 +90,9 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const fraDatoValgt = (uniqueKey: string, fomDato?: Date) => {
-    if (fomDato) {
-      getGrunnbeloep(dayjs(fomDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
+  const fraDatoValgt = (fraDato?: Date) => {
+    if (fraDato) {
+      getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
         if (grunnbeloepRespons.grunnbeloep) {
           dispatch({
             type: Actions.Grunnbeloep,
@@ -108,7 +103,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     }
     dispatch({
       type: Actions.Fra,
-      payload: { fom: fomDato, itemId: uniqueKey }
+      payload: { fra: fraDato }
     });
   };
 
@@ -131,7 +126,10 @@ export const GravidKrav = (props: GravidKravProps) => {
         mapGravidKravRequest(
           state.fnr,
           state.orgnr,
-          state.perioder,
+          state.fra,
+          state.til,
+          state.dager,
+          state.beloep,
           state.dokumentasjon,
           state.bekreft,
           state.kontrollDager
@@ -148,7 +146,10 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.progress,
     state.feilmeldinger,
     state.submitting,
-    state.perioder,
+    state.fra,
+    state.til,
+    state.dager,
+    state.beloep,
     state.fnr,
     state.bekreft,
     state.dokumentasjon,
@@ -176,9 +177,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             <Ingress className='textfelt-padding-bottom'>
               <Oversettelse langKey={LangKey.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
             </Ingress>
-            <Ingress>
-              <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
-            </Ingress>
+            <Ingress>{t(LangKey.ALLE_FELT_PAKREVD)}</Ingress>
           </Panel>
           <Skillelinje />
 
@@ -216,114 +215,74 @@ export const GravidKrav = (props: GravidKravProps) => {
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
-              {state.perioder?.map((periode, index) => (
-                <Row
-                  key={periode.uniqueKey}
-                  className={`bulk-innsending__rad ${index % 2 ? 'odd' : 'even'} ${
-                    index > 0 ? 'not-first-row' : 'first-row'
-                  }`}
-                >
-                  <Column sm='3' xs='6'>
-                    <DatoVelger
-                      id={'fra-dato-' + periode.uniqueKey}
-                      label={t(LangKey.FRA_DATO)}
-                      onChange={(fraDato: Date) => {
-                        fraDatoValgt(periode.uniqueKey, fraDato);
-                      }}
-                      feilmelding={periode.fomError}
-                    />
-                  </Column>
-                  <Column sm='3' xs='6'>
-                    <DatoVelger
-                      id={'til-dato-' + periode.uniqueKey}
-                      label={t(LangKey.TIL_DATO)}
-                      onChange={(tilDate: Date) => {
-                        dispatch({
-                          type: Actions.Til,
-                          payload: { tom: tilDate, itemId: periode.uniqueKey }
-                        });
-                      }}
-                      feilmelding={periode.tomError}
-                    />
-                  </Column>
-                  <Column sm='2' xs='6'>
-                    <Label htmlFor={'dager-' + periode.uniqueKey}>
-                      {t(LangKey.GRAVID_KRAV_DAGER_ANTALL)}
-                      <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        {t(LangKey.GRAVID_KRAV_DAGER_HJELPETEKST)}
-                      </Hjelpetekst>
-                    </Label>
-                    <SelectDager
-                      id={'dager-' + periode.uniqueKey}
-                      value={periode.dager}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        dispatch({
-                          type: Actions.Dager,
-                          payload: {
-                            dager: stringishToNumber(event.currentTarget.value),
-                            itemId: periode.uniqueKey
-                          }
-                        })
-                      }
-                      feil={periode.dagerError}
-                    />
-                  </Column>
-                  <Column sm='2' xs='6'>
-                    <Label htmlFor={'belop-' + periode.uniqueKey}>
-                      {t(LangKey.BELOP)}
-                      <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        <Systemtittel>{t(LangKey.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
-                        <Oversettelse langKey={LangKey.GRAVID_KRAV_BELOP_HJELPETEKST} />
-                      </Hjelpetekst>
-                    </Label>
-                    <Input
-                      id={'belop-' + periode.uniqueKey}
-                      inputMode='numeric'
-                      pattern='[0-9]*'
-                      placeholder={t(LangKey.KRONER)}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        dispatch({
-                          type: Actions.Beloep,
-                          payload: {
-                            beloep: stringishToNumber(event.currentTarget.value),
-                            itemId: periode.uniqueKey
-                          }
-                        })
-                      }
-                      feil={periode.beloepError}
-                    />
-                  </Column>
-                  {showDeleteButton && (
-                    <Slettknapp
-                      // disabled={item.accepted}
-                      onClick={(event) => {
-                        dispatch({
-                          type: Actions.DeletePeriode,
-                          payload: {
-                            itemId: periode.uniqueKey
-                          }
-                        });
-                      }}
-                    >
-                      {t(LangKey.SLETT_LABEL)}
-                    </Slettknapp>
-                  )}
-                </Row>
-              ))}
               <Row>
-                <Column md='6'>
-                  {state.perioder && state.perioder.length < MAX_PERIODER && (
-                    <LeggTilKnapp
-                      onClick={() => {
-                        dispatch({
-                          type: Actions.AddPeriode,
-                          payload: {}
-                        });
-                      }}
-                    >
-                      {t(LangKey.GRAVID_KRAV_LEGG_TIL_PERIODE)}
-                    </LeggTilKnapp>
-                  )}
+                <Column sm='3' xs='6'>
+                  <DatoVelger
+                    id='fra-dato'
+                    label={t(LangKey.FRA_DATO)}
+                    onChange={(fraDato: Date) => {
+                      fraDatoValgt(fraDato);
+                    }}
+                    feilmelding={state.fraError}
+                  />
+                </Column>
+                <Column sm='3' xs='6'>
+                  <DatoVelger
+                    id='til-dato'
+                    label={t(LangKey.TIL_DATO)}
+                    onChange={(tilDate: Date) => {
+                      dispatch({
+                        type: Actions.Til,
+                        payload: { til: tilDate }
+                      });
+                    }}
+                    feilmelding={state.tilError}
+                  />
+                </Column>
+                <Column sm='3' xs='6'>
+                  <Label htmlFor='dager'>
+                    {t(LangKey.GRAVID_KRAV_DAGER_ANTALL)}
+                    <Hjelpetekst className='krav-padding-hjelpetekst'>
+                      {t(LangKey.GRAVID_KRAV_DAGER_HJELPETEKST)}
+                    </Hjelpetekst>
+                  </Label>
+                  <SelectDager
+                    id='dager'
+                    value={state.dager}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      dispatch({
+                        type: Actions.Dager,
+                        payload: {
+                          dager: stringishToNumber(event.currentTarget.value)
+                        }
+                      })
+                    }
+                    feil={state.dagerError}
+                  />
+                </Column>
+                <Column sm='3' xs='6'>
+                  <Label htmlFor='belop'>
+                    {t(LangKey.BELOP)}
+                    <Hjelpetekst className='krav-padding-hjelpetekst'>
+                      <Systemtittel>{t(LangKey.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
+                      <Oversettelse langKey={LangKey.GRAVID_KRAV_BELOP_HJELPETEKST} />
+                    </Hjelpetekst>
+                  </Label>
+                  <Input
+                    id='belop'
+                    inputMode='numeric'
+                    pattern='[0-9]*'
+                    placeholder={t(LangKey.KRONER)}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      dispatch({
+                        type: Actions.Beloep,
+                        payload: {
+                          beloep: stringishToNumber(event.currentTarget.value)
+                        }
+                      })
+                    }
+                    feil={state.beloepError}
+                  />
                 </Column>
               </Row>
             </SkjemaGruppe>
