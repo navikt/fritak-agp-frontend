@@ -1,4 +1,5 @@
-import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
+import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ValidationProblemDetail } from '@navikt/helse-arbeidsgiver-felles-frontend/dist/state/validation/ValidationResponse';
 
 const mockValidationResponse = (status: number, felter: string[]) => {
   return {

@@ -1,7 +1,7 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { ValidationState } from '../../state/validation/ValidationState';
 import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
+import { ValidationState } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravState => {
   return Object.assign(

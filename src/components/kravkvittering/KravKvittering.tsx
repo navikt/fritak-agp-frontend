@@ -3,10 +3,10 @@ import { Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
-import Side from '../felles/Side/Side';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const KravKvittering = () => {
   const { t } = useTranslation();

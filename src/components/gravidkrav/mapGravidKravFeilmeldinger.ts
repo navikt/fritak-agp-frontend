@@ -1,7 +1,7 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidKravState from './GravidKravState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
+import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const mapGravidKravFeilmeldinger = (response: ValidationResponse, state: GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
