@@ -8,10 +8,10 @@ import { History } from 'history';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../../locale/LangKey';
+import { useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 interface SideProps {
   children: React.ReactNode;

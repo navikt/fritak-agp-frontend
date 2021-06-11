@@ -1,13 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { LoginProvider } from './context/login/LoginContext';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
 import env from './config/environment';
-import { LoginStatus } from './context/login/LoginStatus';
-import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
-import { LanguageProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import {
+  LoginStatus,
+  ArbeidsgiverProvider,
+  ArbeidsgiverStatus,
+  LanguageProvider,
+  LoginProvider
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import LanguageBundle from './locale/LanguageBundle';
 import i18next from 'i18next';
 
