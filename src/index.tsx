@@ -22,6 +22,7 @@ import 'nav-frontend-veilederpanel-style/dist/main.css';
 import 'nav-frontend-modal-style/dist/main.css';
 import 'nav-frontend-popover-style/dist/main.css';
 import 'nav-frontend-tabell-style/dist/main.css';
+import '@navikt/helse-arbeidsgiver-felles-frontend/dist/library.css';
 import env, { EnvironmentType } from './config/environment';
 import { version } from '../package.json';
 

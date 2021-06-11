@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - run: npm ci
-      - run: npm run-script build
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
       - uses: actions/upload-artifact@v2
         with:
           name: fritak-frontend-artifact
@@ -28,8 +28,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - run: npm ci --no-build
-      - run: npm test
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
@@ -43,8 +43,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - run: npm ci
-      - run: npm run-script lint
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
 
   Snyk:
     runs-on: ubuntu-latest
