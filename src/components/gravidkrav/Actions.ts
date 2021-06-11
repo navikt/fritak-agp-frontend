@@ -1,4 +1,4 @@
-import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 export enum Actions {
   Reset,
@@ -18,14 +18,16 @@ export enum Actions {
   CloseKontrollsporsmaalLonn,
   OpenKontrollsporsmaalLonn,
   Grunnbeloep,
-  KontrollDager
+  KontrollDager,
+  AddPeriode,
+  DeletePeriode
 }
 
 export interface Payload {
   fnr?: string;
   orgnr?: string;
-  fra?: Date;
-  til?: Date;
+  fom?: Date;
+  tom?: Date;
   dager?: number;
   beloep?: number;
   videre?: boolean;
@@ -36,6 +38,7 @@ export interface Payload {
   response?: ValidationResponse;
   grunnbeloep?: number;
   kontrollDager?: number;
+  itemId?: string;
 }
 
 export interface GravidKravAction {

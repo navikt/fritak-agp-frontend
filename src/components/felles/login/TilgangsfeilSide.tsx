@@ -1,8 +1,8 @@
 import React from 'react';
+import Side from '../Side/Side';
 import Alertstripe from 'nav-frontend-alertstriper';
 import LangKey from '../../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const TilgangsfeilSide = () => {
   const { t } = useTranslation();

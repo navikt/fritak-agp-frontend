@@ -21,13 +21,15 @@ import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
+import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
+import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
 import PathParams from '../../locale/PathParams';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { Side, useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
 
 export const KroniskKrav = (props: KroniskKravProps) => {
   const [state, dispatch] = useReducer(KroniskKravReducer, props.state, defaultKroniskKravState);
@@ -118,7 +120,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på
               godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.
             </Ingress>
-            <Ingress>{t(LangKey.ALLE_FELT_PAKREVD)}</Ingress>
+            <Ingress>
+              <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
+            </Ingress>
           </Panel>
           <Skillelinje />
 

@@ -1,4 +1,4 @@
-import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 export enum Actions {
   Reset,

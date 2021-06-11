@@ -8,10 +8,15 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         undefined,
         '456',
-        parseDato('01.02.2020'),
-        parseDato('03.04.2025'),
-        5,
-        3000,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         true,
         undefined
@@ -24,10 +29,15 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         undefined,
-        parseDato('01.02.2020'),
-        parseDato('03.04.2025'),
-        5,
-        3000,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         true,
         undefined
@@ -40,10 +50,15 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         '123',
-        parseDato('99.02.2020'),
-        parseDato('03.04.2025'),
-        5,
-        3000,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('99.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         true,
         undefined
@@ -56,10 +71,15 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         '123',
-        parseDato('01.02.2020'),
-        parseDato('99.04.2025'),
-        5,
-        3000,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('99.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         true,
         5
@@ -72,10 +92,14 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         '123',
-        parseDato('01.02.2020'),
-        parseDato('02.04.2025'),
-        undefined,
-        3000,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         true,
         5
@@ -88,10 +112,14 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         '123',
-        parseDato('01.02.2020'),
-        parseDato('02.04.2025'),
-        2,
-        undefined,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5
+          }
+        ],
         'dokumentasjon',
         true,
         5
@@ -99,16 +127,21 @@ describe('mapGravidKravRequest', () => {
     }).toThrowError();
   });
 
-  it('should throw error when empty dokumentasjon', () => {
+  it('should not throw error when empty dokumentasjon as it is optional', () => {
     expect(() => {
       mapGravidKravRequest(
         '123',
         '123',
-        parseDato('01.02.2020'),
-        parseDato('02.04.2025'),
-        2,
-        555,
-        'dokumentasjon',
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
+        undefined,
         true,
         5
       );
@@ -120,10 +153,15 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         '123',
-        parseDato('01.02.2020'),
-        parseDato('02.04.2025'),
-        2,
-        33,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         undefined,
         5
@@ -136,10 +174,15 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         '456',
-        parseDato('01.02.2020'),
-        parseDato('03.04.2025'),
-        5,
-        3000,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         true,
         undefined
@@ -165,10 +208,15 @@ describe('mapGravidKravRequest', () => {
       mapGravidKravRequest(
         '123',
         '456',
-        parseDato('01.02.2020'),
-        parseDato('03.04.2025'),
-        5,
-        3000,
+        [
+          {
+            uniqueKey: '1',
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
+            dager: 5,
+            beloep: 3000
+          }
+        ],
         'dokumentasjon',
         true,
         120
