@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import env from './config/environment';
