@@ -1,7 +1,7 @@
 import React from 'react';
 import KroniskSide from './KroniskSide';
 import { axe } from 'jest-axe';
-import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Router } from 'react-router-dom';
 import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';
@@ -26,7 +26,11 @@ describe('KroniskSide', () => {
     act(() => {
       render(
         <Router history={mockHistory('/')}>
-          <ArbeidsgiverProvider arbeidsgivere={testOrganisasjoner} status={Status.Successfully}>
+          <ArbeidsgiverProvider
+            arbeidsgivere={testOrganisasjoner}
+            status={ArbeidsgiverStatus.Successfully}
+            baseUrl={''}
+          >
             <KroniskSide />
           </ArbeidsgiverProvider>
         </Router>,

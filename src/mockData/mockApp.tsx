@@ -1,5 +1,5 @@
 import { Router } from 'react-router-dom';
-import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import React from 'react';
 import { LoginProvider } from '../context/login/LoginContext';
 import { LoginStatus } from '../context/login/LoginStatus';
@@ -16,7 +16,7 @@ export const mockApp = (
 ) => (
   <Router history={mockHistory(path)}>
     <LoginProvider baseUrl='/base' status={loginStatus} loginServiceUrl='/loginServiceUrl'>
-      <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
+      <ArbeidsgiverProvider arbeidsgivere={[]} status={ArbeidsgiverStatus.Successfully} baseUrl={''}>
         {children}
       </ArbeidsgiverProvider>
     </LoginProvider>

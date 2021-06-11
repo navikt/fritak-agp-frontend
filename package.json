@@ -119,6 +119,7 @@
     "yet-another-fetch-mock": "4.x"
   },
   "peerDependencies": {
-    "@babel/core": "7.13.0"
+    "@babel/core": "7.13.0",
+    "postcss": "^8.2.10"
   }
 }
