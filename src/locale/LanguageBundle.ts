@@ -32,12 +32,14 @@ const LanguageBundle: Record<LangKey, Locale> = {
     nb:
       'NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet. Dette gjelder bare hvis tilrettelegging' +
       ' eller omplassering ikke er mulig. Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
-      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\nAlle felter må' +
-      ' fylles ut om ikke annet er oppgitt',
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
+      '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
     en:
       'NAV can cover sickness benefits during the employer period if the absence is due to health problems during pregnancy. This only applies ' +
       'if facilitation or relocation is not possible. We use information we already have about sick leave, in addition to the answers you give below.' +
       ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      'We will send a message to the employee notifying them that you have sent the application' +
       '\n\nAll fields must be filled out unless otherwise stated'
   },
   GRAVID_SIDE_TERMINDATO: {
@@ -260,13 +262,17 @@ const LanguageBundle: Record<LangKey, Locale> = {
   },
   GRAVID_KRAV_SIDETITTEL_INGRESS: {
     nb:
-      'Har dere søkt om at [NAV dekker sykepenger i arbeidsgiverperioden]({{lenkeGravid}}), sender ' +
-      'dere krav om refusjon her. Vi anbefaler at dere sender kravet før søknaden er ferdig behandlet, så unngår ' +
-      'dere at det blir foreldet.',
+      '_Fraværet må skyldes svangerskapet_\n' +
+      'Fraværet dere søker refusjon for, må skyldes helseplager i svangerskapet.\n\n' +
+      '_Send kravet før søknaden er behandlet_\n' +
+      'Vi anbefaler at dere sender dette refusjonskravet før selve [søknaden]({{lenkeGravid}}) er ferdig behandlet. ' +
+      'Slik unngår dere at kravet blir foreldet.',
     en:
-      'If you have applied for [NAV to cover sickness benefits during the employer period]({{lenkeGravid}}), you send a ' +
-      'claim for reimbursement here. We recommend that you send the claim before the application has been processed, ' +
-      'so you avoid it becoming obsolete.'
+      '_Period of absence must be caused by the pregnancy_\n' +
+      'The period of absence you are seeking reimbursement from, must be caused by health issues during pregnancy. \n\n' +
+      '_Send claim before the application has been processed_\n' +
+      'We recommend that you send the claim before the application has been processed. ' +
+      'So you avoid it becoming obsolete.'
   },
   GRAVID_KRAV_ARBEIDSTID_TAPT: {
     nb: 'Fraværsperiode',
@@ -387,6 +393,24 @@ const LanguageBundle: Record<LangKey, Locale> = {
   GRAVID_KRAV_VALIDERING_BEKREFT_KORREKT: {
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Confirm that the information is correct'
+  },
+  GRAVID_KRAV_LEGG_TIL_PERIODE: {
+    nb: '+ Legg til en fraværsperiode',
+    en: '+ Add an absence period'
+  },
+  KRONISK_SIDE_INGRESS: {
+    nb:
+      'NAV kan dekke sykepenger i arbeidsgiverperioden for en arbeidstaker med langvarig eller kronisk sykdom' +
+      ' Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
+      '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
+    en:
+      'NAV can cover sickness benefits during the employer period for an employee with longterm or chronic illness ' +
+      ' We use information we already have about sick leave, in addition to the answers you give below.' +
+      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' We will send a message to the employee notifying them that you have sent the application' +
+      '\n\nAll fields must be filled out unless otherwise stated'
   },
   KRONISK_SIDE_ARBEIDSMILJO: {
     nb: 'Arbeidssituasjon og miljø',
@@ -586,8 +610,12 @@ const LanguageBundle: Record<LangKey, Locale> = {
     en: 'Log out'
   },
   ALLE_FELT_PAKREVD: {
-    nb: 'Alle felter må fylles ut.',
-    en: 'All fields are mandatory.'
+    nb:
+      'Vi sender en melding til den ansatte med informasjon om at du har sendt refusjonskravet.\n' +
+      'Alle felter må fylles ut.',
+    en:
+      'We will send a message to the employee notifying them about your reimbursement claim.\n' +
+      'All fields are mandatory.'
   },
   FRA_DATO: {
     nb: 'Fra dato',
