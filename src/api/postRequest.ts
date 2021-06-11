@@ -1,5 +1,5 @@
 import HttpStatus from './HttpStatus';
-import ValidationResponse from '../state/validation/ValidationResponse';
+import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const mapViolations = (status: number, json: any): ValidationResponse => ({
   status,

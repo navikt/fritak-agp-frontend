@@ -1,13 +1,13 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { ValidationState } from '../../state/validation/ValidationState';
 import { Dato } from '../../utils/dato/Dato';
-import { v4 as uuid } from 'uuid';
+import { ValidationState } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const defaultGravidKravState = (state?: GravidKravState): GravidKravState => {
   return Object.assign(
     {
       fnr: '',
-      perioder: [{ uniqueKey: uuid() }],
+      fra: {},
+      til: {},
       dokumentasjon: '',
       bekreft: false,
       isOpenKontrollsporsmaalLonn: false,
@@ -17,24 +17,19 @@ export const defaultGravidKravState = (state?: GravidKravState): GravidKravState
   );
 };
 
-export interface Periode {
-  uniqueKey: string;
-  fom?: Dato;
-  fomError?: string;
-  tom?: Dato;
-  tomError?: string;
+export default interface GravidKravState extends ValidationState {
+  fnr?: string;
+  fnrError?: string;
+  orgnr?: string;
+  orgnrError?: string;
+  fra?: Dato;
+  fraError?: string;
+  til?: Dato;
+  tilError?: string;
   dager?: number;
   dagerError?: string;
   beloep?: number;
   beloepError?: string;
-}
-
-export default interface GravidKravState extends ValidationState {
-  fnr?: string;
-  fnrError?: string;
-  orgnrError?: string;
-  orgnr?: string;
-  perioder?: Array<Periode>;
   dokumentasjon?: string;
   dokumentasjonError?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
