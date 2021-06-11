@@ -5,7 +5,7 @@ export interface Locale {
   nb: string;
 }
 
-const Locales: Record<LangKey, Locale> = {
+const LanguageBundle: Record<LangKey, Locale> = {
   ADD: {
     nb: 'Legg til enda en ansatt',
     en: 'Add another employee'
@@ -607,4 +607,4 @@ const Locales: Record<LangKey, Locale> = {
   }
 };
 
-export default Locales;
+export default LanguageBundle;
