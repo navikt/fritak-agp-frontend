@@ -3,7 +3,6 @@ import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import Skillelinje from '../felles/Skillelinje/Skillelinje';
-import Fnr from '../felles/Fnr/Fnr';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link, Redirect, useParams } from 'react-router-dom';
@@ -30,7 +29,8 @@ import {
   LoggetUtAdvarsel,
   Oversettelse,
   BekreftOpplysningerPanel,
-  Feilmeldingspanel
+  Feilmeldingspanel,
+  Fnr
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const KroniskKrav = (props: KroniskKravProps) => {

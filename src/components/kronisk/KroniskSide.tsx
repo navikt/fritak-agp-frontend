@@ -5,7 +5,6 @@ import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
 import Skillelinje from '../felles/Skillelinje/Skillelinje';
-import Fnr from '../felles/Fnr/Fnr';
 import Upload from '../felles/Upload/Upload';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
@@ -31,7 +30,8 @@ import {
   LoggetUtAdvarsel,
   Oversettelse,
   BekreftOpplysningerPanel,
-  Feilmeldingspanel
+  Feilmeldingspanel,
+  Fnr
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_BESKRIVELSE = 2000;
