@@ -1,13 +1,20 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import GravidKravState from './GravidKravState';
-import { pushFeilmelding, isValidFnr, validateFnr, formatValidation } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import {
+  pushFeilmelding,
+  isValidFnr,
+  validateFnr,
+  formatValidation,
+  validateTil
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateFra from '../../validation/validateFra';
-import validateTil from '../../validation/validateTil';
 import validateDager from '../../validation/validateDager';
 import validateBeloep from '../../validation/validateBeloep';
 import { validateOrgnr } from '../../validation/validateOrgnr';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
+
+const MIN_DATE = new Date(2021, 1, 1);
 
 export const validateGravidKrav = (state: GravidKravState, translate: i18n): GravidKravState => {
   if (!state.validated) {
@@ -36,7 +43,10 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
 
   state.perioder?.forEach((periode) => {
     periode.fomError = validateFra(periode.fom, !!nextState.validated);
-    periode.tomError = validateTil(periode.fom, periode.tom, !!nextState.validated);
+    periode.tomError = formatValidation(
+      validateTil(periode.fom, periode.tom, MIN_DATE, !!nextState.validated),
+      translate
+    );
     periode.dagerError = validateDager(periode.dager, !!nextState.validated);
     periode.beloepError = validateBeloep(periode.beloep, !!nextState.validated);
 

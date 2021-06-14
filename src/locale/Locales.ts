@@ -656,6 +656,10 @@ const Locales: Record<LangKey, Locale> = {
   VALIDATE_FNR_INVALID: {
     nb: 'Ugyldig fødselsnummer',
     en: 'Invalid national id-number'
+  },
+  FEILMELDINGSPANEL: {
+    nb: 'For å gå videre må du rette opp følgende:',
+    en: 'To proceed, you must correct the following:'
   }
 };
 
