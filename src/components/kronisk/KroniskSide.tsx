@@ -8,7 +8,6 @@ import Skillelinje from '../felles/Skillelinje/Skillelinje';
 import Upload from '../felles/Upload/Upload';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
-import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../felles/Orgnr/Orgnr';
 import { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
@@ -104,16 +103,7 @@ const KroniskSide = () => {
         <Column>
           <Panel>
             <Ingress>
-              NAV kan dekke sykepenger i arbeidsgiverperioden for en ansatt med langvarig eller kronisk sykdom. Vi
-              bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen er
-              beskrevet i{' '}
-              <Lenke href='https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20'>
-                folketrygdlovens § 8-20
-              </Lenke>
-              .
-              <br />
-              <br />
-              Alle felter må fylles ut om ikke annet er oppgitt
+              <Oversettelse langKey={LangKey.KRONISK_SIDE_INGRESS} />
             </Ingress>
           </Panel>
           <Skillelinje />

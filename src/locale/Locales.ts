@@ -32,12 +32,14 @@ const Locales: Record<LangKey, Locale> = {
     nb:
       'NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet. Dette gjelder bare hvis tilrettelegging' +
       ' eller omplassering ikke er mulig. Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
-      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\nAlle felter må' +
-      ' fylles ut om ikke annet er oppgitt',
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
+      '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
     en:
       'NAV can cover sickness benefits during the employer period if the absence is due to health problems during pregnancy. This only applies ' +
       'if facilitation or relocation is not possible. We use information we already have about sick leave, in addition to the answers you give below.' +
       ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      'We will send a message to the employee notifying them that you have sent the application' +
       '\n\nAll fields must be filled out unless otherwise stated'
   },
   GRAVID_SIDE_TERMINDATO: {
@@ -395,6 +397,20 @@ const Locales: Record<LangKey, Locale> = {
   GRAVID_KRAV_LEGG_TIL_PERIODE: {
     nb: '+ Legg til en fraværsperiode',
     en: '+ Add an absence period'
+  },
+  KRONISK_SIDE_INGRESS: {
+    nb:
+      'NAV kan dekke sykepenger i arbeidsgiverperioden for en arbeidstaker med langvarig eller kronisk sykdom' +
+      ' Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
+      '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
+    en:
+      'NAV can cover sickness benefits during the employer period for an employee with longterm or chronic illness ' +
+      ' We use information we already have about sick leave, in addition to the answers you give below.' +
+      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' We will send a message to the employee notifying them that you have sent the application' +
+      '\n\nAll fields must be filled out unless otherwise stated'
   },
   KRONISK_SIDE_ARBEIDSMILJO: {
     nb: 'Arbeidssituasjon og miljø',
