@@ -3,17 +3,23 @@ import { validateOrgnr } from '../../validation/validateOrgnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
-import { validateFnr } from '../../validation/validateFnr';
 import { MAX_BESKRIVELSE } from './KroniskSide';
-import { pushFeilmelding, isValidFnr, isValidOrgnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import {
+  pushFeilmelding,
+  isValidFnr,
+  isValidOrgnr,
+  validateFnr,
+  formatValidation
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { i18n } from 'i18next';
 
 /* eslint complexity: ["off"] */
-export const validateKronisk = (state: KroniskState): KroniskState => {
+export const validateKronisk = (state: KroniskState, translate: i18n): KroniskState => {
   if (!state.validated) {
     return state;
   }
   const nextState = Object.assign({}, state);
-  nextState.fnrError = validateFnr(state.fnr, state.validated);
+  nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
   nextState.bekreftError = state.bekreft ? '' : 'Mangler bekreft';
   nextState.paakjenningerError =
@@ -24,14 +30,10 @@ export const validateKronisk = (state: KroniskState): KroniskState => {
     nextState.orgnrError = 'Ugyldig virksomhetsnummer';
   }
 
-  if (state.fnr && !isValidFnr(state.fnr)) {
-    nextState.fnrError = 'Ugyldig fødselsnummer';
-  }
-
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   if (nextState.fnrError) {
-    pushFeilmelding('fnr', 'Fødselsnummer må fylles ut', feilmeldinger);
+    pushFeilmelding('fnr', nextState.fnrError, feilmeldinger);
   }
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', 'Virksomhetsnummer må fylles ut', feilmeldinger);

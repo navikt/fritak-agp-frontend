@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { Reducer, useEffect, useReducer } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
@@ -11,8 +11,8 @@ import '../felles/FellesStyling.scss';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';
-import { defaultKroniskKravState } from './KroniskKravState';
-import { Actions } from './Actions';
+import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
+import { Actions, KroniskKravAction } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
@@ -32,12 +32,18 @@ import {
   Skillelinje,
   useArbeidsgiver
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { i18n } from 'i18next';
+
+const buildReducer =
+  (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
+  (bulkState: KroniskKravState, action: KroniskKravAction) =>
+    KroniskKravReducer(bulkState, action, Translate);
 
 export const KroniskKrav = (props: KroniskKravProps) => {
-  const [state, dispatch] = useReducer(KroniskKravReducer, props.state, defaultKroniskKravState);
+  const { t, i18n } = useTranslation();
+  const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   let { language } = useParams<PathParams>();
-  const { t } = useTranslation();
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });

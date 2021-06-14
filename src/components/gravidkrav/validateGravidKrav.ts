@@ -1,7 +1,6 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { validateFnr } from '../../validation/validateFnr';
 import GravidKravState from './GravidKravState';
-import { pushFeilmelding, isValidFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { pushFeilmelding, isValidFnr, validateFnr, formatValidation } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateFra from '../../validation/validateFra';
 import validateTil from '../../validation/validateTil';
 import validateDager from '../../validation/validateDager';
@@ -18,7 +17,8 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
 
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
-  nextState.fnrError = validateFnr(state.fnr, state.validated);
+  nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
+
   nextState.bekreftError = state.bekreft == false ? translate.t(LangKey.GRAVID_KRAV_VALIDERING_BEKREFT_MANGLER) : '';
   if (state.fnr && !isValidFnr(state.fnr)) {
     nextState.fnrError = translate.t(LangKey.GRAVID_KRAV_VALIDERING_FNR_UGYLDIG);

@@ -6,18 +6,19 @@ import { validerFravaer } from './validerFravaer';
 import { validerPaakjenninger } from './validerPaakjenninger';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKroniskFeilmeldinger from './mapKroniskFeilmeldinger';
+import { i18n } from 'i18next';
 
-const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskState => {
+const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i18n): KroniskState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
   switch (action.type) {
     case Actions.Fnr:
       nextState.fnr = payload?.fnr;
-      return validateKronisk(nextState);
+      return validateKronisk(nextState, translate);
 
     case Actions.Orgnr:
       nextState.orgnr = payload?.orgnr;
-      return validateKronisk(nextState);
+      return validateKronisk(nextState, translate);
 
     case Actions.ToggleArbeid:
       if (payload?.arbeid === undefined) {
@@ -29,15 +30,15 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskStat
       if (payload?.paakjenning === undefined) {
         throw new Error('Du må spesifisere paakjenning');
       }
-      return validerPaakjenninger(payload.paakjenning, state, nextState);
+      return validerPaakjenninger(payload.paakjenning, state, nextState, translate);
 
     case Actions.Kommentar:
       nextState.kommentar = payload?.kommentar;
-      return validateKronisk(nextState);
+      return validateKronisk(nextState, translate);
 
     case Actions.Dokumentasjon:
       nextState.dokumentasjon = payload?.dokumentasjon;
-      return validateKronisk(nextState);
+      return validateKronisk(nextState, translate);
 
     case Actions.Fravaer: //
       if (payload?.fravaer == undefined) {
@@ -47,22 +48,22 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction): KroniskStat
 
     case Actions.Bekreft:
       nextState.bekreft = payload?.bekreft;
-      return validateKronisk(nextState);
+      return validateKronisk(nextState, translate);
 
     case Actions.Progress:
       if (payload?.progress == undefined) {
         throw new Error('Du må spesifisere progress');
       }
       nextState.progress = payload?.progress;
-      return validateKronisk(nextState);
+      return validateKronisk(nextState, translate);
 
     case Actions.Kvittering:
       nextState.kvittering = payload?.kvittering;
-      return validateKronisk(nextState);
+      return validateKronisk(nextState, translate);
 
     case Actions.Validate:
       nextState.validated = true;
-      const validatedState = validateKronisk(nextState);
+      const validatedState = validateKronisk(nextState, translate);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;

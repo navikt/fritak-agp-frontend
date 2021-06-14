@@ -1,13 +1,14 @@
 import { validateKroniskKrav } from './validateKroniskKrav';
 import { defaultKroniskKravState } from './KroniskKravState';
 import { parseDato } from '../../utils/dato/Dato';
+import i18n from 'i18next';
 
 describe('validateKroniskKrav', () => {
   it('should show fnr error when invalid', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.fnr = '123';
-    const state2 = validateKroniskKrav(state);
+    const state2 = validateKroniskKrav(state, i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
 
@@ -15,7 +16,7 @@ describe('validateKroniskKrav', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.orgnr = '123';
-    const state2 = validateKroniskKrav(state);
+    const state2 = validateKroniskKrav(state, i18n);
     expect(state2.orgnrError).not.toBeUndefined();
   });
 
@@ -24,7 +25,7 @@ describe('validateKroniskKrav', () => {
     state.validated = true;
     state.fnr = '123';
     state.perioder = [{ fra: parseDato('14.14.2014') }];
-    const state2 = validateKroniskKrav(state);
+    const state2 = validateKroniskKrav(state, i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
 
@@ -33,14 +34,14 @@ describe('validateKroniskKrav', () => {
     state.validated = true;
     state.fnr = '123';
     state.perioder = [{ til: parseDato('14.14.2014') }];
-    const state2 = validateKroniskKrav(state);
+    const state2 = validateKroniskKrav(state, i18n);
     expect(state2.perioder).not.toBeUndefined();
     expect(state2.perioder ? state2.perioder[0].til?.error : undefined).not.toBeUndefined();
   });
 
   it('should not show errors until validation flagged', () => {
     const state = defaultKroniskKravState();
-    const state2 = validateKroniskKrav(state);
+    const state2 = validateKroniskKrav(state, i18n);
     expect(state2.feilmeldinger?.length).toEqual(0);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();

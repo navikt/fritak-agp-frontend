@@ -1,8 +1,14 @@
 import { PaakjenningerType } from './PaakjenningerType';
 import KroniskState from './KroniskState';
 import { validateKronisk } from './validateKronisk';
+import { i18n } from 'i18next';
 
-export const validerPaakjenninger = (paakjenning: PaakjenningerType, state: KroniskState, nextState: KroniskState) => {
+export const validerPaakjenninger = (
+  paakjenning: PaakjenningerType,
+  state: KroniskState,
+  nextState: KroniskState,
+  translate: i18n
+) => {
   if (!nextState.paakjenninger) {
     nextState.paakjenninger = [];
   }
@@ -11,5 +17,5 @@ export const validerPaakjenninger = (paakjenning: PaakjenningerType, state: Kron
   } else {
     nextState.paakjenninger.push(paakjenning);
   }
-  return validateKronisk(nextState);
+  return validateKronisk(nextState, translate);
 };

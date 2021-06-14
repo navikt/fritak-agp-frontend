@@ -6,12 +6,18 @@ import ArbeidType from './ArbeidType';
 import { MAX_BESKRIVELSE } from './KroniskSide';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
+import { languageInit } from '../../locale/languageInit';
+import i18next from 'i18next';
+import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import Locales from '../../locale/Locales';
 
 describe('validateKronisk', () => {
+  const i18n = languageInit(i18next, Language.nb, Locales);
+
   it('should not show error messages before validated', () => {
     const state = defaultKroniskState();
     state.validated = undefined;
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
     expect(state2.arbeidError).toBeUndefined();
@@ -23,7 +29,7 @@ describe('validateKronisk', () => {
   it('should show error messages when validated and empty values', () => {
     const state = defaultKroniskState();
     state.validated = true;
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.fnrError).not.toBeUndefined();
     expect(state2.orgnrError).not.toBeUndefined();
     expect(state2.arbeidError).not.toBeUndefined();
@@ -48,7 +54,7 @@ describe('validateKronisk', () => {
     ];
     state.bekreft = true;
     state.validated = true;
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
     expect(state2.arbeidError).toBe('');
@@ -61,7 +67,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     state.fnr = '123';
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
 
@@ -69,7 +75,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     state.orgnr = '123';
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.orgnrError).not.toBeUndefined();
   });
 
@@ -77,7 +83,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     state.arbeid = [];
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.arbeidError).not.toBeUndefined();
   });
 
@@ -85,7 +91,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     state.arbeid = [ArbeidType.KREVENDE];
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.arbeidError).toEqual('');
   });
 
@@ -93,7 +99,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     state.paakjenninger = [];
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.paakjenningerError).not.toBeUndefined();
   });
 
@@ -101,7 +107,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     state.paakjenninger = [PaakjenningerType.ALLERGENER];
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.paakjenningerError).toEqual('');
   });
 
@@ -109,7 +115,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     state.paakjenninger = [PaakjenningerType.ANNET];
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.kommentarError).not.toBeUndefined();
   });
 
@@ -122,7 +128,7 @@ describe('validateKronisk', () => {
     state.validated = true;
     state.paakjenninger = [PaakjenningerType.ANNET];
     state.kommentar = lagTekst(MAX_BESKRIVELSE + 1);
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.kommentarError).not.toBeUndefined();
   });
 
@@ -131,7 +137,7 @@ describe('validateKronisk', () => {
     state.validated = true;
     state.paakjenninger = [PaakjenningerType.ANNET];
     state.kommentar = lagTekst(MAX_BESKRIVELSE);
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.kommentarError).toBeUndefined();
   });
 
@@ -144,7 +150,7 @@ describe('validateKronisk', () => {
         jan: 2
       } as Aarsfravaer
     ];
-    const state2 = validateKronisk(state);
+    const state2 = validateKronisk(state, i18n);
     expect(state2.fravaerError).toBeUndefined();
   });
 });

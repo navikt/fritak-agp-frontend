@@ -1,10 +1,14 @@
 import { validateOrgnr } from '../../validation/validateOrgnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { validateFnr } from '../../validation/validateFnr';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
-import { pushFeilmelding, isValidFnr, isValidOrgnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import {
+  pushFeilmelding,
+  isValidOrgnr,
+  validateFnr,
+  formatValidation
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
@@ -17,7 +21,7 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   const nextState = Object.assign({}, state);
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
-  nextState.fnrError = validateFnr(state.fnr, state.validated);
+  nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   nextState.termindatoError = validateTermindato(
     state.termindato,
     state.validated,
@@ -27,9 +31,6 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   nextState.bekreftError = state.bekreft ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
     nextState.orgnrError = translate.t(LangKey.GRAVID_VALIDERING_UGYLDIG_ORGNR);
-  }
-  if (state.fnr && !isValidFnr(state.fnr)) {
-    nextState.fnrError = translate.t(LangKey.GRAVID_VALIDERING_UGYLDIG_FODSELSNUMER);
   }
 
   if (nextState.fnrError) {

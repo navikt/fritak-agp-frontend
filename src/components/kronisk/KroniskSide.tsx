@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { Reducer, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
@@ -9,9 +9,9 @@ import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Lenke from 'nav-frontend-lenker';
 import Orgnr from '../felles/Orgnr/Orgnr';
-import { defaultKroniskState } from './KroniskState';
+import KroniskState, { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
-import { Actions } from './Actions';
+import { Actions, KroniskAction } from './Actions';
 import { PaakjenningerType } from './PaakjenningerType';
 import getBase64file from '../../utils/getBase64File';
 import FravaerTabell from './FravaerTabell';
@@ -33,11 +33,20 @@ import {
   Fnr,
   Skillelinje
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { i18n } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export const MAX_BESKRIVELSE = 2000;
 
+const buildReducer =
+  (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
+  (bulkState: KroniskState, action: KroniskAction) =>
+    KroniskReducer(bulkState, action, Translate);
+
 const KroniskSide = () => {
-  const [state, dispatch] = useReducer(KroniskReducer, {}, defaultKroniskState);
+  const { i18n } = useTranslation();
+
+  const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {

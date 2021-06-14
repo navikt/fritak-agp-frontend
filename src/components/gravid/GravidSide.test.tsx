@@ -195,7 +195,7 @@ describe('GravidSide', () => {
     const submitKnapp = screen.getByText(/GRAVID_SIDE_SEND_SOKNAD/);
     userEvent.click(submitKnapp);
 
-    expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
+    expect(screen.getByText(/VALIDATE_FNR_MISSING/)).toBeInTheDocument();
     expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_FODSELSNUMMER/)).toBeInTheDocument();
     expect(screen.getByText(/Mangler virksomhetsnummer/)).toBeInTheDocument();
     expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER/)).toBeInTheDocument();
