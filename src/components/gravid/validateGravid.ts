@@ -1,11 +1,10 @@
 import { validateOrgnr } from '../../validation/validateOrgnr';
-import isValidOrgnr from '../../validation/isValidOrgnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validateFnr } from '../../validation/validateFnr';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
-import { pushFeilmelding, isValidFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { pushFeilmelding, isValidFnr, isValidOrgnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
