@@ -1,8 +1,7 @@
-import isValidFnr from '../../validation/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validateFnr } from '../../validation/validateFnr';
 import KroniskKravState from './KroniskKravState';
-import { pushFeilmelding } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { isValidFnr, pushFeilmelding } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateFra from '../../validation/validateFra';
 import validateTil from '../../validation/validateTil';
 import validateDager from '../../validation/validateDager';

@@ -1,4 +1,4 @@
-import isValidFnr from './isValidFnr';
+import { isValidFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const validateFnr = (orgnr?: string, required: boolean = false): string | undefined => {
   if (orgnr == undefined || orgnr == '') {

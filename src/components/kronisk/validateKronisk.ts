@@ -1,13 +1,12 @@
 import KroniskState from './KroniskState';
 import { validateOrgnr } from '../../validation/validateOrgnr';
 import isValidOrgnr from '../../validation/isValidOrgnr';
-import isValidFnr from '../../validation/isValidFnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
 import { validateFnr } from '../../validation/validateFnr';
 import { MAX_BESKRIVELSE } from './KroniskSide';
-import { pushFeilmelding } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { pushFeilmelding, isValidFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState): KroniskState => {

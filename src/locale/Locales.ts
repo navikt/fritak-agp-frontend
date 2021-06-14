@@ -632,6 +632,14 @@ const Locales: Record<LangKey, Locale> = {
   SLETT_LABEL: {
     nb: 'Slett',
     en: 'Delete'
+  },
+  VALIDATE_FNR_MISSING: {
+    nb: 'Mangler fødselsnummer',
+    en: 'Missing national id-number'
+  },
+  VALIDATE_FNR_INVALID: {
+    nb: 'Ugyldig fødselsnummer',
+    en: 'Invalid national id-number'
   }
 };
 
