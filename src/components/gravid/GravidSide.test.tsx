@@ -1,7 +1,7 @@
 import React from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
-import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
+import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import '../../mockData/mockWindowLocation';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

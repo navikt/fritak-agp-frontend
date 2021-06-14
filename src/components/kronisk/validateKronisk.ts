@@ -7,7 +7,7 @@ import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
 import { validateFnr } from '../../validation/validateFnr';
 import { MAX_BESKRIVELSE } from './KroniskSide';
-import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { pushFeilmelding } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState): KroniskState => {

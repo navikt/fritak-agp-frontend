@@ -24,11 +24,15 @@ import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import KvitteringLink from './KvitteringLink';
-import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import Side from '../felles/Side/Side';
 import LangKey from '../../locale/LangKey';
 import lenker from '../../config/lenker';
-import { LoggetUtAdvarsel, Oversettelse, BekreftOpplysningerPanel } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import {
+  LoggetUtAdvarsel,
+  Oversettelse,
+  BekreftOpplysningerPanel,
+  Feilmeldingspanel
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_BESKRIVELSE = 2000;
 

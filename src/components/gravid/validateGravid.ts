@@ -6,7 +6,7 @@ import { validateFnr } from '../../validation/validateFnr';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
-import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { pushFeilmelding } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
