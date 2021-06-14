@@ -5,7 +5,7 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
-import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import { Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const GravidKvittering = () => {
   return (

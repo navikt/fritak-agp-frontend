@@ -23,13 +23,13 @@ import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
-import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
 import KvitteringLink from './KvitteringLink';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Side from '../felles/Side/Side';
-import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import LangKey from '../../locale/LangKey';
+import lenker from '../../config/lenker';
+import { LoggetUtAdvarsel, Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_BESKRIVELSE = 2000;
 
@@ -327,7 +327,13 @@ const KroniskSide = () => {
             </Hovedknapp>
           </Panel>
         </Column>
-        {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
+        {state.notAuthorized && (
+          <LoggetUtAdvarsel
+            onClose={handleCloseNotAuthorized}
+            tokenFornyet={lenker.TokenFornyet}
+            loginServiceUrl={environment.loginServiceUrl}
+          />
+        )}
       </Row>
     </Side>
   );

@@ -6,7 +6,6 @@ import Skillelinje from '../felles/Skillelinje/Skillelinje';
 import Fnr from '../felles/Fnr/Fnr';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
 import { Link, Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
@@ -29,7 +28,7 @@ import KravPeriode from './KravPeriode';
 import PathParams from '../../locale/PathParams';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import { LoggetUtAdvarsel, Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const KroniskKrav = (props: KroniskKravProps) => {
   const [state, dispatch] = useReducer(KroniskKravReducer, props.state, defaultKroniskKravState);
@@ -199,7 +198,13 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             </Hovedknapp>
           </Panel>
         </Column>
-        {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
+        {state.notAuthorized && (
+          <LoggetUtAdvarsel
+            onClose={handleCloseNotAuthorized}
+            tokenFornyet={lenker.TokenFornyet}
+            loginServiceUrl={environment.loginServiceUrl}
+          />
+        )}
       </Row>
       <KontrollsporsmaalLonn
         onClose={closeKontrollsporsmaalLonnDager}

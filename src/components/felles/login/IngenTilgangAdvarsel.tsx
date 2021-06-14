@@ -2,7 +2,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Oversettelse from '../Oversettelse/Oversettelse';
+import { Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import LangKey from '../../../locale/LangKey';
 
 export const IngenTilgangAdvarsel = () => {

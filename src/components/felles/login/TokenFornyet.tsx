@@ -5,7 +5,7 @@ import { Container, Row } from 'nav-frontend-grid';
 import Side from '../Side/Side';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../../locale/LangKey';
-import Oversettelse from '../Oversettelse/Oversettelse';
+import { Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const TokenFornyet = () => {
   const { t } = useTranslation();
