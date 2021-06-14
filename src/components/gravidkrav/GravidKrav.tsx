@@ -23,7 +23,6 @@ import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import SelectDager from '../felles/SelectDager/SelectDager';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
-import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
@@ -39,7 +38,8 @@ import {
   Oversettelse,
   stringishToNumber,
   DatoVelger,
-  LoggetUtAdvarsel
+  LoggetUtAdvarsel,
+  BekreftOpplysningerPanel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const GravidKrav = (props: GravidKravProps) => {

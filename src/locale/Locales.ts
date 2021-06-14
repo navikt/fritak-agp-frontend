@@ -10,11 +10,11 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Legg til enda en ansatt',
     en: 'Add another employee'
   },
-  BEKREFT_OPPLYSNINGER_OVERSKRIFT: {
+  BEKREFTOPPLYSNINGER_BEKREFT_LABEL: {
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
   },
-  BEKREFT_OPPLYSNINGER_BESKRIVELSE: {
+  BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER: {
     nb: 'Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis opplysningene ikke er riktige eller fullstendige.',
     en:
       'I know that NAV can withdraw the right to be reimbursed for sickness benefits during the employer period if the ' +

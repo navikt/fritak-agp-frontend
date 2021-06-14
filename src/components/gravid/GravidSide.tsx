@@ -28,9 +28,13 @@ import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
-import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Side from '../felles/Side/Side';
-import { Oversettelse, DatoVelger, LoggetUtAdvarsel } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import {
+  Oversettelse,
+  DatoVelger,
+  LoggetUtAdvarsel,
+  BekreftOpplysningerPanel
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';

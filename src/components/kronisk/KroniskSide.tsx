@@ -25,11 +25,10 @@ import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import KvitteringLink from './KvitteringLink';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
-import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Side from '../felles/Side/Side';
 import LangKey from '../../locale/LangKey';
 import lenker from '../../config/lenker';
-import { LoggetUtAdvarsel, Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { LoggetUtAdvarsel, Oversettelse, BekreftOpplysningerPanel } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_BESKRIVELSE = 2000;
 
