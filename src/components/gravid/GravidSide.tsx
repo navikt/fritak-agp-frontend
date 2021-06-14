@@ -30,12 +30,11 @@ import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel'
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Side from '../felles/Side/Side';
-import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
-import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Oversettelse, DatoVelger, LoggetUtAdvarsel } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
-import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import lenker from '../../config/lenker';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -404,7 +403,13 @@ const GravidSide = (props: GravidSideProps) => {
             </div>
           )}
         </Column>
-        {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
+        {state.notAuthorized && (
+          <LoggetUtAdvarsel
+            onClose={handleCloseNotAuthorized}
+            tokenFornyet={lenker.TokenFornyet}
+            loginServiceUrl={environment.loginServiceUrl}
+          />
+        )}
       </Row>
     </Side>
   );

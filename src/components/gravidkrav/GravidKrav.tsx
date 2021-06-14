@@ -7,8 +7,6 @@ import Fnr from '../felles/Fnr/Fnr';
 import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../felles/Upload/Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import LoggetUtAdvarsel from '../felles/login/LoggetUtAdvarsel';
-import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -31,14 +29,18 @@ import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
-import stringishToNumber from '../../utils/stringishToNumber';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
-import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import { i18n } from 'i18next';
-import LeggTilKnapp from '../felles/leggtilknapp/LeggTilKnapp';
-import Slettknapp from '../felles/slettknapp/Slettknapp';
+import {
+  LeggTilKnapp,
+  Slettknapp,
+  Oversettelse,
+  stringishToNumber,
+  DatoVelger,
+  LoggetUtAdvarsel
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -369,7 +371,13 @@ export const GravidKrav = (props: GravidKravProps) => {
             </Hovedknapp>
           </Panel>
         </Column>
-        {state.notAuthorized && <LoggetUtAdvarsel onClose={handleCloseNotAuthorized} />}
+        {state.notAuthorized && (
+          <LoggetUtAdvarsel
+            onClose={handleCloseNotAuthorized}
+            tokenFornyet={lenker.TokenFornyet}
+            loginServiceUrl={environment.loginServiceUrl}
+          />
+        )}
       </Row>
       <KontrollsporsmaalLonn
         onClose={closeKontrollsporsmaalLonnDager}

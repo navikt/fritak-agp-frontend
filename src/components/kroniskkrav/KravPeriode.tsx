@@ -1,4 +1,4 @@
-import { DatoVelger } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { DatoVelger, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
 import { Column, Row } from 'nav-frontend-grid';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
@@ -11,7 +11,6 @@ import SelectDager from '../felles/SelectDager/SelectDager';
 import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
-import stringishToNumber from '../../utils/stringishToNumber';
 
 interface KravPeriodeProps {
   dispatch: any;
