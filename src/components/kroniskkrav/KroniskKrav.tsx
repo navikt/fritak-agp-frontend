@@ -2,7 +2,6 @@ import React, { useEffect, useReducer } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
-import Skillelinje from '../felles/Skillelinje/Skillelinje';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link, Redirect, useParams } from 'react-router-dom';
@@ -30,7 +29,8 @@ import {
   Oversettelse,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr
+  Fnr,
+  Skillelinje
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const KroniskKrav = (props: KroniskKravProps) => {

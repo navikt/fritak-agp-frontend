@@ -5,7 +5,6 @@ import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Skillelinje from '../felles/Skillelinje/Skillelinje';
 import Upload from '../felles/Upload/Upload';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
@@ -33,7 +32,8 @@ import {
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
   Fnr,
-  ServerFeilAdvarsel
+  ServerFeilAdvarsel,
+  Skillelinje
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';

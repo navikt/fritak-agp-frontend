@@ -2,7 +2,6 @@ import React, { useEffect, useReducer, Reducer } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
-import Skillelinje from '../felles/Skillelinje/Skillelinje';
 import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import Upload from '../felles/Upload/Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -39,7 +38,8 @@ import {
   LoggetUtAdvarsel,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr
+  Fnr,
+  Skillelinje
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const GravidKrav = (props: GravidKravProps) => {
