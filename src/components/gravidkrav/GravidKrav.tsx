@@ -24,7 +24,6 @@ import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
-import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
@@ -39,7 +38,8 @@ import {
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
   Fnr,
-  Skillelinje
+  Skillelinje,
+  useArbeidsgiver
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const GravidKrav = (props: GravidKravProps) => {

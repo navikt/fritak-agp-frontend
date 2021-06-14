@@ -4,9 +4,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Router } from 'react-router-dom';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import ArbeidsgiverStatus from '../../../context/arbeidsgiver/ArbeidsgiverStatus';
+import { ArbeidsgiverStatus, ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import mockHistory from '../../../mockData/mockHistory';
-import { ArbeidsgiverProvider } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 
 describe('Side', () => {
   let container = document.createElement('div');

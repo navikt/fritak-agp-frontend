@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';

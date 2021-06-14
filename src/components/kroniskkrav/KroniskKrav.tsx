@@ -18,7 +18,6 @@ import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
 import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
-import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
 import PathParams from '../../locale/PathParams';
@@ -30,7 +29,8 @@ import {
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
   Fnr,
-  Skillelinje
+  Skillelinje,
+  useArbeidsgiver
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const KroniskKrav = (props: KroniskKravProps) => {
