@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import KroniskKravState from './KroniskKravState';
 import {
   formatValidation,
+  validateBeloep,
   validateFra,
   validateOrgnr,
   isValidFnr,
@@ -11,9 +12,9 @@ import {
   validateTil
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateDager from '../../validation/validateDager';
-import validateBeloep from '../../validation/validateBeloep';
 import { i18n } from 'i18next';
 
+const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
 
 export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): KroniskKravState => {
@@ -24,10 +25,6 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
-  nextState.bekreftError = !state.bekreft ? 'Mangler bekreft' : '';
-  if (state.fnr && !isValidFnr(state.fnr)) {
-    nextState.fnrError = 'Ugyldig fødselsnummer';
-  }
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
 
   nextState.perioder?.forEach((aktuellPeriode) => {
@@ -37,13 +34,15 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       translate
     );
     aktuellPeriode.dagerError = validateDager(aktuellPeriode.dager, !!state.validated);
-    aktuellPeriode.beloepError = validateBeloep(aktuellPeriode.beloep, !!state.validated);
+    aktuellPeriode.beloepError = formatValidation(
+      validateBeloep(aktuellPeriode.beloep ? '' + aktuellPeriode.beloep : undefined, MAX, !!state.validated),
+      translate
+    );
   });
 
   if (nextState.fnrError) {
     pushFeilmelding('fnr', nextState.fnrError, feilmeldinger);
   }
-
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
   }

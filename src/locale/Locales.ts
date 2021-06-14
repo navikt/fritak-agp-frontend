@@ -711,6 +711,20 @@ const Locales: Record<LangKey, Locale> = {
   VALIDATE_FRA_FOM_ERROR: {
     nb: 'Feil dato',
     en: 'Incorrect date'
+  },
+  VALIDATE_BELOEP_AMOUNT_MISSING: {
+    nb: 'Mangler beløp',
+    en: 'Missing amount'
+  },
+
+  VALIDATE_BELOEP_AMOUNT_NOT_NUMERIC: {
+    nb: 'Oppgi beløp med kun tall med maks to tall etter komma',
+    en: 'Enter amounts with only numbers with a maximum of two numbers after the comma'
+  },
+
+  VALIDATE_BELOEP_AMOUNT_TOO_HIGH: {
+    nb: 'For høyt beløp',
+    en: 'Amount too high'
   }
 };
 
