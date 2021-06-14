@@ -3,12 +3,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import env from './config/environment';
-import { LoginStatus } from './context/login/LoginStatus';
 import {
   LanguageProvider,
   ArbeidsgiverStatus,
   ArbeidsgiverProvider,
-  LoginProvider
+  LoginProvider,
+  LoginStatus
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from './locale/Locales';
 import i18next from 'i18next';
