@@ -25,7 +25,6 @@ import { Omplassering } from './Omplassering';
 import environment from '../../config/environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
-import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Side from '../felles/Side/Side';
 import {
   Oversettelse,
@@ -33,7 +32,8 @@ import {
   LoggetUtAdvarsel,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr
+  Fnr,
+  ServerFeilAdvarsel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
