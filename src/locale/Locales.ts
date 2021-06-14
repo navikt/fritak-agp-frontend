@@ -246,7 +246,7 @@ const Locales: Record<LangKey, Locale> = {
   },
   GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT: {
     nb: 'Bekreft at opplysningene er korrekt',
-    en: 'Confirm that the information is correct'
+    en: 'Please confirm that the information is correct'
   },
   GRAVID_KRAV_SIDETITTEL_LITEN: {
     nb: 'Kravskjema',
@@ -660,6 +660,43 @@ const Locales: Record<LangKey, Locale> = {
   FEILMELDINGSPANEL: {
     nb: 'For å gå videre må du rette opp følgende:',
     en: 'To proceed, you must correct the following:'
+  },
+  VALIDATE_ORGNR_MISSSING: {
+    nb: 'Mangler virksomhetsnummer',
+    en: 'Missing business number'
+  },
+  VALIDATE_ORGNR_INVALID: {
+    nb: 'Ugyldig virksomhetsnummer',
+    en: 'Invalid business number'
+  },
+
+  VALIDATE_TIL_MISSING: {
+    nb: 'Mangler til dato',
+    en: 'Missing to date'
+  },
+
+  VALIDATE_TIL_INVALID: {
+    nb: 'Dato kan bare være fra og med $value',
+    en: 'Date can only be from $value'
+  },
+
+  VALIDATE_TIL_ERROR: {
+    nb: 'Feil dato',
+    en: 'Incorrect date'
+  },
+
+  VALIDATE_TIL_FOM_ERROR: {
+    nb: 'Feil dato',
+    en: 'Incorrect date'
+  },
+
+  VALIDATE_TIL_TOO_EARLY: {
+    nb: 'Til dato kan ikke være før fra dato',
+    en: 'To date can not be before from date'
+  },
+  VALIDATE_BEKREFT_NOT_CHECKED: {
+    nb: 'Bekreft at opplysningene er korrekt',
+    en: 'Confirm that the information is correct'
   }
 };
 

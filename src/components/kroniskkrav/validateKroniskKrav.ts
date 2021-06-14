@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import KroniskKravState from './KroniskKravState';
 import {
   formatValidation,
+  validateOrgnr,
   isValidFnr,
   pushFeilmelding,
   validateBekreft,
@@ -11,7 +12,6 @@ import {
 import validateFra from '../../validation/validateFra';
 import validateDager from '../../validation/validateDager';
 import validateBeloep from '../../validation/validateBeloep';
-import { validateOrgnr } from '../../validation/validateOrgnr';
 import { i18n } from 'i18next';
 
 const MIN_DATE = new Date(2021, 1, 1);
@@ -28,7 +28,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   if (state.fnr && !isValidFnr(state.fnr)) {
     nextState.fnrError = 'Ugyldig fødselsnummer';
   }
-  nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
+  nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
 
   nextState.perioder?.forEach((aktuellPeriode) => {
     aktuellPeriode.fraError = validateFra(aktuellPeriode.fra, !!state.validated);

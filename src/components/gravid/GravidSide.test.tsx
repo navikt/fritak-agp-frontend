@@ -197,7 +197,7 @@ describe('GravidSide', () => {
 
     expect(screen.getByText(/VALIDATE_FNR_MISSING/)).toBeInTheDocument();
     expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_FODSELSNUMMER/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler virksomhetsnummer/)).toBeInTheDocument();
+    expect(screen.getByText(/VALIDATE_ORGNR_MISSSING/)).toBeInTheDocument();
     expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER/)).toBeInTheDocument();
     expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_FEIL/)).toBeInTheDocument();
     expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL/)).toBeInTheDocument();

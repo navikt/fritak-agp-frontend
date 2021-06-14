@@ -1,11 +1,11 @@
 import KroniskState from './KroniskState';
-import { validateOrgnr } from '../../validation/validateOrgnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
 import { MAX_BESKRIVELSE } from './KroniskSide';
 import {
   pushFeilmelding,
+  validateOrgnr,
   isValidFnr,
   isValidOrgnr,
   validateFnr,
@@ -20,7 +20,7 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
   }
   const nextState = Object.assign({}, state);
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
-  nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
+  nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
   nextState.bekreftError = state.bekreft ? '' : 'Mangler bekreft';
   nextState.paakjenningerError =
     state.paakjenninger && state.paakjenninger.length > 0 ? '' : 'Må velge minst ett alternativ';

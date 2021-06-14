@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import GravidKravState from './GravidKravState';
 import {
   pushFeilmelding,
+  validateOrgnr,
   isValidFnr,
   validateFnr,
   formatValidation,
@@ -10,7 +11,6 @@ import {
 import validateFra from '../../validation/validateFra';
 import validateDager from '../../validation/validateDager';
 import validateBeloep from '../../validation/validateBeloep';
-import { validateOrgnr } from '../../validation/validateOrgnr';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
 
@@ -31,7 +31,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     nextState.fnrError = translate.t(LangKey.GRAVID_KRAV_VALIDERING_FNR_UGYLDIG);
   }
 
-  nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
+  nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
 
   if (nextState.fnrError) {
     pushFeilmelding('ansatteFeilmeldingId', translate.t(LangKey.GRAVID_KRAV_VALIDERING_FNR_MANGLER), feilmeldinger);

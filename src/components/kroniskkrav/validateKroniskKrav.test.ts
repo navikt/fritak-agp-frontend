@@ -1,9 +1,14 @@
 import { validateKroniskKrav } from './validateKroniskKrav';
 import { defaultKroniskKravState } from './KroniskKravState';
 import { parseDato } from '../../utils/dato/Dato';
-import i18n from 'i18next';
+import { languageInit } from '../../locale/languageInit';
+import i18next from 'i18next';
+import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import Locales from '../../locale/Locales';
 
 describe('validateKroniskKrav', () => {
+  const i18n = languageInit(i18next, Language.nb, Locales);
+
   it('should show fnr error when invalid', () => {
     const state = defaultKroniskKravState();
     state.validated = true;

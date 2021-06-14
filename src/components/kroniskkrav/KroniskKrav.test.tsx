@@ -52,18 +52,12 @@ describe('KroniskKrav', () => {
 
     submitButton.click();
 
-    expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler fra dato/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler til dato/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler dager/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler beløp/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Mangler fødselsnummer/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler fra dato/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler til dato/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler dager/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler beløp/).length).toBe(2);
     expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
-
-    expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Fra dato må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Til dato må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Dager må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Beløp må fylles ut/)).toBeInTheDocument();
   });
 
   it('should show warnings when input is missing, and the warning should dissapear when fixed', () => {
@@ -89,18 +83,12 @@ describe('KroniskKrav', () => {
 
     submitButton.click();
 
-    expect(screen.getByText(/Mangler fødselsnummer/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler fra dato/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler til dato/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler dager/)).toBeInTheDocument();
-    expect(screen.getByText(/Mangler beløp/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Mangler fødselsnummer/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler fra dato/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler til dato/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler dager/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler beløp/).length).toBe(2);
     expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
-
-    expect(screen.getByText(/Fødselsnummer må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Fra dato må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Til dato må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Dager må fylles ut/)).toBeInTheDocument();
-    expect(screen.getByText(/Beløp må fylles ut/)).toBeInTheDocument();
 
     userEvent.type(fnrInput, testFnr.GyldigeFraDolly.TestPerson1);
     expect(screen.queryByText(/Mangler fødselsnummer/)).not.toBeInTheDocument();

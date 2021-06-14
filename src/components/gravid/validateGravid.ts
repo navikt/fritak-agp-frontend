@@ -1,4 +1,3 @@
-import { validateOrgnr } from '../../validation/validateOrgnr';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
@@ -6,6 +5,7 @@ import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 import {
   pushFeilmelding,
   isValidOrgnr,
+  validateOrgnr,
   validateFnr,
   formatValidation
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
@@ -27,7 +27,7 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
     state.validated,
     translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TERMINDATO)
   );
-  nextState.orgnrError = validateOrgnr(state.orgnr, state.validated);
+  nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
   nextState.bekreftError = state.bekreft ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
     nextState.orgnrError = translate.t(LangKey.GRAVID_VALIDERING_UGYLDIG_ORGNR);
