@@ -697,6 +697,20 @@ const Locales: Record<LangKey, Locale> = {
   VALIDATE_BEKREFT_NOT_CHECKED: {
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Confirm that the information is correct'
+  },
+  VALIDATE_FRA_MISSING: {
+    nb: 'Mangler fra dato',
+    en: 'Missing from date'
+  },
+
+  VALIDATE_FRA_FOM_INVALID: {
+    nb: 'Dato kan bare være fra og med $value',
+    en: 'Date can only be from $value'
+  },
+
+  VALIDATE_FRA_FOM_ERROR: {
+    nb: 'Feil dato',
+    en: 'Incorrect date'
   }
 };
 

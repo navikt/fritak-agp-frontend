@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import KroniskKravState from './KroniskKravState';
 import {
   formatValidation,
+  validateFra,
   validateOrgnr,
   isValidFnr,
   pushFeilmelding,
@@ -9,7 +10,6 @@ import {
   validateFnr,
   validateTil
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
-import validateFra from '../../validation/validateFra';
 import validateDager from '../../validation/validateDager';
 import validateBeloep from '../../validation/validateBeloep';
 import { i18n } from 'i18next';
@@ -31,7 +31,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
 
   nextState.perioder?.forEach((aktuellPeriode) => {
-    aktuellPeriode.fraError = validateFra(aktuellPeriode.fra, !!state.validated);
+    aktuellPeriode.fraError = formatValidation(validateFra(aktuellPeriode.fra, MIN_DATE, !!state.validated), translate);
     aktuellPeriode.tilError = formatValidation(
       validateTil(aktuellPeriode.fra, aktuellPeriode.til, MIN_DATE, !!state.validated),
       translate
