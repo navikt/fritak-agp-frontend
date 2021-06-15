@@ -753,6 +753,58 @@ const Locales: Record<LangKey, Locale> = {
   KRONISK_KRAV_PERIODE_FORMAT: {
     nb: 'dd.mm.åååå',
     en: 'dd.mm.yyyy'
+  },
+  KRONISK_KRAV_INFO: {
+    nb:
+      'Dersom dere allerede har søkt om ' +
+      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeGravid}}) \n' +
+      'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på\n' +
+      'godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.',
+    en:
+      'Dersom dere allerede har søkt om ' +
+      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeGravid}}) \n' +
+      'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på\n' +
+      'godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.'
+  },
+  KRONISK_KRAV_EMPLOYEE: {
+    nb: 'Den ansatte',
+    en: 'Employee'
+  },
+  KRONISK_KRAV_PERIOD_AWAY: {
+    nb: 'Hvilken periode var den ansatte borte?',
+    en: 'What time was the employee not working?'
+  },
+  KRONISK_KRAV_ADD_PERIOD: {
+    nb: 'Legg til en fraværsperiode',
+    en: 'Add period'
+  },
+  KRONISK_KRAV_SUBMIT: {
+    nb: 'Send kravet',
+    en: 'Submit'
+  },
+  KRONISK_KRAV_TITLE: {
+    nb: 'Krav om refusjon av sykepenger i arbeidsgiverperioden',
+    en: 'Krav om refusjon av sykepenger i arbeidsgiverperioden'
+  },
+  KRONISK_KRAV_SUBTITLE: {
+    nb: 'KRONISK ELLER LANGVARIG SYK ANSATT',
+    en: 'KRONISK ELLER LANGVARIG SYK ANSATT'
+  },
+  KRONISK_KRAV_SIDETITTEL: {
+    nb: 'Kravskjema',
+    en: 'Form'
+  },
+  KRONISK_KRAV_PERIOD_INFO: {
+    nb:
+      '-##' +
+      '-- Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
+      '-- Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.' +
+      '##-',
+    en:
+      '-##' +
+      '-- Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
+      '-- Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.' +
+      '##-'
   }
 };
 

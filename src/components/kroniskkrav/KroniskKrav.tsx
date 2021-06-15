@@ -33,6 +33,7 @@ import {
   useArbeidsgiver
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
+import { KroniskKravKeys } from './KroniskKravKeys';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -115,18 +116,20 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     <Side
       bedriftsmeny={true}
       className='kroniskkrav'
-      sidetittel='Kravskjema'
-      title='Krav om refusjon av sykepenger i arbeidsgiverperioden'
-      subtitle='KRONISK ELLER LANGVARIG SYK ANSATT'
+      sidetittel={t(LangKey.KRONISK_KRAV_SIDETITTEL)}
+      title={t(LangKey.KRONISK_KRAV_TITLE)}
+      subtitle={t(LangKey.KRONISK_KRAV_SUBTITLE)}
     >
       <Row>
         <Column>
           <Panel>
             <Ingress className='textfelt-padding-bottom'>
-              Dersom dere allerede har søkt om{' '}
-              <Link to={buildLenke(lenker.Gravid, language)}>at NAV skal dekke sykepenger i arbeidsgiverperioden</Link>
-              kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på
-              godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.
+              <Oversettelse
+                langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
+                variables={{
+                  lenkeGravid: buildLenke(lenker.Gravid, language)
+                }}
+              />
             </Ingress>
             <Ingress>
               <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
@@ -135,7 +138,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Skillelinje />
 
           <Panel id='kroniskkrav-panel-den-ansatte'>
-            <Systemtittel className='textfelt-padding-bottom'>Den ansatte</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.KRONISK_KRAV_EMPLOYEE)}</Systemtittel>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
@@ -161,15 +164,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
             <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.KRONISK_KRAV_ARBEIDSTID_TAPT)}</Systemtittel>
             <Ingress tag='span' className='textfelt-padding-bottom'>
-              Hvilken periode var den ansatte borte?
+              {t(LangKey.KRONISK_KRAV_PERIOD_AWAY)}
               <Hjelpetekst className='krav-padding-hjelpetekst'>
-                <ul>
-                  <li>Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.</li>
-                  <li>
-                    Du må velge <strong>både</strong> første og siste dag. Er fraværet bare på én dag, velger du samme
-                    dag to ganger.
-                  </li>
-                </ul>
+                <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIOD_INFO} />
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
@@ -184,7 +181,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             </SkjemaGruppe>
           </Panel>
           <Lenke href='#' onClick={leggTilPeriode}>
-            + Legg til en fraværsperiode
+            + {t(LangKey.KRONISK_KRAV_ADD_PERIOD)}
           </Lenke>
           <Skillelinje />
 
@@ -203,7 +200,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              Send kravet
+              {t(LangKey.KRONISK_KRAV_SUBMIT)}
             </Hovedknapp>
           </Panel>
         </Column>

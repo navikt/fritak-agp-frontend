@@ -4,10 +4,14 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import mockHistory from './mockData/mockHistory';
-import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ArbeidsgiverProvider, ArbeidsgiverStatus, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { languageInit } from './locale/languageInit';
+import i18next from 'i18next';
+import Locales from './locale/Locales';
 
 describe('ApplicationRoutes', () => {
+  //languageInit(i18next, Language.nb, Locales);
   let container = document.createElement('div');
 
   beforeEach(() => {
@@ -103,8 +107,8 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/kronisk/krav'), container);
     });
-    expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYK ANSATT');
-    expect(container.textContent).toContain('Krav om refusjon av sykepenger i arbeidsgiverperioden');
+    expect(container.textContent).toContain('KRONISK_KRAV_SUBTITLE');
+    expect(container.textContent).toContain('KRONISK_KRAV_TITLE');
   });
   it('should show kronisk krav kvittering', () => {
     act(() => {
