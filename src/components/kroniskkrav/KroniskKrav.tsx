@@ -16,7 +16,6 @@ import { Actions, KroniskKravAction } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
-import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
@@ -24,6 +23,7 @@ import PathParams from '../../locale/PathParams';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import {
+  Side,
   LoggetUtAdvarsel,
   Oversettelse,
   BekreftOpplysningerPanel,

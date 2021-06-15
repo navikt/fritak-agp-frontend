@@ -24,8 +24,8 @@ import { Omplassering } from './Omplassering';
 import environment from '../../config/environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
-import Side from '../felles/Side/Side';
 import {
+  Side,
   Oversettelse,
   DatoVelger,
   LoggetUtAdvarsel,

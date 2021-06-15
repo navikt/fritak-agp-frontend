@@ -21,10 +21,10 @@ import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import KvitteringLink from './KvitteringLink';
-import Side from '../felles/Side/Side';
 import LangKey from '../../locale/LangKey';
 import lenker from '../../config/lenker';
 import {
+  Side,
   LoggetUtAdvarsel,
   Oversettelse,
   BekreftOpplysningerPanel,
@@ -43,7 +43,7 @@ const buildReducer =
     KroniskReducer(bulkState, action, Translate);
 
 const KroniskSide = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
@@ -124,9 +124,9 @@ const KroniskSide = () => {
                   <Systemtittel>Den ansatte</Systemtittel>
                   <br />
                   <Fnr
-                    label='Fødselsnummer (11 siffer)'
+                    label={t(LangKey.FODSELSNUMMER_LABEL)}
                     fnr={state.fnr}
-                    placeholder='11 siffer'
+                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
                     onValidate={() => {}}
                     onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
@@ -136,9 +136,9 @@ const KroniskSide = () => {
                   <Systemtittel>Arbeidsgiveren</Systemtittel>
                   <br />
                   <Orgnr
-                    label='Virksomhetsnummer'
+                    label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                     orgnr={state.orgnr}
-                    placeholder='9 siffer'
+                    placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
                     feilmelding={state.orgnrError}
                     onChange={(orgnr: string) =>
                       dispatch({

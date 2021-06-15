@@ -20,7 +20,6 @@ import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import SelectDager from '../felles/SelectDager/SelectDager';
-import Side from '../felles/Side/Side';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
@@ -29,6 +28,7 @@ import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
 import { i18n } from 'i18next';
 import {
+  Side,
   LeggTilKnapp,
   Slettknapp,
   Oversettelse,
