@@ -5,7 +5,6 @@ import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
-import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 
@@ -80,7 +79,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Validate:
       nextState.validated = true;
       const validatedState = validateGravidKrav(nextState, translate);
-      validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(nextState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
@@ -93,14 +91,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.progress = false;
       nextState.submitting = false;
       return mapResponse(payload.response, nextState, mapGravidKravFeilmeldinger) as GravidKravState;
-
-    case Actions.OpenKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = true;
-      return nextState;
-
-    case Actions.CloseKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = false;
-      return nextState;
 
     case Actions.Grunnbeloep:
       setGrunnbeloep(payload, nextState);

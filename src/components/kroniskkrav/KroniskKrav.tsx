@@ -1,10 +1,10 @@
 import React, { Reducer, useEffect, useReducer } from 'react';
-import { Ingress, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Link, Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
@@ -16,10 +16,9 @@ import { Actions, KroniskKravAction } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
-import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
+import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
 import PathParams from '../../locale/PathParams';
-import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import {
   Side,
@@ -29,7 +28,8 @@ import {
   Feilmeldingspanel,
   Fnr,
   Skillelinje,
-  useArbeidsgiver
+  useArbeidsgiver,
+  stringishToNumber
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
@@ -50,13 +50,8 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     dispatch({ type: Actions.NotAuthorized });
   };
 
-  const closeKontrollsporsmaalLonn = () => {
-    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
-  };
-
-  const closeKontrollsporsmaalLonnDager = (dager: number | undefined) => {
-    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: dager } });
-    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
+  const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
+    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: stringishToNumber(dager) } });
   };
 
   const handleSubmitClicked = async () => {
@@ -79,12 +74,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   }, [arbeidsgiverId]);
 
   useEffect(() => {
-    if (
-      state.validated === true &&
-      state.progress === true &&
-      state.submitting === true &&
-      state.isOpenKontrollsporsmaalLonn === false
-    ) {
+    if (state.validated === true && state.progress === true && state.submitting === true) {
       postKroniskKrav(
         environment.baseUrl,
         mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.kontrollDager)
@@ -104,7 +94,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.fnr,
     state.bekreft,
     state.orgnr,
-    state.isOpenKontrollsporsmaalLonn,
     state.kontrollDager
   ]);
 
@@ -132,7 +121,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               />
             </Ingress>
             <Ingress>
-              <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
+              <Oversettelse langKey={KroniskKravKeys.ALLE_FELT_PAKREVD} />
             </Ingress>
           </Panel>
           <Skillelinje />
@@ -143,9 +132,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
-                    label={t(LangKey.FODSELSNUMMER_LABEL)}
+                    label={t(KroniskKravKeys.FODSELSNUMMER_LABEL)}
                     fnr={state.fnr}
-                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+                    placeholder={t(KroniskKravKeys.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
                     onChange={(fnr: string) =>
                       dispatch({
@@ -154,6 +143,20 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                       })
                     }
                   />
+                </Column>
+                <Column sm='4' xs='6'>
+                  <Label htmlFor='kontrollsporsmaal-lonn-arbeidsdager'>{t(KroniskKravKeys.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
+                  <Input
+                    id='kontrollsporsmaal-lonn-arbeidsdager'
+                    bredde='XS'
+                    inputMode='numeric'
+                    pattern='[0-9]*'
+                    className='kontrollsporsmaal-lonn-arbeidsdager'
+                    onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+                  />
+                  <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
+                    {t(KroniskKravKeys.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
+                  </Normaltekst>
                 </Column>
               </Row>
             </SkjemaGruppe>
@@ -182,11 +185,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               ))}
             </SkjemaGruppe>
           </Panel>
-
-          <Panel>
-            <InternLenke onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</InternLenke>
-          </Panel>
-
+          <Lenke href='#' onClick={leggTilPeriode}>
+            + {t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}
+          </Lenke>
           <Skillelinje />
 
           <BekreftOpplysningerPanel
@@ -216,11 +217,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           />
         )}
       </Row>
-      <KontrollsporsmaalLonn
-        onClose={closeKontrollsporsmaalLonnDager}
-        isOpen={state.isOpenKontrollsporsmaalLonn}
-        onCancelClick={closeKontrollsporsmaalLonn}
-      />
     </Side>
   );
 };

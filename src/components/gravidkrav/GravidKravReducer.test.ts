@@ -403,28 +403,6 @@ describe('GravidKravReducer', () => {
     expect(state.kontrollDager).toEqual(0);
   });
 
-  it('should set isOpenKontrollsporsmaalLonn to false when CloseKontrollsporsmaalLonn is action', () => {
-    let state = GravidKravReducer(
-      defaultGravidKravState(),
-      {
-        type: Actions.CloseKontrollsporsmaalLonn
-      },
-      translationMock as unknown as i18n
-    );
-    expect(state.isOpenKontrollsporsmaalLonn).toBeFalsy();
-  });
-
-  it('should set isOpenKontrollsporsmaalLonn to true when OpenKontrollsporsmaalLonn is action', () => {
-    let state = GravidKravReducer(
-      defaultGravidKravState(),
-      {
-        type: Actions.OpenKontrollsporsmaalLonn
-      },
-      translationMock as unknown as i18n
-    );
-    expect(state.isOpenKontrollsporsmaalLonn).toBeTruthy();
-  });
-
   it('should reset to defaults', () => {
     const defaultState = defaultGravidKravState();
     let state = GravidKravReducer(defaultState, { type: Actions.Reset }, translationMock as unknown as i18n);
@@ -448,10 +426,6 @@ describe('GravidKravReducer', () => {
   });
 
   it('should throw un undefined action', () => {
-    // GravidKravReducer(defaultGravidKravState(), {
-    //   type: Actions.OpenKontrollsporsmaalLonn
-    // },
-    // translationMock as unknown as i18n);
     expect(() => {
       GravidKravReducer(
         defaultGravidKravState(),

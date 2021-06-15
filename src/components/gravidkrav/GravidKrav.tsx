@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, Reducer } from 'react';
-import { Ingress, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
@@ -19,12 +19,10 @@ import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import SelectDager from '../felles/SelectDager/SelectDager';
-import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
-import LangKey from '../../locale/LangKey';
 import { i18n } from 'i18next';
 import {
   Side,
@@ -42,6 +40,7 @@ import {
   Upload
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
+import LangKey from '../../locale/LangKey';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -62,13 +61,8 @@ export const GravidKrav = (props: GravidKravProps) => {
     dispatch({ type: Actions.NotAuthorized });
   };
 
-  const closeKontrollsporsmaalLonn = () => {
-    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
-  };
-
-  const closeKontrollsporsmaalLonnDager = (dager: number | undefined) => {
-    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: dager } });
-    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
+  const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
+    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: stringishToNumber(dager) } });
   };
 
   const handleUploadChanged = (file?: File) => {
@@ -123,12 +117,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   }, [arbeidsgiverId]);
 
   useEffect(() => {
-    if (
-      state.validated === true &&
-      state.progress === true &&
-      state.submitting === true &&
-      state.isOpenKontrollsporsmaalLonn === false
-    ) {
+    if (state.validated === true && state.progress === true && state.submitting === true) {
       postGravidKrav(
         environment.baseUrl,
         mapGravidKravRequest(
@@ -156,8 +145,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.kontrollDager,
-    state.isOpenKontrollsporsmaalLonn
+    state.kontrollDager
   ]);
 
   if (!!state.kvittering) {
@@ -203,6 +191,21 @@ export const GravidKrav = (props: GravidKravProps) => {
                       })
                     }
                   />
+                </Column>
+                <Column sm='4' xs='6'>
+                  <Label htmlFor='kontrollsporsmaal-lonn-arbeidsdager'>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
+                  <Input
+                    id='kontrollsporsmaal-lonn-arbeidsdager'
+                    bredde='XS'
+                    inputMode='numeric'
+                    pattern='[0-9]*'
+                    // defaultValue={dager}
+                    className='kontrollsporsmaal-lonn-arbeidsdager'
+                    onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+                  />
+                  <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
+                    {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
+                  </Normaltekst>
                 </Column>
               </Row>
             </SkjemaGruppe>
@@ -275,7 +278,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                   </Column>
                   <Column sm='2' xs='6'>
                     <Label htmlFor={'belop-' + periode.uniqueKey}>
-                      {t(LangKey.BELOP)}
+                      {t(GravidKravKeys.GRAVID_KRAV_BELOP_TEXT)}
                       <Hjelpetekst className='krav-padding-hjelpetekst'>
                         <Systemtittel>{t(GravidKravKeys.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
                         <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_BELOP_HJELPETEKST} />
@@ -383,11 +386,6 @@ export const GravidKrav = (props: GravidKravProps) => {
           />
         )}
       </Row>
-      <KontrollsporsmaalLonn
-        onClose={closeKontrollsporsmaalLonnDager}
-        isOpen={state.isOpenKontrollsporsmaalLonn}
-        onCancelClick={closeKontrollsporsmaalLonn}
-      />
     </Side>
   );
 };

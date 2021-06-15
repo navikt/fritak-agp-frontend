@@ -28,13 +28,13 @@ describe('mapPeriodeData', () => {
         fom: '2020-02-01',
         tom: '2025-04-03',
         antallDagerMedRefusjon: 5,
-        beloep: 3000
+        månedsinntekt: 3000
       },
       {
         fom: '2020-02-23',
         tom: '2025-04-24',
         antallDagerMedRefusjon: 7,
-        beloep: 3500
+        månedsinntekt: 3500
       }
     ]);
   });
@@ -64,13 +64,13 @@ describe('mapPeriodeData', () => {
         fom: '2020-02-01',
         tom: '2025-04-03',
         antallDagerMedRefusjon: 5,
-        beloep: 3000
+        månedsinntekt: 3000
       },
       {
         fom: '2020-02-23',
         tom: '2025-04-24',
         antallDagerMedRefusjon: 0,
-        beloep: 0
+        månedsinntekt: 0
       }
     ]);
   });

@@ -168,7 +168,7 @@ describe('mapKroniskKravRequest', () => {
           fom: '2020-02-01',
           tom: '2025-04-03',
           antallDagerMedRefusjon: 5,
-          beloep: 3000
+          månedsinntekt: 3000
         }
       ] as [Arbeidsgiverperiode],
       bekreftet: true
@@ -199,11 +199,11 @@ describe('mapKroniskKravRequest', () => {
           fom: '2020-02-01',
           tom: '2025-04-03',
           antallDagerMedRefusjon: 5,
-          beloep: 3000
+          månedsinntekt: 3000
         }
       ] as [Arbeidsgiverperiode],
       bekreftet: true,
-      kontrollDager: 120
+      antallDager: 120
     } as KroniskKravRequest);
   });
 });

@@ -46,6 +46,6 @@ export const mapKroniskKravRequest = (
     virksomhetsnummer: orgnr,
     perioder: periodeData as [Arbeidsgiverperiode],
     bekreftet: bekreft,
-    kontrollDager: kontrollDager
+    antallDager: kontrollDager
   };
 };

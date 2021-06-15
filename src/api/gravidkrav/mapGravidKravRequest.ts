@@ -40,7 +40,7 @@ export const mapGravidKravRequest = (
     fom: datoToString(periode.fom),
     tom: datoToString(periode.tom),
     antallDagerMedRefusjon: periode.dager || 0,
-    beloep: Number(periode.beloep || 0)
+    månedsinntekt: Number(periode.beloep || 0)
   }));
 
   return {
@@ -49,6 +49,6 @@ export const mapGravidKravRequest = (
     perioder: arbeidsgiverPerioder,
     dokumentasjon: dokumentasjon,
     bekreftet: bekreft,
-    kontrollDager: kontrollDager
+    antallDager: kontrollDager
   };
 };

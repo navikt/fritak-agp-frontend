@@ -6,8 +6,13 @@ import mapResponse from '../../state/validation/mapResponse';
 import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import setGrunnbeloep from './setGrunnbeloep';
-import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 import { i18n } from 'i18next';
+
+const checkItemId = (itemId?: string) => {
+  if (itemId === undefined) {
+    throw new Error('itemId kan ikke være undefined');
+  }
+};
 
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, translate: i18n): KroniskKravState => {
   const nextState = Object.assign({}, state);
@@ -75,7 +80,6 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Validate:
       nextState.validated = true;
       const validatedState = validateKroniskKrav(nextState, translate);
-      validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(validatedState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
@@ -89,16 +93,14 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.submitting = false;
       return mapResponse(payload.response, nextState, mapKroniskKravFeilmeldinger) as KroniskKravState;
 
-    case Actions.OpenKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = true;
-      return nextState;
-
-    case Actions.CloseKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = false;
-      return nextState;
-
     case Actions.Grunnbeloep:
       setGrunnbeloep(payload, nextState);
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.grunnbeloep = payload?.grunnbeloep
+        ? payload.grunnbeloep
+        : undefined;
+
       return nextState;
 
     case Actions.KontrollDager:

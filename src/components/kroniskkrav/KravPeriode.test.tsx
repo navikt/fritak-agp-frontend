@@ -22,9 +22,9 @@ describe('KravPeriode', () => {
     render(<KravPeriode dispatch={mockDispatch} index={0} enkeltPeriode={enkeltPeriode} />);
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).not.toBeInTheDocument();
     expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row periodewrapper');
   });
@@ -36,7 +36,7 @@ describe('KravPeriode', () => {
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
     expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row hide-labels periodewrapper');
   });
@@ -50,7 +50,7 @@ describe('KravPeriode', () => {
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
   });
 
@@ -64,7 +64,7 @@ describe('KravPeriode', () => {
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(slettButton).toBeInTheDocument();
 
     slettButton?.click();

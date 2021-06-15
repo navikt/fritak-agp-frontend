@@ -185,7 +185,7 @@ describe('mapGravidKravRequest', () => {
         ],
         'dokumentasjon',
         true,
-        undefined
+        5
       )
     ).toEqual({
       identitetsnummer: '123',
@@ -195,11 +195,12 @@ describe('mapGravidKravRequest', () => {
           fom: '2020-02-01',
           tom: '2025-04-03',
           antallDagerMedRefusjon: 5,
-          beloep: 3000
+          månedsinntekt: 3000
         } as Arbeidsgiverperiode
       ],
       dokumentasjon: 'dokumentasjon',
-      bekreftet: true
+      bekreftet: true,
+      antallDager: 5
     } as GravidKravRequest);
   });
 
@@ -229,12 +230,12 @@ describe('mapGravidKravRequest', () => {
           fom: '2020-02-01',
           tom: '2025-04-03',
           antallDagerMedRefusjon: 5,
-          beloep: 3000
+          månedsinntekt: 3000
         } as Arbeidsgiverperiode
       ],
       dokumentasjon: 'dokumentasjon',
       bekreftet: true,
-      kontrollDager: 120
+      antallDager: 120
     } as GravidKravRequest);
   });
 });

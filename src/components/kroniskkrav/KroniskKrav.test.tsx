@@ -11,9 +11,12 @@ import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
+import { languageInit } from '../../locale/languageInit';
+import Language from '../../locale/Language';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 jest.unmock('react-i18next');
+const i18n = languageInit(i18next, Language.nb, Locales);
 
 describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {
@@ -77,8 +80,8 @@ describe('KroniskKrav', () => {
     );
     const submitButton = screen.getByText(/Send kravet/);
     const fnrInput = screen.getByLabelText(/Fødselsnummer/);
-    const selectDager = screen.queryAllByLabelText(/Antall dager/)[1];
-    const BelopInput = screen.queryAllByLabelText(/Beløp/)[1];
+    const selectDager = screen.getAllByLabelText(/Antall dager/)[1];
+    const BelopInput = screen.queryAllByLabelText(/Beregnet månedsinntekt/)[1];
     const bekreftCheckbox = screen.getByText(/Jeg bekrefter at/);
 
     submitButton.click();

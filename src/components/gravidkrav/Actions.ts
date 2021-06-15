@@ -15,8 +15,6 @@ export enum Actions {
   HandleResponse,
   Kvittering,
   NotAuthorized,
-  CloseKontrollsporsmaalLonn,
-  OpenKontrollsporsmaalLonn,
   Grunnbeloep,
   KontrollDager,
   AddPeriode,

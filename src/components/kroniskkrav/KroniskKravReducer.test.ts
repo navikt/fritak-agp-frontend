@@ -287,11 +287,14 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set Grunnbeloep to 345 when grunnbeloep is 14950', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Grunnbeloep,
-        payload: { grunnbeloep: 14950 }
+        payload: { grunnbeloep: 14950, itemId }
       },
       i18n
     );
@@ -299,11 +302,14 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set Grunnbeloep to undefined when 0 is given as param', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Grunnbeloep,
-        payload: { grunnbeloep: 0 }
+        payload: { grunnbeloep: 0, itemId }
       },
       i18n
     );
@@ -334,28 +340,6 @@ describe('KroniskKravReducer', () => {
     expect(state.kontrollDager).toEqual(0);
   });
 
-  it('should set isOpenKontrollsporsmaalLonn to false when CloseKontrollsporsmaalLonn is action', () => {
-    let state = KroniskKravReducer(
-      defaultKroniskKravState(),
-      {
-        type: Actions.CloseKontrollsporsmaalLonn
-      },
-      i18n
-    );
-    expect(state.isOpenKontrollsporsmaalLonn).toBeFalsy();
-  });
-
-  it('should set isOpenKontrollsporsmaalLonn to true when OpenKontrollsporsmaalLonn is action', () => {
-    let state = KroniskKravReducer(
-      defaultKroniskKravState(),
-      {
-        type: Actions.OpenKontrollsporsmaalLonn
-      },
-      i18n
-    );
-    expect(state.isOpenKontrollsporsmaalLonn).toBeTruthy();
-  });
-
   it('should reset to defaults', () => {
     const defaultState = defaultKroniskKravState();
     let state = KroniskKravReducer(defaultState, { type: Actions.Reset }, i18n);
@@ -381,13 +365,6 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should throw un undefined action', () => {
-    KroniskKravReducer(
-      defaultKroniskKravState(),
-      {
-        type: Actions.OpenKontrollsporsmaalLonn
-      },
-      i18n
-    );
     expect(() => {
       KroniskKravReducer(
         defaultKroniskKravState(),

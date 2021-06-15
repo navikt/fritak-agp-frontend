@@ -15,7 +15,6 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
         }
       ],
       bekreft: false,
-      isOpenKontrollsporsmaalLonn: false,
       feilmeldinger: Array<FeiloppsummeringFeil>()
     },
     state || {}
@@ -39,7 +38,6 @@ export default interface KroniskKravState extends ValidationState {
   login?: boolean;
   notAuthorized?: boolean;
   submitting?: boolean;
-  isOpenKontrollsporsmaalLonn?: boolean;
   gDagsbeloep?: number;
   kontrollDager?: number;
 }
@@ -53,5 +51,6 @@ export interface KroniskKravPeriode {
   dagerError?: string;
   beloep?: number;
   beloepError?: string;
+  grunnbeloep?: number;
   uniqueKey?: string;
 }

@@ -1,8 +1,7 @@
-import { DatoVelger, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { DatoVelger, InternLenke, Oversettelse, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
 import { Column, Row } from 'nav-frontend-grid';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import Lenke from 'nav-frontend-lenker';
 import { Input, Label } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
@@ -12,13 +11,30 @@ import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
-import { KroniskKravKeys } from './KroniskKravKeys';
+import LangKey from '../../locale/LangKey';
 
 interface KravPeriodeProps {
   dispatch: any;
   enkeltPeriode: KroniskKravPeriode;
   index: number;
 }
+
+const beregnRefusjon = (enkeltPeriode: KroniskKravPeriode): number => {
+  if (!enkeltPeriode.beloep || !enkeltPeriode.dager || !enkeltPeriode.grunnbeloep) {
+    return 0;
+  }
+
+  const aarsBeloep = enkeltPeriode.beloep * 12;
+  const aarsGrunnbeloep = enkeltPeriode.grunnbeloep * 6;
+
+  if (aarsBeloep > aarsGrunnbeloep) {
+    const gRefusjon = (aarsGrunnbeloep / 260) * enkeltPeriode.dager;
+    return Math.round((gRefusjon + Number.EPSILON) * 100) / 100;
+  } else {
+    const aarsRefusjon = (aarsBeloep / 260) * enkeltPeriode.dager;
+    return Math.round((aarsRefusjon + Number.EPSILON) * 100) / 100;
+  }
+};
 
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
@@ -40,7 +56,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
           dispatch({
             type: Actions.Grunnbeloep,
             payload: {
-              grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep
+              grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep,
+              itemId: props.enkeltPeriode.uniqueKey
             }
           });
         }
@@ -55,27 +72,29 @@ const KravPeriode = (props: KravPeriodeProps) => {
     });
   };
 
+  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode);
+
   return (
     <Row
       className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}
       data-testid='krav-periode-wrapper'
     >
-      <Column sm='3' xs='6'>
+      <Column sm='2' xs='6'>
         <DatoVelger
           id={`fra-dato-${props.index}`}
-          placeholder={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_FORMAT)}
-          label={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_FRA)}
+          placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
+          label={t(LangKey.KRONISK_KRAV_PERIODE_FRA)}
           onChange={(fraDato: Date) => {
             fraDatoValgt(fraDato, props.index);
           }}
           feilmelding={props.enkeltPeriode.fraError}
         />
       </Column>
-      <Column sm='3' xs='6'>
+      <Column sm='2' xs='6'>
         <DatoVelger
           id={`til-dato-${props.index}`}
-          placeholder={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_FORMAT)}
-          label={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_TIL)}
+          placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
+          label={t(LangKey.KRONISK_KRAV_PERIODE_TIL)}
           onChange={(tilDate: Date) => {
             dispatch({
               type: Actions.Til,
@@ -88,11 +107,11 @@ const KravPeriode = (props: KravPeriodeProps) => {
           feilmelding={props.enkeltPeriode.tilError}
         />
       </Column>
-      <Column sm='2' xs='6'>
+      <Column sm='1' xs='6'>
         <Label htmlFor={`dager-${props.index}`}>
-          Antall dager
+          {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
           <Hjelpetekst className='krav-padding-hjelpetekst'>
-            Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
+            {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
           </Hjelpetekst>
         </Label>
         <SelectDager
@@ -112,24 +131,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
       </Column>
       <Column sm='2' xs='6'>
         <Label htmlFor={`belop-${props.index}`}>
-          Beløp
+          {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TEXT)}
           <Hjelpetekst className='krav-padding-hjelpetekst'>
-            <Systemtittel>Slik finner dere beløpet dere kan kreve:</Systemtittel>
-            <ul>
-              <li>
-                Merk: Beløpet er før skatt, og det skal være uten feriepenger og arbeidsgiveravgift. Det beregnes
-                feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste år.
-              </li>
-              <li>
-                Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt lønn. Helger
-                og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
-              </li>
-              <li>Beregn månedsinntekten slik det ellers gjøres for sykepenger i arbeidsgiverperioden.</li>
-              <li>Gang med 12 måneder for å finne årslønnen.</li>
-              <li>Reduser beløpet til 6G hvis beløpet er over dette.</li>
-              <li>Finn dagsatsen ved å dele årslønnen på antall dager dere utbetaler lønn for i året.</li>
-              <li>Gang dagsatsen med antall dager dere krever refusjon for.</li>
-            </ul>
+            <Systemtittel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</Systemtittel>
+            <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
           </Hjelpetekst>
         </Label>
         <Input
@@ -150,11 +155,20 @@ const KravPeriode = (props: KravPeriodeProps) => {
           feil={props.enkeltPeriode.beloepError}
         />
       </Column>
-      <Column>
+      <Column sm='2' xs='6'>
+        <Label htmlFor={`belop-${props.index}`}>
+          {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
+          <Hjelpetekst className='krav-padding-hjelpetekst'>
+            <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
+          </Hjelpetekst>
+        </Label>
+        <div>{beregnetRefusjon} kr</div>
+      </Column>
+      <Column sm='2' xs='6'>
         {props.index > 0 && (
-          <Lenke href='#' onClick={() => fjernPeriode(props.index)} className='slett-periode'>
+          <InternLenke onClick={() => fjernPeriode(props.index)} className='slett-periode'>
             Slett
-          </Lenke>
+          </InternLenke>
         )}
       </Column>
     </Row>

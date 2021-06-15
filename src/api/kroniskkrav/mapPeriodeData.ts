@@ -6,7 +6,7 @@ const mapPeriodeData = (perioder: KroniskKravPeriode[]) => {
     fom: datoToString(enkeltPeriode.fra),
     tom: datoToString(enkeltPeriode.til),
     antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
-    beloep: enkeltPeriode.beloep ?? 0
+    månedsinntekt: enkeltPeriode.beloep ?? 0
   }));
 };
 
