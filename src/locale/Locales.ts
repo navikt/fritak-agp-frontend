@@ -265,13 +265,13 @@ const Locales: Record<LangKey, Locale> = {
       '_Fraværet må skyldes svangerskapet_\n' +
       'Fraværet dere søker refusjon for, må skyldes helseplager i svangerskapet.\n\n' +
       '_Send kravet før søknaden er behandlet_\n' +
-      'Vi anbefaler at dere sender dette refusjonskravet før selve [søknaden]({{lenkeGravid}}) er ferdig behandlet. ' +
+      'Vi anbefaler at dere sender dette refusjonskravet før selve [søknaden]({{-lenkeGravid}}) er ferdig behandlet. ' +
       'Slik unngår dere at kravet blir foreldet.',
     en:
       '_Period of absence must be caused by the pregnancy_\n' +
       'The period of absence you are seeking reimbursement from, must be caused by health issues during pregnancy. \n\n' +
       '_Send claim before the application has been processed_\n' +
-      'We recommend that you send the claim before the application has been processed. ' +
+      'We recommend that you send the claim before the [application]({{-lenkeGravid}}) has been processed. ' +
       'So you avoid it becoming obsolete.'
   },
   GRAVID_KRAV_ARBEIDSTID_TAPT: {
