@@ -480,15 +480,15 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'For å gå videre må du rette opp følgende:',
     en: 'To proceed, you must correct the following:'
   },
-  INGEN_TILGANG_ADVARSEL_TEKST: {
-    nb: 'Du har ikke rettigheter til å søke om refusjon for noen bedrifter\n' + 'Tildeling av roller foregår i Altinn',
+  INGEN_TILGANG_ADVARSEL: {
+    nb:
+      'Du har ikke rettigheter til å søke om refusjon for noen bedrifter\n' +
+      'Tildeling av roller foregår i Altinn\n' +
+      '[Les mer om roller og tilganger](https://arbeidsgiver.nav.no/min-side-arbeidsgiver/informasjon-om-tilgangsstyring)',
     en:
-      'You do not have the right to apply for a refund for any companies.\n' +
-      'Assignment of roles takes place in Altinn'
-  },
-  INGEN_TILGANG_ADVARSEL_LENKE: {
-    nb: 'Les mer om roller og tilganger.',
-    en: 'Read more about roles and accesses.'
+      'You do not have the rights to apply for reimbursement for any companies\n' +
+      'Assignment of roles takes place in Altinn\n' +
+      '[Read more about roles and accesses](https://arbeidsgiver.nav.no/min-side-arbeidsgiver/informasjon-om-tilgangsstyring)'
   },
   LOGGET_UT_ADVARSEL_TITTEL: {
     nb: 'Du er blitt logget ut, følg instruksjonene for ikke å miste data',
