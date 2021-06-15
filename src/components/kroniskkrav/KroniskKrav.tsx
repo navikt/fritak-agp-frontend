@@ -124,7 +124,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Panel>
             <Ingress className='textfelt-padding-bottom'>
               Dersom dere allerede har søkt om{' '}
-              <Link to={lenker.Gravid}>at NAV skal dekke sykepenger i arbeidsgiverperioden</Link>
+              <Link to={buildLenke(lenker.Gravid, language)}>at NAV skal dekke sykepenger i arbeidsgiverperioden</Link>
               kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på
               godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.
             </Ingress>
