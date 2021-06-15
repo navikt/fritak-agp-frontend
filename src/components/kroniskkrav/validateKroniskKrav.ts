@@ -33,7 +33,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       validateTil(aktuellPeriode.fra, aktuellPeriode.til, MIN_DATE, !!state.validated),
       translate
     );
-    aktuellPeriode.dagerError = validateDager(aktuellPeriode.dager, !!state.validated);
+    aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
     aktuellPeriode.beloepError = formatValidation(
       validateBeloep(aktuellPeriode.beloep ? '' + aktuellPeriode.beloep : undefined, MAX, !!state.validated),
       translate

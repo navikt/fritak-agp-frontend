@@ -38,7 +38,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
       validateTil(periode.fom, periode.tom, MIN_DATE, !!nextState.validated),
       translate
     );
-    periode.dagerError = validateDager(periode.dager, !!nextState.validated);
+    periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
     periode.beloepError = formatValidation(validateBeloep('' + periode.beloep, MAX, !!nextState.validated), translate);
 
     if (periode.fomError) {

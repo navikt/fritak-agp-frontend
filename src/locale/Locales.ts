@@ -390,10 +390,6 @@ const Locales: Record<LangKey, Locale> = {
     nb: 'Beløp må fylles ut',
     en: 'Amount has to be filled out'
   },
-  GRAVID_KRAV_VALIDERING_BEKREFT_KORREKT: {
-    nb: 'Bekreft at opplysningene er korrekt',
-    en: 'Confirm that the information is correct'
-  },
   GRAVID_KRAV_LEGG_TIL_PERIODE: {
     nb: '+ Legg til en fraværsperiode',
     en: '+ Add an absence period'
@@ -696,7 +692,7 @@ const Locales: Record<LangKey, Locale> = {
   },
   VALIDATE_BEKREFT_NOT_CHECKED: {
     nb: 'Bekreft at opplysningene er korrekt',
-    en: 'Confirm that the information is correct'
+    en: 'Please confirm that the information is correct'
   },
   VALIDATE_FRA_MISSING: {
     nb: 'Mangler fra dato',
@@ -805,6 +801,14 @@ const Locales: Record<LangKey, Locale> = {
       '-- Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
       '-- Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.' +
       '##-'
+  },
+  VALIDATE_DAGER_REQUIRED: {
+    nb: 'Må fylles ut',
+    en: 'Required'
+  },
+  VALIDATE_DAGER_MISSING: {
+    nb: 'Mangler dager',
+    en: 'Missing days'
   }
 };
 
