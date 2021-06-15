@@ -35,7 +35,7 @@
   "dependencies": {
     "@navikt/bedriftsmeny": "3.x",
     "@navikt/fnrvalidator": "1.x",
-    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.2.2",
+    "@navikt/helse-arbeidsgiver-felles-frontend": "^0.2.3",
     "@navikt/nav-dekoratoren-moduler": "1.x",
     "@sentry/browser": "6.x",
     "dayjs": "1.x",

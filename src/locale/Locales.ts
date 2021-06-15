@@ -725,6 +725,34 @@ const Locales: Record<LangKey, Locale> = {
   VALIDATE_BELOEP_AMOUNT_TOO_HIGH: {
     nb: 'For høyt beløp',
     en: 'Amount too high'
+  },
+  UPLOAD_TOO_BIG: {
+    nb: 'Filen er for stor',
+    en: 'File size too big'
+  },
+  UPLOAD_DELETE: {
+    nb: 'Slett',
+    en: 'Delete'
+  },
+  UPLOAD_FILENAME: {
+    nb: 'Lastet opp:',
+    en: 'Filename:'
+  },
+  SIDE_MIN_SIDE_ARBEIDSGIVER: {
+    en: 'My page',
+    nb: 'Min side arbeidsgiver'
+  },
+  KRONISK_KRAV_PERIODE_FRA: {
+    nb: 'Fra dato',
+    en: 'From date'
+  },
+  KRONISK_KRAV_PERIODE_TIL: {
+    nb: 'Til dato',
+    en: 'To date'
+  },
+  KRONISK_KRAV_PERIODE_FORMAT: {
+    nb: 'dd.mm.åååå',
+    en: 'dd.mm.yyyy'
   }
 };
 

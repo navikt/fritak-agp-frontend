@@ -3,7 +3,6 @@ import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
-import Upload from '../felles/Upload/Upload';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
@@ -39,7 +38,8 @@ import {
   Feilmeldingspanel,
   Fnr,
   Skillelinje,
-  useArbeidsgiver
+  useArbeidsgiver,
+  Upload
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const GravidKrav = (props: GravidKravProps) => {
@@ -345,6 +345,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                 label={t(LangKey.GRAVID_KRAV_LAST_OPP)}
                 extensions='.pdf'
                 onChange={handleUploadChanged}
+                fileSize={5000000}
                 onDelete={handleDelete}
               />
             </SkjemaGruppe>

@@ -5,7 +5,6 @@ import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Upload from '../felles/Upload/Upload';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -26,6 +25,7 @@ import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
 import {
   Side,
+  Upload,
   Oversettelse,
   DatoVelger,
   LoggetUtAdvarsel,
@@ -374,8 +374,9 @@ const GravidSide = (props: GravidSideProps) => {
                     >
                       <Oversettelse langKey={LangKey.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
                       <Upload
-                        className='knapp-innsending-top'
                         id='upload'
+                        fileSize={5000000}
+                        className={''}
                         label={t(LangKey.GRAVID_SIDE_OPPLASTINGSKNAPP)}
                         extensions='.pdf'
                         onChange={handleUploadChanged}

@@ -6,10 +6,16 @@ import KravPeriode from './KravPeriode';
 
 import { KroniskKravPeriode } from './KroniskKravState';
 import { Actions } from './Actions';
+import { languageInit } from '../../locale/languageInit';
+import i18next from 'i18next';
+import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import Locales from '../../locale/Locales';
 
 const enkeltPeriode: KroniskKravPeriode = {};
 
 describe('KravPeriode', () => {
+  const i18n = languageInit(i18next, Language.nb, Locales);
+
   it('should show first row', async () => {
     const mockDispatch = jest.fn();
 

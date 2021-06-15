@@ -4,7 +4,6 @@ import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
-import Upload from '../felles/Upload/Upload';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -25,6 +24,7 @@ import LangKey from '../../locale/LangKey';
 import lenker from '../../config/lenker';
 import {
   Side,
+  Upload,
   LoggetUtAdvarsel,
   Oversettelse,
   BekreftOpplysningerPanel,
@@ -273,6 +273,7 @@ const KroniskSide = () => {
                 label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
                 extensions='.pdf'
                 onChange={handleUploadChanged}
+                fileSize={5000000}
                 onDelete={handleDelete}
               />
             </SkjemaGruppe>
