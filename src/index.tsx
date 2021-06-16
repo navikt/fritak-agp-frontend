@@ -25,6 +25,7 @@ import 'nav-frontend-tabell-style/dist/main.css';
 import '@navikt/helse-arbeidsgiver-felles-frontend/dist/library.css';
 import env, { EnvironmentType } from './config/environment';
 import { version } from '../package.json';
+import './components/felles/Upload/Upload.sass';
 
 if (env.environmentMode !== EnvironmentType.LOCAL) {
   Sentry.init({
