@@ -1,11 +1,37 @@
 import LangKey from './LangKey';
+import {
+  BekreftOpplysningerKeys,
+  FeilmeldingspanelKeys,
+  IngenTilgangAdvarselKeys,
+  KvitteringKeys,
+  LoggetUtAdvarselKeys,
+  PageNotFoundKeys,
+  ServerFeilAdvarselKeys,
+  TilgangsfeilSideKeys,
+  TokenFornyetKeys,
+  UploadKeys
+} from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { KroniskKravKeys } from '../components/kroniskkrav/KroniskKravKeys';
+import { KroniskKravPeriodeKeys } from '../components/kroniskkrav/KroniskKravPeriodeKeys';
 
 export interface Locale {
   en: string;
   nb: string;
 }
 
-const Locales: Record<LangKey, Locale> = {
+const Locales: Record<
+  LangKey | UploadKeys | BekreftOpplysningerKeys,
+  // FeilmeldingspanelKeys |
+  // IngenTilgangAdvarselKeys |
+  // LoggetUtAdvarselKeys |
+  // TilgangsfeilSideKeys |
+  // TokenFornyetKeys |
+  // PageNotFoundKeys |
+  // ServerFeilAdvarselKeys |
+  // KroniskKravKeys |
+  // KroniskKravPeriodeKeys
+  Locale
+> = {
   BEKREFTOPPLYSNINGER_BEKREFT_LABEL: {
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
