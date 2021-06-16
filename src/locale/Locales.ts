@@ -6,10 +6,6 @@ export interface Locale {
 }
 
 const Locales: Record<LangKey, Locale> = {
-  ADD: {
-    nb: 'Legg til enda en ansatt',
-    en: 'Add another employee'
-  },
   BEKREFTOPPLYSNINGER_BEKREFT_LABEL: {
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
@@ -771,8 +767,8 @@ const Locales: Record<LangKey, Locale> = {
     en: 'What time was the employee not working?'
   },
   KRONISK_KRAV_ADD_PERIOD: {
-    nb: 'Legg til en fraværsperiode',
-    en: 'Add period'
+    nb: '+ Legg til en fraværsperiode',
+    en: '+ Add period'
   },
   KRONISK_KRAV_SUBMIT: {
     nb: 'Send kravet',
