@@ -36,12 +36,6 @@ const Locales: Record<
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
   },
-  BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER: {
-    nb: 'Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis opplysningene ikke er riktige eller fullstendige.',
-    en:
-      'I know that NAV can withdraw the right to be reimbursed for sickness benefits during the employer period if the ' +
-      'information is not correct or complete.'
-  },
   GRAVID_SIDE_UNDERTITTEL: {
     nb: 'Gravid ansatt',
     en: 'Pregnant employee'
@@ -49,6 +43,12 @@ const Locales: Record<
   GRAVID_SIDE_TITTEL: {
     nb: 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden',
     en: 'Application for NAV to cover sickness benefits during the employer period'
+  },
+  BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER: {
+    nb: 'Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis opplysningene ikke er riktige eller fullstendige.',
+    en:
+      'I know that NAV can withdraw the right to be reimbursed for sickness benefits during the employer period if the ' +
+      'information is not correct or complete.'
   },
   GRAVID_SIDE_INGRESS: {
     nb:
@@ -415,6 +415,14 @@ const Locales: Record<
   GRAVID_KRAV_LEGG_TIL_PERIODE: {
     nb: '+ Legg til en fraværsperiode',
     en: '+ Add an absence period'
+  },
+  KRONISK_SIDE_TITTEL: {
+    nb: 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden',
+    en: 'Application for NAV to cover sickness benefits during the employer period'
+  },
+  KRONISK_SIDE_UNDERTITTEL: {
+    nb: 'KRONISK ELLER LANGVARIG SYKDOM',
+    en: 'CHRONIC OR LONGTERM ILLNESS'
   },
   KRONISK_SIDE_INGRESS: {
     nb:

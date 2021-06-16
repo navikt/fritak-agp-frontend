@@ -104,9 +104,9 @@ const KroniskSide = () => {
     <Side
       bedriftsmeny={false}
       className='kronisk-side'
-      sidetittel='Søknadsskjema'
-      title='Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'
-      subtitle='KRONISK ELLER LANGVARIG SYKDOM'
+      sidetittel={t(LangKey.SOKNADSSKJEMA)}
+      title={t(LangKey.KRONISK_SIDE_TITTEL)}
+      subtitle={t(LangKey.KRONISK_SIDE_UNDERTITTEL)}
     >
       <Row>
         <Column>
