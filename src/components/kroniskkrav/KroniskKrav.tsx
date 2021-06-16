@@ -17,7 +17,6 @@ import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
 import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
-import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
 import PathParams from '../../locale/PathParams';
 import LangKey from '../../locale/LangKey';
@@ -34,6 +33,7 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
+import InternLenke from '../felles/InternLenke/InternLenke';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -180,9 +180,11 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               ))}
             </SkjemaGruppe>
           </Panel>
-          <Lenke href='#' onClick={leggTilPeriode}>
-            + {t(LangKey.KRONISK_KRAV_ADD_PERIOD)}
-          </Lenke>
+
+          <Panel>
+            <InternLenke onClick={leggTilPeriode}>{t(LangKey.KRONISK_KRAV_ADD_PERIOD)}</InternLenke>
+          </Panel>
+
           <Skillelinje />
 
           <BekreftOpplysningerPanel
