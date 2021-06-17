@@ -34,6 +34,7 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { KroniskSideKeys } from './KroniskSideKeys';
 
 export const MAX_BESKRIVELSE = 2000;
 
@@ -112,7 +113,7 @@ const KroniskSide = () => {
         <Column>
           <Panel>
             <Ingress>
-              <Oversettelse langKey={LangKey.KRONISK_SIDE_INGRESS} />
+              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_INGRESS} />
             </Ingress>
           </Panel>
           <Skillelinje />
@@ -158,7 +159,7 @@ const KroniskSide = () => {
             <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
             <br />
             <SkjemaGruppe>
-              <Oversettelse langKey={LangKey.KRONISK_SIDE_ARBEIDSMILJO_INGRESS} />
+              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO_INGRESS} />
               <br />
               <br />
 

@@ -15,6 +15,17 @@ interface KontrollsporsmaalLonnProps {
   onCancelClick: () => void;
 }
 
+export enum KontrollsporsmaalLonnKeys {
+  KONTROLLSPORSMAL_LONN_CONTENT_LABEL = 'KONTROLLSPORSMAL_LONN_CONTENT_LABEL',
+  KONTROLLSPORSMAL_LONN_TITTEL = 'KONTROLLSPORSMAL_LONN_TITTEL',
+  KONTROLLSPORSMAL_LONN_INGRESS = 'KONTROLLSPORSMAL_LONN_INGRESS',
+  KONTROLLSPORSMAL_LONN_DAGER = 'KONTROLLSPORSMAL_LONN_DAGER',
+  KONTROLLSPORSMAL_LONN_GRUNNBELOP = 'KONTROLLSPORSMAL_LONN_GRUNNBELOP',
+  KONTROLLSPORSMAL_LONN_FORKLARING_DAGER = 'KONTROLLSPORSMAL_LONN_FORKLARING_DAGER',
+  KONTROLLSPORSMAL_LONN_SEND = 'KONTROLLSPORSMAL_LONN_SEND',
+  KONTROLLSPORSMAL_LONN_AVBRYT = 'KONTROLLSPORSMAL_LONN_AVBRYT'
+}
+
 const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
   const [dager, setDager] = useState<number | undefined>(undefined);
   const inputId = uuid();
@@ -36,20 +47,22 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
   return (
     <ModalWrapper
       onRequestClose={onRequestClose}
-      contentLabel={t(LangKey.KONTROLLSPORSMAL_LONN_CONTENT_LABEL)}
+      contentLabel={t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_CONTENT_LABEL)}
       className='kontrollsporsmaal-lonn kontrollsporsmaal-lonn-bigair'
       closeButton={false}
       isOpen={!!props.isOpen}
     >
       <Innholdstittel className='textfelt-padding-dobbel-bottom'>
-        {t(LangKey.KONTROLLSPORSMAL_LONN_TITTEL)}
+        {t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_TITTEL)}
       </Innholdstittel>
-      <Normaltekst>{t(LangKey.KONTROLLSPORSMAL_LONN_INGRESS)}</Normaltekst>
-      <Normaltekst className='textfelt-padding-bottom'>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Normaltekst>
-      <Normaltekst className='textfelt-padding-dobbel-bottom'>
-        {t(LangKey.KONTROLLSPORSMAL_LONN_GRUNNBELOP)}
+      <Normaltekst>{t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_INGRESS)}</Normaltekst>
+      <Normaltekst className='textfelt-padding-bottom'>
+        {t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_DAGER)}
       </Normaltekst>
-      <Label htmlFor={inputId}>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
+      <Normaltekst className='textfelt-padding-dobbel-bottom'>
+        {t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_GRUNNBELOP)}
+      </Normaltekst>
+      <Label htmlFor={inputId}>{t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
       <div className='kontrollsporsmaal-lonn-input-wrapper textfelt-padding-dobbel-bottom'>
         <Input
           id={inputId}
@@ -61,12 +74,12 @@ const KontrollsporsmaalLonn = (props: KontrollsporsmaalLonnProps) => {
           onChange={(event) => setDager(Number(event.target.value))}
         />
         <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-          {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
+          {t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
         </Normaltekst>
       </div>
-      <Hovedknapp onClick={onRequestCloseClick}>{t(LangKey.KONTROLLSPORSMAL_LONN_SEND)}</Hovedknapp>
+      <Hovedknapp onClick={onRequestCloseClick}>{t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_SEND)}</Hovedknapp>
       <InternLenke onClick={onCancelClick} className='kontrollsporsmaal-lonn-lenke'>
-        {t(LangKey.KONTROLLSPORSMAL_LONN_AVBRYT)}
+        {t(KontrollsporsmaalLonnKeys.KONTROLLSPORSMAL_LONN_AVBRYT)}
       </InternLenke>
     </ModalWrapper>
   );

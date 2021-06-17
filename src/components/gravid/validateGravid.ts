@@ -11,8 +11,8 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
-import LangKey from '../../locale/LangKey';
 import validateTermindato from '../../validation/validateTermindato';
+import { GravidSideKeys } from './GravidSideKeys';
 
 export const validateGravid = (state: GravidState, translate: i18n): GravidState => {
   if (!state.validated) {
@@ -25,39 +25,39 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   nextState.termindatoError = validateTermindato(
     state.termindato,
     state.validated,
-    translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TERMINDATO)
+    translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TERMINDATO)
   );
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
-  nextState.bekreftError = state.bekreft ? translate.t(LangKey.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
+  nextState.bekreftError = state.bekreft ? translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
-    nextState.orgnrError = translate.t(LangKey.GRAVID_VALIDERING_UGYLDIG_ORGNR);
+    nextState.orgnrError = translate.t(GravidSideKeys.GRAVID_VALIDERING_UGYLDIG_ORGNR);
   }
 
   if (nextState.fnrError) {
-    pushFeilmelding('fnr', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_FODSELSNUMMER), feilmeldinger);
+    pushFeilmelding('fnr', translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_FODSELSNUMMER), feilmeldinger);
   }
   if (nextState.orgnrError) {
-    pushFeilmelding('orgnr', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER), feilmeldinger);
+    pushFeilmelding('orgnr', translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_VIRKSOMHETSNUMMER), feilmeldinger);
   }
 
   if (nextState.termindatoError) {
-    pushFeilmelding('termindato', translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TERMINDATO), feilmeldinger);
+    pushFeilmelding('termindato', translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TERMINDATO), feilmeldinger);
   }
 
   if (!state.videre) {
     if (nextState.tilrettelegge == undefined) {
       pushFeilmelding(
         'tilretteleggeFeilmeldingId',
-        translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILRETTELEGGING),
+        translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TILRETTELEGGING),
         feilmeldinger
       );
     }
 
     if (nextState.tiltak == undefined || nextState.tiltak.length == 0) {
-      nextState.tiltakError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_FEIL);
+      nextState.tiltakError = translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TILTAK_FEIL);
       pushFeilmelding(
         'tiltakFeilmeldingId',
-        translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL),
+        translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL),
         feilmeldinger
       );
     } else {
@@ -65,19 +65,22 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
       nextState.tiltakBeskrivelseError = undefined;
       if (nextState.tiltak.includes(Tiltak.ANNET)) {
         if (!nextState.tiltakBeskrivelse) {
-          nextState.tiltakError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL);
+          nextState.tiltakError = translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TILTAK_TITTEL);
           pushFeilmelding(
             'tiltakFeilmeldingId',
-            translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE),
+            translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE),
             feilmeldinger
           );
         } else if (nextState.tiltakBeskrivelse.length > MAX_TILTAK_BESKRIVELSE) {
-          nextState.tiltakBeskrivelseError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE_GRENSE, {
-            maxLengde: MAX_TILTAK_BESKRIVELSE
-          });
+          nextState.tiltakBeskrivelseError = translate.t(
+            GravidSideKeys.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE_GRENSE,
+            {
+              maxLengde: MAX_TILTAK_BESKRIVELSE
+            }
+          );
           pushFeilmelding(
             'tiltakFeilmeldingId',
-            translate.t(LangKey.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE),
+            translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TILTAK_BESKRIVELSE),
             feilmeldinger
           );
         }
@@ -85,17 +88,17 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
     }
 
     if (nextState.omplassering == undefined) {
-      nextState.omplasseringError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL);
+      nextState.omplasseringError = translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL);
       pushFeilmelding(
         'omplasseringFeilmeldingId',
-        translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL),
+        translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_OMPLASSERING_TITTEL),
         feilmeldinger
       );
     } else if (nextState.omplassering === Omplassering.IKKE_MULIG && nextState.omplasseringAarsak === undefined) {
-      nextState.omplasseringError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_ARSAK);
+      nextState.omplasseringError = translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_OMPLASSERING_ARSAK);
       pushFeilmelding(
         'omplasseringFeilmeldingId',
-        translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_UMULIG),
+        translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_OMPLASSERING_UMULIG),
         feilmeldinger
       );
     } else {
@@ -104,10 +107,10 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   }
 
   if (!nextState.bekreft) {
-    nextState.bekreftError = translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT);
+    nextState.bekreftError = translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT);
     pushFeilmelding(
       'bekreftFeilmeldingId',
-      translate.t(LangKey.GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT),
+      translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT),
       feilmeldinger
     );
   }

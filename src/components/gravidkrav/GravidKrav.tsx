@@ -41,6 +41,7 @@ import {
   useArbeidsgiver,
   Upload
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { GravidKravKeys } from './GravidKravKeys';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -168,15 +169,15 @@ export const GravidKrav = (props: GravidKravProps) => {
     <Side
       bedriftsmeny={true}
       className='gravidkrav'
-      sidetittel={t(LangKey.GRAVID_KRAV_SIDETITTEL_LITEN)}
-      title={t(LangKey.GRAVID_KRAV_SIDETITTEL_STOR)}
-      subtitle={t(LangKey.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
+      sidetittel={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_LITEN)}
+      title={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR)}
+      subtitle={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
     >
       <Row>
         <Column>
           <Panel>
             <Ingress className='textfelt-padding-bottom'>
-              <Oversettelse langKey={LangKey.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
+              <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
             </Ingress>
             <Ingress>
               <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
@@ -210,11 +211,13 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.GRAVID_KRAV_ARBEIDSTID_TAPT)}</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>
+              {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
+            </Systemtittel>
             <Ingress tag='span' className='textfelt-padding-bottom'>
-              {t(LangKey.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
+              {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
               <Hjelpetekst className='krav-padding-hjelpetekst'>
-                <Oversettelse langKey={LangKey.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
+                <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
@@ -250,9 +253,9 @@ export const GravidKrav = (props: GravidKravProps) => {
                   </Column>
                   <Column sm='2' xs='6'>
                     <Label htmlFor={'dager-' + periode.uniqueKey}>
-                      {t(LangKey.GRAVID_KRAV_DAGER_ANTALL)}
+                      {t(GravidKravKeys.GRAVID_KRAV_DAGER_ANTALL)}
                       <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        {t(LangKey.GRAVID_KRAV_DAGER_HJELPETEKST)}
+                        {t(GravidKravKeys.GRAVID_KRAV_DAGER_HJELPETEKST)}
                       </Hjelpetekst>
                     </Label>
                     <SelectDager
@@ -274,8 +277,8 @@ export const GravidKrav = (props: GravidKravProps) => {
                     <Label htmlFor={'belop-' + periode.uniqueKey}>
                       {t(LangKey.BELOP)}
                       <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        <Systemtittel>{t(LangKey.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
-                        <Oversettelse langKey={LangKey.GRAVID_KRAV_BELOP_HJELPETEKST} />
+                        <Systemtittel>{t(GravidKravKeys.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
+                        <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_BELOP_HJELPETEKST} />
                       </Hjelpetekst>
                     </Label>
                     <Input
@@ -323,7 +326,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                         });
                       }}
                     >
-                      {t(LangKey.GRAVID_KRAV_LEGG_TIL_PERIODE)}
+                      {t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}
                     </LeggTilKnapp>
                   )}
                 </Column>
@@ -335,14 +338,14 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel>
             <Systemtittel className='textfelt-padding-bottom'>
-              {t(LangKey.GRAVID_KRAV_DOKUMENTASJON_TITTEL)}
+              {t(GravidKravKeys.GRAVID_KRAV_DOKUMENTASJON_TITTEL)}
             </Systemtittel>
-            <Oversettelse langKey={LangKey.GRAVID_KRAV_DOKUMENTASJON_INGRESS} />
+            <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_DOKUMENTASJON_INGRESS} />
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
               <Upload
                 className='knapp-innsending-top'
                 id='upload'
-                label={t(LangKey.GRAVID_KRAV_LAST_OPP)}
+                label={t(GravidKravKeys.GRAVID_KRAV_LAST_OPP)}
                 extensions='.pdf'
                 onChange={handleUploadChanged}
                 fileSize={5000000}
@@ -368,7 +371,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              {t(LangKey.GRAVID_KRAV_LONN_SEND)}
+              {t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)}
             </Hovedknapp>
           </Panel>
         </Column>

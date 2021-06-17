@@ -116,9 +116,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     <Side
       bedriftsmeny={true}
       className='kroniskkrav'
-      sidetittel={t(LangKey.KRONISK_KRAV_SIDETITTEL)}
-      title={t(LangKey.KRONISK_KRAV_TITLE)}
-      subtitle={t(LangKey.KRONISK_KRAV_SUBTITLE)}
+      sidetittel={t(KroniskKravKeys.KRONISK_KRAV_SIDETITTEL)}
+      title={t(KroniskKravKeys.KRONISK_KRAV_TITLE)}
+      subtitle={t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE)}
     >
       <Row>
         <Column>
@@ -138,7 +138,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Skillelinje />
 
           <Panel id='kroniskkrav-panel-den-ansatte'>
-            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.KRONISK_KRAV_EMPLOYEE)}</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>{t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}</Systemtittel>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
@@ -162,11 +162,13 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Skillelinje />
 
           <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.KRONISK_KRAV_ARBEIDSTID_TAPT)}</Systemtittel>
+            <Systemtittel className='textfelt-padding-bottom'>
+              {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
+            </Systemtittel>
             <Ingress tag='span' className='textfelt-padding-bottom'>
-              {t(LangKey.KRONISK_KRAV_PERIOD_AWAY)}
+              {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
               <Hjelpetekst className='krav-padding-hjelpetekst'>
-                <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIOD_INFO} />
+                <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
@@ -182,7 +184,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           </Panel>
 
           <Panel>
-            <InternLenke onClick={leggTilPeriode}>{t(LangKey.KRONISK_KRAV_ADD_PERIOD)}</InternLenke>
+            <InternLenke onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</InternLenke>
           </Panel>
 
           <Skillelinje />
@@ -202,7 +204,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              {t(LangKey.KRONISK_KRAV_SUBMIT)}
+              {t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}
             </Hovedknapp>
           </Panel>
         </Column>

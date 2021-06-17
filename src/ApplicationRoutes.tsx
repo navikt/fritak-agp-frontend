@@ -6,7 +6,6 @@ import KroniskSide from './components/kronisk/KroniskSide';
 import KroniskKvittering from './components/kronisk/KroniskKvittering';
 import GravidKrav from './components/gravidkrav/GravidKrav';
 import KroniskKrav from './components/kroniskkrav/KroniskKrav';
-import TokenFornyet from './components/felles/login/TokenFornyet';
 import KravKvittering from './components/kravkvittering/KravKvittering';
 import Forside from './components/Forside';
 import React from 'react';
@@ -14,6 +13,7 @@ import { GravidSoknadController } from './components/notifikasjon/gravid/soknad/
 import { GravidKravController } from './components/notifikasjon/gravid/krav/GravidKravController';
 import { KroniskSoknadController } from './components/notifikasjon/kronisk/soknad/KroniskSoknadController';
 import { KroniskKravController } from './components/notifikasjon/kronisk/krav/KroniskKravController';
+import { TokenFornyet } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const ApplicationRoutes = () => (
   <div className='application-routes'>

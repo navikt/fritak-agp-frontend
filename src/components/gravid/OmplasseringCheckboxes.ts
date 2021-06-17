@@ -1,5 +1,6 @@
 import LangKey from '../../locale/LangKey';
 import { Omplassering } from './Omplassering';
+import { GravidSideKeys } from './GravidSideKeys';
 
 const OmplasseringCheckboxes = [
   {
@@ -11,7 +12,7 @@ const OmplasseringCheckboxes = [
     value: Omplassering.NEI
   },
   {
-    label: LangKey.GRAVID_SIDE_OMPLASSERING_IKKE_MULIG,
+    label: GravidSideKeys.GRAVID_SIDE_OMPLASSERING_IKKE_MULIG,
     value: Omplassering.IKKE_MULIG
   }
 ];

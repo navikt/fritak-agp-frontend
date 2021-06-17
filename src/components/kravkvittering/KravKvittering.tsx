@@ -6,20 +6,20 @@ import Lenke from 'nav-frontend-lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import { Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { KravKvitteringKeys } from './KravKvitteringKeys';
 
 const KravKvittering = () => {
   const { t } = useTranslation();
-
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
       <Row>
         <Panel>
           <Panel>
-            <Sidetittel>{t(LangKey.KRAV_KVITTERING_TITTEL)}</Sidetittel>
+            <Sidetittel>{t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}</Sidetittel>
           </Panel>
 
           <Panel>
-            <Oversettelse langKey={LangKey.KRAV_KVITTERING_INGRESS} />
+            <Oversettelse langKey={KravKvitteringKeys.KRAV_KVITTERING_INGRESS} />
           </Panel>
 
           <Panel>

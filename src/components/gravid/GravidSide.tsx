@@ -39,6 +39,7 @@ import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
 import lenker from '../../config/lenker';
+import { GravidSideKeys } from './GravidSideKeys';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -126,8 +127,8 @@ const GravidSide = (props: GravidSideProps) => {
       bedriftsmeny={false}
       className='gravid-side'
       sidetittel={t(LangKey.SOKNADSSKJEMA)}
-      title={t(LangKey.GRAVID_SIDE_TITTEL)}
-      subtitle={t(LangKey.GRAVID_SIDE_UNDERTITTEL)}
+      title={t(GravidSideKeys.GRAVID_SIDE_TITTEL)}
+      subtitle={t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL)}
     >
       <Row>
         <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
@@ -140,7 +141,7 @@ const GravidSide = (props: GravidSideProps) => {
             <div>
               <Panel>
                 <Ingress>
-                  <Oversettelse langKey={LangKey.GRAVID_SIDE_INGRESS} />
+                  <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_INGRESS} />
                 </Ingress>
               </Panel>
 
@@ -172,7 +173,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <DatoVelger
                         className='termindato'
                         id='termindato'
-                        label={t(LangKey.GRAVID_SIDE_TERMINDATO)}
+                        label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
                         feilmelding={state.termindatoError}
                         onChange={(termindato: Date) => {
                           dispatch({
@@ -207,12 +208,12 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel className='gravidside-panel-arbeidssituasjon'>
                 <Row>
                   <Column sm='8' xs='12'>
-                    <Systemtittel>{t(LangKey.GRAVID_SIDE_ARBEIDSMILJO)}</Systemtittel>
+                    <Systemtittel>{t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}</Systemtittel>
                     <br />
                     <SkjemaGruppe>
-                      <Oversettelse langKey={LangKey.GRAVID_SIDE_ARBEIDSMILJO_INGRESS} />
+                      <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS} />
                       <RadioGruppe
-                        legend={t(LangKey.GRAVID_SIDE_TILRETTELEGGING)}
+                        legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
                         className='gravidside-radiogruppe-tilrettelegging'
                       >
                         <Radio
@@ -250,7 +251,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Row>
                     <Column sm='8' xs='12'>
                       <CheckboxGruppe
-                        legend={t(LangKey.GRAVID_SIDE_TILTAK_TITTEL)}
+                        legend={t(GravidSideKeys.GRAVID_SIDE_TILTAK_TITTEL)}
                         feil={state.tiltakError}
                         feilmeldingId='tiltakFeilmeldingId'
                       >
@@ -292,7 +293,7 @@ const GravidSide = (props: GravidSideProps) => {
                   </Row>
                   <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
                     <div className='gravid-side-radiogruppe-omplassering'>
-                      <RadioGruppe legend={t(LangKey.GRAVID_SIDE_OMPLASSERING_TITTEL)}>
+                      <RadioGruppe legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_TITTEL)}>
                         {OmplasseringCheckboxes.map((a) => {
                           return (
                             <Radio
@@ -340,7 +341,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Panel className='gravidside-panel-alert-gravid'>
                       <Alertstripe className='gravidside-alert-gravid' type='advarsel'>
                         <Normaltekst>
-                          {t(LangKey.GRAVID_SIDE_IKKE_KOMPLETT_1)}
+                          {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
                           <button
                             className='lenke gravidside-lenke-knapp'
                             onClick={() =>
@@ -350,9 +351,9 @@ const GravidSide = (props: GravidSideProps) => {
                               })
                             }
                           >
-                            {t(LangKey.GRAVID_SIDE_IKKE_KOMPLETT_2)}
+                            {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_2)}
                           </button>
-                          {t(LangKey.GRAVID_SIDE_IKKE_KOMPLETT_3)}
+                          {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
                         </Normaltekst>
                       </Alertstripe>
                     </Panel>
@@ -365,19 +366,19 @@ const GravidSide = (props: GravidSideProps) => {
                   <Skillelinje />
 
                   <Panel>
-                    <Systemtittel>{t(LangKey.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}</Systemtittel>
+                    <Systemtittel>{t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}</Systemtittel>
                     <br />
                     <SkjemaGruppe
                       feil={state.dokumentasjonError}
                       feilmeldingId='dokumentasjonFeilmeldingId'
                       aria-live='polite'
                     >
-                      <Oversettelse langKey={LangKey.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
+                      <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
                       <Upload
                         id='upload'
                         fileSize={5000000}
                         className={''}
-                        label={t(LangKey.GRAVID_SIDE_OPPLASTINGSKNAPP)}
+                        label={t(GravidSideKeys.GRAVID_SIDE_OPPLASTINGSKNAPP)}
                         extensions='.pdf'
                         onChange={handleUploadChanged}
                         onDelete={handleDelete}
@@ -401,7 +402,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
                   <Panel>
-                    <Hovedknapp onClick={handleSubmitClicked}>{t(LangKey.GRAVID_SIDE_SEND_SOKNAD)}</Hovedknapp>
+                    <Hovedknapp onClick={handleSubmitClicked}>{t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}</Hovedknapp>
                   </Panel>
                 </>
               )}

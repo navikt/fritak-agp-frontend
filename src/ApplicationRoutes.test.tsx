@@ -44,7 +44,7 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/token-fornyet'), container);
     });
-    expect(container.textContent).toContain('TOKEN_FORNYET_INNHOLDSTITTEL');
+    expect(container.textContent).toContain('TOKEN_FORNYET_SIDETITTEL');
   });
 
   it('should show gravid søknad', () => {

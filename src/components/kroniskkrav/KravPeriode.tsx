@@ -12,7 +12,7 @@ import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
-import { KroniskKravPeriodeKeys } from './KroniskKravPeriodeKeys';
+import { KroniskKravKeys } from './KroniskKravKeys';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -63,8 +63,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
       <Column sm='3' xs='6'>
         <DatoVelger
           id={`fra-dato-${props.index}`}
-          placeholder={t(KroniskKravPeriodeKeys.KRONISK_KRAV_PERIODE_FORMAT)}
-          label={t(KroniskKravPeriodeKeys.KRONISK_KRAV_PERIODE_FRA)}
+          placeholder={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_FORMAT)}
+          label={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_FRA)}
           onChange={(fraDato: Date) => {
             fraDatoValgt(fraDato, props.index);
           }}
@@ -74,8 +74,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
       <Column sm='3' xs='6'>
         <DatoVelger
           id={`til-dato-${props.index}`}
-          placeholder={t(KroniskKravPeriodeKeys.KRONISK_KRAV_PERIODE_FORMAT)}
-          label={t(KroniskKravPeriodeKeys.KRONISK_KRAV_PERIODE_TIL)}
+          placeholder={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_FORMAT)}
+          label={t(KroniskKravKeys.KRONISK_KRAV_PERIODE_TIL)}
           onChange={(tilDate: Date) => {
             dispatch({
               type: Actions.Til,

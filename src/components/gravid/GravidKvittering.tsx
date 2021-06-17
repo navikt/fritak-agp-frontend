@@ -6,32 +6,33 @@ import Lenke from 'nav-frontend-lenker';
 import lenker from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { GravidKvitteringKeys } from './GravidKvitteringKeys';
 
 const GravidKvittering = () => {
   return (
     <Panel className='gravid-soknad-kvittering'>
       <Panel>
         <Sidetittel>
-          <Oversettelse langKey={LangKey.GRAVID_KVITTERING_TITTEL} />
+          <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_TITTEL} />
         </Sidetittel>
       </Panel>
 
       <Panel>
         <Normaltekst>
-          <Oversettelse langKey={LangKey.GRAVID_KVITTERING_INGRESS} />
+          <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_INGRESS} />
         </Normaltekst>
       </Panel>
 
       <Panel>
         <Alertstripe type='advarsel'>
-          <Oversettelse langKey={LangKey.GRAVID_KVITTERING_ADVARSEL} />
+          <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
         </Alertstripe>
       </Panel>
 
       <Panel>
         <div>
           <Lenke href={lenker.GravidKrav}>
-            <Oversettelse langKey={LangKey.GRAVID_KVITTERING_KRAV} />
+            <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_KRAV} />
           </Lenke>
         </div>
         <div>

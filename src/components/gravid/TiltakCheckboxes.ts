@@ -1,24 +1,24 @@
-import LangKey from '../../locale/LangKey';
 import { Tiltak } from './Tiltak';
+import { GravidSideKeys } from './GravidSideKeys';
 
 const TiltakCheckboxes = [
   {
-    label: LangKey.GRAVID_SIDE_TILTAK_FLEKS,
+    label: GravidSideKeys.GRAVID_SIDE_TILTAK_FLEKS,
     value: Tiltak.TILPASSET_ARBEIDSTID,
     id: 'arbeidstid'
   },
   {
-    label: LangKey.GRAVID_SIDE_TILTAK_HJEMMEKONTOR,
+    label: GravidSideKeys.GRAVID_SIDE_TILTAK_HJEMMEKONTOR,
     value: Tiltak.HJEMMEKONTOR,
     id: 'hjemmekontor'
   },
   {
-    label: LangKey.GRAVID_SIDE_TILTAK_OPPGAVER,
+    label: GravidSideKeys.GRAVID_SIDE_TILTAK_OPPGAVER,
     value: Tiltak.TILPASSEDE_ARBEIDSOPPGAVER,
     id: 'oppgaver'
   },
   {
-    label: LangKey.GRAVID_SIDE_TILTAK_ANNET,
+    label: GravidSideKeys.GRAVID_SIDE_TILTAK_ANNET,
     value: Tiltak.ANNET,
     id: 'annet'
   }

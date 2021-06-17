@@ -3,16 +3,28 @@ import {
   BekreftOpplysningerKeys,
   FeilmeldingspanelKeys,
   IngenTilgangAdvarselKeys,
-  KvitteringKeys,
   LoggetUtAdvarselKeys,
   PageNotFoundKeys,
   ServerFeilAdvarselKeys,
   TilgangsfeilSideKeys,
   TokenFornyetKeys,
-  UploadKeys
+  UploadKeys,
+  validateBekreftKeys,
+  validateBeloepKeys,
+  validateFnrKeys,
+  validateFraKeys,
+  validateOrgnrKeys,
+  validateTilKeys
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ValidateDagerKeys } from '../validation/validateDager';
 import { KroniskKravKeys } from '../components/kroniskkrav/KroniskKravKeys';
-import { KroniskKravPeriodeKeys } from '../components/kroniskkrav/KroniskKravPeriodeKeys';
+import { KontrollsporsmaalLonnKeys } from '../components/KontrollsporsmaalLonn';
+import { SideKeys } from '@navikt/helse-arbeidsgiver-felles-frontend/dist/components/Side/SideKeys';
+import { KroniskSideKeys } from '../components/kronisk/KroniskSideKeys';
+import { GravidKravKeys } from '../components/gravidkrav/GravidKravKeys';
+import { GravidSideKeys } from '../components/gravid/GravidSideKeys';
+import { GravidKvitteringKeys } from '../components/gravid/GravidKvitteringKeys';
+import { KravKvitteringKeys } from '../components/kravkvittering/KravKvitteringKeys';
 
 export interface Locale {
   en: string;
@@ -20,18 +32,41 @@ export interface Locale {
 }
 
 const Locales: Record<
-  LangKey | UploadKeys | BekreftOpplysningerKeys,
-  // FeilmeldingspanelKeys |
-  // IngenTilgangAdvarselKeys |
-  // LoggetUtAdvarselKeys |
-  // TilgangsfeilSideKeys |
-  // TokenFornyetKeys |
-  // PageNotFoundKeys |
-  // ServerFeilAdvarselKeys |
-  // KroniskKravKeys |
-  // KroniskKravPeriodeKeys
+  | LangKey
+  | UploadKeys
+  | BekreftOpplysningerKeys
+  | FeilmeldingspanelKeys
+  | KroniskKravKeys
+  | KontrollsporsmaalLonnKeys
+  | TokenFornyetKeys
+  | TilgangsfeilSideKeys
+  | ServerFeilAdvarselKeys
+  | LoggetUtAdvarselKeys
+  | KravKvitteringKeys
+  | SideKeys
+  | PageNotFoundKeys
+  | GravidKravKeys
+  | GravidSideKeys
+  | GravidKvitteringKeys
+  | ValidateDagerKeys
+  | validateFnrKeys
+  | validateOrgnrKeys
+  | validateFraKeys
+  | validateTilKeys
+  | validateBekreftKeys
+  | validateBeloepKeys
+  | IngenTilgangAdvarselKeys
+  | KroniskSideKeys,
   Locale
 > = {
+  PAGE_NOT_FOUND_TITLE: {
+    nb: 'Siden finnes ikke',
+    en: 'Page not found'
+  },
+  PAGE_NOT_FOUND_DESCRIPTION: {
+    nb: 'Siden finnes ikke.',
+    en: 'Page not found.'
+  },
   BEKREFTOPPLYSNINGER_BEKREFT_LABEL: {
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
@@ -494,10 +529,6 @@ const Locales: Record<
       'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
       "If you need to contact us, it is sufficient to provide the employee's national id-number."
   },
-  FEILMELDINGSPANEL_TITTEL: {
-    nb: 'For å gå videre må du rette opp følgende:',
-    en: 'To proceed, you must correct the following:'
-  },
   INGEN_TILGANG_ADVARSEL: {
     nb:
       'Du har ikke rettigheter til å søke om refusjon for noen bedrifter\n' +
@@ -508,11 +539,11 @@ const Locales: Record<
       'Assignment of roles takes place in Altinn\n' +
       '[Read more about roles and accesses](https://arbeidsgiver.nav.no/min-side-arbeidsgiver/informasjon-om-tilgangsstyring)'
   },
-  LOGGET_UT_ADVARSEL_TITTEL: {
+  LOGGET_UT_ADVARSEL_LOGGET_UT: {
     nb: 'Du er blitt logget ut, følg instruksjonene for ikke å miste data',
     en: 'Read more about roles and accesses.'
   },
-  LOGGET_UT_ADVARSEL_TEKST: {
+  LOGGET_UT_ADVARSEL_INFO: {
     nb:
       '-##' +
       '--Ikke lukk dette vinduet\n' +
@@ -531,23 +562,19 @@ const Locales: Record<
       '--Close this message and click again on the button "Send application for refund"\n' +
       '##-'
   },
-  LOGGET_UT_ADVARSEL_LUKK: {
+  LOGGET_UT_ADVARSEL_LOGIN: {
     nb: 'Jeg har logget inn på nytt - lukk dette vinduet',
     en: "I'm logged in again - close this window"
   },
-  TILGANGSFEIL_TITTEL: {
-    nb: 'Skjema for gravide og kronisk syke',
-    en: 'Form for pregnant women and the chronically ill'
+  TILGANGSFEILSIDE_DENIED: {
+    nb: 'Du har ikke tilgang',
+    en: 'No access'
   },
-  TILGANGSFEIL_UNDERTITTEL: {
+  TILGANGSFEILSIDE_ERROR: {
     nb: 'Det oppstod en feil',
     en: 'An error occurred'
   },
-  TILGANGSFEIL_SIDETITTEL: {
-    nb: 'Søknadsskjema',
-    en: 'Application form'
-  },
-  TILGANGSFEIL_MELDING: {
+  TILGANGSFEILSIDE_LOGIN: {
     nb: 'Vi klarte ikke logge deg inn. Vennligst prøv igjen senere.',
     en: 'We were unable to log you in. Please try again later.'
   },
@@ -563,25 +590,21 @@ const Locales: Record<
     nb: 'Skjul denne meldingen.',
     en: 'Hide this message.'
   },
-  TOKEN_FORNYET_SIDETITTEL: {
-    nb: 'Søknadsskjema',
-    en: 'Application form'
-  },
-  TOKEN_FORNYET_TITTEL: {
+  TOKEN_FORNYET_TITLE: {
     nb: 'Innloggingen er fornyet',
-    en: 'The login has been renewed'
+    en: 'Login renewed'
   },
-  TOKEN_FORNYET_UNDERTITTEL: {
+  TOKEN_FORNYET_INFO: {
+    nb: 'Du har nå fornyet innloggingen med en time.\n' + 'Dette vinduet kan nå lukkes.',
+    en: 'You have now renewed your login by one hour.\n' + 'This window can now be closed.'
+  },
+  TOKEN_FORNYET_SIDETITTEL: {
+    nb: 'Token er fornyet',
+    en: 'Token is renewed'
+  },
+  TOKEN_FORNYET_LOGIN: {
     nb: 'Innlogging',
     en: 'Login'
-  },
-  TOKEN_FORNYET_INNHOLDSTITTEL: {
-    nb: 'Innloggingen er fornyet',
-    en: 'The login has been renewed'
-  },
-  TOKEN_FORNYET_TEKST: {
-    nb: 'Du har nå fornyet innloggingen med en time.\n\nDette vinduet kan nå lukkes.',
-    en: 'You have now renewed your login by one hour.\n\nThis window can now be closed.'
   },
   DEN_ANSATTE: {
     nb: 'Den ansatte',
@@ -716,20 +739,20 @@ const Locales: Record<
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Please confirm that the information is correct'
   },
+
   VALIDATE_FRA_MISSING: {
     nb: 'Mangler fra dato',
     en: 'Missing from date'
   },
-
   VALIDATE_FRA_FOM_INVALID: {
     nb: 'Dato kan bare være fra og med $value',
     en: 'Date can only be from $value'
   },
-
   VALIDATE_FRA_FOM_ERROR: {
     nb: 'Feil dato',
     en: 'Incorrect date'
   },
+
   VALIDATE_BELOEP_AMOUNT_MISSING: {
     nb: 'Mangler beløp',
     en: 'Missing amount'
