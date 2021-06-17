@@ -74,13 +74,13 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/kronisk/soknad'), container);
     });
-    expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYKDOM');
+    expect(container.textContent).toContain('KRONISK_SIDE_SIDETITTEL');
   });
   it('should show kronisk søknad when no arbeidsgivere', () => {
     act(() => {
       render(makeRoute('/nb/kronisk/soknad', []), container);
     });
-    expect(container.textContent).toContain('KRONISK ELLER LANGVARIG SYKDOM');
+    expect(container.textContent).toContain('KRONISK_SIDE_SIDETITTEL');
   });
   it('should show kronisk kvittering', () => {
     act(() => {

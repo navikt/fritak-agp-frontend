@@ -105,9 +105,9 @@ const KroniskSide = () => {
     <Side
       bedriftsmeny={false}
       className='kronisk-side'
-      sidetittel='Søknadsskjema'
-      title='Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'
-      subtitle='KRONISK ELLER LANGVARIG SYKDOM'
+      sidetittel={t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL)}
+      title={t(KroniskSideKeys.KRONISK_SIDE_TITLE)}
+      subtitle={t(KroniskSideKeys.KRONISK_SIDE_SUBTITLE)}
     >
       <Row>
         <Column>
@@ -122,7 +122,7 @@ const KroniskSide = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
-                  <Systemtittel>Den ansatte</Systemtittel>
+                  <Systemtittel>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
                   <br />
                   <Fnr
                     label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -134,7 +134,7 @@ const KroniskSide = () => {
                   />
                 </Column>
                 <Column sm='4' xs='6'>
-                  <Systemtittel>Arbeidsgiveren</Systemtittel>
+                  <Systemtittel>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
                   <br />
                   <Orgnr
                     label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
@@ -156,15 +156,17 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel id='kroniskside-panel-arbeidssituasjon'>
-            <Systemtittel>Arbeidssituasjon og miljø</Systemtittel>
+            <Systemtittel>{t(KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO)}</Systemtittel>
             <br />
             <SkjemaGruppe>
-              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO_INGRESS} />
+              <Normaltekst>
+                <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO_INGRESS} />
+              </Normaltekst>
               <br />
               <br />
 
               <CheckboxGruppe
-                legend='Hva slags arbeid utfører den ansatte?'
+                legend={t(KroniskSideKeys.KRONISK_SIDE_ARBEIDS_TYPE)}
                 feil={state.arbeidError}
                 feilmeldingId='arbeidsutfører'
               >
@@ -192,7 +194,7 @@ const KroniskSide = () => {
               </CheckboxGruppe>
 
               <CheckboxGruppe
-                legend='Hvilke påkjenninger innebærer arbeidet?'
+                legend={t(KroniskSideKeys.KRONISK_SIDE_PAAKJENNINGER)}
                 feil={state.paakjenningerError}
                 feilmeldingId='paakjenninger'
               >
@@ -237,7 +239,7 @@ const KroniskSide = () => {
 
                     <Textarea
                       className='textarea-min-hoyde'
-                      label='Annet'
+                      label={t(KroniskSideKeys.KRONISK_SIDE_ANNET)}
                       id='textarea-annet'
                       value={state.kommentar || ''}
                       feil={state.kommentarError || undefined}
@@ -259,19 +261,20 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel>Hvis dere har fått dokumentasjon fra den ansatte</Systemtittel>
+            <Systemtittel>{t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}</Systemtittel>
             <br />
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
-              <Tekstomrade className='textfelt-padding-bottom' rules={[BoldRule, ParagraphRule]}>
-                Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt
-                dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. _For
-                tiden støtter vi kun filformatet .pdf._
-              </Tekstomrade>
-              <Normaltekst>NAV vil selv innhente dokumentasjon fra legen hvis det er nødvendig.</Normaltekst>
+              <Normaltekst>
+                <Oversettelse
+                  className='textfelt-padding-bottom'
+                  langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT}
+                />
+              </Normaltekst>
+
               <Upload
                 className='knapp-innsending-top'
                 id='upload'
-                label='LAST OPP LEGEERKLÆRINGEN (valgfritt)'
+                label={t(KroniskSideKeys.KRONISK_SIDE_UPLOAD)}
                 extensions='.pdf'
                 onChange={handleUploadChanged}
                 fileSize={5000000}
@@ -283,12 +286,11 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel>Fraværet</Systemtittel>
+            <Systemtittel>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
             <br />
             <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
               <Normaltekst>
-                Skriv inn antall dager med sykefravær relatert til søknaden i hver måned. Dere kan gå 2 år tilbake i tid
-                hvis både arbeidsforholdet og helseproblemene har vart så lenge.
+                <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
               </Normaltekst>
 
               <FravaerTabell

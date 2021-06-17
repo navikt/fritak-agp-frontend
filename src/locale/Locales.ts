@@ -451,6 +451,19 @@ const Locales: Record<
     nb: '+ Legg til en fraværsperiode',
     en: '+ Add an absence period'
   },
+  KRONISK_SIDE_SIDETITTEL: {
+    nb: 'Søknadsskjema',
+    en: 'Application form'
+  },
+  KRONISK_SIDE_TITLE: {
+    nb: 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden',
+    en: 'Application for NAV to cover sickness benefits during the employer period'
+  },
+  KRONISK_SIDE_SUBTITLE: {
+    nb: 'KRONISK ELLER LANGVARIG SYKDOM',
+    en: 'CHRONIC OR LONG TERM DISEASE'
+  },
+
   KRONISK_SIDE_INGRESS: {
     nb:
       'NAV kan dekke sykepenger i arbeidsgiverperioden for en arbeidstaker med langvarig eller kronisk sykdom' +
@@ -477,6 +490,45 @@ const Locales: Record<
       'We first ask about the workday and how it effects the employe. Your answer is used to decide whether NAV are going' +
       ' to cover sickness benefits during the employer period'
   },
+  KRONISK_SIDE_ARBEIDS_TYPE: {
+    nb: 'Hva slags arbeid utfører den ansatte?',
+    en: 'What kind of work does the employee perform?'
+  },
+  KRONISK_SIDE_PAAKJENNINGER: {
+    nb: 'Hvilke påkjenninger innebærer arbeidet?',
+    en: 'What stresses does the work entail?'
+  },
+  KRONISK_SIDE_ANNET: {
+    nb: 'ANNET',
+    en: 'OTHER'
+  },
+  KRONISK_SIDE_IF_DOCUMENTATION: {
+    nb: 'Hvis dere har fått dokumentasjon fra den ansatte',
+    en: 'If you have received documentation from the employee'
+  },
+  KRONISK_SIDE_DOCUMENTATION_TEXT: {
+    nb:
+      'Som arbeidsgiver kan dere ikke kreve å få se helseopplysninger. Men hvis den ansatte allerede har gitt ' +
+      'dere slik dokumentasjon frivillig, kan dere skanne eller ta bilde av den og laste den opp her. _For ' +
+      'tiden støtter vi kun filformatet .pdf._\n \n' +
+      'NAV vil selv innhente dokumentasjon fra legen hvis det er nødvendig.',
+    en: ''
+  },
+  KRONISK_SIDE_UPLOAD: {
+    nb: 'LAST OPP LEGEERKLÆRINGEN (valgfritt)',
+    en: "UPLOAD THE DOCTOR'S DECLARATION (optional)"
+  },
+  KRONISK_SIDE_FRAVAER: {
+    nb: 'Fraværet',
+    en: ''
+  },
+  KRONISK_SIDE_FRAVAER_DESCRIPTION: {
+    nb:
+      'Skriv inn antall dager med sykefravær relatert til søknaden i hver måned. Dere kan gå 2 år tilbake i tid' +
+      'hvis både arbeidsforholdet og helseproblemene har vart så lenge.',
+    en: ''
+  },
+
   KRONISK_KRAV_ARBEIDSTID_TAPT: {
     nb: 'Fraværsperiode',
     en: 'Period of absence'
