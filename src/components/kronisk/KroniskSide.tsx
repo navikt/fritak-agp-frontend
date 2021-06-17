@@ -176,7 +176,7 @@ const KroniskSide = () => {
                       return (
                         <Checkbox
                           key={a.id}
-                          label={a.label}
+                          label={t(a.label)}
                           value={a.value}
                           id={a.id}
                           onChange={(evt) =>
@@ -204,7 +204,7 @@ const KroniskSide = () => {
                       return (
                         <Checkbox
                           key={a.id}
-                          label={a.label}
+                          label={t(a.label)}
                           value={a.value}
                           id={a.id}
                           onChange={(evt) =>
@@ -223,7 +223,7 @@ const KroniskSide = () => {
                       return (
                         <Checkbox
                           key={a.id}
-                          label={a.label}
+                          label={t(a.label)}
                           value={a.value}
                           id={a.id}
                           onChange={(evt) =>

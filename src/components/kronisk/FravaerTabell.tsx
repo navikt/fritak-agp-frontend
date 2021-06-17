@@ -4,6 +4,8 @@ import { lastThreeYears } from '../../utils/lastThreeYears';
 import { MONTHS } from '../../utils/months';
 import { Aarsfravaer } from './Aarsfravaer';
 import { FravaerRow } from './FravaerRow';
+import { useTranslation } from 'react-i18next';
+import { FravaerTabellKeys } from './FravaerTabellKeys';
 
 interface DagerTabellProps {
   years?: number[];
@@ -13,6 +15,7 @@ interface DagerTabellProps {
 }
 
 const FravaerTabell = (props: DagerTabellProps) => {
+  const { t } = useTranslation();
   const years: number[] = props.years || lastThreeYears();
   const thisYear = years[years.length - 1];
   const thisMonth = new Date().getMonth();
@@ -29,8 +32,8 @@ const FravaerTabell = (props: DagerTabellProps) => {
         <tr key={'months-header'}>
           {years.map((year) => (
             <React.Fragment key={'month_header' + year}>
-              <th>Måned</th>
-              <th>Dager</th>
+              <th>{t(FravaerTabellKeys.FRAVAERTABELL_MONTH)}</th>
+              <th>{t(FravaerTabellKeys.FRAVAERTABELL_DAYS)}</th>
             </React.Fragment>
           ))}
         </tr>

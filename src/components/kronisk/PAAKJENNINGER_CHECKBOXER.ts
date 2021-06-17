@@ -2,30 +2,30 @@ import { PaakjenningerType } from './PaakjenningerType';
 
 export const PAAKJENNINGER_CHECKBOXER = [
   {
-    label: 'Allergener eller giftstofferd',
+    label: 'KRONISK_SIDE_PAAKJENNINGER_1',
     value: PaakjenningerType.ALLERGENER,
     id: 'allergener'
   },
   {
-    label: 'Ukomfortabel temperatur eller luftfuktighet',
+    label: 'KRONISK_SIDE_PAAKJENNINGER_2',
     value: PaakjenningerType.UKOMFORTABEL,
     id: 'ukomfortabel'
   },
   {
-    label: 'Stressende omgivelser',
+    label: 'KRONISK_SIDE_PAAKJENNINGER_3',
     value: PaakjenningerType.STRESSENDE,
     id: 'stressende'
   },
   {
-    label: 'Regelmessige kveldsskift eller nattskift',
+    label: 'KRONISK_SIDE_PAAKJENNINGER_4',
     value: PaakjenningerType.REGELMESSIG,
     id: 'regelmessige'
   },
-  { label: 'Mye gåing/ståing', value: PaakjenningerType.GAAING, id: 'gåing' },
-  { label: 'Harde gulv', value: PaakjenningerType.HARDE, id: 'harde' },
-  { label: 'Tunge løft', value: PaakjenningerType.TUNGE, id: 'tunge' },
+  { label: 'KRONISK_SIDE_PAAKJENNINGER_5', value: PaakjenningerType.GAAING, id: 'gåing' },
+  { label: 'KRONISK_SIDE_PAAKJENNINGER_6', value: PaakjenningerType.HARDE, id: 'harde' },
+  { label: 'KRONISK_SIDE_PAAKJENNINGER_7', value: PaakjenningerType.TUNGE, id: 'tunge' },
   {
-    label: 'Annet, gi en kort beskrivelse:',
+    label: 'KRONISK_SIDE_PAAKJENNINGER_8',
     value: PaakjenningerType.ANNET,
     id: 'annet'
   }

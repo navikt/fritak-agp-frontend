@@ -25,6 +25,7 @@ import { GravidKravKeys } from '../components/gravidkrav/GravidKravKeys';
 import { GravidSideKeys } from '../components/gravid/GravidSideKeys';
 import { GravidKvitteringKeys } from '../components/gravid/GravidKvitteringKeys';
 import { KravKvitteringKeys } from '../components/kravkvittering/KravKvitteringKeys';
+import { FravaerTabellKeys } from '../components/kronisk/FravaerTabellKeys';
 
 export interface Locale {
   en: string;
@@ -56,6 +57,7 @@ const Locales: Record<
   | validateBekreftKeys
   | validateBeloepKeys
   | IngenTilgangAdvarselKeys
+  | FravaerTabellKeys
   | KroniskSideKeys,
   Locale
 > = {
@@ -494,10 +496,56 @@ const Locales: Record<
     nb: 'Hva slags arbeid utfører den ansatte?',
     en: 'What kind of work does the employee perform?'
   },
+  KRONISK_SIDE_ARBEIDS_TYPE_1: {
+    nb: 'Stillesittende arbeid',
+    en: 'Sedentary work'
+  },
+  KRONISK_SIDE_ARBEIDS_TYPE_2: {
+    nb: 'Moderat fysisk arbeid',
+    en: 'Moderate physical work'
+  },
+  KRONISK_SIDE_ARBEIDS_TYPE_3: {
+    nb: 'Fysisk krevende arbeid',
+    en: 'Physically demanding work'
+  },
+
   KRONISK_SIDE_PAAKJENNINGER: {
     nb: 'Hvilke påkjenninger innebærer arbeidet?',
     en: 'What stresses does the work entail?'
   },
+  KRONISK_SIDE_PAAKJENNINGER_1: {
+    nb: 'Allergener eller giftstoffer',
+    en: 'Allergens or toxins'
+  },
+  KRONISK_SIDE_PAAKJENNINGER_2: {
+    nb: 'Ukomfortabel temperatur eller luftfuktighet',
+    en: 'Uncomfortable temperature or humidity'
+  },
+  KRONISK_SIDE_PAAKJENNINGER_3: {
+    nb: 'Stressende omgivelser',
+    en: 'Stressful surroundings'
+  },
+  KRONISK_SIDE_PAAKJENNINGER_4: {
+    nb: 'Regelmessige kveldsskift eller nattskift',
+    en: 'Regular evening shifts or night shifts'
+  },
+  KRONISK_SIDE_PAAKJENNINGER_5: {
+    nb: 'Mye gåing/ståing',
+    en: 'Lots of walking / standing'
+  },
+  KRONISK_SIDE_PAAKJENNINGER_6: {
+    nb: 'Harde gulv',
+    en: 'Hard floors'
+  },
+  KRONISK_SIDE_PAAKJENNINGER_7: {
+    nb: 'Tunge løft',
+    en: 'Heavy lifting'
+  },
+  KRONISK_SIDE_PAAKJENNINGER_8: {
+    nb: 'Annet, gi en kort beskrivelse:',
+    en: 'Other, give a brief description'
+  },
+
   KRONISK_SIDE_ANNET: {
     nb: 'ANNET',
     en: 'OTHER'
@@ -906,6 +954,62 @@ const Locales: Record<
   VALIDATE_DAGER_MISSING: {
     nb: 'Mangler dager',
     en: 'Missing days'
+  },
+  FRAVAERTABELL_MONTH: {
+    nb: 'Måned',
+    en: 'Month'
+  },
+  FRAVAERTABELL_DAYS: {
+    nb: 'Dager',
+    en: 'Days'
+  },
+  FRAVAERTABELL_MONTH_1: {
+    nb: 'Januar',
+    en: 'January'
+  },
+  FRAVAERTABELL_MONTH_2: {
+    nb: 'Februar',
+    en: 'February'
+  },
+  FRAVAERTABELL_MONTH_3: {
+    nb: 'Mars',
+    en: 'March'
+  },
+  FRAVAERTABELL_MONTH_4: {
+    nb: 'April',
+    en: 'April'
+  },
+  FRAVAERTABELL_MONTH_5: {
+    nb: 'May',
+    en: 'Mai'
+  },
+  FRAVAERTABELL_MONTH_6: {
+    nb: 'Juni',
+    en: 'June'
+  },
+  FRAVAERTABELL_MONTH_7: {
+    nb: 'Juli',
+    en: 'July'
+  },
+  FRAVAERTABELL_MONTH_8: {
+    nb: 'August',
+    en: 'August'
+  },
+  FRAVAERTABELL_MONTH_9: {
+    nb: 'September',
+    en: 'September'
+  },
+  FRAVAERTABELL_MONTH_10: {
+    nb: 'Oktober',
+    en: 'October'
+  },
+  FRAVAERTABELL_MONTH_11: {
+    nb: 'November',
+    en: 'November'
+  },
+  FRAVAERTABELL_MONTH_12: {
+    nb: 'Desember',
+    en: 'December'
   }
 };
 

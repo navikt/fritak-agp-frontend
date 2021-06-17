@@ -1,8 +1,9 @@
 import { Aarsfravaer } from './Aarsfravaer';
 import { isFuture } from '../../utils/isFuture';
-import { MONTHS } from '../../utils/months';
 import { FravaerInput } from './FravaerInput';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { FravaerTabellKeys } from './FravaerTabellKeys';
 
 interface FravaerRowProps {
   month: number;
@@ -19,13 +20,14 @@ const inThePast = (year: number, month: number, thisYear: number, thisMonth: num
 };
 
 export const FravaerRow = (props: FravaerRowProps) => {
+  const { t } = useTranslation();
   if (
     !isFuture(props.year, props.month, props.thisYear, props.thisMonth) &&
     !inThePast(props.year, props.month, props.thisYear, props.thisMonth)
   ) {
     return (
       <>
-        <td>{MONTHS[props.month].substr(0, 3)}</td>
+        <td>{t(FravaerTabellKeys['FRAVAERTABELL_MONTH_' + (props.month + 1)]).substr(0, 3)}</td>
         <td>
           <FravaerInput onChange={props.onChange} month={props.month} year={props.year} fravaer={props.fravaer} />
         </td>

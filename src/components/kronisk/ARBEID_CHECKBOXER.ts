@@ -2,10 +2,10 @@ import { ArbeidType } from './ArbeidType';
 
 export const ARBEID_CHECKBOXER = [
   {
-    label: 'Stillesittende arbeid',
+    label: 'KRONISK_SIDE_ARBEIDS_TYPE_1',
     value: ArbeidType.STILLESITTENDE,
     id: 'stillesittende'
   },
-  { label: 'Moderat fysisk arbeid', value: ArbeidType.MODERAT, id: 'moderat' },
-  { label: 'Fysisk krevende arbeid', value: ArbeidType.KREVENDE, id: 'fysisk' }
+  { label: 'KRONISK_SIDE_ARBEIDS_TYPE_2', value: ArbeidType.MODERAT, id: 'moderat' },
+  { label: 'KRONISK_SIDE_ARBEIDS_TYPE_3', value: ArbeidType.KREVENDE, id: 'fysisk' }
 ];
