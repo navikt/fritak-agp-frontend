@@ -1010,6 +1010,10 @@ const Locales: Record<
   FRAVAERTABELL_MONTH_12: {
     nb: 'Desember',
     en: 'December'
+  },
+  KRONISK_SIDE_SUBMIT: {
+    nb: 'Send søknad',
+    en: 'Submit'
   }
 };
 

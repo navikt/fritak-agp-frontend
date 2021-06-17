@@ -329,7 +329,7 @@ const KroniskSide = () => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
-              Send søknad
+              {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
             </Hovedknapp>
           </Panel>
         </Column>
