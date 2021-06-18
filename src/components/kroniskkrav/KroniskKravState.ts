@@ -9,8 +9,6 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
       fnr: '',
       perioder: [
         {
-          fra: {},
-          til: {},
           uniqueKey: uuid()
         }
       ],
@@ -43,14 +41,14 @@ export default interface KroniskKravState extends ValidationState {
 }
 
 export interface KroniskKravPeriode {
-  fra?: Dato;
-  fraError?: string;
-  til?: Dato;
-  tilError?: string;
+  fom?: Dato;
+  fomError?: string;
+  tom?: Dato;
+  tomError?: string;
   dager?: number;
   dagerError?: string;
   beloep?: number;
   beloepError?: string;
   grunnbeloep?: number;
-  uniqueKey?: string;
+  uniqueKey: string;
 }

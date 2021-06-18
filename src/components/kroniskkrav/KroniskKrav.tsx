@@ -29,11 +29,12 @@ import {
   Fnr,
   Skillelinje,
   useArbeidsgiver,
-  stringishToNumber
+  stringishToNumber,
+  InternLenke
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
-import InternLenke from '../felles/InternLenke/InternLenke';
+import LangKey from '../../locale/LangKey';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -121,7 +122,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               />
             </Ingress>
             <Ingress>
-              <Oversettelse langKey={KroniskKravKeys.ALLE_FELT_PAKREVD} />
+              <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
             </Ingress>
           </Panel>
           <Skillelinje />
@@ -132,9 +133,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
-                    label={t(KroniskKravKeys.FODSELSNUMMER_LABEL)}
+                    label={t(LangKey.FODSELSNUMMER_LABEL)}
                     fnr={state.fnr}
-                    placeholder={t(KroniskKravKeys.FODSELSNUMMER_PLACEHOLDER)}
+                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
                     onChange={(fnr: string) =>
                       dispatch({
@@ -145,7 +146,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   />
                 </Column>
                 <Column sm='4' xs='6'>
-                  <Label htmlFor='kontrollsporsmaal-lonn-arbeidsdager'>{t(KroniskKravKeys.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
+                  <Label htmlFor='kontrollsporsmaal-lonn-arbeidsdager'>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
                   <Input
                     id='kontrollsporsmaal-lonn-arbeidsdager'
                     bredde='XS'
@@ -155,7 +156,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                     onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
                   />
                   <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-                    {t(KroniskKravKeys.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
+                    {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
                   </Normaltekst>
                 </Column>
               </Row>
@@ -185,9 +186,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               ))}
             </SkjemaGruppe>
           </Panel>
-          <Lenke href='#' onClick={leggTilPeriode}>
-            + {t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}
-          </Lenke>
+          <Panel>
+            <InternLenke onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</InternLenke>
+          </Panel>
           <Skillelinje />
 
           <BekreftOpplysningerPanel

@@ -18,7 +18,6 @@ import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
-import SelectDager from '../felles/SelectDager/SelectDager';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import PathParams from '../../locale/PathParams';
@@ -41,6 +40,7 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
+import KravPeriode from '../kroniskkrav/KravPeriode';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -105,7 +105,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     }
     dispatch({
       type: Actions.Fra,
-      payload: { fom: fomDato, itemId: uniqueKey }
+      payload: { fra: fomDato, itemId: uniqueKey }
     });
   };
 
@@ -224,99 +224,13 @@ export const GravidKrav = (props: GravidKravProps) => {
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
-              {state.perioder?.map((periode, index) => (
-                <Row
-                  key={periode.uniqueKey}
-                  className={`bulk-innsending__rad ${index % 2 ? 'odd' : 'even'} ${
-                    index > 0 ? 'not-first-row' : 'first-row'
-                  }`}
-                >
-                  <Column sm='3' xs='6'>
-                    <DatoVelger
-                      id={'fra-dato-' + periode.uniqueKey}
-                      label={t(LangKey.FRA_DATO)}
-                      onChange={(fraDato: Date) => {
-                        fraDatoValgt(periode.uniqueKey, fraDato);
-                      }}
-                      feilmelding={periode.fomError}
-                    />
-                  </Column>
-                  <Column sm='3' xs='6'>
-                    <DatoVelger
-                      id={'til-dato-' + periode.uniqueKey}
-                      label={t(LangKey.TIL_DATO)}
-                      onChange={(tilDate: Date) => {
-                        dispatch({
-                          type: Actions.Til,
-                          payload: { tom: tilDate, itemId: periode.uniqueKey }
-                        });
-                      }}
-                      feilmelding={periode.tomError}
-                    />
-                  </Column>
-                  <Column sm='2' xs='6'>
-                    <Label htmlFor={'dager-' + periode.uniqueKey}>
-                      {t(GravidKravKeys.GRAVID_KRAV_DAGER_ANTALL)}
-                      <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        {t(GravidKravKeys.GRAVID_KRAV_DAGER_HJELPETEKST)}
-                      </Hjelpetekst>
-                    </Label>
-                    <SelectDager
-                      id={'dager-' + periode.uniqueKey}
-                      value={periode.dager}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        dispatch({
-                          type: Actions.Dager,
-                          payload: {
-                            dager: stringishToNumber(event.currentTarget.value),
-                            itemId: periode.uniqueKey
-                          }
-                        })
-                      }
-                      feil={periode.dagerError}
-                    />
-                  </Column>
-                  <Column sm='2' xs='6'>
-                    <Label htmlFor={'belop-' + periode.uniqueKey}>
-                      {t(GravidKravKeys.GRAVID_KRAV_BELOP_TEXT)}
-                      <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        <Systemtittel>{t(GravidKravKeys.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
-                        <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_BELOP_HJELPETEKST} />
-                      </Hjelpetekst>
-                    </Label>
-                    <Input
-                      id={'belop-' + periode.uniqueKey}
-                      inputMode='numeric'
-                      pattern='[0-9]*'
-                      placeholder={t(LangKey.KRONER)}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        dispatch({
-                          type: Actions.Beloep,
-                          payload: {
-                            beloep: stringishToNumber(event.currentTarget.value),
-                            itemId: periode.uniqueKey
-                          }
-                        })
-                      }
-                      feil={periode.beloepError}
-                    />
-                  </Column>
-                  {showDeleteButton && (
-                    <Slettknapp
-                      // disabled={item.accepted}
-                      onClick={(event) => {
-                        dispatch({
-                          type: Actions.DeletePeriode,
-                          payload: {
-                            itemId: periode.uniqueKey
-                          }
-                        });
-                      }}
-                    >
-                      {t(LangKey.SLETT_LABEL)}
-                    </Slettknapp>
-                  )}
-                </Row>
+              {state.perioder?.map((enkeltPeriode, index) => (
+                <KravPeriode
+                  dispatch={dispatch}
+                  enkeltPeriode={enkeltPeriode}
+                  index={index}
+                  key={enkeltPeriode.uniqueKey}
+                />
               ))}
               <Row>
                 <Column md='6'>

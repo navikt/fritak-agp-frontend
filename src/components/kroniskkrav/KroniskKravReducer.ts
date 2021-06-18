@@ -17,7 +17,7 @@ const checkItemId = (itemId?: string) => {
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, translate: i18n): KroniskKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
-  nextState.perioder = nextState.perioder ? nextState.perioder : [{ fra: {}, til: {}, uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder ? nextState.perioder : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -29,24 +29,21 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Fra:
-      if (payload?.periode !== undefined) {
-        if (payload?.fra === undefined) {
-          nextState.perioder[payload.periode].fra = undefined;
-        } else {
-          nextState.perioder[payload.periode].fra = parseDateTilDato(payload.fra);
-        }
-      }
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fom
+        ? parseDateTilDato(payload.fom)
+        : undefined;
 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Til:
-      if (payload?.periode !== undefined) {
-        if (payload?.til === undefined) {
-          nextState.perioder[payload.periode].til = undefined;
-        } else {
-          nextState.perioder[payload.periode].til = parseDateTilDato(payload.til);
-        }
-      }
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.tom
+        ? parseDateTilDato(payload.tom)
+        : undefined;
+
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Dager:
@@ -110,8 +107,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.AddPeriod:
       const key = uuid();
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fra: {}, til: {}, uniqueKey: key }]
-        : [{ fra: {}, til: {}, uniqueKey: key }];
+        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: key }]
+        : [{ fom: {}, tom: {}, uniqueKey: key }];
       return nextState;
 
     case Actions.DeletePeriod:

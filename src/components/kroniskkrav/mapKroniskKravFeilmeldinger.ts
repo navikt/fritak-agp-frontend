@@ -6,6 +6,8 @@ import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v, index) => {
+    const uniqueKey = state.perioder ? state.perioder[index].uniqueKey : 'uniqueKey';
+
     switch (v.propertyPath) {
       case 'identitetsnummer':
         state.fnrError = v.message;
@@ -19,11 +21,12 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
 
       case 'periode.fom':
         if (state.perioder && state.perioder[index]) {
-          state.perioder[index].fraError = v.message;
+          state.perioder[index].fomError = v.message;
         } else {
           state.perioder = state.perioder ?? [];
           state.perioder[index] = {
-            fraError: v.message
+            uniqueKey,
+            fomError: v.message
           };
         }
         feilmeldinger.push(lagFeil('fra', v.message));
@@ -31,11 +34,12 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
 
       case 'periode.tom':
         if (state.perioder && state.perioder[index]) {
-          state.perioder[index].tilError = v.message;
+          state.perioder[index].tomError = v.message;
         } else {
           state.perioder = state.perioder ?? [];
           state.perioder[index] = {
-            tilError: v.message
+            uniqueKey,
+            tomError: v.message
           };
         }
 
@@ -48,6 +52,7 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         } else {
           state.perioder = state.perioder ?? [];
           state.perioder[index] = {
+            uniqueKey,
             dagerError: v.message
           };
         }
@@ -61,6 +66,7 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         } else {
           state.perioder = state.perioder ?? [];
           state.perioder[index] = {
+            uniqueKey,
             beloepError: v.message
           };
         }

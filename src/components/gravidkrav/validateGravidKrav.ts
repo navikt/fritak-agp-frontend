@@ -13,7 +13,6 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
-import LangKey from '../../locale/LangKey';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);

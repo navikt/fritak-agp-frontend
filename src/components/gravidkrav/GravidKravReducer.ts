@@ -33,8 +33,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Fra:
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fom
-        ? parseDateTilDato(payload.fom)
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
+        ? parseDateTilDato(payload.fra)
         : undefined;
 
       return validateGravidKrav(nextState, translate);
@@ -42,8 +42,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Til:
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.tom
-        ? parseDateTilDato(payload.tom)
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
+        ? parseDateTilDato(payload.til)
         : undefined;
 
       return validateGravidKrav(nextState, translate);
@@ -94,6 +94,12 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Grunnbeloep:
       setGrunnbeloep(payload, nextState);
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.grunnbeloep = payload?.grunnbeloep
+        ? payload.grunnbeloep
+        : undefined;
+
       return nextState;
 
     case Actions.KontrollDager:

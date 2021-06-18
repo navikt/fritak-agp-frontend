@@ -49,7 +49,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
     });
   };
 
-  const fraDatoValgt = (fraDato: Date, periode: number) => {
+  const fraDatoValgt = (fraDato: Date, itemId: string) => {
     if (fraDato) {
       getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
         if (grunnbeloepRespons.grunnbeloep) {
@@ -57,7 +57,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             type: Actions.Grunnbeloep,
             payload: {
               grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep,
-              itemId: props.enkeltPeriode.uniqueKey
+              itemId: itemId
             }
           });
         }
@@ -67,7 +67,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
       type: Actions.Fra,
       payload: {
         fra: fraDato,
-        periode: periode
+        itemId: itemId
       }
     });
   };
@@ -85,9 +85,9 @@ const KravPeriode = (props: KravPeriodeProps) => {
           placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
           label={t(LangKey.KRONISK_KRAV_PERIODE_FRA)}
           onChange={(fraDato: Date) => {
-            fraDatoValgt(fraDato, props.index);
+            fraDatoValgt(fraDato, props.enkeltPeriode.uniqueKey);
           }}
-          feilmelding={props.enkeltPeriode.fraError}
+          feilmelding={props.enkeltPeriode.fomError}
         />
       </Column>
       <Column sm='2' xs='6'>
@@ -100,11 +100,11 @@ const KravPeriode = (props: KravPeriodeProps) => {
               type: Actions.Til,
               payload: {
                 til: tilDate,
-                periode: props.index
+                itemId: props.enkeltPeriode.uniqueKey
               }
             });
           }}
-          feilmelding={props.enkeltPeriode.tilError}
+          feilmelding={props.enkeltPeriode.tomError}
         />
       </Column>
       <Column sm='1' xs='6'>
@@ -122,7 +122,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               type: Actions.Dager,
               payload: {
                 dager: stringishToNumber(event.currentTarget.value),
-                periode: props.index
+                itemId: props.enkeltPeriode.uniqueKey
               }
             })
           }
@@ -148,7 +148,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               type: Actions.Beloep,
               payload: {
                 beloep: stringishToNumber(event.currentTarget.value),
-                periode: props.index
+                itemId: props.enkeltPeriode.uniqueKey
               }
             })
           }

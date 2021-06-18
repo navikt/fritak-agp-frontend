@@ -21,10 +21,10 @@ export const mapKroniskKravRequest = (
   }
 
   perioder.forEach((enkeltPeriode) => {
-    if (enkeltPeriode.fra?.error) {
+    if (enkeltPeriode.fom?.error) {
       throw new Error('Fra må spesifiseres');
     }
-    if (enkeltPeriode.til?.error) {
+    if (enkeltPeriode.tom?.error) {
       throw new Error('Til må spesifiseres');
     }
     if (enkeltPeriode.dager === undefined) {

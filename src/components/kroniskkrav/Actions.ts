@@ -24,8 +24,8 @@ export enum Actions {
 export interface Payload {
   fnr?: string;
   orgnr?: string;
-  fra?: Date;
-  til?: Date;
+  fom?: Date;
+  tom?: Date;
   dager?: number;
   beloep?: number;
   videre?: boolean;

@@ -26,6 +26,7 @@ export interface Periode {
   dagerError?: string;
   beloep?: number;
   beloepError?: string;
+  grunnbeloep?: number;
 }
 
 export default interface GravidKravState extends ValidationState {
