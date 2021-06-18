@@ -16,10 +16,10 @@ import { Actions, KroniskKravAction } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
-import Lenke from 'nav-frontend-lenker';
 import KravPeriode from './KravPeriode';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
+import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import {
   Side,
   LoggetUtAdvarsel,
@@ -30,11 +30,13 @@ import {
   Skillelinje,
   useArbeidsgiver,
   stringishToNumber,
-  InternLenke
+  InternLenke,
+  LeggTilKnapp
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
 import LangKey from '../../locale/LangKey';
+import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -145,19 +147,11 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                     }
                   />
                 </Column>
-                <Column sm='4' xs='6'>
-                  <Label htmlFor='kontrollsporsmaal-lonn-arbeidsdager'>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
-                  <Input
-                    id='kontrollsporsmaal-lonn-arbeidsdager'
-                    bredde='XS'
-                    inputMode='numeric'
-                    pattern='[0-9]*'
-                    className='kontrollsporsmaal-lonn-arbeidsdager'
+                <Column sm='6' xs='6'>
+                  <KontrollSporsmaal
                     onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+                    id='kontrollsporsmaal-lonn-arbeidsdager'
                   />
-                  <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-                    {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
-                  </Normaltekst>
                 </Column>
               </Row>
             </SkjemaGruppe>
@@ -184,10 +178,14 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   key={enkeltPeriode.uniqueKey}
                 />
               ))}
+              <Row>
+                <Column md='6'>
+                  {state.perioder && state.perioder.length < MAX_PERIODER && (
+                    <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
+                  )}
+                </Column>
+              </Row>
             </SkjemaGruppe>
-          </Panel>
-          <Panel>
-            <InternLenke onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</InternLenke>
           </Panel>
           <Skillelinje />
 

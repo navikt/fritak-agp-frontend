@@ -18,18 +18,14 @@ import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
-import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import dayjs from 'dayjs';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import {
   Side,
   LeggTilKnapp,
-  Slettknapp,
   Oversettelse,
   stringishToNumber,
-  DatoVelger,
   LoggetUtAdvarsel,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
@@ -41,6 +37,7 @@ import {
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
 import KravPeriode from '../kroniskkrav/KravPeriode';
+import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -55,7 +52,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language } = useParams<PathParams>();
-  const showDeleteButton = state.perioder && state.perioder.length > 1;
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -89,23 +85,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   const handleSubmitClicked = async () => {
     dispatch({
       type: Actions.Validate
-    });
-  };
-
-  const fraDatoValgt = (uniqueKey: string, fomDato?: Date) => {
-    if (fomDato) {
-      getGrunnbeloep(dayjs(fomDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
-        if (grunnbeloepRespons.grunnbeloep) {
-          dispatch({
-            type: Actions.Grunnbeloep,
-            payload: { grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep }
-          });
-        }
-      });
-    }
-    dispatch({
-      type: Actions.Fra,
-      payload: { fra: fomDato, itemId: uniqueKey }
     });
   };
 
@@ -192,20 +171,11 @@ export const GravidKrav = (props: GravidKravProps) => {
                     }
                   />
                 </Column>
-                <Column sm='4' xs='6'>
-                  <Label htmlFor='kontrollsporsmaal-lonn-arbeidsdager'>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
-                  <Input
-                    id='kontrollsporsmaal-lonn-arbeidsdager'
-                    bredde='XS'
-                    inputMode='numeric'
-                    pattern='[0-9]*'
-                    // defaultValue={dager}
-                    className='kontrollsporsmaal-lonn-arbeidsdager'
+                <Column sm='6' xs='6'>
+                  <KontrollSporsmaal
                     onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+                    id='kontrollsporsmaal-lonn-arbeidsdager'
                   />
-                  <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-                    {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
-                  </Normaltekst>
                 </Column>
               </Row>
             </SkjemaGruppe>
