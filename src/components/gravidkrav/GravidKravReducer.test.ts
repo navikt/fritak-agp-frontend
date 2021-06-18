@@ -89,7 +89,7 @@ describe('GravidKravReducer', () => {
       defaultState,
       {
         type: Actions.Fra,
-        payload: { fom: new Date('2020.06.05 12:00:00'), itemId }
+        payload: { fra: new Date('2020.06.05 12:00:00'), itemId }
       },
       translationMock as unknown as i18n
     );
@@ -104,7 +104,7 @@ describe('GravidKravReducer', () => {
         defaultGravidKravState(),
         {
           type: Actions.Fra,
-          payload: { fom: undefined }
+          payload: { fra: undefined }
         },
         translationMock as unknown as i18n
       );
@@ -119,7 +119,7 @@ describe('GravidKravReducer', () => {
       defaultState,
       {
         type: Actions.Fra,
-        payload: { fom: undefined, itemId }
+        payload: { fra: undefined, itemId }
       },
       translationMock as unknown as i18n
     );
@@ -136,7 +136,7 @@ describe('GravidKravReducer', () => {
       defaultState,
       {
         type: Actions.Til,
-        payload: { tom: new Date('2020.06.05 12:00:00'), itemId }
+        payload: { til: new Date('2020.06.05 12:00:00'), itemId }
       },
       translationMock as unknown as i18n
     );
@@ -153,7 +153,7 @@ describe('GravidKravReducer', () => {
       defaultState,
       {
         type: Actions.Til,
-        payload: { tom: undefined, itemId }
+        payload: { til: undefined, itemId }
       },
       translationMock as unknown as i18n
     );
@@ -167,7 +167,7 @@ describe('GravidKravReducer', () => {
         defaultGravidKravState(),
         {
           type: Actions.Til,
-          payload: { tom: undefined }
+          payload: { til: undefined }
         },
         translationMock as unknown as i18n
       );
@@ -356,27 +356,37 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set Grunnbeloep to 345 when grunnbeloep is 14950', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Grunnbeloep,
-        payload: { grunnbeloep: 14950 }
+        payload: { grunnbeloep: 14950, itemId }
       },
       translationMock as unknown as i18n
     );
     expect(state.gDagsbeloep).toEqual(345);
+    // @ts-ignore
+    expect(state.perioder[0].grunnbeloep).toEqual(14950);
   });
 
   it('should set Grunnbeloep to undefined when 0 is given as param', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
     let state = GravidKravReducer(
-      defaultGravidKravState(),
+      defaultState,
       {
         type: Actions.Grunnbeloep,
-        payload: { grunnbeloep: 0 }
+        payload: { grunnbeloep: 0, itemId }
       },
       translationMock as unknown as i18n
     );
     expect(state.gDagsbeloep).toEqual(undefined);
+    // @ts-ignore
+    expect(state.perioder[0].grunnbeloep).toEqual(undefined);
   });
 
   it('should set kontrollDager to 345 when grunnbeloep is 14950 and action is KontrollDager', () => {

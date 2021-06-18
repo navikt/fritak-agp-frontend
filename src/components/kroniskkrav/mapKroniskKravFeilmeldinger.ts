@@ -6,7 +6,7 @@ import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v, index) => {
-    const uniqueKey = state.perioder ? state.perioder[index].uniqueKey : 'uniqueKey';
+    const uniqueKey = state.perioder && state.perioder[index] ? state.perioder[index].uniqueKey : 'uniqueKey';
 
     switch (v.propertyPath) {
       case 'identitetsnummer':

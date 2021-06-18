@@ -31,8 +31,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Fra:
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fom
-        ? parseDateTilDato(payload.fom)
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
+        ? parseDateTilDato(payload.fra)
         : undefined;
 
       return validateKroniskKrav(nextState, translate);
@@ -40,22 +40,22 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Til:
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.tom
-        ? parseDateTilDato(payload.tom)
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
+        ? parseDateTilDato(payload.til)
         : undefined;
 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Dager:
-      if (payload?.periode !== undefined) {
-        nextState.perioder[payload?.periode].dager = payload?.dager;
-      }
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.dager = payload?.dager;
+
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Beloep:
-      if (payload?.periode !== undefined) {
-        nextState.perioder[payload.periode].beloep = payload?.beloep;
-      }
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.beloep = payload?.beloep;
+
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Bekreft:
