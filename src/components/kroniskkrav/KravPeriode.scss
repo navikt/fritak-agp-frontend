@@ -12,9 +12,13 @@
     .periodewrapper {
         position: relative;
 
-        .slett-periode {
-            position: absolute;
-            bottom: 0.5rem;
+        // .slett-periode {
+        //     position: absolute;
+        //     bottom: 0.5rem;
+        // }
+
+        .datovelger-periode {
+            max-width: calc( 100% - 0.25rem);
         }
     }
 }

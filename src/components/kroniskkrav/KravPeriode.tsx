@@ -81,6 +81,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
     >
       <Column sm='2' xs='6'>
         <DatoVelger
+          className='datovelger-periode'
           id={`fra-dato-${props.index}`}
           placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
           label={t(LangKey.KRONISK_KRAV_PERIODE_FRA)}
@@ -92,6 +93,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
       </Column>
       <Column sm='2' xs='6'>
         <DatoVelger
+          className='datovelger-periode'
           id={`til-dato-${props.index}`}
           placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
           label={t(LangKey.KRONISK_KRAV_PERIODE_TIL)}
