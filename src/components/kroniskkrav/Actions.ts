@@ -15,8 +15,6 @@ export enum Actions {
   HandleResponse,
   Kvittering,
   NotAuthorized,
-  CloseKontrollsporsmaalLonn,
-  OpenKontrollsporsmaalLonn,
   Grunnbeloep,
   KontrollDager,
   AddPeriod,
@@ -39,6 +37,7 @@ export interface Payload {
   grunnbeloep?: number;
   kontrollDager?: number;
   periode?: number;
+  itemId?: string;
 }
 
 export interface KroniskKravAction {

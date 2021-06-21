@@ -10,7 +10,6 @@ export const defaultGravidKravState = (state?: GravidKravState): GravidKravState
       perioder: [{ uniqueKey: uuid() }],
       dokumentasjon: '',
       bekreft: false,
-      isOpenKontrollsporsmaalLonn: false,
       feilmeldinger: Array<FeiloppsummeringFeil>()
     },
     state || {}
@@ -27,6 +26,7 @@ export interface Periode {
   dagerError?: string;
   beloep?: number;
   beloepError?: string;
+  grunnbeloep?: number;
 }
 
 export default interface GravidKravState extends ValidationState {
@@ -47,7 +47,6 @@ export default interface GravidKravState extends ValidationState {
   login?: boolean;
   notAuthorized?: boolean;
   submitting?: boolean;
-  isOpenKontrollsporsmaalLonn?: boolean;
   gDagsbeloep?: number;
   kontrollDager?: number;
 }

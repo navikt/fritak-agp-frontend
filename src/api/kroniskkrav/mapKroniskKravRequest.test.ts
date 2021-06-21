@@ -10,10 +10,11 @@ describe('mapKroniskKravRequest', () => {
         '456',
         [
           {
-            fra: parseDato('01.02.2020'),
-            til: parseDato('03.04.2025'),
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            beloep: 3000,
+            uniqueKey: '1'
           }
         ],
         true,
@@ -29,10 +30,11 @@ describe('mapKroniskKravRequest', () => {
         undefined,
         [
           {
-            fra: parseDato('01.02.2020'),
-            til: parseDato('03.04.2025'),
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            beloep: 3000,
+            uniqueKey: '1'
           }
         ],
         true,
@@ -48,10 +50,11 @@ describe('mapKroniskKravRequest', () => {
         '123',
         [
           {
-            fra: parseDato('99.02.2020'),
-            til: parseDato('03.04.2025'),
+            fom: parseDato('99.02.2020'),
+            tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            beloep: 3000,
+            uniqueKey: '1'
           }
         ],
         true,
@@ -67,10 +70,11 @@ describe('mapKroniskKravRequest', () => {
         '123',
         [
           {
-            fra: parseDato('01.02.2020'),
-            til: parseDato('99.04.2025'),
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('99.04.2025'),
             dager: 5,
-            beloep: 3000
+            beloep: 3000,
+            uniqueKey: '1'
           }
         ],
         true,
@@ -85,7 +89,8 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: undefined,
-        beloep: 3000
+        beloep: 3000,
+        uniqueKey: '1'
       }
     ];
     expect(() => {
@@ -99,7 +104,8 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: 3,
-        beloep: undefined
+        beloep: undefined,
+        uniqueKey: '1'
       }
     ];
 
@@ -114,7 +120,8 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: 3,
-        beloep: 3000
+        beloep: 3000,
+        uniqueKey: '1'
       }
     ];
 
@@ -135,7 +142,8 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: 3,
-        beloep: undefined
+        beloep: undefined,
+        uniqueKey: '1'
       }
     ];
 
@@ -151,10 +159,11 @@ describe('mapKroniskKravRequest', () => {
         '456',
         [
           {
-            fra: parseDato('01.02.2020'),
-            til: parseDato('03.04.2025'),
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            beloep: 3000,
+            uniqueKey: '1'
           }
         ],
         true,
@@ -168,7 +177,7 @@ describe('mapKroniskKravRequest', () => {
           fom: '2020-02-01',
           tom: '2025-04-03',
           antallDagerMedRefusjon: 5,
-          beloep: 3000
+          månedsinntekt: 3000
         }
       ] as [Arbeidsgiverperiode],
       bekreftet: true
@@ -182,10 +191,11 @@ describe('mapKroniskKravRequest', () => {
         '456',
         [
           {
-            fra: parseDato('01.02.2020'),
-            til: parseDato('03.04.2025'),
+            fom: parseDato('01.02.2020'),
+            tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            beloep: 3000,
+            uniqueKey: '1'
           }
         ],
         true,
@@ -199,11 +209,11 @@ describe('mapKroniskKravRequest', () => {
           fom: '2020-02-01',
           tom: '2025-04-03',
           antallDagerMedRefusjon: 5,
-          beloep: 3000
+          månedsinntekt: 3000
         }
       ] as [Arbeidsgiverperiode],
       bekreftet: true,
-      kontrollDager: 120
+      antallDager: 120
     } as KroniskKravRequest);
   });
 });

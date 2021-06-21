@@ -6,13 +6,18 @@ import mapResponse from '../../state/validation/mapResponse';
 import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import setGrunnbeloep from './setGrunnbeloep';
-import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 import { i18n } from 'i18next';
+
+const checkItemId = (itemId?: string) => {
+  if (itemId === undefined) {
+    throw new Error('itemId kan ikke være undefined');
+  }
+};
 
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, translate: i18n): KroniskKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
-  nextState.perioder = nextState.perioder ? nextState.perioder : [{ fra: {}, til: {}, uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder ? nextState.perioder : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -24,36 +29,33 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Fra:
-      if (payload?.periode !== undefined) {
-        if (payload?.fra === undefined) {
-          nextState.perioder[payload.periode].fra = undefined;
-        } else {
-          nextState.perioder[payload.periode].fra = parseDateTilDato(payload.fra);
-        }
-      }
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
+        ? parseDateTilDato(payload.fra)
+        : undefined;
 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Til:
-      if (payload?.periode !== undefined) {
-        if (payload?.til === undefined) {
-          nextState.perioder[payload.periode].til = undefined;
-        } else {
-          nextState.perioder[payload.periode].til = parseDateTilDato(payload.til);
-        }
-      }
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
+        ? parseDateTilDato(payload.til)
+        : undefined;
+
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Dager:
-      if (payload?.periode !== undefined) {
-        nextState.perioder[payload?.periode].dager = payload?.dager;
-      }
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.dager = payload?.dager;
+
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Beloep:
-      if (payload?.periode !== undefined) {
-        nextState.perioder[payload.periode].beloep = payload?.beloep;
-      }
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.beloep = payload?.beloep;
+
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Bekreft:
@@ -75,7 +77,6 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Validate:
       nextState.validated = true;
       const validatedState = validateKroniskKrav(nextState, translate);
-      validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(validatedState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
@@ -89,16 +90,14 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.submitting = false;
       return mapResponse(payload.response, nextState, mapKroniskKravFeilmeldinger) as KroniskKravState;
 
-    case Actions.OpenKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = true;
-      return nextState;
-
-    case Actions.CloseKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = false;
-      return nextState;
-
     case Actions.Grunnbeloep:
       setGrunnbeloep(payload, nextState);
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.grunnbeloep = payload?.grunnbeloep
+        ? payload.grunnbeloep
+        : undefined;
+
       return nextState;
 
     case Actions.KontrollDager:
@@ -108,8 +107,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.AddPeriod:
       const key = uuid();
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fra: {}, til: {}, uniqueKey: key }]
-        : [{ fra: {}, til: {}, uniqueKey: key }];
+        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: key }]
+        : [{ fom: {}, tom: {}, uniqueKey: key }];
       return nextState;
 
     case Actions.DeletePeriod:

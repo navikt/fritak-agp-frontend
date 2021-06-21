@@ -361,6 +361,10 @@ const Locales: Record<
     nb: 'Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.',
     en: 'Weekends and public holidays can be included if they are part of the regular working hours.'
   },
+  GRAVID_KRAV_BELOP_TEXT: {
+    nb: 'Beregnet månedsinntekt',
+    en: 'Estimated monthly income'
+  },
   GRAVID_KRAV_BELOP_TITTEL: {
     nb: 'Slik finner dere beløpet dere kan kreve:',
     en: "Here's how to find the amount you can claim:"
@@ -368,27 +372,19 @@ const Locales: Record<
   GRAVID_KRAV_BELOP_HJELPETEKST: {
     nb:
       '-##' +
-      '--Merk: Beløpet er før skatt, og det skal være uten feriepenger og arbeidsgiveravgift. Det ' +
-      'beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste år.\n' +
-      '--Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt ' +
-      'lønn. Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.\n' +
-      '--Beregn månedsinntekten slik det ellers gjøres for sykepenger i arbeidsgiverperioden.\n' +
-      '--Gang med 12 måneder for å finne årslønnen.\n' +
-      '--Reduser beløpet til 6G hvis beløpet er over dette.\n' +
-      '--Finn dagsatsen ved å dele årslønnen på antall dager dere utbetaler lønn for i året.\n' +
-      '--Gang dagsatsen med antall dager dere krever refusjon for.\n' +
+      '--Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt lønn. ' +
+      'Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.\n' +
+      '--Beregn månedsinntekten slik det ellers gjøres for  sykepenger i arbeidsgiverperioden.\n' +
+      '--Avklar antall dager dere utbetaler lønn for i året (dette er vanligvis 260 dager).\n' +
+      '--Det beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste år..\n' +
       '##-',
     en:
       '-##' +
-      "--Note: The amount is before tax, and it must be without holiday pay and employer's contribution. The " +
-      'holiday pay is calculated from what NAV reimburses. You will be paid the refund of the holiday pay next year.\n' +
-      '--Clarify the number of days you can claim a refund for. Only include days it should have been paid ' +
-      'payment. Weekends and public holidays can be included if they are part of the regular working hours.\n' +
+      '--Clarify the number of days you can claim a refund for. Only include days on which pay should have been paid. ' +
+      'Weekends and public holidays can be included if they are part of the regular working hours.\n' +
       '--Calculate the monthly income as is otherwise done for sickness benefits during the employer period.\n' +
-      '--Multiply by 12 months to find the annual salary.\n' +
-      '--Reduce the amount to 6G if the amount is above this.\n' +
-      '--Find the daily rate by dividing the annual salary by the number of days you pay the salary for the year.\n' +
-      '--Multiply the daily rate by the number of days you claim a refund for.\n' +
+      '--Clarify the number of days you pay wages for the year (this is usually 260 days).\n' +
+      '--Holiday pay is calculated from what NAV reimburses. You will be paid the refund of the holiday pay next year.\n' +
       '##-'
   },
   GRAVID_KRAV_DOKUMENTASJON_TITTEL: {
@@ -580,6 +576,60 @@ const Locales: Record<
   KRONISK_KRAV_ARBEIDSTID_TAPT: {
     nb: 'Fraværsperiode',
     en: 'Period of absence'
+  },
+  KRONISK_KRAV_PERIODE_BELOP_TEXT: {
+    nb: 'Beregnet månedsinntekt',
+    en: 'Estimated monthly income'
+  },
+  KRONISK_KRAV_PERIODE_BELOP_TITTEL: {
+    nb: 'Slik finner dere beløpet dere kan kreve:',
+    en: "Here's how to find the amount you can claim:"
+  },
+  KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST: {
+    nb:
+      '-##' +
+      '--Avklar antall dager dere kan kreve refusjon for. Ta kun med dager det skulle vært utbetalt lønn. ' +
+      'Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.\n' +
+      '--Beregn månedsinntekten slik det ellers gjøres for  sykepenger i arbeidsgiverperioden.\n' +
+      '--Avklar antall dager dere utbetaler lønn for i året (dette er vanligvis 260 dager).\n' +
+      '--Det beregnes feriepenger av det NAV refunderer. Dere får utbetalt refusjonen av feriepengene neste år..\n' +
+      '##-',
+    en:
+      '-##' +
+      '--Clarify the number of days you can claim a refund for. Only include days on which pay should have been paid. ' +
+      'Weekends and public holidays can be included if they are part of the regular working hours.\n' +
+      '--Calculate the monthly income as is otherwise done for sickness benefits during the employer period.\n' +
+      '--Clarify the number of days you pay wages for the year (this is usually 260 days).\n' +
+      '--Holiday pay is calculated from what NAV reimburses. You will be paid the refund of the holiday pay next year.\n' +
+      '##-'
+  },
+  KRONISK_KRAV_PERIODE_FRA: {
+    nb: 'Fra dato',
+    en: 'From date'
+  },
+  KRONISK_KRAV_PERIODE_TIL: {
+    nb: 'Til dato',
+    en: 'To date'
+  },
+  KRONISK_KRAV_PERIODE_DAGER_LABEL: {
+    nb: 'Antall dager',
+    en: 'Number of days'
+  },
+  KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST: {
+    nb: 'Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.',
+    en: 'Weekends and public holidays can be included if they are part of the regular working hours.'
+  },
+  KRONISK_KRAV_PERIODE_BEREGNET_LABEL: {
+    nb: 'Foreløpig beregnet refusjon',
+    en: 'Preliminary calculated refund'
+  },
+  KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST: {
+    nb:
+      'Denne beregningen tar _ikke_ høyde for andre utbetalinger den ansatte eventuelt får fra NAV, for eksempel graderte ' +
+      'sykepenger. Utbetalinger du allerede får refusjon for, vil derfor bli trukket fra beløpet du nå søker om.',
+    en:
+      'This calculation does _not_ take into account other payments the employee may receive from NAV, such as graded ' +
+      'sickness benefits. Payments for which you already receive a refund will therefore be deducted from the amount you are now applying for.'
   },
   KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
     nb: 'Kontrollspørsmål for lønn som overstiger 6G',
@@ -882,14 +932,6 @@ const Locales: Record<
   SIDE_MIN_SIDE_ARBEIDSGIVER: {
     en: 'My page',
     nb: 'Min side arbeidsgiver'
-  },
-  KRONISK_KRAV_PERIODE_FRA: {
-    nb: 'Fra dato',
-    en: 'From date'
-  },
-  KRONISK_KRAV_PERIODE_TIL: {
-    nb: 'Til dato',
-    en: 'To date'
   },
   KRONISK_KRAV_PERIODE_FORMAT: {
     nb: 'dd.mm.åååå',

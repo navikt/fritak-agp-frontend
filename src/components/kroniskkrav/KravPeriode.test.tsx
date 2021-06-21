@@ -11,7 +11,7 @@ import i18next from 'i18next';
 import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
 
-const enkeltPeriode: KroniskKravPeriode = {};
+const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
 describe('KravPeriode', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
@@ -22,9 +22,9 @@ describe('KravPeriode', () => {
     render(<KravPeriode dispatch={mockDispatch} index={0} enkeltPeriode={enkeltPeriode} />);
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).not.toBeInTheDocument();
     expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row periodewrapper');
   });
@@ -36,7 +36,7 @@ describe('KravPeriode', () => {
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
     expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row hide-labels periodewrapper');
   });
@@ -50,7 +50,7 @@ describe('KravPeriode', () => {
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
   });
 
@@ -64,7 +64,7 @@ describe('KravPeriode', () => {
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Beløp/)[0]).toBeInTheDocument();
+    expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(slettButton).toBeInTheDocument();
 
     slettButton?.click();
@@ -81,7 +81,7 @@ describe('KravPeriode', () => {
 
     fireEvent.change(inputBelop, { target: { value: '20000' } });
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { beloep: 20000, periode: 1 }, type: Actions.Beloep });
+    expect(mockDispatch).toHaveBeenCalledWith({ payload: { beloep: 20000, itemId: 'mocked' }, type: Actions.Beloep });
   });
 
   it('call dispatch when dager has been updated', async () => {
@@ -93,7 +93,7 @@ describe('KravPeriode', () => {
 
     fireEvent.change(selectDager, { target: { value: 12 } });
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { dager: 12, periode: 1 }, type: Actions.Dager });
+    expect(mockDispatch).toHaveBeenCalledWith({ payload: { dager: 12, itemId: 'mocked' }, type: Actions.Dager });
   });
 
   it('should have no a11y violations', async () => {

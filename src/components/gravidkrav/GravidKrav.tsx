@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, Reducer } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
-import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
@@ -18,21 +18,14 @@ import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
-import SelectDager from '../felles/SelectDager/SelectDager';
-import KontrollsporsmaalLonn from '../KontrollsporsmaalLonn';
-import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import dayjs from 'dayjs';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
-import LangKey from '../../locale/LangKey';
 import { i18n } from 'i18next';
 import {
   Side,
   LeggTilKnapp,
-  Slettknapp,
   Oversettelse,
   stringishToNumber,
-  DatoVelger,
   LoggetUtAdvarsel,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
@@ -42,6 +35,9 @@ import {
   Upload
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
+import LangKey from '../../locale/LangKey';
+import KravPeriode from '../kroniskkrav/KravPeriode';
+import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -56,19 +52,13 @@ export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language } = useParams<PathParams>();
-  const showDeleteButton = state.perioder && state.perioder.length > 1;
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
   };
 
-  const closeKontrollsporsmaalLonn = () => {
-    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
-  };
-
-  const closeKontrollsporsmaalLonnDager = (dager: number | undefined) => {
-    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: dager } });
-    dispatch({ type: Actions.CloseKontrollsporsmaalLonn });
+  const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
+    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: stringishToNumber(dager) } });
   };
 
   const handleUploadChanged = (file?: File) => {
@@ -98,23 +88,6 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const fraDatoValgt = (uniqueKey: string, fomDato?: Date) => {
-    if (fomDato) {
-      getGrunnbeloep(dayjs(fomDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
-        if (grunnbeloepRespons.grunnbeloep) {
-          dispatch({
-            type: Actions.Grunnbeloep,
-            payload: { grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep }
-          });
-        }
-      });
-    }
-    dispatch({
-      type: Actions.Fra,
-      payload: { fom: fomDato, itemId: uniqueKey }
-    });
-  };
-
   useEffect(() => {
     dispatch({
       type: Actions.Orgnr,
@@ -123,12 +96,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   }, [arbeidsgiverId]);
 
   useEffect(() => {
-    if (
-      state.validated === true &&
-      state.progress === true &&
-      state.submitting === true &&
-      state.isOpenKontrollsporsmaalLonn === false
-    ) {
+    if (state.validated === true && state.progress === true && state.submitting === true) {
       postGravidKrav(
         environment.baseUrl,
         mapGravidKravRequest(
@@ -156,8 +124,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.kontrollDager,
-    state.isOpenKontrollsporsmaalLonn
+    state.kontrollDager
   ]);
 
   if (!!state.kvittering) {
@@ -204,6 +171,12 @@ export const GravidKrav = (props: GravidKravProps) => {
                     }
                   />
                 </Column>
+                <Column sm='6' xs='6'>
+                  <KontrollSporsmaal
+                    onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+                    id='kontrollsporsmaal-lonn-arbeidsdager'
+                  />
+                </Column>
               </Row>
             </SkjemaGruppe>
           </Panel>
@@ -221,99 +194,13 @@ export const GravidKrav = (props: GravidKravProps) => {
               </Hjelpetekst>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
-              {state.perioder?.map((periode, index) => (
-                <Row
-                  key={periode.uniqueKey}
-                  className={`bulk-innsending__rad ${index % 2 ? 'odd' : 'even'} ${
-                    index > 0 ? 'not-first-row' : 'first-row'
-                  }`}
-                >
-                  <Column sm='3' xs='6'>
-                    <DatoVelger
-                      id={'fra-dato-' + periode.uniqueKey}
-                      label={t(LangKey.FRA_DATO)}
-                      onChange={(fraDato: Date) => {
-                        fraDatoValgt(periode.uniqueKey, fraDato);
-                      }}
-                      feilmelding={periode.fomError}
-                    />
-                  </Column>
-                  <Column sm='3' xs='6'>
-                    <DatoVelger
-                      id={'til-dato-' + periode.uniqueKey}
-                      label={t(LangKey.TIL_DATO)}
-                      onChange={(tilDate: Date) => {
-                        dispatch({
-                          type: Actions.Til,
-                          payload: { tom: tilDate, itemId: periode.uniqueKey }
-                        });
-                      }}
-                      feilmelding={periode.tomError}
-                    />
-                  </Column>
-                  <Column sm='2' xs='6'>
-                    <Label htmlFor={'dager-' + periode.uniqueKey}>
-                      {t(GravidKravKeys.GRAVID_KRAV_DAGER_ANTALL)}
-                      <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        {t(GravidKravKeys.GRAVID_KRAV_DAGER_HJELPETEKST)}
-                      </Hjelpetekst>
-                    </Label>
-                    <SelectDager
-                      id={'dager-' + periode.uniqueKey}
-                      value={periode.dager}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        dispatch({
-                          type: Actions.Dager,
-                          payload: {
-                            dager: stringishToNumber(event.currentTarget.value),
-                            itemId: periode.uniqueKey
-                          }
-                        })
-                      }
-                      feil={periode.dagerError}
-                    />
-                  </Column>
-                  <Column sm='2' xs='6'>
-                    <Label htmlFor={'belop-' + periode.uniqueKey}>
-                      {t(LangKey.BELOP)}
-                      <Hjelpetekst className='krav-padding-hjelpetekst'>
-                        <Systemtittel>{t(GravidKravKeys.GRAVID_KRAV_BELOP_TITTEL)}</Systemtittel>
-                        <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_BELOP_HJELPETEKST} />
-                      </Hjelpetekst>
-                    </Label>
-                    <Input
-                      id={'belop-' + periode.uniqueKey}
-                      inputMode='numeric'
-                      pattern='[0-9]*'
-                      placeholder={t(LangKey.KRONER)}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        dispatch({
-                          type: Actions.Beloep,
-                          payload: {
-                            beloep: stringishToNumber(event.currentTarget.value),
-                            itemId: periode.uniqueKey
-                          }
-                        })
-                      }
-                      feil={periode.beloepError}
-                    />
-                  </Column>
-                  {showDeleteButton && (
-                    <Slettknapp
-                      // disabled={item.accepted}
-                      onClick={(event) => {
-                        dispatch({
-                          type: Actions.DeletePeriode,
-                          payload: {
-                            itemId: periode.uniqueKey
-                          }
-                        });
-                      }}
-                    >
-                      {t(LangKey.SLETT_LABEL)}
-                    </Slettknapp>
-                  )}
-                </Row>
+              {state.perioder?.map((enkeltPeriode, index) => (
+                <KravPeriode
+                  dispatch={dispatch}
+                  enkeltPeriode={enkeltPeriode}
+                  index={index}
+                  key={enkeltPeriode.uniqueKey}
+                />
               ))}
               <Row>
                 <Column md='6'>
@@ -383,11 +270,6 @@ export const GravidKrav = (props: GravidKravProps) => {
           />
         )}
       </Row>
-      <KontrollsporsmaalLonn
-        onClose={closeKontrollsporsmaalLonnDager}
-        isOpen={state.isOpenKontrollsporsmaalLonn}
-        onCancelClick={closeKontrollsporsmaalLonn}
-      />
     </Side>
   );
 };

@@ -3,10 +3,10 @@ import { datoToString } from '../../utils/dato/Dato';
 
 const mapPeriodeData = (perioder: KroniskKravPeriode[]) => {
   return perioder.map((enkeltPeriode) => ({
-    fom: datoToString(enkeltPeriode.fra),
-    tom: datoToString(enkeltPeriode.til),
+    fom: datoToString(enkeltPeriode.fom),
+    tom: datoToString(enkeltPeriode.tom),
     antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
-    beloep: enkeltPeriode.beloep ?? 0
+    månedsinntekt: enkeltPeriode.beloep ?? 0
   }));
 };
 

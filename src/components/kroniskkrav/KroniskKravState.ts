@@ -9,13 +9,10 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
       fnr: '',
       perioder: [
         {
-          fra: {},
-          til: {},
           uniqueKey: uuid()
         }
       ],
       bekreft: false,
-      isOpenKontrollsporsmaalLonn: false,
       feilmeldinger: Array<FeiloppsummeringFeil>()
     },
     state || {}
@@ -39,19 +36,19 @@ export default interface KroniskKravState extends ValidationState {
   login?: boolean;
   notAuthorized?: boolean;
   submitting?: boolean;
-  isOpenKontrollsporsmaalLonn?: boolean;
   gDagsbeloep?: number;
   kontrollDager?: number;
 }
 
 export interface KroniskKravPeriode {
-  fra?: Dato;
-  fraError?: string;
-  til?: Dato;
-  tilError?: string;
+  fom?: Dato;
+  fomError?: string;
+  tom?: Dato;
+  tomError?: string;
   dager?: number;
   dagerError?: string;
   beloep?: number;
   beloepError?: string;
-  uniqueKey?: string;
+  grunnbeloep?: number;
+  uniqueKey: string;
 }

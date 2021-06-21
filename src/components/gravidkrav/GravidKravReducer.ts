@@ -5,7 +5,6 @@ import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapGravidKravFeilmeldinger from './mapGravidKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
-import showKontrollsporsmaalLonn from './showKontrollsporsmaalLonn';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 
@@ -34,8 +33,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Fra:
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fom
-        ? parseDateTilDato(payload.fom)
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
+        ? parseDateTilDato(payload.fra)
         : undefined;
 
       return validateGravidKrav(nextState, translate);
@@ -43,8 +42,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Til:
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.tom
-        ? parseDateTilDato(payload.tom)
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
+        ? parseDateTilDato(payload.til)
         : undefined;
 
       return validateGravidKrav(nextState, translate);
@@ -80,7 +79,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Validate:
       nextState.validated = true;
       const validatedState = validateGravidKrav(nextState, translate);
-      validatedState.isOpenKontrollsporsmaalLonn = showKontrollsporsmaalLonn(nextState);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
@@ -94,16 +92,14 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.submitting = false;
       return mapResponse(payload.response, nextState, mapGravidKravFeilmeldinger) as GravidKravState;
 
-    case Actions.OpenKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = true;
-      return nextState;
-
-    case Actions.CloseKontrollsporsmaalLonn:
-      nextState.isOpenKontrollsporsmaalLonn = false;
-      return nextState;
-
     case Actions.Grunnbeloep:
       setGrunnbeloep(payload, nextState);
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.grunnbeloep = payload?.grunnbeloep
+        ? payload.grunnbeloep
+        : undefined;
+
       return nextState;
 
     case Actions.KontrollDager:

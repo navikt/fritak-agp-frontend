@@ -20,9 +20,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     expect(state.fnrError).not.toBeUndefined();
     expect(state.orgnrError).not.toBeUndefined();
     expect(state.bekreftError).not.toBeUndefined();
-    const fraError = !!state?.perioder ? state?.perioder[2]?.fraError : '';
+    const fraError = !!state?.perioder ? state?.perioder[2]?.fomError : '';
     expect(fraError).not.toBeUndefined();
-    const tilError = !!state?.perioder ? state?.perioder[3]?.tilError : '';
+    const tilError = !!state?.perioder ? state?.perioder[3]?.tomError : '';
     expect(tilError).not.toBeUndefined();
     const dagerError = !!state?.perioder ? state?.perioder[4]?.dagerError : '';
     expect(dagerError).not.toBeUndefined();

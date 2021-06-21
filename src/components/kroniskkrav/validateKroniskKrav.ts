@@ -28,9 +28,9 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
 
   nextState.perioder?.forEach((aktuellPeriode) => {
-    aktuellPeriode.fraError = formatValidation(validateFra(aktuellPeriode.fra, MIN_DATE, !!state.validated), translate);
-    aktuellPeriode.tilError = formatValidation(
-      validateTil(aktuellPeriode.fra, aktuellPeriode.til, MIN_DATE, !!state.validated),
+    aktuellPeriode.fomError = formatValidation(validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated), translate);
+    aktuellPeriode.tomError = formatValidation(
+      validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated),
       translate
     );
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
@@ -48,12 +48,12 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   }
 
   nextState.perioder?.forEach((aktuellPeriode) => {
-    if (aktuellPeriode.fraError) {
-      pushFeilmelding('fra', aktuellPeriode.fraError, feilmeldinger);
+    if (aktuellPeriode.fomError) {
+      pushFeilmelding('fra', aktuellPeriode.fomError, feilmeldinger);
     }
 
-    if (aktuellPeriode.tilError) {
-      pushFeilmelding('til', aktuellPeriode.tilError, feilmeldinger);
+    if (aktuellPeriode.tomError) {
+      pushFeilmelding('til', aktuellPeriode.tomError, feilmeldinger);
     }
 
     if (aktuellPeriode.dagerError) {

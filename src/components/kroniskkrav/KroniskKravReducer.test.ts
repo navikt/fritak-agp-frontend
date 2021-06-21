@@ -83,31 +83,39 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the fra', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
+
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Fra,
         payload: {
           fra: new Date('2020.06.05 12:00:00'),
-          periode: 0
+          itemId
         }
       },
       i18n
     );
 
-    expect(state.perioder && state?.perioder[0]?.fra?.value).toEqual('05.06.2020');
+    expect(state.perioder && state?.perioder[0]?.fom?.value).toEqual('05.06.2020');
   });
 
-  it('should set the fra', () => {
+  it('should set the fra when fom is undefined', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
+
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Fra,
-        payload: { fra: undefined, periode: 0 }
+        payload: { fra: undefined, itemId }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0]?.fra?.value).toBeUndefined();
+    expect(state.perioder && state.perioder[0]?.fom?.value).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
@@ -116,48 +124,60 @@ describe('KroniskKravReducer', () => {
         defaultKroniskKravState(),
         {
           type: Actions.Fra,
-          payload: { fra: undefined }
+          payload: { fra: undefined, itemId: '0' }
         },
         i18n
       );
 
-      expect(state.perioder && state.perioder[0].fra).toBeUndefined();
+      expect(state.perioder && state.perioder[0].fom).toBeUndefined();
     });
   });
 
   it('should set the til', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
+
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Til,
         payload: {
           til: new Date('2020.06.05 12:00:00'),
-          periode: 0
+          itemId
         }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].til?.value).toEqual('05.06.2020');
+    expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
   });
 
   it('should clear til when empty payload', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
+
     const state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Til,
-        payload: { til: undefined, periode: 0 }
+        payload: { til: undefined, itemId }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].til).toBeUndefined();
+    expect(state.perioder && state.perioder[0].tom).toBeUndefined();
   });
 
   it('should set the dager', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
+
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Dager,
-        payload: { dager: 3, periode: 0 }
+        payload: { dager: 3, itemId }
       },
       i18n
     );
@@ -165,11 +185,15 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the beløp', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
+
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Beloep,
-        payload: { beloep: 233, periode: 0 }
+        payload: { beloep: 233, itemId }
       },
       i18n
     );
@@ -287,11 +311,14 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set Grunnbeloep to 345 when grunnbeloep is 14950', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Grunnbeloep,
-        payload: { grunnbeloep: 14950 }
+        payload: { grunnbeloep: 14950, itemId }
       },
       i18n
     );
@@ -299,11 +326,14 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set Grunnbeloep to undefined when 0 is given as param', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
     let state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Grunnbeloep,
-        payload: { grunnbeloep: 0 }
+        payload: { grunnbeloep: 0, itemId }
       },
       i18n
     );
@@ -334,28 +364,6 @@ describe('KroniskKravReducer', () => {
     expect(state.kontrollDager).toEqual(0);
   });
 
-  it('should set isOpenKontrollsporsmaalLonn to false when CloseKontrollsporsmaalLonn is action', () => {
-    let state = KroniskKravReducer(
-      defaultKroniskKravState(),
-      {
-        type: Actions.CloseKontrollsporsmaalLonn
-      },
-      i18n
-    );
-    expect(state.isOpenKontrollsporsmaalLonn).toBeFalsy();
-  });
-
-  it('should set isOpenKontrollsporsmaalLonn to true when OpenKontrollsporsmaalLonn is action', () => {
-    let state = KroniskKravReducer(
-      defaultKroniskKravState(),
-      {
-        type: Actions.OpenKontrollsporsmaalLonn
-      },
-      i18n
-    );
-    expect(state.isOpenKontrollsporsmaalLonn).toBeTruthy();
-  });
-
   it('should reset to defaults', () => {
     const defaultState = defaultKroniskKravState();
     let state = KroniskKravReducer(defaultState, { type: Actions.Reset }, i18n);
@@ -364,8 +372,9 @@ describe('KroniskKravReducer', () => {
 
     expect(state.perioder ? state.perioder[0].uniqueKey : undefined).not.toBeUndefined();
     expect(defaultState.perioder ? defaultState.perioder[0].uniqueKey : undefined).not.toBeUndefined();
-
+    // @ts-ignore
     if (state.perioder) delete state.perioder[0].uniqueKey;
+    // @ts-ignore
     if (defaultState.perioder) delete defaultState.perioder[0].uniqueKey;
     expect(state).toEqual(defaultState);
     expect(state.fnr).toEqual('');
@@ -381,13 +390,6 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should throw un undefined action', () => {
-    KroniskKravReducer(
-      defaultKroniskKravState(),
-      {
-        type: Actions.OpenKontrollsporsmaalLonn
-      },
-      i18n
-    );
     expect(() => {
       KroniskKravReducer(
         defaultKroniskKravState(),
