@@ -1,24 +1,33 @@
-.kroniskkrav {
-    .hide-labels {
+.periodewrapper {
+    position: relative;
+
+    .tekstvisning {
+        padding-top: .75rem;
+    }
+
+    .datovelger-periode {
+        max-width: calc( 100% - 0.25rem);
+    }
+
+    .skjemaelement__label {
+        margin-top: 0.5rem;
+        height: 3rem;
+    }
+    
+    &.hide-labels {
         label {
             display: none;
         }
-
+        
         .skjemaelement {
             padding-top: 1rem;
         }
-    } 
-
-    .periodewrapper {
-        position: relative;
-
-        // .slett-periode {
-        //     position: absolute;
-        //     bottom: 0.5rem;
-        // }
-
-        .datovelger-periode {
-            max-width: calc( 100% - 0.25rem);
+        .tekstvisning {
+            padding-top: 1.75rem;
         }
-    }
+        
+        .slett-periode-wrapper {
+            padding-top: 1.625rem;
+        }
+    } 
 }

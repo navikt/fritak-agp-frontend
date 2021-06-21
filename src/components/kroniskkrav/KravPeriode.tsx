@@ -109,7 +109,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           feilmelding={props.enkeltPeriode.tomError}
         />
       </Column>
-      <Column sm='1' xs='6'>
+      <Column sm='2' xs='6'>
         <Label htmlFor={`dager-${props.index}`}>
           {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
           <Hjelpetekst className='krav-padding-hjelpetekst'>
@@ -157,16 +157,18 @@ const KravPeriode = (props: KravPeriodeProps) => {
           feil={props.enkeltPeriode.beloepError}
         />
       </Column>
-      <Column sm='2' xs='6'>
+      <Column sm='3' xs='6'>
         <Label htmlFor={`belop-${props.index}`}>
           {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
           <Hjelpetekst className='krav-padding-hjelpetekst'>
             <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
           </Hjelpetekst>
         </Label>
-        <div>{beregnetRefusjon} kr</div>
+        <div className='skjemalelement tekstvisning'>
+          {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon} kr
+        </div>
       </Column>
-      <Column sm='2' xs='6'>
+      <Column sm='1' xs='6' className='slett-periode-wrapper'>
         {props.index > 0 && (
           <InternLenke onClick={() => fjernPeriode(props.index)} className='slett-periode'>
             Slett
