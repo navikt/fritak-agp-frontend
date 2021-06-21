@@ -1,8 +1,8 @@
 import React, { Reducer, useEffect, useReducer } from 'react';
-import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
-import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Redirect, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
@@ -30,7 +30,6 @@ import {
   Skillelinje,
   useArbeidsgiver,
   stringishToNumber,
-  InternLenke,
   LeggTilKnapp
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
