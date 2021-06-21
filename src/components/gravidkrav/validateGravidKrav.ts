@@ -31,7 +31,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
   }
-  state.perioder?.forEach((periode) => {
+  state.perioder?.forEach((periode, index) => {
     periode.fomError = formatValidation(validateFra(periode.fom, MIN_DATE, !!nextState.validated), translate);
     periode.tomError = formatValidation(
       validateTil(periode.fom, periode.tom, MIN_DATE, !!nextState.validated),
@@ -41,19 +41,19 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     periode.beloepError = formatValidation(validateBeloep('' + periode.beloep, MAX, !!nextState.validated), translate);
 
     if (periode.fomError) {
-      pushFeilmelding('fra-dato-' + periode.uniqueKey, periode.fomError, feilmeldinger);
+      pushFeilmelding(`fra-dato-${index}`, `Rad ${index + 1}: ${periode.fomError}`, feilmeldinger);
     }
 
     if (periode.tomError) {
-      pushFeilmelding('til-dato-' + periode.uniqueKey, periode.tomError, feilmeldinger);
+      pushFeilmelding(`til-dato-${index}`, `Rad ${index + 1}: ${periode.tomError}`, feilmeldinger);
     }
 
     if (periode.dagerError) {
-      pushFeilmelding('dager-' + periode.uniqueKey, periode.dagerError, feilmeldinger);
+      pushFeilmelding(`dager-${index}`, `Rad ${index + 1}: ${periode.dagerError}`, feilmeldinger);
     }
 
     if (periode.beloepError) {
-      pushFeilmelding('belop-' + periode.uniqueKey, periode.beloepError, feilmeldinger);
+      pushFeilmelding(`belop-${index}`, `Rad ${index + 1}: ${periode.beloepError}`, feilmeldinger);
     }
   });
 

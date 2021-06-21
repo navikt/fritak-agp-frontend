@@ -47,21 +47,21 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
   }
 
-  nextState.perioder?.forEach((aktuellPeriode) => {
+  nextState.perioder?.forEach((aktuellPeriode, index) => {
     if (aktuellPeriode.fomError) {
-      pushFeilmelding('fra', aktuellPeriode.fomError, feilmeldinger);
+      pushFeilmelding(`fra-dato-${index}`, `Rad ${index + 1}: ${aktuellPeriode.fomError}`, feilmeldinger);
     }
 
     if (aktuellPeriode.tomError) {
-      pushFeilmelding('til', aktuellPeriode.tomError, feilmeldinger);
+      pushFeilmelding(`til-dato-${index}`, `Rad ${index + 1}: ${aktuellPeriode.tomError}`, feilmeldinger);
     }
 
     if (aktuellPeriode.dagerError) {
-      pushFeilmelding('dager', aktuellPeriode.dagerError, feilmeldinger);
+      pushFeilmelding(`dager-${index}`, `Rad ${index + 1}: ${aktuellPeriode.dagerError}`, feilmeldinger);
     }
 
     if (aktuellPeriode.beloepError) {
-      pushFeilmelding('beloep', aktuellPeriode.beloepError, feilmeldinger);
+      pushFeilmelding(`belop-${index}`, `Rad ${index + 1}: ${aktuellPeriode.beloepError}`, feilmeldinger);
     }
   });
 
