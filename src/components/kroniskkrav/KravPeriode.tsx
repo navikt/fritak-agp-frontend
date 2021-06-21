@@ -165,7 +165,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           </Hjelpetekst>
         </Label>
         <div className='skjemalelement tekstvisning'>
-          {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon} kr
+          {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
         </div>
       </Column>
       <Column sm='1' xs='6' className='slett-periode-wrapper'>
