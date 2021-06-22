@@ -13,9 +13,13 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
+import validateArbeidsdager from '../../validation/validateArbeidsdager';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
+
+const MIN_ARBEIDSDAGER = 0;
+const MAX_ARBEIDSDAGER = 366;
 
 export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): KroniskKravState => {
   if (!state.validated) {
@@ -27,7 +31,10 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
 
-  nextState.antallDager;
+  nextState.antallDagerError = formatValidation(
+    validateArbeidsdager(state.antallDager, state.validated, MIN_ARBEIDSDAGER, MAX_ARBEIDSDAGER),
+    translate
+  );
 
   nextState.perioder?.forEach((aktuellPeriode) => {
     aktuellPeriode.fomError = formatValidation(validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated), translate);
@@ -47,6 +54,10 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   }
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
+  }
+
+  if (nextState.antallDagerError) {
+    pushFeilmelding('kontrollsporsmaal-lonn-arbeidsdager', nextState.antallDagerError, feilmeldinger);
   }
 
   nextState.perioder?.forEach((aktuellPeriode) => {

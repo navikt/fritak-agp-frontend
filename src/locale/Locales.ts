@@ -26,6 +26,7 @@ import { GravidSideKeys } from '../components/gravid/GravidSideKeys';
 import { GravidKvitteringKeys } from '../components/gravid/GravidKvitteringKeys';
 import { KravKvitteringKeys } from '../components/kravkvittering/KravKvitteringKeys';
 import { FravaerTabellKeys } from '../components/kronisk/FravaerTabellKeys';
+import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
 
 export interface Locale {
   en: string;
@@ -58,7 +59,8 @@ const Locales: Record<
   | validateBeloepKeys
   | IngenTilgangAdvarselKeys
   | FravaerTabellKeys
-  | KroniskSideKeys,
+  | KroniskSideKeys
+  | ValidateArbeidsdagerKeys,
   Locale
 > = {
   PAGE_NOT_FOUND_TITLE: {
@@ -996,6 +998,22 @@ const Locales: Record<
   VALIDATE_DAGER_MISSING: {
     nb: 'Mangler dager',
     en: 'Missing days'
+  },
+  VALIDATE_ARBEIDSDAGER_MISSING: {
+    nb: 'Mangler antall arbeidsdager',
+    en: 'Missing number of working days'
+  },
+  VALIDATE_ARBEIDSDAGER_REQUIRED: {
+    nb: 'Mangler antall arbeidsdager',
+    en: 'Missing number of working days'
+  },
+  VALIDATE_ARBEIDSDAGER_TOO_LOW: {
+    nb: 'Antall arbeidsdager er for lavt',
+    en: 'Number of working days is to low'
+  },
+  VALIDATE_ARBEIDSDAGER_TOO_HIGH: {
+    nb: 'Antall arbeidsdager per år er for høyt',
+    en: 'Number of working days per year is to high'
   },
   FRAVAERTABELL_MONTH: {
     nb: 'Måned',

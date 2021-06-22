@@ -38,6 +38,7 @@ export default interface KroniskKravState extends ValidationState {
   submitting?: boolean;
   gDagsbeloep?: number;
   antallDager?: number;
+  antallDagerError?: string;
 }
 
 export interface KroniskKravPeriode {
