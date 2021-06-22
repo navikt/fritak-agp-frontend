@@ -53,7 +53,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   };
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
-    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: stringishToNumber(dager) } });
+    dispatch({ type: Actions.antallDager, payload: { antallDager: stringishToNumber(dager) } });
   };
 
   const handleSubmitClicked = async () => {
@@ -79,7 +79,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
       postKroniskKrav(
         environment.baseUrl,
-        mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.kontrollDager)
+        mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
       ).then((response) => {
         dispatch({
           type: Actions.HandleResponse,
@@ -96,7 +96,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.fnr,
     state.bekreft,
     state.orgnr,
-    state.kontrollDager
+    state.antallDager
   ]);
 
   if (!!state.kvittering) {

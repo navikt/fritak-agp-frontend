@@ -27,6 +27,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
 
+  nextState.antallDager;
+
   nextState.perioder?.forEach((aktuellPeriode) => {
     aktuellPeriode.fomError = formatValidation(validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated), translate);
     aktuellPeriode.tomError = formatValidation(

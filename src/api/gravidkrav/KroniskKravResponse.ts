@@ -8,7 +8,7 @@ interface KroniskKravResponse {
   identitetsnummer: string;
   perioder: Array<KravPeriode>;
   harVedlegg: boolean;
-  kontrollDager: number | null;
+  antallDager: number | null;
   journalpostId: string;
   oppgaveId?: string | null;
   virksomhetsnavn: string;

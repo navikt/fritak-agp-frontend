@@ -19,7 +19,7 @@ describe('postKroniskKrav', () => {
       }
     ],
     bekreftet: true,
-    kontrollDager: 123
+    antallDager: 123
   };
   it('should call postRequest with the correct params', () => {
     postKroniskKrav('/basepath', params);

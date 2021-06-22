@@ -16,7 +16,7 @@ const mapKravState = (krav: KroniskKravResponse): GravidKravResponse => ({
     return prev;
   }),
   harVedlegg: krav.harVedlegg,
-  kontrollDager: krav.kontrollDager,
+  antallDager: krav.antallDager,
   journalpostId: krav.journalpostId,
   oppgaveId: krav.oppgaveId ?? null,
   virksomhetsnavn: krav.virksomhetsnavn

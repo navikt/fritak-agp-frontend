@@ -19,7 +19,7 @@ describe('mapKravState', () => {
         }
       ],
       harVedlegg: false,
-      kontrollDager: null,
+      antallDager: null,
       journalpostId: '493346012',
       oppgaveId: null,
       virksomhetsnavn: 'Ukjent arbeidsgiver'
@@ -30,7 +30,7 @@ describe('mapKravState', () => {
       id: 'f68a073b-9bed-45c1-aa1a-4dad2de52c2e',
       identitetsnummer: '22018520056',
       journalpostId: '493346012',
-      kontrollDager: null,
+      antallDager: null,
       oppgaveId: null,
       opprettet: '2021-03-02T12:50:50.400688',
       periode: {
@@ -69,7 +69,7 @@ describe('mapKravState', () => {
         }
       ],
       harVedlegg: false,
-      kontrollDager: null,
+      antallDager: null,
       journalpostId: '493346012',
       oppgaveId: null,
       virksomhetsnavn: 'Ukjent arbeidsgiver'
@@ -80,7 +80,7 @@ describe('mapKravState', () => {
       id: 'f68a073b-9bed-45c1-aa1a-4dad2de52c2e',
       identitetsnummer: '22018520056',
       journalpostId: '493346012',
-      kontrollDager: null,
+      antallDager: null,
       oppgaveId: null,
       opprettet: '2021-03-02T12:50:50.400688',
       periode: {
@@ -131,7 +131,7 @@ describe('mapKravState', () => {
         }
       ],
       harVedlegg: false,
-      kontrollDager: null,
+      antallDager: null,
       journalpostId: '493346012',
       oppgaveId: null,
       virksomhetsnavn: 'Ukjent arbeidsgiver'
@@ -142,7 +142,7 @@ describe('mapKravState', () => {
       id: 'f68a073b-9bed-45c1-aa1a-4dad2de52c2e',
       identitetsnummer: '22018520056',
       journalpostId: '493346012',
-      kontrollDager: null,
+      antallDager: null,
       oppgaveId: null,
       opprettet: '2021-03-02T12:50:50.400688',
       periode: {

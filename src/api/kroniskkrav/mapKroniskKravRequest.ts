@@ -7,7 +7,7 @@ export const mapKroniskKravRequest = (
   orgnr: string | undefined,
   perioder: Array<KroniskKravPeriode> | undefined,
   bekreft: boolean | undefined,
-  kontrollDager: number | undefined
+  antallDager: number | undefined
 ): KroniskKravRequest => {
   if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
@@ -46,6 +46,6 @@ export const mapKroniskKravRequest = (
     virksomhetsnummer: orgnr,
     perioder: periodeData as [Arbeidsgiverperiode],
     bekreftet: bekreft,
-    antallDager: kontrollDager
+    antallDager: antallDager
   };
 };

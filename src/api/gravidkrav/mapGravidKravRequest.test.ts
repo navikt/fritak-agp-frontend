@@ -204,7 +204,7 @@ describe('mapGravidKravRequest', () => {
     } as GravidKravRequest);
   });
 
-  it('should not fail when fnr is 123 and we have kontrollDager', () => {
+  it('should not fail when fnr is 123 and we have antallDager', () => {
     expect(
       mapGravidKravRequest(
         '123',

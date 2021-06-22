@@ -100,8 +100,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
       return nextState;
 
-    case Actions.KontrollDager:
-      nextState.kontrollDager = payload?.kontrollDager;
+    case Actions.antallDager:
+      nextState.antallDager = payload?.antallDager;
       return nextState;
 
     case Actions.AddPeriod:

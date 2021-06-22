@@ -389,28 +389,28 @@ describe('GravidKravReducer', () => {
     expect(state.perioder[0].grunnbeloep).toEqual(undefined);
   });
 
-  it('should set kontrollDager to 345 when grunnbeloep is 14950 and action is KontrollDager', () => {
+  it('should set antallDager to 345 when grunnbeloep is 14950 and action is antallDager', () => {
     let state = GravidKravReducer(
       defaultGravidKravState(),
       {
-        type: Actions.KontrollDager,
-        payload: { kontrollDager: 14950 }
+        type: Actions.antallDager,
+        payload: { antallDager: 14950 }
       },
       translationMock as unknown as i18n
     );
-    expect(state.kontrollDager).toEqual(14950);
+    expect(state.antallDager).toEqual(14950);
   });
 
-  it('should set kontrollDager to 0 when 0 is given as param and action is KontrollDager', () => {
+  it('should set antallDager to 0 when 0 is given as param and action is antallDager', () => {
     let state = GravidKravReducer(
       defaultGravidKravState(),
       {
-        type: Actions.KontrollDager,
-        payload: { kontrollDager: 0 }
+        type: Actions.antallDager,
+        payload: { antallDager: 0 }
       },
       translationMock as unknown as i18n
     );
-    expect(state.kontrollDager).toEqual(0);
+    expect(state.antallDager).toEqual(0);
   });
 
   it('should reset to defaults', () => {

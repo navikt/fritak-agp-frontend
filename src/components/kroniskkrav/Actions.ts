@@ -16,7 +16,7 @@ export enum Actions {
   Kvittering,
   NotAuthorized,
   Grunnbeloep,
-  KontrollDager,
+  antallDager,
   AddPeriod,
   DeletePeriod
 }
@@ -35,7 +35,7 @@ export interface Payload {
   dokumentasjon?: string;
   response?: ValidationResponse;
   grunnbeloep?: number;
-  kontrollDager?: number;
+  antallDager?: number;
   periode?: number;
   itemId?: string;
 }

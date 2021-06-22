@@ -58,7 +58,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   };
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
-    dispatch({ type: Actions.KontrollDager, payload: { kontrollDager: stringishToNumber(dager) } });
+    dispatch({ type: Actions.antallDager, payload: { antallDager: stringishToNumber(dager) } });
   };
 
   const handleUploadChanged = (file?: File) => {
@@ -105,7 +105,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           state.perioder,
           state.dokumentasjon,
           state.bekreft,
-          state.kontrollDager
+          state.antallDager
         )
       ).then((response) => {
         dispatch({
@@ -124,7 +124,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.kontrollDager
+    state.antallDager
   ]);
 
   if (!!state.kvittering) {

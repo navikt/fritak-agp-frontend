@@ -184,7 +184,7 @@ describe('mapKroniskKravRequest', () => {
     } as KroniskKravRequest);
   });
 
-  it('should not fail when fnr is 123 and kontrollDager is 120', () => {
+  it('should not fail when fnr is 123 and antallDager is 120', () => {
     expect(
       mapKroniskKravRequest(
         '123',

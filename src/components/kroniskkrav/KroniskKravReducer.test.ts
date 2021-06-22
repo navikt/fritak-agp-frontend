@@ -340,28 +340,28 @@ describe('KroniskKravReducer', () => {
     expect(state.gDagsbeloep).toEqual(undefined);
   });
 
-  it('should set kontrollDager to 345 when grunnbeloep is 14950 and action is KontrollDager', () => {
+  it('should set antallDager to 345 when grunnbeloep is 14950 and action is antallDager', () => {
     let state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
-        type: Actions.KontrollDager,
-        payload: { kontrollDager: 14950 }
+        type: Actions.antallDager,
+        payload: { antallDager: 14950 }
       },
       i18n
     );
-    expect(state.kontrollDager).toEqual(14950);
+    expect(state.antallDager).toEqual(14950);
   });
 
-  it('should set kontrollDager to 0 when 0 is given as param and action is KontrollDager', () => {
+  it('should set antallDager to 0 when 0 is given as param and action is antallDager', () => {
     let state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
-        type: Actions.KontrollDager,
-        payload: { kontrollDager: 0 }
+        type: Actions.antallDager,
+        payload: { antallDager: 0 }
       },
       i18n
     );
-    expect(state.kontrollDager).toEqual(0);
+    expect(state.antallDager).toEqual(0);
   });
 
   it('should reset to defaults', () => {
