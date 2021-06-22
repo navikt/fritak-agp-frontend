@@ -5,7 +5,6 @@ import {
   validateBeloep,
   validateFra,
   validateOrgnr,
-  isValidFnr,
   validateFnr,
   formatValidation,
   validateTil,
@@ -13,6 +12,8 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
+import validateArbeidsdager from '../../validation/validateArbeidsdager';
+import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
@@ -31,6 +32,16 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
   }
+
+  nextState.antallDagerError = formatValidation(
+    validateArbeidsdager(state.antallDager, state.validated, MIN_ARBEIDSDAGER, MAX_ARBEIDSDAGER),
+    translate
+  );
+
+  if (nextState.antallDagerError) {
+    pushFeilmelding('kontrollsporsmaal-lonn-arbeidsdager', nextState.antallDagerError, feilmeldinger);
+  }
+
   state.perioder?.forEach((periode) => {
     periode.fomError = formatValidation(validateFra(periode.fom, MIN_DATE, !!nextState.validated), translate);
     periode.tomError = formatValidation(

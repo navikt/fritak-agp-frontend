@@ -5,7 +5,6 @@ import {
   validateBeloep,
   validateFra,
   validateOrgnr,
-  isValidFnr,
   pushFeilmelding,
   validateBekreft,
   validateFnr,
@@ -14,12 +13,10 @@ import {
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
+import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
-
-const MIN_ARBEIDSDAGER = 0;
-const MAX_ARBEIDSDAGER = 366;
 
 export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): KroniskKravState => {
   if (!state.validated) {
@@ -60,21 +57,21 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     pushFeilmelding('kontrollsporsmaal-lonn-arbeidsdager', nextState.antallDagerError, feilmeldinger);
   }
 
-  nextState.perioder?.forEach((aktuellPeriode) => {
+  nextState.perioder?.forEach((aktuellPeriode, index) => {
     if (aktuellPeriode.fomError) {
-      pushFeilmelding('fra', aktuellPeriode.fomError, feilmeldinger);
+      pushFeilmelding(`fra-dato-${index}`, aktuellPeriode.fomError, feilmeldinger);
     }
 
     if (aktuellPeriode.tomError) {
-      pushFeilmelding('til', aktuellPeriode.tomError, feilmeldinger);
+      pushFeilmelding(`til-dato-${index}`, aktuellPeriode.tomError, feilmeldinger);
     }
 
     if (aktuellPeriode.dagerError) {
-      pushFeilmelding('dager', aktuellPeriode.dagerError, feilmeldinger);
+      pushFeilmelding(`dager-${index}`, aktuellPeriode.dagerError, feilmeldinger);
     }
 
     if (aktuellPeriode.beloepError) {
-      pushFeilmelding('beloep', aktuellPeriode.beloepError, feilmeldinger);
+      pushFeilmelding(`belop-${index}`, aktuellPeriode.beloepError, feilmeldinger);
     }
   });
 
