@@ -42,4 +42,6 @@ export default interface KroniskState extends ValidationState {
   error?: boolean;
   notAuthorized?: boolean;
   submitting?: boolean;
+  antallPerioder?: number;
+  antallPerioderError?: string;
 }

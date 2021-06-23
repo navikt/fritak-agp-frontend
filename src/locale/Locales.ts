@@ -27,6 +27,7 @@ import { GravidKvitteringKeys } from '../components/gravid/GravidKvitteringKeys'
 import { KravKvitteringKeys } from '../components/kravkvittering/KravKvitteringKeys';
 import { FravaerTabellKeys } from '../components/kronisk/FravaerTabellKeys';
 import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
+import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder';
 
 export interface Locale {
   en: string;
@@ -60,6 +61,7 @@ const Locales: Record<
   | IngenTilgangAdvarselKeys
   | FravaerTabellKeys
   | KroniskSideKeys
+  | ValidateAntallPerioderKeys
   | ValidateArbeidsdagerKeys,
   Locale
 > = {
@@ -574,7 +576,14 @@ const Locales: Record<
       'hvis både arbeidsforholdet og helseproblemene har vart så lenge.',
     en: ''
   },
-
+  KRONISK_SIDE_PERIODER_LABEL: {
+    nb: 'Hvor mange perioder er fraværet fordelt på siste 12 måneder?',
+    en: 'How many periods is the absence spread over the last 12 months?'
+  },
+  KRONISK_SIDE_PERIODER_TEXT: {
+    nb: 'Når den ansatte har vært tilbake på jobb, og så blir fraværende igjen definerer vi det som en ny periode.',
+    en: 'When the employee has been back at work, and then becomes absent again, we define it as a new period.'
+  },
   KRONISK_KRAV_ARBEIDSTID_TAPT: {
     nb: 'Fraværsperiode',
     en: 'Period of absence'
@@ -1010,6 +1019,18 @@ const Locales: Record<
   VALIDATE_ARBEIDSDAGER_TOO_HIGH: {
     nb: 'Antall arbeidsdager per år er for høyt',
     en: 'Number of working days per year is to high'
+  },
+  VALIDATE_ANTALL_PERIODER_MISSING: {
+    nb: 'Mangler antall fraværsperioder',
+    en: 'Missing number of periods of absence'
+  },
+  VALIDATE_ANTALL_PERIODER_TOO_LOW: {
+    nb: 'Antall fraværsperioder er for lavt',
+    en: 'The number of periods of absence is too low'
+  },
+  VALIDATE_ANTALL_PERIODER_TOO_HIGH: {
+    nb: 'Antall fraværsperioder per år er for høyt',
+    en: 'The number of periods of absence per year is too high'
   },
   FRAVAERTABELL_MONTH: {
     nb: 'Måned',

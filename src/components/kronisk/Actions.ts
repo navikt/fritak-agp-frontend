@@ -16,7 +16,8 @@ export enum Actions {
   Bekreft,
   Validate,
   HandleResponse,
-  NotAuthorized
+  NotAuthorized,
+  AntallPerioder
 }
 
 export interface FravaerType {
@@ -37,6 +38,7 @@ export interface Payload {
   dokumentasjon?: string;
   kommentar?: string;
   response?: ValidationResponse;
+  antallPerioder?: number;
 }
 
 export interface KroniskAction {

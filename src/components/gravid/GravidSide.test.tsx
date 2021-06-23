@@ -64,17 +64,6 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_HOVED)).not.toBeInTheDocument();
   });
 
-  it('skal vise kvittering', () => {
-    const state = defaultGravidState();
-    state.kvittering = true;
-    render(<GravidSide state={state} />);
-
-    expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
-    expect(screen.getByText(STATUS_KVITTERING)).toBeInTheDocument();
-    expect(screen.queryByText(STATUS_FEIL)).not.toBeInTheDocument();
-    expect(screen.queryByText(STATUS_HOVED)).not.toBeInTheDocument();
-  });
-
   it('skal vise spørsmål om tilrettelegging', () => {
     const state = defaultGravidState();
     render(<GravidSide state={state} />);

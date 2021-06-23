@@ -4,14 +4,17 @@ import Panel from 'nav-frontend-paneler';
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import lenker from '../../config/lenker';
+import lenker, { buildLenke } from '../../config/lenker';
 import InternLenke from '../felles/InternLenke/InternLenke';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { useParams } from 'react-router-dom';
+import PathParams from '../../locale/PathParams';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
+  const { language } = useParams<PathParams>();
 
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
@@ -38,7 +41,7 @@ const KroniskKvittering = () => {
 
           <Panel>
             <div>
-              <InternLenke to={lenker.KroniskKrav}>Send krav om refusjon</InternLenke>
+              <InternLenke to={buildLenke(lenker.KroniskKrav, language)}>Send krav om refusjon</InternLenke>
             </div>
             <div>
               <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
