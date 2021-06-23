@@ -574,7 +574,14 @@ const Locales: Record<
       'hvis både arbeidsforholdet og helseproblemene har vart så lenge.',
     en: ''
   },
-
+  KRONISK_SIDE_PERIODER_LABEL: {
+    nb: 'Hvor mange perioder er fraværet fordelt på siste 12 måneder?',
+    en: 'How many periods is the absence spread over the last 12 months?'
+  },
+  KRONISK_SIDE_PERIODER_TEXT: {
+    nb: 'Når den ansatte har vært tilbake på jobb, og så blir fraværende igjen definerer vi det som en ny periode.',
+    en: 'When the employee has been back at work, and then becomes absent again, we define it as a new period.'
+  },
   KRONISK_KRAV_ARBEIDSTID_TAPT: {
     nb: 'Fraværsperiode',
     en: 'Period of absence'

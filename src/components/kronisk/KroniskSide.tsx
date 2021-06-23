@@ -2,8 +2,7 @@ import React, { Reducer, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
-import Tekstomrade, { BoldRule, ParagraphRule } from 'nav-frontend-tekstomrade';
+import { Checkbox, CheckboxGruppe, Input, Label, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -30,7 +29,8 @@ import {
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
   Fnr,
-  Skillelinje
+  Skillelinje,
+  stringishToNumber
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -311,7 +311,27 @@ const KroniskSide = () => {
               />
             </SkjemaGruppe>
           </Panel>
-
+          <Panel>
+            <Label htmlFor='soknad-perioder'>{t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}</Label>
+            <Input
+              id='soknad-perioder'
+              bredde='XS'
+              inputMode='numeric'
+              pattern='[0-9]*'
+              className='kontrollsporsmaal-lonn-arbeidsdager'
+              onChange={(evt) => {
+                dispatch({
+                  type: Actions.AntallPerioder,
+                  payload: {
+                    antallPerioder: stringishToNumber(evt.target.value)
+                  }
+                });
+              }}
+            />
+            <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
+              {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_TEXT)}
+            </Normaltekst>
+          </Panel>
           <Skillelinje />
 
           <BekreftOpplysningerPanel
