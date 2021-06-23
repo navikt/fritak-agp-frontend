@@ -27,6 +27,7 @@ import { KravKvitteringKeys } from '../components/kravkvittering/KravKvitteringK
 import { FravaerTabellKeys } from '../components/kronisk/FravaerTabellKeys';
 import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
 import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder';
+import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/KontrollSporsmaal';
 
 export interface Locale {
   en: string;
@@ -59,6 +60,7 @@ const Locales: Record<
   | IngenTilgangAdvarselKeys
   | FravaerTabellKeys
   | KroniskSideKeys
+  | KontrollSporsmaalKeys
   | ValidateAntallPerioderKeys
   | ValidateArbeidsdagerKeys,
   Locale

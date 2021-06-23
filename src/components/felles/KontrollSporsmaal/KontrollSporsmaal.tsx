@@ -3,8 +3,12 @@ import { Input, Label } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import LangKey from '../../../locale/LangKey';
 import './KontrollSporsmaal.scss';
+
+export enum KontrollSporsmaalKeys {
+  KONTROLLSPORSMAL_LONN_DAGER = 'KONTROLLSPORSMAL_LONN_DAGER',
+  KONTROLLSPORSMAL_LONN_FORKLARING_DAGER = 'KONTROLLSPORSMAL_LONN_FORKLARING_DAGER'
+}
 
 interface KontrollSporsmaalProps {
   onChange: any;
@@ -17,7 +21,7 @@ const KontrollSporsmaal = ({ onChange, id }: KontrollSporsmaalProps) => {
 
   return (
     <>
-      <Label htmlFor={elementId}>{t(LangKey.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
+      <Label htmlFor={elementId}>{t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
       <Input
         id={elementId}
         bredde='XS'
@@ -27,7 +31,7 @@ const KontrollSporsmaal = ({ onChange, id }: KontrollSporsmaalProps) => {
         onChange={onChange}
       />
       <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-        {t(LangKey.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
+        {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
       </Normaltekst>
     </>
   );
