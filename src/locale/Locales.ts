@@ -18,7 +18,6 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { ValidateDagerKeys } from '../validation/validateDager';
 import { KroniskKravKeys } from '../components/kroniskkrav/KroniskKravKeys';
-import { KontrollsporsmaalLonnKeys } from '../components/KontrollsporsmaalLonn';
 import { SideKeys } from '@navikt/helse-arbeidsgiver-felles-frontend/dist/components/Side/SideKeys';
 import { KroniskSideKeys } from '../components/kronisk/KroniskSideKeys';
 import { GravidKravKeys } from '../components/gravidkrav/GravidKravKeys';
@@ -28,6 +27,7 @@ import { KravKvitteringKeys } from '../components/kravkvittering/KravKvitteringK
 import { FravaerTabellKeys } from '../components/kronisk/FravaerTabellKeys';
 import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
 import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder';
+import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/KontrollSporsmaal';
 
 export interface Locale {
   en: string;
@@ -40,7 +40,6 @@ const Locales: Record<
   | BekreftOpplysningerKeys
   | FeilmeldingspanelKeys
   | KroniskKravKeys
-  | KontrollsporsmaalLonnKeys
   | TokenFornyetKeys
   | TilgangsfeilSideKeys
   | ServerFeilAdvarselKeys
@@ -61,6 +60,7 @@ const Locales: Record<
   | IngenTilgangAdvarselKeys
   | FravaerTabellKeys
   | KroniskSideKeys
+  | KontrollSporsmaalKeys
   | ValidateAntallPerioderKeys
   | ValidateArbeidsdagerKeys,
   Locale
@@ -642,41 +642,13 @@ const Locales: Record<
       'This calculation does _not_ take into account other payments the employee may receive from NAV, such as graded ' +
       'sickness benefits. Payments for which you already receive a refund will therefore be deducted from the amount you are now applying for.'
   },
-  KONTROLLSPORSMAL_LONN_CONTENT_LABEL: {
-    nb: 'Kontrollspørsmål for lønn som overstiger 6G',
-    en: 'Control questions for salaries exceeding 6G'
-  },
-  KONTROLLSPORSMAL_LONN_TITTEL: {
-    nb: 'Det ser ut som om lønnen overstiger 6G',
-    en: 'It looks like the salary exceeds 6G '
-  },
-  KONTROLLSPORSMAL_LONN_INGRESS: {
-    nb:
-      'Vanligvis kan ikke dagsatsen overstige 1/260 av 6G*. For enkelte arbeidstidsordninger kan NAV likevel godkjenne' +
-      ' en høyere dagsats, forutsatt at årslønnen ikke overstiger 6G.',
-    en:
-      'Generally, the daily rate cannot exceed 1/260 of 6G *. For some working time schemes, NAV can still approve a higher' +
-      ' daily rate, provided that the annual salary does not exceed 6G. '
-  },
-  KONTROLLSPORSMAL_LONN_DAGER: {
+  KONTROLLSPORSMAL_DAGER_LABEL: {
     nb: 'Oppgi antall dager dere utbetaler lønn for i året:',
     en: 'Enter the number of days you pay wages for a year:'
   },
-  KONTROLLSPORSMAL_LONN_GRUNNBELOP: {
-    nb: '* G=folketrygdens grunnbeløp',
-    en: '* G=the National Insurance basic amount '
-  },
-  KONTROLLSPORSMAL_LONN_FORKLARING_DAGER: {
+  KONTROLLSPORSMAL_DAGER_FORKLARING: {
     nb: '(260 dager er vanlig for en ordinær 100% stilling)',
     en: '(260 days is usual for an ordinary 100% position)'
-  },
-  KONTROLLSPORSMAL_LONN_SEND: {
-    nb: 'Send kravet',
-    en: 'Submit claim'
-  },
-  KONTROLLSPORSMAL_LONN_AVBRYT: {
-    nb: 'Avbryt og gå tilbake til skjema',
-    en: 'Cancel and return to form '
   },
   KRAV_KVITTERING_TITTEL: {
     nb: 'Kravet er mottatt',

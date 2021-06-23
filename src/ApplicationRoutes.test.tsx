@@ -6,12 +6,8 @@ import { act } from 'react-dom/test-utils';
 import mockHistory from './mockData/mockHistory';
 import { ArbeidsgiverProvider, ArbeidsgiverStatus, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { languageInit } from './locale/languageInit';
-import i18next from 'i18next';
-import Locales from './locale/Locales';
 
 describe('ApplicationRoutes', () => {
-  //languageInit(i18next, Language.nb, Locales);
   let container = document.createElement('div');
 
   beforeEach(() => {
