@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import './KontrollSporsmaal.scss';
 
 export enum KontrollSporsmaalKeys {
-  KONTROLLSPORSMAL_LONN_DAGER = 'KONTROLLSPORSMAL_LONN_DAGER',
-  KONTROLLSPORSMAL_LONN_FORKLARING_DAGER = 'KONTROLLSPORSMAL_LONN_FORKLARING_DAGER'
+  KONTROLLSPORSMAL_DAGER_LABEL = 'KONTROLLSPORSMAL_DAGER_LABEL',
+  KONTROLLSPORSMAL_DAGER_FORKLARING = 'KONTROLLSPORSMAL_DAGER_FORKLARING'
 }
 
 interface KontrollSporsmaalProps {
@@ -21,7 +21,7 @@ const KontrollSporsmaal = ({ onChange, id }: KontrollSporsmaalProps) => {
 
   return (
     <>
-      <Label htmlFor={elementId}>{t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_LONN_DAGER)}</Label>
+      <Label htmlFor={elementId}>{t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_LABEL)}</Label>
       <Input
         id={elementId}
         bredde='XS'
@@ -31,7 +31,7 @@ const KontrollSporsmaal = ({ onChange, id }: KontrollSporsmaalProps) => {
         onChange={onChange}
       />
       <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-        {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_LONN_FORKLARING_DAGER)}
+        {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING)}
       </Normaltekst>
     </>
   );
