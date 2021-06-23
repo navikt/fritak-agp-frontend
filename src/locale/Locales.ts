@@ -640,6 +640,14 @@ const Locales: Record<
       'This calculation does _not_ take into account other payments the employee may receive from NAV, such as graded ' +
       'sickness benefits. Payments for which you already receive a refund will therefore be deducted from the amount you are now applying for.'
   },
+  KONTROLLSPORSMAL_LONN_DAGER: {
+    nb: 'Oppgi antall dager dere utbetaler lønn for i året:',
+    en: 'Enter the number of days you pay wages for a year:'
+  },
+  KONTROLLSPORSMAL_LONN_FORKLARING_DAGER: {
+    nb: '(260 dager er vanlig for en ordinær 100% stilling)',
+    en: '(260 days is usual for an ordinary 100% position)'
+  },
   KRAV_KVITTERING_TITTEL: {
     nb: 'Kravet er mottatt',
     en: 'The claim has been received '
