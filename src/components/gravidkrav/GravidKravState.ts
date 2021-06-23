@@ -49,4 +49,5 @@ export default interface GravidKravState extends ValidationState {
   submitting?: boolean;
   gDagsbeloep?: number;
   antallDager?: number;
+  antallDagerError?: string;
 }
