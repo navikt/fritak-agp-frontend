@@ -8,7 +8,6 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
-import GravidKvittering from './GravidKvittering';
 import Orgnr from '../felles/Orgnr/Orgnr';
 import GravidSideProps from './GravidSideProps';
 import getBase64file from '../../utils/getBase64File';
@@ -134,8 +133,6 @@ const GravidSide = (props: GravidSideProps) => {
         <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
           {state.progress == true && <GravidProgress />}
-
-          {state.kvittering == true && <GravidKvittering />}
 
           {state.progress != true && state.kvittering != true && (
             <div>
