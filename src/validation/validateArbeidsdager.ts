@@ -2,7 +2,6 @@ import ValidationResult from '@navikt/helse-arbeidsgiver-felles-frontend/dist/va
 
 export enum ValidateArbeidsdagerKeys {
   VALIDATE_ARBEIDSDAGER_MISSING = 'VALIDATE_ARBEIDSDAGER_MISSING',
-  VALIDATE_ARBEIDSDAGER_REQUIRED = 'VALIDATE_ARBEIDSDAGER_REQUIRED',
   VALIDATE_ARBEIDSDAGER_TOO_LOW = 'VALIDATE_ARBEIDSDAGER_TOO_LOW',
   VALIDATE_ARBEIDSDAGER_TOO_HIGH = 'VALIDATE_ARBEIDSDAGER_TOO_HIGH'
 }
@@ -17,10 +16,8 @@ export const validateArbeidsdager = (
   minDager: number = 0,
   maxDager: number = 366
 ): ValidateArbeidsdagerResult | undefined => {
-  if (!dager) {
-    return required ? { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING } : undefined;
-  }
-  if (dager === undefined) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_REQUIRED };
+  if (!required) return undefined;
+  if (!dager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING };
   if (dager <= minDager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_LOW };
   if (maxDager <= dager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_HIGH };
   return undefined;

@@ -1003,10 +1003,6 @@ const Locales: Record<
     nb: 'Mangler antall arbeidsdager',
     en: 'Missing number of working days'
   },
-  VALIDATE_ARBEIDSDAGER_REQUIRED: {
-    nb: 'Mangler antall arbeidsdager',
-    en: 'Missing number of working days'
-  },
   VALIDATE_ARBEIDSDAGER_TOO_LOW: {
     nb: 'Antall arbeidsdager er for lavt',
     en: 'Number of working days is to low'

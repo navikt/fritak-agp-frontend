@@ -20,9 +20,13 @@ describe('validateArbeidsdager', () => {
   });
 
   it('should verify that there is a dager missing when required and dager is 0', () => {
-    expect(validateArbeidsdager(undefined, true)).toEqual({
+    expect(validateArbeidsdager(0, true)).toEqual({
       key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING
     });
+  });
+
+  it('should return undefined when not required and dager is 0', () => {
+    expect(validateArbeidsdager(0, false)).toBeUndefined();
   });
 
   it('should verify that there is an to low error when required and dager is below minimum', () => {
