@@ -6,12 +6,13 @@ import { MAX_BESKRIVELSE } from './KroniskSide';
 import {
   pushFeilmelding,
   validateOrgnr,
-  isValidFnr,
   isValidOrgnr,
   validateFnr,
   formatValidation
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
+import validateAntallPerioder from '../../validation/validateAntallPerioder';
+import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState, translate: i18n): KroniskState => {
@@ -64,6 +65,14 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
     nextState.fravaerError = 'Minst en dag må fylles ut';
   } else {
     nextState.fravaerError = undefined;
+  }
+
+  nextState.antallPerioderError = formatValidation(
+    validateAntallPerioder(state.antallPerioder, !!nextState.validated, MIN_ARBEIDSDAGER, MAX_ARBEIDSDAGER),
+    translate
+  );
+  if (nextState.antallPerioderError) {
+    pushFeilmelding('soknad-perioder', nextState.antallPerioderError, feilmeldinger);
   }
 
   if (nextState.bekreftError) {

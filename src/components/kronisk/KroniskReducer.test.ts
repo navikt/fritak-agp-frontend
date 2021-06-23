@@ -209,6 +209,29 @@ describe('KroniskReducer', () => {
     expect(state2.paakjenninger).toEqual([PaakjenningerType.REGELMESSIG]);
   });
 
+  it('should set the antallPerioder to undefined', () => {
+    let state = KroniskReducer(
+      defaultKroniskState(),
+      {
+        type: Actions.AntallPerioder
+      },
+      i18n
+    );
+    expect(state.antallPerioder).toBeUndefined();
+  });
+
+  it('should set the antallPerioder to 5', () => {
+    let state = KroniskReducer(
+      defaultKroniskState(),
+      {
+        type: Actions.AntallPerioder,
+        payload: { antallPerioder: 5 }
+      },
+      i18n
+    );
+    expect(state.antallPerioder).toBe(5);
+  });
+
   it('should set the bekreft to undefined', () => {
     let state = KroniskReducer(
       defaultKroniskState(),
@@ -465,6 +488,36 @@ describe('KroniskReducer', () => {
   });
 
   it('should validate', () => {
+    const expectedFeilmeldinger = [
+      {
+        feilmelding: 'Mangler fødselsnummer',
+        skjemaelementId: 'fnr'
+      },
+      {
+        feilmelding: 'Virksomhetsnummer må fylles ut',
+        skjemaelementId: 'orgnr'
+      },
+      {
+        feilmelding: 'Arbeid om den ansatte må fylles ut',
+        skjemaelementId: 'arbeidsutfører'
+      },
+      {
+        feilmelding: 'Påkjenninger om den ansatte må fylles ut',
+        skjemaelementId: 'paakjenninger'
+      },
+      {
+        feilmelding: 'Mangler antall fraværsperioder',
+        skjemaelementId: 'soknad-perioder'
+      },
+      {
+        feilmelding: 'Bekreft at opplysningene er korrekte',
+        skjemaelementId: 'bekreftFeilmeldingId'
+      },
+      {
+        feilmelding: 'Fravær må fylles ut',
+        skjemaelementId: 'fravaer'
+      }
+    ];
     let state1 = KroniskReducer(
       defaultKroniskState(),
       {
@@ -474,7 +527,8 @@ describe('KroniskReducer', () => {
       i18n
     );
     let state2 = KroniskReducer(state1, { type: Actions.Validate }, i18n);
-    expect(state2.feilmeldinger.length).toBe(6);
+    expect(state2.feilmeldinger.length).toBe(7);
+    expect(state2.feilmeldinger).toEqual(expectedFeilmeldinger);
   });
 
   it('should reset to defaults', () => {

@@ -74,7 +74,8 @@ const KroniskSide = () => {
           state.fnr || '',
           state.orgnr || '',
           state.bekreft || false,
-          state.kommentar
+          state.kommentar,
+          state.antallPerioder || 0
         )
       ).then((response) => {
         dispatch({
@@ -95,7 +96,8 @@ const KroniskSide = () => {
     state.fravaer,
     state.kommentar,
     state.orgnr,
-    state.paakjenninger
+    state.paakjenninger,
+    state.antallPerioder
   ]);
 
   if (state.kvittering === true) {

@@ -50,6 +50,10 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       nextState.bekreft = payload?.bekreft;
       return validateKronisk(nextState, translate);
 
+    case Actions.AntallPerioder:
+      nextState.antallPerioder = payload?.antallPerioder;
+      return validateKronisk(nextState, translate);
+
     case Actions.Progress:
       if (payload?.progress == undefined) {
         throw new Error('Du må spesifisere progress');
