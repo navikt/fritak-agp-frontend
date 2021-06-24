@@ -11,7 +11,7 @@ describe('validateTermindato', () => {
   });
 
   it('should show error when empty value and required', () => {
-    expect(validateTermindato(parseDato(''), true, 'Termindato må fylles ut')).not.toBeUndefined();
+    expect(validateTermindato(parseDato(''), true, 'Termindato må fylles ut')).toBe('Termindato må fylles ut');
   });
 
   it('should not show error when valid and required', () => {
@@ -23,6 +23,6 @@ describe('validateTermindato', () => {
   });
 
   it('should show error when illegal dato', () => {
-    expect(validateTermindato(parseDato('99.99.2020'), true, 'Termindato må fylles ut')).not.toBeUndefined();
+    expect(validateTermindato(parseDato('99.99.2020'), true, 'Termindato må fylles ut')).toBe('Ugyldig dato');
   });
 });

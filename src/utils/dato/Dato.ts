@@ -38,7 +38,7 @@ export const parseDato = (date: string): Dato => {
   if (!NORWAY_REGEX.test(date)) {
     return {
       value: date,
-      error: 'Ugyldig dato format'
+      error: 'Ugyldig datoformat'
     };
   }
   const arr = date.split('.');

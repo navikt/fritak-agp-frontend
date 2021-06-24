@@ -54,7 +54,7 @@ describe('dato', () => {
   it('should parse dato correct values', () => {
     expect(parseDato('01.01.2021').day).toBe(1);
     expect(parseDato('31.01.2021').day).toBe(31);
-    expect(parseDato('32.01.2020').error).not.toBeUndefined();
+    expect(parseDato('32.01.2020').error).toBe('Ugyldig dato');
   });
 
   it('should parse dato with single values', () => {
@@ -64,15 +64,15 @@ describe('dato', () => {
   });
 
   it('should not parse illegal format', () => {
-    expect(parseDato('05-10-2020').error).not.toBeUndefined();
-    expect(parseDato('2020-10-05').error).not.toBeUndefined();
+    expect(parseDato('05-10-2020').error).toBe('Ugyldig datoformat');
+    expect(parseDato('2020-10-05').error).toBe('Ugyldig datoformat');
   });
 
   it('should not allow invalid values', () => {
-    expect(parseDato('01.13.2020').error).not.toBeUndefined();
-    expect(parseDato('00.12.2020').error).not.toBeUndefined();
-    expect(parseDato('01.00.2020').error).not.toBeUndefined();
-    expect(parseDato('35.01.2020').error).not.toBeUndefined();
+    expect(parseDato('01.13.2020').error).toBe('Ugyldig måned');
+    expect(parseDato('00.12.2020').error).toBe('Ugyldig dato');
+    expect(parseDato('01.00.2020').error).toBe('Ugyldig måned');
+    expect(parseDato('35.01.2020').error).toBe('Ugyldig dato');
   });
 
   it('should parse date til dato', () => {

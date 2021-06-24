@@ -10,7 +10,7 @@ describe('validateDager', () => {
   });
 
   it('should verify that there is a dager missing when required', () => {
-    expect(validateDager(undefined, true)).not.toBeUndefined();
+    expect(validateDager(undefined, true)).toEqual({ key: 'VALIDATE_DAGER_MISSING' });
   });
 
   it('should not verify that there is a dager missing when not required', () => {
@@ -18,6 +18,6 @@ describe('validateDager', () => {
   });
 
   it('should verify that there is a dager missing when required and dager is 0', () => {
-    expect(validateDager(undefined, true)).not.toBeUndefined();
+    expect(validateDager(undefined, true)).toEqual({ key: 'VALIDATE_DAGER_MISSING' });
   });
 });
