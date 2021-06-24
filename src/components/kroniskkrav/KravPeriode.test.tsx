@@ -69,7 +69,7 @@ describe('KravPeriode', () => {
 
     slettButton?.click();
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { periode: 1 }, type: Actions.DeletePeriod });
+    expect(mockDispatch).toHaveBeenCalledWith({ payload: { itemId: 'mocked' }, type: Actions.DeletePeriod });
   });
 
   it('call dispatch when beløp has been updated', async () => {

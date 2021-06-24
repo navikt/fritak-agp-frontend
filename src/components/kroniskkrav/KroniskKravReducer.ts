@@ -112,11 +112,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
 
     case Actions.DeletePeriod:
-      if (payload?.periode) {
-        nextState.perioder.splice(payload?.periode, 1);
-      }
-
-      return nextState;
+      checkItemId(payload?.itemId);
+      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
+      return validateKroniskKrav(nextState, translate);
 
     case Actions.Reset:
       return Object.assign({}, defaultKroniskKravState());

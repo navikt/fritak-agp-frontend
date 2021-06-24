@@ -40,11 +40,11 @@ const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
   const dispatch = props.dispatch;
 
-  const fjernPeriode = (periode: number): void => {
+  const fjernPeriode = (itemId: string): void => {
     dispatch({
       type: Actions.DeletePeriod,
       payload: {
-        periode: periode
+        itemId
       }
     });
   };
@@ -170,7 +170,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
       </Column>
       <Column sm='1' xs='6' className='slett-periode-wrapper'>
         {props.index > 0 && (
-          <InternLenke onClick={() => fjernPeriode(props.index)} className='slett-periode'>
+          <InternLenke onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)} className='slett-periode'>
             Slett
           </InternLenke>
         )}
