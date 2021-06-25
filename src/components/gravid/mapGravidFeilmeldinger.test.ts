@@ -18,7 +18,7 @@ describe('mapGravidFeilmeldinger', () => {
 
   it('should map all violations', () => {
     const state = defaultGravidState();
-    const feilmeldinger = mapGravidFeilmeldinger(mockValidationResponse(0, ALLE_FELTER), state);
+    const feilmeldinger = mapGravidFeilmeldinger(mockValidationResponse(0, ALLE_FELTER, 'feil'), state);
 
     expect(state.fnrError).not.toBeUndefined();
     expect(state.orgnrError).not.toBeUndefined();

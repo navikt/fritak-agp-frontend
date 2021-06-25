@@ -16,7 +16,7 @@ describe('mapKroniskFeilmeldinger', () => {
 
   it('should map all violations', () => {
     const state = defaultKroniskState();
-    const feilmeldinger = mapKroniskFeilmeldinger(mockValidationResponse(0, ALLE_FELTER), state);
+    const feilmeldinger = mapKroniskFeilmeldinger(mockValidationResponse(0, ALLE_FELTER, 'feil'), state);
 
     expect(state.fnrError).not.toBeUndefined();
     expect(state.orgnrError).not.toBeUndefined();
