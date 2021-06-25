@@ -19,7 +19,7 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
 
     const [propertyPath, pathIndexString, subPath] = propertyPathParts;
 
-    const pathIndex = stringishToNumber(pathIndexString) ?? 0;
+    const pathIndex = stringishToNumber(pathIndexString);
 
     switch (propertyPath) {
       case 'identitetsnummer':
@@ -35,7 +35,7 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
       case 'perioder':
         switch (subPath) {
           case 'antallDagerMedRefusjon':
-            if (state.perioder && state.perioder[pathIndex]) {
+            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
               state.perioder[pathIndex].dagerError =
                 v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden';
             }
@@ -48,41 +48,24 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
             break;
 
           case 'fom':
-            if (state.perioder && state.perioder[pathIndex]) {
+            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
               state.perioder[pathIndex].fomError = v.message || 'Fra dato kan ikke være etter til dato';
-            } else {
-              state.perioder = state.perioder ?? [];
-              state.perioder[pathIndex] = {
-                uniqueKey,
-                fomError: v.message
-              };
             }
+
             feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}`, v.message || 'Fra dato kan ikke være etter til dato'));
             break;
 
           case 'tom':
-            if (state.perioder && state.perioder[pathIndex]) {
+            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
               state.perioder[pathIndex].tomError = v.message;
-            } else {
-              state.perioder = state.perioder ?? [];
-              state.perioder[pathIndex] = {
-                uniqueKey,
-                tomError: v.message
-              };
             }
 
             feilmeldinger.push(lagFeil(`til-dato-${pathIndex}`, v.message));
             break;
 
           case 'månedsinntekt':
-            if (state.perioder && state.perioder[pathIndex]) {
+            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
               state.perioder[pathIndex].beloepError = v.message || 'Månedsinntekt mangler';
-            } else {
-              state.perioder = state.perioder ?? [];
-              state.perioder[pathIndex] = {
-                uniqueKey,
-                beloepError: v.message
-              };
             }
 
             feilmeldinger.push(lagFeil(`beloep-${pathIndex}`, v.message || 'Månedsinntekt mangler'));

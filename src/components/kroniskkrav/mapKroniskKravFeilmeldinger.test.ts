@@ -17,7 +17,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
   it('should map all violations', () => {
     const state = defaultKroniskKravState();
-    const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, ALLE_FELTER), state);
+    const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, ALLE_FELTER, 'feil'), state);
 
     expect(state.fnrError).toBe('feil');
     expect(state.orgnrError).toBe('feil');
@@ -47,5 +47,33 @@ describe('mapKroniskKravFeilmeldinger', () => {
     for (let i = 0; i < 8; i++) {
       expect(feilmeldinger[i].feilmelding).toEqual('feil');
     }
+  });
+
+  it('should handle strange stuff from the backend', () => {
+    const felter = ['perioder[1].antallDagerMedRefusjon'];
+    const state = defaultKroniskKravState();
+    const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
+
+    expect(feilmeldinger.length).toEqual(1);
+    //@ts-ignore
+    expect(state.perioder[0].dagerError).toBeUndefined();
+    //@ts-ignore
+    expect(state.perioder[1]).toBeUndefined();
+
+    expect(feilmeldinger[0].skjemaelementId).toEqual('dager-1');
+  });
+
+  it('should handle missing message from the backend', () => {
+    const felter = ['perioder[0].antallDagerMedRefusjon'];
+    const state = defaultKroniskKravState();
+    const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, undefined), state);
+
+    expect(feilmeldinger.length).toEqual(1);
+    //@ts-ignore
+    expect(state.perioder[0].dagerError).toBe('Antall dager med refusjon er høyere enn antall dager i perioden');
+    //@ts-ignore
+    expect(state.perioder[1]).toBeUndefined();
+
+    expect(feilmeldinger[0].skjemaelementId).toEqual('dager-0');
   });
 });
