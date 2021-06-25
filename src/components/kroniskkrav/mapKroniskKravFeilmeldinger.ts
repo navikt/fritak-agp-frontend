@@ -5,10 +5,21 @@ import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
+
   response.violations.forEach((v, index) => {
     const uniqueKey = state.perioder && state.perioder[index] ? state.perioder[index].uniqueKey : 'uniqueKey';
 
-    switch (v.propertyPath) {
+    const regexSplitPattern = /([^\[.\]])+/g;
+
+    const propertyPathParts = v.propertyPath.match(regexSplitPattern);
+
+    if (!propertyPathParts) {
+      return feilmeldinger;
+    }
+
+    let [propertyPath, pathIndex, subPath] = propertyPathParts;
+
+    switch (propertyPath) {
       case 'identitetsnummer':
         state.fnrError = v.message;
         feilmeldinger.push(lagFeil('fnr', v.message));
@@ -19,59 +30,71 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         feilmeldinger.push(lagFeil('orgnr', v.message));
         break;
 
-      case 'periode.fom':
-        if (state.perioder && state.perioder[index]) {
-          state.perioder[index].fomError = v.message;
-        } else {
-          state.perioder = state.perioder ?? [];
-          state.perioder[index] = {
-            uniqueKey,
-            fomError: v.message
-          };
+      case 'perioder':
+        switch (subPath) {
+          case 'antallDagerMedRefusjon':
+            if (state.perioder && state.perioder[pathIndex]) {
+              state.perioder[pathIndex].dagerError =
+                v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden';
+            }
+            feilmeldinger.push(
+              lagFeil(
+                `dager-${pathIndex}`,
+                v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden'
+              )
+            );
+            break;
+
+          case 'fom':
+            if (state.perioder && state.perioder[pathIndex]) {
+              state.perioder[pathIndex].fomError = v.message || 'Fra dato kan ikke være etter til dato';
+            } else {
+              state.perioder = state.perioder ?? [];
+              state.perioder[pathIndex] = {
+                uniqueKey,
+                fomError: v.message
+              };
+            }
+            feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}`, v.message || 'Fra dato kan ikke være etter til dato'));
+            break;
+
+          case 'tom':
+            if (state.perioder && state.perioder[pathIndex]) {
+              state.perioder[pathIndex].tomError = v.message;
+            } else {
+              state.perioder = state.perioder ?? [];
+              state.perioder[pathIndex] = {
+                uniqueKey,
+                tomError: v.message
+              };
+            }
+
+            feilmeldinger.push(lagFeil(`til-dato-${pathIndex}`, v.message));
+            break;
+
+          case 'månedsinntekt':
+            if (state.perioder && state.perioder[pathIndex]) {
+              state.perioder[pathIndex].beloepError = v.message || 'Månedsinntekt mangler';
+            } else {
+              state.perioder = state.perioder ?? [];
+              state.perioder[pathIndex] = {
+                uniqueKey,
+                beloepError: v.message
+              };
+            }
+
+            feilmeldinger.push(lagFeil(`beloep-${pathIndex}`, v.message || 'Månedsinntekt mangler'));
+            break;
+
+          default:
+            state.periodeError = v.message;
+            feilmeldinger.push(
+              lagFeil(
+                'dager',
+                v.message.length ? v.message : 'Refusjonsdager kan ikke overstige periodelengden ' + subPath
+              )
+            );
         }
-        feilmeldinger.push(lagFeil('fra', v.message));
-        break;
-
-      case 'periode.tom':
-        if (state.perioder && state.perioder[index]) {
-          state.perioder[index].tomError = v.message;
-        } else {
-          state.perioder = state.perioder ?? [];
-          state.perioder[index] = {
-            uniqueKey,
-            tomError: v.message
-          };
-        }
-
-        feilmeldinger.push(lagFeil('til', v.message));
-        break;
-
-      case 'periode.antallDagerMedRefusjon':
-        if (state.perioder && state.perioder[index]) {
-          state.perioder[index].dagerError = v.message;
-        } else {
-          state.perioder = state.perioder ?? [];
-          state.perioder[index] = {
-            uniqueKey,
-            dagerError: v.message
-          };
-        }
-
-        feilmeldinger.push(lagFeil('dager', v.message));
-        break;
-
-      case 'periode.beloep':
-        if (state.perioder && state.perioder[index]) {
-          state.perioder[index].beloepError = v.message;
-        } else {
-          state.perioder = state.perioder ?? [];
-          state.perioder[index] = {
-            uniqueKey,
-            beloepError: v.message
-          };
-        }
-
-        feilmeldinger.push(lagFeil('beloep', v.message));
         break;
 
       case 'bekreftet':
@@ -79,11 +102,10 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         feilmeldinger.push(lagFeil('bekreft', v.message));
         break;
 
-      case 'periode':
-        state.periodeError = v.message;
-        feilmeldinger.push(
-          lagFeil('dager', v.message.length ? v.message : 'Refusjonsdager kan ikke overstige periodelengden')
-        );
+      case 'antallDager':
+        state.antallDagerError = v.message;
+        feilmeldinger.push(lagFeil('kontrollsporsmaal-lonn-arbeidsdager', v.message));
+        break;
     }
   });
   return feilmeldinger;

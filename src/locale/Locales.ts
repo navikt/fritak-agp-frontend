@@ -229,10 +229,10 @@ const Locales: Record<
   },
   GRAVID_KVITTERING_ADVARSEL: {
     nb:
-      'NB: Ikke vent! Vi anbefaler å [stille krav om refusjon](/) så snart som mulig på grunn av at' +
+      'NB: Ikke vent! Vi anbefaler å [stille krav om refusjon](/nb/) så snart som mulig på grunn av at' +
       ' foreldelsesfristen for kravet kan bli overskredet mens vi behandler denne søknaden.',
     en:
-      'NB: Do not wait! We recommend [claiming a refund](/) as soon as possible due to the fact that the' +
+      'NB: Do not wait! We recommend [claiming a refund](/en/) as soon as possible due to the fact that the' +
       ' limitation period for the claim may be exceeded while we process this application.'
   },
   GRAVID_KVITTERING_KRAV: {
