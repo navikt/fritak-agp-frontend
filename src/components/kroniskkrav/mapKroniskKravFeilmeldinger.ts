@@ -6,9 +6,7 @@ import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-fr
 const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
-  response.violations.forEach((v, index) => {
-    const uniqueKey = state.perioder && state.perioder[index] ? state.perioder[index].uniqueKey : 'uniqueKey';
-
+  response.violations.forEach((v) => {
     const regexSplitPattern = /([^\[.\]])+/g;
 
     const propertyPathParts = v.propertyPath.match(regexSplitPattern);
@@ -73,12 +71,7 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
 
           default:
             state.periodeError = v.message;
-            feilmeldinger.push(
-              lagFeil(
-                'dager',
-                v.message.length ? v.message : 'Refusjonsdager kan ikke overstige periodelengden ' + subPath
-              )
-            );
+            feilmeldinger.push(lagFeil('dager', v.message || 'Refusjonsdager kan ikke overstige periodelengden'));
         }
         break;
 

@@ -75,6 +75,5 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
 
   nextState.feilmeldinger = feilmeldinger;
 
-  nextState.feilmeldinger = [];
   return nextState;
 };
