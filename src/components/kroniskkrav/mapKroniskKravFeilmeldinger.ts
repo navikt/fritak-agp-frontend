@@ -1,7 +1,7 @@
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import KroniskKravState from './KroniskKravState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -17,7 +17,9 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
       return feilmeldinger;
     }
 
-    let [propertyPath, pathIndex, subPath] = propertyPathParts;
+    const [propertyPath, pathIndexString, subPath] = propertyPathParts;
+
+    const pathIndex = stringishToNumber(pathIndexString) ?? 0;
 
     switch (propertyPath) {
       case 'identitetsnummer':
