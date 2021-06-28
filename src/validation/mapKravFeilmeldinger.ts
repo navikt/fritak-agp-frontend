@@ -1,4 +1,4 @@
-import ValidationResponse from '../state/validation/ValidationResponse';
+import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
 import KroniskKravState from '../components/kroniskkrav/KroniskKravState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
@@ -32,48 +32,7 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
         break;
 
       case 'perioder':
-        switch (subPath) {
-          case 'antallDagerMedRefusjon':
-            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-              state.perioder[pathIndex].dagerError =
-                v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden';
-            }
-            feilmeldinger.push(
-              lagFeil(
-                `dager-${pathIndex}`,
-                v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden'
-              )
-            );
-            break;
-
-          case 'fom':
-            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-              state.perioder[pathIndex].fomError = v.message || 'Fra dato kan ikke være etter til dato';
-            }
-
-            feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}`, v.message || 'Fra dato kan ikke være etter til dato'));
-            break;
-
-          case 'tom':
-            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-              state.perioder[pathIndex].tomError = v.message;
-            }
-
-            feilmeldinger.push(lagFeil(`til-dato-${pathIndex}`, v.message));
-            break;
-
-          case 'månedsinntekt':
-            if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-              state.perioder[pathIndex].beloepError = v.message || 'Månedsinntekt mangler';
-            }
-
-            feilmeldinger.push(lagFeil(`beloep-${pathIndex}`, v.message || 'Månedsinntekt mangler'));
-            break;
-
-          default:
-            state.periodeError = v.message;
-            feilmeldinger.push(lagFeil('dager', v.message || 'Refusjonsdager kan ikke overstige periodelengden'));
-        }
+        mapPeriodeFeilmeldinger(subPath, pathIndex, state, v, feilmeldinger);
         break;
 
       case 'bekreftet':
@@ -91,3 +50,51 @@ const mapKroniskKravFeilmeldinger = (response: ValidationResponse, state: Kronis
 };
 
 export default mapKroniskKravFeilmeldinger;
+
+const mapPeriodeFeilmeldinger = (
+  subPath: string,
+  pathIndex: number | undefined,
+  state: GravidKravState | KroniskKravState,
+  v: ValidationProblemDetail,
+  feilmeldinger: FeiloppsummeringFeil[]
+) => {
+  switch (subPath) {
+    case 'antallDagerMedRefusjon':
+      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+        state.perioder[pathIndex].dagerError =
+          v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden';
+      }
+      feilmeldinger.push(
+        lagFeil(`dager-${pathIndex}`, v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden')
+      );
+      break;
+
+    case 'fom':
+      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+        state.perioder[pathIndex].fomError = v.message || 'Fra dato kan ikke være etter til dato';
+      }
+
+      feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}`, v.message || 'Fra dato kan ikke være etter til dato'));
+      break;
+
+    case 'tom':
+      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+        state.perioder[pathIndex].tomError = v.message;
+      }
+
+      feilmeldinger.push(lagFeil(`til-dato-${pathIndex}`, v.message));
+      break;
+
+    case 'månedsinntekt':
+      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+        state.perioder[pathIndex].beloepError = v.message || 'Månedsinntekt mangler';
+      }
+
+      feilmeldinger.push(lagFeil(`beloep-${pathIndex}`, v.message || 'Månedsinntekt mangler'));
+      break;
+
+    default:
+      state.periodeError = v.message;
+      feilmeldinger.push(lagFeil('dager', v.message || 'Refusjonsdager kan ikke overstige periodelengden'));
+  }
+};
