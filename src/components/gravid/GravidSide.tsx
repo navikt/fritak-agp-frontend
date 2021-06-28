@@ -151,6 +151,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <Systemtittel>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
                       <br />
                       <Fnr
+                        id='fnr'
                         label={t(LangKey.FODSELSNUMMER_LABEL)}
                         fnr={state.fnr}
                         placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}

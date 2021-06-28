@@ -134,6 +134,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <Row>
                 <Column sm='4' xs='6'>
                   <Fnr
+                    id='fnr'
                     label={t(LangKey.FODSELSNUMMER_LABEL)}
                     fnr={state.fnr}
                     placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}

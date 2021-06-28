@@ -4,7 +4,7 @@ import { validerFravaerMaaned } from './validerFravaerMaaned';
 import { Input } from 'nav-frontend-skjema';
 import { FravaerType } from './Actions';
 import React from 'react';
-import months from '../../utils/months';
+import MONTHS from '../../utils/months';
 
 export interface FravaerInputProps {
   month: number;
@@ -21,7 +21,7 @@ export const FravaerInput = (props: FravaerInputProps) => {
 
   return (
     <Input
-      label={months[props.month] + ' ' + props.year}
+      label={MONTHS[props.month] + ' ' + props.year}
       id={props.month + '-' + props.year}
       feil={feil}
       value={stringDager}

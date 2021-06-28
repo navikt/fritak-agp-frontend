@@ -1,8 +1,8 @@
 import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
 
-const mockValidationResponse = (status: number, felter: string[]) => {
+const mockValidationResponse = (status: number, felter: string[], message?: string) => {
   return {
-    violations: mockViolations(felter),
+    violations: mockViolations(felter, message),
     type: 'urn:nav:helsearbeidsgiver:validation-error',
     title: '',
     status: status,
@@ -10,12 +10,13 @@ const mockValidationResponse = (status: number, felter: string[]) => {
   } as ValidationResponse;
 };
 
-export const mockViolations = (felter: string[]) => felter.map((felt) => mockValidationProblemDetail(felt));
+export const mockViolations = (felter: string[], message?: string) =>
+  felter.map((felt) => mockValidationProblemDetail(felt, message));
 
-export const mockValidationProblemDetail = (path: string) => {
+export const mockValidationProblemDetail = (path: string, message?: string) => {
   return {
     validationType: '',
-    message: 'feil',
+    message: message,
     propertyPath: path || '',
     invalidValue: ''
   } as ValidationProblemDetail;
