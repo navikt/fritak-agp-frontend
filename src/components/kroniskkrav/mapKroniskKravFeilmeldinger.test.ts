@@ -186,4 +186,12 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
     expect(feilmeldinger[0].skjemaelementId).toEqual('dager');
   });
+
+  it('should handle missing data from the backend  - propertyPath', () => {
+    const state = defaultKroniskKravState();
+    //@ts-ignore
+    const feilmeldinger = mapKroniskKravFeilmeldinger({ violations: [] }, state);
+
+    expect(feilmeldinger.length).toEqual(0);
+  });
 });
