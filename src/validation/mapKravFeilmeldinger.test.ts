@@ -1,6 +1,6 @@
-import mockValidationResponse from '../../mockData/mockValidationResponse';
-import { defaultKroniskKravState } from './KroniskKravState';
-import mapKroniskKravFeilmeldinger from './mapKroniskKravFeilmeldinger';
+import mockValidationResponse from '../mockData/mockValidationResponse';
+import { defaultKroniskKravState } from '../components/kroniskkrav/KroniskKravState';
+import mapKroniskKravFeilmeldinger from './mapKravFeilmeldinger';
 
 describe('mapKroniskKravFeilmeldinger', () => {
   const ALLE_FELTER = [

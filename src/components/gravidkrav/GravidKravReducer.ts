@@ -3,7 +3,7 @@ import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
-import mapKroniskKravFeilmeldinger from '../kroniskkrav/mapKroniskKravFeilmeldinger';
+import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
@@ -90,7 +90,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.validated = false;
       nextState.progress = false;
       nextState.submitting = false;
-      return mapResponse(payload.response, nextState, mapKroniskKravFeilmeldinger) as GravidKravState;
+      return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as GravidKravState;
 
     case Actions.Grunnbeloep:
       setGrunnbeloep(payload, nextState);

@@ -1,5 +1,5 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
-import KroniskKravState from './KroniskKravState';
+import ValidationResponse from '../state/validation/ValidationResponse';
+import KroniskKravState from '../components/kroniskkrav/KroniskKravState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
