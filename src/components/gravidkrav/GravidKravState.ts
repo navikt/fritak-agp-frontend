@@ -35,6 +35,7 @@ export default interface GravidKravState extends ValidationState {
   orgnrError?: string;
   orgnr?: string;
   perioder?: Array<Periode>;
+  periodeError?: string;
   dokumentasjon?: string;
   dokumentasjonError?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
