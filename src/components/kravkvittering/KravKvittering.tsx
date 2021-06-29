@@ -14,22 +14,20 @@ const KravKvittering = () => {
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
       <Row>
         <Panel>
-          <Panel>
-            <Sidetittel>{t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}</Sidetittel>
-          </Panel>
+          <Sidetittel>{t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}</Sidetittel>
+        </Panel>
 
-          <Panel>
-            <Oversettelse langKey={KravKvitteringKeys.KRAV_KVITTERING_INGRESS} />
-          </Panel>
+        <Panel>
+          <Oversettelse langKey={KravKvitteringKeys.KRAV_KVITTERING_INGRESS} />
+        </Panel>
 
-          <Panel>
-            <Normaltekst>
-              <Lenke href='https://loginservice.nav.no/slo'>{t(LangKey.LOGG_UT)}</Lenke>
-            </Normaltekst>
-            <Normaltekst>
-              <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
-            </Normaltekst>
-          </Panel>
+        <Panel>
+          <Normaltekst>
+            <Lenke href='https://loginservice.nav.no/slo'>{t(LangKey.LOGG_UT)}</Lenke>
+          </Normaltekst>
+          <Normaltekst>
+            <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
+          </Normaltekst>
         </Panel>
       </Row>
     </Side>
