@@ -161,11 +161,10 @@ const KroniskSide = () => {
               {t(KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO)}
             </Systemtittel>
             <SkjemaGruppe>
-              <Normaltekst>
-                <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO_INGRESS} />
-              </Normaltekst>
-              <br />
-              <br />
+              <Oversettelse
+                langKey={KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO_INGRESS}
+                className='kroniskside-arbeidsmiljo-ingress'
+              />
 
               <CheckboxGruppe
                 legend={t(KroniskSideKeys.KRONISK_SIDE_ARBEIDS_TYPE)}
@@ -281,8 +280,7 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
-            <br />
+            <Systemtittel className='textfelt-padding-bottom'>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
             <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
               <Normaltekst>
                 <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />

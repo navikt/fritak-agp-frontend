@@ -156,8 +156,7 @@ const GravidSide = (props: GravidSideProps) => {
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
                     <Column md='3' xs='12'>
-                      <Systemtittel>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
-                      <br />
+                      <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
                       <Fnr
                         id='fnr'
                         label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -174,8 +173,7 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Systemtittel>&nbsp;</Systemtittel>
-                      <br />
+                      <Systemtittel className='textfelt-padding-bottom'>&nbsp;</Systemtittel>
                       <DatoVelger
                         className='termindato'
                         id='termindato'
@@ -190,8 +188,7 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Systemtittel>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
-                      <br />
+                      <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
                       <Orgnr
                         label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                         orgnr={state.orgnr}
