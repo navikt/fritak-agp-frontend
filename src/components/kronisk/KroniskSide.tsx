@@ -264,16 +264,11 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel>{t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}</Systemtittel>
-            <br />
+            <Systemtittel className='textfelt-padding-bottom'>
+              {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
+            </Systemtittel>
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
-              <Normaltekst>
-                <Oversettelse
-                  className='textfelt-padding-bottom'
-                  langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT}
-                />
-              </Normaltekst>
-
+              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
               <Upload
                 className='knapp-innsending-top'
                 id='upload'

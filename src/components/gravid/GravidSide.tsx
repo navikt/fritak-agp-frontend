@@ -372,8 +372,9 @@ const GravidSide = (props: GravidSideProps) => {
                   <Skillelinje />
 
                   <Panel>
-                    <Systemtittel>{t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}</Systemtittel>
-                    <br />
+                    <Systemtittel className='textfelt-padding-bottom'>
+                      {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
+                    </Systemtittel>
                     <SkjemaGruppe
                       feil={state.dokumentasjonError}
                       feilmeldingId='dokumentasjonFeilmeldingId'
@@ -383,7 +384,7 @@ const GravidSide = (props: GravidSideProps) => {
                       <Upload
                         id='upload'
                         fileSize={5000000}
-                        className={''}
+                        className='knapp-innsending-top'
                         label={t(GravidSideKeys.GRAVID_SIDE_OPPLASTINGSKNAPP)}
                         extensions='.pdf'
                         onChange={handleUploadChanged}
