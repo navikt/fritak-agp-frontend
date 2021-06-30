@@ -124,8 +124,7 @@ const KroniskSide = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
-                  <Systemtittel>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
-                  <br />
+                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
                   <Fnr
                     id='fnr'
                     label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -137,8 +136,7 @@ const KroniskSide = () => {
                   />
                 </Column>
                 <Column sm='4' xs='6'>
-                  <Systemtittel>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
-                  <br />
+                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
                   <Orgnr
                     label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                     orgnr={state.orgnr}
@@ -159,8 +157,9 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel id='kroniskside-panel-arbeidssituasjon'>
-            <Systemtittel>{t(KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO)}</Systemtittel>
-            <br />
+            <Systemtittel className='textfelt-padding-bottom'>
+              {t(KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO)}
+            </Systemtittel>
             <SkjemaGruppe>
               <Normaltekst>
                 <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO_INGRESS} />
@@ -188,7 +187,6 @@ const KroniskSide = () => {
                               payload: { arbeid: a.value }
                             })
                           }
-                          checked={state.arbeid?.includes(a.value)}
                         />
                       );
                     })}
@@ -216,7 +214,6 @@ const KroniskSide = () => {
                               payload: { paakjenning: a.value }
                             })
                           }
-                          checked={state.paakjenninger?.includes(a.value)}
                         />
                       );
                     })}
