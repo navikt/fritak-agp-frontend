@@ -5,6 +5,7 @@ import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import '../../mockData/mockWindowLocation';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -56,7 +57,11 @@ describe('GravidSide', () => {
   it('skal vise progress mens venter på svar', () => {
     const state = defaultGravidState();
     state.progress = true;
-    render(<GravidSide state={state} />);
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
 
     expect(screen.getByText(STATUS_PROGRESS)).toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -66,7 +71,11 @@ describe('GravidSide', () => {
 
   it('skal vise spørsmål om tilrettelegging', () => {
     const state = defaultGravidState();
-    render(<GravidSide state={state} />);
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
 
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -90,7 +99,11 @@ describe('GravidSide', () => {
   it('skal vise gå videre når man ikke har klikket for at man har tilrettelagt', () => {
     const state = defaultGravidState();
 
-    render(<GravidSide state={state} />);
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
 
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -123,7 +136,11 @@ describe('GravidSide', () => {
     const state = defaultGravidState();
     state.tilrettelegge = false;
     state.videre = true;
-    render(<GravidSide state={state} />);
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
 
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
@@ -146,7 +163,11 @@ describe('GravidSide', () => {
 
   it('skal vise tilrettelegging', () => {
     const state = defaultGravidState();
-    render(<GravidSide state={state} />);
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
 
     expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
@@ -176,7 +197,11 @@ describe('GravidSide', () => {
     state.omplasseringError = OMPLASSERING_ERROR;
     state.bekreftError = BEKREFT_ERROR;
 
-    render(<GravidSide state={state} />);
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
 
     const jaSjekkboks = screen.getByLabelText(/JA/);
     userEvent.click(jaSjekkboks);
@@ -202,7 +227,11 @@ describe('GravidSide', () => {
     state.bekreftError = BEKREFT_ERROR;
     state.feilmeldinger = [lagFeil('', '')];
 
-    render(<GravidSide state={state} />);
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
 
     const neiSjekkboks = screen.getByLabelText(/NEI/);
     userEvent.click(neiSjekkboks);
@@ -213,10 +242,8 @@ describe('GravidSide', () => {
     const submitKnapp = screen.getByText(/GRAVID_SIDE_SEND_SOKNAD/);
     userEvent.click(submitKnapp);
 
-    render(<GravidSide state={state} />);
-
-    expect(screen.getByText(FNR_ERROR)).toBeInTheDocument();
-    expect(screen.getByText(ORG_ERROR)).toBeInTheDocument();
+    expect(screen.getByText('VALIDATE_FNR_MISSING')).toBeInTheDocument();
+    expect(screen.getByText('VALIDATE_ORGNR_MISSSING')).toBeInTheDocument();
     expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/).length).toBe(2);
   });
 });
