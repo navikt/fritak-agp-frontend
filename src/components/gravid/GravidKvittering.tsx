@@ -5,7 +5,7 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
-import { Oversettelse } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKvitteringKeys } from './GravidKvitteringKeys';
 import { useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
@@ -14,7 +14,7 @@ const GravidKvittering = () => {
   const { language } = useParams<PathParams>();
 
   return (
-    <Panel className='gravid-soknad-kvittering'>
+    <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering'>
       <Panel>
         <Sidetittel>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_TITTEL} />
@@ -28,7 +28,7 @@ const GravidKvittering = () => {
       </Panel>
 
       <Panel>
-        <Alertstripe type='advarsel'>
+        <Alertstripe type='info'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
         </Alertstripe>
       </Panel>
@@ -50,7 +50,7 @@ const GravidKvittering = () => {
           </Lenke>
         </div>
       </Panel>
-    </Panel>
+    </Side>
   );
 };
 

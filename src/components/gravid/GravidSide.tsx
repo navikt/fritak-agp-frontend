@@ -37,13 +37,16 @@ import {
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
-import lenker from '../../config/lenker';
+import lenker, { buildLenke } from '../../config/lenker';
 import { GravidSideKeys } from './GravidSideKeys';
+import { Redirect, useParams } from 'react-router-dom';
+import PathParams from '../../locale/PathParams';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
 const GravidSide = (props: GravidSideProps) => {
   const { t, i18n } = useTranslation();
+  const { language } = useParams<PathParams>();
 
   const GravidReducerSettOpp =
     (Translate: i18n): Reducer<GravidState, GravidAction> =>
@@ -121,6 +124,11 @@ const GravidSide = (props: GravidSideProps) => {
     state.orgnr,
     state.termindato
   ]);
+
+  if (!!state.kvittering) {
+    return <Redirect to={buildLenke(lenker.GravidKvittering, language)} />;
+  }
+
   return (
     <Side
       bedriftsmeny={false}
@@ -132,9 +140,9 @@ const GravidSide = (props: GravidSideProps) => {
       <Row>
         <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
-          {state.progress == true && <GravidProgress />}
+          {!!state.progress && <GravidProgress />}
 
-          {state.progress != true && state.kvittering != true && (
+          {!state.progress && !state.kvittering && (
             <div>
               <Panel>
                 <Ingress>
