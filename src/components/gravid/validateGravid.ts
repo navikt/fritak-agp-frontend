@@ -28,7 +28,7 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
     translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TERMINDATO)
   );
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
-  nextState.bekreftError = state.bekreft ? translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
+  nextState.bekreftError = !state.bekreft ? translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_BEKREFT) : '';
   if (state.orgnr && !isValidOrgnr(state.orgnr)) {
     nextState.orgnrError = translate.t(GravidSideKeys.GRAVID_VALIDERING_UGYLDIG_ORGNR);
   }

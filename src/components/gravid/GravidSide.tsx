@@ -214,10 +214,14 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel className='gravidside-panel-arbeidssituasjon'>
                 <Row>
                   <Column sm='8' xs='12'>
-                    <Systemtittel>{t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}</Systemtittel>
-                    <br />
+                    <Systemtittel className='textfelt-padding-bottom'>
+                      {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
+                    </Systemtittel>
                     <SkjemaGruppe>
-                      <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS} />
+                      <Oversettelse
+                        className='arbeidsmiljo-ingress'
+                        langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
+                      />
                       <RadioGruppe
                         legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
                         className='gravidside-radiogruppe-tilrettelegging'
@@ -274,7 +278,6 @@ const GravidSide = (props: GravidSideProps) => {
                                   payload: { tiltak: a.value }
                                 })
                               }
-                              checked={state.tiltak?.includes(a.value)}
                             />
                           );
                         })}
