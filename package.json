@@ -37,7 +37,7 @@
     "@navikt/fnrvalidator": "1.x",
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.2.6",
     "@navikt/nav-dekoratoren-moduler": "1.x",
-    "@sentry/browser": "6.x",
+    "@sentry/browser": "6.7.0",
     "dayjs": "1.x",
     "i18next": "20.x",
     "nav-frontend-alertstriper": "3.x",
