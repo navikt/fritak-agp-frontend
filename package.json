@@ -80,7 +80,7 @@
     "react-app-polyfill": "2.x",
     "react-dom": "17.x",
     "react-i18next": "11.x",
-    "react-modal": "3.x",
+    "react-modal": "3.14.3",
     "react-router-dom": "5.x",
     "typescript": "4.x",
     "uuid": "8.x"
