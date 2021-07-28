@@ -1,7 +1,6 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import KroniskKravState from './KroniskKravState';
 import {
-  formatValidation,
   validateBeloep,
   validateFra,
   validateOrgnr,
@@ -14,6 +13,7 @@ import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
+import formatValidation from '../../utils/formatValidation';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);

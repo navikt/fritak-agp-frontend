@@ -11,7 +11,8 @@
     "lint:fix": "eslint src/**/*.ts* --fix",
     "pretty-please": "pretty-quick --staged",
     "pretty-commit": "pretty-quick --staged --pattern '**/*.*(ts|tsx|js)'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:int": "testcafe chrome tests/"
   },
   "engines": {
     "node": ">=14",
@@ -104,6 +105,7 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "4.x",
+    "eslint-plugin-testcafe": "^0.2.1",
     "eslint-plugin-typescript": "0.x",
     "husky": "6.x",
     "jest-axe": "4.x",
@@ -114,6 +116,8 @@
     "react-test-renderer": "17.x",
     "sass": "1.x",
     "snyk": "1.x",
+    "testcafe": "^1.15.0",
+    "testcafe-react-selectors": "^4.1.5",
     "timezone-mock": "1.x",
     "ts-jest": "^27.0.3",
     "yet-another-fetch-mock": "4.x"
