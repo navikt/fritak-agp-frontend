@@ -6,3 +6,10 @@
     display: inline-block;
     margin-left: 1rem;
 }
+
+.kontrollsporsmaal {
+    .harFeil input:not(:focus):not(:hover):not(:active):not(.inputPanel--focused) {
+        border-color: #ba3a26;
+        box-shadow: 0 0 0 1px #ba3a26;
+      }
+}

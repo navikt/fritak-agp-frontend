@@ -102,7 +102,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.antallDager:
       nextState.antallDager = payload?.antallDager;
-      return nextState;
+      return validateKroniskKrav(nextState, translate);
 
     case Actions.AddPeriod:
       const key = uuid();
