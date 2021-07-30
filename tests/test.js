@@ -98,7 +98,7 @@ test('Klikk submit uten data, så med bekreft sjekket', async (t) => {
         .withText('Mangler til dato')
         .withText('Mangler dager')
         .withText('Mangler beløp')
-        .withText('Mangler dager utbetalt lønn')
+        .withText('Mangler antall arbeidsdager')
         .withText('Bekreft at opplysningene er korrekt').visible
     )
     .ok();
@@ -113,7 +113,7 @@ test('Klikk submit uten data, så med bekreft sjekket', async (t) => {
         .withText('Mangler til dato')
         .withText('Mangler dager')
         .withText('Mangler beløp')
-        .withText('Mangler dager utbetalt lønn').visible
+        .withText('Mangler antall arbeidsdager').visible
     )
     .ok()
     .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
