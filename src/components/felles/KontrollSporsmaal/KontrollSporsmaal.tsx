@@ -35,9 +35,11 @@ const KontrollSporsmaal = ({ onChange, id, feil }: KontrollSporsmaalProps) => {
       <Normaltekst className='kontrollsporsmaal-lonn-forklaring '>
         {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING)}
       </Normaltekst>
-      <div className='skjemaelement__feilmelding'>
-        <Feilmelding className=''>{feil}</Feilmelding>
-      </div>
+      {!!feil && (
+        <div className='skjemaelement__feilmelding'>
+          <Feilmelding className=''>{feil}</Feilmelding>
+        </div>
+      )}
     </div>
   );
 };
