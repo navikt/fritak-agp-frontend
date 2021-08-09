@@ -72,17 +72,21 @@ const arbeidsgiverRespons = [
   }
 ];
 
-import { ClientFunction } from 'testcafe';
-
-const setCookie = ClientFunction(() => {
-  document.cookie = 'selvbetjening-idtoken=supersecrettoken';
-});
-
+// const headereJson = {
+//   'Access-Control-Allow-Origin': 'http://localhost:3000',
+//   'access-control-allow-credentials': true,
+//   // 'access-control-allow-headers': true,
+//   'content-type': 'application/json'
+// };
 const headereJson = {
-  'Access-Control-Allow-Origin': 'http://localhost:3000',
+  'content-type': 'application/json; charset=UTF-8',
+  vary: 'Origin',
+  'access-control-allow-origin': 'http://localhost:3000',
   'access-control-allow-credentials': true,
-  // 'access-control-allow-headers': true,
-  'content-type': 'application/json'
+  'strict-transport-security': 'max-age=15724800; includeSubDomains',
+  via: '1.1 google',
+  'alt-svc': 'clear',
+  'X-Firefox-Spdy': 'h2'
 };
 
 const headereText = Object.apply({}, headereJson);
@@ -91,6 +95,8 @@ headereText['content-type'] = 'text/html; charset=UTF-8';
 
 // https://fritakagp.dev.nav.no/api/v1/login-expiry
 const cookieMock = RequestMock()
+  .onRequestTo(loginExpiry)
+  .respond('2025-08-02T10:51:34.000+00:00', 200, headereText)
   .onRequestTo(cookiePlease)
   .respond(
     "<script>window.location.href='http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842?loggedIn=true';</script>",
@@ -99,13 +105,11 @@ const cookieMock = RequestMock()
   )
   .onRequestTo(arbeidsgiverAPI)
   .respond({ arbeidsgiverRespons }, 200, headereJson)
-  .onRequestTo(loginExpiry)
-  .respond('2025-08-02T10:51:34.000+00:00', 200, headereJson)
   .onRequestTo(navAuth)
   .respond(null, 200, headereJson);
 
 fixture`Oppstart`.page`http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842`
-  // .requestHooks(cookieMock)
+  .requestHooks(cookieMock)
   .beforeEach(async () => {
     await waitForReact();
   });
@@ -113,7 +117,8 @@ fixture`Oppstart`.page`http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=
 test('Klikk submit uten data, så med bekreft sjekket', async (t) => {
   /* Test 1 Code */
   // await t.click(ReactSelector('input[type="checkbox"]'));
-  await setCookie();
+
+  // await t.setCookie({'selvbetjening-idtoken': 'supersecrettoken'})
 
   await t
     .click(ReactSelector('Hovedknapp'))

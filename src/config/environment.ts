@@ -12,7 +12,10 @@ class Environment {
       case EnvironmentType.PREPROD_DEV:
         return 'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
       default:
-        return 'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
+        if (window.localStorage.nativeStorageKey && window.localStorage.nativeStorageKey.startsWith('hammerhead')) {
+          return 'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
+        }
+        return 'http://localhost:3000/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
     }
   }
 
@@ -23,7 +26,10 @@ class Environment {
       case EnvironmentType.PREPROD_DEV:
         return 'https://fritakagp.dev.nav.no';
       default:
-        return 'https://fritakagp.dev.nav.no';
+        if (window.localStorage.nativeStorageKey && window.localStorage.nativeStorageKey.startsWith('hammerhead')) {
+          return 'https://fritakagp.dev.nav.no';
+        }
+        return 'http://localhost:3000';
     }
   }
 
