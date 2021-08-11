@@ -8,6 +8,9 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v1
+        run: yarn install --frozen-lockfile
+        run: yarn build
+        run: yarn start
       - name: Run tests
         uses: DevExpress/testcafe-action@latest
         with:
