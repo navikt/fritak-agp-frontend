@@ -5,6 +5,7 @@
   "homepage": "/fritak-agp",
   "scripts": {
     "start": "BROWSER=firefox react-scripts start --development",
+    "serve": "react-scripts start --development",
     "build": "react-scripts build",
     "test": "react-scripts test --color --watchAll=false --coverage",
     "lint": "eslint src/**/*.ts*",
