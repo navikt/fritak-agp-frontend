@@ -1544,8 +1544,10 @@
   resolved "https://registry.yarnpkg.com/@navikt/fnrvalidator/-/fnrvalidator-1.1.4.tgz#22a776ba05a90c1ba5316a4f7567f9a45abcda04"
   integrity sha512-IroYFqa8PpzVxtIk6ifeEQBFzsI2QJX/FSIQyBtJvpp2D8Cb5Z9+hGNFppCILWR+QYbY8Dkk48la7K5fPGXeWQ==
 
-"@navikt/helse-arbeidsgiver-felles-frontend@../helse-arbeidsgiver-felles-frontend":
-  version "0.3.0"
+"@navikt/helse-arbeidsgiver-felles-frontend@^0.2.6":
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/@navikt/helse-arbeidsgiver-felles-frontend/-/helse-arbeidsgiver-felles-frontend-0.2.8.tgz#1336ed832d9f209ef58febfb7c6d22453a08dfe8"
+  integrity sha512-/E/95QQzbeKydUJ+THKDmnASqh3RFt28yq/umqbNyIPx3byk3uS8MTZZdrOLD72HNWARkJfts+BtMfHaF4VmIQ==
   dependencies:
     "@navikt/bedriftsmeny" "3.x"
     "@navikt/fnrvalidator" "1.x"
@@ -11937,7 +11939,7 @@ react-flatpickr@3.x:
     flatpickr "^4.6.2"
     prop-types "^15.5.10"
 
-react-i18next@11.x, react-i18next@^11.10.0:
+react-i18next@^11.10.0:
   version "11.11.4"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.11.4.tgz#f6f9a1c827e7a5271377de2bf14db04cb1c9e5ce"
   integrity sha512-ayWFlu8Sc7GAxW1PzMaPtzq+yiozWMxs0P1WeITNVzXAVRhC0Httkzw/IiODBta6seJRBCLrtUeFUSXhAIxlRg==

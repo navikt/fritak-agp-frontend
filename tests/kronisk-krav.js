@@ -1,4 +1,4 @@
-import { RequestLogger, RequestMock } from 'testcafe';
+import { RequestMock } from 'testcafe';
 import { waitForReact, ReactSelector } from 'testcafe-react-selectors';
 
 const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
@@ -72,12 +72,6 @@ const arbeidsgiverRespons = [
   }
 ];
 
-// const headereJson = {
-//   'Access-Control-Allow-Origin': 'http://localhost:3000',
-//   'access-control-allow-credentials': true,
-//   // 'access-control-allow-headers': true,
-//   'content-type': 'application/json'
-// };
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
   vary: 'Origin',
@@ -93,10 +87,9 @@ const headereText = Object.apply({}, headereJson);
 
 headereText['content-type'] = 'text/html; charset=UTF-8';
 
-// https://fritakagp.dev.nav.no/api/v1/login-expiry
 const cookieMock = RequestMock()
   .onRequestTo(loginExpiry)
-  .respond('2025-08-02T10:51:34.000+00:00', 200, headereText)
+  .respond('"2025-08-02T10:51:34.000+00:00"', 200, headereJson)
   .onRequestTo(cookiePlease)
   .respond(
     "<script>window.location.href='http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842?loggedIn=true';</script>",
@@ -104,22 +97,17 @@ const cookieMock = RequestMock()
     headereText
   )
   .onRequestTo(arbeidsgiverAPI)
-  .respond({ arbeidsgiverRespons }, 200, headereJson)
+  .respond(arbeidsgiverRespons, 200, headereJson)
   .onRequestTo(navAuth)
   .respond(null, 200, headereJson);
 
-fixture`Oppstart`.page`http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842`
+fixture`Oppstart`.page`http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842&TestCafe=running`
   .requestHooks(cookieMock)
   .beforeEach(async () => {
     await waitForReact();
   });
 
 test('Klikk submit uten data, så med bekreft sjekket', async (t) => {
-  /* Test 1 Code */
-  // await t.click(ReactSelector('input[type="checkbox"]'));
-
-  // await t.setCookie({'selvbetjening-idtoken': 'supersecrettoken'})
-
   await t
     .click(ReactSelector('Hovedknapp'))
     .expect(
@@ -148,4 +136,19 @@ test('Klikk submit uten data, så med bekreft sjekket', async (t) => {
     .ok()
     .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
     .notOk();
+
+  // await t
+  // .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
+  // .expect(
+  //   ReactSelector('Feiloppsummering')
+  //     .withText('Mangler fødselsnummer')
+  //     .withText('Mangler antall arbeidsdager')
+  //     .withText('Mangler fra dato')
+  //     .withText('Mangler til dato')
+  //     .withText('Mangler dager')
+  //     .withText('Mangler beløp').visible
+  // )
+  // .ok()
+  // .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
+  // .notOk();
 });
