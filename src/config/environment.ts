@@ -48,7 +48,12 @@ class Environment {
   }
 
   get grunnbeloepUrl() {
-    return 'https://g.nav.no/api/v1/grunnbeloep';
+    switch (this.environmentMode) {
+      case EnvironmentType.TESTCAFE:
+        return 'http://localhost:3000/api/v1/grunnbeloep';
+      default:
+        return 'https://g.nav.no/api/v1/grunnbeloep';
+    }
     // https://g.nav.no/api/v1/grunnbeloep?dato=2020-02-12 hvis man trenger å spørre på dato
   }
 
