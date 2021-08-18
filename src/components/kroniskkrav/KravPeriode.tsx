@@ -74,6 +74,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode);
 
+  const today = new Date();
+
   return (
     <Row
       className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}
@@ -89,6 +91,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             fraDatoValgt(fraDato, props.enkeltPeriode.uniqueKey);
           }}
           feilmelding={props.enkeltPeriode.fomError}
+          maxDate={today}
         />
       </Column>
       <Column sm='2' xs='6'>
@@ -107,6 +110,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             });
           }}
           feilmelding={props.enkeltPeriode.tomError}
+          maxDate={today}
         />
       </Column>
       <Column sm='2' xs='6'>
