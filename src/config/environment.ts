@@ -15,8 +15,6 @@ class Environment {
       case EnvironmentType.TESTCAFE:
         return 'http://localhost:3000/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
       default:
-        if (this.isTestCafeRunning()) {
-        }
         return 'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
     }
   }
@@ -48,12 +46,11 @@ class Environment {
   }
 
   get grunnbeloepUrl() {
-    switch (this.environmentMode) {
-      case EnvironmentType.TESTCAFE:
-        return 'http://localhost:3000/api/v1/grunnbeloep';
-      default:
-        return 'https://g.nav.no/api/v1/grunnbeloep';
+    if (this.environmentMode === EnvironmentType.TESTCAFE) {
+      return 'http://localhost:3000/api/v1/grunnbeloep';
     }
+
+    return 'https://g.nav.no/api/v1/grunnbeloep';
     // https://g.nav.no/api/v1/grunnbeloep?dato=2020-02-12 hvis man trenger å spørre på dato
   }
 
