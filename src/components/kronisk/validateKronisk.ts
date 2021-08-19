@@ -3,16 +3,11 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { PaakjenningerType } from './PaakjenningerType';
 import { validerFravaerTabell } from './validerFravaerTabell';
 import { MAX_BESKRIVELSE } from './KroniskSide';
-import {
-  pushFeilmelding,
-  validateOrgnr,
-  isValidOrgnr,
-  validateFnr,
-  formatValidation
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { pushFeilmelding, validateOrgnr, isValidOrgnr, validateFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import validateAntallPerioder from '../../validation/validateAntallPerioder';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
+import formatValidation from '../../utils/formatValidation';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState, translate: i18n): KroniskState => {

@@ -24,7 +24,7 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       if (payload?.arbeid === undefined) {
         throw new Error('Du må spesifisere arbeidstype');
       }
-      return validerArbeid(payload?.arbeid, state, nextState);
+      return validerArbeid(payload?.arbeid, state, nextState, translate);
 
     case Actions.TogglePaakjenninger:
       if (payload?.paakjenning === undefined) {

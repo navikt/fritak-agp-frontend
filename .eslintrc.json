@@ -24,7 +24,8 @@
         "react-hooks",
         "@typescript-eslint",
         "react",
-        "typescript"
+        "typescript",
+        "testcafe"
     ],
     "rules": {
         "no-console": "warn",

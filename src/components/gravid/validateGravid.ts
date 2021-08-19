@@ -2,17 +2,12 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
-import {
-  pushFeilmelding,
-  isValidOrgnr,
-  validateOrgnr,
-  validateFnr,
-  formatValidation
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { pushFeilmelding, isValidOrgnr, validateOrgnr, validateFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
 import validateTermindato from '../../validation/validateTermindato';
 import { GravidSideKeys } from './GravidSideKeys';
+import formatValidation from '../../utils/formatValidation';
 
 export const validateGravid = (state: GravidState, translate: i18n): GravidState => {
   if (!state.validated) {

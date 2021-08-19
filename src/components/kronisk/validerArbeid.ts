@@ -1,7 +1,9 @@
+import { i18n } from 'i18next';
 import { ArbeidType } from './ArbeidType';
 import KroniskState from './KroniskState';
+import { validateKronisk } from './validateKronisk';
 
-export const validerArbeid = (arbeid: ArbeidType, state: KroniskState, nextState: KroniskState) => {
+export const validerArbeid = (arbeid: ArbeidType, state: KroniskState, nextState: KroniskState, translate: i18n) => {
   if (!nextState.arbeid) {
     nextState.arbeid = [];
   }
@@ -10,5 +12,5 @@ export const validerArbeid = (arbeid: ArbeidType, state: KroniskState, nextState
   } else {
     nextState.arbeid.push(arbeid);
   }
-  return nextState;
+  return validateKronisk(nextState, translate);
 };

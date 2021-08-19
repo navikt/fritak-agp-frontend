@@ -22,7 +22,7 @@ export const FravaerInput = (props: FravaerInputProps) => {
   return (
     <Input
       label={MONTHS[props.month] + ' ' + props.year}
-      id={props.month + '-' + props.year}
+      id={'fim' + props.month + 'fiy' + props.year}
       feil={feil}
       value={stringDager}
       onChange={(event) => {

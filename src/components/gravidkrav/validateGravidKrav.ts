@@ -6,9 +6,9 @@ import {
   validateFra,
   validateOrgnr,
   validateFnr,
-  formatValidation,
   validateTil,
-  validateBekreft
+  validateBekreft,
+  formatValidation
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';

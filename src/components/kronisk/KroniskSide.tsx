@@ -231,7 +231,7 @@ const KroniskSide = () => {
                               payload: { paakjenning: a.value }
                             })
                           }
-                          checked={state.paakjenninger?.includes(a.value)}
+                          // checked={state.paakjenninger?.includes(a.value)}
                         />
                       );
                     })}
