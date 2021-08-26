@@ -55,3 +55,13 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+  TestCafe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+      - run: yarn install --frozen-lockfile
+      - name: Run tests
+        uses: DevExpress/testcafe-action@latest
+        with:
+          skip-install: true
+          args: chrome:headless tests/ --app-init-delay 60000 --app "yarn serve" --cache
