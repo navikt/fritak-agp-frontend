@@ -57,6 +57,6 @@ describe('Environment', () => {
     // @ts-ignore
     window.location = new URL('https://www.nav.no');
 
-    expect(env.baseUrl).toBe('https://arbeidsgiver.nav.no/fritak-agp');
+    expect(env.baseUrl).toBe('https://arbeidsgiver.nav.no/fritak-agp-api');
   });
 });
