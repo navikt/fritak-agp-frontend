@@ -22,7 +22,7 @@ class Environment {
   get baseUrl() {
     switch (this.environmentMode) {
       case EnvironmentType.PROD:
-        return 'https://arbeidsgiver.nav.no/fritak-agp';
+        return 'https://arbeidsgiver.nav.no/fritak-agp-api';
       case EnvironmentType.PREPROD_DEV:
         return 'https://fritakagp.dev.nav.no';
       case EnvironmentType.TESTCAFE:
