@@ -34,9 +34,7 @@ describe('Environment', () => {
     // @ts-ignore
     window.location = new URL('https://www.nav.no');
 
-    expect(env.loginServiceUrl).toBe(
-      'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp?loggedIn=true'
-    );
+    expect(env.loginServiceUrl).toBe('https://loginservice.nav.no/login?redirect=XXX?loggedIn=true');
   });
 
   it('should return the baseUrl url for localhost', () => {
