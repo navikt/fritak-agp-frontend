@@ -9,7 +9,7 @@ class Environment {
   get loginServiceUrl() {
     switch (this.environmentMode) {
       case EnvironmentType.PROD:
-        return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/fritak-agp?loggedIn=true';
+        return 'https://loginservice.nav.no/login?redirect=XXX?loggedIn=true';
       case EnvironmentType.PREPROD_DEV:
         return 'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
       case EnvironmentType.TESTCAFE:
