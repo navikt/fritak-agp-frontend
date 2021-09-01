@@ -19,7 +19,7 @@ describe('KravPeriode', () => {
   it('should show first row', async () => {
     const mockDispatch = jest.fn();
 
-    render(<KravPeriode dispatch={mockDispatch} index={0} enkeltPeriode={enkeltPeriode} />);
+    render(<KravPeriode dispatch={mockDispatch} index={0} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} />);
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
@@ -32,7 +32,7 @@ describe('KravPeriode', () => {
   it('should show second row', async () => {
     const mockDispatch = jest.fn();
 
-    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} />);
+    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} />);
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
@@ -45,7 +45,9 @@ describe('KravPeriode', () => {
     const mockDispatch = jest.fn();
     const randomRow = 667;
 
-    render(<KravPeriode dispatch={mockDispatch} index={randomRow} enkeltPeriode={enkeltPeriode} />);
+    render(
+      <KravPeriode dispatch={mockDispatch} index={randomRow} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} />
+    );
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
@@ -57,7 +59,7 @@ describe('KravPeriode', () => {
   it('should show and delete the second row when clicked second row', async () => {
     const mockDispatch = jest.fn();
 
-    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} />);
+    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} />);
 
     const slettButton = screen.queryByText(/Slett/);
 
@@ -75,7 +77,7 @@ describe('KravPeriode', () => {
   it('call dispatch when beløp has been updated', async () => {
     const mockDispatch = jest.fn();
 
-    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} />);
+    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} />);
 
     const inputBelop = screen.getByPlaceholderText('Kr:');
 
@@ -87,7 +89,7 @@ describe('KravPeriode', () => {
   it('call dispatch when dager has been updated', async () => {
     const mockDispatch = jest.fn();
 
-    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} />);
+    render(<KravPeriode dispatch={mockDispatch} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} />);
 
     const selectDager = screen.getByDisplayValue('-');
 
@@ -99,7 +101,9 @@ describe('KravPeriode', () => {
   it('should have no a11y violations', async () => {
     const mockDispatch = jest.fn();
 
-    const { container } = render(<KravPeriode dispatch={mockDispatch} index={0} enkeltPeriode={enkeltPeriode} />);
+    const { container } = render(
+      <KravPeriode dispatch={mockDispatch} index={0} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} />
+    );
     const results = await axe(container);
 
     expect(results).toHaveNoViolations();
