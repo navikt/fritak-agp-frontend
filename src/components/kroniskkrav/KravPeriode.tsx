@@ -17,10 +17,11 @@ interface KravPeriodeProps {
   dispatch: any;
   enkeltPeriode: KroniskKravPeriode;
   index: number;
+  lonnspliktDager: number | undefined;
 }
 
-const beregnRefusjon = (enkeltPeriode: KroniskKravPeriode): number => {
-  if (!enkeltPeriode.beloep || !enkeltPeriode.dager || !enkeltPeriode.grunnbeloep) {
+const beregnRefusjon = (enkeltPeriode: KroniskKravPeriode, lonnspliktDager: number | undefined): number => {
+  if (!enkeltPeriode.beloep || !enkeltPeriode.dager || !enkeltPeriode.grunnbeloep || !lonnspliktDager) {
     return 0;
   }
 
@@ -28,10 +29,10 @@ const beregnRefusjon = (enkeltPeriode: KroniskKravPeriode): number => {
   const aarsGrunnbeloep = enkeltPeriode.grunnbeloep * 6;
 
   if (aarsBeloep > aarsGrunnbeloep) {
-    const gRefusjon = (aarsGrunnbeloep / 260) * enkeltPeriode.dager;
+    const gRefusjon = (aarsGrunnbeloep / lonnspliktDager) * enkeltPeriode.dager;
     return Math.round((gRefusjon + Number.EPSILON) * 100) / 100;
   } else {
-    const aarsRefusjon = (aarsBeloep / 260) * enkeltPeriode.dager;
+    const aarsRefusjon = (aarsBeloep / lonnspliktDager) * enkeltPeriode.dager;
     return Math.round((aarsRefusjon + Number.EPSILON) * 100) / 100;
   }
 };
@@ -72,7 +73,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
     });
   };
 
-  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode);
+  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager);
 
   const today = new Date();
 

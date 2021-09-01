@@ -118,6 +118,7 @@ const cookieMock = RequestMock()
   .respond(null, 201, mockHeaders);
 
 fixture`Kronisk - Krav`.page`http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842&TestCafe=running`
+  .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
   .requestHooks(cookieMock)
   .beforeEach(async () => {
     await waitForReact();

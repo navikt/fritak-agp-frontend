@@ -176,6 +176,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   dispatch={dispatch}
                   enkeltPeriode={enkeltPeriode}
                   index={index}
+                  lonnspliktDager={state.antallDager}
                   key={enkeltPeriode.uniqueKey}
                 />
               ))}
