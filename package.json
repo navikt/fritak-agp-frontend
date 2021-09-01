@@ -41,7 +41,7 @@
     "@navikt/nav-dekoratoren-moduler": "1.x",
     "@sentry/browser": "6.11.0",
     "dayjs": "1.x",
-    "i18next": "20.x",
+    "i18next": "20.4.0",
     "nav-frontend-alertstriper": "3.x",
     "nav-frontend-alertstriper-style": "2.x",
     "nav-frontend-chevron": "1.x",
