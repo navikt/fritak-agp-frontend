@@ -176,6 +176,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                   <KontrollSporsmaal
                     onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
                     id='kontrollsporsmaal-lonn-arbeidsdager'
+                    feil={state.antallDagerError}
                   />
                 </Column>
               </Row>

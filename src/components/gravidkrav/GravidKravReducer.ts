@@ -104,7 +104,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.antallDager:
       nextState.antallDager = payload?.antallDager;
-      return nextState;
+      return validateGravidKrav(nextState, translate);
 
     case Actions.Reset:
       return Object.assign({}, defaultGravidKravState());
