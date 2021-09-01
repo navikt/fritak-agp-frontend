@@ -1544,10 +1544,10 @@
   resolved "https://registry.yarnpkg.com/@navikt/fnrvalidator/-/fnrvalidator-1.1.4.tgz#22a776ba05a90c1ba5316a4f7567f9a45abcda04"
   integrity sha512-IroYFqa8PpzVxtIk6ifeEQBFzsI2QJX/FSIQyBtJvpp2D8Cb5Z9+hGNFppCILWR+QYbY8Dkk48la7K5fPGXeWQ==
 
-"@navikt/helse-arbeidsgiver-felles-frontend@^0.2.6":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@navikt/helse-arbeidsgiver-felles-frontend/-/helse-arbeidsgiver-felles-frontend-0.2.8.tgz#1336ed832d9f209ef58febfb7c6d22453a08dfe8"
-  integrity sha512-/E/95QQzbeKydUJ+THKDmnASqh3RFt28yq/umqbNyIPx3byk3uS8MTZZdrOLD72HNWARkJfts+BtMfHaF4VmIQ==
+"@navikt/helse-arbeidsgiver-felles-frontend@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@navikt/helse-arbeidsgiver-felles-frontend/-/helse-arbeidsgiver-felles-frontend-0.3.0.tgz#871f24dc85aabfaacd4f36e146498e0bc9a81225"
+  integrity sha512-684bwOK06Z+S82NhKpELBCLHJgPxq6ZtjIqryq0R3eeyIcDN+ue6/kmeuXCYHX2JzxLQwFZpMyUIx2ckje2+yA==
   dependencies:
     "@navikt/bedriftsmeny" "3.x"
     "@navikt/fnrvalidator" "1.x"
