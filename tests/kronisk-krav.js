@@ -275,7 +275,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
   await t
     .click(tilDato)
-    .debug()
     .click(valgtTilDato)
     .expect(
       ReactSelector('Feiloppsummering')
