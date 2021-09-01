@@ -111,7 +111,7 @@
     "eslint-plugin-typescript": "0.x",
     "husky": "6.x",
     "jest-axe": "4.x",
-    "mockdate": "3.x",
+    "mockdate": "^3.0.5",
     "prettier": "2.x",
     "pretty-quick": "3.x",
     "react-scripts": "4.x",

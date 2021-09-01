@@ -118,6 +118,7 @@ const cookieMock = RequestMock()
   .respond(null, 201, mockHeaders);
 
 fixture`Kronisk - Krav`.page`http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842&TestCafe=running`
+  .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
   .requestHooks(cookieMock)
   .beforeEach(async () => {
     await waitForReact();
@@ -274,6 +275,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
   await t
     .click(tilDato)
+    .debug()
     .click(valgtTilDato)
     .expect(
       ReactSelector('Feiloppsummering')
