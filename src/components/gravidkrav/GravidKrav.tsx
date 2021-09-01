@@ -200,6 +200,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                   dispatch={dispatch}
                   enkeltPeriode={enkeltPeriode}
                   index={index}
+                  lonnspliktDager={state.antallDager}
                   key={enkeltPeriode.uniqueKey}
                 />
               ))}
