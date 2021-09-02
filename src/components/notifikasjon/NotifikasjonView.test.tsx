@@ -102,16 +102,23 @@ describe('NotifikasjonView', () => {
       opprettet: '2020-01-01',
       virksomhetsnummer: '123',
       virksomhetsnavn: 'Virksomhet',
-      periode: {
-        fom: '2020-01-02',
-        tom: '2020-02-03',
-        beloep: 1234.5
-      }
+      perioder: [
+        {
+          fom: '2020-01-02',
+          tom: '2020-02-03',
+          beloep: 1234
+        },
+        {
+          fom: '2020-05-04',
+          tom: '2020-06-05',
+          beloep: 1234.5
+        }
+      ]
     } as GravidKravResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
-    expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
-    expect(htmlDivElement.textContent).toContain('kr 1 234,50');
+    expect(htmlDivElement.textContent).toContain('02.01.20 - 05.06.20');
+    expect(htmlDivElement.textContent).toContain('kr 2 468,50');
   });
 
   it('should handle empty Gravid Krav', () => {

@@ -1,12 +1,12 @@
 import KravPeriode from './KravPeriode';
 
-interface GravidKravResponse {
+interface GravidKravVisning {
   id: string;
   opprettet: string;
   sendtAv: string;
   virksomhetsnummer: string;
   identitetsnummer: string;
-  perioder: Array<KravPeriode>;
+  periode: KravPeriode;
   harVedlegg: boolean;
   antallDager: number | null;
   journalpostId: string;
@@ -14,4 +14,4 @@ interface GravidKravResponse {
   virksomhetsnavn: string;
 }
 
-export default GravidKravResponse;
+export default GravidKravVisning;

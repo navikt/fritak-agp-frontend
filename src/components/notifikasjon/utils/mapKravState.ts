@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
-import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
+import GravidKravVisning from '../../../api/gravidkrav/GravidKravVisning';
 import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
 
-const mapKravState = (krav: KroniskKravResponse): GravidKravResponse => ({
+const mapKravState = (krav: KroniskKravResponse): GravidKravVisning => ({
   id: krav.id,
   opprettet: krav.opprettet,
   sendtAv: krav.sendtAv,
