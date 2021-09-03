@@ -123,6 +123,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
       return validateGravidKrav(nextState, translate);
 
+    case Actions.NotAuthorized:
+      nextState.notAuthorized = false;
+      return nextState;
+
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }
