@@ -1,4 +1,3 @@
-import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
 import GravidKravVisning from '../../../api/gravidkrav/GravidKravVisning';
 import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
 import mapKravState from './mapKravState';
