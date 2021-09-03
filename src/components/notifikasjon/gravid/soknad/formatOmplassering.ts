@@ -9,7 +9,7 @@ const formatOmplassering = (omplassering: string, omplasseringAarsak: string) =>
   }
 
   if (!omplasseringAarsakText) {
-    omplasseringAarsakText = omplasseringAarsak.split('_').join(' ').toLowerCase(); // Helt avhenging av at backend serverer noe fornuftig
+    omplasseringAarsakText = (omplasseringAarsak || '').split('_').join(' ').toLowerCase(); // Helt avhenging av at backend serverer noe fornuftig
   }
 
   switch (omplassering) {
