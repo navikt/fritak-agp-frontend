@@ -26,7 +26,6 @@ import {
   LeggTilKnapp,
   Oversettelse,
   stringishToNumber,
-  LoggetUtAdvarsel,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
   Fnr,
@@ -38,6 +37,7 @@ import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
 import KravPeriode from '../kroniskkrav/KravPeriode';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
+import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
