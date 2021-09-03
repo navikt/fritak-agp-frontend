@@ -24,8 +24,8 @@ export interface Periode {
   tomError?: string;
   dager?: number;
   dagerError?: string;
-  beloep?: number;
-  beloepError?: string;
+  belop?: number;
+  belopError?: string;
   grunnbeloep?: number;
 }
 

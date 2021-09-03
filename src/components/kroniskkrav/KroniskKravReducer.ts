@@ -54,7 +54,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.Beloep:
       checkItemId(payload?.itemId);
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.beloep = payload?.beloep;
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.belop = payload?.belop;
 
       return validateKroniskKrav(nextState, translate);
 

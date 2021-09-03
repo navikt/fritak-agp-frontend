@@ -26,7 +26,7 @@ export const mapGravidKravRequest = (
     if (periode.dager === undefined) {
       throw new Error('Dager må spesifiseres');
     }
-    if (periode.beloep === undefined) {
+    if (periode.belop === undefined) {
       throw new Error('Beløp må spesifiseres');
     }
   });
@@ -40,7 +40,7 @@ export const mapGravidKravRequest = (
     fom: datoToString(periode.fom),
     tom: datoToString(periode.tom),
     antallDagerMedRefusjon: periode.dager || 0,
-    månedsinntekt: Number(periode.beloep || 0)
+    månedsinntekt: Number(periode.belop || 0)
   }));
 
   return {

@@ -12,14 +12,14 @@ describe('mapPeriodeData', () => {
         tomError: 'error',
         dager: 5,
         dagerError: 'error',
-        beloep: 3000,
+        belop: 3000,
         uniqueKey: '77-777'
       },
       {
         fom: parseDato('23.02.2020'),
         tom: parseDato('24.04.2025'),
         dager: 7,
-        beloep: 3500,
+        belop: 3500,
         uniqueKey: '77-778'
       }
     ];
@@ -48,14 +48,14 @@ describe('mapPeriodeData', () => {
         tomError: 'error',
         dager: 5,
         dagerError: 'error',
-        beloep: 3000,
+        belop: 3000,
         uniqueKey: '77-777'
       },
       {
         fom: parseDato('23.02.2020'),
         tom: parseDato('24.04.2025'),
         dager: undefined,
-        beloep: undefined,
+        belop: undefined,
         uniqueKey: '77-778'
       }
     ];

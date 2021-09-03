@@ -27,7 +27,7 @@ export interface Payload {
   fra?: Date;
   til?: Date;
   dager?: number;
-  beloep?: number;
+  belop?: number;
   videre?: boolean;
   bekreft?: boolean;
   progress?: boolean;

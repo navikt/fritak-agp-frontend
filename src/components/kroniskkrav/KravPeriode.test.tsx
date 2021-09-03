@@ -83,7 +83,7 @@ describe('KravPeriode', () => {
 
     fireEvent.change(inputBelop, { target: { value: '20000' } });
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { beloep: 20000, itemId: 'mocked' }, type: Actions.Beloep });
+    expect(mockDispatch).toHaveBeenCalledWith({ payload: { belop: 20000, itemId: 'mocked' }, type: Actions.Beloep });
   });
 
   it('call dispatch when dager has been updated', async () => {

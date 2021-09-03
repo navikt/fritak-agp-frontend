@@ -56,7 +56,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Beloep:
       checkItemId(payload?.itemId);
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.beloep = payload?.beloep;
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.belop = payload?.belop;
 
       return validateGravidKrav(nextState, translate);
 

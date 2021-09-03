@@ -48,8 +48,8 @@ export interface KroniskKravPeriode {
   tomError?: string;
   dager?: number;
   dagerError?: string;
-  beloep?: number;
-  beloepError?: string;
+  belop?: number;
+  belopError?: string;
   grunnbeloep?: number;
   uniqueKey: string;
 }

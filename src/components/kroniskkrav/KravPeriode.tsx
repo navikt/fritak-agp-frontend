@@ -21,18 +21,18 @@ interface KravPeriodeProps {
 }
 
 const beregnRefusjon = (enkeltPeriode: KroniskKravPeriode, lonnspliktDager: number | undefined): number => {
-  if (!enkeltPeriode.beloep || !enkeltPeriode.dager || !enkeltPeriode.grunnbeloep || !lonnspliktDager) {
+  if (!enkeltPeriode.belop || !enkeltPeriode.dager || !enkeltPeriode.grunnbeloep || !lonnspliktDager) {
     return 0;
   }
 
-  const aarsBeloep = enkeltPeriode.beloep * 12;
-  const aarsGrunnbeloep = enkeltPeriode.grunnbeloep * 6;
+  const aarsBelop = enkeltPeriode.belop * 12;
+  const aarsGrunnbelop = enkeltPeriode.grunnbeloep * 6;
 
-  if (aarsBeloep > aarsGrunnbeloep) {
-    const gRefusjon = (aarsGrunnbeloep / lonnspliktDager) * enkeltPeriode.dager;
+  if (aarsBelop > aarsGrunnbelop) {
+    const gRefusjon = (aarsGrunnbelop / lonnspliktDager) * enkeltPeriode.dager;
     return Math.round((gRefusjon + Number.EPSILON) * 100) / 100;
   } else {
-    const aarsRefusjon = (aarsBeloep / lonnspliktDager) * enkeltPeriode.dager;
+    const aarsRefusjon = (aarsBelop / lonnspliktDager) * enkeltPeriode.dager;
     return Math.round((aarsRefusjon + Number.EPSILON) * 100) / 100;
   }
 };
@@ -52,12 +52,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const fraDatoValgt = (fraDato: Date, itemId: string) => {
     if (fraDato) {
-      getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbeloepRespons) => {
-        if (grunnbeloepRespons.grunnbeloep) {
+      getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbelopRespons) => {
+        if (grunnbelopRespons.grunnbeloep) {
           dispatch({
             type: Actions.Grunnbeloep,
             payload: {
-              grunnbeloep: grunnbeloepRespons.grunnbeloep.grunnbeloep,
+              grunnbeloep: grunnbelopRespons.grunnbeloep.grunnbeloep,
               itemId: itemId
             }
           });
@@ -149,17 +149,17 @@ const KravPeriode = (props: KravPeriodeProps) => {
           inputMode='numeric'
           pattern='[0-9]*'
           placeholder='Kr:'
-          defaultValue={props.enkeltPeriode.beloep}
+          defaultValue={props.enkeltPeriode.belop}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             dispatch({
               type: Actions.Beloep,
               payload: {
-                beloep: stringishToNumber(event.currentTarget.value),
+                belop: stringishToNumber(event.currentTarget.value),
                 itemId: props.enkeltPeriode.uniqueKey
               }
             })
           }
-          feil={props.enkeltPeriode.beloepError}
+          feil={props.enkeltPeriode.belopError}
         />
       </Column>
       <Column sm='3' xs='6'>

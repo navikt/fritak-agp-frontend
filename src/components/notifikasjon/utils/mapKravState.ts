@@ -9,7 +9,7 @@ const mapKravState = (krav: KroniskKravResponse): GravidKravVisning => ({
   virksomhetsnummer: krav.virksomhetsnummer,
   identitetsnummer: krav.identitetsnummer,
   periode: krav.perioder.reduce((prev, current) => {
-    prev.beloep += current.beloep;
+    prev.belop += current.belop;
     prev.antallDagerMedRefusjon += current.antallDagerMedRefusjon;
     prev.fom = dayjs(prev.fom).isBefore(dayjs(current.fom)) ? prev.fom : current.fom;
     prev.tom = dayjs(prev.tom).isAfter(dayjs(current.tom)) ? prev.tom : current.tom;

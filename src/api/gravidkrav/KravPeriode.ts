@@ -2,7 +2,7 @@ interface KravPeriode {
   fom: string;
   tom: string;
   antallDagerMedRefusjon: number;
-  beloep: number;
+  belop: number;
 }
 
 export default KravPeriode;

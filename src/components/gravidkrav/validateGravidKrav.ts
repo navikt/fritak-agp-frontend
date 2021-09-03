@@ -49,7 +49,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
       translate
     );
     periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
-    periode.beloepError = formatValidation(validateBeloep('' + periode.beloep, MAX, !!nextState.validated), translate);
+    periode.belopError = formatValidation(validateBeloep('' + periode.belop, MAX, !!nextState.validated), translate);
 
     if (periode.fomError) {
       pushFeilmelding('fra-dato-' + periode.uniqueKey, periode.fomError, feilmeldinger);
@@ -63,8 +63,8 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
       pushFeilmelding('dager-' + periode.uniqueKey, periode.dagerError, feilmeldinger);
     }
 
-    if (periode.beloepError) {
-      pushFeilmelding('belop-' + periode.uniqueKey, periode.beloepError, feilmeldinger);
+    if (periode.belopError) {
+      pushFeilmelding('belop-' + periode.uniqueKey, periode.belopError, feilmeldinger);
     }
   });
 

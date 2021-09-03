@@ -212,13 +212,13 @@ describe('GravidKravReducer', () => {
       defaultState,
       {
         type: Actions.Beloep,
-        payload: { beloep: 233, itemId }
+        payload: { belop: 233, itemId }
       },
       translationMock as unknown as i18n
     );
 
     // @ts-ignore
-    expect(state.perioder[0].beloep).toEqual(233);
+    expect(state.perioder[0].belop).toEqual(233);
   });
 
   it('should set the kvittering', () => {

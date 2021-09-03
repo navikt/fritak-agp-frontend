@@ -1,4 +1,5 @@
 import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
+import GravidKravVisning from '../../../api/gravidkrav/GravidKravVisning';
 import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
 import mapKravState from './mapKravState';
 
@@ -15,7 +16,7 @@ describe('mapKravState', () => {
           fom: '2021-03-01',
           tom: '2021-03-10',
           antallDagerMedRefusjon: 2,
-          beloep: 1234.0
+          belop: 1234.0
         }
       ],
       harVedlegg: false,
@@ -25,7 +26,7 @@ describe('mapKravState', () => {
       virksomhetsnavn: 'Ukjent arbeidsgiver'
     };
 
-    const expected: GravidKravResponse = {
+    const expected: GravidKravVisning = {
       harVedlegg: false,
       id: 'f68a073b-9bed-45c1-aa1a-4dad2de52c2e',
       identitetsnummer: '22018520056',
@@ -35,7 +36,7 @@ describe('mapKravState', () => {
       opprettet: '2021-03-02T12:50:50.400688',
       periode: {
         antallDagerMedRefusjon: 2,
-        beloep: 1234,
+        belop: 1234,
         fom: '2021-03-01',
         tom: '2021-03-10'
       },
@@ -59,13 +60,13 @@ describe('mapKravState', () => {
           fom: '2021-03-01',
           tom: '2021-03-10',
           antallDagerMedRefusjon: 2,
-          beloep: 1234.0
+          belop: 1234.0
         },
         {
           fom: '2021-04-01',
           tom: '2021-04-10',
           antallDagerMedRefusjon: 3,
-          beloep: 1234.0
+          belop: 1234.0
         }
       ],
       harVedlegg: false,
@@ -75,7 +76,7 @@ describe('mapKravState', () => {
       virksomhetsnavn: 'Ukjent arbeidsgiver'
     };
 
-    const expected: GravidKravResponse = {
+    const expected: GravidKravVisning = {
       harVedlegg: false,
       id: 'f68a073b-9bed-45c1-aa1a-4dad2de52c2e',
       identitetsnummer: '22018520056',
@@ -85,7 +86,7 @@ describe('mapKravState', () => {
       opprettet: '2021-03-02T12:50:50.400688',
       periode: {
         antallDagerMedRefusjon: 5,
-        beloep: 2468,
+        belop: 2468,
         fom: '2021-03-01',
         tom: '2021-04-10'
       },
@@ -109,25 +110,25 @@ describe('mapKravState', () => {
           fom: '2021-03-01',
           tom: '2021-03-10',
           antallDagerMedRefusjon: 2,
-          beloep: 1234.0
+          belop: 1234.0
         },
         {
           fom: '2021-02-01',
           tom: '2021-02-10',
           antallDagerMedRefusjon: 2,
-          beloep: 1234.0
+          belop: 1234.0
         },
         {
           fom: '2021-05-01',
           tom: '2021-05-10',
           antallDagerMedRefusjon: 4,
-          beloep: 1234.0
+          belop: 1234.0
         },
         {
           fom: '2021-04-01',
           tom: '2021-04-10',
           antallDagerMedRefusjon: 1,
-          beloep: 1234.0
+          belop: 1234.0
         }
       ],
       harVedlegg: false,
@@ -137,7 +138,7 @@ describe('mapKravState', () => {
       virksomhetsnavn: 'Ukjent arbeidsgiver'
     };
 
-    const expected: GravidKravResponse = {
+    const expected: GravidKravVisning = {
       harVedlegg: false,
       id: 'f68a073b-9bed-45c1-aa1a-4dad2de52c2e',
       identitetsnummer: '22018520056',
@@ -147,7 +148,7 @@ describe('mapKravState', () => {
       opprettet: '2021-03-02T12:50:50.400688',
       periode: {
         antallDagerMedRefusjon: 9,
-        beloep: 4936,
+        belop: 4936,
         fom: '2021-02-01',
         tom: '2021-05-10'
       },

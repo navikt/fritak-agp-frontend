@@ -22,7 +22,7 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
   const fom = formaterDato(gravidKravVisning.periode.fom);
   const tom = formaterDato(gravidKravVisning.periode.tom);
   const respondByDate = inTwoWeeks(gravidKravVisning.opprettet);
-  const belop = formatNumberForCurrency(gravidKravVisning.periode.beloep);
+  const belop = formatNumberForCurrency(gravidKravVisning.periode.belop);
 
   return (
     <NotifikasjonInnhold
