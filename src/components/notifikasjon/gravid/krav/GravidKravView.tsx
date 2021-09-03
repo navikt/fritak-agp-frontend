@@ -3,11 +3,11 @@ import NotifikasjonInnhold from '../../felles/NotifikasjonInnhold';
 import NotifikasjonType from '../../felles/NotifikasjonType';
 import { Normaltekst } from 'nav-frontend-typografi';
 import dayjs from 'dayjs';
-import GravidKravResponse from '../../../../api/gravidkrav/GravidKravResponse';
 import formatNumberForCurrency from './FormatNumberForCurrency';
+import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
 
 export interface GravidSoknadNotifikasjonProps {
-  gravidKravResponse: GravidKravResponse;
+  gravidKravVisning: GravidKravVisning;
 }
 
 const formaterDato = (dato: string) => {
@@ -18,20 +18,20 @@ const inTwoWeeks = (dato: string) => {
   return dayjs(dato).add(14, 'days').format('DD.MM.YY');
 };
 
-const GravidKravView = ({ gravidKravResponse }: GravidSoknadNotifikasjonProps) => {
-  const fom = formaterDato(gravidKravResponse.periode.fom);
-  const tom = formaterDato(gravidKravResponse.periode.tom);
-  const respondByDate = inTwoWeeks(gravidKravResponse.opprettet);
-  const belop = formatNumberForCurrency(gravidKravResponse.periode.beloep);
+const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) => {
+  const fom = formaterDato(gravidKravVisning.periode.fom);
+  const tom = formaterDato(gravidKravVisning.periode.tom);
+  const respondByDate = inTwoWeeks(gravidKravVisning.opprettet);
+  const belop = formatNumberForCurrency(gravidKravVisning.periode.beloep);
 
   return (
     <NotifikasjonInnhold
       title='Informasjon om sykepenger'
       type={NotifikasjonType.GravidKrav}
-      dato={gravidKravResponse.opprettet}
+      dato={gravidKravVisning.opprettet}
     >
       <Normaltekst className='textfelt-padding-bottom'>
-        Arbeidsgiveren din, {gravidKravResponse.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for dagene{' '}
+        Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for dagene{' '}
         {fom} - {tom}.
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
