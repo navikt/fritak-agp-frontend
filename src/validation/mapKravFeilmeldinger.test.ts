@@ -28,8 +28,8 @@ describe('mapKroniskKravFeilmeldinger', () => {
     expect(tilError).toBe('feil');
     const dagerError = !!state?.perioder ? state?.perioder[0]?.dagerError : '';
     expect(dagerError).toBe('feil');
-    const beloepError = !!state?.perioder ? state?.perioder[0]?.beloepError : '';
-    expect(beloepError).toBe('feil');
+    const belopError = !!state?.perioder ? state?.perioder[0]?.belopError : '';
+    expect(belopError).toBe('feil');
     expect(state.bekreftError).toBe('feil');
     expect(state.antallDagerError).toBe('feil');
 
@@ -140,7 +140,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
     expect(feilmeldinger.length).toEqual(1);
     //@ts-ignore
-    expect(state.perioder[0].beloepError).toBeUndefined();
+    expect(state.perioder[0].belopError).toBeUndefined();
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 
@@ -154,7 +154,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
     expect(feilmeldinger.length).toEqual(1);
     //@ts-ignore
-    expect(state.perioder[0].beloepError).toBe('Månedsinntekt mangler');
+    expect(state.perioder[0].belopError).toBe('Månedsinntekt mangler');
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 

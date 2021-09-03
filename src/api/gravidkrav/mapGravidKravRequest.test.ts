@@ -14,7 +14,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',
@@ -35,7 +35,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',
@@ -56,7 +56,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('99.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',
@@ -77,7 +77,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('99.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',
@@ -97,7 +97,7 @@ describe('mapGravidKravRequest', () => {
             uniqueKey: '1',
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',
@@ -138,7 +138,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         undefined,
@@ -159,7 +159,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',
@@ -180,7 +180,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',
@@ -215,7 +215,7 @@ describe('mapGravidKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000
+            belop: 3000
           }
         ],
         'dokumentasjon',

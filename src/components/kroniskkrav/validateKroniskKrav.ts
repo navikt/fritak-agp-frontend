@@ -40,8 +40,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       translate
     );
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
-    aktuellPeriode.beloepError = formatValidation(
-      validateBeloep(aktuellPeriode.beloep ? '' + aktuellPeriode.beloep : undefined, MAX, !!state.validated),
+    aktuellPeriode.belopError = formatValidation(
+      validateBeloep(aktuellPeriode.belop ? '' + aktuellPeriode.belop : undefined, MAX, !!state.validated),
       translate
     );
   });
@@ -70,8 +70,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       pushFeilmelding(`dager-${index}`, aktuellPeriode.dagerError, feilmeldinger);
     }
 
-    if (aktuellPeriode.beloepError) {
-      pushFeilmelding(`belop-${index}`, aktuellPeriode.beloepError, feilmeldinger);
+    if (aktuellPeriode.belopError) {
+      pushFeilmelding(`belop-${index}`, aktuellPeriode.belopError, feilmeldinger);
     }
   });
 

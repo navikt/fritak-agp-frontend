@@ -87,7 +87,7 @@ const mapPeriodeFeilmeldinger = (
 
     case 'månedsinntekt':
       if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-        state.perioder[pathIndex].beloepError = v.message || 'Månedsinntekt mangler';
+        state.perioder[pathIndex].belopError = v.message || 'Månedsinntekt mangler';
       }
 
       feilmeldinger.push(lagFeil(`beloep-${pathIndex}`, v.message || 'Månedsinntekt mangler'));

@@ -106,12 +106,12 @@ describe('NotifikasjonView', () => {
         {
           fom: '2020-01-02',
           tom: '2020-02-03',
-          beloep: 1234
+          belop: 1234
         },
         {
           fom: '2020-05-04',
           tom: '2020-06-05',
-          beloep: 1234.5
+          belop: 1234.5
         }
       ]
     } as GravidKravResponse;
@@ -141,12 +141,12 @@ describe('NotifikasjonView', () => {
         {
           fom: '2020-01-02',
           tom: '2020-02-03',
-          beloep: 1234
+          belop: 1234
         },
         {
           fom: '2020-05-04',
           tom: '2020-06-05',
-          beloep: 1234
+          belop: 1234
         }
       ]
     } as unknown as KroniskKravResponse;

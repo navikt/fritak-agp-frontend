@@ -1,6 +1,7 @@
 import { mapKroniskKravRequest } from './mapKroniskKravRequest';
 import { parseDato } from '../../utils/dato/Dato';
 import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
+import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
 
 describe('mapKroniskKravRequest', () => {
   it('should throw error when missing fnr', () => {
@@ -13,7 +14,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000,
+            belop: 3000,
             uniqueKey: '1'
           }
         ],
@@ -33,7 +34,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000,
+            belop: 3000,
             uniqueKey: '1'
           }
         ],
@@ -53,7 +54,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('99.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000,
+            belop: 3000,
             uniqueKey: '1'
           }
         ],
@@ -73,7 +74,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('99.04.2025'),
             dager: 5,
-            beloep: 3000,
+            belop: 3000,
             uniqueKey: '1'
           }
         ],
@@ -89,7 +90,7 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: undefined,
-        beloep: 3000,
+        belop: 3000,
         uniqueKey: '1'
       }
     ];
@@ -104,7 +105,7 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: 3,
-        beloep: undefined,
+        belop: undefined,
         uniqueKey: '1'
       }
     ];
@@ -115,12 +116,12 @@ describe('mapKroniskKravRequest', () => {
   });
 
   it('should throw error when empty bekreft', () => {
-    const periode = [
+    const periode: KroniskKravPeriode[] = [
       {
-        fra: parseDato('01.02.2020'),
-        til: parseDato('02.04.2025'),
+        fom: parseDato('01.02.2020'),
+        tom: parseDato('02.04.2025'),
         dager: 3,
-        beloep: 3000,
+        belop: 3000,
         uniqueKey: '1'
       }
     ];
@@ -162,7 +163,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000,
+            belop: 3000,
             uniqueKey: '1'
           }
         ],
@@ -194,7 +195,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            beloep: 3000,
+            belop: 3000,
             uniqueKey: '1'
           }
         ],

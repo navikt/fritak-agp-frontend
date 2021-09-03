@@ -11,8 +11,14 @@ describe('formatOmplassering', () => {
   });
 
   it('should format ikke mulig', () => {
-    expect(formatOmplassering(Omplassering.IKKE_MULIG, 'grunnen her')).toEqual(
-      'Omplassering til annen jobb er ikke mulig fordi grunnen her'
+    expect(formatOmplassering(Omplassering.IKKE_MULIG, 'MOTSETTER')).toEqual(
+      'Omplassering til annen jobb er ikke mulig fordi den ansatte ønsker ikke omplassering'
+    );
+  });
+
+  it('should format noe uforståelig om vi ikke kjenner teksten', () => {
+    expect(formatOmplassering(Omplassering.IKKE_MULIG, 'DETTE_ER_UKJENT')).toEqual(
+      'Omplassering til annen jobb er ikke mulig fordi dette er ukjent'
     );
   });
 

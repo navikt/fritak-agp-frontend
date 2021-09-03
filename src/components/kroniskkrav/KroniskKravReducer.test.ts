@@ -193,11 +193,11 @@ describe('KroniskKravReducer', () => {
       defaultKrav,
       {
         type: Actions.Beloep,
-        payload: { beloep: 233, itemId }
+        payload: { belop: 233, itemId }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].beloep).toEqual(233);
+    expect(state.perioder && state.perioder[0].belop).toEqual(233);
   });
 
   it('should set the kvittering', () => {
