@@ -40,6 +40,8 @@
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.3.0",
     "@navikt/nav-dekoratoren-moduler": "1.x",
     "@sentry/browser": "6.11.0",
+    "@sentry/react": "^6.12.0",
+    "@sentry/tracing": "^6.12.0",
     "dayjs": "1.x",
     "i18next": "20.4.0",
     "nav-frontend-alertstriper": "3.x",

@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 import App from './App';
 import Modal from 'react-modal';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -26,11 +26,14 @@ import '@navikt/helse-arbeidsgiver-felles-frontend/dist/library.css';
 import env, { EnvironmentType } from './config/environment';
 import { version } from '../package.json';
 import './components/felles/Upload/Upload.sass';
+import { Integrations } from '@sentry/tracing';
 
 if (env.environmentMode !== EnvironmentType.LOCAL) {
   Sentry.init({
     dsn: 'https://a61578f55fc64d8690aa9b66423ac0c4@sentry.gc.nav.no/46',
-    environment: EnvironmentType[env.environmentMode]
+    environment: EnvironmentType[env.environmentMode],
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 0.5
   });
 }
 
