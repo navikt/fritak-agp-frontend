@@ -22,7 +22,7 @@ const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer>) => {
     }
   });
 
-  const sortedYears = [...years].sort();
+  const sortedYears = [...years].sort((a, b) => a - b);
   const sumup = sortedYears.map((year) => `${year}: ${aarsfravaer[year]} dager`).join(', ');
 
   return `Fraværsdager ${sumup}`;
