@@ -1528,6 +1528,13 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@navikt/bedriftsmeny@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@navikt/bedriftsmeny/-/bedriftsmeny-3.1.0.tgz#3ef654b9ea8b6599ee021ceff3f15b8808c9578d"
+  integrity sha512-uJywDXJSCydoeY8CZ9mtddxy68hgIQHFwIEekb2yx54ezF+8I684mF8hFASYMGlkmGS2WT/8wBenS0dOAYMAow==
+  dependencies:
+    fuzzysort "^1.1.4"
+
 "@navikt/bedriftsmeny@3.x":
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/@navikt/bedriftsmeny/-/bedriftsmeny-3.0.6.tgz#3bbf5e5c129ae0ada7d7e3ca0d063d16619b5c7c"
