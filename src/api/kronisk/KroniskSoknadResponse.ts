@@ -1,4 +1,4 @@
-import { fravaer } from '../../components/notifikasjon/kronisk/soknad/formatFravaersdager';
+import { MaanedsFravaer } from '../../components/notifikasjon/kronisk/soknad/formatFravaersdager';
 
 interface KroniskSoknadResponse {
   id: string;
@@ -9,7 +9,7 @@ interface KroniskSoknadResponse {
   arbeidstyper: string[];
   paakjenningstyper: string[];
   paakjenningBeskrivelse?: string;
-  fravaer: fravaer[];
+  fravaer: MaanedsFravaer[];
 
   sendtAv: string;
   harVedlegg: boolean;

@@ -1,9 +1,9 @@
-export interface fravaer {
+export interface MaanedsFravaer {
   yearMonth: string;
   antallDagerMedFravaer: number;
 }
 
-const formatFravaersdager = (maanedsfravaer: Array<fravaer>) => {
+const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer>) => {
   const aarsfravaer: number[] = [];
   const years: string[] = [];
 
