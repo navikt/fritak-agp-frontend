@@ -1,4 +1,4 @@
-const textPaakjenninger = {
+const tekstPaakjenninger = {
   ALLERGENER: 'Allergener eller giftstoffer',
   UKOMFORTABEL: 'Ukomfortabel temperatur eller luftfuktighet',
   STRESSENDE: 'Stressende omgivelser',
@@ -9,4 +9,4 @@ const textPaakjenninger = {
   ANNET: 'Annet: '
 };
 
-export default textPaakjenninger;
+export default tekstPaakjenninger;

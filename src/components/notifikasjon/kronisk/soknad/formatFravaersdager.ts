@@ -5,12 +5,13 @@ export interface MaanedsFravaer {
 
 const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer>) => {
   const aarsfravaer: number[] = [];
-  const years: string[] = [];
+  const years: number[] = [];
 
   maanedsfravaer.forEach((currentMonth) => {
-    let currentYear: string = '';
+    let currentYear: number = 0;
     if (!!currentMonth && !!currentMonth.yearMonth) {
-      currentYear = currentMonth.yearMonth.split('-')[0];
+      const currentYearText = currentMonth.yearMonth.split('-')[0];
+      currentYear = Number(currentYearText);
     }
     if (!aarsfravaer[currentYear]) {
       aarsfravaer[currentYear] = 0;
@@ -20,10 +21,9 @@ const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer>) => {
       years.push(currentYear);
     }
   });
-  const sumup = years
-    .sort()
-    .map((year) => `${year}: ${aarsfravaer[year]} dager`)
-    .join(', ');
+
+  const sortedYears = [...years].sort();
+  const sumup = sortedYears.map((year) => `${year}: ${aarsfravaer[year]} dager`).join(', ');
 
   return `Fraværsdager ${sumup}`;
 };
