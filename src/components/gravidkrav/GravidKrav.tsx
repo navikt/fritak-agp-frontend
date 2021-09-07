@@ -203,6 +203,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                   index={index}
                   lonnspliktDager={state.antallDager}
                   key={enkeltPeriode.uniqueKey}
+                  slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
                 />
               ))}
               <Row>

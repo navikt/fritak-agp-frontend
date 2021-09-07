@@ -178,6 +178,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   index={index}
                   lonnspliktDager={state.antallDager}
                   key={enkeltPeriode.uniqueKey}
+                  slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
                 />
               ))}
               <Row>
