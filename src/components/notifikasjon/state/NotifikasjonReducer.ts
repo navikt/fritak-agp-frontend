@@ -23,6 +23,10 @@ const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonActio
         nextState.kroniskKravResponse = payload?.json;
       }
 
+      if (nextState.notifikasjonType === NotifikasjonType.KroniskSoknad) {
+        nextState.kroniskSoknadResponse = payload?.json;
+      }
+
       return nextState;
     case Actions.HandleError:
       nextState.status = payload?.status;
