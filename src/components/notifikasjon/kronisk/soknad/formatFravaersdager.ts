@@ -1,3 +1,31 @@
-const formatFravaersdager = (arbeid: string[]) => 'Fraværsdager 2018: 40dager, 2019: 50 dager: 2020: 70 dager';
+export interface fravaer {
+  yearMonth: string;
+  antallDagerMedFravaer: number;
+}
+
+const formatFravaersdager = (maanedsfravaer: Array<fravaer>) => {
+  const aarsfravaer: number[] = [];
+  const years: string[] = [];
+
+  maanedsfravaer.forEach((currentMonth) => {
+    let currentYear: string = '';
+    if (!!currentMonth && !!currentMonth.yearMonth) {
+      currentYear = currentMonth.yearMonth.split('-')[0];
+    }
+    if (!aarsfravaer[currentYear]) {
+      aarsfravaer[currentYear] = 0;
+    }
+    aarsfravaer[currentYear] += currentMonth.antallDagerMedFravaer;
+    if (years.indexOf(currentYear) === -1) {
+      years.push(currentYear);
+    }
+  });
+  const sumup = years
+    .sort()
+    .map((year) => `${year}: ${aarsfravaer[year]} dager`)
+    .join(', ');
+
+  return `Fraværsdager ${sumup}`;
+};
 
 export default formatFravaersdager;

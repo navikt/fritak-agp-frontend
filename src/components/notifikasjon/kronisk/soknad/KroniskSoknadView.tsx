@@ -7,12 +7,14 @@ import formatDokumentasjon from '../../gravid/soknad/formatDokumentasjon';
 import formatFravaersdager from './formatFravaersdager';
 import formatArbeidstype from './formatArbeidstype';
 import formatPaakjenninger from './formatPaakjenninger';
+import './KroniskSoknadView.scss';
+import Lenke from 'nav-frontend-lenker';
 
 export interface KroniskSoknadNotifikasjonProps {
   kroniskSoknadResponse: KroniskSoknadResponse;
 }
 
-const GravidSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonProps) => {
+const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonProps) => {
   return (
     <NotifikasjonInnhold
       title='Informasjon om sykepenger'
@@ -31,14 +33,25 @@ const GravidSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonPr
       </p>
       <p>Når vi har behandlet søknaden fra arbeidsgiveren din, vil du få en melding fra oss om resultatet.</p>
       <h3>Detaljer fra søknaden:</h3>
-      <p>Type arbeid: {formatArbeidstype(kroniskSoknadResponse.arbeidstyper)}</p>
-      <p>Påkjenninger på arbeidsstedet:</p>
-      {formatPaakjenninger(kroniskSoknadResponse.paakjenningstyper, kroniskSoknadResponse.paakjenningBeskrivelse)}
+      <p>
+        Type arbeid: <ul className='dash'>{formatArbeidstype(kroniskSoknadResponse.arbeidstyper)}</ul>
+      </p>
+      <p>
+        Påkjenninger på arbeidsstedet:
+        <ul className='dash'>
+          {formatPaakjenninger(kroniskSoknadResponse.paakjenningstyper, kroniskSoknadResponse.paakjenningBeskrivelse)}
+        </ul>
+      </p>
       <p>{formatDokumentasjon(kroniskSoknadResponse.harVedlegg)}</p>
       <p>{formatFravaersdager(kroniskSoknadResponse.fravaer)}</p>
       <p>{formatInnsendtAv(kroniskSoknadResponse.sendtAv)}</p>
+      <p>
+        <Lenke href='https://www.nav.no/no/bedrift/oppfolging/sykemeldt-arbeidstaker/sykepenger/kronisk-syk-arbeidstaker'>
+          Om du vil, kan du lese om arbeidsgiverens rett til å få dekket utgiftene.
+        </Lenke>
+      </p>
     </NotifikasjonInnhold>
   );
 };
 
-export default GravidSoknadView;
+export default KroniskSoknadView;

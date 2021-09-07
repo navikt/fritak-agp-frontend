@@ -1,9 +1,10 @@
 import React from 'react';
+import textPaakjenninger from './tekstPaakjenninger';
 
 const formatPaakjenninger = (paakjenninger: string[], beskrivelse: string | undefined) =>
   paakjenninger.map((paakjenning) => (
     <li key={paakjenning}>
-      {paakjenning.toLowerCase()}
+      {textPaakjenninger[paakjenning] || paakjenning.toLowerCase()}
       {paakjenning === 'ANNET' ? ' "' + beskrivelse + '"' : ''}
     </li>
   ));
