@@ -26,6 +26,6 @@ describe('GravidSoknadView', () => {
     expect(screen.getByText(/personlig beskrivelse av tiltaket her/)).toBeInTheDocument();
     expect(screen.getByText(/tilpassede arbeidsoppgaver/)).toBeInTheDocument();
     expect(screen.getByText(/Dokumentasjon vedlagt/)).toBeInTheDocument();
-    expect(screen.getByText(/Ole Normann/)).toBeInTheDocument();
+    // expect(screen.getByText(/Ole Normann/)).toBeInTheDocument();
   });
 });

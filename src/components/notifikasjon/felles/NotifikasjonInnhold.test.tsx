@@ -25,11 +25,4 @@ describe('NotifikasjonInnhold', () => {
     render(buildNotifikasjon());
     expect(screen.getByText(/Barna/)).toBeInTheDocument();
   });
-
-  it('should show correct footer', () => {
-    render(buildNotifikasjon());
-    expect(
-      screen.getByText(/Om du vil, kan du lese om arbeidsgiverens rett til å få dekket utgiftene./)
-    ).toBeInTheDocument();
-  });
 });
