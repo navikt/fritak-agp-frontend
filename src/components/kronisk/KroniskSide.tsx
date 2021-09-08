@@ -24,7 +24,6 @@ import lenker from '../../config/lenker';
 import {
   Side,
   Upload,
-  LoggetUtAdvarsel,
   Oversettelse,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
@@ -35,6 +34,7 @@ import {
 import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
+import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 
 export const MAX_BESKRIVELSE = 2000;
 

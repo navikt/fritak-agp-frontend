@@ -22,7 +22,6 @@ import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import {
   Side,
-  LoggetUtAdvarsel,
   Oversettelse,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
@@ -36,6 +35,7 @@ import { i18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
 import LangKey from '../../locale/LangKey';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
+import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>

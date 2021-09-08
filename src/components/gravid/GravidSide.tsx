@@ -27,7 +27,6 @@ import {
   Upload,
   Oversettelse,
   DatoVelger,
-  LoggetUtAdvarsel,
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
   Fnr,
@@ -41,6 +40,7 @@ import lenker, { buildLenke } from '../../config/lenker';
 import { GravidSideKeys } from './GravidSideKeys';
 import { Redirect, useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
+import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
