@@ -18,6 +18,7 @@ interface KravPeriodeProps {
   enkeltPeriode: KroniskKravPeriode;
   index: number;
   lonnspliktDager: number | undefined;
+  slettbar: boolean;
 }
 
 const beregnRefusjon = (enkeltPeriode: KroniskKravPeriode, lonnspliktDager: number | undefined): number => {
@@ -79,7 +80,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   return (
     <Row
-      className={props.index > 0 ? 'hide-labels periodewrapper' : 'periodewrapper'}
+      className={props.index > 0 ? 'hide-labels periodewrapper' : 'top-row periodewrapper'}
       data-testid='krav-periode-wrapper'
     >
       <Column sm='2' xs='6'>
@@ -174,7 +175,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         </div>
       </Column>
       <Column sm='1' xs='6' className='slett-periode-wrapper'>
-        {props.index > 0 && (
+        {props.slettbar && (
           <InternLenke onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)} className='slett-periode'>
             Slett
           </InternLenke>

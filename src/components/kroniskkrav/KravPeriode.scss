@@ -13,6 +13,12 @@
         margin-top: 0.5rem;
         height: 3rem;
     }
+
+    &.top-row {
+        .slett-periode-wrapper .knapp {
+            margin-top: 4.625rem;
+        }
+    }
     
     &.hide-labels {
         label {
