@@ -8,6 +8,7 @@ import formatDokumentasjon from './formatDokumentasjon';
 import formatInnsendtAv from './formatInnsendtAv';
 import formatTiltak from './formatTiltak';
 import Lenke from 'nav-frontend-lenker';
+import GravidSoknadFooter from './GravidSoknadFooter';
 
 export interface GravidSoknadNotifikasjonProps {
   gravidSoknadResponse: GravidSoknadResponse;
@@ -46,9 +47,7 @@ const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProp
       <p>{formatDokumentasjon(gravidSoknadResponse.harVedlegg)}</p>
       <p>{formatInnsendtAv(gravidSoknadResponse.sendtAv)}</p>
       <p>
-        <Lenke href='https://www.nav.no/no/bedrift/oppfolging/sykemeldt-arbeidstaker/sykepenger/kronisk-syk-arbeidstaker'>
-          Om du vil, kan du lese om arbeidsgiverens rett til å få dekket utgiftene.
-        </Lenke>
+        <GravidSoknadFooter />
       </p>
     </NotifikasjonInnhold>
   );

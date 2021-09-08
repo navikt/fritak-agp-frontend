@@ -9,6 +9,7 @@ import formatArbeidstype from './formatArbeidstype';
 import formatPaakjenninger from './formatPaakjenninger';
 import './KroniskSoknadView.scss';
 import Lenke from 'nav-frontend-lenker';
+import GravidSoknadFooter from '../../gravid/soknad/GravidSoknadFooter';
 
 export interface KroniskSoknadNotifikasjonProps {
   kroniskSoknadResponse: KroniskSoknadResponse;
@@ -46,9 +47,7 @@ const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonP
       <p>{formatFravaersdager(kroniskSoknadResponse.fravaer)}</p>
       <p>{formatInnsendtAv(kroniskSoknadResponse.sendtAv)}</p>
       <p>
-        <Lenke href='https://www.nav.no/no/bedrift/oppfolging/sykemeldt-arbeidstaker/sykepenger/kronisk-syk-arbeidstaker'>
-          Om du vil, kan du lese om arbeidsgiverens rett til å få dekket utgiftene.
-        </Lenke>
+        <GravidSoknadFooter />
       </p>
     </NotifikasjonInnhold>
   );
