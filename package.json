@@ -35,7 +35,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/bedriftsmeny": "3.1.0",
+    "@navikt/bedriftsmeny": "3.2.0",
     "@navikt/fnrvalidator": "1.x",
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.3.0",
     "@navikt/nav-dekoratoren-moduler": "1.x",
