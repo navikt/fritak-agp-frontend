@@ -850,8 +850,8 @@ const Locales: Record<
   },
 
   VALIDATE_TIL_INVALID: {
-    nb: 'Dato kan bare være fra og med $value',
-    en: 'Date can only be from $value'
+    nb: 'Dato kan bare være fra og med {{value}}',
+    en: 'Date can only be from {{value}}'
   },
 
   VALIDATE_TIL_ERROR: {
@@ -878,8 +878,8 @@ const Locales: Record<
     en: 'Missing from date'
   },
   VALIDATE_FRA_FOM_INVALID: {
-    nb: 'Dato kan bare være fra og med $value',
-    en: 'Date can only be from $value'
+    nb: 'Dato kan bare være fra og med {{value}}',
+    en: 'Date can only be from {{value}}'
   },
   VALIDATE_FRA_FOM_ERROR: {
     nb: 'Feil dato',
