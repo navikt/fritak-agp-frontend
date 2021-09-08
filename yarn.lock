@@ -1528,10 +1528,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@navikt/bedriftsmeny@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@navikt/bedriftsmeny/-/bedriftsmeny-3.1.0.tgz#3ef654b9ea8b6599ee021ceff3f15b8808c9578d"
-  integrity sha512-uJywDXJSCydoeY8CZ9mtddxy68hgIQHFwIEekb2yx54ezF+8I684mF8hFASYMGlkmGS2WT/8wBenS0dOAYMAow==
+"@navikt/bedriftsmeny@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@navikt/bedriftsmeny/-/bedriftsmeny-3.2.0.tgz#e252a1adb86b7b6d438960c2aa15d918ecda3aeb"
+  integrity sha512-j5b++L3fKCLD/hFjWum2XnxyQ0OlnUsiFF7Fp+YExaMh0LobA2d8ANwDhMd9MIBpcRPuFpSbUvTrhALstqdW5w==
   dependencies:
     fuzzysort "^1.1.4"
 
