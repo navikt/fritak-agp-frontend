@@ -14,11 +14,15 @@ import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from 'dayjs';
+import Locales from '../../locale/Locales';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
 
 export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): KroniskKravState => {
+  dayjs.extend(customParseFormat);
   if (!state.validated) {
     return state;
   }
@@ -34,11 +38,18 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   );
 
   nextState.perioder?.forEach((aktuellPeriode) => {
-    aktuellPeriode.fomError = formatValidation(validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated), translate);
-    aktuellPeriode.tomError = formatValidation(
-      validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated),
-      translate
-    );
+    const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
+    const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
+    let transString = Locales[valideringFraStatus?.key as any].nb;
+
+    aktuellPeriode.fomError = translate.t(transString, { value: minDato });
+
+    const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
+    debugger;
+    transString = Locales[valideringTilStatus?.key as any].nb;
+
+    aktuellPeriode.tomError = translate.t(transString, { value: minDato });
+
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
     aktuellPeriode.belopError = formatValidation(
       validateBeloep(aktuellPeriode.belop ? '' + aktuellPeriode.belop : undefined, MAX, !!state.validated),
