@@ -15,7 +15,6 @@ import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
 import dayjs from 'dayjs';
-import Locales from '../../locale/Locales';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
