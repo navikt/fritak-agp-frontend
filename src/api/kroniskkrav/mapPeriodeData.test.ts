@@ -117,4 +117,8 @@ describe('beregnSykemeldingGradering', () => {
   it('should return 1.27 when 127 is given', () => {
     expect(beregnSykemeldingGradering('127')).toBe(1.27);
   });
+
+  it('should return 1 when ost is given', () => {
+    expect(beregnSykemeldingGradering('ost')).toBe(1);
+  });
 });
