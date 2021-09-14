@@ -1,5 +1,4 @@
-import validateSykemeldingsgrad from './validateSykemeldingsgrad';
-import { ValidateSykemeldingsgradKeys } from './validateSykemeldingsgrad'
+import validateSykemeldingsgrad, { ValidateSykemeldingsgradKeys } from './validateSykemeldingsgrad';
 
 describe('validateSykemeldingsgrad', () => {
   it('should not require anything', () => {
@@ -11,7 +10,9 @@ describe('validateSykemeldingsgrad', () => {
   });
 
   it('should show error when below 10%', () => {
-    expect(validateSykemeldingsgrad('10%', true)).toEqual({key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW});
+    expect(validateSykemeldingsgrad('10%', true)).toEqual({
+      key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW
+    });
   });
 
   it('should not show error when not required on 10', () => {
@@ -19,7 +20,9 @@ describe('validateSykemeldingsgrad', () => {
   });
 
   it('should show error required and 10', () => {
-    expect(validateSykemeldingsgrad('10', true)).toEqual({key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW});
+    expect(validateSykemeldingsgrad('10', true)).toEqual({
+      key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW
+    });
   });
 
   it('should not show error not required and 25%', () => {
@@ -43,10 +46,14 @@ describe('validateSykemeldingsgrad', () => {
   });
 
   it('should show error when required and 110', () => {
-    expect(validateSykemeldingsgrad('110', true)).toEqual({key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH});
+    expect(validateSykemeldingsgrad('110', true)).toEqual({
+      key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH
+    });
   });
 
   it('should show error when required and 110%', () => {
-    expect(validateSykemeldingsgrad('110%', true)).toEqual({key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH});
+    expect(validateSykemeldingsgrad('110%', true)).toEqual({
+      key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH
+    });
   });
 });
