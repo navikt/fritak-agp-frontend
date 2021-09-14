@@ -1,5 +1,5 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import GravidKravState from './GravidKravState';
+import GravidKravState, { Periode } from './GravidKravState';
 import {
   pushFeilmelding,
   validateBeloep,
@@ -57,25 +57,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
       translate
     );
 
-    if (periode.fomError) {
-      pushFeilmelding(`fra-dato-${index}`, periode.fomError, feilmeldinger);
-    }
-
-    if (periode.tomError) {
-      pushFeilmelding(`til-dato-${index}`, periode.tomError, feilmeldinger);
-    }
-
-    if (periode.dagerError) {
-      pushFeilmelding(`dager-${index}`, periode.dagerError, feilmeldinger);
-    }
-
-    if (periode.belopError) {
-      pushFeilmelding(`belop-${index}`, periode.belopError, feilmeldinger);
-    }
-
-    if (periode.sykemeldingsgradError) {
-      pushFeilmelding(`sykemeldingsgrad-${index}`, periode.sykemeldingsgradError, feilmeldinger);
-    }
+    fyllPeriodeFeilmeldingsboks(periode, index, feilmeldinger);
   });
 
   nextState.bekreftError = formatValidation(validateBekreft(state.bekreft, state.validated), translate);
@@ -86,4 +68,26 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   nextState.feilmeldinger = feilmeldinger;
 
   return nextState;
+};
+
+const fyllPeriodeFeilmeldingsboks = (periode: Periode, index: number, feilmeldinger: FeiloppsummeringFeil[]) => {
+  if (periode.fomError) {
+    pushFeilmelding(`fra-dato-${index}`, periode.fomError, feilmeldinger);
+  }
+
+  if (periode.tomError) {
+    pushFeilmelding(`til-dato-${index}`, periode.tomError, feilmeldinger);
+  }
+
+  if (periode.dagerError) {
+    pushFeilmelding(`dager-${index}`, periode.dagerError, feilmeldinger);
+  }
+
+  if (periode.belopError) {
+    pushFeilmelding(`belop-${index}`, periode.belopError, feilmeldinger);
+  }
+
+  if (periode.sykemeldingsgradError) {
+    pushFeilmelding(`sykemeldingsgrad-${index}`, periode.sykemeldingsgradError, feilmeldinger);
+  }
 };
