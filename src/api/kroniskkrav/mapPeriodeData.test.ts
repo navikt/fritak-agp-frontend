@@ -1,6 +1,6 @@
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
 import { parseDato } from '../../utils/dato/Dato';
-import mapPeriodeData from './mapPeriodeData';
+import mapPeriodeData, { beregnSykemeldingGradering } from './mapPeriodeData';
 
 describe('mapPeriodeData', () => {
   it('should map the data', () => {
@@ -78,5 +78,43 @@ describe('mapPeriodeData', () => {
         månedsinntekt: 0
       }
     ]);
+  });
+});
+
+describe('beregnSykemeldingGradering', () => {
+  it('Should return 1 when input is missing', () => {
+    expect(beregnSykemeldingGradering(undefined)).toBe(1);
+  });
+
+  it('should return 0.33 when 33% is given', () => {
+    expect(beregnSykemeldingGradering('33%')).toBe(0.33);
+  });
+
+  it('should return 0.33 when 33 is given', () => {
+    expect(beregnSykemeldingGradering('33')).toBe(0.33);
+  });
+
+  it('should return 0.5 when 50% is given', () => {
+    expect(beregnSykemeldingGradering('50%')).toBe(0.5);
+  });
+
+  it('should return 0.5 when 50 is given', () => {
+    expect(beregnSykemeldingGradering('50')).toBe(0.5);
+  });
+
+  it('should return 1 when 100% is given', () => {
+    expect(beregnSykemeldingGradering('100%')).toBe(1);
+  });
+
+  it('should return 1 when 100 is given', () => {
+    expect(beregnSykemeldingGradering('100')).toBe(1);
+  });
+
+  it('should return 1.27 when 127% is given', () => {
+    expect(beregnSykemeldingGradering('127%')).toBe(1.27);
+  });
+
+  it('should return 1.27 when 127 is given', () => {
+    expect(beregnSykemeldingGradering('127')).toBe(1.27);
   });
 });
