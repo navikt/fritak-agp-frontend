@@ -18,7 +18,8 @@ export enum Actions {
   Grunnbeloep,
   antallDager,
   AddPeriod,
-  DeletePeriod
+  DeletePeriod,
+  Sykemeldingsgrad
 }
 
 export interface Payload {
@@ -38,6 +39,7 @@ export interface Payload {
   antallDager?: number;
   periode?: number;
   itemId?: string;
+  sykemeldingsgrad?: string;
 }
 
 export interface KroniskKravAction {

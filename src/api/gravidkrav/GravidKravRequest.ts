@@ -1,3 +1,5 @@
+import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
+
 export interface GravidKravRequest {
   identitetsnummer: string;
   virksomhetsnummer: string;
@@ -5,11 +7,4 @@ export interface GravidKravRequest {
   bekreftet: boolean;
   dokumentasjon?: string;
   antallDager?: number;
-}
-
-export interface Arbeidsgiverperiode {
-  fom: string;
-  tom: string;
-  antallDagerMedRefusjon: number;
-  månedsinntekt: number;
 }

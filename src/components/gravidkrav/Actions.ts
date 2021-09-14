@@ -18,7 +18,8 @@ export enum Actions {
   Grunnbeloep,
   antallDager,
   AddPeriode,
-  DeletePeriode
+  DeletePeriode,
+  Sykemeldingsgrad
 }
 
 export interface Payload {
@@ -37,6 +38,7 @@ export interface Payload {
   grunnbeloep?: number;
   antallDager?: number;
   itemId?: string;
+  sykemeldingsgrad?: string;
 }
 
 export interface GravidKravAction {

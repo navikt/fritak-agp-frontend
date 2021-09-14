@@ -14,6 +14,7 @@ import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
+import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
@@ -42,7 +43,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     pushFeilmelding('kontrollsporsmaal-lonn-arbeidsdager', nextState.antallDagerError, feilmeldinger);
   }
 
-  state.perioder?.forEach((periode) => {
+  state.perioder?.forEach((periode, index) => {
     periode.fomError = formatValidation(validateFra(periode.fom, MIN_DATE, !!nextState.validated), translate);
     periode.tomError = formatValidation(
       validateTil(periode.fom, periode.tom, MIN_DATE, !!nextState.validated),
@@ -51,20 +52,29 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
     periode.belopError = formatValidation(validateBeloep('' + periode.belop, MAX, !!nextState.validated), translate);
 
+    periode.sykemeldingsgradError = formatValidation(
+      validateSykemeldingsgrad(periode.sykemeldingsgrad, !!state.validated),
+      translate
+    );
+
     if (periode.fomError) {
-      pushFeilmelding('fra-dato-' + periode.uniqueKey, periode.fomError, feilmeldinger);
+      pushFeilmelding(`fra-dato-${index}`, periode.fomError, feilmeldinger);
     }
 
     if (periode.tomError) {
-      pushFeilmelding('til-dato-' + periode.uniqueKey, periode.tomError, feilmeldinger);
+      pushFeilmelding(`til-dato-${index}`, periode.tomError, feilmeldinger);
     }
 
     if (periode.dagerError) {
-      pushFeilmelding('dager-' + periode.uniqueKey, periode.dagerError, feilmeldinger);
+      pushFeilmelding(`dager-${index}`, periode.dagerError, feilmeldinger);
     }
 
     if (periode.belopError) {
-      pushFeilmelding('belop-' + periode.uniqueKey, periode.belopError, feilmeldinger);
+      pushFeilmelding(`belop-${index}`, periode.belopError, feilmeldinger);
+    }
+
+    if (periode.sykemeldingsgradError) {
+      pushFeilmelding(`sykemeldingsgrad-${index}`, periode.sykemeldingsgradError, feilmeldinger);
     }
   });
 

@@ -1,6 +1,8 @@
-import { Arbeidsgiverperiode, GravidKravRequest } from './GravidKravRequest';
+import { GravidKravRequest } from './GravidKravRequest';
 import { datoToString } from '../../utils/dato/Dato';
 import { Periode } from '../../components/gravidkrav/GravidKravState';
+import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
+import { beregnSykemeldingGradering } from '../kroniskkrav/mapPeriodeData';
 
 export const mapGravidKravRequest = (
   fnr: string | undefined,
@@ -40,7 +42,8 @@ export const mapGravidKravRequest = (
     fom: datoToString(periode.fom),
     tom: datoToString(periode.tom),
     antallDagerMedRefusjon: periode.dager || 0,
-    månedsinntekt: Number(periode.belop || 0)
+    månedsinntekt: Number(periode.belop || 0),
+    gradering: periode.sykemeldingsgrad ? beregnSykemeldingGradering(periode.sykemeldingsgrad) : 1
   }));
 
   return {

@@ -28,6 +28,7 @@ import { FravaerTabellKeys } from '../components/kronisk/FravaerTabellKeys';
 import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
 import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder';
 import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/KontrollSporsmaal';
+import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldingsgrad';
 
 export interface Locale {
   en: string;
@@ -62,7 +63,8 @@ const Locales: Record<
   | KroniskSideKeys
   | KontrollSporsmaalKeys
   | ValidateAntallPerioderKeys
-  | ValidateArbeidsdagerKeys,
+  | ValidateArbeidsdagerKeys
+  | ValidateSykemeldingsgradKeys,
   Locale
 > = {
   PAGE_NOT_FOUND_TITLE: {
@@ -1003,6 +1005,14 @@ const Locales: Record<
   VALIDATE_ANTALL_PERIODER_TOO_HIGH: {
     nb: 'Antall fraværsperioder per år er for høyt',
     en: 'The number of periods of absence per year is too high'
+  },
+  VALIDATE_SYKEMELDINGSGRAD_LOW: {
+    nb: 'Sykemeldingsgraden må være 20% eller høyere',
+    en: 'The degree of sick leave must be 20% or higher'
+  },
+  VALIDATE_SYKEMELDINGSGRAD_HIGH: {
+    nb: 'Sykemeldingsgraden kan ikke være høyere enn 100%',
+    en: 'The degree of sick leave cannot be higher than 100%'
   },
   FRAVAERTABELL_MONTH: {
     nb: 'Måned',

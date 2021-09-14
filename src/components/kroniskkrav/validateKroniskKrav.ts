@@ -15,6 +15,7 @@ import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
 import dayjs from 'dayjs';
+import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
 
 const MAX = 10000000;
 const MIN_DATE = new Date(2021, 1, 1);
@@ -41,6 +42,11 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     aktuellPeriode.fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
 
     const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
+
+    aktuellPeriode.sykemeldingsgradError = formatValidation(
+      validateSykemeldingsgrad(aktuellPeriode.sykemeldingsgrad, !!state.validated),
+      translate
+    );
 
     aktuellPeriode.tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
 
@@ -77,6 +83,10 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
 
     if (aktuellPeriode.belopError) {
       pushFeilmelding(`belop-${index}`, aktuellPeriode.belopError, feilmeldinger);
+    }
+
+    if (aktuellPeriode.sykemeldingsgradError) {
+      pushFeilmelding(`sykemeldingsgrad-${index}`, aktuellPeriode.sykemeldingsgradError, feilmeldinger);
     }
   });
 

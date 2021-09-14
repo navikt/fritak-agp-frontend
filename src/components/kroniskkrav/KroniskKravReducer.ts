@@ -58,6 +58,14 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
       return validateKroniskKrav(nextState, translate);
 
+    case Actions.Sykemeldingsgrad:
+      debugger;
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
+        payload?.sykemeldingsgrad;
+
+      return validateKroniskKrav(nextState, translate);
+
     case Actions.Bekreft:
       nextState.bekreft = payload?.bekreft;
       return validateKroniskKrav(nextState, translate);

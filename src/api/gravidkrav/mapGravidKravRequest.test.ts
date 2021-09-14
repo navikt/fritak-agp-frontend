@@ -1,6 +1,7 @@
 import { mapGravidKravRequest } from './mapGravidKravRequest';
 import { parseDato } from '../../utils/dato/Dato';
-import { Arbeidsgiverperiode, GravidKravRequest } from './GravidKravRequest';
+import { GravidKravRequest } from './GravidKravRequest';
+import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
 
 describe('mapGravidKravRequest', () => {
   it('should throw error when missing fnr', () => {
@@ -194,6 +195,7 @@ describe('mapGravidKravRequest', () => {
         {
           fom: '2020-02-01',
           tom: '2025-04-03',
+          gradering: 1,
           antallDagerMedRefusjon: 5,
           månedsinntekt: 3000
         } as Arbeidsgiverperiode
@@ -229,6 +231,7 @@ describe('mapGravidKravRequest', () => {
         {
           fom: '2020-02-01',
           tom: '2025-04-03',
+          gradering: 1,
           antallDagerMedRefusjon: 5,
           månedsinntekt: 3000
         } as Arbeidsgiverperiode
