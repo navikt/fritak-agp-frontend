@@ -30,7 +30,7 @@ const beregnRefusjon = (enkeltPeriode: KroniskKravPeriode, lonnspliktDager: numb
 
   const aarsBelop = enkeltPeriode.belop * 12;
   const aarsGrunnbelop = enkeltPeriode.grunnbeloep * 6;
-  const grad = enkeltPeriode.sykemeldingsgrad ? beregnSykemeldingGradering(enkeltPeriode.sykemeldingsgrad) : 1;
+  const grad = beregnSykemeldingGradering(enkeltPeriode.sykemeldingsgrad);
 
   if (aarsBelop > aarsGrunnbelop) {
     const gRefusjon = (aarsGrunnbelop / lonnspliktDager) * enkeltPeriode.dager;
