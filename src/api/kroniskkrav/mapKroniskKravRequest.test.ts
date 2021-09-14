@@ -177,6 +177,7 @@ describe('mapKroniskKravRequest', () => {
         {
           fom: '2020-02-01',
           tom: '2025-04-03',
+          gradering: 1,
           antallDagerMedRefusjon: 5,
           månedsinntekt: 3000
         }
@@ -209,6 +210,7 @@ describe('mapKroniskKravRequest', () => {
         {
           fom: '2020-02-01',
           tom: '2025-04-03',
+          gradering: 1,
           antallDagerMedRefusjon: 5,
           månedsinntekt: 3000
         }

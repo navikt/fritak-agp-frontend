@@ -300,7 +300,7 @@ test('Legg til og fjern perioder', async (t) => {
 
   await t
     .scrollBy(0, 200)
-    .click(ReactSelector('InternLenke').withText('Slett'))
+    .click(ReactSelector('Fareknapp').withText('SLETT'))
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').visible)

@@ -60,6 +60,13 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
       return validateGravidKrav(nextState, translate);
 
+    case Actions.Sykemeldingsgrad:
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
+        payload?.sykemeldingsgrad;
+
+      return validateGravidKrav(nextState, translate);
+
     case Actions.Dokumentasjon:
       nextState.dokumentasjon = payload?.dokumentasjon;
       return validateGravidKrav(nextState, translate);

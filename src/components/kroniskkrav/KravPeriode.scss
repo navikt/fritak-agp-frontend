@@ -1,5 +1,12 @@
-.periodewrapper {
+.krav-kort {
+    margin: 0.625rem 0;
+    padding: 0.25rem 0.625rem 0.625rem;
+    border-radius: 0.125rem;
+    border: 1px solid #cdcecf;
+    box-shadow: 5px 5px 5px 2px #f5f3f0;
     position: relative;
+}
+.periodewrapper {
 
     .tekstvisning {
         padding-top: .75rem;
@@ -10,14 +17,16 @@
     }
 
     .skjemaelement__label {
-        margin-top: 0.5rem;
-        height: 3rem;
+        margin-top: 1rem;
     }
 
-    &.top-row {
-        .slett-periode-wrapper .knapp {
-            margin-top: 4.625rem;
-        }
+    .mnd-inntekt  {
+        max-width: 66%;
+    }
+
+    .slett-periode-wrapper .knapp {
+        margin-top: 3rem;
+        float: right;
     }
     
     &.hide-labels {
@@ -35,5 +44,5 @@
         .slett-periode-wrapper {
             padding-top: 1.625rem;
         }
-    } 
+    }
 }

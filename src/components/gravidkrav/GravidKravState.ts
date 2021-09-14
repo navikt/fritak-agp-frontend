@@ -27,6 +27,8 @@ export interface Periode {
   belop?: number;
   belopError?: string;
   grunnbeloep?: number;
+  sykemeldingsgrad?: string;
+  sykemeldingsgradError?: string;
 }
 
 export default interface GravidKravState extends ValidationState {

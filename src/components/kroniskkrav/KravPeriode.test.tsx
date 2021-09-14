@@ -54,7 +54,7 @@ describe('KravPeriode', () => {
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
-    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row hide-labels periodewrapper');
+    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row odd periodewrapper');
   });
 
   it('should show a random row', async () => {
