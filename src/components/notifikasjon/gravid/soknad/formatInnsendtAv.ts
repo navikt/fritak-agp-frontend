@@ -1,4 +1,3 @@
-// const formatInnsendtAv = (sendtAv: string) => 'Innsendt av: ' + sendtAv;
-const formatInnsendtAv = (sendtAv: string) => '';
+const formatInnsendtAv = (sendtAv: string) => 'Innsendt av: ' + sendtAv;
 
 export default formatInnsendtAv;
