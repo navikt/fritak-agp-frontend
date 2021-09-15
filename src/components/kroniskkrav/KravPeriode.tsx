@@ -182,7 +182,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             Sykemeldingsgrad
             <Hjelpetekst className='krav-padding-hjelpetekst'>
               <Systemtittel>Gradert sykemelding</Systemtittel>
-              Hvordan finne ut av dette
+              Sykmeldingsgrad, minimum 20%
             </Hjelpetekst>
           </Label>
           <Input
