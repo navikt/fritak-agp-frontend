@@ -17,6 +17,7 @@ const mapGravidFeilmeldinger = (response: ValidationResponse, state: GravidState
         feilmeldinger.push(lagFeil('termindato', v.message));
         break;
 
+      case 'virksomhetsnummer':
       case 'orgnr':
         state.orgnrError = v.message;
         feilmeldinger.push(lagFeil('orgnr', v.message));
