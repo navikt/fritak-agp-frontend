@@ -45,7 +45,7 @@ const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonP
       </p>
       <p>{formatDokumentasjon(kroniskSoknadResponse.harVedlegg)}</p>
       <p>{formatFravaersdager(kroniskSoknadResponse.fravaer)}</p>
-      <p>{formatInnsendtAv(kroniskSoknadResponse.sendtAv)}</p>
+      <p>{formatInnsendtAv(kroniskSoknadResponse.sendtAvNavn)}</p>
       <p>
         <GravidSoknadFooter />
       </p>

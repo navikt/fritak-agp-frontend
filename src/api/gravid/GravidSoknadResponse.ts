@@ -10,6 +10,7 @@ export interface GravidSoknadResponse {
   omplassering: string;
   omplasseringAarsak: string;
   sendtAv: string;
+  sendtAvNavn: string;
   termindato: string;
   harVedlegg: boolean;
   journalpostId: string;

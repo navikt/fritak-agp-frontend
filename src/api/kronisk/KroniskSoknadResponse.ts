@@ -12,6 +12,7 @@ interface KroniskSoknadResponse {
   fravaer: MaanedsFravaer[];
 
   sendtAv: string;
+  sendtAvNavn: string;
   harVedlegg: boolean;
   journalpostId: string;
   oppgaveId: string;

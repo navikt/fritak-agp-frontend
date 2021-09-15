@@ -45,7 +45,7 @@ const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProp
       <p>{formatOmplassering(gravidSoknadResponse.omplassering, gravidSoknadResponse.omplasseringAarsak)}</p>
 
       <p>{formatDokumentasjon(gravidSoknadResponse.harVedlegg)}</p>
-      <p>{formatInnsendtAv(gravidSoknadResponse.sendtAv)}</p>
+      <p>{formatInnsendtAv(gravidSoknadResponse.sendtAvNavn)}</p>
       <p>
         <GravidSoknadFooter />
       </p>
