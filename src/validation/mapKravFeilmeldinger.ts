@@ -93,6 +93,15 @@ const mapPeriodeFeilmeldinger = (
       feilmeldinger.push(lagFeil(`beloep-${pathIndex}`, v.message || 'Månedsinntekt mangler'));
       break;
 
+    case 'gradering':
+      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+        state.perioder[pathIndex].sykemeldingsgradError = v.message || 'Sykemeldingsgraden må være mellom 20% og 100%';
+      }
+      feilmeldinger.push(
+        lagFeil(`sykemeldingsgrad-${pathIndex}`, v.message || 'Sykemeldingsgraden må være mellom 20% og 100%')
+      );
+      break;
+
     default:
       state.periodeError = v.message;
       feilmeldinger.push(lagFeil('dager', v.message || 'Refusjonsdager kan ikke overstige periodelengden'));
