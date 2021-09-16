@@ -1,13 +1,14 @@
 import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
 
-const mockValidationResponse = (status: number, felter: string[], message?: string) => {
+const mockValidationResponse = <Type>(status: number, felter: string[], message?: string) => {
   return {
     violations: mockViolations(felter, message),
     type: 'urn:nav:helsearbeidsgiver:validation-error',
     title: '',
     status: status,
-    instance: ''
-  } as ValidationResponse;
+    instance: '',
+    response: {}
+  } as ValidationResponse<Type>;
 };
 
 export const mockViolations = (felter: string[], message?: string) =>

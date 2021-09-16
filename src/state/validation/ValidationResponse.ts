@@ -1,10 +1,11 @@
-export interface ValidationResponse {
+export interface ValidationResponse<T> {
   violations: ValidationProblemDetail[];
   type?: string;
   title?: string;
   status: number;
   detail?: string;
   instance?: string;
+  response?: T;
 }
 
 export interface ValidationProblemDetail {

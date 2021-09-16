@@ -2,8 +2,12 @@ import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidState from './GravidState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 
-const mapGravidFeilmeldinger = (response: ValidationResponse, state: GravidState): FeiloppsummeringFeil[] => {
+const mapGravidFeilmeldinger = (
+  response: ValidationResponse<GravidSoknadResponse>,
+  state: GravidState
+): FeiloppsummeringFeil[] => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v) => {
     switch (v.propertyPath) {

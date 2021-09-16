@@ -1,6 +1,7 @@
 import { ArbeidType } from './ArbeidType';
 import { PaakjenningerType } from './PaakjenningerType';
 import ValidationResponse from '../../state/validation/ValidationResponse';
+import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
 export enum Actions {
   Reset,
@@ -37,7 +38,7 @@ export interface Payload {
   fravaer?: FravaerType;
   dokumentasjon?: string;
   kommentar?: string;
-  response?: ValidationResponse;
+  response?: ValidationResponse<KroniskSoknadResponse>;
   antallPerioder?: number;
 }
 
