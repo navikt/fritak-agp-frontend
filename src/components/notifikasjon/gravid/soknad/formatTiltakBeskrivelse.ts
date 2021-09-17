@@ -1,8 +1,18 @@
-const formatTiltakBeskrivelse = (tiltak: string, beskrivelse: string) => {
+import tekstTiltak from './tekstTiltak';
+
+const formatTiltakBeskrivelse = (tiltak: string, beskrivelse: string | undefined) => {
   if (tiltak === 'ANNET') {
-    return tiltak.toLowerCase() + ': ' + beskrivelse;
+    beskrivelse = beskrivelse || '';
+    return tekstTiltak[tiltak] + ': ' + beskrivelse;
   }
-  return tiltak.toLowerCase().replace('_', ' ');
+  let tiltakstekst = tekstTiltak[tiltak];
+
+  if (!tiltakstekst) {
+    tiltakstekst = (tiltak || '').split('_').join(' ').toLowerCase(); // Helt avhenging av at backend serverer noe fornuftig
+    tiltakstekst = tiltakstekst[0].toUpperCase() + tiltakstekst.slice(1);
+  }
+
+  return tiltakstekst;
 };
 
 export default formatTiltakBeskrivelse;

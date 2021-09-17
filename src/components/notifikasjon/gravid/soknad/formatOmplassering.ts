@@ -1,7 +1,7 @@
 import { Omplassering } from '../../../gravid/Omplassering';
 import gravidSoknadOmplassering from './gravidSoknadOmplassering';
 
-const formatOmplassering = (omplassering: string, omplasseringAarsak: string) => {
+const formatOmplassering = (omplassering: string | undefined, omplasseringAarsak: string | undefined) => {
   let omplasseringAarsakText = '';
 
   if (!!omplasseringAarsak) {
@@ -18,7 +18,10 @@ const formatOmplassering = (omplassering: string, omplasseringAarsak: string) =>
     case Omplassering.NEI:
       return 'Omplassering til annen jobb er ikke forsøkt';
     case Omplassering.IKKE_MULIG:
-      return 'Omplassering til annen jobb er ikke mulig fordi ' + omplasseringAarsakText;
+      if (omplasseringAarsakText) {
+        return 'Omplassering til annen jobb er ikke mulig fordi ' + omplasseringAarsakText;
+      }
+      return 'Omplassering til annen jobb er ikke mulig';
     default:
       return '[Mangler data]';
   }
