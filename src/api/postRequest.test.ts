@@ -5,7 +5,7 @@ import { GravidSoknadResponse } from './gravid/GravidSoknadResponse';
 
 describe('postRequest', () => {
   type PostResponse = {
-    hello: String;
+    hello: string;
   };
 
   it('should respond json when 201', async () => {
