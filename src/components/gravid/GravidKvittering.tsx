@@ -62,7 +62,7 @@ const GravidKvittering = () => {
         </Alertstripe>
       </Panel>
 
-      <Panel>
+      <Panel className='lenker-ut-panel'>
         <div>
           <Lenke href={buildLenke(lenker.GravidKrav, language)}>
             <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_KRAV} />

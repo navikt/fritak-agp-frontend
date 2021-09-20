@@ -12,7 +12,7 @@ describe('GravidSoknadView', () => {
     omplassering: 'JA',
     omplasseringAarsak: 'det bare var slik',
     harVedlegg: true,
-    sendtAv: 'Ole Normann'
+    sendtAvNavn: 'Ole Normann'
   } as GravidSoknadResponse;
 
   it('should show all fields', () => {
@@ -26,6 +26,6 @@ describe('GravidSoknadView', () => {
     expect(screen.getByText(/personlig beskrivelse av tiltaket her/)).toBeInTheDocument();
     expect(screen.getByText(/Tilpassede arbeidsoppgaver/)).toBeInTheDocument();
     expect(screen.getByText(/Dokumentasjon vedlagt/)).toBeInTheDocument();
-    // expect(screen.getByText(/Ole Normann/)).toBeInTheDocument();
+    expect(screen.getByText(/Ole Normann/)).toBeInTheDocument();
   });
 });
