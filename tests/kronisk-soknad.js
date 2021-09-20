@@ -1,6 +1,8 @@
 import { RequestMock, Selector } from 'testcafe';
 import { waitForReact, ReactSelector } from 'testcafe-react-selectors';
 import { mockHeaders } from '@smartive/testcafe-utils';
+import kroniskSoknadResponse from './kroniskSoknadResponse';
+import arbeidsgiverResponse from './arbeidsgiverResponse';
 
 const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
 const cookiePlease = new RegExp(/\/local\/cookie-please/);
@@ -8,72 +10,6 @@ const loginExpiry = new RegExp(/\/api\/v1\/login-expiry/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/kronisk\/soeknad/);
-
-const arbeidsgiverRespons = [
-  {
-    name: 'ANSTENDIG BJØRN KOMMUNE',
-    type: 'Enterprise',
-    parentOrganizationNumber: null,
-    organizationForm: 'KOMM',
-    organizationNumber: '810007672',
-    socialSecurityNumber: null,
-    status: 'Active'
-  },
-  {
-    name: 'ANSTENDIG PIGGSVIN BRANNVESEN',
-    type: 'Business',
-    parentOrganizationNumber: '810007702',
-    organizationForm: 'BEDR',
-    organizationNumber: '810008032',
-    socialSecurityNumber: null,
-    status: 'Active'
-  },
-  {
-    name: 'ANSTENDIG PIGGSVIN BARNEHAGE',
-    type: 'Business',
-    parentOrganizationNumber: '810007702',
-    organizationForm: 'BEDR',
-    organizationNumber: '810007842',
-    socialSecurityNumber: null,
-    status: 'Active'
-  },
-  {
-    name: 'ANSTENDIG PIGGSVIN BYDEL',
-    type: 'Enterprise',
-    parentOrganizationNumber: null,
-    organizationForm: 'ORGL',
-    organizationNumber: '810007702',
-    socialSecurityNumber: null,
-    status: 'Active'
-  },
-  {
-    name: 'ANSTENDIG PIGGSVIN SYKEHJEM',
-    type: 'Business',
-    parentOrganizationNumber: '810007702',
-    organizationForm: 'BEDR',
-    organizationNumber: '810007982',
-    socialSecurityNumber: null,
-    status: 'Active'
-  },
-  {
-    name: 'SKOPPUM OG SANDØY',
-    type: 'Business',
-    parentOrganizationNumber: null,
-    organizationForm: 'BEDR',
-    organizationNumber: '911206722',
-    socialSecurityNumber: null,
-    status: 'Active'
-  },
-  {
-    name: 'SKJERSTAD OG KJØRSVIKBUGEN',
-    type: 'Enterprise',
-    parentOrganizationNumber: null,
-    organizationForm: 'AS',
-    organizationNumber: '911212218',
-    socialSecurityNumber: null,
-    status: 'Active'
-  }
-];
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -109,13 +45,13 @@ const cookieMock = RequestMock()
     headereText
   )
   .onRequestTo(arbeidsgiverAPI)
-  .respond(arbeidsgiverRespons, 200, headereJson)
+  .respond(arbeidsgiverResponse, 200, headereJson)
   .onRequestTo(navAuth)
   .respond(null, 200, headereJson)
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(null, 201, mockHeaders);
+  .respond(kroniskSoknadResponse, 201, mockHeaders);
 
 fixture`Kronisk - Søknad`.page`http://localhost:3000/fritak-agp/nb/kronisk/soknad?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
