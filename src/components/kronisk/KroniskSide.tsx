@@ -1,4 +1,4 @@
-import React, { Reducer, useEffect, useReducer } from 'react';
+import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
@@ -35,6 +35,7 @@ import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
+import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 
 export const MAX_BESKRIVELSE = 2000;
 
@@ -45,6 +46,7 @@ const buildReducer =
 
 const KroniskSide = () => {
   const { i18n, t } = useTranslation();
+  const { saveResponse } = useContext(KroniskSoknadKvitteringContext);
 
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
@@ -78,6 +80,7 @@ const KroniskSide = () => {
           state.antallPerioder || 0
         )
       ).then((response) => {
+        saveResponse(response);
         dispatch({
           type: Actions.HandleResponse,
           payload: { response: response }
@@ -97,7 +100,8 @@ const KroniskSide = () => {
     state.kommentar,
     state.orgnr,
     state.paakjenninger,
-    state.antallPerioder
+    state.antallPerioder,
+    saveResponse
   ]);
 
   if (state.kvittering === true) {

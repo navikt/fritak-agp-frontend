@@ -1,4 +1,5 @@
 import ValidationResponse from '../../state/validation/ValidationResponse';
+import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 
 export enum Actions {
   Reset,
@@ -34,7 +35,7 @@ export interface Payload {
   progress?: boolean;
   kvittering?: boolean;
   dokumentasjon?: string;
-  response?: ValidationResponse;
+  response?: ValidationResponse<GravidKravResponse>;
   grunnbeloep?: number;
   antallDager?: number;
   itemId?: string;

@@ -16,3 +16,5 @@ export interface GravidSoknadResponse {
   journalpostId: string;
   oppgaveId: string;
 }
+
+export default GravidSoknadResponse;

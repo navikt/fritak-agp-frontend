@@ -2,8 +2,9 @@ import ValidationResponse from '../../state/validation/ValidationResponse';
 import KroniskState from './KroniskState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
-const mapKroniskFeilmeldinger = (response: ValidationResponse, state: KroniskState) => {
+const mapKroniskFeilmeldinger = (response: ValidationResponse<KroniskSoknadResponse>, state: KroniskState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   response.violations.forEach((v) => {
     switch (v.propertyPath) {

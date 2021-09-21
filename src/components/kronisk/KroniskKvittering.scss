@@ -1,0 +1,13 @@
+.typo-normal.luft-under {
+    margin-bottom: 1rem;
+}
+
+@media print {
+    #decorator-header,
+    #decorator-footer,
+    .bedriftsmeny,
+    .side__minside_arbeidsgiver > .lenke,
+    .lenker-ut-panel {
+        display: none !important;
+    }
+}

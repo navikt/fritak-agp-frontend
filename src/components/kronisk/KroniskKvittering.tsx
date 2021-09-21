@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
+import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import lenker, { buildLenke } from '../../config/lenker';
@@ -11,10 +11,23 @@ import { useTranslation } from 'react-i18next';
 import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
+import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
+import formatArbeidstype from '../notifikasjon/kronisk/soknad/formatArbeidstype';
+import formatPaakjenninger from '../notifikasjon/kronisk/soknad/formatPaakjenninger';
+import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasjon';
+import formatFravaersdager from '../notifikasjon/kronisk/soknad/formatFravaersdager';
+import './KroniskKvittering.scss';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
   const { language } = useParams<PathParams>();
+  const { response } = useContext(KroniskSoknadKvitteringContext);
+
+  const arbeidstyper: string[] | undefined = response?.response?.arbeidstyper;
+  const paakjenningstyper: string[] | undefined = response?.response?.paakjenningstyper;
+  const paakjenningBeskrivelse: string | undefined = response?.response?.paakjenningBeskrivelse;
+  const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
+  const fravaer = response?.response?.fravaer;
 
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
@@ -32,13 +45,26 @@ const KroniskKvittering = () => {
         </Panel>
 
         <Panel>
+          <Undertittel>Detaljer fra søknaden:</Undertittel>
+          <Normaltekst>
+            Type arbeid: <ul className='dash'>{formatArbeidstype(arbeidstyper)}</ul>
+          </Normaltekst>
+          <Normaltekst>
+            Påkjenninger på arbeidsstedet:
+            <ul className='dash'>{formatPaakjenninger(paakjenningstyper, paakjenningBeskrivelse)}</ul>
+          </Normaltekst>
+          <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
+          <Normaltekst>{formatFravaersdager(fravaer)}</Normaltekst>
+        </Panel>
+
+        <Panel>
           <AlertStripeInfo>
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
             dere å oversitte fristen, som er tre måneder.
           </AlertStripeInfo>
         </Panel>
 
-        <Panel>
+        <Panel className='lenker-ut-panel'>
           <div>
             <InternLenke to={buildLenke(lenker.KroniskKrav, language)}>Send krav om refusjon</InternLenke>
           </div>

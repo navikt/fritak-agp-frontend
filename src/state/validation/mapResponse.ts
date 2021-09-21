@@ -4,10 +4,10 @@ import { ValidationState } from './ValidationState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { map201, map400, map401, map422, map500 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
-const mapResponse = (
-  response: ValidationResponse,
+const mapResponse = <Type>(
+  response: ValidationResponse<Type>,
   state: ValidationState,
-  mapFeilmeldinger: (response: ValidationResponse, state: ValidationState) => FeiloppsummeringFeil[]
+  mapFeilmeldinger: (response: ValidationResponse<Type>, state: ValidationState) => FeiloppsummeringFeil[]
 ): ValidationState => {
   const nextState = Object.assign({}, state);
   switch (response.status) {

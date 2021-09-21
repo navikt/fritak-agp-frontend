@@ -1,14 +1,33 @@
 import HttpStatus from './HttpStatus';
 import ValidationResponse from '../state/validation/ValidationResponse';
 
-export const mapViolations = (status: number, json: any): ValidationResponse => ({
-  status,
-  violations: json['violations'] || []
-});
+export const mapViolations = <Type>(status: number, json: any): ValidationResponse<Type> => {
+  if (status === HttpStatus.UnprocessableEntity) {
+    return {
+      status,
+      violations: json['violations'] || []
+    };
+  }
+  if (status === HttpStatus.Created) {
+    return {
+      status,
+      violations: [],
+      response: json
+    };
+  }
+  return {
+    status,
+    violations: []
+  };
+};
 
-const postRequest = async (path: string, payload: any, timeout: number = 10000): Promise<ValidationResponse> => {
+const postRequest = async <Type>(
+  path: string,
+  payload: any,
+  timeout: number = 10000
+): Promise<ValidationResponse<Type>> => {
   return Promise.race([
-    new Promise<ValidationResponse>((_, reject) => {
+    new Promise<ValidationResponse<Type>>((_, reject) => {
       const id = setTimeout(() => {
         clearTimeout(id);
         reject({ status: HttpStatus.Timeout, violations: [] });
@@ -27,7 +46,12 @@ const postRequest = async (path: string, payload: any, timeout: number = 10000):
       body: JSON.stringify(payload)
     })
       .then(async (response) =>
-        mapViolations(response.status, response.status === HttpStatus.UnprocessableEntity ? await response.json() : {})
+        mapViolations<Type>(
+          response.status,
+          response.status === HttpStatus.UnprocessableEntity || response.status === HttpStatus.Created
+            ? await response.json()
+            : {}
+        )
       )
       .catch(() => {
         return {

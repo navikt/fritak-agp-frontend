@@ -1,6 +1,6 @@
 import Panel from 'nav-frontend-paneler';
-import React from 'react';
-import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
+import React, { useContext } from 'react';
+import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker, { buildLenke } from '../../config/lenker';
@@ -9,9 +9,20 @@ import { Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKvitteringKeys } from './GravidKvitteringKeys';
 import { useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
+import formatTiltakBeskrivelse from '../notifikasjon/gravid/soknad/formatTiltakBeskrivelse';
+import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
+import formatOmplassering from '../notifikasjon/gravid/soknad/formatOmplassering';
+import './GravidKvittering.scss';
 
 const GravidKvittering = () => {
   const { language } = useParams<PathParams>();
+  const { response } = useContext(GravidSoknadKvitteringContext);
+
+  const tilrettelegge = response?.response?.tilrettelegge;
+  const tiltak: string[] | undefined = response?.response?.tiltak;
+  const tiltakBeskrivelse = response?.response?.tiltakBeskrivelse;
+  const omplassering = response?.response?.omplassering;
+  const omplasseringAarsak = response?.response?.omplasseringAarsak;
 
   return (
     <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering'>
@@ -28,12 +39,30 @@ const GravidKvittering = () => {
       </Panel>
 
       <Panel>
+        <Undertittel>Detaljer fra søknaden:</Undertittel>
+        <Normaltekst className='luft-under'>
+          Tilrettelegging av arbeidsdagen {tilrettelegge ? 'er' : 'er ikke'} forsøkt
+        </Normaltekst>
+        {tilrettelegge && tiltak && (
+          <Normaltekst>
+            Tiltak forsøkt for at den ansatte skal kunne jobbe:
+            <ul className='dash'>
+              {tiltak.map((enkeltTiltak) => (
+                <li key={enkeltTiltak}>{formatTiltakBeskrivelse(enkeltTiltak, tiltakBeskrivelse)}</li>
+              ))}
+            </ul>
+          </Normaltekst>
+        )}
+        {tilrettelegge && <Normaltekst>{formatOmplassering(omplassering, omplasseringAarsak)}</Normaltekst>}
+      </Panel>
+
+      <Panel>
         <Alertstripe type='info'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
         </Alertstripe>
       </Panel>
 
-      <Panel>
+      <Panel className='lenker-ut-panel'>
         <div>
           <Lenke href={buildLenke(lenker.GravidKrav, language)}>
             <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_KRAV} />
