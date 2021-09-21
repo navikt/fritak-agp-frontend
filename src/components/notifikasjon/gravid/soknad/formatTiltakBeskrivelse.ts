@@ -9,7 +9,8 @@ const formatTiltakBeskrivelse = (tiltak: string, beskrivelse: string | undefined
 
   if (!tiltakstekst) {
     tiltakstekst = (tiltak || '').split('_').join(' ').toLowerCase(); // Helt avhenging av at backend serverer noe fornuftig
-    tiltakstekst = tiltakstekst[0].toUpperCase() + tiltakstekst.slice(1);
+    tiltakstekst = tiltakstekst || ' ';
+    tiltakstekst = (tiltakstekst[0].toUpperCase() + tiltakstekst.slice(1)).trim();
   }
 
   return tiltakstekst;
