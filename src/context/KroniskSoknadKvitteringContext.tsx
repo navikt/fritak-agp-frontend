@@ -10,8 +10,12 @@ export type KroniskSoknadKvitteringContextState = {
 
 const contextDefaultValues: KroniskSoknadKvitteringContextState = {
   response: undefined,
-  saveResponse: () => {},
-  clearResponse: () => {}
+  saveResponse: () => {
+    // This is intentional
+  },
+  clearResponse: () => {
+    // This is intentional
+  }
 };
 
 export const KroniskSoknadKvitteringContext = createContext<KroniskSoknadKvitteringContextState>(contextDefaultValues);
@@ -27,8 +31,8 @@ const KroniskSoknadKvitteringProvider: FC<KroniskSoknadKvitteringProviderProps> 
     contextDefaultValues.response
   );
 
-  const saveResponse = (response: ValidationResponse<KroniskSoknadResponse>) => {
-    setResponse(response);
+  const saveResponse = (responseData: ValidationResponse<KroniskSoknadResponse>) => {
+    setResponse(responseData);
   };
 
   const clearResponse = () => {

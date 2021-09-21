@@ -11,8 +11,6 @@ import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
-import ArbeidType from '../kronisk/ArbeidType';
-import PaakjenningerType from '../kronisk/PaakjenningerType';
 
 describe('NotifikasjonView', () => {
   let htmlDivElement: Element = document.createElement('div');
