@@ -11,8 +11,6 @@ import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
-import ArbeidType from '../kronisk/ArbeidType';
-import PaakjenningerType from '../kronisk/PaakjenningerType';
 
 describe('NotifikasjonView', () => {
   let htmlDivElement: Element = document.createElement('div');
@@ -169,19 +167,32 @@ describe('NotifikasjonView', () => {
 
     state.status = HttpStatus.Successfully;
     state.kroniskSoknadResponse = {
-      id: '1',
-      opprettet: '2020-01-01',
-      virksomhetsnummer: '123',
-      virksomhetsnavn: 'Virksomhet',
-      arbeidstyper: [ArbeidType.STILLESITTENDE],
-      paakjenningstyper: [PaakjenningerType.UKOMFORTABEL],
+      id: '2e9248a9-fcba-44a9-bf8b-f78ab6290766',
+      opprettet: '2021-09-17T10:45:08.60627',
+      virksomhetsnummer: '810007842',
+      identitetsnummer: '24058219491',
+      arbeidstyper: ['MODERAT'],
+      paakjenningstyper: ['UKOMFORTABEL'],
       paakjenningBeskrivelse: '',
-      fravaer: [],
-      sendtAv: '',
+      fravaer: [
+        {
+          yearMonth: '2020-06',
+          antallDagerMedFravaer: 3
+        },
+        {
+          yearMonth: '2020-03',
+          antallDagerMedFravaer: 3
+        }
+      ],
+      antallPerioder: 2,
+      bekreftet: true,
       harVedlegg: false,
-      journalpostId: '123',
-      oppgaveId: 'abc'
-    } as KroniskSoknadResponse;
+      sendtAv: '10107400090',
+      virksomhetsnavn: null,
+      journalpostId: null,
+      oppgaveId: null,
+      sendtAvNavn: 'ARTIG HEST'
+    } as unknown as KroniskSoknadResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
     expect(htmlDivElement.textContent).toContain('Påkjenninger på arbeidsstedet');

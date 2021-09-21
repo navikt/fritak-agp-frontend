@@ -3,9 +3,13 @@ export interface MaanedsFravaer {
   antallDagerMedFravaer: number;
 }
 
-const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer>) => {
+const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer> | undefined) => {
   const aarsfravaer: number[] = [];
   const years: number[] = [];
+
+  if (!maanedsfravaer) {
+    return null;
+  }
 
   maanedsfravaer.forEach((currentMonth) => {
     let currentYear: number = 0;

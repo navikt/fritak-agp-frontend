@@ -1,4 +1,4 @@
-import React, { Reducer, useEffect, useReducer } from 'react';
+import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
@@ -41,12 +41,14 @@ import { GravidSideKeys } from './GravidSideKeys';
 import { Redirect, useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
+import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
 const GravidSide = (props: GravidSideProps) => {
   const { t, i18n } = useTranslation();
   const { language } = useParams<PathParams>();
+  const { saveResponse } = useContext(GravidSoknadKvitteringContext);
 
   const GravidReducerSettOpp =
     (Translate: i18n): Reducer<GravidState, GravidAction> =>
@@ -102,6 +104,7 @@ const GravidSide = (props: GravidSideProps) => {
           state.termindato
         )
       ).then((response) => {
+        saveResponse(response);
         dispatch({
           type: Actions.HandleResponse,
           payload: { response: response }
@@ -122,7 +125,8 @@ const GravidSide = (props: GravidSideProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.termindato
+    state.termindato,
+    saveResponse
   ]);
 
   if (!!state.kvittering) {

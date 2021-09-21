@@ -1,8 +1,22 @@
 import postRequest from './postRequest';
 import HttpStatus from './HttpStatus';
 import mockFetch from '../mockData/mockFetch';
+import { GravidSoknadResponse } from './gravid/GravidSoknadResponse';
 
 describe('postRequest', () => {
+  type PostResponse = {
+    hello: string;
+  };
+
+  it('should respond json when 201', async () => {
+    mockFetch(201, { hello: 'World' } as PostResponse);
+    expect(await postRequest<PostResponse>('/Path', {})).toEqual({
+      status: 201,
+      response: { hello: 'World' },
+      violations: []
+    });
+  });
+
   it('should catch BadRequest', async () => {
     mockFetch(400, {});
     expect(await postRequest('/Path', {})).toEqual({
@@ -99,7 +113,7 @@ describe('postRequest', () => {
       instance: 'about:blank'
     };
     mockFetch(422, response);
-    expect(await postRequest('/Path', {})).toEqual({
+    expect(await postRequest<GravidSoknadResponse>('/Path', {})).toEqual({
       status: 422,
       violations: expected
     });

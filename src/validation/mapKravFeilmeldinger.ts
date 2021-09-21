@@ -4,7 +4,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidKravState from '../components/gravidkrav/GravidKravState';
 
-const mapKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravState | GravidKravState) => {
+const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: KroniskKravState | GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   response.violations.forEach((v) => {
@@ -28,7 +28,11 @@ const mapKravFeilmeldinger = (response: ValidationResponse, state: KroniskKravSt
 
       case 'virksomhetsnummer':
         state.orgnrError = v.message;
-        feilmeldinger.push(lagFeil('orgnr', v.message));
+        if (v.validationType === 'MåVæreVirksomhetContraint') {
+          feilmeldinger.push(lagFeil('fnr', v.message));
+        } else {
+          feilmeldinger.push(lagFeil('orgnr', v.message));
+        }
         break;
 
       case 'perioder':

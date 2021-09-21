@@ -25,4 +25,12 @@ describe('formatOmplassering', () => {
   it('should format empty', () => {
     expect(formatOmplassering('finnesikke', '')).toEqual('[Mangler data]');
   });
+
+  it('should format empty on missing data', () => {
+    expect(formatOmplassering(undefined, undefined)).toEqual('[Mangler data]');
+  });
+
+  it('should format empty on missing data', () => {
+    expect(formatOmplassering(Omplassering.IKKE_MULIG, undefined)).toEqual('Omplassering til annen jobb er ikke mulig');
+  });
 });
