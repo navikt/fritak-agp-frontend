@@ -233,5 +233,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk();
 
-  await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Søknaden er mottatt');
+  await t
+    .click(ReactSelector('Hovedknapp'))
+    .expect(Selector('html').textContent)
+    .contains('Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom');
 });

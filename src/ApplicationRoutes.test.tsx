@@ -82,7 +82,9 @@ describe('ApplicationRoutes', () => {
     act(() => {
       render(makeRoute('/nb/kronisk/soknad/kvittering'), container);
     });
-    expect(container.textContent).toContain('Søknaden er mottatt');
+    expect(container.textContent).toContain(
+      'Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom'
+    );
   });
 
   it('should show gravid krav', () => {
