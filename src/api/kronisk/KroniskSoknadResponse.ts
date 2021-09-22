@@ -5,7 +5,7 @@ interface KroniskSoknadResponse {
   opprettet: string;
   virksomhetsnummer: string;
   virksomhetsnavn: string;
-
+  identitetsnummer: string;
   arbeidstyper: string[];
   paakjenningstyper: string[];
   paakjenningBeskrivelse?: string;

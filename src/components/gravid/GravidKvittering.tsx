@@ -12,7 +12,9 @@ import PathParams from '../../locale/PathParams';
 import formatTiltakBeskrivelse from '../notifikasjon/gravid/soknad/formatTiltakBeskrivelse';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import formatOmplassering from '../notifikasjon/gravid/soknad/formatOmplassering';
+import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasjon';
 import './GravidKvittering.scss';
+import SoknadMottatt from './SoknadMottatt';
 
 const GravidKvittering = () => {
   const { language } = useParams<PathParams>();
@@ -23,6 +25,10 @@ const GravidKvittering = () => {
   const tiltakBeskrivelse = response?.response?.tiltakBeskrivelse;
   const omplassering = response?.response?.omplassering;
   const omplasseringAarsak = response?.response?.omplasseringAarsak;
+  const identitetsnummer = response?.response?.identitetsnummer;
+  const sendtAvNavn = response?.response?.sendtAvNavn;
+  const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
+  const opprettet = response?.response?.opprettet;
 
   return (
     <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering'>
@@ -40,6 +46,7 @@ const GravidKvittering = () => {
 
       <Panel>
         <Undertittel>Detaljer fra søknaden:</Undertittel>
+        <Normaltekst className='luft-under'>Fødselsnummer: {identitetsnummer}</Normaltekst>
         <Normaltekst className='luft-under'>
           Tilrettelegging av arbeidsdagen {tilrettelegge ? 'er' : 'er ikke'} forsøkt
         </Normaltekst>
@@ -53,7 +60,12 @@ const GravidKvittering = () => {
             </ul>
           </Normaltekst>
         )}
-        {tilrettelegge && <Normaltekst>{formatOmplassering(omplassering, omplasseringAarsak)}</Normaltekst>}
+        {tilrettelegge && (
+          <Normaltekst className='luft-under'>{formatOmplassering(omplassering, omplasseringAarsak)}</Normaltekst>
+        )}
+        <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
+        <SoknadMottatt className='luft-under' mottatt={opprettet} />
+        <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
       </Panel>
 
       <Panel>
