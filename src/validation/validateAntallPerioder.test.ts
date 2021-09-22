@@ -19,12 +19,6 @@ describe('validateAntallPerioder', () => {
     expect(validateAntallPerioder(undefined, false)).toBeUndefined();
   });
 
-  it('should verify that there is a dager missing when required and dager is 0', () => {
-    expect(validateAntallPerioder(0, true)).toEqual({
-      key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_MISSING
-    });
-  });
-
   it('should return undefined when not required and dager is 0', () => {
     expect(validateAntallPerioder(0, false)).toBeUndefined();
   });
@@ -39,5 +33,21 @@ describe('validateAntallPerioder', () => {
     expect(validateAntallPerioder(12, true, 5, 10)).toEqual({
       key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_TOO_HIGH
     });
+  });
+
+  it('should verify that there is not an error when required and dager is equal to minimum', () => {
+    expect(validateAntallPerioder(5, true, 5)).toBeUndefined();
+  });
+
+  it('should verify that there is an to high error when required and dager is equal to maximum', () => {
+    expect(validateAntallPerioder(10, true, 5, 10)).toBeUndefined();
+  });
+
+  it('should verify that there is not an error when required and dager is equal to minimum, using defaults', () => {
+    expect(validateAntallPerioder(0, true)).toBeUndefined();
+  });
+
+  it('should verify that there is an to high error when required and dager is equal to maximum, using defaults', () => {
+    expect(validateAntallPerioder(366, true)).toBeUndefined();
   });
 });

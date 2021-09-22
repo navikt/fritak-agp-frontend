@@ -17,7 +17,7 @@ export const validateAntallPerioder = (
   maxDager: number = 366
 ): ValidateAntallPerioderResult | undefined => {
   if (!required) return undefined;
-  if (!dager) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_MISSING };
+  if (dager === undefined) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_MISSING };
   if (dager < minDager) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_TOO_LOW };
   if (maxDager < dager) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_TOO_HIGH };
   return undefined;
