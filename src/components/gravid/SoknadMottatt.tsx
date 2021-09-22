@@ -7,10 +7,10 @@ interface SoknadMottattProps {
   className?: string;
 }
 
-const SoknadMottat = (props: SoknadMottattProps) => {
+const SoknadMottatt = (props: SoknadMottattProps) => {
   const formatertMottatt = dayjs(props.mottatt).format('DD.MM.YYYY kl. HH:mm');
 
   return <Normaltekst className={props.className}>Mottatt: {formatertMottatt}</Normaltekst>;
 };
 
-export default SoknadMottat;
+export default SoknadMottatt;
