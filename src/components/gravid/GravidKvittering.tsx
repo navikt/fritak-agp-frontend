@@ -15,6 +15,7 @@ import formatOmplassering from '../notifikasjon/gravid/soknad/formatOmplassering
 import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasjon';
 import './GravidKvittering.scss';
 import SoknadMottatt from './SoknadMottatt';
+import PrintKnapp from '../felles/PrintKnapp';
 
 const GravidKvittering = () => {
   const { language } = useParams<PathParams>();
@@ -73,7 +74,9 @@ const GravidKvittering = () => {
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
         </Alertstripe>
       </Panel>
-
+      <Panel>
+        <PrintKnapp />
+      </Panel>
       <Panel className='lenker-ut-panel'>
         <div>
           <Lenke href={buildLenke(lenker.GravidKrav, language)}>

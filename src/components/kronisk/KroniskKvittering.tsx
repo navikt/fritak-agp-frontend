@@ -18,6 +18,7 @@ import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasj
 import formatFravaersdager from '../notifikasjon/kronisk/soknad/formatFravaersdager';
 import './KroniskKvittering.scss';
 import SoknadMottatt from '../gravid/SoknadMottatt';
+import PrintKnapp from '../felles/PrintKnapp';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
@@ -71,6 +72,9 @@ const KroniskKvittering = () => {
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
             dere å oversitte fristen, som er tre måneder.
           </AlertStripeInfo>
+        </Panel>
+        <Panel>
+          <PrintKnapp />
         </Panel>
 
         <Panel className='lenker-ut-panel'>
