@@ -5,11 +5,10 @@ import KroniskSoknadResponse from '../../../../api/kronisk/KroniskSoknadResponse
 import formatInnsendtAv from '../../gravid/soknad/formatInnsendtAv';
 import formatDokumentasjon from '../../gravid/soknad/formatDokumentasjon';
 import formatFravaersdager from './formatFravaersdager';
-import formatArbeidstype from './formatArbeidstype';
-import formatPaakjenninger from './formatPaakjenninger';
 import './KroniskSoknadView.scss';
-import Lenke from 'nav-frontend-lenker';
 import GravidSoknadFooter from '../../gravid/soknad/GravidSoknadFooter';
+import Paakjenninger from './Paakjenninger';
+import TyperArbeid from './TyperArbeid';
 
 export interface KroniskSoknadNotifikasjonProps {
   kroniskSoknadResponse: KroniskSoknadResponse;
@@ -35,13 +34,15 @@ const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonP
       <p>Når vi har behandlet søknaden fra arbeidsgiveren din, vil du få en melding fra oss om resultatet.</p>
       <h3>Detaljer fra søknaden:</h3>
       <p>
-        Type arbeid: <ul className='dash'>{formatArbeidstype(kroniskSoknadResponse.arbeidstyper)}</ul>
+        Type arbeid:
+        <TyperArbeid arbeidstyper={kroniskSoknadResponse.arbeidstyper} />
       </p>
       <p>
         Påkjenninger på arbeidsstedet:
-        <ul className='dash'>
-          {formatPaakjenninger(kroniskSoknadResponse.paakjenningstyper, kroniskSoknadResponse.paakjenningBeskrivelse)}
-        </ul>
+        <Paakjenninger
+          paakjenninger={kroniskSoknadResponse.paakjenningstyper}
+          beskrivelse={kroniskSoknadResponse.paakjenningBeskrivelse}
+        />
       </p>
       <p>{formatDokumentasjon(kroniskSoknadResponse.harVedlegg)}</p>
       <p>{formatFravaersdager(kroniskSoknadResponse.fravaer)}</p>

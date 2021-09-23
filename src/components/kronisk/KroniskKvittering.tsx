@@ -12,13 +12,13 @@ import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
-import formatArbeidstype from '../notifikasjon/kronisk/soknad/formatArbeidstype';
-import formatPaakjenninger from '../notifikasjon/kronisk/soknad/formatPaakjenninger';
 import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasjon';
 import formatFravaersdager from '../notifikasjon/kronisk/soknad/formatFravaersdager';
 import './KroniskKvittering.scss';
 import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
+import TyperArbeid from '../notifikasjon/kronisk/soknad/TyperArbeid';
+import Paakjenninger from '../notifikasjon/kronisk/soknad/Paakjenninger';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
@@ -55,11 +55,11 @@ const KroniskKvittering = () => {
           <Undertittel>Detaljer fra søknaden:</Undertittel>
           <Normaltekst className='luft-under'>Fødselsnummer: {identitetsnummer}</Normaltekst>
           <Normaltekst>
-            Type arbeid: <ul className='dash'>{formatArbeidstype(arbeidstyper)}</ul>
+            Type arbeid: <TyperArbeid arbeidstyper={arbeidstyper} />
           </Normaltekst>
           <Normaltekst>
             Påkjenninger på arbeidsstedet:
-            <ul className='dash'>{formatPaakjenninger(paakjenningstyper, paakjenningBeskrivelse)}</ul>
+            <Paakjenninger paakjenninger={paakjenningstyper} beskrivelse={paakjenningBeskrivelse} />
           </Normaltekst>
           <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
           <Normaltekst className='luft-under'>{formatFravaersdager(fravaer)}</Normaltekst>
