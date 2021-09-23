@@ -19,9 +19,13 @@ describe('validateArbeidsdager', () => {
     expect(validateArbeidsdager(undefined, false)).toBeUndefined();
   });
 
-  it('should verify that there is a dager missing when required and dager is 0', () => {
-    expect(validateArbeidsdager(0, true)).toEqual({
-      key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING
+  it('should verify that there is no dager missing when required and dager is 0', () => {
+    expect(validateArbeidsdager(0, true)).toBeUndefined();
+  });
+
+  it('should verify that there is no dager missing when required and dager is 0 and min is 1', () => {
+    expect(validateArbeidsdager(0, true, 1)).toEqual({
+      key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_LOW
     });
   });
 
@@ -37,5 +41,13 @@ describe('validateArbeidsdager', () => {
     expect(validateArbeidsdager(12, true, 5, 10)).toEqual({
       key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_HIGH
     });
+  });
+
+  it('should verify that there is not an to low error when required and dager is equal to minimum', () => {
+    expect(validateArbeidsdager(5, true, 5)).toBeUndefined();
+  });
+
+  it('should verify that there is not an error when required and dager is equal to maximum', () => {
+    expect(validateArbeidsdager(10, true, 5, 10)).toBeUndefined();
   });
 });
