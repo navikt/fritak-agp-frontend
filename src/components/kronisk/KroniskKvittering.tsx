@@ -20,7 +20,6 @@ import PrintKnapp from '../felles/PrintKnapp';
 import TyperArbeid from '../notifikasjon/kronisk/soknad/TyperArbeid';
 import Paakjenninger from '../notifikasjon/kronisk/soknad/Paakjenninger';
 
-
 const KroniskKvittering = () => {
   const { t } = useTranslation();
   const { language } = useParams<PathParams>();
@@ -56,10 +55,7 @@ const KroniskKvittering = () => {
           <Undertittel>Detaljer fra søknaden:</Undertittel>
           <Normaltekst className='luft-under'>Fødselsnummer: {identitetsnummer}</Normaltekst>
           <Normaltekst>
-            Type arbeid:{' '}
-            <ul className='dash'>
-              <TyperArbeid arbeidstyper={arbeidstyper} />
-            </ul>
+            Type arbeid: <TyperArbeid arbeidstyper={arbeidstyper} />
           </Normaltekst>
           <Normaltekst>
             Påkjenninger på arbeidsstedet:
