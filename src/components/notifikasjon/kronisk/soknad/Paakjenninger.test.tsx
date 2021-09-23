@@ -28,6 +28,14 @@ describe('Paakjenninger', () => {
     expect(screen.getByText(/"Cheese"/)).toBeInTheDocument();
   });
 
+  it('should print out unknown stuff', () => {
+    const paakjenninger = ['NOT_DEFINED_PAAKJENNING'];
+
+    render(<Paakjenninger paakjenninger={paakjenninger} beskrivelse='Cheese' />);
+
+    expect(screen.getByText(/not defined paakjenning/)).toBeInTheDocument();
+  });
+
   it('should not print anything', () => {
     const { container } = render(<Paakjenninger />);
 
