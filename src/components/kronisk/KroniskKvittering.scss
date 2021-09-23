@@ -5,9 +5,13 @@
 @media print {
     #decorator-header,
     #decorator-footer,
+    .skjul-fra-print,
     .bedriftsmeny,
     .side__minside_arbeidsgiver > .lenke,
     .lenker-ut-panel {
         display: none !important;
+    }
+    .side {
+        padding: 0 !important;
     }
 }

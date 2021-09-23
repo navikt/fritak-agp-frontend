@@ -216,7 +216,7 @@ const Locales: Record<
     en: 'The employee will not function in another job due to the state of health'
   },
   GRAVID_KVITTERING_TITTEL: {
-    nb: 'Søknaden er mottatt',
+    nb: 'Kvittering for mottatt søknad om fritak fra arbeidsgiverperioden grunnet risiko for høyt sykefravær knyttet til graviditet.',
     en: 'The application has been received'
   },
   GRAVID_KVITTERING_INGRESS: {

@@ -6,8 +6,12 @@
     #decorator-header,
     #decorator-footer,
     .bedriftsmeny,
+    .skjul-fra-print,
     .side__minside_arbeidsgiver > .lenke,
     .lenker-ut-panel {
         display: none !important;
+    }
+    .side {
+        padding: 0 !important;
     }
 }

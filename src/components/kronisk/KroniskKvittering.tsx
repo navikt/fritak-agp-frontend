@@ -17,6 +17,8 @@ import formatPaakjenninger from '../notifikasjon/kronisk/soknad/formatPaakjennin
 import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasjon';
 import formatFravaersdager from '../notifikasjon/kronisk/soknad/formatFravaersdager';
 import './KroniskKvittering.scss';
+import SoknadMottatt from '../gravid/SoknadMottatt';
+import PrintKnapp from '../felles/PrintKnapp';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
@@ -28,12 +30,17 @@ const KroniskKvittering = () => {
   const paakjenningBeskrivelse: string | undefined = response?.response?.paakjenningBeskrivelse;
   const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
   const fravaer = response?.response?.fravaer;
+  const identitetsnummer = response?.response?.identitetsnummer;
+  const sendtAvNavn = response?.response?.sendtAvNavn;
+  const opprettet = response?.response?.opprettet;
 
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
       <Row>
         <Panel>
-          <Sidetittel>Søknaden er mottatt</Sidetittel>
+          <Sidetittel>
+            Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom
+          </Sidetittel>
         </Panel>
 
         <Panel>
@@ -46,6 +53,7 @@ const KroniskKvittering = () => {
 
         <Panel>
           <Undertittel>Detaljer fra søknaden:</Undertittel>
+          <Normaltekst className='luft-under'>Fødselsnummer: {identitetsnummer}</Normaltekst>
           <Normaltekst>
             Type arbeid: <ul className='dash'>{formatArbeidstype(arbeidstyper)}</ul>
           </Normaltekst>
@@ -54,7 +62,9 @@ const KroniskKvittering = () => {
             <ul className='dash'>{formatPaakjenninger(paakjenningstyper, paakjenningBeskrivelse)}</ul>
           </Normaltekst>
           <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
-          <Normaltekst>{formatFravaersdager(fravaer)}</Normaltekst>
+          <Normaltekst className='luft-under'>{formatFravaersdager(fravaer)}</Normaltekst>
+          <SoknadMottatt className='luft-under' mottatt={opprettet} />
+          <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
         </Panel>
 
         <Panel>
@@ -62,6 +72,9 @@ const KroniskKvittering = () => {
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
             dere å oversitte fristen, som er tre måneder.
           </AlertStripeInfo>
+        </Panel>
+        <Panel>
+          <PrintKnapp />
         </Panel>
 
         <Panel className='lenker-ut-panel'>
