@@ -18,8 +18,8 @@ export const validateArbeidsdager = (
 ): ValidateArbeidsdagerResult | undefined => {
   if (!required) return undefined;
   if (!dager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING };
-  if (dager <= minDager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_LOW };
-  if (maxDager <= dager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_HIGH };
+  if (dager < minDager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_LOW };
+  if (maxDager < dager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_HIGH };
   return undefined;
 };
 
