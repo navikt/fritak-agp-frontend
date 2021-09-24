@@ -68,13 +68,15 @@ const GravidKvittering = () => {
         <SoknadMottatt className='luft-under' mottatt={opprettet} />
         <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
       </Panel>
-
+      <Panel className='skjul-fra-print'>
+        <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_SKRIV_UT} />
+      </Panel>
       <Panel>
         <Alertstripe type='info'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
         </Alertstripe>
       </Panel>
-      <Panel>
+      <Panel className='skjul-fra-print'>
         <PrintKnapp />
       </Panel>
       <Panel className='lenker-ut-panel'>

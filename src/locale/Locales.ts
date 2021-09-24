@@ -221,13 +221,14 @@ const Locales: Record<
   },
   GRAVID_KVITTERING_INGRESS: {
     nb:
-      'En kvittering er sendt til meldingsboksen deres i [Altinn](https://www.altinn.no). Den' +
-      ' ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte oss, er det tilstrekkelig å oppgi' +
-      ' fødselsnummeret til den ansatte.',
+      'En kopi av kvittering er også sendt til meldingsboksen deres i [Altinn](https://www.altinn.no). ' +
+      'Meldingen er kun synlig for for de som har tilgang til å sende inntektsmelding i altinn. ' +
+      'Den ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.',
     en:
-      'A receipt has been sent to their message box in [Altinn](https://www.altinn.no). The' +
-      ' employee in question has also been notified of the application. If you need to contact us,' +
-      " it is sufficient to provide the employee's national id-number."
+      'A copy of the receipt has also been sent to their message box in [Altinn](https://www.altinn.no). ' +
+      'The message is only visible to those who have access to send an income message in altinn. ' +
+      'The employee in question has also been notified of the application. ' +
+      "If you need to contact us, it is sufficient to provide the employee's national id-number."
   },
   GRAVID_KVITTERING_ADVARSEL: {
     nb:
@@ -244,6 +245,10 @@ const Locales: Record<
   GRAVID_KVITTERING_SENDER_INN: {
     nb: 'Vi sender inn søknaden',
     en: 'We are submitting the application'
+  },
+  GRAVID_KVITTERING_SKRIV_UT: {
+    nb: 'Du kan skrive ut eller lagre kvitteringen ved å klikke på knappen "Skriv ut kvittering".',
+    en: 'You can print or save the receipt by clicking on the "Print receipt" button.'
   },
   GRAVID_KVITTERING_VENNLIGST_VENT: {
     nb: 'Vennligst vent...',

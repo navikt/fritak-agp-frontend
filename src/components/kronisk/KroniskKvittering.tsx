@@ -45,9 +45,10 @@ const KroniskKvittering = () => {
 
         <Panel>
           <Normaltekst>
-            En kvittering er sendt til meldingsboksen deres i <Lenke href='https://www.altinn.no'>Altinn</Lenke>. Den
-            ansatte har også fått melding om at søknaden er sendt. Trenger du å kontakte oss, er det tilstrekkelig å
-            oppgi fødselsnummeret til den ansatte.
+            En kopi av kvittering er også sendt til meldingsboksen deres i{' '}
+            <Lenke href='https://www.altinn.no'>Altinn</Lenke>. Meldingen er kun synlig for for de som har tilgang til å
+            sende inntektsmelding i altinn. Den ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte
+            oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.
           </Normaltekst>
         </Panel>
 
@@ -66,7 +67,11 @@ const KroniskKvittering = () => {
           <SoknadMottatt className='luft-under' mottatt={opprettet} />
           <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
         </Panel>
-
+        <Panel className='skjul-fra-print'>
+          <Normaltekst>
+            Du kan skrive ut eller lagre kvitteringen ved å klikke på knappen &quot;Skriv ut kvittering&quot;.
+          </Normaltekst>
+        </Panel>
         <Panel>
           <AlertStripeInfo>
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
