@@ -6,7 +6,7 @@ import { MAX_BESKRIVELSE } from './KroniskSide';
 import { pushFeilmelding, validateOrgnr, isValidOrgnr, validateFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import validateAntallPerioder from '../../validation/validateAntallPerioder';
-import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
+import { MAX_FRAVAERSPERIODER, MIN_FRAVAERSPERIODER } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
 
 /* eslint complexity: ["off"] */
@@ -63,7 +63,7 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
   }
 
   nextState.antallPerioderError = formatValidation(
-    validateAntallPerioder(state.antallPerioder, !!nextState.validated, MIN_ARBEIDSDAGER, MAX_ARBEIDSDAGER),
+    validateAntallPerioder(state.antallPerioder, !!nextState.validated, MIN_FRAVAERSPERIODER, MAX_FRAVAERSPERIODER),
     translate
   );
   if (nextState.antallPerioderError) {
