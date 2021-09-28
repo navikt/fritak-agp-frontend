@@ -6,7 +6,7 @@ on:
 
 env:
   APP: fritak-agp-frontend
-  IMAGE: ghcr.io/navikt/fritak-agp-frontend:${{ github.sha }}
+  IMAGE: ghcr.io/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
