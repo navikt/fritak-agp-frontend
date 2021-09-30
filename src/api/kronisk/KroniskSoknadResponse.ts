@@ -10,7 +10,7 @@ interface KroniskSoknadResponse {
   paakjenningstyper: string[];
   paakjenningBeskrivelse?: string;
   fravaer: MaanedsFravaer[];
-
+  navn: string;
   sendtAv: string;
   sendtAvNavn: string;
   harVedlegg: boolean;

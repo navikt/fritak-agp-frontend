@@ -26,7 +26,7 @@ const GravidKvittering = () => {
   const tiltakBeskrivelse = response?.response?.tiltakBeskrivelse;
   const omplassering = response?.response?.omplassering;
   const omplasseringAarsak = response?.response?.omplasseringAarsak;
-  const identitetsnummer = response?.response?.identitetsnummer;
+  const navn = response?.response?.navn;
   const sendtAvNavn = response?.response?.sendtAvNavn;
   const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
   const opprettet = response?.response?.opprettet;
@@ -47,7 +47,7 @@ const GravidKvittering = () => {
 
       <Panel>
         <Undertittel>Detaljer fra søknaden:</Undertittel>
-        <Normaltekst className='luft-under'>Fødselsnummer: {identitetsnummer}</Normaltekst>
+        <Normaltekst className='luft-under'>Navn: {navn}</Normaltekst>
         <Normaltekst className='luft-under'>
           Tilrettelegging av arbeidsdagen {tilrettelegge ? 'er' : 'er ikke'} forsøkt
         </Normaltekst>

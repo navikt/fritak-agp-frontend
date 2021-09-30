@@ -30,7 +30,7 @@ const KroniskKvittering = () => {
   const paakjenningBeskrivelse: string | undefined = response?.response?.paakjenningBeskrivelse;
   const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
   const fravaer = response?.response?.fravaer;
-  const identitetsnummer = response?.response?.identitetsnummer;
+  const navn = response?.response?.navn;
   const sendtAvNavn = response?.response?.sendtAvNavn;
   const opprettet = response?.response?.opprettet;
 
@@ -54,7 +54,7 @@ const KroniskKvittering = () => {
 
         <Panel>
           <Undertittel>Detaljer fra søknaden:</Undertittel>
-          <Normaltekst className='luft-under'>Fødselsnummer: {identitetsnummer}</Normaltekst>
+          <Normaltekst className='luft-under'>Navn: {navn}</Normaltekst>
           <Normaltekst>
             Type arbeid: <TyperArbeid arbeidstyper={arbeidstyper} />
           </Normaltekst>

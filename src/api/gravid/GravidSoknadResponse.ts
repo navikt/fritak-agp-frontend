@@ -15,6 +15,7 @@ export interface GravidSoknadResponse {
   harVedlegg: boolean;
   journalpostId: string;
   oppgaveId: string;
+  navn: string;
 }
 
 export default GravidSoknadResponse;
