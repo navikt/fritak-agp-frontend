@@ -19,8 +19,6 @@ const inTwoWeeks = (dato: string) => {
 };
 
 const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) => {
-  // const fom = formaterDato(gravidKravVisning.periode.fom);
-  // const tom = formaterDato(gravidKravVisning.periode.tom);
   const respondByDate = inTwoWeeks(gravidKravVisning.opprettet);
   const belop = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
   const perioder = gravidKravVisning.perioder;
