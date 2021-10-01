@@ -19,10 +19,11 @@ const inTwoWeeks = (dato: string) => {
 };
 
 const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) => {
-  const fom = formaterDato(gravidKravVisning.periode.fom);
-  const tom = formaterDato(gravidKravVisning.periode.tom);
+  // const fom = formaterDato(gravidKravVisning.periode.fom);
+  // const tom = formaterDato(gravidKravVisning.periode.tom);
   const respondByDate = inTwoWeeks(gravidKravVisning.opprettet);
-  const belop = formatNumberForCurrency(gravidKravVisning.periode.belop);
+  const belop = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
+  const perioder = gravidKravVisning.perioder;
 
   return (
     <NotifikasjonInnhold
@@ -31,8 +32,13 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
       dato={gravidKravVisning.opprettet}
     >
       <Normaltekst className='textfelt-padding-bottom'>
-        Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for dagene{' '}
-        {fom} - {tom}.
+        Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for
+        {perioder.length > 1 ? <> periodene </> : <> dagene </>}
+        {perioder.map((periode) => (
+          <Normaltekst key={periode.fom}>
+            {formaterDato(periode.fom)} - {formaterDato(periode.tom)}.
+          </Normaltekst>
+        ))}
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
         Hvis det ikke stemmer at du var borte på grunn av sykdom disse dagene, ber vi deg si fra til NAV innen{' '}
