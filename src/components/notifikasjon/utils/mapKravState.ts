@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import GravidKravVisning from '../../../api/gravidkrav/GravidKravVisning';
 import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
 
