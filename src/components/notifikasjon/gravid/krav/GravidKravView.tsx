@@ -5,14 +5,11 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import dayjs from 'dayjs';
 import formatNumberForCurrency from './FormatNumberForCurrency';
 import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
+import VisNotifikasjonPerioder from './VisNotifikasjonPerioder';
 
 export interface GravidSoknadNotifikasjonProps {
   gravidKravVisning: GravidKravVisning;
 }
-
-const formaterDato = (dato: string) => {
-  return dayjs(dato).format('DD.MM.YY');
-};
 
 const inTwoWeeks = (dato: string) => {
   return dayjs(dato).add(14, 'days').format('DD.MM.YY');
@@ -32,11 +29,7 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
       <Normaltekst className='textfelt-padding-bottom'>
         Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for
         {perioder.length > 1 ? <> periodene </> : <> dagene </>}
-        {perioder.map((periode) => (
-          <Normaltekst key={periode.fom}>
-            {formaterDato(periode.fom)} - {formaterDato(periode.tom)}.
-          </Normaltekst>
-        ))}
+        <VisNotifikasjonPerioder perioder={perioder} />
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
         Hvis det ikke stemmer at du var borte på grunn av sykdom disse dagene, ber vi deg si fra til NAV innen{' '}
