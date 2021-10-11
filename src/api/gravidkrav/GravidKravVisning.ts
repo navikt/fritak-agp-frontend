@@ -6,7 +6,8 @@ interface GravidKravVisning {
   sendtAv: string;
   virksomhetsnummer: string;
   identitetsnummer: string;
-  periode: KravPeriode;
+  perioder: KravPeriode[];
+  totalBelop: number | null;
   harVedlegg: boolean;
   antallDager: number | null;
   journalpostId: string;

@@ -33,12 +33,15 @@ describe('mapKravState', () => {
       antallDager: null,
       oppgaveId: null,
       opprettet: '2021-03-02T12:50:50.400688',
-      periode: {
-        antallDagerMedRefusjon: 2,
-        belop: 1234,
-        fom: '2021-03-01',
-        tom: '2021-03-10'
-      },
+      totalBelop: 1234,
+      perioder: [
+        {
+          antallDagerMedRefusjon: 2,
+          belop: 1234,
+          fom: '2021-03-01',
+          tom: '2021-03-10'
+        }
+      ],
       sendtAv: '10107400090',
       virksomhetsnavn: 'Ukjent arbeidsgiver',
       virksomhetsnummer: '810007842'
@@ -83,12 +86,21 @@ describe('mapKravState', () => {
       antallDager: null,
       oppgaveId: null,
       opprettet: '2021-03-02T12:50:50.400688',
-      periode: {
-        antallDagerMedRefusjon: 5,
-        belop: 2468,
-        fom: '2021-03-01',
-        tom: '2021-04-10'
-      },
+      perioder: [
+        {
+          fom: '2021-03-01',
+          tom: '2021-03-10',
+          antallDagerMedRefusjon: 2,
+          belop: 1234.0
+        },
+        {
+          fom: '2021-04-01',
+          tom: '2021-04-10',
+          antallDagerMedRefusjon: 3,
+          belop: 1234.0
+        }
+      ],
+      totalBelop: 2468,
       sendtAv: '10107400090',
       virksomhetsnavn: 'Ukjent arbeidsgiver',
       virksomhetsnummer: '810007842'
@@ -145,12 +157,33 @@ describe('mapKravState', () => {
       antallDager: null,
       oppgaveId: null,
       opprettet: '2021-03-02T12:50:50.400688',
-      periode: {
-        antallDagerMedRefusjon: 9,
-        belop: 4936,
-        fom: '2021-02-01',
-        tom: '2021-05-10'
-      },
+      perioder: [
+        {
+          fom: '2021-03-01',
+          tom: '2021-03-10',
+          antallDagerMedRefusjon: 2,
+          belop: 1234.0
+        },
+        {
+          fom: '2021-02-01',
+          tom: '2021-02-10',
+          antallDagerMedRefusjon: 2,
+          belop: 1234.0
+        },
+        {
+          fom: '2021-05-01',
+          tom: '2021-05-10',
+          antallDagerMedRefusjon: 4,
+          belop: 1234.0
+        },
+        {
+          fom: '2021-04-01',
+          tom: '2021-04-10',
+          antallDagerMedRefusjon: 1,
+          belop: 1234.0
+        }
+      ],
+      totalBelop: 4936,
       sendtAv: '10107400090',
       virksomhetsnavn: 'Ukjent arbeidsgiver',
       virksomhetsnummer: '810007842'

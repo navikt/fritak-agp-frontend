@@ -115,7 +115,8 @@ describe('NotifikasjonView', () => {
     } as GravidKravResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
-    expect(htmlDivElement.textContent).toContain('02.01.20 - 05.06.20');
+    expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
+    expect(htmlDivElement.textContent).toContain('04.05.20 - 05.06.20');
     expect(htmlDivElement.textContent).toContain('kr 2 468,50');
   });
 
@@ -150,7 +151,8 @@ describe('NotifikasjonView', () => {
     } as unknown as KroniskKravResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
-    expect(htmlDivElement.textContent).toContain('02.01.20 - 05.06.20');
+    expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
+    expect(htmlDivElement.textContent).toContain('04.05.20 - 05.06.20');
     expect(htmlDivElement.textContent).toContain('468,00');
     expect(htmlDivElement.textContent).toContain('innen 15.01.20');
   });
