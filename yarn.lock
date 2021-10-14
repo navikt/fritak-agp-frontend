@@ -1719,6 +1719,16 @@
     "@sentry/utils" "6.12.0"
     tslib "^1.9.3"
 
+"@sentry/browser@6.13.1":
+  version "6.13.1"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.13.1.tgz#0c66d16a5c1cf00a46117746059d4eaf9e463487"
+  integrity sha512-xr/cUzXmnFhEdKoIPY4c46zjPZ+qOf8eJzz4jSni9wSto7zZRwQINVzSTVm+y+46rLdJtamMIsrlFHkASbB5qw==
+  dependencies:
+    "@sentry/core" "6.13.1"
+    "@sentry/types" "6.13.1"
+    "@sentry/utils" "6.13.1"
+    tslib "^1.9.3"
+
 "@sentry/core@6.12.0":
   version "6.12.0"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.12.0.tgz#bc7c5f0785b6a392d9ad47bd9b1fae3f5389996c"
@@ -1728,6 +1738,17 @@
     "@sentry/minimal" "6.12.0"
     "@sentry/types" "6.12.0"
     "@sentry/utils" "6.12.0"
+    tslib "^1.9.3"
+
+"@sentry/core@6.13.1":
+  version "6.13.1"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.13.1.tgz#158cb7391c1aed4083fe12f40a3aecc951e3d354"
+  integrity sha512-IGitAHYtsDPhPPcSTDqL/NMOwTbrqPezQOo4rlU1p1lpyZKSKrgzn/8LCrb+eRV2ffaio6+3kwqjCN2SvU8S7A==
+  dependencies:
+    "@sentry/hub" "6.13.1"
+    "@sentry/minimal" "6.13.1"
+    "@sentry/types" "6.13.1"
+    "@sentry/utils" "6.13.1"
     tslib "^1.9.3"
 
 "@sentry/hub@6.12.0":
