@@ -35,7 +35,7 @@ const KroniskKvittering = () => {
   const opprettet = response?.response?.opprettet;
 
   return (
-    <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
+    <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
           <Sidetittel>

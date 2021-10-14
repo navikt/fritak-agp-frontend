@@ -32,7 +32,7 @@ const GravidKvittering = () => {
   const opprettet = response?.response?.opprettet;
 
   return (
-    <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering'>
+    <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering' bedriftsmeny={false}>
       <Panel>
         <Sidetittel>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_TITTEL} />
