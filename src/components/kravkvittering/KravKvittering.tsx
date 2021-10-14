@@ -11,7 +11,7 @@ import { KravKvitteringKeys } from './KravKvitteringKeys';
 const KravKvittering = () => {
   const { t } = useTranslation();
   return (
-    <Side sidetittel='Søknadsskjema' className='kronisk-kvittering'>
+    <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
           <Sidetittel>{t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}</Sidetittel>
