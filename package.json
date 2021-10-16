@@ -55,7 +55,7 @@
     "nav-frontend-hjelpetekst-style": "2.x",
     "nav-frontend-ikoner-assets": "2.x",
     "nav-frontend-ikonknapper": "1.x",
-    "nav-frontend-js-utils": "1.x",
+    "nav-frontend-js-utils": "1.0.20",
     "nav-frontend-knapper": "2.x",
     "nav-frontend-knapper-style": "1.x",
     "nav-frontend-lenker": "1.x",
