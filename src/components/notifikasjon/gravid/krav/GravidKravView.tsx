@@ -34,7 +34,7 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
         Hvis det ikke stemmer at du var borte på grunn av sykdom disse dagene, ber vi deg si fra til NAV innen{' '}
-        {respondByDate}. Bruk gjerne <Lenke href='http://www.nav.no/skrivtiloss'>Skriv til oss</Lenke> på nav.no. Hører
+        {respondByDate}. Bruk gjerne <Lenke href='https://www.nav.no/skrivtiloss'>Skriv til oss</Lenke> på nav.no. Hører
         vi ikke fra deg, betyr det at du bekrefter opplysningene.
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
