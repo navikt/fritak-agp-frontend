@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import formatNumberForCurrency from './FormatNumberForCurrency';
 import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
 import VisNotifikasjonPerioder from './VisNotifikasjonPerioder';
+import Lenke from 'nav-frontend-lenker';
 
 export interface GravidSoknadNotifikasjonProps {
   gravidKravVisning: GravidKravVisning;
@@ -33,7 +34,11 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
         Hvis det ikke stemmer at du var borte på grunn av sykdom disse dagene, ber vi deg si fra til NAV innen{' '}
-        {respondByDate}. Hører vi ikke fra deg, betyr det at du bekrefter opplysningene.
+        {respondByDate}. Bruk gjerne <Lenke href='http://www.nav.no/skrivtiloss'>Skriv til oss</Lenke> på nav.no. Hører
+        vi ikke fra deg, betyr det at du bekrefter opplysningene.
+      </Normaltekst>
+      <Normaltekst className='textfelt-padding-bottom'>
+        Husk å si fra til arbeidsgiveren din hvis det er noe som er feil.
       </Normaltekst>
       <Normaltekst className='textfelt-padding-bottom'>
         Vi ber deg også si fra dersom du mottar en annen type støtte fra NAV i det samme tidsrommet.
