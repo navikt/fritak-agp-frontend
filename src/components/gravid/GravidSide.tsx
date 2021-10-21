@@ -110,7 +110,7 @@ const GravidSide = (props: GravidSideProps) => {
           payload: { response: response }
         });
       });
-    }
+    } // eslint-disable-next-line
   }, [
     state.validated,
     state.progress,
@@ -126,7 +126,7 @@ const GravidSide = (props: GravidSideProps) => {
     state.dokumentasjon,
     state.orgnr,
     state.termindato
-  ]); // eslint-disable-line react-hooks/exhaustive-deps
+  ]);
 
   if (!!state.kvittering) {
     return <Redirect to={buildLenke(lenker.GravidKvittering, language)} />;

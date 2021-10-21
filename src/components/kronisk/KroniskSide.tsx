@@ -86,7 +86,7 @@ const KroniskSide = () => {
           payload: { response: response }
         });
       });
-    }
+    } // eslint-disable-next-line
   }, [
     state.validated,
     state.progress,
@@ -101,7 +101,7 @@ const KroniskSide = () => {
     state.orgnr,
     state.paakjenninger,
     state.antallPerioder
-  ]); // eslint-disable-line react-hooks/exhaustive-deps
+  ]);
 
   if (state.kvittering === true) {
     return <KvitteringLink />;
