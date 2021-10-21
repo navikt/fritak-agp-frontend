@@ -18,7 +18,8 @@ export enum Actions {
   Validate,
   HandleResponse,
   NotAuthorized,
-  AntallPerioder
+  AntallPerioder,
+  isSubmitting
 }
 
 export interface FravaerType {

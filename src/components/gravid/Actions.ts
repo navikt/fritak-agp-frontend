@@ -22,7 +22,8 @@ export enum Actions {
   Kvittering,
   NotAuthorized,
   HideServerError,
-  Termindato
+  Termindato,
+  isSubmitting
 }
 
 export type Payload = {
