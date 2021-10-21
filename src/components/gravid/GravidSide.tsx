@@ -125,8 +125,7 @@ const GravidSide = (props: GravidSideProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.termindato,
-    saveResponse
+    state.termindato
   ]);
 
   if (!!state.kvittering) {

@@ -100,8 +100,7 @@ const KroniskSide = () => {
     state.kommentar,
     state.orgnr,
     state.paakjenninger,
-    state.antallPerioder,
-    saveResponse
+    state.antallPerioder
   ]);
 
   if (state.kvittering === true) {
