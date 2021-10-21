@@ -101,7 +101,7 @@ const KroniskSide = () => {
     state.orgnr,
     state.paakjenninger,
     state.antallPerioder
-  ]);
+  ]); // eslint-disable-line react-hooks/exhaustive-deps - saveResponse skal ikke være med
 
   if (state.kvittering === true) {
     return <KvitteringLink />;
