@@ -126,7 +126,7 @@ const GravidSide = (props: GravidSideProps) => {
     state.dokumentasjon,
     state.orgnr,
     state.termindato
-  ]); // eslint-disable-line react-hooks/exhaustive-deps - saveResponse skal ikke være med
+  ]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!!state.kvittering) {
     return <Redirect to={buildLenke(lenker.GravidKvittering, language)} />;
