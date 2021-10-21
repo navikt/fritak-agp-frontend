@@ -88,10 +88,6 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
     case Actions.Reset:
       return Object.assign({}, defaultKroniskState());
 
-    case Actions.isSubmitting:
-      nextState.submitting = false;
-      return nextState;
-
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

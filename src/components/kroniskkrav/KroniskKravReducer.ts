@@ -126,10 +126,6 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Reset:
       return Object.assign({}, defaultKroniskKravState());
 
-    case Actions.isSubmitting:
-      nextState.submitting = false;
-      return nextState;
-
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

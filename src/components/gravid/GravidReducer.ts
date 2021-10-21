@@ -125,10 +125,6 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       nextState.notAuthorized = false;
       return nextState;
 
-    case Actions.isSubmitting:
-      nextState.submitting = false;
-      return nextState;
-
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

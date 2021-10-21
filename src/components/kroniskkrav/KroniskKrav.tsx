@@ -77,9 +77,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      dispatch({
-        type: Actions.isSubmitting
-      });
       postKroniskKrav(
         environment.baseUrl,
         mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)

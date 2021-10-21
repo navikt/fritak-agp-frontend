@@ -67,9 +67,6 @@ const KroniskSide = () => {
   };
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      dispatch({
-        type: Actions.isSubmitting
-      });
       postKronisk(
         environment.baseUrl,
         mapKroniskRequest(

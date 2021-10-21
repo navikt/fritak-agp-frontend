@@ -134,10 +134,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.notAuthorized = false;
       return nextState;
 
-    case Actions.isSubmitting:
-      nextState.submitting = false;
-      return nextState;
-
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

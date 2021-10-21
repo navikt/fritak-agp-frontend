@@ -89,9 +89,6 @@ const GravidSide = (props: GravidSideProps) => {
   };
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      dispatch({
-        type: Actions.isSubmitting
-      });
       postGravid(
         environment.baseUrl,
         mapGravidRequest(
@@ -416,9 +413,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
                   <Panel>
-                    <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-                      {t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}
-                    </Hovedknapp>
+                    <Hovedknapp onClick={handleSubmitClicked}>{t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}</Hovedknapp>
                   </Panel>
                 </>
               )}
