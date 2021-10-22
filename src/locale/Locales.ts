@@ -654,8 +654,12 @@ const Locales: Record<
     en: 'Enter the number of days you pay wages for a year:'
   },
   KONTROLLSPORSMAL_DAGER_FORKLARING: {
-    nb: '(260 dager er vanlig for en ordinær 100% stilling)',
-    en: '(260 days is usual for an ordinary 100% position)'
+    nb: '(260 dager er vanlig for en ordinær 100% stilling. For andre ',
+    en: '(260 days is usual for an ordinary 100% position. For other '
+  },
+  KONTROLLSPORSMAL_DAGER_FORKLARING_HREF: {
+    nb: 'eksempler se her',
+    en: 'examples see here'
   },
   KRAV_KVITTERING_TITTEL: {
     nb: 'Kravet er mottatt',

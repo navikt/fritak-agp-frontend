@@ -18,7 +18,7 @@ const EksempelLonningsdager = () => {
     <Side
       bedriftsmeny={false}
       className='eksempel-lonningsdager'
-      sidetittel='Eksempler på'
+      sidetittel='Eksempler på skjemautfylling'
       title='Søknad om at NAV dekker sykepenger i arbeidsgiverperioden'
       subtitle='Eksempler på hvordan du kan fylle ut kravet'
     >

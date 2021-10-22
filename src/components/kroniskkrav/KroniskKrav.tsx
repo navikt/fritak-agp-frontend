@@ -147,7 +147,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                     }
                   />
                 </Column>
-                <Column sm='6' xs='6'>
+                <Column sm='8' xs='8'>
                   <KontrollSporsmaal
                     onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
                     id='kontrollsporsmaal-lonn-arbeidsdager'
