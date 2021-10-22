@@ -1,7 +1,6 @@
 import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Column, Row } from 'nav-frontend-grid';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './EksempelLonningsdager.scss';
@@ -13,7 +12,6 @@ import eksempel5 from '../../static/eksempel5.png';
 import eksempel6 from '../../static/eksempel6.png';
 
 const EksempelLonningsdager = () => {
-  const { t } = useTranslation();
   return (
     <Side
       bedriftsmeny={false}
@@ -112,7 +110,7 @@ const EksempelLonningsdager = () => {
               </ul>
             </Normaltekst>
             <img
-              src={eksempel5}
+              src={eksempel6}
               alt='Utfyllt eksempelskjema for 50% stilling, jobber 50% hver dag mandag-fredag'
               className='ekspander-bilde'
             />

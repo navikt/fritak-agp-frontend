@@ -2,7 +2,6 @@ import React from 'react';
 import EksempelLonningsdager from './EksempelLonningsdager';
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
-import LangKey from '../../locale/LangKey';
 
 describe('EksempelLonningsdager', () => {
   it('should have no a11y violations', async () => {
