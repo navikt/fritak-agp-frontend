@@ -7,6 +7,7 @@ import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import timezone_mock from 'timezone-mock';
 import { i18n } from 'i18next';
+import GravidSoknadResponse from '../../api/gravid/GravidSoknadResponse';
 
 const translationMock = {
   t: (param: any) => param
@@ -302,7 +303,7 @@ describe('GravidReducer', () => {
       defaultGravidState(),
       {
         type: Actions.HandleResponse,
-        payload: { response: {} as ValidationResponse }
+        payload: { response: {} as ValidationResponse<GravidSoknadResponse> }
       },
       translationMock as unknown as i18n
     );
