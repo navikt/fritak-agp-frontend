@@ -46,12 +46,12 @@ const EksempelLonningsdager = () => {
                 <li>Krev refusjon for de dagene den ansatte skulle jobbet i arbeidsgiverperioden.</li>
               </ul>
             </Normaltekst>
+            <img
+              src={eksempel2}
+              alt='Utfyllt eksempelskjema for 20% fast stilling pluss ekstravakter. Har jobbet totalt 80%'
+              className='ekspander-bilde'
+            />
           </Ekspanderbartpanel>
-          <img
-            src={eksempel2}
-            alt='Utfyllt eksempelskjema for 20% fast stilling pluss ekstravakter. Har jobbet totalt 80%'
-            className='ekspander-bilde'
-          />
           <Ekspanderbartpanel
             tittel='Tilkallingsvikar, jobbet 40% siste 3 måneder. Planlagt fulltid 3 uker fram i tid'
             className='ekspander-luft'
