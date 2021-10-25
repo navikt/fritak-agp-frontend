@@ -89,7 +89,7 @@ const EksempelLonningsdager = () => {
           </Ekspanderbartpanel>
           <Ekspanderbartpanel tittel='50% stilling, jobber to hele og én halv dag i uken' className='ekspander-luft'>
             <Normaltekst>
-              <ul>
+              <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 25 000.</li>
                 <li>Oppgi 130 dager med lønn.</li>
                 <li>Krev refusjon for de dagene den ansatte skulle jobbet i arbeidsgiverperioden.</li>
@@ -103,7 +103,7 @@ const EksempelLonningsdager = () => {
           </Ekspanderbartpanel>
           <Ekspanderbartpanel tittel='50% stilling, jobber 50% hver dag mandag-fredag' className='ekspander-luft'>
             <Normaltekst>
-              <ul>
+              <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 25 000.</li>
                 <li>Oppgi 260 dager med lønn.</li>
                 <li>Krev refusjon for dagene mandag-fredag hele arbeidsgiverperioden.</li>
