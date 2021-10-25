@@ -14,6 +14,6 @@ describe('EksempelLonningsdager', () => {
   it('skal vise eksempler', () => {
     render(<EksempelLonningsdager />);
 
-    expect(screen.getByText('Turnus/rotasjon - for eksempel offshore')).toBeInTheDocument();
+    expect(screen.getByText(/20% fast stilling pluss ekstravakter/)).toBeInTheDocument();
   });
 });
