@@ -1082,6 +1082,10 @@ const Locales: Record<
   KRONISK_SIDE_SUBMIT: {
     nb: 'Send søknad',
     en: 'Submit'
+  },
+  KRAV_KVITTERING_OPPRETT_NYTT_KRAV: {
+    nb: 'Opprett nytt krav',
+    en: 'Create new claim'
   }
 };
 

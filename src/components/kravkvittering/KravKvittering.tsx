@@ -7,9 +7,19 @@ import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import { Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { KravKvitteringKeys } from './KravKvitteringKeys';
+import { Link, useParams } from 'react-router-dom';
+import PathParams from '../../locale/PathParams';
+import lenker, { buildLenke } from '../../config/lenker';
 
-const KravKvittering = () => {
+interface KravKvitteringProps {
+  backTarget: lenker;
+}
+
+const KravKvittering = (props: KravKvitteringProps) => {
   const { t } = useTranslation();
+  const { language } = useParams<PathParams>();
+  const backTarget = buildLenke(props.backTarget, language);
+
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
@@ -23,7 +33,7 @@ const KravKvittering = () => {
 
         <Panel>
           <Normaltekst>
-            <Lenke href='https://loginservice.nav.no/slo'>{t(LangKey.LOGG_UT)}</Lenke>
+            <Link to={backTarget}>{t(KravKvitteringKeys.KRAV_KVITTERING_OPPRETT_NYTT_KRAV)}</Link>
           </Normaltekst>
           <Normaltekst>
             <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
