@@ -22,7 +22,10 @@ const EksempelLonningsdager = () => {
     >
       <Row>
         <Column>
-          <Ekspanderbartpanel tittel='Turnus/rotasjon - for eksempel offshore' className='ekspander-luft'>
+          <Ekspanderbartpanel
+            tittel='Turnus/rotasjon f.eks offshore med lønn 365 dager i året'
+            className='ekspander-luft'
+          >
             <Normaltekst>
               <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 50 000.</li>
