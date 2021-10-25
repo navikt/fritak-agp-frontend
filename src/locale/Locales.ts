@@ -775,12 +775,8 @@ const Locales: Record<
     en: '11 digits'
   },
   ORGNR_HJELPETEKST: {
-    nb: 'Vi spør etter virksomhetsnummer, ikke organisasjonsnummer.',
-    en: 'We ask for company number, not organization number.'
-  },
-  ORGNR_LENKE: {
-    nb: 'Se hva som er forskjellen',
-    en: 'See what the difference is'
+    nb: 'Vi spør etter virksomhetsnummer. Virksomhetsnummer er organisasjonsnummeret til underenheten som den opplysningspliktige driver.',
+    en: 'We ask for company number. Company number is the organization number for the subunit.'
   },
   SOKNADSSKJEMA: {
     nb: 'Søknadsskjema',
