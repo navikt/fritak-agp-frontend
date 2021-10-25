@@ -4,6 +4,7 @@ import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../../locale/LangKey';
 import { Normaltekst } from 'nav-frontend-typografi';
+import './Orgnr.scss';
 
 interface OrgnrProps {
   label: string;
@@ -24,7 +25,7 @@ const Orgnr = (props: OrgnrProps) => {
       label={
         <div style={{ display: 'flex' }}>
           {props.label}
-          <Hjelpetekst style={{ marginLeft: '0.5rem' }}>
+          <Hjelpetekst className='orgnr-hjelpetekst'>
             <Normaltekst>{t(LangKey.ORGNR_HJELPETEKST)}</Normaltekst>
           </Hjelpetekst>
         </div>
