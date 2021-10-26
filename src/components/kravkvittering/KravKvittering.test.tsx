@@ -7,12 +7,12 @@ import { mockApp } from '../../mockData/mockApp';
 
 describe('KravKvittering', () => {
   it('skal vise melding om at det kommer noe etterhvert', () => {
-    const { container } = render(mockApp(<KravKvittering />));
+    const { container } = render(mockApp(<KravKvittering backTarget='mock' />));
     expect(container).toContainHTML('kronisk-kvittering');
   });
 
   it('should have no a11y violations', async () => {
-    const { container } = render(mockApp(<KravKvittering />));
+    const { container } = render(mockApp(<KravKvittering backTarget='mock' />));
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
