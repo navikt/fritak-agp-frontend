@@ -1,11 +1,16 @@
 import React from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
-import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Dato, lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import '../../mockData/mockWindowLocation';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+import testFnr from '../../mockData/testFnr';
+import testOrgnr from '../../mockData/testOrgnr';
+import { Omplassering } from './Omplassering';
+import { Tiltak } from './Tiltak';
+import FetchMock, { MatcherUtils, SpyMiddleware } from 'yet-another-fetch-mock';
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -245,5 +250,58 @@ describe('GravidSide', () => {
     expect(screen.getByText('VALIDATE_FNR_MISSING')).toBeInTheDocument();
     expect(screen.getByText('VALIDATE_ORGNR_MISSSING')).toBeInTheDocument();
     expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/).length).toBe(2);
+  });
+
+  it('skal beholde feltverdier ved valideringsfeil fra backend', async () => {
+    const state = defaultGravidState();
+
+    const termindato: Dato = {
+      day: 1,
+      month: 5,
+      year: 2021,
+      value: '01.05.2021'
+    };
+
+    state.orgnr = testOrgnr.GyldigeOrgnr.TestOrg1;
+    state.fnr = testFnr.GyldigeFraDolly.TestPerson1;
+    // state.tilrettelegge = true;
+    state.omplassering = Omplassering.JA;
+    // state.tiltak = [Tiltak.HJEMMEKONTOR];
+    state.bekreft = true;
+    state.termindato = termindato;
+
+    // @ts-ignore
+    window.location = new URL('https://www.dev.nav.no');
+
+    let mock: FetchMock;
+    let spy: SpyMiddleware;
+
+    spy = new SpyMiddleware();
+    mock = FetchMock.configure({
+      middleware: spy.middleware
+    });
+    expect(spy.size()).toBe(0);
+
+    mock.post('https://fritakagp.dev.nav.no/api/v1/gravid/soeknad', (req, res, ctx) => res(ctx.status(401)));
+
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />{' '}
+      </MemoryRouter>
+    );
+
+    const jaSjekkboks = screen.getAllByLabelText(/JA/);
+    userEvent.click(jaSjekkboks[0]);
+
+    const tilrettelagtRadioUsjekket = screen.getByLabelText(/GRAVID_SIDE_TILTAK_HJEMMEKONTOR/);
+    expect(tilrettelagtRadioUsjekket).not.toBeChecked();
+    userEvent.click(tilrettelagtRadioUsjekket);
+    expect(tilrettelagtRadioUsjekket).toBeChecked();
+
+    const submitKnapp = await screen.findByText(/GRAVID_SIDE_SEND_SOKNAD/);
+    submitKnapp.click();
+
+    const tilrettelagtRadio = await screen.findByLabelText(/GRAVID_SIDE_TILTAK_HJEMMEKONTOR/);
+    expect(tilrettelagtRadio).toBeChecked();
   });
 });
