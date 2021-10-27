@@ -9,8 +9,8 @@ import { MemoryRouter } from 'react-router-dom';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
-import { Tiltak } from './Tiltak';
-import FetchMock, { MatcherUtils, SpyMiddleware } from 'yet-another-fetch-mock';
+
+import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -264,9 +264,7 @@ describe('GravidSide', () => {
 
     state.orgnr = testOrgnr.GyldigeOrgnr.TestOrg1;
     state.fnr = testFnr.GyldigeFraDolly.TestPerson1;
-    // state.tilrettelegge = true;
     state.omplassering = Omplassering.JA;
-    // state.tiltak = [Tiltak.HJEMMEKONTOR];
     state.bekreft = true;
     state.termindato = termindato;
 
