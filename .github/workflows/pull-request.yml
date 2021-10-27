@@ -47,7 +47,7 @@ jobs:
       - run: yarn lint
 
   TestCafe:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
