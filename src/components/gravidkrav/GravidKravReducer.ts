@@ -101,9 +101,11 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Grunnbeloep:
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.grunnbeloep = payload?.grunnbeloep
-        ? payload.grunnbeloep
-        : undefined;
+      const gItem = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
+
+      if (gItem) {
+        gItem.grunnbeloep = payload?.grunnbeloep ? payload.grunnbeloep : undefined;
+      }
 
       return nextState;
 
