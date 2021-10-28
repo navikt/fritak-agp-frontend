@@ -4,7 +4,6 @@ import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
-import setGrunnbeloep from '../kroniskkrav/setGrunnbeloep';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 
@@ -100,12 +99,13 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as GravidKravState;
 
     case Actions.Grunnbeloep:
-      setGrunnbeloep(payload, nextState);
       checkItemId(payload?.itemId);
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.grunnbeloep = payload?.grunnbeloep
-        ? payload.grunnbeloep
-        : undefined;
+      const gItem = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
+
+      if (gItem) {
+        gItem.grunnbeloep = payload?.grunnbeloep ? payload.grunnbeloep : undefined;
+      }
 
       return nextState;
 

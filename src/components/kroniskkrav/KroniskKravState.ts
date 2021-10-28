@@ -36,7 +36,6 @@ export default interface KroniskKravState extends ValidationState {
   login?: boolean;
   notAuthorized?: boolean;
   submitting?: boolean;
-  gDagsbeloep?: number;
   antallDager?: number;
   antallDagerError?: string;
 }

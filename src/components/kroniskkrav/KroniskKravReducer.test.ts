@@ -6,6 +6,7 @@ import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
+import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 
 describe('KroniskKravReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
@@ -301,7 +302,7 @@ describe('KroniskKravReducer', () => {
       defaultKroniskKravState(),
       {
         type: Actions.HandleResponse,
-        payload: { response: {} as ValidationResponse }
+        payload: { response: {} as ValidationResponse<KroniskKravResponse> }
       },
       i18n
     );
@@ -310,7 +311,7 @@ describe('KroniskKravReducer', () => {
     expect(state.validated).toBe(false);
   });
 
-  it('should set Grunnbeloep to 345 when grunnbeloep is 14950', () => {
+  it('should set Grunnbeloep to 14950 when grunnbeloep is 14950', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-ignore
     const itemId = defaultKrav.perioder[0].uniqueKey;
@@ -322,7 +323,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.gDagsbeloep).toEqual(345);
+    expect(state.perioder && state.perioder[0]?.grunnbeloep).toEqual(14950);
   });
 
   it('should set Grunnbeloep to undefined when 0 is given as param', () => {
@@ -337,7 +338,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.gDagsbeloep).toEqual(undefined);
+    expect(state.perioder && state.perioder[0]?.grunnbeloep).toEqual(undefined);
   });
 
   it('should set antallDager to 345 when grunnbeloep is 14950 and action is antallDager', () => {
