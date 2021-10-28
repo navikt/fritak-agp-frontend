@@ -124,8 +124,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    // @ts-ignore
-    expect(state.perioder[0].fom?.value).toBeUndefined();
+    expect(state.perioder && state.perioder[0].fom?.value).toBeUndefined();
   });
 
   it('should set the tom', () => {
@@ -141,8 +140,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    // @ts-ignore
-    expect(state.perioder[0].tom.value).toEqual('05.06.2020');
+    expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
   });
 
   it('should clear tom when empty payload', () => {
@@ -157,8 +155,8 @@ describe('GravidKravReducer', () => {
       },
       translationMock as unknown as i18n
     );
-    // @ts-ignore
-    expect(state.perioder[0].tom).toBeUndefined();
+
+    expect(state.perioder && state.perioder[0].tom).toBeUndefined();
   });
 
   it('should throw on tom when itemId is missing', () => {
@@ -217,8 +215,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    // @ts-ignore
-    expect(state.perioder[0].belop).toEqual(233);
+    expect(state.perioder && state.perioder[0].belop).toEqual(233);
   });
 
   it('should set the kvittering', () => {
@@ -355,7 +352,7 @@ describe('GravidKravReducer', () => {
     expect(state.validated).toBe(false);
   });
 
-  it('should set Grunnbeloep to 345 when grunnbeloep is 14950', () => {
+  it('should set correct grunnbeloep to 14950 when grunnbeloep is 14950', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
@@ -367,12 +364,11 @@ describe('GravidKravReducer', () => {
       },
       translationMock as unknown as i18n
     );
-    expect(state.gDagsbeloep).toEqual(345);
-    // @ts-ignore
-    expect(state.perioder[0].grunnbeloep).toEqual(14950);
+
+    expect(state.perioder && state.perioder[0].grunnbeloep).toEqual(14950);
   });
 
-  it('should set Grunnbeloep to undefined when 0 is given as param', () => {
+  it('should set correct grunnbeloep to undefined when 0 is given as param', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
@@ -384,9 +380,8 @@ describe('GravidKravReducer', () => {
       },
       translationMock as unknown as i18n
     );
-    expect(state.gDagsbeloep).toEqual(undefined);
-    // @ts-ignore
-    expect(state.perioder[0].grunnbeloep).toEqual(undefined);
+
+    expect(state.perioder && state.perioder[0].grunnbeloep).toEqual(undefined);
   });
 
   it('should set antallDager to 345 when grunnbeloep is 14950 and action is antallDager', () => {

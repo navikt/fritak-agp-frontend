@@ -5,7 +5,6 @@ import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
-import setGrunnbeloep from './setGrunnbeloep';
 import { i18n } from 'i18next';
 
 const checkItemId = (itemId?: string) => {
@@ -98,7 +97,6 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as KroniskKravState;
 
     case Actions.Grunnbeloep:
-      setGrunnbeloep(payload, nextState);
       checkItemId(payload?.itemId);
 
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.grunnbeloep = payload?.grunnbeloep
