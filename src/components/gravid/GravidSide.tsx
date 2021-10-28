@@ -42,6 +42,8 @@ import { Redirect, useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -58,6 +60,8 @@ const GravidSide = (props: GravidSideProps) => {
   const GravidReducerI18n: Reducer<GravidState, GravidAction> = GravidReducerSettOpp(i18n);
 
   const [state, dispatch] = useReducer(GravidReducerI18n, props.state, defaultGravidState);
+  dayjs.extend(customParseFormat);
+
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
@@ -87,6 +91,15 @@ const GravidSide = (props: GravidSideProps) => {
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
   };
+
+  const isCheckboxChecked = (checkbox: Tiltak): boolean => {
+    const foundElement = state.tiltak?.find((element) => {
+      return element === checkbox;
+    });
+
+    return !!foundElement;
+  };
+
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
       postGravid(
@@ -182,6 +195,9 @@ const GravidSide = (props: GravidSideProps) => {
                         id='termindato'
                         label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
                         feilmelding={state.termindatoError}
+                        placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
+                        dato={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                        defaultDate={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
                         onChange={(termindato: Date) => {
                           dispatch({
                             type: Actions.Termindato,
@@ -268,9 +284,9 @@ const GravidSide = (props: GravidSideProps) => {
                         {TiltakCheckboxes.map((a) => {
                           return (
                             <Checkbox
+                              defaultChecked={isCheckboxChecked(a.value)}
                               key={a.id}
                               label={t(a.label)}
-                              value={a.value}
                               id={a.id}
                               onChange={(evt) =>
                                 dispatch({
