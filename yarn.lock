@@ -1548,17 +1548,17 @@
   resolved "https://registry.yarnpkg.com/@navikt/fnrvalidator/-/fnrvalidator-1.1.4.tgz#22a776ba05a90c1ba5316a4f7567f9a45abcda04"
   integrity sha512-IroYFqa8PpzVxtIk6ifeEQBFzsI2QJX/FSIQyBtJvpp2D8Cb5Z9+hGNFppCILWR+QYbY8Dkk48la7K5fPGXeWQ==
 
-"@navikt/helse-arbeidsgiver-felles-frontend@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@navikt/helse-arbeidsgiver-felles-frontend/-/helse-arbeidsgiver-felles-frontend-0.3.2.tgz#7357c201970184c1ff6c3b3c5023822b726cf056"
-  integrity sha512-eS7bWhUHdJzgCP/0PDScnWeiQr2cwgeQU2etKezKMWdibJq8hAQmIX2hrmS0Mi/Pa+aEYUqvdnd68uQpRyUNTA==
+"@navikt/helse-arbeidsgiver-felles-frontend@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@navikt/helse-arbeidsgiver-felles-frontend/-/helse-arbeidsgiver-felles-frontend-0.3.3.tgz#72b59f1b32ce346b8ec13f6f5f847c14193b60c8"
+  integrity sha512-pnuyqV+wN/uOOXjNUHiDw8TQaDxKiQ4GA8ehI4icapOpK5oJUKTNMtRM6OsJCONuPusqAXHNSTx+K2ogOfac9w==
   dependencies:
     "@navikt/bedriftsmeny" "^3.4.0"
     "@navikt/fnrvalidator" "1.x"
     "@navikt/nav-dekoratoren-moduler" "^1.6.4"
     "@navikt/textparser" "2.x"
     classnames "^2.3.1"
-    dayjs "1.x"
+    dayjs "1.10.7"
     flatpickr "4.x"
     history "5.0.1"
     i18next "^21.3.2"
@@ -1574,7 +1574,7 @@
     nav-frontend-hjelpetekst-style "2.x"
     nav-frontend-ikoner-assets "2.x"
     nav-frontend-ikonknapper "1.x"
-    nav-frontend-js-utils "1.x"
+    nav-frontend-js-utils "1.0.20"
     nav-frontend-knapper "2.x"
     nav-frontend-knapper-style "1.x"
     nav-frontend-lenker "1.x"
@@ -5258,11 +5258,6 @@ dayjs@1.10.7:
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"
   integrity sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==
-
-dayjs@1.x:
-  version "1.10.6"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.6.tgz#288b2aa82f2d8418a6c9d4df5898c0737ad02a63"
-  integrity sha512-AztC/IOW4L1Q41A86phW5Thhcrco3xuAA+YX/BLpLWWjRcTj5TOt/QImBLmCKlrF7u7k47arTnOyL6GnbG8Hvw==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
@@ -9977,14 +9972,7 @@ nav-frontend-ikonknapper@1.x:
   resolved "https://registry.yarnpkg.com/nav-frontend-ikonknapper/-/nav-frontend-ikonknapper-1.1.4.tgz#fe88144f8a76d91f04c24d24eabf681a76969244"
   integrity sha512-qvrBlpSdsFF3WdiSzt49F9UhBGubHKugIEQeR1rXhDwThGIEbt8EcaxF6hFVa0cClZRg/lbqlZptAAE27741Ow==
 
-nav-frontend-js-utils@1.x:
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.19.tgz#56a14aa58cc249e34f98caaaeb101f638648e2ac"
-  integrity sha512-Z+ZGNcghkbx0VT0AN3H5ftCWWRMpXGcMI2JnMQJGzS8CkbjIEU8nkxsU63tyzq/n1BK69z1xT/1Vju6DRROidQ==
-  dependencies:
-    lodash.throttle "^4.1.1"
-
-nav-frontend-js-utils@^1.0.20:
+nav-frontend-js-utils@1.0.20, nav-frontend-js-utils@^1.0.20:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.20.tgz#fac829adb801d66275ac273255d5102b73d5805e"
   integrity sha512-rCEbgtLmk/95TJeke3Njgm0lBJuBa0N8p8h5Oqhxjov529UjTT2Vx4XJzjQd7/ApgeCkdc5DB9GW5jGTEFoYTA==
