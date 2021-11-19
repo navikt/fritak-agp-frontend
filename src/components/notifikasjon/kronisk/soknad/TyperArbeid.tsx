@@ -13,7 +13,9 @@ const TyperArbeid = (props: TyperArbeidProps) => {
   return (
     <ul className='dash'>
       {props.arbeidstyper.map((arbeidstype) => (
-        <li key={arbeidstype}>{tekstArbeidstype[arbeidstype] || arbeidstype.toLowerCase().replace(/_/g, ' ')}</li>
+        <li key={arbeidstype} className='typo-normal'>
+          {tekstArbeidstype[arbeidstype] || arbeidstype.toLowerCase().replace(/_/g, ' ')}
+        </li>
       ))}
     </ul>
   );

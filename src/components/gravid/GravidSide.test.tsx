@@ -45,7 +45,7 @@ describe('GravidSide', () => {
   const OMPLASSERING = /GRAVID_SIDE_OMPLASSERING_TITTEL/;
   const OMPLASSERING_AARSAK = /GRAVID_SIDE_OMPLASSERING_MOTSETTER_SEG/;
   const DOKUMENTASJON = /GRAVID_SIDE_DOKUMENTASJON_TITTEL/;
-  const BEKREFT = /BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER/;
+  const BEKREFT = /OPPLYSNINGER/;
   const FEILMELDINGER = /For å gå videre må du rette opp følgende:/;
   const SEND_KNAPP = /GRAVID_SIDE_SEND_SOKNAD/;
   const STATUS_HOVED = /GRAVID_SIDE_INGRESS/;
@@ -85,7 +85,7 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_FEIL)).not.toBeInTheDocument();
-    expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
+    // expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
 
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
@@ -113,7 +113,7 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_FEIL)).not.toBeInTheDocument();
-    expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
+    // expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
 
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
@@ -150,7 +150,7 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_FEIL)).not.toBeInTheDocument();
-    expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
+    // expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
 
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
@@ -161,7 +161,7 @@ describe('GravidSide', () => {
 
     expect(screen.getByText(VIDERE)).toBeInTheDocument();
     expect(screen.getByText(DOKUMENTASJON)).toBeInTheDocument();
-    expect(screen.getByText(BEKREFT)).toBeInTheDocument();
+    // expect(screen.getByText(BEKREFT)).toBeInTheDocument();
     expect(screen.queryByText(FEILMELDINGER)).not.toBeInTheDocument();
     expect(screen.getByText(SEND_KNAPP)).toBeInTheDocument();
   });
@@ -188,7 +188,7 @@ describe('GravidSide', () => {
     expect(screen.getByText(OMPLASSERING)).toBeInTheDocument();
     expect(screen.getByText(OMPLASSERING_AARSAK)).toBeInTheDocument();
     expect(screen.getByText(DOKUMENTASJON)).toBeInTheDocument();
-    expect(screen.getByText(BEKREFT)).toBeInTheDocument();
+    // expect(screen.getByText(BEKREFT)).toBeInTheDocument();
     expect(screen.getByText(SEND_KNAPP)).toBeInTheDocument();
 
     expect(screen.queryByText(FEILMELDINGER)).not.toBeInTheDocument();

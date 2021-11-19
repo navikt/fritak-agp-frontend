@@ -14,7 +14,7 @@ const Paakjenninger = (props: PaakjenningerProps) => {
   return (
     <ul className='dash'>
       {props.paakjenninger.map((paakjenning) => (
-        <li key={paakjenning}>
+        <li key={paakjenning} className='typo-normal'>
           {tekstPaakjenninger[paakjenning] || paakjenning.toLowerCase().replace(/_/g, ' ')}
           {paakjenning === 'ANNET' ? ` "${props.beskrivelse}"` : ''}
         </li>
