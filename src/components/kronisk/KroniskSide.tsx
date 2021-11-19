@@ -52,7 +52,12 @@ const KroniskSide = () => {
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {
-        dispatch({ type: Actions.Dokumentasjon, payload: base64encoded });
+        dispatch({
+          type: Actions.Dokumentasjon,
+          payload: {
+            dokumentasjon: base64encoded
+          }
+        });
       });
     }
   };
@@ -77,7 +82,8 @@ const KroniskSide = () => {
           state.orgnr || '',
           state.bekreft || false,
           state.kommentar,
-          state.antallPerioder || 0
+          state.antallPerioder || 0,
+          state.dokumentasjon
         )
       ).then((response) => {
         saveResponse(response);

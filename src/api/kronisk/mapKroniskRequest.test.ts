@@ -18,39 +18,71 @@ describe('mapKroniskRequest', () => {
       dec: 12
     } as Aarsfravaer
   ];
+  const antallPerioder = 4;
+  const dokumentasjon = 'dokumentasjon';
 
   it('should fail when no arbeidstype', async () => {
     expect(() => {
-      mapKroniskRequest([], paakjenninger, fravaer, fnr, orgnr, bekreft, kommentar);
+      mapKroniskRequest([], paakjenninger, fravaer, fnr, orgnr, bekreft, kommentar, antallPerioder, dokumentasjon);
     }).toThrow('Må ha minst en arbeidstype');
   });
 
   it('should fail when no PaakjenningBeskrivelse', async () => {
     expect(() => {
-      mapKroniskRequest(arbeid, [PaakjenningerType.ANNET], fravaer, fnr, orgnr, bekreft, undefined);
+      mapKroniskRequest(
+        arbeid,
+        [PaakjenningerType.ANNET],
+        fravaer,
+        fnr,
+        orgnr,
+        bekreft,
+        undefined,
+        antallPerioder,
+        dokumentasjon
+      );
     }).toThrow('Må ha kommentar til påkjenning');
   });
 
   it('should fail when no PaakjenningBeskrivelse', async () => {
     expect(() => {
-      mapKroniskRequest(arbeid, [PaakjenningerType.ANNET], fravaer, fnr, orgnr, bekreft, kommentar);
+      mapKroniskRequest(
+        arbeid,
+        [PaakjenningerType.ANNET],
+        fravaer,
+        fnr,
+        orgnr,
+        bekreft,
+        kommentar,
+        antallPerioder,
+        dokumentasjon
+      );
     }).not.toThrow('Må ha kommentar til påkjenning');
   });
 
   it('should fail when no påkjenninger', async () => {
     expect(() => {
-      mapKroniskRequest(arbeid, [], fravaer, fnr, orgnr, bekreft, kommentar);
+      mapKroniskRequest(arbeid, [], fravaer, fnr, orgnr, bekreft, kommentar, antallPerioder, dokumentasjon);
     }).toThrow('Må ha minst en påkjenningstype');
   });
 
   it('should fail when no fravær', async () => {
     expect(() => {
-      mapKroniskRequest(arbeid, paakjenninger, [], fnr, orgnr, bekreft, kommentar);
+      mapKroniskRequest(arbeid, paakjenninger, [], fnr, orgnr, bekreft, kommentar, antallPerioder, dokumentasjon);
     }).toThrow('Må ha minst en fravær');
   });
 
   it('should not fail when all props', async () => {
-    const r = mapKroniskRequest(arbeid, paakjenninger, fravaer, fnr, orgnr, bekreft, kommentar);
+    const r = mapKroniskRequest(
+      arbeid,
+      paakjenninger,
+      fravaer,
+      fnr,
+      orgnr,
+      bekreft,
+      kommentar,
+      antallPerioder,
+      dokumentasjon
+    );
     expect(r.identitetsnummer).toEqual('123456789');
   });
 });
