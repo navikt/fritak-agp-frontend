@@ -12,7 +12,8 @@ export const mapKroniskRequest = (
   orgnr: string,
   bekreft: boolean,
   paakjenningBeskrivelse: string | undefined,
-  antallPerioder: number
+  antallPerioder: number,
+  dokumentasjon: string | undefined
 ): KroniskRequest => {
   if (!arbeid || arbeid?.length == 0) {
     throw new Error('Må ha minst en arbeidstype');
@@ -34,6 +35,7 @@ export const mapKroniskRequest = (
     paakjenningstyper: paakjenninger,
     paakjenningBeskrivelse,
     fravaer: mapFravaerData(fravaer),
-    antallPerioder
+    antallPerioder,
+    dokumentasjon: dokumentasjon
   } as KroniskRequest;
 };
