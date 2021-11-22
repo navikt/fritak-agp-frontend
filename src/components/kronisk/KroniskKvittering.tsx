@@ -54,13 +54,10 @@ const KroniskKvittering = () => {
         <Panel>
           <Undertittel>Detaljer fra søknaden:</Undertittel>
           <Normaltekst className='luft-under'>Navn: {navn}</Normaltekst>
-          <Normaltekst>
-            Type arbeid: <TyperArbeid arbeidstyper={arbeidstyper} />
-          </Normaltekst>
-          <Normaltekst>
-            Påkjenninger på arbeidsstedet:
-            <Paakjenninger paakjenninger={paakjenningstyper} beskrivelse={paakjenningBeskrivelse} />
-          </Normaltekst>
+          <Normaltekst>Type arbeid:</Normaltekst>
+          <TyperArbeid arbeidstyper={arbeidstyper} />
+          <Normaltekst>Påkjenninger på arbeidsstedet:</Normaltekst>
+          <Paakjenninger paakjenninger={paakjenningstyper} beskrivelse={paakjenningBeskrivelse} />
           <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
           <Normaltekst className='luft-under'>{formatFravaersdager(fravaer)}</Normaltekst>
           <SoknadMottatt className='luft-under' mottatt={opprettet} />
