@@ -85,7 +85,6 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_FEIL)).not.toBeInTheDocument();
-    // expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
 
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
@@ -113,7 +112,6 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_FEIL)).not.toBeInTheDocument();
-    // expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
 
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
@@ -150,7 +148,6 @@ describe('GravidSide', () => {
     expect(screen.queryByText(STATUS_PROGRESS)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_KVITTERING)).not.toBeInTheDocument();
     expect(screen.queryByText(STATUS_FEIL)).not.toBeInTheDocument();
-    // expect(screen.getByText(STATUS_HOVED)).toBeInTheDocument();
 
     expect(screen.getByText(FODSELSNR)).toBeInTheDocument();
     expect(screen.getByText(VIRKSOMHETSNR)).toBeInTheDocument();
@@ -161,7 +158,7 @@ describe('GravidSide', () => {
 
     expect(screen.getByText(VIDERE)).toBeInTheDocument();
     expect(screen.getByText(DOKUMENTASJON)).toBeInTheDocument();
-    // expect(screen.getByText(BEKREFT)).toBeInTheDocument();
+
     expect(screen.queryByText(FEILMELDINGER)).not.toBeInTheDocument();
     expect(screen.getByText(SEND_KNAPP)).toBeInTheDocument();
   });
@@ -188,7 +185,6 @@ describe('GravidSide', () => {
     expect(screen.getByText(OMPLASSERING)).toBeInTheDocument();
     expect(screen.getByText(OMPLASSERING_AARSAK)).toBeInTheDocument();
     expect(screen.getByText(DOKUMENTASJON)).toBeInTheDocument();
-    // expect(screen.getByText(BEKREFT)).toBeInTheDocument();
     expect(screen.getByText(SEND_KNAPP)).toBeInTheDocument();
 
     expect(screen.queryByText(FEILMELDINGER)).not.toBeInTheDocument();
