@@ -19,7 +19,7 @@ const Orgnr = (props: OrgnrProps) => {
 
   return (
     <Input
-      value={props.orgnr}
+      defaultValue={props.orgnr}
       placeholder={props.placeholder}
       id='arbeidsgiverFeilmeldingId'
       label={
