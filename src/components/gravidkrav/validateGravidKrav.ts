@@ -12,12 +12,13 @@ import {
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
-import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER } from '../../config/konstanter';
+import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_GRAVID_DATO } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
 import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
+import dayjs from 'dayjs';
 
 const MAX = 10000000;
-const MIN_DATE = new Date(2021, 1, 1);
+const MIN_DATE = MIN_GRAVID_DATO;
 
 export const validateGravidKrav = (state: GravidKravState, translate: i18n): GravidKravState => {
   if (!state.validated) {
@@ -44,11 +45,14 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   }
 
   state.perioder?.forEach((periode, index) => {
-    periode.fomError = formatValidation(validateFra(periode.fom, MIN_DATE, !!nextState.validated), translate);
-    periode.tomError = formatValidation(
-      validateTil(periode.fom, periode.tom, MIN_DATE, !!nextState.validated),
-      translate
-    );
+    const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
+
+    const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
+    periode.fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
+
+    const valideringTilStatus = validateTil(periode.fom, periode.tom, MIN_DATE, !!state.validated);
+    periode.tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
+
     periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
     periode.belopError = formatValidation(validateBeloep('' + periode.belop, MAX, !!nextState.validated), translate);
 

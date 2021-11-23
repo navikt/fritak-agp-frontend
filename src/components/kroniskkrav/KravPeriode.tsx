@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
 import { Fareknapp } from 'nav-frontend-knapper';
 import beregnRefusjon from './beregnRefusjon';
+import { MIN_KRONISK_DATO } from '../../config/konstanter';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -79,6 +80,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             }}
             feilmelding={props.enkeltPeriode.fomError}
             maxDate={today}
+            minDate={MIN_KRONISK_DATO}
           />
         </Column>
         <Column sm='2' xs='6'>
