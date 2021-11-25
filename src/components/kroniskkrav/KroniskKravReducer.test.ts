@@ -341,6 +341,22 @@ describe('KroniskKravReducer', () => {
     expect(state.perioder && state.perioder[0]?.grunnbeloep).toEqual(undefined);
   });
 
+  it('should return the default state when function tries to set grunnbeloep on an invalid row', () => {
+    const defaultState = defaultKroniskKravState();
+    const itemId = 'banan';
+
+    let state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.Grunnbeloep,
+        payload: { grunnbeloep: 0, itemId }
+      },
+      i18n
+    );
+
+    expect(state).toEqual(defaultState);
+  });
+
   it('should set antallDager to 345 when grunnbeloep is 14950 and action is antallDager', () => {
     let state = KroniskKravReducer(
       defaultKroniskKravState(),
