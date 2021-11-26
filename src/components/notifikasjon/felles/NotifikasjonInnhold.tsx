@@ -6,7 +6,6 @@ import Panel from 'nav-frontend-paneler';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import GravidSoknadFooter from '../gravid/soknad/GravidSoknadFooter';
 
 interface NotifikasjonInnholdProps {
   children: any;

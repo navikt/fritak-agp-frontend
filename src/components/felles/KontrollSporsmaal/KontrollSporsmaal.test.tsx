@@ -42,7 +42,7 @@ describe('KontrollSporsmaal', () => {
   it('should show the id', async () => {
     const mockCallback = jest.fn();
 
-    const { container } = render(<KontrollSporsmaal onChange={mockCallback} feil='FEIL!' id='ikkerandomid' />);
+    render(<KontrollSporsmaal onChange={mockCallback} feil='FEIL!' id='ikkerandomid' />);
 
     screen.getByLabelText('KONTROLLSPORSMAL_DAGER_LABEL');
 

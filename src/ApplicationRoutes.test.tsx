@@ -4,7 +4,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import mockHistory from './mockData/mockHistory';
-import { ArbeidsgiverProvider, ArbeidsgiverStatus, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 describe('ApplicationRoutes', () => {
