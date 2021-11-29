@@ -14,7 +14,7 @@ import Locales from '../../locale/Locales';
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
 describe('KravPeriode', () => {
-  const i18n = languageInit(i18next, Language.nb, Locales);
+  languageInit(i18next, Language.nb, Locales);
 
   it('should show first row', async () => {
     const mockDispatch = jest.fn();

@@ -7,7 +7,6 @@ import formatTilrettelegge from './formatTilrettelegge';
 import formatDokumentasjon from './formatDokumentasjon';
 import formatInnsendtAv from './formatInnsendtAv';
 import formatTiltak from './formatTiltak';
-import Lenke from 'nav-frontend-lenker';
 import GravidSoknadFooter from './GravidSoknadFooter';
 
 export interface GravidSoknadNotifikasjonProps {
