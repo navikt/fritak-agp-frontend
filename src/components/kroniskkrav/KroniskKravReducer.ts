@@ -53,8 +53,6 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.Beloep:
       checkItemId(payload?.itemId);
-      // eslint-disable-next-line
-      console.log('Beløp', payload?.belop);
 
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.belop = payload?.belop;
 
