@@ -202,9 +202,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk()
     .expect(Selector('html').textContent)
-    .contains('1153.85');
+    .contains('153,85');
 
-  await t.expect(Selector('html').textContent).contains('1153.85');
+  await t.expect(Selector('html').textContent).contains('153,85');
 
   const tilDato = Selector('#til-dato-0');
   const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
@@ -221,7 +221,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler antall arbeidsdager').visible
     )
-    .notOk();
+    .notOk({ timeout: 500 });
 
   await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Kravet er mottatt');
 });
@@ -240,5 +240,5 @@ test('Legg til og fjern perioder', async (t) => {
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').visible)
-    .notOk();
+    .notOk({ timeout: 500 });
 });
