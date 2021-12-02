@@ -90,8 +90,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Velg omplassering').visible
     )
     .ok()
-    .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
-    .notOk();
+    .expect(
+      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+    )
+    .notOk({ timeout: 500 });
 
   // await t
   // .typeText(ReactSelector('KontrollSporsmaal'), '260')
@@ -120,8 +122,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Velg omplassering').visible
     )
     .ok()
-    .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
-    .notOk();
+    .expect(
+      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+    )
+    .notOk({ timeout: 500 });
 
   await t
     .click(fnr)
@@ -138,9 +142,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Fødselsnummer må fylles ut')
-        .withText('Bekreft at opplysningene er korrekt').visible
+        .withText('Bekreft at opplysningene er korrekt')
+        .with({ timeout: 100 }).visible
     )
-    .notOk();
+    .notOk({ timeout: 500 });
 
   // Org.nr.
   const orgnr = ReactSelector('Orgnr');
@@ -158,9 +163,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Fødselsnummer må fylles ut')
-        .withText('Bekreft at opplysningene er korrekt').visible
+        .withText('Bekreft at opplysningene er korrekt')
+        .with({ timeout: 100 }).visible
     )
-    .notOk();
+    .notOk({ timeout: 500 });
 
   await t
     .click(orgnr)
@@ -177,9 +183,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
       ReactSelector('Feiloppsummering')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fødselsnummer må fylles ut')
-        .withText('Bekreft at opplysningene er korrekt').visible
+        .withText('Bekreft at opplysningene er korrekt')
+        .with({ timeout: 100 }).visible
     )
-    .notOk();
+    .notOk({ timeout: 500 });
 
   const terminDato = Selector('#termindato');
   const valgtTerminDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
@@ -197,7 +204,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Termindato må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fødselsnummer må fylles ut')
-        .withText('Bekreft at opplysningene er korrekt').visible
+        .withText('Bekreft at opplysningene er korrekt')
+        .with({ timeout: 100 }).visible
     )
     .notOk();
 
@@ -211,9 +219,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Termindato må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fødselsnummer må fylles ut')
-        .withText('Bekreft at opplysningene er korrekt').visible
+        .withText('Bekreft at opplysningene er korrekt')
+        .with({ timeout: 100 }).visible
     )
-    .notOk();
+    .notOk({ timeout: 500 });
 
   await t
     .click(Selector('label').withText('Omplassering er ikke mulig - oppgi årsak:'))
@@ -227,9 +236,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Arbeid om den ansatte må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer').visible
+        .withText('Mangler fødselsnummer')
+        .with({ timeout: 100 }).visible
     )
-    .notOk();
+    .notOk({ timeout: 500 });
 
   await t
     .click(ReactSelector('Hovedknapp'))

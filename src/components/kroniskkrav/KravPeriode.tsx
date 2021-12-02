@@ -60,7 +60,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
     });
   };
 
-  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager);
+  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
 
   const today = new Date();
 

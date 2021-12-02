@@ -86,7 +86,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
     )
     .ok()
-    .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
+    .expect(
+      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+    )
     .notOk();
 
   await t
@@ -103,7 +105,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler antall arbeidsdager').visible
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
     )
     .notOk();
 
@@ -123,7 +126,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler antall arbeidsdager').visible
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
     )
     .notOk();
 
@@ -143,7 +147,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
       ReactSelector('Feiloppsummering')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler antall arbeidsdager').visible
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
     )
     .notOk();
 
@@ -162,7 +167,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler antall arbeidsdager').visible
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
     )
     .notOk();
 
@@ -180,7 +186,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler antall arbeidsdager').visible
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
     )
     .notOk();
 
@@ -198,13 +205,14 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler antall arbeidsdager').visible
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
     )
     .notOk()
     .expect(Selector('html').textContent)
-    .contains('1153.85');
+    .contains('153,85');
 
-  await t.expect(Selector('html').textContent).contains('1153.85');
+  await t.expect(Selector('html').textContent).contains('153,85');
 
   const tilDato = Selector('#til-dato-0');
   const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
@@ -219,9 +227,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler antall arbeidsdager').visible
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
     )
-    .notOk();
+    .notOk({ timeout: 500 });
 
   await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Kravet er mottatt');
 });
@@ -239,6 +248,6 @@ test('Legg til og fjern perioder', async (t) => {
     .click(ReactSelector('Fareknapp').withText('Slett'))
     .expect(Selector('#belop-0').visible)
     .ok()
-    .expect(Selector('#belop-1').visible)
-    .notOk();
+    .expect(Selector('#belop-1').with({ timeout: 100 }).visible)
+    .notOk({ timeout: 500 });
 });
