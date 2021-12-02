@@ -85,7 +85,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Fravær må fylles ut').visible
     )
     .ok()
-    .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
+    .expect(
+      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+    )
     .notOk({ timeout: 500 });
 
   // await t
@@ -115,7 +117,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Fravær må fylles ut').visible
     )
     .ok()
-    .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').visible)
+    .expect(
+      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+    )
     .notOk({ timeout: 500 });
 
   await t
@@ -133,7 +137,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Ugyldig fødselsnummer')
-        .withText('Bekreft at opplysningene er korrekt').visible
+        .withText('Bekreft at opplysningene er korrekt')
+        .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
 
@@ -153,7 +158,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
       ReactSelector('Feiloppsummering')
         .withText('Ugyldig fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
-        .withText('Mangler fødselsnummer').visible
+        .withText('Mangler fødselsnummer')
+        .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
 
@@ -172,7 +178,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
       ReactSelector('Feiloppsummering')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer').visible
+        .withText('Mangler fødselsnummer')
+        .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
 
@@ -189,7 +196,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Arbeid om den ansatte må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer').visible
+        .withText('Mangler fødselsnummer')
+        .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
 
@@ -216,7 +224,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Arbeid om den ansatte må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer').visible
+        .withText('Mangler fødselsnummer')
+        .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
 
@@ -229,7 +238,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .withText('Arbeid om den ansatte må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer').visible
+        .withText('Mangler fødselsnummer')
+        .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
 
