@@ -16,6 +16,7 @@
     "preinstall": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index",
     "test:int": "testcafe firefox:headless --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300"
   },
+  "proxy": "https://fritakagp.dev.nav.no",
   "engines": {
     "node": ">=14",
     "yarn": ">=1.22"

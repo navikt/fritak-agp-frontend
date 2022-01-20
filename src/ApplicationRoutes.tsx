@@ -17,6 +17,7 @@ import { TokenFornyet } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidSoknadKvitteringProvider from './context/GravidSoknadKvitteringContext';
 import KroniskSoknadKvitteringProvider from './context/KroniskSoknadKvitteringContext';
 import EksempelLonningsdager from './components/eksempellonnsdager/EksempelLonningsdager';
+import OversiktKrav from './components/oversiktkrav/OversiktKrav';
 
 export const ApplicationRoutes = () => (
   <div className='application-routes'>
@@ -45,6 +46,7 @@ export const ApplicationRoutes = () => (
           <Route path={lenker.NotifikasjonKroniskSoknad} render={() => <KroniskSoknadController />} />
           <Route path={lenker.NotifikasjonKroniskKrav} render={() => <KroniskKravController />} />
           <Route path={lenker.EksemplerLonnsdager} render={() => <EksempelLonningsdager />} />
+          <Route path={lenker.Oversikt} render={() => <OversiktKrav />} />
           <Route path={lenker.Home} render={() => <Forside />} />
         </Switch>
       </GravidSoknadKvitteringProvider>
