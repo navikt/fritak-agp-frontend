@@ -94,16 +94,16 @@ jobs:
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
 
-  Versjon:
-    needs: [Deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-      - run: |
-          git config --local user.email "helsearbeidsgiver@nav.no"
-          git config --local user.name "HelseArbeidsgiver"
-          npm version patch
-          git push
+  # Versjon:
+  #   needs: [Deploy]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@master
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '14.x'
+  #     - run: |
+  #         git config --local user.email "helsearbeidsgiver@nav.no"
+  #         git config --local user.name "HelseArbeidsgiver"
+  #         npm version patch
+  #         git push
