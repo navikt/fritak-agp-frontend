@@ -50,4 +50,18 @@ describe('validateArbeidsdager', () => {
   it('should verify that there is not an error when required and dager is equal to maximum', () => {
     expect(validateArbeidsdager(10, true, 5, 10)).toBeUndefined();
   });
+
+  it('should verify that string with numbers and string returns an error when required', () => {
+    // @ts-ignore   Skal ikke være mulig, men sjekker like vel
+    expect(validateArbeidsdager('0a', true)).toEqual({
+      key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING
+    });
+  });
+
+  it('should verify that string with numbers as text returns an error when required', () => {
+    // @ts-ignore   Skal ikke være mulig, men sjekker like vel
+    expect(validateArbeidsdager('tohundre', true)).toEqual({
+      key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING
+    });
+  });
 });

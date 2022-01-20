@@ -20,4 +20,8 @@ describe('validateDager', () => {
   it('should verify that there is a dager missing when required and dager is 0', () => {
     expect(validateDager(undefined, true)).toEqual({ key: 'VALIDATE_DAGER_MISSING' });
   });
+
+  it('should not verify that there is a dager missing when not required', () => {
+    expect(validateDager('0a', false)).toEqual({ key: 'VALIDATE_DAGER_REQUIRED' });
+  });
 });
