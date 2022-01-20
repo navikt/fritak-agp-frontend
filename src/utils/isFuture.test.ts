@@ -1,12 +1,12 @@
 import { isFuture } from './isFuture';
 
 describe('isFuture', () => {
-  it('should throw exception when invalid month', () => {
+  it('should throw exception when invalid month too low', () => {
     expect(() => {
       isFuture(2000, -1, 2000, 1);
     }).toThrow('Invalid month!');
   });
-  it('should throw exception when invalid month', () => {
+  it('should throw exception when invalid month too high', () => {
     expect(() => {
       isFuture(2000, 12, 2000, 1);
     }).toThrow('Invalid month!');

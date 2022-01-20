@@ -5,8 +5,10 @@
         "node": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:jsx-a11y/recommended"
+        "plugin:jsx-a11y/recommended",
+        "plugin:jest/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -21,14 +23,15 @@
         "sourceType": "module"
     },
     "plugins": [
+        "jsx-a11y",
         "react-hooks",
         "@typescript-eslint",
         "react",
-        "typescript",
-        "testcafe"
+        "testcafe",
+        "typescript"
     ],
     "rules": {
-        "no-console": "warn",
+        "no-console": "error",
         "max-len": [
             "error", 160, {
                 "ignoreUrls": true,
@@ -53,9 +56,18 @@
             "single",
             { "avoidEscape": true }
         ],
-        "typescript/no-unused-vars": "error",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
         "complexity": ["warn", 200]
     },
+    "overrides": [
+        {
+            "files": ["*.ts*"],
+            "rules": {
+                "no-undef": "off"
+            }
+        }
+    ],
     "settings": {
         "react": {
             "version": "detect"

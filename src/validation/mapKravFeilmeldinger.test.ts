@@ -23,13 +23,13 @@ describe('mapKroniskKravFeilmeldinger', () => {
     expect(state.fnrError).toBe('feil');
     expect(state.orgnrError).toBe('feil');
     expect(state.bekreftError).toBe('feil');
-    const fraError = !!state?.perioder ? state?.perioder[0]?.fomError : '';
+    const fraError = state?.perioder ? state?.perioder[0]?.fomError : '';
     expect(fraError).toBe('feil');
-    const tilError = !!state?.perioder ? state?.perioder[0]?.tomError : '';
+    const tilError = state?.perioder ? state?.perioder[0]?.tomError : '';
     expect(tilError).toBe('feil');
-    const dagerError = !!state?.perioder ? state?.perioder[0]?.dagerError : '';
+    const dagerError = state?.perioder ? state?.perioder[0]?.dagerError : '';
     expect(dagerError).toBe('feil');
-    const belopError = !!state?.perioder ? state?.perioder[0]?.belopError : '';
+    const belopError = state?.perioder ? state?.perioder[0]?.belopError : '';
     expect(belopError).toBe('feil');
     expect(state.bekreftError).toBe('feil');
     expect(state.antallDagerError).toBe('feil');
