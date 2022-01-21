@@ -51,6 +51,7 @@
         "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
         "object-curly-spacing":  ["warn", "always"],
         "no-duplicate-imports": "error",
+        "no-case-declarations": "error",
         "quotes": [
             "warn",
             "single",

@@ -27,12 +27,13 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           }
           return <GravidSoknadView gravidSoknadResponse={state.gravidSoknadResponse} />;
 
-        case NotifikasjonType.GravidKrav:
+        case NotifikasjonType.GravidKrav: {
           if (!state.gravidKravResponse) {
             return <NotifikasjonFeilmelding />;
           }
           const gravidKravState: GravidKravVisning = mapKravState(state.gravidKravResponse);
           return <GravidKravView gravidKravVisning={gravidKravState} />;
+        }
 
         case NotifikasjonType.KroniskSoknad:
           if (!state.kroniskSoknadResponse) {
@@ -40,12 +41,13 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           }
           return <KroniskSoknadView kroniskSoknadResponse={state.kroniskSoknadResponse} />;
 
-        case NotifikasjonType.KroniskKrav:
+        case NotifikasjonType.KroniskKrav: {
           if (!state.kroniskKravResponse) {
             return <NotifikasjonFeilmelding />;
           }
           const kravState: GravidKravVisning = mapKravState(state.kroniskKravResponse);
           return <GravidKravView gravidKravVisning={kravState} />;
+        }
 
         default:
           return <NotifikasjonFeilmelding />;

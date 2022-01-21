@@ -8,6 +8,7 @@ import i18next from 'i18next';
 import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
 import { languageInit } from '../../locale/languageInit';
+import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
 describe('KroniskReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
@@ -465,7 +466,7 @@ describe('KroniskReducer', () => {
       defaultKroniskState(),
       {
         type: Actions.HandleResponse,
-        payload: { response: {} as ValidationResponse }
+        payload: { response: {} as ValidationResponse<KroniskSoknadResponse> }
       },
       i18n
     );

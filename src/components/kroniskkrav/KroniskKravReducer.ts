@@ -81,12 +81,13 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.notAuthorized = false;
       return nextState;
 
-    case Actions.Validate:
+    case Actions.Validate: {
       nextState.validated = true;
       const validatedState = validateKroniskKrav(nextState, translate);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
+    }
 
     case Actions.HandleResponse:
       if (payload?.response == undefined) {
@@ -97,7 +98,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.submitting = false;
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as KroniskKravState;
 
-    case Actions.Grunnbeloep:
+    case Actions.Grunnbeloep: {
       checkItemId(payload?.itemId);
 
       const gItem = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
@@ -107,17 +108,19 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       }
 
       return nextState;
+    }
 
     case Actions.antallDager:
       nextState.antallDager = payload?.antallDager;
       return validateKroniskKrav(nextState, translate);
 
-    case Actions.AddPeriod:
+    case Actions.AddPeriod: {
       const key = uuid();
       nextState.perioder = nextState.perioder
         ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: key }]
         : [{ fom: {}, tom: {}, uniqueKey: key }];
       return nextState;
+    }
 
     case Actions.DeletePeriod:
       checkItemId(payload?.itemId);

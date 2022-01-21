@@ -3,6 +3,7 @@ import { Actions } from './Actions';
 import { defaultGravidKravState } from './GravidKravState';
 import { i18n } from 'i18next';
 import { ValidationResponse } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import GravidSoknadResponse from '../../api/gravid/GravidSoknadResponse';
 
 const translationMock = {
   t: (param: any) => param
@@ -343,7 +344,7 @@ describe('GravidKravReducer', () => {
       defaultGravidKravState(),
       {
         type: Actions.HandleResponse,
-        payload: { response: {} as ValidationResponse }
+        payload: { response: {} as ValidationResponse<GravidSoknadResponse> }
       },
       translationMock as unknown as i18n
     );

@@ -28,30 +28,36 @@ describe('validateGravidKrav', () => {
     const state = defaultGravidKravState();
     state.validated = true;
     state.fnr = '123';
-    state.fra = parseDato('14.14.2014');
+    if (state.perioder) state.perioder[0].fom = parseDato('14.14.2014');
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
-    expect(state2.fnrError).not.toBeUndefined();
+    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];
+    expect(state2.perioder[0].fomError).not.toBeUndefined();
   });
 
   it('should show til error when invalid', () => {
     const state = defaultGravidKravState();
     state.validated = true;
     state.fnr = '123';
-    state.til = parseDato('14.14.2014');
+    if (state.perioder) {
+      state.perioder[0].fom = parseDato('12.12.2014');
+      state.perioder[0].tom = parseDato('11.11.2014');
+    }
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
-    expect(state2.til?.error).not.toBeUndefined();
+    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];
+    expect(state2.perioder[0].tomError).not.toBeUndefined();
   });
 
   it('should not show errors until validation flagged', () => {
     const state = defaultGravidKravState();
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
+    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];
     expect(state2.feilmeldinger?.length).toEqual(0);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
-    expect(state2.fraError).toBeUndefined();
-    expect(state2.tilError).toBeUndefined();
-    expect(state2.dagerError).toBeUndefined();
-    expect(state2.beloepError).toBeUndefined();
+    expect(state2.perioder[0].fomError).toBeUndefined();
+    expect(state2.perioder[0].tomError).toBeUndefined();
+    expect(state2.perioder[0].dagerError).toBeUndefined();
+    expect(state2.perioder[0].belopError).toBeUndefined();
     expect(state2.bekreftError).toBeUndefined();
   });
 });

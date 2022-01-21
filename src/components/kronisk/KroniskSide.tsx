@@ -189,7 +189,7 @@ const KroniskSide = () => {
                           label={t(a.label)}
                           value={a.value}
                           id={a.id}
-                          onChange={(evt) =>
+                          onChange={() =>
                             dispatch({
                               type: Actions.ToggleArbeid,
                               payload: { arbeid: a.value }
@@ -209,14 +209,14 @@ const KroniskSide = () => {
               >
                 <Row>
                   <Column sm='4' xs='6'>
-                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index < 5).map((a, index) => {
+                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index < 5).map((a) => {
                       return (
                         <Checkbox
                           key={a.id}
                           label={t(a.label)}
                           value={a.value}
                           id={a.id}
-                          onChange={(evt) =>
+                          onChange={() =>
                             dispatch({
                               type: Actions.TogglePaakjenninger,
                               payload: { paakjenning: a.value }
@@ -227,14 +227,14 @@ const KroniskSide = () => {
                     })}
                   </Column>
                   <Column sm='4' xs='6'>
-                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index > 4).map((a, index) => {
+                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index > 4).map((a) => {
                       return (
                         <Checkbox
                           key={a.id}
                           label={t(a.label)}
                           value={a.value}
                           id={a.id}
-                          onChange={(evt) =>
+                          onChange={() =>
                             dispatch({
                               type: Actions.TogglePaakjenninger,
                               payload: { paakjenning: a.value }

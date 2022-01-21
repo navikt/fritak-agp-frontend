@@ -15,7 +15,8 @@ describe('postKroniskKrav', () => {
         fom: 'string',
         tom: 'string',
         antallDagerMedRefusjon: 5,
-        beloep: 3
+        månedsinntekt: 1234,
+        gradering: 1
       }
     ],
     bekreftet: true,

@@ -10,6 +10,7 @@ describe('Environment', () => {
 
   afterEach(() => {
     window.location = theWindowLocation;
+    // @ts-ignore
     delete window.location;
   });
 

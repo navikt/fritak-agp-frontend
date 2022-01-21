@@ -141,7 +141,7 @@ const GravidSide = (props: GravidSideProps) => {
     state.termindato
   ]);
 
-  if (!!state.kvittering) {
+  if (state.kvittering) {
     return <Redirect to={buildLenke(lenker.GravidKvittering, language)} />;
   }
 
@@ -288,7 +288,7 @@ const GravidSide = (props: GravidSideProps) => {
                               key={a.id}
                               label={t(a.label)}
                               id={a.id}
-                              onChange={(evt) =>
+                              onChange={() =>
                                 dispatch({
                                   type: Actions.ToggleTiltak,
                                   payload: { tiltak: a.value }

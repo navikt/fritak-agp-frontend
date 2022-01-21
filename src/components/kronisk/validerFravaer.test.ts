@@ -65,6 +65,7 @@ describe('validerFravaer', () => {
     } as FravaerType;
     let nextState = validerFravaer(fravaer, state, {} as KroniskState);
     expect(nextState.fravaer?.length).toEqual(1);
+    if (!nextState.fravaer) nextState.fravaer = [{ year: 1 }];
     expect(nextState.fravaer[0].year).toEqual(2020);
     expect(nextState.fravaer[0].apr).toEqual(12);
   });
@@ -78,6 +79,7 @@ describe('validerFravaer', () => {
     } as FravaerType;
     let state2 = validerFravaer(f1, state, {} as KroniskState);
     expect(state2.fravaer?.length).toEqual(1);
+    if (!state2.fravaer) state2.fravaer = [{ year: 1 }];
     expect(state2.fravaer[0].year).toEqual(2020);
     expect(state2.fravaer[0].apr).toEqual(12);
 
@@ -88,6 +90,7 @@ describe('validerFravaer', () => {
     } as FravaerType;
     let state3 = validerFravaer(f2, state2, {} as KroniskState);
     expect(state3.fravaer?.length).toEqual(1);
+    if (!state3.fravaer) state3.fravaer = [{ year: 1 }];
     expect(state3.fravaer[0].year).toEqual(2020);
     expect(state3.fravaer[0].apr).toEqual(5);
   });

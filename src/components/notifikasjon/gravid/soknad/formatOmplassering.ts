@@ -4,7 +4,7 @@ import gravidSoknadOmplassering from './gravidSoknadOmplassering';
 const formatOmplassering = (omplassering: string | undefined, omplasseringAarsak: string | undefined) => {
   let omplasseringAarsakText = '';
 
-  if (!!omplasseringAarsak) {
+  if (omplasseringAarsak) {
     omplasseringAarsakText = gravidSoknadOmplassering[omplasseringAarsak];
   }
 

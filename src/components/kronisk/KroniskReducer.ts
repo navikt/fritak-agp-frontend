@@ -65,12 +65,13 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       nextState.kvittering = payload?.kvittering;
       return validateKronisk(nextState, translate);
 
-    case Actions.Validate:
+    case Actions.Validate: {
       nextState.validated = true;
       const validatedState = validateKronisk(nextState, translate);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
+    }
 
     case Actions.HandleResponse:
       if (payload?.response == undefined) {
