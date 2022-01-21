@@ -344,6 +344,7 @@ describe('GravidKravReducer', () => {
       defaultGravidKravState(),
       {
         type: Actions.HandleResponse,
+        // @ts-ignore
         payload: { response: {} as ValidationResponse<GravidSoknadResponse> }
       },
       translationMock as unknown as i18n
