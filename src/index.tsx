@@ -25,7 +25,6 @@ import 'nav-frontend-tabell-style/dist/main.css';
 import 'nav-frontend-ekspanderbartpanel-style/dist/main.css';
 import '@navikt/helse-arbeidsgiver-felles-frontend/dist/library.css';
 import env, { EnvironmentType } from './config/environment';
-import { version } from '../package.json';
 import './components/felles/Upload/Upload.sass';
 import { Integrations } from '@sentry/tracing';
 
@@ -37,9 +36,6 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
     tracesSampleRate: 0.5
   });
 }
-
-// @ts-ignore
-document.querySelector('meta[name=buildNr]').setAttribute('content', version);
 
 Modal.setAppElement('#root');
 
