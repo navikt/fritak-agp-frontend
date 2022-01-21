@@ -8,7 +8,7 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   response.violations.forEach((v) => {
-    const regexSplitPattern = /([^\[.\]])+/g;
+    const regexSplitPattern = /([^[.\]])+/g;
 
     const propertyPathParts = v.propertyPath.match(regexSplitPattern);
 

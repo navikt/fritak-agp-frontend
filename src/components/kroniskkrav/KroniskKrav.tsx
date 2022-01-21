@@ -99,7 +99,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.antallDager
   ]);
 
-  if (!!state.kvittering) {
+  if (state.kvittering) {
     return <Redirect to={buildLenke(lenker.KroniskKravKvittering, language)} />;
   }
 

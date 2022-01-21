@@ -127,7 +127,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.antallDager
   ]);
 
-  if (!!state.kvittering) {
+  if (state.kvittering) {
     return <Redirect to={buildLenke(lenker.GravidKravKvittering, language)} />;
   }
   const lenkeGravid = buildLenke(lenker.Gravid, language);

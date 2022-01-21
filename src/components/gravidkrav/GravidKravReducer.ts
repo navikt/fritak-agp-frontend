@@ -82,12 +82,13 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.kvittering = payload?.kvittering;
       return validateGravidKrav(nextState, translate);
 
-    case Actions.Validate:
+    case Actions.Validate: {
       nextState.validated = true;
       const validatedState = validateGravidKrav(nextState, translate);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
+    }
 
     case Actions.HandleResponse:
       if (payload?.response == undefined) {
@@ -98,7 +99,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.submitting = false;
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as GravidKravState;
 
-    case Actions.Grunnbeloep:
+    case Actions.Grunnbeloep: {
       checkItemId(payload?.itemId);
 
       const gItem = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
@@ -108,6 +109,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       }
 
       return nextState;
+    }
 
     case Actions.antallDager:
       nextState.antallDager = payload?.antallDager;

@@ -94,12 +94,13 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       nextState.serverError = undefined;
       return validateGravid(nextState, translate);
 
-    case Actions.Validate:
+    case Actions.Validate: {
       nextState.validated = true;
       const validatedState = validateGravid(nextState, translate);
       validatedState.submitting = validatedState.feilmeldinger?.length === 0;
       validatedState.progress = validatedState.submitting;
       return validatedState;
+    }
 
     case Actions.HandleResponse:
       if (payload?.response == undefined) {
