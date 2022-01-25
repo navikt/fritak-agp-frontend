@@ -46,9 +46,11 @@ export default function OversiktKrav(state) {
     fetchData();
   }, [arbeidsgiverId]); // eslint-disable-line
 
+  const krav: KravRad[] = tilpassOversiktKrav(mockKravliste);
+
   return (
     <Side
-      bedriftsmeny={true}
+      bedriftsmeny={false}
       className='kroniskkrav'
       sidetittel='Kravoversikt'
       title='Kravoversikt'
