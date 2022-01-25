@@ -7,7 +7,7 @@ import {
   LanguageProvider,
   ArbeidsgiverStatus,
   ArbeidsgiverProvider,
-  LoginProvider,
+  // LoginProvider,
   LoginStatus
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from './locale/Locales';
@@ -22,18 +22,18 @@ interface ApplicationProps {
 }
 
 export const Application = ({
-  loginStatus = LoginStatus.Checking,
+  // loginStatus = LoginStatus.Checking,
   arbeidsgiverStatus = ArbeidsgiverStatus.NotStarted,
   arbeidsgivere,
-  basePath = env.baseUrl,
-  loginServiceUrl = env.loginServiceUrl
-}: ApplicationProps) => (
+  basePath = env.baseUrl
+}: // loginServiceUrl = env.loginServiceUrl
+ApplicationProps) => (
   <Route path='/:language(nb|en)/*'>
-    <LoginProvider baseUrl={basePath} status={loginStatus} loginServiceUrl={loginServiceUrl}>
-      <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
-        <ApplicationRoutes />
-      </ArbeidsgiverProvider>
-    </LoginProvider>
+    {/* <LoginProvider baseUrl={basePath} status={loginStatus} loginServiceUrl={loginServiceUrl}> */}
+    <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
+      <ApplicationRoutes />
+    </ArbeidsgiverProvider>
+    {/* </LoginProvider> */}
   </Route>
 );
 
