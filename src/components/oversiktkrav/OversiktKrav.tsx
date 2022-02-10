@@ -48,7 +48,7 @@ export default function OversiktKrav(state) {
 
   return (
     <Side
-      bedriftsmeny={false}
+      bedriftsmeny={true}
       className='kroniskkrav'
       sidetittel='Kravoversikt'
       title='Kravoversikt'
