@@ -1,11 +1,12 @@
 import { Actions, KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
-import { parseDateTilDato } from '../../utils/dato/Dato';
+import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
+import { pushFeilmelding } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const checkItemId = (itemId?: string) => {
   if (itemId === undefined) {
@@ -122,6 +123,26 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
     }
 
+    case Actions.KravEndring: {
+      if (payload?.krav) {
+        const krav = payload.krav;
+        nextState.fnr = krav.identitetsnummer;
+        nextState.orgnr = krav.virksomhetsnummer;
+        nextState.antallDager = krav.antallDager;
+        nextState.perioder = krav.perioder.map((periode) => ({
+          uniqueKey: uuid(),
+          fom: parseISO(periode.fom),
+          tom: parseISO(periode.tom),
+          dager: Number(periode.antallDagerMedRefusjon),
+          belop: Number(periode.månedsinntekt),
+          sykemeldingsgrad: (periode.gradering * 100).toString()
+        }));
+        nextState.kravId = krav.id;
+      }
+
+      return nextState;
+    }
+
     case Actions.DeletePeriod:
       checkItemId(payload?.itemId);
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
@@ -129,6 +150,18 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.Reset:
       return Object.assign({}, defaultKroniskKravState());
+
+    case Actions.AddBackendError:
+      if (payload?.error) {
+        pushFeilmelding('backend' + Math.random(), payload.error, nextState.feilmeldinger);
+      }
+      return nextState;
+
+    case Actions.RemoveBackendError:
+      nextState.feilmeldinger = nextState.feilmeldinger.filter(
+        (feilmelding) => !feilmelding.skjemaelementId.startsWith('backend')
+      );
+      return nextState;
 
     default:
       throw new Error(`Ugyldig action: ${action.type}`);

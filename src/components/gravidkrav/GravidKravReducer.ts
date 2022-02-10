@@ -1,11 +1,12 @@
 import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import { parseDateTilDato } from '../../utils/dato/Dato';
+import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
+import { pushFeilmelding } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 export const MAX_PERIODER = 50;
 
@@ -22,16 +23,22 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
   switch (action.type) {
     case Actions.Fnr:
+      if (!nextState.formDirty) {
+        nextState.formDirty = nextState.fnr === payload?.fnr;
+      }
       nextState.fnr = payload?.fnr;
       return validateGravidKrav(nextState, translate);
 
     case Actions.Orgnr:
+      if (!nextState.formDirty) {
+        nextState.formDirty = nextState.orgnr === payload?.orgnr;
+      }
       nextState.orgnr = payload?.orgnr;
       return validateGravidKrav(nextState, translate);
 
     case Actions.Fra:
       checkItemId(payload?.itemId);
-
+      nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
         ? parseDateTilDato(payload.fra)
         : undefined;
@@ -40,7 +47,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Til:
       checkItemId(payload?.itemId);
-
+      nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
         ? parseDateTilDato(payload.til)
         : undefined;
@@ -49,28 +56,37 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Dager:
       checkItemId(payload?.itemId);
+      nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.dager = payload?.dager;
 
       return validateGravidKrav(nextState, translate);
 
     case Actions.Beloep:
       checkItemId(payload?.itemId);
+      nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.belop = payload?.belop;
 
       return validateGravidKrav(nextState, translate);
 
     case Actions.Sykemeldingsgrad:
       checkItemId(payload?.itemId);
+      nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
         payload?.sykemeldingsgrad;
 
       return validateGravidKrav(nextState, translate);
 
     case Actions.Dokumentasjon:
+      if (!nextState.formDirty) {
+        nextState.formDirty = nextState.dokumentasjon === payload?.dokumentasjon;
+      }
       nextState.dokumentasjon = payload?.dokumentasjon;
       return validateGravidKrav(nextState, translate);
 
     case Actions.Bekreft:
+      if (!nextState.formDirty) {
+        nextState.formDirty = nextState.bekreft === payload?.bekreft;
+      }
       nextState.bekreft = payload?.bekreft;
       return validateGravidKrav(nextState, translate);
 
@@ -134,6 +150,38 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.NotAuthorized:
       nextState.notAuthorized = false;
+      return nextState;
+
+    case Actions.KravEndring: {
+      if (payload?.krav) {
+        const krav = payload.krav;
+        nextState.fnr = krav.identitetsnummer;
+        nextState.orgnr = krav.virksomhetsnummer;
+        nextState.antallDager = krav.antallDager;
+        nextState.perioder = krav.perioder.map((periode) => ({
+          uniqueKey: uuid(),
+          fom: parseISO(periode.fom),
+          tom: parseISO(periode.tom),
+          dager: Number(periode.antallDagerMedRefusjon),
+          belop: Number(periode.månedsinntekt),
+          sykemeldingsgrad: (periode.gradering * 100).toString()
+        }));
+        nextState.kravId = krav.id;
+      }
+
+      return nextState;
+    }
+
+    case Actions.AddBackendError:
+      if (payload?.error) {
+        pushFeilmelding('backend' + Math.random(), payload.error, nextState.feilmeldinger);
+      }
+      return nextState;
+
+    case Actions.RemoveBackendError:
+      nextState.feilmeldinger = nextState.feilmeldinger.filter(
+        (feilmelding) => !feilmelding.skjemaelementId.startsWith('backend')
+      );
       return nextState;
 
     default:

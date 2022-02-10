@@ -29,6 +29,7 @@ import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
 import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder';
 import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/KontrollSporsmaal';
 import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldingsgrad';
+import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/KravKvitteringSlettetKeys';
 
 export interface Locale {
   en: string;
@@ -64,7 +65,8 @@ const Locales: Record<
   | KontrollSporsmaalKeys
   | ValidateAntallPerioderKeys
   | ValidateArbeidsdagerKeys
-  | ValidateSykemeldingsgradKeys,
+  | ValidateSykemeldingsgradKeys
+  | KravKvitteringSlettetKeys,
   Locale
 > = {
   PAGE_NOT_FOUND_TITLE: {
@@ -420,6 +422,10 @@ const Locales: Record<
     nb: 'Send kravet',
     en: 'Submit claim'
   },
+  GRAVID_KRAV_LONN_ENDRE: {
+    nb: 'Send inn endring',
+    en: 'Submit updated claim'
+  },
   GRAVID_KRAV_LAST_OPP: {
     nb: 'LAST OPP LEGEERKLÆRINGEN (valgfritt)',
     en: "UPLOAD THE DOCTOR'S DECLARATION (optional)"
@@ -672,6 +678,22 @@ const Locales: Record<
     en:
       'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
       "If you need to contact us, it is sufficient to provide the employee's national id-number."
+  },
+  KRAV_KVITTERING_SLETTET_TITTEL: {
+    nb: 'Kravet er slettet',
+    en: 'The claim has been deleted'
+  },
+  KRAV_KVITTERING_SLETTET_INGRESS: {
+    nb:
+      'En kvittering er sendt til meldingsboksen deres i [Altinn](https://www.altinn.no).\n\n' +
+      'Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.',
+    en:
+      'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
+      "If you need to contact us, it is sufficient to provide the employee's national id-number."
+  },
+  KRAV_KVITTERING_SLETTET_OPPRETT_NYTT_KRAV: {
+    nb: 'Opprett nytt krav',
+    en: 'Create new claim'
   },
   INGEN_TILGANG_ADVARSEL: {
     nb:
@@ -954,6 +976,10 @@ const Locales: Record<
   KRONISK_KRAV_SUBMIT: {
     nb: 'Send kravet',
     en: 'Submit'
+  },
+  KRONISK_KRAV_ENDRE: {
+    nb: 'Send inn endring',
+    en: 'Submit updated claim'
   },
   KRONISK_KRAV_TITLE: {
     nb: 'Krav om refusjon av sykepenger i arbeidsgiverperioden',

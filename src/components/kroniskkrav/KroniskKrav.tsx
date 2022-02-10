@@ -1,10 +1,10 @@
-import React, { Reducer, useEffect, useReducer } from 'react';
+import React, { Reducer, useContext, useEffect, useReducer, useState } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Redirect, useParams } from 'react-router-dom';
+import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Redirect, useParams, useHistory } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
@@ -29,13 +29,18 @@ import {
   Skillelinje,
   useArbeidsgiver,
   stringishToNumber,
-  LeggTilKnapp
+  LeggTilKnapp,
+  HttpStatus
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
 import LangKey from '../../locale/LangKey';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
+import { KravListeContext } from '../../context/KravListeContext';
+import SelectEndring from '../felles/SelectEndring/SelectEndring';
+import deleteKroniskKrav from '../../api/kroniskkrav/deleteKroniskKrav';
+import { Modal } from '@navikt/ds-react';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -47,6 +52,13 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   let { language } = useParams<PathParams>();
+  const { aktivtKrav } = useContext(KravListeContext);
+  const [endringskrav, setEndringskrav] = useState<boolean>(false);
+  const [deleteSpinner, setDeleteSpinner] = useState<boolean>(false);
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const history = useHistory();
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -66,6 +78,37 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     dispatch({
       type: Actions.AddPeriod
     });
+  };
+
+  const handleCancleClicked = (event: React.FormEvent) => {
+    event.preventDefault();
+    history.go(-1);
+  };
+
+  const handleDeleteClicked = async (event: React.FormEvent) => {
+    event.preventDefault();
+    dispatch({
+      type: Actions.RemoveBackendError
+    });
+    setModalOpen(true);
+  };
+
+  const handleDeleteOKClicked = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (state.kravId) {
+      setDeleteSpinner(true);
+      const deleteStatus = await deleteKroniskKrav(environment.baseUrl, state.kravId);
+      if (deleteStatus.status === HttpStatus.Successfully) {
+        setModalOpen(false);
+        history.replace(buildLenke(lenker.KroniskKravSlettetKvittering, language));
+      } else {
+        dispatch({
+          type: Actions.AddBackendError,
+          payload: { error: 'Sletting av krav feilet' }
+        });
+      }
+      setDeleteSpinner(false);
+    }
   };
 
   useEffect(() => {
@@ -99,6 +142,24 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.antallDager
   ]);
 
+  useEffect(() => {
+    if (aktivtKrav) {
+      setEndringskrav(true);
+      dispatch({
+        type: Actions.KravEndring,
+        payload: {
+          krav: aktivtKrav
+        }
+      });
+    } else {
+      setEndringskrav(false);
+    }
+  }, [aktivtKrav]);
+
+  useEffect(() => {
+    Modal.setAppElement!('.kroniskkrav');
+  }, []);
+
   if (state.kvittering) {
     return <Redirect to={buildLenke(lenker.KroniskKravKvittering, language)} />;
   }
@@ -128,6 +189,21 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           </Panel>
           <Skillelinje />
 
+          {endringskrav && (
+            <>
+              <Panel>
+                <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
+                  <Row>
+                    <Column sm='4' xs='6'>
+                      <SelectEndring />
+                    </Column>
+                  </Row>
+                </SkjemaGruppe>
+              </Panel>
+              <Skillelinje />
+            </>
+          )}
+
           <Panel id='kroniskkrav-panel-den-ansatte'>
             <Systemtittel className='textfelt-padding-bottom'>{t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}</Systemtittel>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
@@ -152,6 +228,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                     onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
                     id='kontrollsporsmaal-lonn-arbeidsdager'
                     feil={state.antallDagerError}
+                    defaultValue={state.antallDager}
                   />
                 </Column>
               </Row>
@@ -207,8 +284,27 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              {t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}
+              {endringskrav ? (
+                <>{t(KroniskKravKeys.KRONISK_KRAV_ENDRE)}</>
+              ) : (
+                <>{t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}</>
+              )}
             </Hovedknapp>
+            {endringskrav && (
+              <>
+                <Knapp onClick={handleCancleClicked} className='avbrytknapp'>
+                  Avbryt
+                </Knapp>
+                <Fareknapp
+                  onClick={handleDeleteClicked}
+                  className='sletteknapp'
+                  spinner={state.progress}
+                  disabled={state.formDirty}
+                >
+                  Slett krav
+                </Fareknapp>
+              </>
+            )}
           </Panel>
         </Column>
         {state.notAuthorized && (
@@ -219,6 +315,22 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           />
         )}
       </Row>
+      <Modal
+        shouldCloseOnOverlayClick={false}
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        className='kroniskkrav-modal'
+      >
+        <Modal.Content>
+          <span className='kroniskkrav-modal-text'>Er du sikker på at du vil slette kravet?</span>
+          <div className='kroniskkrav-modal-buttons'>
+            <Knapp onClick={() => setModalOpen(false)}>Nei</Knapp>
+            <Hovedknapp onClick={(event) => handleDeleteOKClicked(event)} spinner={deleteSpinner}>
+              Ja
+            </Hovedknapp>
+          </div>
+        </Modal.Content>
+      </Modal>
     </Side>
   );
 };

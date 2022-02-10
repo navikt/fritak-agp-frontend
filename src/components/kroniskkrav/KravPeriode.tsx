@@ -1,10 +1,10 @@
-import { DatoVelger, Oversettelse, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { datoToString, DatoVelger, Oversettelse, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
 import { Column, Row } from 'nav-frontend-grid';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Input, Label } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
 import { Actions } from './Actions';
@@ -66,6 +66,28 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const oddClass = props.index % 2 ? 'odd' : 'even';
 
+  const defaultFom = props.enkeltPeriode.fom ? dayjs(datoToString(props.enkeltPeriode.fom)).toDate() : undefined;
+  const defaultTom = props.enkeltPeriode.tom ? dayjs(datoToString(props.enkeltPeriode.tom)).toDate() : undefined;
+  const defaultSykemeldingsgrad = props.enkeltPeriode.sykemeldingsgrad
+    ? stringishToNumber(props.enkeltPeriode.sykemeldingsgrad)
+    : '';
+
+  useEffect(() => {
+    if (props.enkeltPeriode.fom) {
+      getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbelopRespons) => {
+        if (grunnbelopRespons.grunnbeloep) {
+          dispatch({
+            type: Actions.Grunnbeloep,
+            payload: {
+              grunnbeloep: grunnbelopRespons.grunnbeloep.grunnbeloep,
+              itemId: props.enkeltPeriode.uniqueKey
+            }
+          });
+        }
+      });
+    }
+  }, []); // eslint-disable-line
+
   return (
     <div className='krav-kort'>
       <Row className={'periodewrapper ' + oddClass} data-testid='krav-periode-wrapper'>
@@ -81,6 +103,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             feilmelding={props.enkeltPeriode.fomError}
             maxDate={today}
             minDate={MIN_KRONISK_DATO}
+            dato={defaultFom}
           />
         </Column>
         <Column sm='2' xs='6'>
@@ -100,6 +123,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             }}
             feilmelding={props.enkeltPeriode.tomError}
             maxDate={today}
+            dato={defaultTom}
           />
         </Column>
         <Column sm='2' xs='6'>
@@ -174,7 +198,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             inputMode='numeric'
             pattern='[0-9]*'
             placeholder='100%'
-            defaultValue={props.enkeltPeriode.sykemeldingsgrad}
+            defaultValue={defaultSykemeldingsgrad}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               dispatch({
                 type: Actions.Sykemeldingsgrad,

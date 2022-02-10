@@ -13,7 +13,8 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
         }
       ],
       bekreft: false,
-      feilmeldinger: Array<FeiloppsummeringFeil>()
+      feilmeldinger: Array<FeiloppsummeringFeil>(),
+      formDirty: false
     },
     state || {}
   );
@@ -38,6 +39,8 @@ export default interface KroniskKravState extends ValidationState {
   submitting?: boolean;
   antallDager?: number;
   antallDagerError?: string;
+  kravId?: string;
+  formDirty?: boolean;
 }
 
 export interface KroniskKravPeriode {
