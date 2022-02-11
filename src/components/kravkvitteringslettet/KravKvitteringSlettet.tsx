@@ -15,7 +15,7 @@ interface KravKvitteringSlettetProps {
   backTarget: lenker;
 }
 
-const KravKvittering = (props: KravKvitteringSlettetProps) => {
+const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
   const { t } = useTranslation();
   const { language } = useParams<PathParams>();
   const backTarget = buildLenke(props.backTarget, language);
@@ -44,4 +44,4 @@ const KravKvittering = (props: KravKvitteringSlettetProps) => {
   );
 };
 
-export default KravKvittering;
+export default KravKvitteringSlettet;

@@ -174,7 +174,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.AddBackendError:
       if (payload?.error) {
-        pushFeilmelding('backend' + Math.random(), payload.error, nextState.feilmeldinger);
+        pushFeilmelding('backend-' + uuid(), payload.error, nextState.feilmeldinger);
       }
       return nextState;
 
