@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { HttpStatus, ServerFeilAdvarsel, Side, useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Column, Row } from 'nav-frontend-grid';
 import { Innholdstittel } from 'nav-frontend-typografi';
@@ -19,7 +19,7 @@ import { Paths } from '../../config/Paths';
 export default function OversiktKrav(state) {
   const handleCloseServerFeil = () => {};
   const history = useHistory();
-  let krav: KravRad[] = [];
+  const [krav, setKravet] = useState<KravRad[]>([]);
 
   const { setAktivtKrav, setKrav } = useContext(KravListeContext);
   const { arbeidsgiverId } = useArbeidsgiver();
@@ -39,7 +39,7 @@ export default function OversiktKrav(state) {
       const kravRespons = await getOversiktKrav(Paths.KravOversikt, arbeidsgiverId);
       if (kravRespons.status === HttpStatus.Successfully) {
         setKrav(JSON.parse(kravRespons.json));
-        krav = tilpassOversiktKrav(JSON.parse(kravRespons.json));
+        setKravet(tilpassOversiktKrav(JSON.parse(kravRespons.json)));
       }
     };
 
