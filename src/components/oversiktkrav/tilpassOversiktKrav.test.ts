@@ -20,16 +20,16 @@ describe('tilpassOversiktKrav', () => {
       },
       {
         fnr: '10107400090',
-        kravId: '1bf2489d-6868-4068-bed6-23c179370cd9',
+        kravId: '1bf2489d-6868-4068-bed6-23c179370cd9-unik',
         kravtype: 'kroniskKrav',
-        navn: 'ARTIG HEST',
+        navn: 'ARTIG HEST MED GANSKE LANGT NAVN',
         opprettet: new Date('2021-11-23T09:31:43.841Z')
       },
       {
         fnr: '10107400090',
-        kravId: '2dec96d1-916b-4317-9f9c-610e8b8747ed',
+        kravId: '2dec96d1-916b-4317-9f9c-610e8b8747ed-unik',
         kravtype: 'kroniskKrav',
-        navn: 'ARTIG HEST',
+        navn: 'ARTIG HEST MED FRYKTELIG LANGT OG RART NAVN',
         opprettet: new Date('2021-11-08T08:54:11.230Z')
       }
     ];
