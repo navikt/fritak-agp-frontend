@@ -44,7 +44,7 @@ export default function OversiktKrav(state) {
     };
 
     fetchData();
-  }, [arbeidsgiverId]);
+  }, [arbeidsgiverId]); // eslint-disable-line
 
   return (
     <Side
