@@ -1,8 +1,6 @@
 import KroniskReducer from './KroniskReducer';
 import { Actions, KroniskAction } from './Actions';
 import { defaultKroniskState } from './KroniskState';
-import ArbeidType from './ArbeidType';
-import PaakjenningerType from './PaakjenningerType';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import i18next from 'i18next';
 import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
@@ -67,147 +65,6 @@ describe('KroniskReducer', () => {
       i18n
     );
     expect(state.orgnr).toEqual('');
-  });
-
-  it('ToggleArbeid - should set the arbeid state', () => {
-    let state = KroniskReducer(
-      defaultKroniskState(),
-      {
-        type: Actions.ToggleArbeid,
-        payload: { arbeid: ArbeidType.MODERAT }
-      },
-      i18n
-    );
-    expect(state.arbeid).toEqual([ArbeidType.MODERAT]);
-
-    state.arbeid = undefined;
-    let state2 = KroniskReducer(
-      state,
-      {
-        type: Actions.ToggleArbeid,
-        payload: { arbeid: ArbeidType.MODERAT }
-      },
-      i18n
-    );
-    expect(state2.arbeid).toEqual([ArbeidType.MODERAT]);
-  });
-
-  it('ToggleArbeid - should handle empty arbeid state', () => {
-    let state = defaultKroniskState();
-    state.arbeid = undefined;
-    let state2 = KroniskReducer(
-      state,
-      {
-        type: Actions.ToggleArbeid,
-        payload: { arbeid: ArbeidType.MODERAT }
-      },
-      i18n
-    );
-    expect(state2.arbeid).toEqual([ArbeidType.MODERAT]);
-  });
-
-  it('ToggleArbeid - should reset the arbeid state', () => {
-    const initialState = defaultKroniskState();
-    initialState.arbeid = [ArbeidType.MODERAT];
-    let state = KroniskReducer(
-      initialState,
-      {
-        type: Actions.ToggleArbeid,
-        payload: { arbeid: ArbeidType.MODERAT }
-      },
-      i18n
-    );
-    expect(state.arbeid).toEqual([]);
-  });
-
-  it('ToggleArbeid - should throw error when arbeid is undefined', () => {
-    expect(function () {
-      KroniskReducer(
-        defaultKroniskState(),
-        {
-          type: Actions.ToggleArbeid
-        },
-        i18n
-      );
-    }).toThrow(new Error('Du må spesifisere arbeidstype'));
-  });
-
-  it('ToggleArbeid - should throw error when arbeid is undefined in payload', () => {
-    expect(function () {
-      KroniskReducer(
-        defaultKroniskState(),
-        {
-          type: Actions.ToggleArbeid,
-          payload: { arbeid: undefined }
-        },
-        i18n
-      );
-    }).toThrowError(new Error('Du må spesifisere arbeidstype'));
-  });
-
-  it('TogglePaakjenninger - should set the ToggleArbeid', () => {
-    let state = KroniskReducer(
-      defaultKroniskState(),
-      {
-        type: Actions.TogglePaakjenninger,
-        payload: { paakjenning: PaakjenningerType.REGELMESSIG }
-      },
-      i18n
-    );
-    expect(state.paakjenninger).toEqual([PaakjenningerType.REGELMESSIG]);
-  });
-
-  it('TogglePaakjenninger - should reset the ToggleArbeid', () => {
-    const initialState = defaultKroniskState();
-    initialState.paakjenninger = [PaakjenningerType.REGELMESSIG];
-    let state = KroniskReducer(
-      initialState,
-      {
-        type: Actions.TogglePaakjenninger,
-        payload: { paakjenning: PaakjenningerType.REGELMESSIG }
-      },
-      i18n
-    );
-    expect(state.paakjenninger).toEqual([]);
-  });
-
-  it('TogglePaakjenninger - should set the ToggleArbeid to undefined', () => {
-    expect(function () {
-      KroniskReducer(
-        defaultKroniskState(),
-        {
-          type: Actions.TogglePaakjenninger
-        },
-        i18n
-      );
-    }).toThrow(new Error('Du må spesifisere paakjenning'));
-  });
-
-  it('TogglePaakjenninger - should set the ToggleArbeid to undefined med undefined i payload', () => {
-    expect(function () {
-      KroniskReducer(
-        defaultKroniskState(),
-        {
-          type: Actions.TogglePaakjenninger,
-          payload: { paakjenning: undefined }
-        },
-        i18n
-      );
-    }).toThrowError(new Error('Du må spesifisere paakjenning'));
-  });
-
-  it('TogglePaakjenninger - should handle empty state', () => {
-    let state = defaultKroniskState();
-    state.paakjenninger = undefined;
-    let state2 = KroniskReducer(
-      state,
-      {
-        type: Actions.TogglePaakjenninger,
-        payload: { paakjenning: PaakjenningerType.REGELMESSIG }
-      },
-      i18n
-    );
-    expect(state2.paakjenninger).toEqual([PaakjenningerType.REGELMESSIG]);
   });
 
   it('should set the antallPerioder to undefined', () => {
@@ -376,30 +233,6 @@ describe('KroniskReducer', () => {
     }).toThrow();
   });
 
-  it('should set kommentar', () => {
-    let state = KroniskReducer(
-      defaultKroniskState(),
-      {
-        type: Actions.Kommentar,
-        payload: { kommentar: 'Nada' }
-      },
-      i18n
-    );
-    expect(state.kommentar).toEqual('Nada');
-  });
-
-  it('should set kommentar to undefined', () => {
-    let state = KroniskReducer(
-      defaultKroniskState(),
-      {
-        type: Actions.Kommentar,
-        payload: { kommentar: '' }
-      },
-      i18n
-    );
-    expect(state.kommentar).toEqual('');
-  });
-
   it('should set dokumentasjon', () => {
     let state = KroniskReducer(
       defaultKroniskState(),
@@ -499,14 +332,6 @@ describe('KroniskReducer', () => {
         skjemaelementId: 'orgnr'
       },
       {
-        feilmelding: 'Arbeid om den ansatte må fylles ut',
-        skjemaelementId: 'arbeidsutfører'
-      },
-      {
-        feilmelding: 'Påkjenninger om den ansatte må fylles ut',
-        skjemaelementId: 'paakjenninger'
-      },
-      {
         feilmelding: 'Mangler antall fraværsperioder',
         skjemaelementId: 'soknad-perioder'
       },
@@ -528,7 +353,7 @@ describe('KroniskReducer', () => {
       i18n
     );
     let state2 = KroniskReducer(state1, { type: Actions.Validate }, i18n);
-    expect(state2.feilmeldinger.length).toBe(7);
+    expect(state2.feilmeldinger.length).toBe(5);
     expect(state2.feilmeldinger).toEqual(expectedFeilmeldinger);
   });
 
@@ -537,9 +362,6 @@ describe('KroniskReducer', () => {
     expect(state).toEqual(defaultKroniskState());
     expect(state.fnr).toBeUndefined();
     expect(state.orgnr).toBeUndefined();
-    expect(state.arbeid?.length).toBeUndefined();
-    expect(state.paakjenninger?.length).toBeUndefined();
-    expect(state.kommentar).toBeUndefined();
     expect(state.fravaer?.length).toBeUndefined();
     expect(state.progress).toBeUndefined();
     expect(state.validated).toBeUndefined();
@@ -547,11 +369,8 @@ describe('KroniskReducer', () => {
     expect(state.bekreft).toBeUndefined();
     expect(state.fnrError).toBeUndefined();
     expect(state.orgnrError).toBeUndefined();
-    expect(state.arbeidError).toBeUndefined();
-    expect(state.paakjenningerError).toBeUndefined();
     expect(state.fravaerError).toBeUndefined();
     expect(state.bekreftError).toBeUndefined();
-    expect(state.kommentarError).toBeUndefined();
     expect(state.dokumentasjonError).toBeUndefined();
     expect(state.feilmeldinger.length).toEqual(0);
   });

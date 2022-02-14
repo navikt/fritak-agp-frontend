@@ -16,17 +16,12 @@ import formatFravaersdager from '../notifikasjon/kronisk/soknad/formatFravaersda
 import './KroniskKvittering.scss';
 import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
-import TyperArbeid from '../notifikasjon/kronisk/soknad/TyperArbeid';
-import Paakjenninger from '../notifikasjon/kronisk/soknad/Paakjenninger';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
   const { language } = useParams<PathParams>();
   const { response } = useContext(KroniskSoknadKvitteringContext);
 
-  const arbeidstyper: string[] | undefined = response?.response?.arbeidstyper;
-  const paakjenningstyper: string[] | undefined = response?.response?.paakjenningstyper;
-  const paakjenningBeskrivelse: string | undefined = response?.response?.paakjenningBeskrivelse;
   const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
   const fravaer = response?.response?.fravaer;
   const navn = response?.response?.navn;
@@ -54,10 +49,6 @@ const KroniskKvittering = () => {
         <Panel>
           <Undertittel>Detaljer fra søknaden:</Undertittel>
           <Normaltekst className='luft-under'>Navn: {navn}</Normaltekst>
-          <Normaltekst>Type arbeid:</Normaltekst>
-          <TyperArbeid arbeidstyper={arbeidstyper} />
-          <Normaltekst>Påkjenninger på arbeidsstedet:</Normaltekst>
-          <Paakjenninger paakjenninger={paakjenningstyper} beskrivelse={paakjenningBeskrivelse} />
           <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
           <Normaltekst className='luft-under'>{formatFravaersdager(fravaer)}</Normaltekst>
           <SoknadMottatt className='luft-under' mottatt={opprettet} />

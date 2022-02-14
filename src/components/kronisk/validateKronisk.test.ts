@@ -20,8 +20,6 @@ describe('validateKronisk', () => {
     const state2 = validateKronisk(state, i18n);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
-    expect(state2.arbeidError).toBeUndefined();
-    expect(state2.paakjenningerError).toBeUndefined();
     expect(state2.fravaerError).toBeUndefined();
     expect(state2.bekreftError).toBeUndefined();
   });
@@ -32,8 +30,6 @@ describe('validateKronisk', () => {
     const state2 = validateKronisk(state, i18n);
     expect(state2.fnrError).not.toBeUndefined();
     expect(state2.orgnrError).not.toBeUndefined();
-    expect(state2.arbeidError).not.toBeUndefined();
-    expect(state2.paakjenningerError).not.toBeUndefined();
     expect(state2.fravaerError).not.toBeUndefined();
     expect(state2.bekreftError).not.toBeUndefined();
   });
@@ -42,8 +38,6 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.fnr = testFnr.GyldigeFraDolly.TestPerson1;
     state.orgnr = testOrgnr.GyldigeOrgnr.TestOrg1;
-    state.arbeid = [ArbeidType.KREVENDE];
-    state.paakjenninger = [PaakjenningerType.ALLERGENER];
     state.fravaer = [
       {
         year: 2020,
@@ -57,8 +51,6 @@ describe('validateKronisk', () => {
     const state2 = validateKronisk(state, i18n);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
-    expect(state2.arbeidError).toBe('');
-    expect(state2.paakjenningerError).toBe('');
     expect(state2.fravaerError).toBeUndefined();
     expect(state2.bekreftError).toBe('');
   });
@@ -77,68 +69,6 @@ describe('validateKronisk', () => {
     state.orgnr = '123';
     const state2 = validateKronisk(state, i18n);
     expect(state2.orgnrError).not.toBeUndefined();
-  });
-
-  it('should show error when empty arbeid', () => {
-    const state = defaultKroniskState();
-    state.validated = true;
-    state.arbeid = [];
-    const state2 = validateKronisk(state, i18n);
-    expect(state2.arbeidError).not.toBeUndefined();
-  });
-
-  it('should not show error when arbeid', () => {
-    const state = defaultKroniskState();
-    state.validated = true;
-    state.arbeid = [ArbeidType.KREVENDE];
-    const state2 = validateKronisk(state, i18n);
-    expect(state2.arbeidError).toEqual('');
-  });
-
-  it('should show error when empty påkjenninger', () => {
-    const state = defaultKroniskState();
-    state.validated = true;
-    state.paakjenninger = [];
-    const state2 = validateKronisk(state, i18n);
-    expect(state2.paakjenningerError).not.toBeUndefined();
-  });
-
-  it('should not show error when påkjenninger', () => {
-    const state = defaultKroniskState();
-    state.validated = true;
-    state.paakjenninger = [PaakjenningerType.ALLERGENER];
-    const state2 = validateKronisk(state, i18n);
-    expect(state2.paakjenningerError).toEqual('');
-  });
-
-  it('should show error when påkjenninger ANNET and empty kommentar', () => {
-    const state = defaultKroniskState();
-    state.validated = true;
-    state.paakjenninger = [PaakjenningerType.ANNET];
-    const state2 = validateKronisk(state, i18n);
-    expect(state2.kommentarError).not.toBeUndefined();
-  });
-
-  const lagTekst = (antall: number): string => {
-    return '0'.repeat(antall);
-  };
-
-  it('should show error when påkjenninger ANNET and too long kommentar', () => {
-    const state = defaultKroniskState();
-    state.validated = true;
-    state.paakjenninger = [PaakjenningerType.ANNET];
-    state.kommentar = lagTekst(MAX_BESKRIVELSE + 1);
-    const state2 = validateKronisk(state, i18n);
-    expect(state2.kommentarError).not.toBeUndefined();
-  });
-
-  it('should show error when påkjenninger ANNET and within max kommentar', () => {
-    const state = defaultKroniskState();
-    state.validated = true;
-    state.paakjenninger = [PaakjenningerType.ANNET];
-    state.kommentar = lagTekst(MAX_BESKRIVELSE);
-    const state2 = validateKronisk(state, i18n);
-    expect(state2.kommentarError).toBeUndefined();
   });
 
   it('should not show error when valid fravær', () => {

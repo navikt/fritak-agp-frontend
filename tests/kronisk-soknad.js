@@ -67,8 +67,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
       ReactSelector('Feiloppsummering')
         .withText('Mangler fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
-        .withText('Arbeid om den ansatte må fylles ut')
-        .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Fravær må fylles ut')
         .withText('Bekreft at opplysningene er korrekt').visible
     )
@@ -80,8 +78,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
       ReactSelector('Feiloppsummering')
         .withText('Mangler fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
-        .withText('Arbeid om den ansatte må fylles ut')
-        .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Fravær må fylles ut').visible
     )
     .ok()
@@ -112,8 +108,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
       ReactSelector('Feiloppsummering')
         .withText('Ugyldig fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
-        .withText('Arbeid om den ansatte må fylles ut')
-        .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Fravær må fylles ut').visible
     )
     .ok()
@@ -127,11 +121,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .pressKey('ctrl+a delete')
     .typeText(fnr, '20125027610')
     .expect(
-      ReactSelector('Feiloppsummering')
-        .withText('Virksomhetsnummer må fylles ut')
-        .withText('Arbeid om den ansatte må fylles ut')
-        .withText('Påkjenninger om den ansatte må fylles ut')
-        .withText('Fravær må fylles ut').visible
+      ReactSelector('Feiloppsummering').withText('Virksomhetsnummer må fylles ut').withText('Fravær må fylles ut')
+        .visible
     )
     .ok()
     .expect(
@@ -147,12 +138,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t
     .typeText(orgnr, '260')
-    .expect(
-      ReactSelector('Feiloppsummering')
-        .withText('Arbeid om den ansatte må fylles ut')
-        .withText('Påkjenninger om den ansatte må fylles ut')
-        .withText('Fravær må fylles ut').visible
-    )
+    .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
     .ok()
     .expect(
       ReactSelector('Feiloppsummering')
@@ -167,53 +153,47 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(orgnr)
     .pressKey('ctrl+a delete')
     .typeText(orgnr, '974652277')
-    .expect(
-      ReactSelector('Feiloppsummering')
-        .withText('Arbeid om den ansatte må fylles ut')
-        .withText('Påkjenninger om den ansatte må fylles ut')
-        .withText('Fravær må fylles ut').visible
-    )
-    .ok()
-    .expect(
-      ReactSelector('Feiloppsummering')
-        .withText('Virksomhetsnummer må fylles ut')
-        .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer')
-        .with({ timeout: 100 }).visible
-    )
-    .notOk({ timeout: 500 });
-
-  await t
-    .click(Selector('#moderat'))
-    .expect(
-      ReactSelector('Feiloppsummering')
-        .withText('Påkjenninger om den ansatte må fylles ut')
-        .withText('Fravær må fylles ut').visible
-    )
-    .ok()
-    .expect(
-      ReactSelector('Feiloppsummering')
-        .withText('Arbeid om den ansatte må fylles ut')
-        .withText('Virksomhetsnummer må fylles ut')
-        .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer')
-        .with({ timeout: 100 }).visible
-    )
-    .notOk({ timeout: 500 });
-
-  await t
-    .click(Selector('#stressende'))
     .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
     .ok()
     .expect(
       ReactSelector('Feiloppsummering')
-        .withText('Påkjenninger om den ansatte må fylles ut')
-        .withText('Arbeid om den ansatte må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
-        .withText('Mangler fødselsnummer').visible
+        .withText('Mangler fødselsnummer')
+        .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
+
+  // await t
+  //   .click(Selector('#moderat'))
+  //   .expect(
+  //     ReactSelector('Feiloppsummering')
+  //       .withText('Påkjenninger om den ansatte må fylles ut')
+  //       .withText('Fravær må fylles ut').visible
+  //   )
+  //   .ok()
+  //   .expect(
+  //     ReactSelector('Feiloppsummering')
+  //       .withText('Virksomhetsnummer må fylles ut')
+  //       .withText('Bekreft at opplysningene er korrekt')
+  //       .withText('Mangler fødselsnummer')
+  //       .with({ timeout: 100 }).visible
+  //   )
+  //   .notOk({ timeout: 500 });
+
+  // await t
+  //   .click(Selector('#stressende'))
+  //   .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
+  //   .ok()
+  //   .expect(
+  //     ReactSelector('Feiloppsummering')
+  //       .withText('Påkjenninger om den ansatte må fylles ut')
+  //       .withText('Arbeid om den ansatte må fylles ut')
+  //       .withText('Virksomhetsnummer må fylles ut')
+  //       .withText('Bekreft at opplysningene er korrekt')
+  //       .withText('Mangler fødselsnummer').visible
+  //   )
+  //   .notOk({ timeout: 500 });
 
   await t
     .typeText(Selector('#fim3fiy2020'), '5')

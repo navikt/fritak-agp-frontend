@@ -1,9 +1,7 @@
 import KroniskState, { defaultKroniskState } from './KroniskState';
 import { Actions, KroniskAction } from './Actions';
 import { validateKronisk } from './validateKronisk';
-import { validerArbeid } from './validerArbeid';
 import { validerFravaer } from './validerFravaer';
-import { validerPaakjenninger } from './validerPaakjenninger';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKroniskFeilmeldinger from './mapKroniskFeilmeldinger';
 import { i18n } from 'i18next';
@@ -18,22 +16,6 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
 
     case Actions.Orgnr:
       nextState.orgnr = payload?.orgnr;
-      return validateKronisk(nextState, translate);
-
-    case Actions.ToggleArbeid:
-      if (payload?.arbeid === undefined) {
-        throw new Error('Du må spesifisere arbeidstype');
-      }
-      return validerArbeid(payload?.arbeid, state, nextState, translate);
-
-    case Actions.TogglePaakjenninger:
-      if (payload?.paakjenning === undefined) {
-        throw new Error('Du må spesifisere paakjenning');
-      }
-      return validerPaakjenninger(payload.paakjenning, state, nextState, translate);
-
-    case Actions.Kommentar:
-      nextState.kommentar = payload?.kommentar;
       return validateKronisk(nextState, translate);
 
     case Actions.Dokumentasjon:

@@ -9,8 +9,6 @@ export interface FravaerData {
 export interface KroniskRequest {
   virksomhetsnummer: string;
   identitetsnummer: string;
-  arbeidstyper: ArbeidType[];
-  paakjenningstyper: PaakjenningerType[];
   paakjenningBeskrivelse?: string;
   fravaer: FravaerData[];
   bekreftet: boolean;
