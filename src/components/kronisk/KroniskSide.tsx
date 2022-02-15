@@ -34,8 +34,6 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 
-export const MAX_BESKRIVELSE = 2000;
-
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
   (bulkState: KroniskState, action: KroniskAction) =>

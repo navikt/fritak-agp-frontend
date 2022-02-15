@@ -1,9 +1,6 @@
 import { validateKronisk } from './validateKronisk';
 import { defaultKroniskState } from './KroniskState';
-import PaakjenningerType from './PaakjenningerType';
 import Aarsfravaer from './Aarsfravaer';
-import ArbeidType from './ArbeidType';
-import { MAX_BESKRIVELSE } from './KroniskSide';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { languageInit } from '../../locale/languageInit';
