@@ -4,10 +4,10 @@ import NotifikasjonInnhold from '../../felles/NotifikasjonInnhold';
 import NotifikasjonType from '../../felles/NotifikasjonType';
 import formatOmplassering from './formatOmplassering';
 import formatTilrettelegge from './formatTilrettelegge';
-import formatDokumentasjon from './formatDokumentasjon';
-import formatInnsendtAv from './formatInnsendtAv';
 import formatTiltak from './formatTiltak';
 import GravidSoknadFooter from './GravidSoknadFooter';
+import InnsendtAv from './InnsendtAv';
+import Dokumentasjon from './Dokumentasjon';
 
 export interface GravidSoknadNotifikasjonProps {
   gravidSoknadResponse: GravidSoknadResponse;
@@ -44,8 +44,12 @@ const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProp
 
       <p>{formatOmplassering(gravidSoknadResponse.omplassering, gravidSoknadResponse.omplasseringAarsak)}</p>
 
-      <p>{formatDokumentasjon(gravidSoknadResponse.harVedlegg)}</p>
-      <p>{formatInnsendtAv(gravidSoknadResponse.sendtAvNavn)}</p>
+      <p>
+        <Dokumentasjon harVedlegg={gravidSoknadResponse.harVedlegg} />
+      </p>
+      <p>
+        <InnsendtAv sendtAv={gravidSoknadResponse.sendtAvNavn} />
+      </p>
       <p>
         <GravidSoknadFooter />
       </p>

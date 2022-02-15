@@ -1,4 +1,4 @@
-import { MaanedsFravaer } from '../../components/notifikasjon/kronisk/soknad/formatFravaersdager';
+import { MaanedsFravaer } from '../../components/notifikasjon/kronisk/soknad/Fravaersdager';
 
 interface KroniskSoknadResponse {
   id: string;
