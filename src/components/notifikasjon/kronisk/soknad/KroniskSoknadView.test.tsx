@@ -28,19 +28,6 @@ describe('KroniskSoknadView', () => {
   it('should show all fields', () => {
     render(<KroniskSoknadView kroniskSoknadResponse={notifikasjon} />);
     expect(screen.getByText(/Ola Normann/)).toBeInTheDocument();
-    expect(screen.getByText(/Fysisk krevende/)).toBeInTheDocument();
-    expect(screen.getByText(/Moderat fysisk/)).toBeInTheDocument();
-    expect(screen.getByText(/Stillesittende/)).toBeInTheDocument();
-
-    expect(screen.getByText(/Allergener eller giftstoffer/)).toBeInTheDocument();
-    expect(screen.getByText(/Mye gåing/)).toBeInTheDocument();
-    expect(screen.getByText(/Harde gulv/)).toBeInTheDocument();
-    expect(screen.getByText(/Regelmessige kveldsskift/)).toBeInTheDocument();
-    expect(screen.getByText(/Stressende omgivelser/)).toBeInTheDocument();
-    expect(screen.getByText(/Tunge løft/)).toBeInTheDocument();
-    expect(screen.getByText(/Ukomfortabel temperatur/)).toBeInTheDocument();
-    expect(screen.getByText(/Annet:/)).toBeInTheDocument();
-    expect(screen.getByText(/en liten beskrivelse/)).toBeInTheDocument();
 
     expect(screen.getByText(/Dokumentasjon vedlagt/)).toBeInTheDocument();
     // expect(screen.getByText(/Ole Normann/)).toBeInTheDocument();
