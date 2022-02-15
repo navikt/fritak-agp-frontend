@@ -12,10 +12,18 @@ export type KravListeContextState = {
 
 const contextDefaultValues: KravListeContextState = {
   kravListe: undefined,
-  setKrav: () => {},
-  clearKrav: () => {},
-  clearAktivtKrav: () => {},
-  setAktivtKrav: () => {},
+  setKrav: () => {
+    // This is intentional
+  },
+  clearKrav: () => {
+    // This is intentional
+  },
+  clearAktivtKrav: () => {
+    // This is intentional
+  },
+  setAktivtKrav: () => {
+    // This is intentional
+  },
   aktivtKrav: undefined
 };
 
@@ -44,12 +52,12 @@ const GravidSoknadKvitteringProvider: FC<GravidSoknadKvitteringProviderProps> = 
     setAktivtKravData(undefined);
   };
 
-  const finnAktivtKrav = (kravListe, kravId: string): KravRad => {
-    const kravKeys = Object.keys(kravListe);
+  const finnAktivtKrav = (alleKravListe, kravId: string): KravRad => {
+    const kravKeys = Object.keys(alleKravListe);
 
     const tmpKravData = kravKeys
       .map((key) => {
-        const krav = kravListe[key].find((rad): boolean => rad.id === kravId);
+        const krav = alleKravListe[key].find((rad): boolean => rad.id === kravId);
 
         if (krav) {
           krav.kravType = key;
@@ -59,9 +67,7 @@ const GravidSoknadKvitteringProvider: FC<GravidSoknadKvitteringProviderProps> = 
       })
       .flat();
 
-    const retval = tmpKravData.find((krave) => !!krave);
-
-    return retval;
+    return tmpKravData.find((krave) => !!krave);
   };
 
   const setAktivtKrav = (kravId: string) => {
