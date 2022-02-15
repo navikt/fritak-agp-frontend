@@ -7,8 +7,6 @@ import formatDokumentasjon from '../../gravid/soknad/formatDokumentasjon';
 import formatFravaersdager from './formatFravaersdager';
 import './KroniskSoknadView.scss';
 import GravidSoknadFooter from '../../gravid/soknad/GravidSoknadFooter';
-import Paakjenninger from './Paakjenninger';
-import TyperArbeid from './TyperArbeid';
 
 export interface KroniskSoknadNotifikasjonProps {
   kroniskSoknadResponse: KroniskSoknadResponse;
@@ -32,18 +30,6 @@ const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonP
         det.
       </p>
       <p>Når vi har behandlet søknaden fra arbeidsgiveren din, vil du få en melding fra oss om resultatet.</p>
-      <h3>Detaljer fra søknaden:</h3>
-      <p>
-        Type arbeid:
-        <TyperArbeid arbeidstyper={kroniskSoknadResponse.arbeidstyper} />
-      </p>
-      <p>
-        Påkjenninger på arbeidsstedet:
-        <Paakjenninger
-          paakjenninger={kroniskSoknadResponse.paakjenningstyper}
-          beskrivelse={kroniskSoknadResponse.paakjenningBeskrivelse}
-        />
-      </p>
       <p>{formatDokumentasjon(kroniskSoknadResponse.harVedlegg)}</p>
       <p>{formatFravaersdager(kroniskSoknadResponse.fravaer)}</p>
       <p>{formatInnsendtAv(kroniskSoknadResponse.sendtAvNavn)}</p>
