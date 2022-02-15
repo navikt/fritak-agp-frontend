@@ -126,9 +126,5 @@
     "timezone-mock": "1.x",
     "ts-jest": "^27.0.3",
     "yet-another-fetch-mock": "4.x"
-  },
-  "peerDependencies": {
-    "@babel/core": "7.13.0",
-    "postcss": "^8.2.10"
   }
 }
