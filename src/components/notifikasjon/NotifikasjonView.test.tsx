@@ -173,9 +173,6 @@ describe('NotifikasjonView', () => {
       opprettet: '2021-09-17T10:45:08.60627',
       virksomhetsnummer: '810007842',
       identitetsnummer: '24058219491',
-      arbeidstyper: ['MODERAT'],
-      paakjenningstyper: ['UKOMFORTABEL'],
-      paakjenningBeskrivelse: '',
       fravaer: [
         {
           yearMonth: '2020-06',
@@ -197,7 +194,6 @@ describe('NotifikasjonView', () => {
     } as unknown as KroniskSoknadResponse;
     render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad), htmlDivElement);
     expect(htmlDivElement.textContent).toContain(INNHOLD);
-    expect(htmlDivElement.textContent).toContain('Påkjenninger på arbeidsstedet');
   });
 
   it('should handle empty Kronisk Søknad', () => {
