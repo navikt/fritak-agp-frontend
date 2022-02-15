@@ -86,20 +86,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  // await t
-  // .typeText(ReactSelector('KontrollSporsmaal'), '260')
-  // .expect(
-  //   ReactSelector('Feiloppsummering')
-  //     .withText('Mangler fødselsnummer')
-  //     .withText('Mangler fra dato')
-  //     .withText('Mangler til dato')
-  //     .withText('Mangler dager')
-  //     .withText('Mangler beløp').visible
-  // )
-  // .ok()
-  // .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').withText('Mangler antall arbeidsdager').visible)
-  // .notOk();
-
   const fnr = ReactSelector('Fnr');
 
   await t
@@ -163,37 +149,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .with({ timeout: 100 }).visible
     )
     .notOk({ timeout: 500 });
-
-  // await t
-  //   .click(Selector('#moderat'))
-  //   .expect(
-  //     ReactSelector('Feiloppsummering')
-  //       .withText('Påkjenninger om den ansatte må fylles ut')
-  //       .withText('Fravær må fylles ut').visible
-  //   )
-  //   .ok()
-  //   .expect(
-  //     ReactSelector('Feiloppsummering')
-  //       .withText('Virksomhetsnummer må fylles ut')
-  //       .withText('Bekreft at opplysningene er korrekt')
-  //       .withText('Mangler fødselsnummer')
-  //       .with({ timeout: 100 }).visible
-  //   )
-  //   .notOk({ timeout: 500 });
-
-  // await t
-  //   .click(Selector('#stressende'))
-  //   .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
-  //   .ok()
-  //   .expect(
-  //     ReactSelector('Feiloppsummering')
-  //       .withText('Påkjenninger om den ansatte må fylles ut')
-  //       .withText('Arbeid om den ansatte må fylles ut')
-  //       .withText('Virksomhetsnummer må fylles ut')
-  //       .withText('Bekreft at opplysningene er korrekt')
-  //       .withText('Mangler fødselsnummer').visible
-  //   )
-  //   .notOk({ timeout: 500 });
 
   await t
     .typeText(Selector('#fim3fiy2020'), '5')
