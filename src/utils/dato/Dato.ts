@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-const NORWAY_REGEX = new RegExp('^(\\d{1,2})\\.(\\d{1,2})\\.(\\d{4})$');
-const ISO_REGEX = new RegExp('^(\\d{4})\\-(\\d{1,2})\\-(\\d{1,2})$');
+const NORWAY_REGEX = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
+const ISO_REGEX = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
 
 export interface Dato {
   value?: string;
