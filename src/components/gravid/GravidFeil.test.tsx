@@ -4,6 +4,18 @@ import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import LangKey from '../../locale/LangKey';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => ({})),
+        t: (str: string) => str
+      }
+    };
+  }
+}));
+
 describe('GravidFeil', () => {
   it('should have no a11y violations', async () => {
     const rendered = render(<GravidFeil />);

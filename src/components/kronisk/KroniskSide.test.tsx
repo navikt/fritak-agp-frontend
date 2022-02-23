@@ -9,6 +9,18 @@ import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import mockHistory from '../../mockData/mockHistory';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => ({})),
+        t: (str: string) => str
+      }
+    };
+  }
+}));
+
 describe('KroniskSide', () => {
   jest.setTimeout(10000); // 10 second timeout
 
