@@ -21,24 +21,18 @@ describe('mapKroniskFeilmeldinger', () => {
     expect(state.fnrError).not.toBeUndefined();
     expect(state.orgnrError).not.toBeUndefined();
     expect(state.bekreftError).not.toBeUndefined();
-    expect(state.arbeidError).not.toBeUndefined();
-    expect(state.paakjenningerError).not.toBeUndefined();
-    expect(state.kommentarError).not.toBeUndefined();
     expect(state.dokumentasjonError).not.toBeUndefined();
     expect(state.fravaerError).not.toBeUndefined();
     expect(state.bekreftError).not.toBeUndefined();
 
-    expect(feilmeldinger.length).toEqual(8);
+    expect(feilmeldinger.length).toEqual(5);
     expect(feilmeldinger[0].skjemaelementId).toEqual('fnr');
     expect(feilmeldinger[1].skjemaelementId).toEqual('orgnr');
-    expect(feilmeldinger[2].skjemaelementId).toEqual('kommentar');
-    expect(feilmeldinger[3].skjemaelementId).toEqual('arbeidsutfører');
-    expect(feilmeldinger[4].skjemaelementId).toEqual('paakjenninger');
-    expect(feilmeldinger[5].skjemaelementId).toEqual('bekreft');
-    expect(feilmeldinger[6].skjemaelementId).toEqual('dokumentasjon');
-    expect(feilmeldinger[7].skjemaelementId).toEqual('fravaer');
+    expect(feilmeldinger[2].skjemaelementId).toEqual('bekreft');
+    expect(feilmeldinger[3].skjemaelementId).toEqual('dokumentasjon');
+    expect(feilmeldinger[4].skjemaelementId).toEqual('fravaer');
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 5; i++) {
       expect(feilmeldinger[i].feilmelding).toEqual('feil');
     }
   });

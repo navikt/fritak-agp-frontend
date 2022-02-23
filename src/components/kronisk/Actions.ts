@@ -1,5 +1,3 @@
-import { ArbeidType } from './ArbeidType';
-import { PaakjenningerType } from './PaakjenningerType';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
@@ -9,9 +7,6 @@ export enum Actions {
   Kvittering,
   Fnr,
   Orgnr,
-  ToggleArbeid,
-  TogglePaakjenninger,
-  Kommentar,
   Dokumentasjon,
   Fravaer,
   Bekreft,
@@ -30,14 +25,11 @@ export interface FravaerType {
 export interface Payload {
   fnr?: string;
   orgnr?: string;
-  arbeid?: ArbeidType;
-  paakjenning?: PaakjenningerType;
   bekreft?: boolean;
   progress?: boolean;
   kvittering?: boolean;
   fravaer?: FravaerType;
   dokumentasjon?: string;
-  kommentar?: string;
   response?: ValidationResponse<KroniskSoknadResponse>;
   antallPerioder?: number;
 }

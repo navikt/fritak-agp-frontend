@@ -16,18 +16,6 @@ const mapKroniskFeilmeldinger = (response: ValidationResponse<KroniskSoknadRespo
         state.orgnrError = v.message;
         feilmeldinger.push(lagFeil('orgnr', v.message));
         break;
-      case 'kommentar':
-        state.kommentarError = v.message;
-        feilmeldinger.push(lagFeil('kommentar', v.message));
-        break;
-      case 'arbeidstyper':
-        state.arbeidError = v.message;
-        feilmeldinger.push(lagFeil('arbeidsutfører', v.message));
-        break;
-      case 'paakjenningstyper':
-        state.paakjenningerError = v.message;
-        feilmeldinger.push(lagFeil('paakjenninger', v.message));
-        break;
       case 'bekreftet':
         state.bekreftError = v.message;
         feilmeldinger.push(lagFeil('bekreft', v.message));

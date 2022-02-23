@@ -1,15 +1,13 @@
 import postKronisk from './postKronisk';
 import { KroniskRequest } from './KroniskRequest';
-import ArbeidType from '../../components/kronisk/ArbeidType';
-import PaakjenningerType from '../../components/kronisk/PaakjenningerType';
 
 describe('postKronisk', () => {
   const mockFetch = (status: number, json: any) => {
     jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
-      Promise.resolve(({
+      Promise.resolve({
         status: status,
         json: () => Promise.resolve(json)
-      } as unknown) as Response)
+      } as unknown as Response)
     );
   };
 
@@ -22,8 +20,6 @@ describe('postKronisk', () => {
       await postKronisk('/Paths', {
         virksomhetsnummer: 'tiltak',
         identitetsnummer: '',
-        arbeidstyper: [ArbeidType.KREVENDE],
-        paakjenningstyper: [PaakjenningerType.ALLERGENER],
         dokumentasjon: 'dokumentasjon'
       } as KroniskRequest)
     ).toEqual({

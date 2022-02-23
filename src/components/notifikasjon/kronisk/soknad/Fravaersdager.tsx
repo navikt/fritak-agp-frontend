@@ -1,9 +1,15 @@
+import React from 'react';
+
 export interface MaanedsFravaer {
   yearMonth: string;
   antallDagerMedFravaer: number;
 }
 
-const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer> | undefined) => {
+interface FravaersdagerProps {
+  maanedsfravaer?: Array<MaanedsFravaer>;
+}
+
+const Fravaersdager = ({ maanedsfravaer }: FravaersdagerProps) => {
   const aarsfravaer: number[] = [];
   const years: number[] = [];
 
@@ -29,7 +35,7 @@ const formatFravaersdager = (maanedsfravaer: Array<MaanedsFravaer> | undefined) 
   const sortedYears = [...years].sort((a, b) => a - b);
   const sumup = sortedYears.map((year) => `${year}: ${aarsfravaer[year]} dager`).join(', ');
 
-  return `Fraværsdager ${sumup}`;
+  return <span>Fraværsdager {sumup}</span>;
 };
 
-export default formatFravaersdager;
+export default Fravaersdager;

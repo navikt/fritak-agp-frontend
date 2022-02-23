@@ -11,23 +11,18 @@ import { InternLenke, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
-import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasjon';
-import formatFravaersdager from '../notifikasjon/kronisk/soknad/formatFravaersdager';
 import './KroniskKvittering.scss';
 import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
-import TyperArbeid from '../notifikasjon/kronisk/soknad/TyperArbeid';
-import Paakjenninger from '../notifikasjon/kronisk/soknad/Paakjenninger';
+import Fravaersdager from '../notifikasjon/kronisk/soknad/Fravaersdager';
+import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
   const { language } = useParams<PathParams>();
   const { response } = useContext(KroniskSoknadKvitteringContext);
 
-  const arbeidstyper: string[] | undefined = response?.response?.arbeidstyper;
-  const paakjenningstyper: string[] | undefined = response?.response?.paakjenningstyper;
-  const paakjenningBeskrivelse: string | undefined = response?.response?.paakjenningBeskrivelse;
-  const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
+  const harVedlegg: boolean = response?.response?.harVedlegg ? true : false;
   const fravaer = response?.response?.fravaer;
   const navn = response?.response?.navn;
   const sendtAvNavn = response?.response?.sendtAvNavn;
@@ -54,12 +49,12 @@ const KroniskKvittering = () => {
         <Panel>
           <Undertittel>Detaljer fra søknaden:</Undertittel>
           <Normaltekst className='luft-under'>Navn: {navn}</Normaltekst>
-          <Normaltekst>Type arbeid:</Normaltekst>
-          <TyperArbeid arbeidstyper={arbeidstyper} />
-          <Normaltekst>Påkjenninger på arbeidsstedet:</Normaltekst>
-          <Paakjenninger paakjenninger={paakjenningstyper} beskrivelse={paakjenningBeskrivelse} />
-          <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
-          <Normaltekst className='luft-under'>{formatFravaersdager(fravaer)}</Normaltekst>
+          <Normaltekst className='luft-under'>
+            <Dokumentasjon harVedlegg={harVedlegg} />
+          </Normaltekst>
+          <Normaltekst className='luft-under'>
+            <Fravaersdager maanedsfravaer={fravaer} />
+          </Normaltekst>
           <SoknadMottatt className='luft-under' mottatt={opprettet} />
           <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
         </Panel>

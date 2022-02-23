@@ -1,4 +1,7 @@
-import formatFravaersdager from './formatFravaersdager';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+
+import Fravaersdager from './Fravaersdager';
 
 const fravaer = [
   {
@@ -67,10 +70,10 @@ const fravaer = [
   }
 ];
 
-describe('formatFravaersdager', () => {
+describe('Fravaersdager', () => {
   it('should sum up the days', () => {
-    const result = formatFravaersdager(fravaer);
+    render(<Fravaersdager maanedsfravaer={fravaer} />);
 
-    expect(result).toEqual('Fraværsdager 2019: 10 dager, 2020: 64 dager, 2021: 70 dager');
+    expect(screen.getByText('Fraværsdager 2019: 10 dager, 2020: 64 dager, 2021: 70 dager')).toBeTruthy();
   });
 });

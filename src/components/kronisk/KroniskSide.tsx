@@ -2,19 +2,16 @@ import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Checkbox, CheckboxGruppe, Input, Label, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
+import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
 import KroniskState, { defaultKroniskState } from './KroniskState';
 import KroniskReducer from './KroniskReducer';
 import { Actions, KroniskAction } from './Actions';
-import { PaakjenningerType } from './PaakjenningerType';
 import getBase64file from '../../utils/getBase64File';
 import FravaerTabell from './FravaerTabell';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { ARBEID_CHECKBOXER } from './ARBEID_CHECKBOXER';
-import { PAAKJENNINGER_CHECKBOXER } from './PAAKJENNINGER_CHECKBOXER';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
@@ -36,8 +33,6 @@ import { useTranslation } from 'react-i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
-
-export const MAX_BESKRIVELSE = 2000;
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
@@ -75,13 +70,10 @@ const KroniskSide = () => {
       postKronisk(
         environment.baseUrl,
         mapKroniskRequest(
-          state.arbeid || [],
-          state.paakjenninger || [],
           state.fravaer || [],
           state.fnr || '',
           state.orgnr || '',
           state.bekreft || false,
-          state.kommentar,
           state.antallPerioder || 0,
           state.dokumentasjon
         )
@@ -98,14 +90,11 @@ const KroniskSide = () => {
     state.progress,
     state.feilmeldinger,
     state.submitting,
-    state.arbeid,
     state.bekreft,
     state.dokumentasjon,
     state.fnr,
     state.fravaer,
-    state.kommentar,
     state.orgnr,
-    state.paakjenninger,
     state.antallPerioder
   ]);
 
@@ -160,109 +149,6 @@ const KroniskSide = () => {
                   />
                 </Column>
               </Row>
-            </SkjemaGruppe>
-          </Panel>
-
-          <Skillelinje />
-
-          <Panel id='kroniskside-panel-arbeidssituasjon'>
-            <Systemtittel className='textfelt-padding-bottom'>
-              {t(KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO)}
-            </Systemtittel>
-            <SkjemaGruppe>
-              <Oversettelse
-                langKey={KroniskSideKeys.KRONISK_SIDE_ARBEIDSMILJO_INGRESS}
-                className='kroniskside-arbeidsmiljo-ingress'
-              />
-
-              <CheckboxGruppe
-                legend={t(KroniskSideKeys.KRONISK_SIDE_ARBEIDS_TYPE)}
-                feil={state.arbeidError}
-                feilmeldingId='arbeidsutfører'
-              >
-                <Row>
-                  <Column sm='4' xs='6'>
-                    {ARBEID_CHECKBOXER.map((a) => {
-                      return (
-                        <Checkbox
-                          key={a.id}
-                          label={t(a.label)}
-                          value={a.value}
-                          id={a.id}
-                          onChange={() =>
-                            dispatch({
-                              type: Actions.ToggleArbeid,
-                              payload: { arbeid: a.value }
-                            })
-                          }
-                        />
-                      );
-                    })}
-                  </Column>
-                </Row>
-              </CheckboxGruppe>
-
-              <CheckboxGruppe
-                legend={t(KroniskSideKeys.KRONISK_SIDE_PAAKJENNINGER)}
-                feil={state.paakjenningerError}
-                feilmeldingId='paakjenninger'
-              >
-                <Row>
-                  <Column sm='4' xs='6'>
-                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index < 5).map((a) => {
-                      return (
-                        <Checkbox
-                          key={a.id}
-                          label={t(a.label)}
-                          value={a.value}
-                          id={a.id}
-                          onChange={() =>
-                            dispatch({
-                              type: Actions.TogglePaakjenninger,
-                              payload: { paakjenning: a.value }
-                            })
-                          }
-                        />
-                      );
-                    })}
-                  </Column>
-                  <Column sm='4' xs='6'>
-                    {PAAKJENNINGER_CHECKBOXER.filter((value, index) => index > 4).map((a) => {
-                      return (
-                        <Checkbox
-                          key={a.id}
-                          label={t(a.label)}
-                          value={a.value}
-                          id={a.id}
-                          onChange={() =>
-                            dispatch({
-                              type: Actions.TogglePaakjenninger,
-                              payload: { paakjenning: a.value }
-                            })
-                          }
-                          // checked={state.paakjenninger?.includes(a.value)}
-                        />
-                      );
-                    })}
-
-                    <Textarea
-                      className='textarea-min-hoyde'
-                      label={t(KroniskSideKeys.KRONISK_SIDE_ANNET)}
-                      id='textarea-annet'
-                      value={state.kommentar || ''}
-                      feil={state.kommentarError || undefined}
-                      onChange={(evt) =>
-                        dispatch({
-                          type: Actions.Kommentar,
-                          payload: { kommentar: evt.target.value }
-                        })
-                      }
-                      disabled={!state.paakjenninger?.includes(PaakjenningerType.ANNET)}
-                      maxLength={MAX_BESKRIVELSE}
-                    />
-                  </Column>
-                </Row>
-              </CheckboxGruppe>
             </SkjemaGruppe>
           </Panel>
 

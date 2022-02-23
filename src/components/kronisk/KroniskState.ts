@@ -1,6 +1,4 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { ArbeidType } from './ArbeidType';
-import { PaakjenningerType } from './PaakjenningerType';
 import { Aarsfravaer } from './Aarsfravaer';
 import { ValidationState } from '../../state/validation/ValidationState';
 
@@ -9,9 +7,6 @@ export const defaultKroniskState = (): KroniskState => {
     fnr: undefined,
     orgnr: undefined,
     fravaer: undefined,
-    arbeid: undefined,
-    paakjenninger: undefined,
-    kommentar: undefined,
     dokumentasjon: undefined,
     bekreft: undefined,
     feilmeldinger: Array<FeiloppsummeringFeil>()
@@ -23,12 +18,6 @@ export default interface KroniskState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  arbeid?: Array<ArbeidType>;
-  arbeidError?: string;
-  paakjenninger?: Array<PaakjenningerType>;
-  paakjenningerError?: string;
-  kommentar?: string;
-  kommentarError?: string;
   dokumentasjon?: string;
   dokumentasjonError?: string;
   fravaer?: Array<Aarsfravaer>;

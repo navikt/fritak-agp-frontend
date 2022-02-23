@@ -12,10 +12,10 @@ import PathParams from '../../locale/PathParams';
 import formatTiltakBeskrivelse from '../notifikasjon/gravid/soknad/formatTiltakBeskrivelse';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import formatOmplassering from '../notifikasjon/gravid/soknad/formatOmplassering';
-import formatDokumentasjon from '../notifikasjon/gravid/soknad/formatDokumentasjon';
 import './GravidKvittering.scss';
 import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
+import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 
 const GravidKvittering = () => {
   const { language } = useParams<PathParams>();
@@ -28,7 +28,7 @@ const GravidKvittering = () => {
   const omplasseringAarsak = response?.response?.omplasseringAarsak;
   const navn = response?.response?.navn;
   const sendtAvNavn = response?.response?.sendtAvNavn;
-  const harVedlegg: boolean | undefined = response?.response?.harVedlegg;
+  const harVedlegg: boolean = response?.response?.harVedlegg ? true : false;
   const opprettet = response?.response?.opprettet;
 
   return (
@@ -64,7 +64,9 @@ const GravidKvittering = () => {
         {tilrettelegge && (
           <Normaltekst className='luft-under'>{formatOmplassering(omplassering, omplasseringAarsak)}</Normaltekst>
         )}
-        <Normaltekst className='luft-under'>{formatDokumentasjon(harVedlegg)}</Normaltekst>
+        <Normaltekst className='luft-under'>
+          <Dokumentasjon harVedlegg={harVedlegg} />
+        </Normaltekst>
         <SoknadMottatt className='luft-under' mottatt={opprettet} />
         <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
       </Panel>

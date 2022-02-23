@@ -2,13 +2,11 @@ import React from 'react';
 import NotifikasjonInnhold from '../../felles/NotifikasjonInnhold';
 import NotifikasjonType from '../../felles/NotifikasjonType';
 import KroniskSoknadResponse from '../../../../api/kronisk/KroniskSoknadResponse';
-import formatInnsendtAv from '../../gravid/soknad/formatInnsendtAv';
-import formatDokumentasjon from '../../gravid/soknad/formatDokumentasjon';
-import formatFravaersdager from './formatFravaersdager';
 import './KroniskSoknadView.scss';
 import GravidSoknadFooter from '../../gravid/soknad/GravidSoknadFooter';
-import Paakjenninger from './Paakjenninger';
-import TyperArbeid from './TyperArbeid';
+import Fravaersdager from './Fravaersdager';
+import InnsendtAv from '../../gravid/soknad/InnsendtAv';
+import Dokumentasjon from '../../gravid/soknad/Dokumentasjon';
 
 export interface KroniskSoknadNotifikasjonProps {
   kroniskSoknadResponse: KroniskSoknadResponse;
@@ -32,21 +30,15 @@ const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonP
         det.
       </p>
       <p>Når vi har behandlet søknaden fra arbeidsgiveren din, vil du få en melding fra oss om resultatet.</p>
-      <h3>Detaljer fra søknaden:</h3>
       <p>
-        Type arbeid:
-        <TyperArbeid arbeidstyper={kroniskSoknadResponse.arbeidstyper} />
+        <Dokumentasjon harVedlegg={kroniskSoknadResponse.harVedlegg} />
       </p>
       <p>
-        Påkjenninger på arbeidsstedet:
-        <Paakjenninger
-          paakjenninger={kroniskSoknadResponse.paakjenningstyper}
-          beskrivelse={kroniskSoknadResponse.paakjenningBeskrivelse}
-        />
+        <Fravaersdager maanedsfravaer={kroniskSoknadResponse.fravaer} />
       </p>
-      <p>{formatDokumentasjon(kroniskSoknadResponse.harVedlegg)}</p>
-      <p>{formatFravaersdager(kroniskSoknadResponse.fravaer)}</p>
-      <p>{formatInnsendtAv(kroniskSoknadResponse.sendtAvNavn)}</p>
+      <p>
+        <InnsendtAv sendtAv={kroniskSoknadResponse.sendtAvNavn} />
+      </p>
       <p>
         <GravidSoknadFooter />
       </p>
