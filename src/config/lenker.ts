@@ -14,9 +14,11 @@ enum lenker {
   GravidKrav = '/:language/gravid/krav',
   GravidKravKvittering = '/:language/gravid/krav/kvittering',
   GravidKravSlettetKvittering = '/:language/gravid/krav/slettet/kvittering',
+  GravidKravEndringKvittering = '/:language/gravid/krav/endring/kvittering',
   KroniskKrav = '/:language/kronisk/krav',
   KroniskKravKvittering = '/:language/kronisk/krav/kvittering',
   KroniskKravSlettetKvittering = '/:language/kronisk/krav/slettet/kvittering',
+  KroniskKravEndringKvittering = '/:language/kronisk/krav/endring/kvittering',
   EksemplerLonnsdager = '/:language/eksemplerlonnsdager',
   Oversikt = '/:language/oversikt'
 }

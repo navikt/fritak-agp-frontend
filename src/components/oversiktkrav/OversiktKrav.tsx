@@ -36,10 +36,24 @@ export default function OversiktKrav(state) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const kravRespons = await getOversiktKrav(Paths.KravOversikt, arbeidsgiverId);
-      if (kravRespons.status === HttpStatus.Successfully) {
-        setKrav(JSON.parse(kravRespons.json));
-        setKravet(tilpassOversiktKrav(JSON.parse(kravRespons.json)));
+      try {
+        const kroniskKravRespons = await getOversiktKrav(Paths.KroniskKravOversikt, arbeidsgiverId);
+        const gravidKravRespons = await getOversiktKrav(Paths.GravidKravOversikt, arbeidsgiverId);
+
+        if (
+          kroniskKravRespons.status === HttpStatus.Successfully &&
+          gravidKravRespons.status === HttpStatus.Successfully
+        ) {
+          const kravRespons = {
+            kroniskKrav: kroniskKravRespons.json,
+            gravidKrav: gravidKravRespons.json
+          };
+
+          setKrav(kravRespons);
+          setKravet(tilpassOversiktKrav(gravidKravRespons.json, kroniskKravRespons.json));
+        }
+      } catch (err) {
+        console.log(err); // eslint-disable-line
       }
     };
 
@@ -48,7 +62,7 @@ export default function OversiktKrav(state) {
 
   return (
     <Side
-      bedriftsmeny={false}
+      bedriftsmeny={true}
       className='kroniskkrav'
       sidetittel='Kravoversikt'
       title='Kravoversikt'

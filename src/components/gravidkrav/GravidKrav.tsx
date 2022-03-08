@@ -43,6 +43,9 @@ import { KravListeContext } from '../../context/KravListeContext';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
 import { Modal } from '@navikt/ds-react';
 import deleteGravidKrav from '../../api/gravidkrav/deleteGravidKrav';
+import patchGravidKrav from '../../api/kroniskkrav/patchGravidKrav';
+import EndringsAarsak from './EndringsAarsak';
+import { mapGravidKravPatch } from '../../api/gravidkrav/mapGravidKravPatch';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -76,6 +79,15 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
     dispatch({ type: Actions.antallDager, payload: { antallDager: stringishToNumber(dager) } });
+  };
+
+  const setEndringsAarsak = (aarsak: EndringsAarsak) => {
+    dispatch({
+      type: Actions.EndringsAarsak,
+      payload: {
+        endringsAarsak: aarsak
+      }
+    });
   };
 
   const handleUploadChanged = (file?: File) => {
@@ -118,7 +130,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     if (state.kravId) {
       setDeleteSpinner(true);
       const deleteStatus = await deleteGravidKrav(environment.baseUrl, state.kravId);
-      if (deleteStatus.status !== HttpStatus.Successfully) {
+      if (deleteStatus.status === HttpStatus.Successfully) {
         setModalOpen(false);
         history.replace(buildLenke(lenker.KroniskKravSlettetKvittering, language));
       } else {
@@ -140,22 +152,50 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      postGravidKrav(
-        environment.baseUrl,
-        mapGravidKravRequest(
-          state.fnr,
-          state.orgnr,
-          state.perioder,
-          state.dokumentasjon,
-          state.bekreft,
-          state.antallDager
-        )
-      ).then((response) => {
-        dispatch({
-          type: Actions.HandleResponse,
-          payload: { response: response }
+      if (endringskrav) {
+        if (!state.endringsAarsak) {
+          dispatch({
+            type: Actions.AddBackendError,
+            payload: { error: 'Angi årsak til endring' }
+          });
+        } else {
+          patchGravidKrav(
+            environment.baseUrl,
+            state.kravId!,
+            mapGravidKravPatch(
+              state.fnr,
+              state.orgnr,
+              state.perioder,
+              state.dokumentasjon,
+              state.bekreft,
+              state.antallDager,
+              state.endringsAarsak
+            )
+          ).then((response) => {
+            dispatch({
+              type: Actions.HandleResponse,
+              payload: { response: response }
+            });
+          });
+        }
+      } else {
+        postGravidKrav(
+          environment.baseUrl,
+          mapGravidKravRequest(
+            state.fnr,
+            state.orgnr,
+            state.perioder,
+            state.dokumentasjon,
+            state.bekreft,
+            state.antallDager
+          )
+        ).then((response) => {
+          dispatch({
+            type: Actions.HandleResponse,
+            payload: { response: response }
+          });
         });
-      });
+      }
     }
   }, [
     state.validated,
@@ -167,7 +207,10 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.antallDager
+    state.antallDager,
+    state.kravId,
+    state.endringsAarsak,
+    endringskrav
   ]);
 
   useEffect(() => {
@@ -219,7 +262,11 @@ export const GravidKrav = (props: GravidKravProps) => {
                 <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
                   <Row>
                     <Column sm='4' xs='6'>
-                      <SelectEndring />
+                      <SelectEndring
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                          setEndringsAarsak(event.target.value as EndringsAarsak)
+                        }
+                      />
                     </Column>
                   </Row>
                 </SkjemaGruppe>

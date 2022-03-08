@@ -1,4 +1,4 @@
-import mockKravliste from '../../mockData/mockKravliste';
+import { mockGravidKravliste, mockKroniskKravliste } from '../../mockData/mockKravliste';
 import tilpassOversiktKrav from './tilpassOversiktKrav';
 import timezone_mock from 'timezone-mock';
 
@@ -38,6 +38,6 @@ describe('tilpassOversiktKrav', () => {
       }
     ];
 
-    expect(tilpassOversiktKrav(mockKravliste)).toEqual(expected);
+    expect(tilpassOversiktKrav(mockGravidKravliste, mockKroniskKravliste)).toEqual(expected);
   });
 });

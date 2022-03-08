@@ -32,6 +32,7 @@ interface Krav {
   oppgaveId: string;
   virksomhetsnavn: string;
   sendtAvNavn: string;
+  status: string;
 }
 
 export interface GravidKrav extends Krav {
@@ -45,23 +46,24 @@ export interface EksisterendeKrav {
   kroniskKrav: KroniskKrav[] | [];
 }
 
-const tilpassOversiktKrav = (kravRespons: EksisterendeKrav): KravRad[] => {
-  const kravKeys = Object.keys(kravRespons);
-
-  return kravKeys
-    .map((key) => {
-      return kravRespons[key].map((rad): KravRad => {
-        return {
-          kravId: rad.id,
-          opprettet: dayjs(rad.opprettet).toDate(),
-          fnr: rad.identitetsnummer,
-          navn: rad.navn,
-          kravtype: key
-        };
-      });
+const mapKrav = (krav: GravidKrav[] | KroniskKrav[], kravType: string): KravRad[] => {
+  return krav
+    .filter((ufiltrert) => {
+      return ufiltrert.status === 'OPPRETTET';
     })
-    .flat()
-    .sort((a, b) => Number(dayjs(a.opprettet).isBefore(b.opprettet)));
+    .map((rad): KravRad => {
+      return {
+        kravId: rad.id,
+        opprettet: dayjs(rad.opprettet).toDate(),
+        fnr: rad.identitetsnummer,
+        navn: rad.navn,
+        kravtype: kravType
+      };
+    });
+};
+
+const tilpassOversiktKrav = (gravidKrav: GravidKrav[], kroniskKrav: KroniskKrav[]): KravRad[] => {
+  return [...mapKrav(gravidKrav, 'gravidKrav'), ...mapKrav(kroniskKrav, 'kroniskKrav')];
 };
 
 export default tilpassOversiktKrav;

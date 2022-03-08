@@ -540,7 +540,8 @@ describe('KroniskKravReducer', () => {
             kontrollDager: 260,
             journalpostId: 'id',
             oppgaveId: 'oId',
-            virksomhetsnavn: 'vnavn'
+            virksomhetsnavn: 'vnavn',
+            status: 'status'
           }
         }
       },

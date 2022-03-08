@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { ValidationState } from '../../state/validation/ValidationState';
 import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
+import EndringsAarsak from './EndringsAarsak';
 
 export const defaultGravidKravState = (state?: GravidKravState): GravidKravState => {
   return Object.assign(
@@ -55,4 +56,5 @@ export default interface GravidKravState extends ValidationState {
   antallDagerError?: string;
   kravId?: string;
   formDirty?: boolean;
+  endringsAarsak?: EndringsAarsak;
 }

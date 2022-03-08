@@ -41,6 +41,8 @@ import { KravListeContext } from '../../context/KravListeContext';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
 import deleteKroniskKrav from '../../api/kroniskkrav/deleteKroniskKrav';
 import { Modal } from '@navikt/ds-react';
+import patchKroniskKrav from '../../api/kroniskkrav/patchKroniskKrav';
+import { mapKroniskKravPatch } from '../../api/kroniskkrav/mapKroniskKravPatch';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -120,15 +122,42 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      postKroniskKrav(
-        environment.baseUrl,
-        mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
-      ).then((response) => {
-        dispatch({
-          type: Actions.HandleResponse,
-          payload: { response: response }
+      if (endringskrav) {
+        if (!state.endringsAarsak) {
+          dispatch({
+            type: Actions.AddBackendError,
+            payload: { error: 'Angi årsak til endring' }
+          });
+        } else {
+          patchKroniskKrav(
+            environment.baseUrl,
+            state.kravId!,
+            mapKroniskKravPatch(
+              state.fnr,
+              state.orgnr,
+              state.perioder,
+              state.bekreft,
+              state.antallDager,
+              state.endringsAarsak
+            )
+          ).then((response) => {
+            dispatch({
+              type: Actions.HandleResponse,
+              payload: { response: response }
+            });
+          });
+        }
+      } else {
+        postKroniskKrav(
+          environment.baseUrl,
+          mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
+        ).then((response) => {
+          dispatch({
+            type: Actions.HandleResponse,
+            payload: { response: response }
+          });
         });
-      });
+      }
     }
   }, [
     state.validated,
@@ -139,7 +168,10 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.fnr,
     state.bekreft,
     state.orgnr,
-    state.antallDager
+    state.antallDager,
+    state.kravId,
+    state.endringsAarsak,
+    endringskrav
   ]);
 
   useEffect(() => {

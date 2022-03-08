@@ -30,6 +30,7 @@ import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder
 import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/KontrollSporsmaal';
 import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldingsgrad';
 import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/KravKvitteringSlettetKeys';
+import { KravEndringKvitteringKeys } from '../components/kravendringkvittering/KravEndringKvitteringKeys';
 
 export interface Locale {
   en: string;
@@ -66,7 +67,8 @@ const Locales: Record<
   | ValidateAntallPerioderKeys
   | ValidateArbeidsdagerKeys
   | ValidateSykemeldingsgradKeys
-  | KravKvitteringSlettetKeys,
+  | KravKvitteringSlettetKeys
+  | KravEndringKvitteringKeys,
   Locale
 > = {
   PAGE_NOT_FOUND_TITLE: {
@@ -692,6 +694,22 @@ const Locales: Record<
       "If you need to contact us, it is sufficient to provide the employee's national id-number."
   },
   KRAV_KVITTERING_SLETTET_OPPRETT_NYTT_KRAV: {
+    nb: 'Opprett nytt krav',
+    en: 'Create new claim'
+  },
+  KRAV_ENDRING_KVITTERING_TITTEL: {
+    nb: 'Kravet er slettet',
+    en: 'The claim has been deleted'
+  },
+  KRAV_ENDRING_KVITTERING_INGRESS: {
+    nb:
+      'En kvittering er sendt til meldingsboksen deres i [Altinn](https://www.altinn.no).\n\n' +
+      'Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.',
+    en:
+      'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
+      "If you need to contact us, it is sufficient to provide the employee's national id-number."
+  },
+  KRAV_ENDRING_KVITTERING_OPPRETT_NYTT_KRAV: {
     nb: 'Opprett nytt krav',
     en: 'Create new claim'
   },

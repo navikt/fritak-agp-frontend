@@ -4,7 +4,7 @@ import { Paths } from '../../config/Paths';
 import KroniskKravResponse from '../gravidkrav/KroniskKravResponse';
 
 const deleteKroniskKrav = (basePath: string, kravId: string): Promise<ValidationResponse<KroniskKravResponse>> => {
-  return deleteRequest(basePath + Paths.KroniskKrav + '/' + kravId);
+  return deleteRequest(basePath + Paths.KroniskKravSlett + kravId);
 };
 
 export default deleteKroniskKrav;
