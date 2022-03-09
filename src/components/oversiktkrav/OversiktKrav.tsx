@@ -39,7 +39,11 @@ export default function OversiktKrav(state) {
       let kroniskKravRespons;
       try {
         const kravRespons = await getOversiktKrav(Paths.KroniskKravOversikt, arbeidsgiverId);
-        kroniskKravRespons = kravRespons.json;
+        if (kravRespons.status === HttpStatus.Successfully) {
+          kroniskKravRespons = kravRespons.json;
+        } else {
+          kroniskKravRespons = [];
+        }
       } catch (error) {
         kroniskKravRespons = [];
       }
@@ -47,7 +51,11 @@ export default function OversiktKrav(state) {
       let gravidKravRespons;
       try {
         const kravRespons = await getOversiktKrav(Paths.GravidKravOversikt, arbeidsgiverId);
-        gravidKravRespons = kravRespons.json;
+        if (kravRespons.status === HttpStatus.Successfully) {
+          gravidKravRespons = kravRespons.json;
+        } else {
+          gravidKravRespons = [];
+        }
       } catch (error) {
         gravidKravRespons = [];
       }
