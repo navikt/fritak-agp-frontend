@@ -36,16 +36,29 @@ export default function OversiktKrav(state) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const kroniskKravRespons = await getOversiktKrav(Paths.KroniskKravOversikt, arbeidsgiverId);
-      const gravidKravRespons = await getOversiktKrav(Paths.GravidKravOversikt, arbeidsgiverId);
+      let kroniskKravRespons;
+      try {
+        const kravRespons = await getOversiktKrav(Paths.KroniskKravOversikt, arbeidsgiverId);
+        kroniskKravRespons = kravRespons.json;
+      } catch (error) {
+        kroniskKravRespons = [];
+      }
+
+      let gravidKravRespons;
+      try {
+        const kravRespons = await getOversiktKrav(Paths.GravidKravOversikt, arbeidsgiverId);
+        gravidKravRespons = kravRespons.json;
+      } catch (error) {
+        gravidKravRespons = [];
+      }
 
       const kravRespons = {
-        kroniskKrav: kroniskKravRespons.status === HttpStatus.Successfully ? kroniskKravRespons.json : [],
-        gravidKrav: gravidKravRespons.status === HttpStatus.Successfully ? gravidKravRespons.json : []
+        kroniskKrav: kroniskKravRespons,
+        gravidKrav: gravidKravRespons
       };
 
       setKrav(kravRespons);
-      setKravet(tilpassOversiktKrav(gravidKravRespons.json, kroniskKravRespons.json));
+      setKravet(tilpassOversiktKrav(gravidKravRespons, kroniskKravRespons));
     };
 
     fetchData();
