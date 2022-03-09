@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
@@ -12,7 +12,6 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from './locale/Locales';
 import i18next from 'i18next';
-import getCookie from './api/CookiePlease/getCookie';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;
@@ -39,9 +38,6 @@ export const Application = ({
 );
 
 const App = () => {
-  useEffect(() => {
-    getCookie();
-  });
   return (
     <BrowserRouter basename='fritak-agp'>
       <LanguageProvider languages={['nb', 'en']} i18n={i18next} bundle={Locales}>
