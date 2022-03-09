@@ -40,18 +40,13 @@ export default function OversiktKrav(state) {
         const kroniskKravRespons = await getOversiktKrav(Paths.KroniskKravOversikt, arbeidsgiverId);
         const gravidKravRespons = await getOversiktKrav(Paths.GravidKravOversikt, arbeidsgiverId);
 
-        if (
-          kroniskKravRespons.status === HttpStatus.Successfully &&
-          gravidKravRespons.status === HttpStatus.Successfully
-        ) {
-          const kravRespons = {
-            kroniskKrav: kroniskKravRespons.json,
-            gravidKrav: gravidKravRespons.json
-          };
+        const kravRespons = {
+          kroniskKrav: kroniskKravRespons.status === HttpStatus.Successfully ? kroniskKravRespons.json : [],
+          gravidKrav: gravidKravRespons.status === HttpStatus.Successfully ? gravidKravRespons.json : []
+        };
 
-          setKrav(kravRespons);
-          setKravet(tilpassOversiktKrav(gravidKravRespons.json, kroniskKravRespons.json));
-        }
+        setKrav(kravRespons);
+        setKravet(tilpassOversiktKrav(gravidKravRespons.json, kroniskKravRespons.json));
       } catch (err) {
         console.log(err); // eslint-disable-line
       }
