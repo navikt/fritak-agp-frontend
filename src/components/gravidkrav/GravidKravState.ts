@@ -12,7 +12,8 @@ export const defaultGravidKravState = (state?: GravidKravState): GravidKravState
       dokumentasjon: '',
       bekreft: false,
       feilmeldinger: Array<FeiloppsummeringFeil>(),
-      formDirty: false
+      formDirty: false,
+      showSpinner: false
     },
     state || {}
   );
@@ -57,4 +58,5 @@ export default interface GravidKravState extends ValidationState {
   kravId?: string;
   formDirty?: boolean;
   endringsAarsak?: EndringsAarsak;
+  showSpinner?: boolean;
 }

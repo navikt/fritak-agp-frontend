@@ -62,7 +62,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language } = useParams<PathParams>();
-  const [deleteSpinner, setDeleteSpinner] = useState<boolean>(false);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -128,7 +127,9 @@ export const GravidKrav = (props: GravidKravProps) => {
   const handleDeleteOKClicked = async (event: React.FormEvent) => {
     event.preventDefault();
     if (state.kravId) {
-      setDeleteSpinner(true);
+      dispatch({
+        type: Actions.ShowSpinner
+      });
       const deleteStatus = await deleteGravidKrav(environment.baseUrl, state.kravId);
       if (deleteStatus.status === HttpStatus.Successfully) {
         setModalOpen(false);
@@ -139,7 +140,9 @@ export const GravidKrav = (props: GravidKravProps) => {
           payload: { error: 'Sletting av krav feilet' }
         });
       }
-      setDeleteSpinner(false);
+      dispatch({
+        type: Actions.HideSpinner
+      });
     }
   };
 
@@ -155,8 +158,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       if (endringskrav) {
         if (!state.endringsAarsak) {
           dispatch({
-            type: Actions.AddBackendError,
-            payload: { error: 'Angi årsak til endring' }
+            type: Actions.AarsakMangler
           });
         } else {
           patchGravidKrav(
@@ -426,7 +428,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           <span className='kroniskkrav-modal-text'>Er du sikker på at du vil slette kravet?</span>
           <div className='kroniskkrav-modal-buttons'>
             <Knapp onClick={() => setModalOpen(false)}>Nei</Knapp>
-            <Hovedknapp onClick={(event) => handleDeleteOKClicked(event)} spinner={deleteSpinner}>
+            <Hovedknapp onClick={(event) => handleDeleteOKClicked(event)} spinner={state.showSpinner}>
               Ja
             </Hovedknapp>
           </div>

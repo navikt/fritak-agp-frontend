@@ -97,6 +97,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.validated = false;
       nextState.progress = false;
       nextState.submitting = false;
+      nextState.showSpinner = false;
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as KroniskKravState;
 
     case Actions.Grunnbeloep: {
