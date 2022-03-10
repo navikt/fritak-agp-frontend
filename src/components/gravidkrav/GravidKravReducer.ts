@@ -192,6 +192,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       }
       return nextState;
     }
+
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

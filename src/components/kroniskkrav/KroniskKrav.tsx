@@ -43,6 +43,7 @@ import deleteKroniskKrav from '../../api/kroniskkrav/deleteKroniskKrav';
 import { Modal } from '@navikt/ds-react';
 import patchKroniskKrav from '../../api/kroniskkrav/patchKroniskKrav';
 import { mapKroniskKravPatch } from '../../api/kroniskkrav/mapKroniskKravPatch';
+import EndringsAarsak from '../gravidkrav/EndringsAarsak';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -93,6 +94,15 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       type: Actions.RemoveBackendError
     });
     setModalOpen(true);
+  };
+
+  const setEndringsAarsak = (aarsak: EndringsAarsak) => {
+    dispatch({
+      type: Actions.EndringsAarsak,
+      payload: {
+        endringsAarsak: aarsak
+      }
+    });
   };
 
   const handleDeleteOKClicked = async (event: React.FormEvent) => {
@@ -227,7 +237,11 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                 <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
                   <Row>
                     <Column sm='4' xs='6'>
-                      <SelectEndring />
+                      <SelectEndring
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                          setEndringsAarsak(event.target.value as EndringsAarsak)
+                        }
+                      />
                     </Column>
                   </Row>
                 </SkjemaGruppe>
