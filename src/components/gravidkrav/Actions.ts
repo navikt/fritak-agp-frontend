@@ -26,7 +26,8 @@ export enum Actions {
   KravEndring,
   AddBackendError,
   RemoveBackendError,
-  EndringsAarsak
+  EndringsAarsak,
+  AarsakMangler
 }
 
 export interface Payload {

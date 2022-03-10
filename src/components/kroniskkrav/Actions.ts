@@ -26,7 +26,10 @@ export enum Actions {
   KravEndring,
   AddBackendError,
   RemoveBackendError,
-  EndringsAarsak
+  EndringsAarsak,
+  AarsakMangler,
+  ShowSpinner,
+  HideSpinner
 }
 
 export interface Payload {

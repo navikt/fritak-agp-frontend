@@ -9,7 +9,11 @@ interface SelectEndringProps {
 
 export default function SelectEndring(props: SelectEndringProps) {
   return (
-    <Select label={<Systemtittel>Årsak til endring</Systemtittel>} onChange={props.onChange}>
+    <Select
+      id='select-endring-dropdown'
+      label={<Systemtittel>Årsak til endring</Systemtittel>}
+      onChange={props.onChange}
+    >
       <option value=''>Velg årsak</option>
       <option value={EndringsAarsak.TARIFFENDRING}>Tariffendring</option>
       <option value={EndringsAarsak.ANNET}>Annet</option>

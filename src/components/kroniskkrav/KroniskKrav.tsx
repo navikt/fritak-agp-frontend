@@ -108,7 +108,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const handleDeleteOKClicked = async (event: React.FormEvent) => {
     event.preventDefault();
     if (state.kravId) {
-      setDeleteSpinner(true);
+      dispatch({
+        type: Actions.ShowSpinner
+      });
       const deleteStatus = await deleteKroniskKrav(environment.baseUrl, state.kravId);
       if (deleteStatus.status === HttpStatus.Successfully) {
         setModalOpen(false);
@@ -119,7 +121,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           payload: { error: 'Sletting av krav feilet' }
         });
       }
-      setDeleteSpinner(false);
+      dispatch({
+        type: Actions.HideSpinner
+      });
     }
   };
 

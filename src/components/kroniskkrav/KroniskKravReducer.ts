@@ -172,6 +172,20 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
     }
 
+    case Actions.AarsakMangler: {
+      pushFeilmelding('select-endring-dropdown', 'Angi årsak til endring', nextState.feilmeldinger);
+      nextState.showSpinner = false;
+      return nextState;
+    }
+
+    case Actions.ShowSpinner:
+      nextState.showSpinner = true;
+      return nextState;
+
+    case Actions.HideSpinner:
+      nextState.showSpinner = false;
+      return nextState;
+
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }
