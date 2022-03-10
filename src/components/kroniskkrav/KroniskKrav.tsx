@@ -57,7 +57,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   let { language } = useParams<PathParams>();
   const { aktivtKrav } = useContext(KravListeContext);
   const [endringskrav, setEndringskrav] = useState<boolean>(false);
-  const [deleteSpinner, setDeleteSpinner] = useState<boolean>(false);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -139,8 +138,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       if (endringskrav) {
         if (!state.endringsAarsak) {
           dispatch({
-            type: Actions.AddBackendError,
-            payload: { error: 'Angi årsak til endring' }
+            type: Actions.AarsakMangler
           });
         } else {
           patchKroniskKrav(
@@ -375,7 +373,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <span className='kroniskkrav-modal-text'>Er du sikker på at du vil slette kravet?</span>
           <div className='kroniskkrav-modal-buttons'>
             <Knapp onClick={() => setModalOpen(false)}>Nei</Knapp>
-            <Hovedknapp onClick={(event) => handleDeleteOKClicked(event)} spinner={deleteSpinner}>
+            <Hovedknapp onClick={(event) => handleDeleteOKClicked(event)} spinner={state.showSpinner}>
               Ja
             </Hovedknapp>
           </div>
