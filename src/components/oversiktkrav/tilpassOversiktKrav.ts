@@ -63,7 +63,9 @@ const mapKrav = (krav: GravidKrav[] | KroniskKrav[], kravType: string): KravRad[
 };
 
 const tilpassOversiktKrav = (gravidKrav: GravidKrav[], kroniskKrav: KroniskKrav[]): KravRad[] => {
-  return [...mapKrav(gravidKrav, 'gravidKrav'), ...mapKrav(kroniskKrav, 'kroniskKrav')];
+  return [...mapKrav(gravidKrav, 'gravidKrav'), ...mapKrav(kroniskKrav, 'kroniskKrav')].sort((a, b) =>
+    Number(a.opprettet < b.opprettet)
+  );
 };
 
 export default tilpassOversiktKrav;

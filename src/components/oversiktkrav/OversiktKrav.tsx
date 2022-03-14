@@ -20,6 +20,7 @@ export default function OversiktKrav(state) {
   const handleCloseServerFeil = () => {};
   const history = useHistory();
   const [krav, setKravet] = useState<KravRad[]>([]);
+  const [henterData, setHenterData] = useState<boolean>(true);
 
   const { setAktivtKrav, setKrav } = useContext(KravListeContext);
   const { arbeidsgiverId } = useArbeidsgiver();
@@ -58,6 +59,8 @@ export default function OversiktKrav(state) {
         }
       } catch (error) {
         gravidKravRespons = [];
+      } finally {
+        setHenterData(false);
       }
 
       const kravRespons = {
@@ -68,8 +71,9 @@ export default function OversiktKrav(state) {
       setKrav(kravRespons);
       setKravet(tilpassOversiktKrav(gravidKravRespons, kroniskKravRespons));
     };
-
-    fetchData();
+    if (arbeidsgiverId) {
+      fetchData();
+    }
   }, [arbeidsgiverId]); // eslint-disable-line
 
   return (
@@ -90,7 +94,7 @@ export default function OversiktKrav(state) {
           </Row>
           <Row>
             <Panel>
-              {krav.length === 0 && <Alert variant='error'>Ingen tidligere krav funnet</Alert>}
+              {krav.length === 0 && !henterData && <Alert variant='error'>Ingen tidligere krav funnet</Alert>}
               {krav.length > 0 && (
                 <Table>
                   <Table.Header>
