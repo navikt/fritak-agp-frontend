@@ -215,14 +215,21 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   useEffect(() => {
     if (idKrav) {
-      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.GravidKrav)).then((response) => {
-        dispatch({
-          type: Actions.KravEndring,
-          payload: {
-            krav: response.json
-          }
+      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.GravidKrav))
+        .then((response) => {
+          dispatch({
+            type: Actions.KravEndring,
+            payload: {
+              krav: response.json
+            }
+          });
+        })
+        .catch(() => {
+          dispatch({
+            type: Actions.AddBackendError,
+            payload: { error: 'Klarte ikke å hente kravet.' }
+          });
         });
-      });
     }
   }, [idKrav]);
 

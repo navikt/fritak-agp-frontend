@@ -186,14 +186,21 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
   useEffect(() => {
     if (idKrav) {
-      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.KroniskKrav)).then((response) => {
-        dispatch({
-          type: Actions.KravEndring,
-          payload: {
-            krav: response.json
-          }
+      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.KroniskKrav))
+        .then((response) => {
+          dispatch({
+            type: Actions.KravEndring,
+            payload: {
+              krav: response.json
+            }
+          });
+        })
+        .catch(() => {
+          dispatch({
+            type: Actions.AddBackendError,
+            payload: { error: 'Klarte ikke å hente kravet.' }
+          });
         });
-      });
     }
   }, [idKrav]);
 
