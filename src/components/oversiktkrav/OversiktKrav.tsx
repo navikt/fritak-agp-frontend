@@ -5,35 +5,21 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import { Alert, Table } from '@navikt/ds-react';
 import Panel from 'nav-frontend-paneler';
 import '@navikt/ds-css';
-import Endre from './Endre';
 import tilpassOversiktKrav, { KravRad } from './tilpassOversiktKrav';
 import Dato from './Dato';
-import lenker, { buildLenke } from '../../config/lenker';
-import Language from '../../locale/Language';
-import { useHistory } from 'react-router-dom';
 import { KravListeContext } from '../../context/KravListeContext';
 import './OversiktKrav.scss';
 import getOversiktKrav from '../../api/oversiktKrav/getOversiktKrav';
 import { Paths } from '../../config/Paths';
+import environment from '../../config/environment';
 
 export default function OversiktKrav(state) {
   const handleCloseServerFeil = () => {};
-  const history = useHistory();
   const [krav, setKravet] = useState<KravRad[]>([]);
   const [henterData, setHenterData] = useState<boolean>(true);
 
-  const { setAktivtKrav, setKrav } = useContext(KravListeContext);
+  const { setKrav } = useContext(KravListeContext);
   const { arbeidsgiverId } = useArbeidsgiver();
-
-  const endreClickHandler = (kravId: string, kravType: string, event: React.FormEvent) => {
-    const lenkemal = kravType === 'gravidKrav' ? lenker.GravidKrav : lenker.KroniskKrav;
-    const tilLenke = buildLenke(lenkemal, Language.nb);
-
-    event.preventDefault();
-    setAktivtKrav(kravId);
-
-    history.push(tilLenke);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,10 +100,17 @@ export default function OversiktKrav(state) {
                         <Table.DataCell>{enkeltkrav.fnr}</Table.DataCell>
                         <Table.DataCell>{enkeltkrav.navn}</Table.DataCell>
                         <Table.DataCell className='last-table-cell'>
-                          <Endre
-                            kravtype={enkeltkrav.kravtype}
-                            onClick={(event) => endreClickHandler(enkeltkrav.kravId, enkeltkrav.kravtype, event)}
-                          />
+                          <a
+                            href={
+                              environment.baseUrl +
+                              '/fritak-agp/nb/' +
+                              enkeltkrav.kravtype.split(/(?=[A-Z])/)[0] +
+                              '/krav/' +
+                              enkeltkrav.kravId
+                            }
+                          >
+                            Endre {enkeltkrav.kravtype.split(/(?=[A-Z])/)[0]}
+                          </a>
                         </Table.DataCell>
                       </Table.Row>
                     ))}

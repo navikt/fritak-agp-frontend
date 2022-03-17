@@ -139,6 +139,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
           sykemeldingsgrad: (periode.gradering * 100).toString()
         }));
         nextState.kravId = krav.id;
+        nextState.endringskrav = true;
       }
 
       return nextState;
@@ -170,7 +171,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       } else {
         nextState.endringsAarsak = undefined;
       }
-      return nextState;
+      return validateKroniskKrav(nextState, translate);
     }
 
     case Actions.AarsakMangler: {

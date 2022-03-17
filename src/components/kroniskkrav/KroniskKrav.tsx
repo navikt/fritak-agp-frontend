@@ -1,4 +1,4 @@
-import React, { Reducer, useContext, useEffect, useReducer, useState } from 'react';
+import React, { Reducer, useEffect, useReducer, useState } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
@@ -37,13 +37,15 @@ import { KroniskKravKeys } from './KroniskKravKeys';
 import LangKey from '../../locale/LangKey';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
-import { KravListeContext } from '../../context/KravListeContext';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
 import deleteKroniskKrav from '../../api/kroniskkrav/deleteKroniskKrav';
 import { Modal } from '@navikt/ds-react';
 import patchKroniskKrav from '../../api/kroniskkrav/patchKroniskKrav';
 import { mapKroniskKravPatch } from '../../api/kroniskkrav/mapKroniskKravPatch';
 import EndringsAarsak from '../gravidkrav/EndringsAarsak';
+import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
+import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
+import GetHandler from '../../api/fetch/GetHandler';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -54,9 +56,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const { t, i18n } = useTranslation();
   const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  let { language } = useParams<PathParams>();
-  const { aktivtKrav } = useContext(KravListeContext);
-  const [endringskrav, setEndringskrav] = useState<boolean>(false);
+  let { language, idKrav } = useParams<PathParams>();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -135,30 +135,24 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      if (endringskrav) {
-        if (!state.endringsAarsak) {
+      if (state.endringskrav) {
+        patchKroniskKrav(
+          environment.baseUrl,
+          state.kravId!,
+          mapKroniskKravPatch(
+            state.fnr,
+            state.orgnr,
+            state.perioder,
+            state.bekreft,
+            state.antallDager,
+            state.endringsAarsak!
+          )
+        ).then((response) => {
           dispatch({
-            type: Actions.AarsakMangler
+            type: Actions.HandleResponse,
+            payload: { response: response }
           });
-        } else {
-          patchKroniskKrav(
-            environment.baseUrl,
-            state.kravId!,
-            mapKroniskKravPatch(
-              state.fnr,
-              state.orgnr,
-              state.perioder,
-              state.bekreft,
-              state.antallDager,
-              state.endringsAarsak
-            )
-          ).then((response) => {
-            dispatch({
-              type: Actions.HandleResponse,
-              payload: { response: response }
-            });
-          });
-        }
+        });
       } else {
         postKroniskKrav(
           environment.baseUrl,
@@ -183,26 +177,25 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     state.antallDager,
     state.kravId,
     state.endringsAarsak,
-    endringskrav
+    state.endringskrav
   ]);
-
-  useEffect(() => {
-    if (aktivtKrav) {
-      setEndringskrav(true);
-      dispatch({
-        type: Actions.KravEndring,
-        payload: {
-          krav: aktivtKrav
-        }
-      });
-    } else {
-      setEndringskrav(false);
-    }
-  }, [aktivtKrav]);
 
   useEffect(() => {
     Modal.setAppElement!('.kroniskkrav');
   }, []);
+
+  useEffect(() => {
+    if (idKrav) {
+      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.KroniskKrav)).then((response) => {
+        dispatch({
+          type: Actions.KravEndring,
+          payload: {
+            krav: response.json
+          }
+        });
+      });
+    }
+  }, [idKrav]);
 
   if (state.kvittering) {
     return <Redirect to={buildLenke(lenker.KroniskKravKvittering, language)} />;
@@ -233,7 +226,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           </Panel>
           <Skillelinje />
 
-          {endringskrav && (
+          {state.endringskrav && (
             <>
               <Panel>
                 <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
@@ -243,6 +236,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                           setEndringsAarsak(event.target.value as EndringsAarsak)
                         }
+                        feil={state.endringsAarsakError}
                       />
                     </Column>
                   </Row>
@@ -332,13 +326,13 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              {endringskrav ? (
+              {state.endringskrav ? (
                 <>{t(KroniskKravKeys.KRONISK_KRAV_ENDRE)}</>
               ) : (
                 <>{t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}</>
               )}
             </Hovedknapp>
-            {endringskrav && (
+            {state.endringskrav && (
               <>
                 <Knapp onClick={handleCancleClicked} className='avbrytknapp'>
                   Avbryt

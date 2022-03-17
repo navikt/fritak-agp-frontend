@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, Reducer, useContext, useState } from 'react';
+import React, { useEffect, useReducer, Reducer, useState } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
@@ -39,18 +39,18 @@ import LangKey from '../../locale/LangKey';
 import KravPeriode from '../kroniskkrav/KravPeriode';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
-import { KravListeContext } from '../../context/KravListeContext';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
 import { Modal } from '@navikt/ds-react';
 import deleteGravidKrav from '../../api/gravidkrav/deleteGravidKrav';
 import patchGravidKrav from '../../api/kroniskkrav/patchGravidKrav';
 import EndringsAarsak from './EndringsAarsak';
 import { mapGravidKravPatch } from '../../api/gravidkrav/mapGravidKravPatch';
+import GetHandler from '../../api/fetch/GetHandler';
+import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
+import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
-  const { aktivtKrav } = useContext(KravListeContext);
-  const [endringskrav, setEndringskrav] = useState<boolean>(false);
 
   const GravidKravReducerSettOpp =
     (Translate: i18n): Reducer<GravidKravState, GravidKravAction> =>
@@ -61,7 +61,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  const { language } = useParams<PathParams>();
+  const { language, idKrav } = useParams<PathParams>();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -155,31 +155,25 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      if (endringskrav) {
-        if (!state.endringsAarsak) {
+      if (state.endringskrav) {
+        patchGravidKrav(
+          environment.baseUrl,
+          state.kravId!,
+          mapGravidKravPatch(
+            state.fnr,
+            state.orgnr,
+            state.perioder,
+            state.dokumentasjon,
+            state.bekreft,
+            state.antallDager,
+            state.endringsAarsak!
+          )
+        ).then((response) => {
           dispatch({
-            type: Actions.AarsakMangler
+            type: Actions.HandleResponse,
+            payload: { response: response }
           });
-        } else {
-          patchGravidKrav(
-            environment.baseUrl,
-            state.kravId!,
-            mapGravidKravPatch(
-              state.fnr,
-              state.orgnr,
-              state.perioder,
-              state.dokumentasjon,
-              state.bekreft,
-              state.antallDager,
-              state.endringsAarsak
-            )
-          ).then((response) => {
-            dispatch({
-              type: Actions.HandleResponse,
-              payload: { response: response }
-            });
-          });
-        }
+        });
       } else {
         postGravidKrav(
           environment.baseUrl,
@@ -212,26 +206,25 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.antallDager,
     state.kravId,
     state.endringsAarsak,
-    endringskrav
+    state.endringskrav
   ]);
-
-  useEffect(() => {
-    if (aktivtKrav) {
-      setEndringskrav(true);
-      dispatch({
-        type: Actions.KravEndring,
-        payload: {
-          krav: aktivtKrav
-        }
-      });
-    } else {
-      setEndringskrav(false);
-    }
-  }, [aktivtKrav]);
 
   useEffect(() => {
     Modal.setAppElement!('.gravidkrav');
   }, []);
+
+  useEffect(() => {
+    if (idKrav) {
+      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.GravidKrav)).then((response) => {
+        dispatch({
+          type: Actions.KravEndring,
+          payload: {
+            krav: response.json
+          }
+        });
+      });
+    }
+  }, [idKrav]);
 
   if (state.kvittering) {
     return <Redirect to={buildLenke(lenker.GravidKravKvittering, language)} />;
@@ -258,7 +251,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           </Panel>
           <Skillelinje />
 
-          {endringskrav && (
+          {state.endringskrav && (
             <>
               <Panel>
                 <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
@@ -268,6 +261,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                           setEndringsAarsak(event.target.value as EndringsAarsak)
                         }
+                        feil={state.endringsAarsakError}
                       />
                     </Column>
                   </Row>
@@ -387,13 +381,13 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              {endringskrav ? (
+              {state.endringskrav ? (
                 <>{t(GravidKravKeys.GRAVID_KRAV_LONN_ENDRE)} </>
               ) : (
                 <>{t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)} </>
               )}
             </Hovedknapp>
-            {endringskrav && (
+            {state.endringskrav && (
               <>
                 <Knapp onClick={handleCancleClicked} className='avbrytknapp'>
                   Avbryt

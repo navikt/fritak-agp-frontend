@@ -5,6 +5,7 @@ import EndringsAarsak from '../../gravidkrav/EndringsAarsak';
 
 interface SelectEndringProps {
   onChange?: any;
+  feil?: string;
 }
 
 export default function SelectEndring(props: SelectEndringProps) {
@@ -13,6 +14,7 @@ export default function SelectEndring(props: SelectEndringProps) {
       id='select-endring-dropdown'
       label={<Systemtittel>Årsak til endring</Systemtittel>}
       onChange={props.onChange}
+      feil={props.feil}
     >
       <option value=''>Velg årsak</option>
       <option value={EndringsAarsak.TARIFFENDRING}>Tariffendring</option>

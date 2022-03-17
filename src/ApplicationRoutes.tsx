@@ -39,6 +39,7 @@ export const ApplicationRoutes = () => (
             />
             <Route path={lenker.GravidKravSlettetKvittering} exact={true} render={() => <KroniskKvitteringSlettet />} />
             <Route path={lenker.GravidKrav} exact={true} render={() => <GravidKrav />} />
+            <Route path={lenker.GravidKrav + '/:idKrav'} exact={true} render={() => <GravidKrav />} />
             <Route
               path={lenker.KroniskKravKvittering}
               exact={true}
@@ -60,6 +61,7 @@ export const ApplicationRoutes = () => (
               render={() => <KravEndringKvittering backTarget={lenker.KroniskKrav} />}
             />
             <Route path={lenker.KroniskKrav} exact={true} render={() => <KroniskKrav />} />
+            <Route path={lenker.KroniskKrav + '/:idKrav'} exact={true} render={() => <KroniskKrav />} />
             <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
             <Route path={lenker.NotifikasjonGravidSoknad} render={() => <GravidSoknadController />} />
             <Route path={lenker.NotifikasjonGravidKrav} render={() => <GravidKravController />} />

@@ -35,6 +35,14 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     translate
   );
 
+  if (nextState.endringskrav) {
+    if (nextState.endringsAarsak) {
+      delete nextState.endringsAarsakError;
+    } else {
+      nextState.endringsAarsakError = 'Angi årsaken til endringen';
+    }
+  }
+
   nextState.perioder?.forEach((aktuellPeriode) => {
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
     const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
@@ -62,6 +70,10 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   }
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
+  }
+
+  if (nextState.endringsAarsakError) {
+    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
   }
 
   if (nextState.antallDagerError) {

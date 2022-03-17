@@ -168,6 +168,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
           sykemeldingsgrad: (periode.gradering * 100).toString()
         }));
         nextState.kravId = krav.id;
+        nextState.endringskrav = true;
       }
 
       return nextState;
