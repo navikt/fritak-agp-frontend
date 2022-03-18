@@ -11,7 +11,6 @@ import { KravListeContext } from '../../context/KravListeContext';
 import './OversiktKrav.scss';
 import getOversiktKrav from '../../api/oversiktKrav/getOversiktKrav';
 import { Paths } from '../../config/Paths';
-import environment from '../../config/environment';
 
 export default function OversiktKrav(state) {
   const handleCloseServerFeil = () => {};
