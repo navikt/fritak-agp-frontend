@@ -102,7 +102,6 @@ export default function OversiktKrav(state) {
                         <Table.DataCell className='last-table-cell'>
                           <a
                             href={
-                              environment.baseUrl +
                               '/fritak-agp/nb/' +
                               enkeltkrav.kravtype.split(/(?=[A-Z])/)[0] +
                               '/krav/' +
