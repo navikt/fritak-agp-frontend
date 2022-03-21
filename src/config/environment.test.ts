@@ -18,7 +18,7 @@ describe('Environment', () => {
     window.location = theWindowLocation;
 
     expect(env.loginServiceUrl).toBe(
-      'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true'
+      'http://localhost:3000/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true'
     );
   });
 
@@ -42,7 +42,7 @@ describe('Environment', () => {
     // @ts-ignore
     window.location = new URL('http://localhost');
 
-    expect(env.baseUrl).toBe('https://fritakagp.dev.nav.no');
+    expect(env.baseUrl).toBe('http://localhost:3000');
   });
 
   it('should return the baseUrl url for preprod dev', () => {
