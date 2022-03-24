@@ -1,9 +1,9 @@
-name: Bygg og deploy main
+name: Bygg og deploy dev
 
 on:
   push:
     branches:
-      - main
+      - dev
 
 env:
   APP: fritak-agp-frontend
