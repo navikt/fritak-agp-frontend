@@ -47,6 +47,10 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       nextState.kvittering = payload?.kvittering;
       return validateKronisk(nextState, translate);
 
+    case Actions.HideServerError:
+      nextState.serverError = undefined;
+      return validateKronisk(nextState, translate);
+
     case Actions.Validate: {
       nextState.validated = true;
       const validatedState = validateKronisk(nextState, translate);

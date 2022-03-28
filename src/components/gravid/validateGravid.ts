@@ -8,6 +8,7 @@ import { i18n } from 'i18next';
 import validateTermindato from '../../validation/validateTermindato';
 import { GravidSideKeys } from './GravidSideKeys';
 import formatValidation from '../../utils/formatValidation';
+import validateDokumentasjon from '../../validation/validateDokumentasjon';
 
 export const validateGravid = (state: GravidState, translate: i18n): GravidState => {
   if (!state.validated) {
@@ -37,6 +38,12 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
 
   if (nextState.termindatoError) {
     pushFeilmelding('termindato', translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TERMINDATO), feilmeldinger);
+  }
+
+  nextState.dokumentasjonError = formatValidation(validateDokumentasjon(state.dokumentasjon), translate);
+
+  if (nextState.dokumentasjonError) {
+    pushFeilmelding('upload', nextState.dokumentasjonError, feilmeldinger);
   }
 
   if (!state.videre) {

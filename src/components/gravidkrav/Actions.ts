@@ -20,7 +20,8 @@ export enum Actions {
   antallDager,
   AddPeriode,
   DeletePeriode,
-  Sykemeldingsgrad
+  Sykemeldingsgrad,
+  HideServerError
 }
 
 export interface Payload {

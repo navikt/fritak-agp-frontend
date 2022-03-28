@@ -31,7 +31,8 @@ import {
   Fnr,
   Skillelinje,
   useArbeidsgiver,
-  Upload
+  Upload,
+  ServerFeilAdvarsel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
@@ -55,6 +56,10 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
+  };
+
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
   };
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
@@ -107,12 +112,16 @@ export const GravidKrav = (props: GravidKravProps) => {
           state.bekreft,
           state.antallDager
         )
-      ).then((response) => {
-        dispatch({
-          type: Actions.HandleResponse,
-          payload: { response: response }
+      )
+        .then((response) => {
+          dispatch({
+            type: Actions.HandleResponse,
+            payload: { response: response }
+          });
+        })
+        .catch((errorResponse) => {
+          console.log(errorResponse); // eslint-disable-line
         });
-      });
     }
   }, [
     state.validated,
@@ -141,6 +150,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       subtitle={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
     >
       <Row>
+        <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
           <Panel>
             <Ingress className='textfelt-padding-bottom'>
