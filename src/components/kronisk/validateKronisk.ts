@@ -6,6 +6,7 @@ import { i18n } from 'i18next';
 import validateAntallPerioder from '../../validation/validateAntallPerioder';
 import { MAX_FRAVAERSPERIODER, MIN_FRAVAERSPERIODER } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
+import validateDokumentasjon from '../../validation/validateDokumentasjon';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState, translate: i18n): KroniskState => {
@@ -28,6 +29,12 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
   }
   if (nextState.orgnrError) {
     pushFeilmelding('orgnr', 'Virksomhetsnummer må fylles ut', feilmeldinger);
+  }
+
+  nextState.dokumentasjonError = formatValidation(validateDokumentasjon(state.dokumentasjon), translate);
+
+  if (nextState.dokumentasjonError) {
+    pushFeilmelding('upload', nextState.dokumentasjonError, feilmeldinger);
   }
 
   nextState.feilmeldinger = feilmeldinger;

@@ -32,7 +32,8 @@ import {
   Skillelinje,
   useArbeidsgiver,
   Upload,
-  HttpStatus
+  HttpStatus,
+  ServerFeilAdvarsel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
@@ -74,6 +75,10 @@ export const GravidKrav = (props: GravidKravProps) => {
   const handleCancleClicked = (event: React.FormEvent) => {
     event.preventDefault();
     history.go(-1);
+  };
+
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
   };
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
@@ -247,6 +252,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       subtitle={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
     >
       <Row>
+        <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
           <Panel>
             <Ingress className='textfelt-padding-bottom'>

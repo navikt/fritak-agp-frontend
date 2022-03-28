@@ -31,6 +31,7 @@ import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/Ko
 import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldingsgrad';
 import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/KravKvitteringSlettetKeys';
 import { KravEndringKvitteringKeys } from '../components/kravendringkvittering/KravEndringKvitteringKeys';
+import { ValidateDokumentasjonKeys } from '../validation/validateDokumentasjon';
 
 export interface Locale {
   en: string;
@@ -68,7 +69,8 @@ const Locales: Record<
   | ValidateArbeidsdagerKeys
   | ValidateSykemeldingsgradKeys
   | KravKvitteringSlettetKeys
-  | KravEndringKvitteringKeys,
+  | KravEndringKvitteringKeys
+  | ValidateDokumentasjonKeys,
   Locale
 > = {
   PAGE_NOT_FOUND_TITLE: {
@@ -947,6 +949,17 @@ const Locales: Record<
     nb: 'For høyt beløp',
     en: 'Amount too high'
   },
+
+  VALIDATE_DOKUMENTASJON_MINIMUM_SIZE: {
+    nb: 'Filen er for liten',
+    en: 'File size too small'
+  },
+
+  VALIDATE_DOKUMENTASJON_MAXIMUM_SIZE: {
+    nb: 'Filen er for stor',
+    en: 'File size too big'
+  },
+
   UPLOAD_TOO_BIG: {
     nb: 'Filen er for stor',
     en: 'File size too big'

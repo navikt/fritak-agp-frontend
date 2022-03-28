@@ -26,7 +26,8 @@ import {
   Feilmeldingspanel,
   Fnr,
   Skillelinje,
-  stringishToNumber
+  stringishToNumber,
+  ServerFeilAdvarsel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -65,6 +66,10 @@ const KroniskSide = () => {
   const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
   };
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
+  };
+
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
       postKronisk(
@@ -110,6 +115,7 @@ const KroniskSide = () => {
       subtitle={t(KroniskSideKeys.KRONISK_SIDE_SUBTITLE)}
     >
       <Row>
+        <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
           <Panel>
             <Ingress>

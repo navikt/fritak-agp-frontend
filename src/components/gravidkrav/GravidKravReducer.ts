@@ -209,6 +209,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.showSpinner = false;
       return nextState;
 
+    case Actions.HideServerError:
+      nextState.serverError = false;
+      return nextState;
+
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

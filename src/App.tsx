@@ -44,6 +44,7 @@ const App = () => {
       getCookie();
     }
   });
+
   return (
     <BrowserRouter basename='fritak-agp'>
       <LanguageProvider languages={['nb', 'en']} i18n={i18next} bundle={Locales}>

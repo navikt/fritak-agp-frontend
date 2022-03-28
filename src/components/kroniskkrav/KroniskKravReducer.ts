@@ -188,6 +188,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.showSpinner = false;
       return nextState;
 
+    case Actions.HideServerError:
+      nextState.serverError = false;
+      return nextState;
+
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }
