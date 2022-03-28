@@ -29,7 +29,8 @@ import {
   Skillelinje,
   useArbeidsgiver,
   stringishToNumber,
-  LeggTilKnapp
+  LeggTilKnapp,
+  ServerFeilAdvarsel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
@@ -60,6 +61,10 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     dispatch({
       type: Actions.Validate
     });
+  };
+
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
   };
 
   const leggTilPeriode = () => {
@@ -112,6 +117,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       subtitle={t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE)}
     >
       <Row>
+        <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
         <Column>
           <Panel>
             <Ingress className='textfelt-padding-bottom'>

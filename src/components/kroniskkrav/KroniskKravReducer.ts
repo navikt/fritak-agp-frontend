@@ -130,6 +130,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Reset:
       return Object.assign({}, defaultKroniskKravState());
 
+    case Actions.HideServerError:
+      nextState.serverError = false;
+      return nextState;
+
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

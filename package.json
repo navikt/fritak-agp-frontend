@@ -3,6 +3,7 @@
   "version": "0.2.1",
   "private": true,
   "homepage": "/fritak-agp",
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false BROWSER=firefox react-scripts start --development",
     "serve": "react-scripts start --development",
