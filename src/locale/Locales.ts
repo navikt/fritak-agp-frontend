@@ -477,17 +477,17 @@ const Locales: Record<
 
   KRONISK_SIDE_INGRESS: {
     nb:
-      'NAV kan dekke sykepenger i arbeidsgiverperioden for en arbeidstaker med langvarig eller kronisk sykdom' +
+      'NAV kan dekke sykepenger i arbeidsgiverperioden for en arbeidstaker med langvarig eller kronisk sykdom.' +
       ' Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
       ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
       ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
-      '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
+      '\n\nAlle felter må fylles ut om ikke annet er oppgitt.',
     en:
-      'NAV can cover sickness benefits during the employer period for an employee with longterm or chronic illness ' +
+      'NAV can cover sickness benefits during the employer period for an employee with longterm or chronic illness. ' +
       ' We use information we already have about sick leave, in addition to the answers you give below.' +
       ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
       ' We will send a message to the employee notifying them that you have sent the application' +
-      '\n\nAll fields must be filled out unless otherwise stated'
+      '\n\nAll fields must be filled out unless otherwise stated.'
   },
   KRONISK_SIDE_ARBEIDSMILJO: {
     nb: 'Arbeidssituasjon og miljø',
@@ -581,7 +581,7 @@ const Locales: Record<
   },
   KRONISK_SIDE_FRAVAER_DESCRIPTION: {
     nb:
-      'Skriv inn antall dager med sykefravær relatert til søknaden i hver måned. Dere kan gå 2 år tilbake i tid' +
+      'Skriv inn antall dager med sykefravær relatert til søknaden i hver måned. Dere kan gå 2 år tilbake i tid ' +
       'hvis både arbeidsforholdet og helseproblemene har vart så lenge.',
     en: ''
   },
@@ -592,6 +592,10 @@ const Locales: Record<
   KRONISK_SIDE_PERIODER_TEXT: {
     nb: 'Når den ansatte har vært tilbake på jobb, og så blir fraværende igjen definerer vi det som en ny periode.',
     en: 'When the employee has been back at work, and then becomes absent again, we define it as a new period.'
+  },
+  KRONISK_SIDE_PERIODER_UNNTAK: {
+    nb: 'Det finnes ikke historisk fravær på grunn av nyansettelse, lengre permisjon eller annet.',
+    en: 'There is no historical absence due to new employment, longer leave or otherwise.'
   },
   KRONISK_KRAV_ARBEIDSTID_TAPT: {
     nb: 'Fraværsperiode',

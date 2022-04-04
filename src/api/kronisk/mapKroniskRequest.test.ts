@@ -15,15 +15,48 @@ describe('mapKroniskRequest', () => {
   ];
   const antallPerioder = 4;
   const dokumentasjon = 'dokumentasjon';
+  const historiskFravaer = false;
 
   it('should fail when no fravær', async () => {
-    expect(() => {
-      mapKroniskRequest([], fnr, orgnr, bekreft, antallPerioder, dokumentasjon);
-    }).toThrow('Må ha minst en fravær');
+    const r = mapKroniskRequest([], fnr, orgnr, bekreft, antallPerioder, dokumentasjon, historiskFravaer);
+    expect(r).toEqual({
+      antallPerioder: 4,
+      bekreftet: true,
+      dokumentasjon: 'dokumentasjon',
+      fravaer: [],
+      identitetsnummer: '123456789',
+      virksomhetsnummer: '987654321',
+      historiskFravaer: false
+    });
   });
 
   it('should not fail when all props', async () => {
-    const r = mapKroniskRequest(fravaer, fnr, orgnr, bekreft, antallPerioder, dokumentasjon);
-    expect(r.identitetsnummer).toEqual('123456789');
+    const r = mapKroniskRequest(fravaer, fnr, orgnr, bekreft, antallPerioder, dokumentasjon, historiskFravaer);
+    expect(r).toEqual({
+      antallPerioder: 4,
+      bekreftet: true,
+      dokumentasjon: 'dokumentasjon',
+      fravaer: [
+        { antallDagerMedFravaer: 5, yearMonth: '2020-01' },
+        { antallDagerMedFravaer: 3, yearMonth: '2020-02' },
+        { antallDagerMedFravaer: 12, yearMonth: '2020-00' }
+      ],
+      identitetsnummer: '123456789',
+      virksomhetsnummer: '987654321',
+      historiskFravaer: false
+    });
+  });
+
+  it('should not fail when historiskFravaer is true', async () => {
+    const r = mapKroniskRequest([], fnr, orgnr, bekreft, 0, dokumentasjon, historiskFravaer);
+    expect(r).toEqual({
+      antallPerioder: 0,
+      bekreftet: true,
+      dokumentasjon: 'dokumentasjon',
+      fravaer: [],
+      identitetsnummer: '123456789',
+      virksomhetsnummer: '987654321',
+      historiskFravaer: false
+    });
   });
 });

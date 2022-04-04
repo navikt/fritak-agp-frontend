@@ -39,7 +39,7 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
 
   nextState.feilmeldinger = feilmeldinger;
 
-  const arbeidFeilmeldinger = validerFravaerTabell(nextState?.fravaer || []);
+  const arbeidFeilmeldinger = validerFravaerTabell(nextState?.fravaer || [], !!nextState.perioderUnntak);
 
   if (arbeidFeilmeldinger.length == 1 && arbeidFeilmeldinger[0].skjemaelementId == 'fravaer') {
     nextState.fravaerError = 'Minst en dag må fylles ut';
@@ -48,7 +48,13 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
   }
 
   nextState.antallPerioderError = formatValidation(
-    validateAntallPerioder(state.antallPerioder, !!nextState.validated, MIN_FRAVAERSPERIODER, MAX_FRAVAERSPERIODER),
+    validateAntallPerioder(
+      state.antallPerioder,
+      !!nextState.validated,
+      !!state.perioderUnntak,
+      MIN_FRAVAERSPERIODER,
+      MAX_FRAVAERSPERIODER
+    ),
     translate
   );
   if (nextState.antallPerioderError) {

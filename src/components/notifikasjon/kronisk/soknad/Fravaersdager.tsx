@@ -35,6 +35,10 @@ const Fravaersdager = ({ maanedsfravaer }: FravaersdagerProps) => {
   const sortedYears = [...years].sort((a, b) => a - b);
   const sumup = sortedYears.map((year) => `${year}: ${aarsfravaer[year]} dager`).join(', ');
 
+  if (sortedYears.length === 0) {
+    return null;
+  }
+
   return <span>Fraværsdager {sumup}</span>;
 };
 

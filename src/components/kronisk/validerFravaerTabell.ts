@@ -4,11 +4,14 @@ import { MONTHS } from '../../utils/months';
 import { validerFravaerMaaned } from './validerFravaerMaaned';
 import { monthKey } from '../../utils/monthKey';
 
-export const validerFravaerTabell = (
-  liste: Array<Aarsfravaer>
-): FeiloppsummeringFeil[] => {
+export const validerFravaerTabell = (liste: Array<Aarsfravaer>, perioderUnntak: boolean): FeiloppsummeringFeil[] => {
   let feilmeldinger = new Array<FeiloppsummeringFeil>();
   let isEmpty = true;
+
+  if (perioderUnntak === true) {
+    return feilmeldinger;
+  }
+
   liste.forEach((l) => {
     MONTHS.forEach((m, index) => {
       const month = monthKey(m);

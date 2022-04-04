@@ -8,17 +8,16 @@ export const mapKroniskRequest = (
   orgnr: string,
   bekreft: boolean,
   antallPerioder: number,
-  dokumentasjon: string | undefined
+  dokumentasjon: string | undefined,
+  historiskFravaer: boolean
 ): KroniskRequest => {
-  if (!fravaer || fravaer?.length == 0) {
-    throw new Error('Må ha minst en fravær');
-  }
   return {
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
     bekreftet: bekreft,
     fravaer: mapFravaerData(fravaer),
     antallPerioder,
-    dokumentasjon: dokumentasjon
+    dokumentasjon: dokumentasjon,
+    historiskFravaer: !!historiskFravaer
   } as KroniskRequest;
 };

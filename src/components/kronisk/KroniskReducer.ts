@@ -72,6 +72,10 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       nextState.notAuthorized = false;
       return nextState;
 
+    case Actions.ToggleUnntak:
+      nextState.perioderUnntak = !nextState.perioderUnntak;
+      return validateKronisk(nextState, translate);
+
     case Actions.Reset:
       return Object.assign({}, defaultKroniskState());
 

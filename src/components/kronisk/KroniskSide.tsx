@@ -2,7 +2,7 @@ import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Checkbox, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -80,7 +80,8 @@ const KroniskSide = () => {
           state.orgnr || '',
           state.bekreft || false,
           state.antallPerioder || 0,
-          state.dokumentasjon
+          state.dokumentasjon,
+          !!state.perioderUnntak
         )
       ).then((response) => {
         saveResponse(response);
@@ -213,6 +214,7 @@ const KroniskSide = () => {
               inputMode='numeric'
               pattern='[0-9]*'
               className='kontrollsporsmaal-lonn-arbeidsdager'
+              feil={state.antallPerioderError}
               onChange={(evt) => {
                 dispatch({
                   type: Actions.AntallPerioder,
@@ -225,6 +227,17 @@ const KroniskSide = () => {
             <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
               {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_TEXT)}
             </Normaltekst>
+
+            <Checkbox
+              className='checkbox-unntak'
+              defaultChecked={state.perioderUnntak}
+              label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
+              onChange={() => {
+                dispatch({
+                  type: Actions.ToggleUnntak
+                });
+              }}
+            />
           </Panel>
           <Skillelinje />
 
