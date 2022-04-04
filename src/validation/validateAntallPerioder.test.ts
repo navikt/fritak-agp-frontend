@@ -92,7 +92,7 @@ describe('validateAntallPerioder', () => {
     expect(validateAntallPerioder(0, true, true)).toBeUndefined();
   });
 
-  it('should verify that there is an to high error when required and dager is equal to maximum, using defaults, with exception', () => {
+  it('should verify that there is an to high error when required and dager is higer than maximum, using defaults, with exception', () => {
     expect(validateAntallPerioder(366, true, true)).toBeUndefined();
   });
 });
