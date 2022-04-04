@@ -294,6 +294,53 @@ describe('KroniskReducer', () => {
     expect(state.kvittering).toEqual(true);
   });
 
+  it('should toggle periodeUnntak', () => {
+    let state = KroniskReducer(
+      defaultKroniskState(),
+      {
+        type: Actions.ToggleUnntak
+      },
+      i18n
+    );
+    expect(state.perioderUnntak).toEqual(true);
+
+    let state2 = KroniskReducer(
+      state,
+      {
+        type: Actions.ToggleUnntak
+      },
+      i18n
+    );
+
+    expect(state2.perioderUnntak).toEqual(false);
+  });
+
+  it('should set notAuthorized to false', () => {
+    let defaultState = defaultKroniskState();
+    defaultState.notAuthorized = true;
+    let state = KroniskReducer(
+      defaultState,
+      {
+        type: Actions.NotAuthorized
+      },
+      i18n
+    );
+    expect(state.notAuthorized).toEqual(false);
+  });
+
+  it('should set serverError to false', () => {
+    let defaultState = defaultKroniskState();
+    defaultState.serverError = true;
+    let state = KroniskReducer(
+      defaultState,
+      {
+        type: Actions.HideServerError
+      },
+      i18n
+    );
+    expect(state.serverError).toBeUndefined();
+  });
+
   it('should handle response', () => {
     let state = KroniskReducer(
       defaultKroniskState(),
