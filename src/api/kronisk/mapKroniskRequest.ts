@@ -9,7 +9,7 @@ export const mapKroniskRequest = (
   bekreft: boolean,
   antallPerioder: number,
   dokumentasjon: string | undefined,
-  historiskFravaer: boolean
+  perioderUnntak: boolean
 ): KroniskRequest => {
   return {
     identitetsnummer: fnr,
@@ -18,6 +18,6 @@ export const mapKroniskRequest = (
     fravaer: mapFravaerData(fravaer),
     antallPerioder,
     dokumentasjon: dokumentasjon,
-    historiskFravaer: !!historiskFravaer
+    ikkeHistoriskFravaer: perioderUnntak
   } as KroniskRequest;
 };

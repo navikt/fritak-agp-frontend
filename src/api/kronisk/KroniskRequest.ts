@@ -10,5 +10,5 @@ export interface KroniskRequest {
   fravaer: FravaerData[];
   bekreftet: boolean;
   dokumentasjon?: string;
-  historiskFravaer: boolean;
+  ikkeHistoriskFravaer: boolean;
 }

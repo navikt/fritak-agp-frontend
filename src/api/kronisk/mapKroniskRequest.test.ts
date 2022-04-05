@@ -15,10 +15,10 @@ describe('mapKroniskRequest', () => {
   ];
   const antallPerioder = 4;
   const dokumentasjon = 'dokumentasjon';
-  const historiskFravaer = false;
+  const ikkeHistoriskFravaer = false;
 
   it('should fail when no fravær', async () => {
-    const r = mapKroniskRequest([], fnr, orgnr, bekreft, antallPerioder, dokumentasjon, historiskFravaer);
+    const r = mapKroniskRequest([], fnr, orgnr, bekreft, antallPerioder, dokumentasjon, ikkeHistoriskFravaer);
     expect(r).toEqual({
       antallPerioder: 4,
       bekreftet: true,
@@ -26,12 +26,12 @@ describe('mapKroniskRequest', () => {
       fravaer: [],
       identitetsnummer: '123456789',
       virksomhetsnummer: '987654321',
-      historiskFravaer: false
+      ikkeHistoriskFravaer: false
     });
   });
 
   it('should not fail when all props', async () => {
-    const r = mapKroniskRequest(fravaer, fnr, orgnr, bekreft, antallPerioder, dokumentasjon, historiskFravaer);
+    const r = mapKroniskRequest(fravaer, fnr, orgnr, bekreft, antallPerioder, dokumentasjon, ikkeHistoriskFravaer);
     expect(r).toEqual({
       antallPerioder: 4,
       bekreftet: true,
@@ -43,12 +43,12 @@ describe('mapKroniskRequest', () => {
       ],
       identitetsnummer: '123456789',
       virksomhetsnummer: '987654321',
-      historiskFravaer: false
+      ikkeHistoriskFravaer: false
     });
   });
 
   it('should not fail when historiskFravaer is true', async () => {
-    const r = mapKroniskRequest([], fnr, orgnr, bekreft, 0, dokumentasjon, historiskFravaer);
+    const r = mapKroniskRequest([], fnr, orgnr, bekreft, 0, dokumentasjon, true);
     expect(r).toEqual({
       antallPerioder: 0,
       bekreftet: true,
@@ -56,7 +56,7 @@ describe('mapKroniskRequest', () => {
       fravaer: [],
       identitetsnummer: '123456789',
       virksomhetsnummer: '987654321',
-      historiskFravaer: false
+      ikkeHistoriskFravaer: true
     });
   });
 });
