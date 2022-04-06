@@ -81,5 +81,6 @@ describe('Fravaersdager', () => {
     render(<Fravaersdager maanedsfravaer={[]} />);
 
     expect(screen.queryByText('Fraværsdager')).not.toBeInTheDocument();
+    expect(screen.queryByText('KRONISK_SIDE_PERIODER_UNNTAK')).toBeInTheDocument();
   });
 });

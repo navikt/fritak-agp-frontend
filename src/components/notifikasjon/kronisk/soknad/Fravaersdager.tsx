@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { KroniskSideKeys } from '../../../kronisk/KroniskSideKeys';
 
 export interface MaanedsFravaer {
   yearMonth: string;
@@ -10,6 +12,7 @@ interface FravaersdagerProps {
 }
 
 const Fravaersdager = ({ maanedsfravaer }: FravaersdagerProps) => {
+  const { t } = useTranslation();
   const aarsfravaer: number[] = [];
   const years: number[] = [];
 
@@ -36,7 +39,7 @@ const Fravaersdager = ({ maanedsfravaer }: FravaersdagerProps) => {
   const sumup = sortedYears.map((year) => `${year}: ${aarsfravaer[year]} dager`).join(', ');
 
   if (sortedYears.length === 0) {
-    return null;
+    return <span>{t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}</span>;
   }
 
   return <span>Fraværsdager {sumup}</span>;
