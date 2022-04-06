@@ -14,7 +14,8 @@ export enum Actions {
   HandleResponse,
   NotAuthorized,
   AntallPerioder,
-  HideServerError
+  HideServerError,
+  ToggleUnntak
 }
 
 export interface FravaerType {

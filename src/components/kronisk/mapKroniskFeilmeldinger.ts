@@ -28,6 +28,9 @@ const mapKroniskFeilmeldinger = (response: ValidationResponse<KroniskSoknadRespo
         state.fravaerError = v.message;
         feilmeldinger.push(lagFeil('fravaer', v.message));
         break;
+      case 'antallPerioder':
+        state.antallPerioderError = v.message;
+        feilmeldinger.push(lagFeil('soknad-perioder', v.message));
     }
   });
   return feilmeldinger;
