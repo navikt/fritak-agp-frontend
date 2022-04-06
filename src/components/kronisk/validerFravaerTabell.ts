@@ -31,6 +31,7 @@ export const validerFravaerTabell = (
       skjemaelementId: 'fravaer',
       feilmelding: 'Fravær kan ikke være fylt ut når det er huket av for at det ikke finnes historisk fravær.'
     });
+    return feilmeldinger;
   }
 
   if (isEmpty) {

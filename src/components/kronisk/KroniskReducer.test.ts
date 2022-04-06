@@ -387,7 +387,7 @@ describe('KroniskReducer', () => {
         skjemaelementId: 'bekreftFeilmeldingId'
       },
       {
-        feilmelding: 'Fravær må fylles ut',
+        feilmelding: 'Fravær må fylles ut.',
         skjemaelementId: 'fravaer'
       }
     ];

@@ -40,7 +40,7 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
   nextState.feilmeldinger = feilmeldinger;
 
   const arbeidFeilmeldinger = validerFravaerTabell(nextState?.fravaer || [], !!nextState.ikkeHistoriskFravaer);
-  debugger; // eslint-disable-line
+
   if (arbeidFeilmeldinger.length == 1 && arbeidFeilmeldinger[0].skjemaelementId == 'fravaer') {
     if (nextState.ikkeHistoriskFravaer) {
       nextState.fravaerError =

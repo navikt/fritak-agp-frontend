@@ -49,11 +49,11 @@ describe('validateAntallPerioder', () => {
 
   /*************** Med unntak ***************/
   it('should verify that there is an to high error when required and dager is equal to maximum, using defaults, with exception', () => {
-    expect(validateAntallPerioder(366, true, true)).toBeUndefined();
+    expect(validateAntallPerioder(366, true, true)).toEqual({ key: 'VALIDATE_ANTALL_PERIODER_UTEN_DATA' });
   });
 
   it('should verify that there is a dager when required, with exception', () => {
-    expect(validateAntallPerioder(123, true, true)).toBeUndefined();
+    expect(validateAntallPerioder(123, true, true)).toEqual({ key: 'VALIDATE_ANTALL_PERIODER_UTEN_DATA' });
   });
 
   it('should verify that there is a dager and not required, with exception', () => {
@@ -73,19 +73,19 @@ describe('validateAntallPerioder', () => {
   });
 
   it('should verify that there is an to low error when required and dager is below minimum, with exception', () => {
-    expect(validateAntallPerioder(2, true, true, 5)).toBeUndefined();
+    expect(validateAntallPerioder(2, true, true, 5)).toEqual({ key: 'VALIDATE_ANTALL_PERIODER_UTEN_DATA' });
   });
 
   it('should verify that there is an to low error when required and dager is above maximum, with exception', () => {
-    expect(validateAntallPerioder(12, true, true, 5, 10)).toBeUndefined();
+    expect(validateAntallPerioder(12, true, true, 5, 10)).toEqual({ key: 'VALIDATE_ANTALL_PERIODER_UTEN_DATA' });
   });
 
   it('should verify that there is not an error when required and dager is equal to minimum, with exception', () => {
-    expect(validateAntallPerioder(5, true, true, 5)).toBeUndefined();
+    expect(validateAntallPerioder(5, true, true, 5)).toEqual({ key: 'VALIDATE_ANTALL_PERIODER_UTEN_DATA' });
   });
 
   it('should verify that there is an to high error when required and dager is equal to maximum, with exception', () => {
-    expect(validateAntallPerioder(10, true, true, 5, 10)).toBeUndefined();
+    expect(validateAntallPerioder(10, true, true, 5, 10)).toEqual({ key: 'VALIDATE_ANTALL_PERIODER_UTEN_DATA' });
   });
 
   it('should verify that there is not an error when required and dager is equal to minimum, using defaults, with exception', () => {
@@ -93,6 +93,6 @@ describe('validateAntallPerioder', () => {
   });
 
   it('should verify that there is an to high error when required and dager is higer than maximum, using defaults, with exception', () => {
-    expect(validateAntallPerioder(366, true, true)).toBeUndefined();
+    expect(validateAntallPerioder(366, true, true)).toEqual({ key: 'VALIDATE_ANTALL_PERIODER_UTEN_DATA' });
   });
 });
