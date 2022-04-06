@@ -81,7 +81,7 @@ const KroniskSide = () => {
           state.bekreft || false,
           state.antallPerioder || 0,
           state.dokumentasjon,
-          !!state.perioderUnntak
+          !!state.ikkeHistoriskFravaer
         )
       ).then((response) => {
         saveResponse(response);
@@ -230,7 +230,7 @@ const KroniskSide = () => {
 
             <Checkbox
               className='checkbox-unntak'
-              defaultChecked={state.perioderUnntak}
+              defaultChecked={state.ikkeHistoriskFravaer}
               label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
               onChange={() => {
                 dispatch({

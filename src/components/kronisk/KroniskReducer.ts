@@ -73,7 +73,7 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       return nextState;
 
     case Actions.ToggleUnntak:
-      nextState.perioderUnntak = !nextState.perioderUnntak;
+      nextState.ikkeHistoriskFravaer = !nextState.ikkeHistoriskFravaer;
       return validateKronisk(nextState, translate);
 
     case Actions.Reset:

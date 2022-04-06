@@ -10,7 +10,7 @@ export const defaultKroniskState = (): KroniskState => {
     dokumentasjon: undefined,
     bekreft: undefined,
     feilmeldinger: Array<FeiloppsummeringFeil>(),
-    perioderUnntak: false
+    ikkeHistoriskFravaer: false
   };
 };
 
@@ -34,6 +34,6 @@ export default interface KroniskState extends ValidationState {
   submitting?: boolean;
   antallPerioder?: number;
   antallPerioderError?: string;
-  perioderUnntak?: boolean;
-  perioderUnntakError?: string;
+  ikkeHistoriskFravaer?: boolean;
+  ikkeHistoriskFravaerError?: string;
 }

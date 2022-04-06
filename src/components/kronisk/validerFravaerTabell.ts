@@ -4,13 +4,12 @@ import { MONTHS } from '../../utils/months';
 import { validerFravaerMaaned } from './validerFravaerMaaned';
 import { monthKey } from '../../utils/monthKey';
 
-export const validerFravaerTabell = (liste: Array<Aarsfravaer>, perioderUnntak: boolean): FeiloppsummeringFeil[] => {
+export const validerFravaerTabell = (
+  liste: Array<Aarsfravaer>,
+  ikkeHistoriskFravaer: boolean
+): FeiloppsummeringFeil[] => {
   let feilmeldinger = new Array<FeiloppsummeringFeil>();
   let isEmpty = true;
-
-  if (perioderUnntak === true) {
-    return feilmeldinger;
-  }
 
   liste.forEach((l) => {
     MONTHS.forEach((m, index) => {
@@ -25,10 +24,19 @@ export const validerFravaerTabell = (liste: Array<Aarsfravaer>, perioderUnntak: 
       }
     });
   });
+
+  if (ikkeHistoriskFravaer === true) {
+    if (isEmpty) return feilmeldinger;
+    feilmeldinger.push({
+      skjemaelementId: 'fravaer',
+      feilmelding: 'Fravær kan ikke være fylt ut når det er huket av for at det ikke finnes historisk fravær.'
+    });
+  }
+
   if (isEmpty) {
     feilmeldinger.push({
       skjemaelementId: 'fravaer',
-      feilmelding: 'Fravær må fylles ut'
+      feilmelding: 'Fravær må fylles ut.'
     });
   }
   return feilmeldinger;

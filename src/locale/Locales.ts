@@ -1028,6 +1028,10 @@ const Locales: Record<
     nb: 'Antall fraværsperioder per år er for høyt',
     en: 'The number of periods of absence per year is too high'
   },
+  VALIDATE_ANTALL_PERIODER_UTEN_DATA: {
+    nb: 'Kan ikke ha perioder samtidig som du har huket av at det ikke er tidliger perioder',
+    en: 'Can not have periods at the same time as you have ticked that there are no earlier periods'
+  },
   VALIDATE_SYKEMELDINGSGRAD_LOW: {
     nb: 'Sykemeldingsgraden må være 20% eller høyere',
     en: 'The degree of sick leave must be 20% or higher'

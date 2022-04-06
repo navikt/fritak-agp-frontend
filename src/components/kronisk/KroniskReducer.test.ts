@@ -302,7 +302,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.perioderUnntak).toEqual(true);
+    expect(state.ikkeHistoriskFravaer).toEqual(true);
 
     let state2 = KroniskReducer(
       state,
@@ -312,7 +312,7 @@ describe('KroniskReducer', () => {
       i18n
     );
 
-    expect(state2.perioderUnntak).toEqual(false);
+    expect(state2.ikkeHistoriskFravaer).toEqual(false);
   });
 
   it('should set notAuthorized to false', () => {
