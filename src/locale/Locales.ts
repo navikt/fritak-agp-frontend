@@ -1065,8 +1065,8 @@ const Locales: Record<
     en: 'April'
   },
   FRAVAERTABELL_MONTH_5: {
-    nb: 'May',
-    en: 'Mai'
+    nb: 'Mai',
+    en: 'May'
   },
   FRAVAERTABELL_MONTH_6: {
     nb: 'Juni',
