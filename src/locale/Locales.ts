@@ -423,8 +423,8 @@ const Locales: Record<
     en: 'Submit claim'
   },
   GRAVID_KRAV_LAST_OPP: {
-    nb: 'LAST OPP LEGEERKLÆRINGEN (valgfritt)',
-    en: "UPLOAD THE DOCTOR'S DECLARATION (optional)"
+    nb: 'Last opp dokumentasjon (valgfritt)',
+    en: 'Upload documentation (optional)'
   },
   GRAVID_KRAV_VALIDERING_BEKREFT_MANGLER: {
     nb: 'Mangler bekreft',
@@ -572,8 +572,8 @@ const Locales: Record<
     en: ''
   },
   KRONISK_SIDE_UPLOAD: {
-    nb: 'LAST OPP LEGEERKLÆRINGEN (valgfritt)',
-    en: "UPLOAD THE DOCTOR'S DECLARATION (optional)"
+    nb: 'Last opp dokumentasjon (valgfritt)',
+    en: 'Upload documentation (optional)'
   },
   KRONISK_SIDE_FRAVAER: {
     nb: 'Fraværet',
