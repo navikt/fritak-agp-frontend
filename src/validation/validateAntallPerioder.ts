@@ -3,7 +3,8 @@ import ValidationResult from '@navikt/helse-arbeidsgiver-felles-frontend/dist/va
 export enum ValidateAntallPerioderKeys {
   VALIDATE_ANTALL_PERIODER_MISSING = 'VALIDATE_ANTALL_PERIODER_MISSING',
   VALIDATE_ANTALL_PERIODER_TOO_LOW = 'VALIDATE_ANTALL_PERIODER_TOO_LOW',
-  VALIDATE_ANTALL_PERIODER_TOO_HIGH = 'VALIDATE_ANTALL_PERIODER_TOO_HIGH'
+  VALIDATE_ANTALL_PERIODER_TOO_HIGH = 'VALIDATE_ANTALL_PERIODER_TOO_HIGH',
+  VALIDATE_ANTALL_PERIODER_UTEN_DATA = 'VALIDATE_ANTALL_PERIODER_UTEN_DATA'
 }
 
 export interface ValidateAntallPerioderResult extends ValidationResult {
@@ -11,15 +12,22 @@ export interface ValidateAntallPerioderResult extends ValidationResult {
 }
 
 export const validateAntallPerioder = (
-  dager: number | undefined,
+  perioder: number | undefined,
   required: boolean,
-  minDager: number = 0,
-  maxDager: number = 366
+  ikkeHistoriskFravaer: boolean,
+  minPerioder: number = 0,
+  maxPerioder: number = 366
 ): ValidateAntallPerioderResult | undefined => {
   if (!required) return undefined;
-  if (dager === undefined) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_MISSING };
-  if (dager < minDager) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_TOO_LOW };
-  if (maxDager < dager) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_TOO_HIGH };
+  if (ikkeHistoriskFravaer) {
+    if (perioder && perioder > 0) {
+      return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_UTEN_DATA };
+    }
+    return undefined;
+  }
+  if (perioder === undefined) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_MISSING };
+  if (perioder < minPerioder) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_TOO_LOW };
+  if (maxPerioder < perioder) return { key: ValidateAntallPerioderKeys.VALIDATE_ANTALL_PERIODER_TOO_HIGH };
   return undefined;
 };
 

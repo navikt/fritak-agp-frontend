@@ -27,13 +27,11 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   const nextState = Object.assign({}, state);
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
-  nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
-  nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
+  validateFodselsnummer(nextState, state, translate, feilmeldinger);
 
-  nextState.antallDagerError = formatValidation(
-    validateArbeidsdager(state.antallDager, state.validated, MIN_ARBEIDSDAGER, MAX_ARBEIDSDAGER),
-    translate
-  );
+  validateOrganisasjonsnummer(nextState, state, translate, feilmeldinger);
+
+  validateAntallDager(nextState, state, translate, feilmeldinger);
 
   if (nextState.endringskrav) {
     if (nextState.endringsAarsak) {
@@ -47,7 +45,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
     const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
 
-    aktuellPeriode.fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
+    aktuellPeriode.fomError = translate.t(valideringFraStatus?.key as string, { value: minDato });
 
     const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
 
@@ -56,29 +54,14 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       translate
     );
 
-    aktuellPeriode.tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
+    aktuellPeriode.tomError = translate.t(valideringTilStatus?.key as string, { value: minDato });
 
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
     aktuellPeriode.belopError = formatValidation(
-      validateBeloep(aktuellPeriode.belop ? '' + aktuellPeriode.belop : undefined, MAX, !!state.validated),
+      validateBeloep(stringOrUndefined(aktuellPeriode.belop), MAX, !!state.validated),
       translate
     );
   });
-
-  if (nextState.fnrError) {
-    pushFeilmelding('fnr', nextState.fnrError, feilmeldinger);
-  }
-  if (nextState.orgnrError) {
-    pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
-  }
-
-  if (nextState.endringsAarsakError) {
-    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
-  }
-
-  if (nextState.antallDagerError) {
-    pushFeilmelding('kontrollsporsmaal-lonn-arbeidsdager', nextState.antallDagerError, feilmeldinger);
-  }
 
   nextState.perioder?.forEach((aktuellPeriode, index) => {
     if (aktuellPeriode.fomError) {
@@ -102,11 +85,64 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     }
   });
 
-  nextState.bekreftError = formatValidation(validateBekreft(state.bekreft, state.validated), translate);
-  if (nextState.bekreftError) {
-    pushFeilmelding('bekreftFeilmeldingId', nextState.bekreftError || '', feilmeldinger);
-  }
+  validateBekreftelse(nextState, state, translate, feilmeldinger);
 
   nextState.feilmeldinger = feilmeldinger;
   return nextState;
 };
+
+function validateBekreftelse(
+  nextState: KroniskKravState,
+  state: KroniskKravState,
+  translate: i18n,
+  feilmeldinger: FeiloppsummeringFeil[]
+) {
+  nextState.bekreftError = formatValidation(validateBekreft(state.bekreft, state.validated), translate);
+  if (nextState.bekreftError) {
+    pushFeilmelding('bekreftFeilmeldingId', nextState.bekreftError || '', feilmeldinger);
+  }
+}
+
+function stringOrUndefined(theNumber: number | undefined): string | undefined {
+  return theNumber ? theNumber.toString() : undefined;
+}
+
+function validateOrganisasjonsnummer(
+  nextState: KroniskKravState,
+  state: KroniskKravState,
+  translate: i18n,
+  feilmeldinger: FeiloppsummeringFeil[]
+) {
+  nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
+  if (nextState.orgnrError) {
+    pushFeilmelding('orgnr', nextState.orgnrError, feilmeldinger);
+  }
+}
+
+function validateFodselsnummer(
+  nextState: KroniskKravState,
+  state: KroniskKravState,
+  translate: i18n,
+  feilmeldinger: FeiloppsummeringFeil[]
+) {
+  nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
+  if (nextState.fnrError) {
+    pushFeilmelding('fnr', nextState.fnrError, feilmeldinger);
+  }
+}
+
+function validateAntallDager(
+  nextState: KroniskKravState,
+  state: KroniskKravState,
+  translate: i18n,
+  feilmeldinger: FeiloppsummeringFeil[]
+) {
+  nextState.antallDagerError = formatValidation(
+    validateArbeidsdager(state.antallDager, !!state.validated, MIN_ARBEIDSDAGER, MAX_ARBEIDSDAGER),
+    translate
+  );
+
+  if (nextState.antallDagerError) {
+    pushFeilmelding('kontrollsporsmaal-lonn-arbeidsdager', nextState.antallDagerError, feilmeldinger);
+  }
+}

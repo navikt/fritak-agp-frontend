@@ -74,6 +74,13 @@ describe('Fravaersdager', () => {
   it('should sum up the days', () => {
     render(<Fravaersdager maanedsfravaer={fravaer} />);
 
-    expect(screen.getByText('Fraværsdager 2019: 10 dager, 2020: 64 dager, 2021: 70 dager')).toBeTruthy();
+    expect(screen.getByText('Fraværsdager 2019: 10 dager, 2020: 64 dager, 2021: 70 dager')).toBeInTheDocument();
+  });
+
+  it('should return null if we dont have fravaer', () => {
+    render(<Fravaersdager maanedsfravaer={[]} />);
+
+    expect(screen.queryByText('Fraværsdager')).not.toBeInTheDocument();
+    expect(screen.queryByText('KRONISK_SIDE_PERIODER_UNNTAK')).toBeInTheDocument();
   });
 });

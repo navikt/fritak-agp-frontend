@@ -10,8 +10,12 @@ export type GravidSoknadKvitteringContextState = {
 
 const contextDefaultValues: GravidSoknadKvitteringContextState = {
   response: undefined,
-  saveResponse: () => {},
-  clearResponse: () => {}
+  saveResponse: () => {
+    // This is intentional
+  },
+  clearResponse: () => {
+    // This is intentional
+  }
 };
 
 export const GravidSoknadKvitteringContext = createContext<GravidSoknadKvitteringContextState>(contextDefaultValues);
@@ -27,8 +31,8 @@ const GravidSoknadKvitteringProvider: FC<GravidSoknadKvitteringProviderProps> = 
     contextDefaultValues.response
   );
 
-  const saveResponse = (response: ValidationResponse<GravidSoknadResponse>) => {
-    setResponse(response);
+  const saveResponse = (responseData: ValidationResponse<GravidSoknadResponse>) => {
+    setResponse(responseData);
   };
 
   const clearResponse = () => {
