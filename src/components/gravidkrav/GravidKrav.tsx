@@ -49,6 +49,8 @@ import { mapGravidKravPatch } from '../../api/gravidkrav/mapGravidKravPatch';
 import GetHandler from '../../api/fetch/GetHandler';
 import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
 import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
+import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -67,6 +69,13 @@ export const GravidKrav = (props: GravidKravProps) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const history = useHistory();
+
+  const dispatchResponse = (response: ValidationResponse<GravidKravResponse>) => {
+    dispatch({
+      type: Actions.HandleResponse,
+      payload: { response: response }
+    });
+  };
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -174,10 +183,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             state.endringsAarsak!
           )
         ).then((response) => {
-          dispatch({
-            type: Actions.HandleResponse,
-            payload: { response: response }
-          });
+          dispatchResponse(response);
         });
       } else {
         postGravidKrav(
@@ -191,10 +197,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             state.antallDager
           )
         ).then((response) => {
-          dispatch({
-            type: Actions.HandleResponse,
-            payload: { response: response }
-          });
+          dispatchResponse(response);
         });
       }
     }

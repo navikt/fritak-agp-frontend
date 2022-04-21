@@ -1,5 +1,4 @@
 import getRequest from '../fetch/GetHandler';
-// import { Paths } from '../../config/Paths';
 import { FetchResponse } from '../fetch/FetchResponse';
 import environment from '../../config/environment';
 

@@ -548,9 +548,11 @@ describe('KroniskKravReducer', () => {
       i18n
     );
 
-    // @ts-ignore
-    const fom = state.perioder[0].fom;
-    const tom = state!.perioder![0].tom;
+    if (!state) {
+      state = { feilmeldinger: [] };
+    }
+    const fom = state.perioder![0].fom;
+    const tom = state.perioder![0].tom;
 
     expect(fom?.value).toBe('12.11.2022');
     expect(tom?.value).toBe('13.12.2022');

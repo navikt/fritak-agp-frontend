@@ -1,7 +1,7 @@
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { KroniskKrav } from '../oversiktkrav/tilpassOversiktKrav';
-import EndringsAarsak from '../gravidkrav/EndringsAarsak';
+import IEndringsAarsak from '../gravidkrav/EndringsAarsak';
 
 export enum Actions {
   Reset,
@@ -53,7 +53,7 @@ export interface Payload {
   sykemeldingsgrad?: string;
   krav?: KroniskKrav;
   error?: string;
-  endringsAarsak?: EndringsAarsak;
+  endringsAarsak?: IEndringsAarsak;
 }
 
 export interface KroniskKravAction {

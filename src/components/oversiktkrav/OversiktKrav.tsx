@@ -5,7 +5,7 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import { Alert, Table } from '@navikt/ds-react';
 import Panel from 'nav-frontend-paneler';
 import '@navikt/ds-css';
-import tilpassOversiktKrav, { KravRad } from './tilpassOversiktKrav';
+import tilpassOversiktKrav, { KravRad, KroniskKrav } from './tilpassOversiktKrav';
 import Dato from './Dato';
 import { KravListeContext } from '../../context/KravListeContext';
 import './OversiktKrav.scss';
@@ -13,7 +13,9 @@ import getOversiktKrav from '../../api/oversiktKrav/getOversiktKrav';
 import { Paths } from '../../config/Paths';
 
 export default function OversiktKrav(state) {
-  const handleCloseServerFeil = () => {};
+  const handleCloseServerFeil = () => {
+    // This is intentional
+  };
   const [krav, setKravet] = useState<KravRad[]>([]);
   const [henterData, setHenterData] = useState<boolean>(true);
 
@@ -22,7 +24,7 @@ export default function OversiktKrav(state) {
 
   useEffect(() => {
     const fetchData = async () => {
-      let kroniskKravRespons;
+      let kroniskKravRespons: KroniskKrav[];
       try {
         const kravRespons = await getOversiktKrav(Paths.KroniskKravOversikt, arbeidsgiverId);
         if (kravRespons.status === HttpStatus.Successfully) {
@@ -48,12 +50,12 @@ export default function OversiktKrav(state) {
         setHenterData(false);
       }
 
-      const kravRespons = {
+      const samletKravRespons = {
         kroniskKrav: kroniskKravRespons,
         gravidKrav: gravidKravRespons
       };
 
-      setKrav(kravRespons);
+      setKrav(samletKravRespons);
       setKravet(tilpassOversiktKrav(gravidKravRespons, kroniskKravRespons));
     };
     if (arbeidsgiverId) {

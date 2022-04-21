@@ -47,6 +47,8 @@ import EndringsAarsak from '../gravidkrav/EndringsAarsak';
 import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
 import GetHandler from '../../api/fetch/GetHandler';
+import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -62,6 +64,13 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const history = useHistory();
+
+  const dispatchResponse = (response: ValidationResponse<KroniskKravResponse>) => {
+    dispatch({
+      type: Actions.HandleResponse,
+      payload: { response: response }
+    });
+  };
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
@@ -153,20 +162,14 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             state.endringsAarsak!
           )
         ).then((response) => {
-          dispatch({
-            type: Actions.HandleResponse,
-            payload: { response: response }
-          });
+          dispatchResponse(response);
         });
       } else {
         postKroniskKrav(
           environment.baseUrl,
           mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
         ).then((response) => {
-          dispatch({
-            type: Actions.HandleResponse,
-            payload: { response: response }
-          });
+          dispatchResponse(response);
         });
       }
     }

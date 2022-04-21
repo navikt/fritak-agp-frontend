@@ -11,11 +11,11 @@ import { Link, useParams } from 'react-router-dom';
 import PathParams from '../../locale/PathParams';
 import lenker, { buildLenke } from '../../config/lenker';
 
-interface KravKvitteringSlettetProps {
+interface KravEndringKvitteringProps {
   backTarget: lenker;
 }
 
-const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
+const KravEndringKvittering = (props: KravEndringKvitteringProps) => {
   const { t } = useTranslation();
   const { language } = useParams<PathParams>();
   const backTarget = buildLenke(props.backTarget, language);
@@ -44,4 +44,4 @@ const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
   );
 };
 
-export default KravKvitteringSlettet;
+export default KravEndringKvittering;
