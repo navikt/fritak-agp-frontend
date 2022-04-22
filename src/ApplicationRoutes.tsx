@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import lenker from './config/lenker';
 import GravidSide from './components/gravid/GravidSide';
@@ -8,7 +9,6 @@ import GravidKrav from './components/gravidkrav/GravidKrav';
 import KroniskKrav from './components/kroniskkrav/KroniskKrav';
 import KravKvittering from './components/kravkvittering/KravKvittering';
 import Forside from './components/Forside';
-import React from 'react';
 import { GravidSoknadController } from './components/notifikasjon/gravid/soknad/GravidSoknadController';
 import { GravidKravController } from './components/notifikasjon/gravid/krav/GravidKravController';
 import { KroniskSoknadController } from './components/notifikasjon/kronisk/soknad/KroniskSoknadController';
@@ -17,7 +17,6 @@ import { TokenFornyet } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidSoknadKvitteringProvider from './context/GravidSoknadKvitteringContext';
 import KroniskSoknadKvitteringProvider from './context/KroniskSoknadKvitteringContext';
 import EksempelLonningsdager from './components/eksempellonnsdager/EksempelLonningsdager';
-import OversiktKrav from './components/oversiktkrav/OversiktKrav';
 import KravListeProvider from './context/KravListeContext';
 import KroniskKvitteringSlettet from './components/kravkvittering/KravKvitteringSlettet';
 import KravEndringKvittering from './components/kravendringkvittering/KravEndringKvittering';
@@ -68,7 +67,6 @@ export const ApplicationRoutes = () => (
             <Route path={lenker.NotifikasjonKroniskSoknad} render={() => <KroniskSoknadController />} />
             <Route path={lenker.NotifikasjonKroniskKrav} render={() => <KroniskKravController />} />
             <Route path={lenker.EksemplerLonnsdager} render={() => <EksempelLonningsdager />} />
-            <Route path={lenker.Oversikt} render={() => <OversiktKrav />} />
             <Route path={lenker.Home} render={() => <Forside />} />
           </Switch>
         </KravListeProvider>

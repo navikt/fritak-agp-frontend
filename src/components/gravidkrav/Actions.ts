@@ -1,6 +1,6 @@
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
-import { GravidKrav } from '../oversiktkrav/tilpassOversiktKrav';
+import { GravidKrav } from '../../context/krav';
 import IEndringsAarsak from './EndringsAarsak';
 
 export enum Actions {

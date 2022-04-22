@@ -1,5 +1,5 @@
 import React, { createContext, useState, FC, ReactNode } from 'react';
-import { KravRad } from '../components/oversiktkrav/tilpassOversiktKrav';
+import { KravRad } from './krav';
 
 export type KravListeContextState = {
   kravListe: any | undefined;

@@ -19,8 +19,7 @@ enum lenker {
   KroniskKravKvittering = '/:language/kronisk/krav/kvittering',
   KroniskKravSlettetKvittering = '/:language/kronisk/krav/slettet/kvittering',
   KroniskKravEndringKvittering = '/:language/kronisk/krav/endring/kvittering',
-  EksemplerLonnsdager = '/:language/eksemplerlonnsdager',
-  Oversikt = '/:language/oversikt'
+  EksemplerLonnsdager = '/:language/eksemplerlonnsdager'
 }
 
 export const buildLenke = (lenke: lenker, lang: Language) => lenke.replace(':language', lang);

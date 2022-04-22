@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 export interface KravRad {
   kravId: string;
   opprettet: Date;
@@ -45,27 +43,3 @@ export interface EksisterendeKrav {
   gravidKrav: GravidKrav[] | [];
   kroniskKrav: KroniskKrav[] | [];
 }
-
-const mapKrav = (krav: GravidKrav[] | KroniskKrav[], kravType: string): KravRad[] => {
-  return krav
-    .filter((ufiltrert) => {
-      return ufiltrert.status === 'OPPRETTET';
-    })
-    .map((rad): KravRad => {
-      return {
-        kravId: rad.id,
-        opprettet: dayjs(rad.opprettet).toDate(),
-        fnr: rad.identitetsnummer,
-        navn: rad.navn,
-        kravtype: kravType
-      };
-    });
-};
-
-const tilpassOversiktKrav = (gravidKrav: GravidKrav[], kroniskKrav: KroniskKrav[]): KravRad[] => {
-  return [...mapKrav(gravidKrav, 'gravidKrav'), ...mapKrav(kroniskKrav, 'kroniskKrav')].sort((a, b) =>
-    Number(a.opprettet < b.opprettet)
-  );
-};
-
-export default tilpassOversiktKrav;

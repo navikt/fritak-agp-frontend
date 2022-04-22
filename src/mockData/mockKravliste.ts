@@ -1,4 +1,4 @@
-import { GravidKrav } from '../components/oversiktkrav/tilpassOversiktKrav';
+import { GravidKrav } from '../context/krav';
 
 const mockGravidKravliste: GravidKrav[] = [
   {
