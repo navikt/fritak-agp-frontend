@@ -66,14 +66,20 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const oddClass = props.index % 2 ? 'odd' : 'even';
 
-  const defaultFom = props.enkeltPeriode.fom ? dayjs(datoToString(props.enkeltPeriode.fom)).toDate() : undefined;
-  const defaultTom = props.enkeltPeriode.tom ? dayjs(datoToString(props.enkeltPeriode.tom)).toDate() : undefined;
+  const defaultFom =
+    props.enkeltPeriode.fom && props.enkeltPeriode.fom.year
+      ? dayjs(datoToString(props.enkeltPeriode.fom)).toDate()
+      : undefined;
+  const defaultTom =
+    props.enkeltPeriode.tom && props.enkeltPeriode.tom.year
+      ? dayjs(datoToString(props.enkeltPeriode.tom)).toDate()
+      : undefined;
   const defaultSykemeldingsgrad = props.enkeltPeriode.sykemeldingsgrad
     ? stringishToNumber(props.enkeltPeriode.sykemeldingsgrad)
     : '';
 
   useEffect(() => {
-    if (props.enkeltPeriode.fom) {
+    if (props.enkeltPeriode.fom && props.enkeltPeriode.fom.year) {
       getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbelopRespons) => {
         if (grunnbelopRespons.grunnbeloep) {
           dispatch({

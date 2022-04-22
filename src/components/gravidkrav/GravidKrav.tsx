@@ -235,7 +235,7 @@ export const GravidKrav = (props: GravidKravProps) => {
         .catch(() => {
           dispatch({
             type: Actions.AddBackendError,
-            payload: { error: 'Klarte ikke å hente kravet.' }
+            payload: { error: 'Klarte ikke å hente det eksisterende kravet.' }
           });
         });
     }

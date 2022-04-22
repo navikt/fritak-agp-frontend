@@ -21,16 +21,22 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
   switch (action.type) {
     case Actions.Fnr:
+      if (!nextState.formDirty) {
+        nextState.formDirty = nextState.fnr === payload?.fnr;
+      }
       nextState.fnr = payload?.fnr;
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Orgnr:
+      if (!nextState.formDirty && state.orgnr && state.orgnr?.length > 0) {
+        nextState.formDirty = nextState.orgnr === payload?.orgnr;
+      }
       nextState.orgnr = payload?.orgnr;
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Fra:
       checkItemId(payload?.itemId);
-
+      nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
         ? parseDateTilDato(payload.fra)
         : undefined;
@@ -40,6 +46,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Til:
       checkItemId(payload?.itemId);
 
+      nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
         ? parseDateTilDato(payload.til)
         : undefined;
@@ -48,6 +55,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.Dager:
       checkItemId(payload?.itemId);
+
+      nextState.formDirty = true;
+
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.dager = payload?.dager;
 
       return validateKroniskKrav(nextState, translate);
@@ -55,18 +65,26 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Beloep:
       checkItemId(payload?.itemId);
 
+      nextState.formDirty = true;
+
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.belop = payload?.belop;
 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Sykemeldingsgrad:
       checkItemId(payload?.itemId);
+
+      nextState.formDirty = true;
+
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
         payload?.sykemeldingsgrad;
 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Bekreft:
+      if (!nextState.formDirty) {
+        nextState.formDirty = nextState.bekreft === payload?.bekreft;
+      }
       nextState.bekreft = payload?.bekreft;
       return validateKroniskKrav(nextState, translate);
 
@@ -140,6 +158,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
         }));
         nextState.kravId = krav.id;
         nextState.endringskrav = true;
+        nextState.formDirty = false;
       }
 
       return nextState;
@@ -190,6 +209,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.HideServerError:
       nextState.serverError = false;
+      return nextState;
+
+    case Actions.SetFormClean:
+      nextState.formDirty = false;
       return nextState;
 
     default:

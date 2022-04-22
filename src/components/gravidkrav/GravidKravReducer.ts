@@ -30,7 +30,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return validateGravidKrav(nextState, translate);
 
     case Actions.Orgnr:
-      if (!nextState.formDirty) {
+      if (!nextState.formDirty && state.orgnr && state.orgnr?.length > 0) {
         nextState.formDirty = nextState.orgnr === payload?.orgnr;
       }
       nextState.orgnr = payload?.orgnr;
@@ -174,11 +174,16 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
     }
 
-    case Actions.AddBackendError:
-      if (payload?.error) {
+    case Actions.AddBackendError: {
+      debugger; // eslint-disable-line
+      const eksisterendeFeilmelding = state.feilmeldinger.find(
+        (feilmelding) => feilmelding.feilmelding === payload?.error
+      );
+      if (payload?.error && !eksisterendeFeilmelding) {
         pushFeilmelding('backend-' + uuid(), payload.error, nextState.feilmeldinger);
       }
       return nextState;
+    }
 
     case Actions.RemoveBackendError:
       nextState.feilmeldinger = nextState.feilmeldinger.filter(

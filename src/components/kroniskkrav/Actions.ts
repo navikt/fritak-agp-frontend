@@ -30,7 +30,8 @@ export enum Actions {
   AarsakMangler,
   ShowSpinner,
   HideSpinner,
-  HideServerError
+  HideServerError,
+  SetFormClean
 }
 
 export interface Payload {
