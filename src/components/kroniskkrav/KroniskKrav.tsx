@@ -40,7 +40,6 @@ import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
 import deleteKroniskKrav from '../../api/kroniskkrav/deleteKroniskKrav';
-import { Modal } from '@navikt/ds-react';
 import patchKroniskKrav from '../../api/kroniskkrav/patchKroniskKrav';
 import { mapKroniskKravPatch } from '../../api/kroniskkrav/mapKroniskKravPatch';
 import EndringsAarsak from '../gravidkrav/EndringsAarsak';
@@ -49,6 +48,7 @@ import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
 import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
+import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -60,10 +60,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   let { language, idKrav } = useParams<PathParams>();
+  const history = useHistory();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-
-  const history = useHistory();
 
   const dispatchResponse = (response: ValidationResponse<KroniskKravResponse>) => {
     dispatch({
@@ -118,7 +117,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     });
   };
 
-  const handleDeleteOKClicked = async (event: React.FormEvent) => {
+  const onOKClicked = async (event: React.FormEvent) => {
     event.preventDefault();
     if (state.kravId) {
       dispatch({
@@ -191,10 +190,6 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   ]);
 
   useEffect(() => {
-    Modal.setAppElement!('.kroniskkrav');
-  }, []);
-
-  useEffect(() => {
     GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.KroniskKrav))
       .then((response) => {
         dispatch({
@@ -219,7 +214,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   return (
     <Side
       bedriftsmeny={true}
-      className='kroniskkrav'
+      className='kroniskkrav kravside'
       sidetittel={t(KroniskKravKeys.KRONISK_KRAV_SIDETITTEL)}
       title={t(KroniskKravKeys.KRONISK_KRAV_TITLE)}
       subtitle={t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE)}
@@ -373,22 +368,12 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           />
         )}
       </Row>
-      <Modal
-        shouldCloseOnOverlayClick={false}
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        className='kroniskkrav-modal'
-      >
-        <Modal.Content>
-          <span className='kroniskkrav-modal-text'>Er du sikker på at du vil slette kravet?</span>
-          <div className='kroniskkrav-modal-buttons'>
-            <Knapp onClick={() => setModalOpen(false)}>Nei</Knapp>
-            <Hovedknapp onClick={(event) => handleDeleteOKClicked(event)} spinner={state.showSpinner}>
-              Ja
-            </Hovedknapp>
-          </div>
-        </Modal.Content>
-      </Modal>
+      <SlettKravModal
+        onOKClicked={onOKClicked}
+        showSpinner={!!state.showSpinner}
+        modalOpen={modalOpen}
+        onClose={setModalOpen}
+      />
     </Side>
   );
 };

@@ -22,14 +22,14 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
   switch (action.type) {
     case Actions.Fnr:
       if (!nextState.formDirty) {
-        nextState.formDirty = nextState.fnr === payload?.fnr;
+        nextState.formDirty = nextState.fnr !== payload?.fnr;
       }
       nextState.fnr = payload?.fnr;
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Orgnr:
       if (!nextState.formDirty && state.orgnr && state.orgnr?.length > 0) {
-        nextState.formDirty = nextState.orgnr === payload?.orgnr;
+        nextState.formDirty = nextState.orgnr !== payload?.orgnr;
       }
       nextState.orgnr = payload?.orgnr;
       return validateKroniskKrav(nextState, translate);
@@ -83,7 +83,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.Bekreft:
       if (!nextState.formDirty) {
-        nextState.formDirty = nextState.bekreft === payload?.bekreft;
+        nextState.formDirty = nextState.bekreft !== payload?.bekreft;
       }
       nextState.bekreft = payload?.bekreft;
       return validateKroniskKrav(nextState, translate);

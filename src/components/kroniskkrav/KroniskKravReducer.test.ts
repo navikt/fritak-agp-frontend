@@ -33,6 +33,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.fnr).toEqual('123');
+    expect(state.formDirty).toBeTruthy();
   });
 
   it('should set the fnr to empty', () => {
@@ -47,7 +48,7 @@ describe('KroniskKravReducer', () => {
     expect(state.fnr).toEqual('');
   });
 
-  it('should set the orgnr', () => {
+  it('should set the orgnr and set for dirty at second run', () => {
     let state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
@@ -57,6 +58,18 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.orgnr).toEqual('456');
+    expect(state.formDirty).toBe(false);
+
+    let newState = KroniskKravReducer(
+      state,
+      {
+        type: Actions.Orgnr,
+        payload: { orgnr: '567' }
+      },
+      i18n
+    );
+    expect(newState.orgnr).toEqual('567');
+    expect(newState.formDirty).toBe(true);
   });
 
   it('should set the orgnr to undefined', () => {
@@ -101,6 +114,7 @@ describe('KroniskKravReducer', () => {
     );
 
     expect(state.perioder && state?.perioder[0]?.fom?.value).toEqual('05.06.2020');
+    expect(state.formDirty).toBe(true);
   });
 
   it('should set the fra when fom is undefined', () => {
@@ -151,6 +165,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.formDirty).toBe(true);
   });
 
   it('should clear til when empty payload', () => {
@@ -183,6 +198,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.perioder && state.perioder[0].dager).toEqual(3);
+    expect(state.formDirty).toBe(true);
   });
 
   it('should set the beløp', () => {
@@ -199,6 +215,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.perioder && state.perioder[0].belop).toEqual(233);
+    expect(state.formDirty).toBe(true);
   });
 
   it('should set the kvittering', () => {
@@ -211,6 +228,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.kvittering).toBe(true);
+    expect(state.formDirty).toBe(false);
   });
 
   it('should set the progress', () => {

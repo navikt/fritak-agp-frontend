@@ -24,14 +24,14 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
   switch (action.type) {
     case Actions.Fnr:
       if (!nextState.formDirty) {
-        nextState.formDirty = nextState.fnr === payload?.fnr;
+        nextState.formDirty = nextState.fnr !== payload?.fnr;
       }
       nextState.fnr = payload?.fnr;
       return validateGravidKrav(nextState, translate);
 
     case Actions.Orgnr:
       if (!nextState.formDirty && state.orgnr && state.orgnr?.length > 0) {
-        nextState.formDirty = nextState.orgnr === payload?.orgnr;
+        nextState.formDirty = nextState.orgnr !== payload?.orgnr;
       }
       nextState.orgnr = payload?.orgnr;
       return validateGravidKrav(nextState, translate);
@@ -78,14 +78,14 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Dokumentasjon:
       if (!nextState.formDirty) {
-        nextState.formDirty = nextState.dokumentasjon === payload?.dokumentasjon;
+        nextState.formDirty = nextState.dokumentasjon !== payload?.dokumentasjon;
       }
       nextState.dokumentasjon = payload?.dokumentasjon;
       return validateGravidKrav(nextState, translate);
 
     case Actions.Bekreft:
       if (!nextState.formDirty) {
-        nextState.formDirty = nextState.bekreft === payload?.bekreft;
+        nextState.formDirty = nextState.bekreft !== payload?.bekreft;
       }
       nextState.bekreft = payload?.bekreft;
       return validateGravidKrav(nextState, translate);
@@ -175,7 +175,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     }
 
     case Actions.AddBackendError: {
-      debugger; // eslint-disable-line
       const eksisterendeFeilmelding = state.feilmeldinger.find(
         (feilmelding) => feilmelding.feilmelding === payload?.error
       );

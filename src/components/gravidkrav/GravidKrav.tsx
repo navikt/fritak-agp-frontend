@@ -41,7 +41,6 @@ import KravPeriode from '../kroniskkrav/KravPeriode';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
-import { Modal } from '@navikt/ds-react';
 import deleteGravidKrav from '../../api/gravidkrav/deleteGravidKrav';
 import patchGravidKrav from '../../api/kroniskkrav/patchGravidKrav';
 import EndringsAarsak from './EndringsAarsak';
@@ -51,6 +50,7 @@ import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
 import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
+import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -138,7 +138,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     setModalOpen(true);
   };
 
-  const handleDeleteOKClicked = async (event: React.FormEvent) => {
+  const onOKClicked = async (event: React.FormEvent) => {
     event.preventDefault();
     if (state.kravId) {
       dispatch({
@@ -218,10 +218,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   ]);
 
   useEffect(() => {
-    Modal.setAppElement!('.gravidkrav');
-  }, []);
-
-  useEffect(() => {
     if (idKrav) {
       GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.GravidKrav))
         .then((response) => {
@@ -249,7 +245,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   return (
     <Side
       bedriftsmeny={true}
-      className='gravidkrav'
+      className='gravidkrav kravside'
       sidetittel={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_LITEN)}
       title={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR)}
       subtitle={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
@@ -428,22 +424,12 @@ export const GravidKrav = (props: GravidKravProps) => {
           />
         )}
       </Row>
-      <Modal
-        shouldCloseOnOverlayClick={false}
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        className='kroniskkrav-modal'
-      >
-        <Modal.Content>
-          <span className='kroniskkrav-modal-text'>Er du sikker på at du vil slette kravet?</span>
-          <div className='kroniskkrav-modal-buttons'>
-            <Knapp onClick={() => setModalOpen(false)}>Nei</Knapp>
-            <Hovedknapp onClick={(event) => handleDeleteOKClicked(event)} spinner={state.showSpinner}>
-              Ja
-            </Hovedknapp>
-          </div>
-        </Modal.Content>
-      </Modal>
+      <SlettKravModal
+        onOKClicked={onOKClicked}
+        showSpinner={!!state.showSpinner}
+        modalOpen={modalOpen}
+        onClose={setModalOpen}
+      />
     </Side>
   );
 };

@@ -41,6 +41,10 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     }
   }
 
+  if (nextState.endringsAarsakError) {
+    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
+  }
+
   nextState.perioder?.forEach((aktuellPeriode) => {
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
     const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
