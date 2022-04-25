@@ -199,12 +199,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
     }
 
-    case Actions.AarsakMangler: {
-      pushFeilmelding('select-endring-dropdown', 'Angi årsak til endring', nextState.feilmeldinger);
-      nextState.showSpinner = false;
-      return nextState;
-    }
-
     case Actions.ShowSpinner:
       nextState.showSpinner = true;
       return nextState;

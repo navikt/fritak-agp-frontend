@@ -193,12 +193,6 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return validateKroniskKrav(nextState, translate);
     }
 
-    case Actions.AarsakMangler: {
-      pushFeilmelding('select-endring-dropdown', 'Angi årsak til endring', nextState.feilmeldinger);
-      nextState.showSpinner = false;
-      return nextState;
-    }
-
     case Actions.ShowSpinner:
       nextState.showSpinner = true;
       return nextState;

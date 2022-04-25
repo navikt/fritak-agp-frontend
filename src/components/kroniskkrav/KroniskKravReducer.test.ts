@@ -576,7 +576,27 @@ describe('KroniskKravReducer', () => {
     expect(tom?.value).toBe('13.12.2022');
   });
 
-  it('should add an backend errormessage when the action is AddBackendError', () => {
+  it('should show and hide spinner', () => {
+    let state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.ShowSpinner
+      },
+      i18n
+    );
+    expect(state.showSpinner).toBe(true);
+
+    let newState = KroniskKravReducer(
+      state,
+      {
+        type: Actions.HideSpinner
+      },
+      i18n
+    );
+    expect(newState.showSpinner).toBe(false);
+  });
+
+  it('should add an backend errormessage when the action is AddBackendError, no duplication', () => {
     const defaultKrav = defaultKroniskKravState();
 
     expect(defaultKrav.feilmeldinger?.length).toBe(0);
@@ -592,6 +612,18 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+
+    let newState = KroniskKravReducer(
+      state,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      i18n
+    );
+    expect(newState.feilmeldinger[0].feilmelding).toBe('Feilmelding');
   });
 
   it('should remove all backend errormessages when the action is RemoveBackendError', () => {
@@ -634,5 +666,45 @@ describe('KroniskKravReducer', () => {
     );
 
     expect(state3.feilmeldinger?.length).toBe(0);
+  });
+
+  it('should remove all backend errormessages when the action is RemoveBackendError, no duplication', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      i18n
+    );
+    expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+    expect(state.feilmeldinger.length).toBe(1);
+
+    state = KroniskKravReducer(
+      state,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding 2'
+        }
+      },
+      i18n
+    );
+    expect(state.feilmeldinger.length).toBe(2);
+
+    state = KroniskKravReducer(
+      state,
+      {
+        type: Actions.RemoveBackendError
+      },
+      i18n
+    );
+    expect(state.feilmeldinger.length).toBe(0);
   });
 });

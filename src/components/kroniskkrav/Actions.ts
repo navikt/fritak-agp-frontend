@@ -27,7 +27,6 @@ export enum Actions {
   AddBackendError,
   RemoveBackendError,
   EndringsAarsak,
-  AarsakMangler,
   ShowSpinner,
   HideSpinner,
   HideServerError,

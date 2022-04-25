@@ -17,7 +17,7 @@ import { TokenFornyet } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidSoknadKvitteringProvider from './context/GravidSoknadKvitteringContext';
 import KroniskSoknadKvitteringProvider from './context/KroniskSoknadKvitteringContext';
 import EksempelLonningsdager from './components/eksempellonnsdager/EksempelLonningsdager';
-import KroniskKvitteringSlettet from './components/kravkvittering/KravKvitteringSlettet';
+import KroniskKvitteringSlettet from './components/kravkvitteringslettet/KravKvitteringSlettet';
 import KravEndringKvittering from './components/kravendringkvittering/KravEndringKvittering';
 
 export const ApplicationRoutes = () => (
@@ -34,7 +34,11 @@ export const ApplicationRoutes = () => (
             exact={true}
             render={() => <KravKvittering backTarget={lenker.GravidKrav} />}
           />
-          <Route path={lenker.GravidKravSlettetKvittering} exact={true} render={() => <KroniskKvitteringSlettet />} />
+          <Route
+            path={lenker.GravidKravSlettetKvittering}
+            exact={true}
+            render={() => <KroniskKvitteringSlettet backTarget={lenker.GravidKrav} />}
+          />
           <Route path={lenker.GravidKrav} exact={true} render={() => <GravidKrav />} />
           <Route path={lenker.GravidKrav + '/:idKrav'} exact={true} render={() => <GravidKrav />} />
           <Route
@@ -47,7 +51,11 @@ export const ApplicationRoutes = () => (
             exact={true}
             render={() => <KravEndringKvittering backTarget={lenker.KroniskKrav} />}
           />
-          <Route path={lenker.KroniskKravSlettetKvittering} exact={true} render={() => <KroniskKvitteringSlettet />} />
+          <Route
+            path={lenker.KroniskKravSlettetKvittering}
+            exact={true}
+            render={() => <KroniskKvitteringSlettet backTarget={lenker.KroniskKrav} />}
+          />
           <Route
             path={lenker.KroniskKravEndringKvittering}
             exact={true}

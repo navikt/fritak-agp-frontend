@@ -1,4 +1,3 @@
-import { GrunnbeloepResponse } from './GrunnbeloepResponse';
 import HttpStatus from '../HttpStatus';
 
 const handleStatus = (response: Response) => {
@@ -18,7 +17,7 @@ export const getCookie = (): Promise<any> => {
   const grunnbeloepUrl = '/local/cookie-please?subject=10107400090';
 
   return Promise.race([
-    new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
+    new Promise((_, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
       .then(() => {
         return {
           status: HttpStatus.Timeout
