@@ -35,8 +35,8 @@ describe('mapKroniskKravPatch', () => {
   });
 
   it('should throw an error on missing bekreft', () => {
-    expect(() => mapKroniskKravPatch('fnr', 'orgnr', undefined, true, 5, EndringsAarsak.ANNET)).toThrow(
-      'Perioder må spesifiseres'
+    expect(() => mapKroniskKravPatch('fnr', 'orgnr', perioder, undefined, 5, EndringsAarsak.ANNET)).toThrow(
+      'Bekreft må spesifiseres'
     );
   });
 
