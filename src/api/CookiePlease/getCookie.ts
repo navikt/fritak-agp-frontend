@@ -35,7 +35,7 @@ export const getCookie = (): Promise<any> => {
       method: 'GET'
     })
       .then(handleStatus)
-      .then((_json) => ({
+      .then(() => ({
         status: HttpStatus.Successfully
       }))
       .catch((status) => ({
