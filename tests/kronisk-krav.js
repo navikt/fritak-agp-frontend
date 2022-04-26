@@ -236,19 +236,19 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Kravet er mottatt');
 });
 
-// test('Legg til og fjern perioder', async (t) => {
-//   await t
-//     .click(ReactSelector('LeggTilKnapp'))
-//     .expect(Selector('#belop-0').visible)
-//     .ok()
-//     .expect(Selector('#belop-1').visible)
-//     .ok();
+test('Legg til og fjern perioder', async (t) => {
+  await t
+    .click(ReactSelector('LeggTilKnapp'))
+    .expect(Selector('#belop-0').visible)
+    .ok()
+    .expect(Selector('#belop-1').visible)
+    .ok();
 
-//   await t
-//     .scrollBy(0, 200)
-//     .click(ReactSelector('Fareknapp').withText('Slett'))
-//     .expect(Selector('#belop-0').visible)
-//     .ok()
-//     .expect(Selector('#belop-1').with({ timeout: 100 }).visible)
-//     .notOk({ timeout: 500 });
-// });
+  await t
+    .scrollBy(0, 200)
+    .click(ReactSelector('Fareknapp').withText('Slett'))
+    .expect(Selector('#belop-0').visible)
+    .ok()
+    .expect(Selector('#belop-1').with({ timeout: 100 }).visible)
+    .notOk({ timeout: 500 });
+});
