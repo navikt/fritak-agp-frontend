@@ -190,21 +190,23 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   ]);
 
   useEffect(() => {
-    GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.KroniskKrav))
-      .then((response) => {
-        dispatch({
-          type: Actions.KravEndring,
-          payload: {
-            krav: response.json
-          }
+    if (idKrav) {
+      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.KroniskKrav))
+        .then((response) => {
+          dispatch({
+            type: Actions.KravEndring,
+            payload: {
+              krav: response.json
+            }
+          });
+        })
+        .catch(() => {
+          dispatch({
+            type: Actions.AddBackendError,
+            payload: { error: 'Klarte ikke å hente det eksisterende kravet.' }
+          });
         });
-      })
-      .catch(() => {
-        dispatch({
-          type: Actions.AddBackendError,
-          payload: { error: 'Klarte ikke å hente det eksisterende kravet.' }
-        });
-      });
+    }
   }, [idKrav]);
 
   if (state.kvittering) {
