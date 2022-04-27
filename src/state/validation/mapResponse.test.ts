@@ -87,4 +87,38 @@ describe('mapResponse', () => {
     const result = mapResponse(response, { feilmeldinger: [] }, jest.fn());
     expect(result).toEqual(expected);
   });
+
+  it('should set the correct flags for a 404 response', () => {
+    const response = {
+      status: 404,
+      violations: []
+    };
+    const expected = {
+      feilmeldinger: [
+        {
+          feil: 'feil'
+        }
+      ],
+      progress: false,
+      serverError: true
+    };
+    const mockMapFeilmeldinger = jest.fn().mockReturnValue([{ feil: 'feil' }]);
+
+    const result = mapResponse(response, { feilmeldinger: [] }, mockMapFeilmeldinger);
+    expect(result).toEqual(expected);
+  });
+
+  it('should not fail on rubish input', () => {
+    const response = {
+      status: 667,
+      violations: []
+    };
+    const expected = {
+      feilmeldinger: []
+    };
+    const mockMapFeilmeldinger = jest.fn().mockReturnValue([{ feil: 'feil' }]);
+
+    const result = mapResponse(response, { feilmeldinger: [] }, mockMapFeilmeldinger);
+    expect(result).toEqual(expected);
+  });
 });

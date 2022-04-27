@@ -20,7 +20,7 @@ import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
-import { i18n } from 'i18next';
+import { i18n as Ii18n } from 'i18next';
 import {
   Side,
   LeggTilKnapp,
@@ -56,7 +56,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
 
   const GravidKravReducerSettOpp =
-    (Translate: i18n): Reducer<GravidKravState, GravidKravAction> =>
+    (Translate: Ii18n): Reducer<GravidKravState, GravidKravAction> =>
     (bulkState: GravidKravState, action: GravidKravAction) =>
       GravidKravReducer(bulkState, action, Translate);
 

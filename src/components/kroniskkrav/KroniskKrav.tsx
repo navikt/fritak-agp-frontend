@@ -33,7 +33,7 @@ import {
   HttpStatus,
   ServerFeilAdvarsel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
-import { i18n } from 'i18next';
+import { i18n as Ii18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
 import LangKey from '../../locale/LangKey';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
@@ -51,7 +51,7 @@ import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
 
 const buildReducer =
-  (Translate: i18n): Reducer<KroniskKravState, KroniskKravAction> =>
+  (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
   (bulkState: KroniskKravState, action: KroniskKravAction) =>
     KroniskKravReducer(bulkState, action, Translate);
 

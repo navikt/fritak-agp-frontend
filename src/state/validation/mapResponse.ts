@@ -19,6 +19,9 @@ const mapResponse = <Type>(
       return map400(nextState);
     case HttpStatus.Unauthorized:
       return map401(nextState);
+    case HttpStatus.NotFound:
+      nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
+      return map400(nextState);
     case HttpStatus.UnprocessableEntity:
       nextState.feilmeldinger = mapFeilmeldinger(response, nextState);
       return map422(nextState);
