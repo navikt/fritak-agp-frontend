@@ -7,6 +7,10 @@
     position: relative;
 }
 .periodewrapper {
+    margin: 0.25rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 
     .tekstvisning {
         padding-top: .75rem;
@@ -14,6 +18,7 @@
 
     .datovelger-periode {
         max-width: calc( 100% - 0.25rem);
+        min-width: 10rem;
     }
 
     .skjemaelement__label {
@@ -24,9 +29,18 @@
         max-width: 66%;
     }
 
-    .slett-periode-wrapper .knapp {
-        margin-top: 3rem;
-        float: right;
+    .slett-periode-wrapper {
+        margin-left: auto;
+        .knapp {
+            margin-top: 3rem;
+            float: right;
+        }
+    }
+
+    .mnd-inntekt,
+    .periode-elementer,
+    .antall-dager {
+        min-width: 10rem;
     }
     
     &.hide-labels {
@@ -44,5 +58,9 @@
         .slett-periode-wrapper {
             padding-top: 1.625rem;
         }
+    }
+
+    input  {
+        width: 10rem;
     }
 }

@@ -1,6 +1,5 @@
 import { datoToString, DatoVelger, Oversettelse, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
-import { Column, Row } from 'nav-frontend-grid';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Input, Label } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
@@ -96,8 +95,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   return (
     <div className='krav-kort'>
-      <Row className={'periodewrapper ' + oddClass} data-testid='krav-periode-wrapper'>
-        <Column sm='2' xs='6'>
+      <div className={'periodewrapper ' + oddClass} data-testid='krav-periode-wrapper'>
+        <div>
           <DatoVelger
             className='datovelger-periode'
             id={`fra-dato-${props.index}`}
@@ -111,8 +110,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
             minDate={MIN_KRONISK_DATO}
             dato={defaultFom}
           />
-        </Column>
-        <Column sm='2' xs='6'>
+        </div>
+        <div>
           <DatoVelger
             className='datovelger-periode'
             id={`til-dato-${props.index}`}
@@ -131,8 +130,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
             maxDate={today}
             dato={defaultTom}
           />
-        </Column>
-        <Column sm='2' xs='6'>
+        </div>
+        <div className='antall-dager'>
           <Label htmlFor={`dager-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
             <Hjelpetekst className='krav-padding-hjelpetekst'>
@@ -140,6 +139,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             </Hjelpetekst>
           </Label>
           <SelectDager
+            className='periode-elementer'
             id={`dager-${props.index}`}
             value={props.enkeltPeriode.dager}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -153,8 +153,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
             }
             feil={props.enkeltPeriode.dagerError}
           />
-        </Column>
-        <Column sm='3' xs='6'>
+        </div>
+        <div className='periode-elementer'>
           <Label htmlFor={`belop-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TEXT)}
             <Hjelpetekst className='krav-padding-hjelpetekst'>
@@ -180,18 +180,17 @@ const KravPeriode = (props: KravPeriodeProps) => {
             }
             feil={props.enkeltPeriode.belopError}
           />
-        </Column>
-        <Column sm='2' xs='6'></Column>
-        <Column sm='3' xs='6' className='slett-periode-wrapper'>
-          {props.slettbar && (
+        </div>
+        {props.slettbar && (
+          <div className='slett-periode-wrapper'>
             <Fareknapp onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)} className='slett-periode'>
               Slett
             </Fareknapp>
-          )}
-        </Column>
-      </Row>
-      <Row className={'periodewrapper ' + oddClass}>
-        <Column sm='2' xs='6'>
+          </div>
+        )}
+      </div>
+      <div className={'periodewrapper ' + oddClass}>
+        <div>
           <Label htmlFor={`sykemeldingsgrad-${props.index}`}>
             Sykemeldingsgrad
             <Hjelpetekst className='krav-padding-hjelpetekst'>
@@ -216,8 +215,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
             }
             feil={props.enkeltPeriode.sykemeldingsgradError}
           />
-        </Column>
-        <Column sm='3' xs='6'>
+        </div>
+        <div>
           <Label htmlFor={`belop-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
             <Hjelpetekst className='krav-padding-hjelpetekst'>
@@ -227,8 +226,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
           <div className='skjemalelement tekstvisning'>
             {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
           </div>
-        </Column>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
