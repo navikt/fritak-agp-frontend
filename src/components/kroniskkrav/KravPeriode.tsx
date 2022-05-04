@@ -181,13 +181,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
             feil={props.enkeltPeriode.belopError}
           />
         </div>
-        {props.slettbar && (
-          <div className='slett-periode-wrapper'>
-            <Fareknapp onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)} className='slett-periode'>
-              Slett
-            </Fareknapp>
-          </div>
-        )}
       </div>
       <div className={'periodewrapper ' + oddClass}>
         <div>
@@ -227,6 +220,13 @@ const KravPeriode = (props: KravPeriodeProps) => {
             {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
           </div>
         </div>
+        {props.slettbar && (
+          <div className='slett-periode-wrapper'>
+            <Fareknapp onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)} className='slett-periode'>
+              Slett
+            </Fareknapp>
+          </div>
+        )}
       </div>
     </div>
   );

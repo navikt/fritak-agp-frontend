@@ -30,10 +30,14 @@
     }
 
     .slett-periode-wrapper {
-        margin-left: auto;
-        .knapp {
+        @media screen and (min-width: 608px) {
+            margin-left: auto;
             margin-top: 3rem;
-            float: right;
+        }
+        .knapp {
+            @media screen and (max-width: 608px) {
+                margin-top: 1rem;
+            }
         }
     }
 
