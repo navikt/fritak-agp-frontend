@@ -11,7 +11,7 @@ class Environment {
       case EnvironmentType.PROD:
         return 'https://loginservice.nav.no/login?redirect=XXX?loggedIn=true';
       case EnvironmentType.PREPROD_DEV:
-        return 'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
+        return 'https://loginservice.dev.nav.no/login?redirect=XXX?loggedIn=true';
       case EnvironmentType.TESTCAFE:
         return 'http://localhost:3000/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
       default:
