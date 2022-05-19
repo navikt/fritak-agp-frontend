@@ -44,7 +44,7 @@
     "@navikt/ds-react": "^0.16.19",
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.3.9",
     "@navikt/nav-dekoratoren-moduler": "^1.6.5",
-    "@sentry/react": "^6.19.2",
+    "@sentry/react": "^6.19.7",
     "@sentry/tracing": "^6.19.7",
     "classnames": "^2.3.1",
     "dayjs": "1.11.0",
