@@ -1,4 +1,3 @@
-import { GrunnbeloepResponse } from './GrunnbeloepResponse';
 import HttpStatus from '../HttpStatus';
 
 const handleStatus = (response: Response) => {
@@ -14,11 +13,11 @@ const handleStatus = (response: Response) => {
   }
 };
 
-export const getGrunnbeloep = (): Promise<GrunnbeloepResponse> => {
+export const getCookie = (): Promise<any> => {
   const grunnbeloepUrl = '/local/cookie-please?subject=10107400090';
 
   return Promise.race([
-    new Promise((resolve, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
+    new Promise((_, reject) => setTimeout(() => reject('Tidsavbrudd'), 10000))
       .then(() => {
         return {
           status: HttpStatus.Timeout
@@ -36,9 +35,8 @@ export const getGrunnbeloep = (): Promise<GrunnbeloepResponse> => {
       method: 'GET'
     })
       .then(handleStatus)
-      .then((json) => ({
-        status: HttpStatus.Successfully,
-        grunnbeloep: json
+      .then(() => ({
+        status: HttpStatus.Successfully
       }))
       .catch((status) => ({
         status: status
@@ -46,4 +44,4 @@ export const getGrunnbeloep = (): Promise<GrunnbeloepResponse> => {
   ]);
 };
 
-export default getGrunnbeloep;
+export default getCookie;

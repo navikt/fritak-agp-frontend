@@ -1,10 +1,10 @@
-import React, { useEffect, useReducer, Reducer } from 'react';
+import React, { useEffect, useReducer, Reducer, useState } from 'react';
 import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Redirect, useParams } from 'react-router-dom';
+import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
@@ -20,7 +20,7 @@ import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
-import { i18n } from 'i18next';
+import { i18n as Ii18n } from 'i18next';
 import {
   Side,
   LeggTilKnapp,
@@ -32,6 +32,7 @@ import {
   Skillelinje,
   useArbeidsgiver,
   Upload,
+  HttpStatus,
   ServerFeilAdvarsel
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
@@ -39,12 +40,23 @@ import LangKey from '../../locale/LangKey';
 import KravPeriode from '../kroniskkrav/KravPeriode';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
+import SelectEndring from '../felles/SelectEndring/SelectEndring';
+import deleteGravidKrav from '../../api/gravidkrav/deleteGravidKrav';
+import patchGravidKrav from '../../api/kroniskkrav/patchGravidKrav';
+import EndringsAarsak from './EndringsAarsak';
+import { mapGravidKravPatch } from '../../api/gravidkrav/mapGravidKravPatch';
+import GetHandler from '../../api/fetch/GetHandler';
+import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
+import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
+import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
+import ValidationResponse from '../../state/validation/ValidationResponse';
+import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
 
   const GravidKravReducerSettOpp =
-    (Translate: i18n): Reducer<GravidKravState, GravidKravAction> =>
+    (Translate: Ii18n): Reducer<GravidKravState, GravidKravAction> =>
     (bulkState: GravidKravState, action: GravidKravAction) =>
       GravidKravReducer(bulkState, action, Translate);
 
@@ -52,10 +64,26 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  const { language } = useParams<PathParams>();
+  const { language, idKrav } = useParams<PathParams>();
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const history = useHistory();
+
+  const dispatchResponse = (response: ValidationResponse<GravidKravResponse>) => {
+    dispatch({
+      type: Actions.HandleResponse,
+      payload: { response: response }
+    });
+  };
 
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
+  };
+
+  const handleCancleClicked = (event: React.FormEvent) => {
+    event.preventDefault();
+    history.go(-1);
   };
 
   const handleCloseServerFeil = () => {
@@ -64,6 +92,15 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
     dispatch({ type: Actions.antallDager, payload: { antallDager: stringishToNumber(dager) } });
+  };
+
+  const setEndringsAarsak = (aarsak: EndringsAarsak) => {
+    dispatch({
+      type: Actions.EndringsAarsak,
+      payload: {
+        endringsAarsak: aarsak
+      }
+    });
   };
 
   const handleUploadChanged = (file?: File) => {
@@ -93,6 +130,36 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
+  const handleDeleteClicked = async (event: React.FormEvent) => {
+    event.preventDefault();
+    dispatch({
+      type: Actions.RemoveBackendError
+    });
+    setModalOpen(true);
+  };
+
+  const onOKClicked = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (state.kravId) {
+      dispatch({
+        type: Actions.ShowSpinner
+      });
+      const deleteStatus = await deleteGravidKrav(environment.baseUrl, state.kravId);
+      if (deleteStatus.status === HttpStatus.Successfully) {
+        setModalOpen(false);
+        history.replace(buildLenke(lenker.KroniskKravSlettetKvittering, language));
+      } else {
+        dispatch({
+          type: Actions.AddBackendError,
+          payload: { error: 'Sletting av krav feilet' }
+        });
+      }
+      dispatch({
+        type: Actions.HideSpinner
+      });
+    }
+  };
+
   useEffect(() => {
     dispatch({
       type: Actions.Orgnr,
@@ -102,26 +169,37 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      postGravidKrav(
-        environment.baseUrl,
-        mapGravidKravRequest(
-          state.fnr,
-          state.orgnr,
-          state.perioder,
-          state.dokumentasjon,
-          state.bekreft,
-          state.antallDager
-        )
-      )
-        .then((response) => {
-          dispatch({
-            type: Actions.HandleResponse,
-            payload: { response: response }
-          });
-        })
-        .catch((errorResponse) => {
-          console.log(errorResponse); // eslint-disable-line
+      if (state.endringskrav) {
+        patchGravidKrav(
+          environment.baseUrl,
+          state.kravId!,
+          mapGravidKravPatch(
+            state.fnr,
+            state.orgnr,
+            state.perioder,
+            state.dokumentasjon,
+            state.bekreft,
+            state.antallDager,
+            state.endringsAarsak!
+          )
+        ).then((response) => {
+          dispatchResponse(response);
         });
+      } else {
+        postGravidKrav(
+          environment.baseUrl,
+          mapGravidKravRequest(
+            state.fnr,
+            state.orgnr,
+            state.perioder,
+            state.dokumentasjon,
+            state.bekreft,
+            state.antallDager
+          )
+        ).then((response) => {
+          dispatchResponse(response);
+        });
+      }
     }
   }, [
     state.validated,
@@ -133,8 +211,31 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.bekreft,
     state.dokumentasjon,
     state.orgnr,
-    state.antallDager
+    state.antallDager,
+    state.kravId,
+    state.endringsAarsak,
+    state.endringskrav
   ]);
+
+  useEffect(() => {
+    if (idKrav) {
+      GetHandler(getNotifikasjonUrl(idKrav, NotifikasjonType.GravidKrav))
+        .then((response) => {
+          dispatch({
+            type: Actions.KravEndring,
+            payload: {
+              krav: response.json
+            }
+          });
+        })
+        .catch(() => {
+          dispatch({
+            type: Actions.AddBackendError,
+            payload: { error: 'Klarte ikke å hente det eksisterende kravet.' }
+          });
+        });
+    }
+  }, [idKrav]);
 
   if (state.kvittering) {
     return <Redirect to={buildLenke(lenker.GravidKravKvittering, language)} />;
@@ -144,7 +245,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   return (
     <Side
       bedriftsmeny={true}
-      className='gravidkrav'
+      className='gravidkrav kravside'
       sidetittel={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_LITEN)}
       title={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR)}
       subtitle={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
@@ -162,6 +263,25 @@ export const GravidKrav = (props: GravidKravProps) => {
           </Panel>
           <Skillelinje />
 
+          {state.endringskrav && (
+            <>
+              <Panel>
+                <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
+                  <Row>
+                    <Column sm='4' xs='6'>
+                      <SelectEndring
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                          setEndringsAarsak(event.target.value as EndringsAarsak)
+                        }
+                        feil={state.endringsAarsakError}
+                      />
+                    </Column>
+                  </Row>
+                </SkjemaGruppe>
+              </Panel>
+              <Skillelinje />
+            </>
+          )}
           <Panel id='gravidkrav-panel-den-ansatte'>
             <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
@@ -187,6 +307,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                     onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
                     id='kontrollsporsmaal-lonn-arbeidsdager'
                     feil={state.antallDagerError}
+                    defaultValue={state.antallDager}
                   />
                 </Column>
               </Row>
@@ -272,8 +393,27 @@ export const GravidKrav = (props: GravidKravProps) => {
 
           <Panel>
             <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
-              {t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)}
+              {state.endringskrav ? (
+                <>{t(GravidKravKeys.GRAVID_KRAV_LONN_ENDRE)} </>
+              ) : (
+                <>{t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)} </>
+              )}
             </Hovedknapp>
+            {state.endringskrav && (
+              <>
+                <Knapp onClick={handleCancleClicked} className='avbrytknapp'>
+                  Avbryt
+                </Knapp>
+                <Fareknapp
+                  onClick={handleDeleteClicked}
+                  className='sletteknapp'
+                  spinner={state.progress}
+                  disabled={state.formDirty}
+                >
+                  Slett krav
+                </Fareknapp>
+              </>
+            )}
           </Panel>
         </Column>
         {state.notAuthorized && (
@@ -284,6 +424,12 @@ export const GravidKrav = (props: GravidKravProps) => {
           />
         )}
       </Row>
+      <SlettKravModal
+        onOKClicked={onOKClicked}
+        showSpinner={!!state.showSpinner}
+        modalOpen={modalOpen}
+        onClose={setModalOpen}
+      />
     </Side>
   );
 };

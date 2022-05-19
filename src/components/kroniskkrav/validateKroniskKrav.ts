@@ -33,6 +33,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
 
   validateAntallDager(nextState, state, translate, feilmeldinger);
 
+  validateEndringsAarsak(nextState, feilmeldinger);
+
   nextState.perioder?.forEach((aktuellPeriode) => {
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
     const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
@@ -82,6 +84,20 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   nextState.feilmeldinger = feilmeldinger;
   return nextState;
 };
+
+function validateEndringsAarsak(nextState: KroniskKravState, feilmeldinger: FeiloppsummeringFeil[]) {
+  if (nextState.endringskrav) {
+    if (nextState.endringsAarsak) {
+      delete nextState.endringsAarsakError;
+    } else {
+      nextState.endringsAarsakError = 'Angi årsaken til endringen';
+    }
+  }
+
+  if (nextState.endringsAarsakError) {
+    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
+  }
+}
 
 function validateBekreftelse(
   nextState: KroniskKravState,

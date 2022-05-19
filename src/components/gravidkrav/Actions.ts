@@ -1,5 +1,7 @@
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
+import { GravidKrav } from '../../context/krav';
+import IEndringsAarsak from './EndringsAarsak';
 
 export enum Actions {
   Reset,
@@ -21,6 +23,12 @@ export enum Actions {
   AddPeriode,
   DeletePeriode,
   Sykemeldingsgrad,
+  KravEndring,
+  AddBackendError,
+  RemoveBackendError,
+  EndringsAarsak,
+  ShowSpinner,
+  HideSpinner,
   HideServerError
 }
 
@@ -41,6 +49,9 @@ export interface Payload {
   antallDager?: number;
   itemId?: string;
   sykemeldingsgrad?: string;
+  krav?: GravidKrav;
+  error?: string;
+  endringsAarsak?: IEndringsAarsak;
 }
 
 export interface GravidKravAction {
