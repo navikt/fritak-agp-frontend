@@ -33,6 +33,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.fnr).toEqual('123');
+    expect(state.formDirty).toBeTruthy();
   });
 
   it('should set the fnr to empty', () => {
@@ -47,7 +48,7 @@ describe('KroniskKravReducer', () => {
     expect(state.fnr).toEqual('');
   });
 
-  it('should set the orgnr', () => {
+  it('should set the orgnr and set for dirty at second run', () => {
     let state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
@@ -57,6 +58,18 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.orgnr).toEqual('456');
+    expect(state.formDirty).toBe(false);
+
+    let newState = KroniskKravReducer(
+      state,
+      {
+        type: Actions.Orgnr,
+        payload: { orgnr: '567' }
+      },
+      i18n
+    );
+    expect(newState.orgnr).toEqual('567');
+    expect(newState.formDirty).toBe(true);
   });
 
   it('should set the orgnr to undefined', () => {
@@ -101,6 +114,7 @@ describe('KroniskKravReducer', () => {
     );
 
     expect(state.perioder && state?.perioder[0]?.fom?.value).toEqual('05.06.2020');
+    expect(state.formDirty).toBe(true);
   });
 
   it('should set the fra when fom is undefined', () => {
@@ -151,6 +165,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.formDirty).toBe(true);
   });
 
   it('should clear til when empty payload', () => {
@@ -183,6 +198,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.perioder && state.perioder[0].dager).toEqual(3);
+    expect(state.formDirty).toBe(true);
   });
 
   it('should set the beløp', () => {
@@ -199,6 +215,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.perioder && state.perioder[0].belop).toEqual(233);
+    expect(state.formDirty).toBe(true);
   });
 
   it('should set the kvittering', () => {
@@ -211,6 +228,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.kvittering).toBe(true);
+    expect(state.formDirty).toBe(false);
   });
 
   it('should set the progress', () => {
@@ -417,5 +435,276 @@ describe('KroniskKravReducer', () => {
         i18n
       );
     }).toThrow();
+  });
+
+  it('should set sykemeldingsgrad to 12 when 12 is given as param and action is Sykemeldingsgrad', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-ignore
+    const itemId = defaultKrav.perioder[0].uniqueKey;
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.Sykemeldingsgrad,
+        payload: { sykemeldingsgrad: '12', itemId }
+      },
+      i18n
+    );
+    expect(state.perioder && state.perioder[0].sykemeldingsgrad).toEqual('12');
+  });
+
+  it('should throw on undefined itemId for Sykemeldingsgrad', () => {
+    expect(() => {
+      KroniskKravReducer(
+        defaultKroniskKravState(),
+        {
+          // @ts-ignore ts2339
+          type: Actions.Sykemeldingsgrad
+        },
+        i18n
+      );
+    }).toThrow();
+  });
+
+  it('should set notAuthorized to false when action is NotAuthorized', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.NotAuthorized
+      },
+      i18n
+    );
+    expect(state.notAuthorized).toBe(false);
+  });
+
+  it('should add periode when the action is AddPeriod', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    expect(defaultKrav.perioder?.length).toBe(1);
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddPeriod
+      },
+      i18n
+    );
+    expect(state.perioder?.length).toBe(2);
+  });
+
+  it('should delete periode when the action is DeletePeriod', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    expect(defaultKrav.perioder?.length).toBe(1);
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddPeriod
+      },
+      i18n
+    );
+    expect(state.perioder?.length).toBe(2);
+
+    // @ts-ignore
+    const itemId = state.perioder[1].uniqueKey;
+
+    let state2 = KroniskKravReducer(
+      state,
+      {
+        type: Actions.DeletePeriod,
+        payload: {
+          itemId: itemId
+        }
+      },
+      i18n
+    );
+
+    expect(state2.perioder?.length).toBe(1);
+  });
+
+  it('should delete periode when the action is DeletePeriod', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    expect(defaultKrav.perioder?.length).toBe(1);
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.KravEndring,
+        payload: {
+          krav: {
+            id: 'test',
+            identitetsnummer: '12345678901',
+            virksomhetsnummer: '123456789',
+            antallDager: 1,
+            perioder: [
+              {
+                fom: '2022-11-12',
+                tom: '2022-12-13',
+                antallDagerMedRefusjon: 5,
+                månedsinntekt: 123,
+                gradering: 1,
+                dagsats: 123,
+                belop: 123
+              }
+            ],
+            opprettet: '2022-12-24',
+            sendtAv: 'sender',
+            sendtAvNavn: 'sNavn',
+            navn: 'Navn',
+            kontrollDager: 260,
+            journalpostId: 'id',
+            oppgaveId: 'oId',
+            virksomhetsnavn: 'vnavn',
+            status: 'status'
+          }
+        }
+      },
+      i18n
+    );
+
+    if (!state) {
+      state = { feilmeldinger: [] };
+    }
+    const fom = state.perioder![0].fom;
+    const tom = state.perioder![0].tom;
+
+    expect(fom?.value).toBe('12.11.2022');
+    expect(tom?.value).toBe('13.12.2022');
+  });
+
+  it('should show and hide spinner', () => {
+    let state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.ShowSpinner
+      },
+      i18n
+    );
+    expect(state.showSpinner).toBe(true);
+
+    let newState = KroniskKravReducer(
+      state,
+      {
+        type: Actions.HideSpinner
+      },
+      i18n
+    );
+    expect(newState.showSpinner).toBe(false);
+  });
+
+  it('should add an backend errormessage when the action is AddBackendError, no duplication', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      i18n
+    );
+    expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+
+    let newState = KroniskKravReducer(
+      state,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      i18n
+    );
+    expect(newState.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+  });
+
+  it('should remove all backend errormessages when the action is RemoveBackendError', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      i18n
+    );
+    expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+    expect(state.feilmeldinger?.length).toBe(1);
+
+    let state2 = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding2'
+        }
+      },
+      i18n
+    );
+    expect(state2.feilmeldinger[1].feilmelding).toBe('Feilmelding2');
+    expect(state2.feilmeldinger?.length).toBe(2);
+
+    let state3 = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.RemoveBackendError
+      },
+      i18n
+    );
+
+    expect(state3.feilmeldinger?.length).toBe(0);
+  });
+
+  it('should remove all backend errormessages when the action is RemoveBackendError, no duplication', () => {
+    const defaultKrav = defaultKroniskKravState();
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    let state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      i18n
+    );
+    expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+    expect(state.feilmeldinger.length).toBe(1);
+
+    state = KroniskKravReducer(
+      state,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding 2'
+        }
+      },
+      i18n
+    );
+    expect(state.feilmeldinger.length).toBe(2);
+
+    state = KroniskKravReducer(
+      state,
+      {
+        type: Actions.RemoveBackendError
+      },
+      i18n
+    );
+    expect(state.feilmeldinger.length).toBe(0);
   });
 });

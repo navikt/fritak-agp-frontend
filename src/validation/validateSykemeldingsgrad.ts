@@ -16,7 +16,6 @@ export const validateSykemeldingsgrad = (
   required: boolean
 ): ValidatesykemeldingsgradResult | undefined => {
   const numericSykemeldingsgrad = getNumericPart(sykemeldingsgrad);
-
   if (!numericSykemeldingsgrad) return;
 
   if (numericSykemeldingsgrad < 20 && required) {

@@ -3,6 +3,7 @@ import KroniskKravState from '../components/kroniskkrav/KroniskKravState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidKravState from '../components/gravidkrav/GravidKravState';
+import { v4 as uuid } from 'uuid';
 
 const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: KroniskKravState | GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -50,6 +51,11 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
         break;
     }
   });
+
+  if (response.status === 404) {
+    feilmeldinger.push(lagFeil('backend-' + uuid(), 'Innsendingen feilet'));
+  }
+
   return feilmeldinger;
 };
 

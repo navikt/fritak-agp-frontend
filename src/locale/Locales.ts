@@ -29,6 +29,8 @@ import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
 import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder';
 import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/KontrollSporsmaal';
 import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldingsgrad';
+import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/KravKvitteringSlettetKeys';
+import { KravEndringKvitteringKeys } from '../components/kravendringkvittering/KravEndringKvitteringKeys';
 import { ValidateDokumentasjonKeys } from '../validation/validateDokumentasjon';
 
 export interface Locale {
@@ -66,6 +68,8 @@ const Locales: Record<
   | ValidateAntallPerioderKeys
   | ValidateArbeidsdagerKeys
   | ValidateSykemeldingsgradKeys
+  | KravKvitteringSlettetKeys
+  | KravEndringKvitteringKeys
   | ValidateDokumentasjonKeys,
   Locale
 > = {
@@ -422,6 +426,10 @@ const Locales: Record<
     nb: 'Send kravet',
     en: 'Submit claim'
   },
+  GRAVID_KRAV_LONN_ENDRE: {
+    nb: 'Send inn endring',
+    en: 'Submit updated claim'
+  },
   GRAVID_KRAV_LAST_OPP: {
     nb: 'Last opp dokumentasjon (valgfritt)',
     en: 'Upload documentation (optional)'
@@ -678,6 +686,38 @@ const Locales: Record<
     en:
       'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
       "If you need to contact us, it is sufficient to provide the employee's national id-number."
+  },
+  KRAV_KVITTERING_SLETTET_TITTEL: {
+    nb: 'Kravet er slettet',
+    en: 'The claim has been deleted'
+  },
+  KRAV_KVITTERING_SLETTET_INGRESS: {
+    nb:
+      'En kvittering er sendt til meldingsboksen deres i [Altinn](https://www.altinn.no).\n\n' +
+      'Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.',
+    en:
+      'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
+      "If you need to contact us, it is sufficient to provide the employee's national id-number."
+  },
+  KRAV_KVITTERING_SLETTET_OPPRETT_NYTT_KRAV: {
+    nb: 'Opprett nytt krav',
+    en: 'Create new claim'
+  },
+  KRAV_ENDRING_KVITTERING_TITTEL: {
+    nb: 'Kravet er slettet',
+    en: 'The claim has been deleted'
+  },
+  KRAV_ENDRING_KVITTERING_INGRESS: {
+    nb:
+      'En kvittering er sendt til meldingsboksen deres i [Altinn](https://www.altinn.no).\n\n' +
+      'Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.',
+    en:
+      'A receipt has been sent to your message box in [Altinn](https://www.altinn.no).\n\n' +
+      "If you need to contact us, it is sufficient to provide the employee's national id-number."
+  },
+  KRAV_ENDRING_KVITTERING_OPPRETT_NYTT_KRAV: {
+    nb: 'Opprett nytt krav',
+    en: 'Create new claim'
   },
   INGEN_TILGANG_ADVARSEL: {
     nb:
@@ -971,6 +1011,10 @@ const Locales: Record<
   KRONISK_KRAV_SUBMIT: {
     nb: 'Send kravet',
     en: 'Submit'
+  },
+  KRONISK_KRAV_ENDRE: {
+    nb: 'Send inn endring',
+    en: 'Submit updated claim'
   },
   KRONISK_KRAV_TITLE: {
     nb: 'Krav om refusjon av sykepenger i arbeidsgiverperioden',

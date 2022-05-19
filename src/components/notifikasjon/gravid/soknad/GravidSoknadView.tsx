@@ -37,10 +37,8 @@ const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProp
 
       <p>{formatTilrettelegge(gravidSoknadResponse.tilrettelegge)}</p>
 
-      <p>
-        Tiltak forsøkt for at den ansatte skal kunne jobbe:
-        {formatTiltak(gravidSoknadResponse.tiltak, gravidSoknadResponse.tiltakBeskrivelse)}
-      </p>
+      <p>Tiltak forsøkt for at den ansatte skal kunne jobbe:</p>
+      {formatTiltak(gravidSoknadResponse.tiltak, gravidSoknadResponse.tiltakBeskrivelse)}
 
       <p>{formatOmplassering(gravidSoknadResponse.omplassering, gravidSoknadResponse.omplasseringAarsak)}</p>
 

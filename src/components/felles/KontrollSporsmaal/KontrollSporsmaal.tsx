@@ -15,9 +15,10 @@ interface KontrollSporsmaalProps {
   onChange: any;
   id?: string;
   feil?: string;
+  defaultValue?: number;
 }
 
-const KontrollSporsmaal = ({ onChange, id, feil }: KontrollSporsmaalProps) => {
+const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsmaalProps) => {
   const { t } = useTranslation();
   const elementId = id ? id : uuid();
   const feilClass = !!feil && feil.length > 2 ? 'harFeil' : '';
@@ -32,6 +33,7 @@ const KontrollSporsmaal = ({ onChange, id, feil }: KontrollSporsmaalProps) => {
         pattern='[0-9]*'
         className={'kontrollsporsmaal-lonn-arbeidsdager ' + feilClass}
         onChange={onChange}
+        defaultValue={defaultValue}
       />
       <Normaltekst className='kontrollsporsmaal-lonn-forklaring '>
         {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING)}

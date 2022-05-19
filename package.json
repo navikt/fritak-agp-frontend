@@ -15,8 +15,9 @@
     "pretty-commit": "pretty-quick --staged --pattern '**/*.*(ts|tsx|js)'",
     "prepare": "husky install",
     "preinstall": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index",
-    "test:int": "testcafe firefox:headless --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300"
+    "test:int": "testcafe firefox --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300"
   },
+  "proxy": "http://localhost:8080",
   "engines": {
     "node": ">=14",
     "yarn": ">=1.22"
@@ -38,13 +39,16 @@
   },
   "dependencies": {
     "@navikt/bedriftsmeny": "^3.5.3",
+    "@navikt/ds-css": "^0.12.14",
+    "@navikt/ds-icons": "^0.7.3",
+    "@navikt/ds-react": "^0.16.19",
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.3.9",
     "@navikt/nav-dekoratoren-moduler": "^1.6.5",
-    "@sentry/react": "^6.19.2",
-    "@sentry/tracing": "^6.19.2",
+    "@sentry/react": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
     "classnames": "^2.3.1",
-    "dayjs": "1.11.0",
-    "i18next": "^21.6.12",
+    "dayjs": "1.11.1",
+    "i18next": "^21.6.15",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-alertstriper": "^4.0.1",
     "nav-frontend-alertstriper-style": "^3.0.1",
@@ -89,7 +93,7 @@
     "react-app-polyfill": "3.0.0",
     "react-collapse": "^5.1.1",
     "react-dom": "17.x",
-    "react-i18next": "^11.15.4",
+    "react-i18next": "^11.16.5",
     "react-modal": "3.15.1",
     "react-router-dom": "^5.3.0",
     "typescript": "^4.6.3",
