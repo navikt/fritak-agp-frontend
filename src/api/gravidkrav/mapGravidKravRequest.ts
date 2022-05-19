@@ -18,6 +18,9 @@ export const mapGravidKravRequest = (
   if (orgnr === undefined) {
     throw new Error('Orgnr må spesifiseres');
   }
+  if (!perioder) {
+    throw new Error('Perioder må spesifiseres');
+  }
   perioder?.forEach((periode) => {
     if (periode.fom?.error) {
       throw new Error('Fra må spesifiseres');

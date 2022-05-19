@@ -17,4 +17,30 @@
     .skjemagruppe .skjemaelement {
         margin-bottom: 0;
     }
+
+    .avbrytknapp {
+        margin-left: 1rem;
+    }
+
+    .sletteknapp {
+        float: right;
+    }
+
+    
+}
+
+.kroniskkrav-modal {
+    &-text {
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+    
+    &-buttons {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .navds-modal__button {
+        display: none;
+    }
 }

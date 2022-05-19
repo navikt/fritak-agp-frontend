@@ -3,6 +3,7 @@ import GravidState from './GravidState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
+import { v4 as uuid } from 'uuid';
 
 const mapGravidFeilmeldinger = (
   response: ValidationResponse<GravidSoknadResponse>,
@@ -61,6 +62,11 @@ const mapGravidFeilmeldinger = (
         break;
     }
   });
+
+  if (response.status === 404) {
+    feilmeldinger.push(lagFeil('backend-' + uuid(), 'Innsendingen feilet'));
+  }
+
   return feilmeldinger;
 };
 

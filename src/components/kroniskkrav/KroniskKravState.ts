@@ -2,6 +2,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { ValidationState } from '../../state/validation/ValidationState';
 import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
+import EndringsAarsak from '../gravidkrav/EndringsAarsak';
 
 export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravState => {
   return Object.assign(
@@ -13,7 +14,10 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
         }
       ],
       bekreft: false,
-      feilmeldinger: Array<FeiloppsummeringFeil>()
+      feilmeldinger: Array<FeiloppsummeringFeil>(),
+      formDirty: false,
+      showSpinner: false,
+      endringskrav: false
     },
     state || {}
   );
@@ -38,6 +42,12 @@ export default interface KroniskKravState extends ValidationState {
   submitting?: boolean;
   antallDager?: number;
   antallDagerError?: string;
+  kravId?: string;
+  formDirty?: boolean;
+  endringsAarsak?: EndringsAarsak;
+  endringsAarsakError?: string;
+  showSpinner?: boolean;
+  endringskrav?: boolean;
 }
 
 export interface KroniskKravPeriode {

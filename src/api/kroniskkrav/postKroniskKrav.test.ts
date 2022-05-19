@@ -2,9 +2,9 @@ import postKroniskKrav from './postKroniskKrav';
 
 import KroniskKravRequest from './KroniskKravRequest';
 
-jest.mock('../postRequest');
+jest.mock('../httpRequest');
 
-import postRequest from '../postRequest';
+import httpRequest from '../httpRequest';
 
 describe('postKroniskKrav', () => {
   const params: KroniskKravRequest = {
@@ -22,9 +22,9 @@ describe('postKroniskKrav', () => {
     bekreftet: true,
     antallDager: 123
   };
-  it('should call postRequest with the correct params', () => {
+  it('should call httpRequest with the correct params', () => {
     postKroniskKrav('/basepath', params);
 
-    expect(postRequest).toHaveBeenCalledWith('/basepath/api/v1/kronisk/krav', params);
+    expect(httpRequest).toHaveBeenCalledWith('/basepath/api/v1/kronisk/krav', params, 'POST');
   });
 });
