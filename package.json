@@ -1,6 +1,6 @@
 {
   "name": "fritak-agp-frontend",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "private": true,
   "homepage": "/fritak-agp",
   "proxy": "http://localhost:8080",
@@ -17,7 +17,6 @@
     "preinstall": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index",
     "test:int": "testcafe firefox --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300"
   },
-  "proxy": "http://localhost:8080",
   "engines": {
     "node": ">=14",
     "yarn": ">=1.22"
