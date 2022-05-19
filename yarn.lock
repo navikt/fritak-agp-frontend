@@ -1869,7 +1869,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.14.5":
+"@babel/runtime@^7.13.10", "@babel/runtime@^7.14.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.7":
   version "7.17.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.9.tgz#d19fbf802d01a8cb6cf053a64e472d42c434ba72"
   integrity sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg==
@@ -11920,10 +11920,10 @@ react-flatpickr@^3.x:
     flatpickr "^4.6.2"
     prop-types "^15.5.10"
 
-react-i18next@11.16.5:
-  version "11.16.5"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.16.5.tgz#5258784b9b617c443811307072a434ec7447c70a"
-  integrity sha512-dkDN9suVU/jaD9A0xM4qNU9++LwgueWZn5XGTDEKTZeBgsd3q17ssTQXlSbEb0Gl0iLDdUKU7MrdjQjDc33ztA==
+react-i18next@^11.16.5:
+  version "11.16.9"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.16.9.tgz#890cdac0c49120e075d6c520b43dbad3f91bd2df"
+  integrity sha512-euXxWvcEAvsY7ZVkwx9ztCq4butqtsGHEkpkuo0RMj8Ru09IF9o2KxCyN+zyv51Nr0aBh/elaTIiR6fMb8YfVg==
   dependencies:
     "@babel/runtime" "^7.14.5"
     html-escaper "^2.0.2"
@@ -11959,10 +11959,10 @@ react-modal@3.14.3:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
-react-modal@3.14.4:
-  version "3.14.4"
-  resolved "https://registry.npmjs.org/react-modal/-/react-modal-3.14.4.tgz"
-  integrity sha512-8surmulejafYCH9wfUmFyj4UfbSJwjcgbS9gf3oOItu4Hwd6ivJyVBETI0yHRhpJKCLZMUtnhzk76wXTsNL6Qg==
+react-modal@3.15.1:
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.15.1.tgz#950ce67bfef80971182dd0ed38f2d9b1a681288b"
+  integrity sha512-duB9bxOaYg7Zt6TMFldIFxQRtSP+Dg3F1ZX3FXxSUn+3tZZ/9JCgeAQKDg7rhZSAqopq8TFRw3yIbnx77gyFTw==
   dependencies:
     exenv "^1.2.0"
     prop-types "^15.7.2"
