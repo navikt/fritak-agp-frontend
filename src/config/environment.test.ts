@@ -26,9 +26,7 @@ describe('Environment', () => {
     // @ts-ignore
     window.location = new URL('https://www.dev.nav.no');
 
-    expect(env.loginServiceUrl).toBe(
-      'https://fritakagp.dev.nav.no/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true'
-    );
+    expect(env.loginServiceUrl).toBe('https://loginservice.dev.nav.no/login?redirect=XXX?loggedIn=true');
   });
 
   it('should return the loginservice url for prod', () => {

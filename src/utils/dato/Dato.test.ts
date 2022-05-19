@@ -1,4 +1,4 @@
-import { datoToString, parseDateTilDato, parseDato } from './Dato';
+import { datoToString, parseDateTilDato, parseDato, parseISO } from './Dato';
 import timezone_mock from 'timezone-mock';
 describe('datoToString', () => {
   it('should map datoToString', () => {
@@ -85,5 +85,36 @@ describe('dato', () => {
       value: '05.06.2020',
       year: 2020
     });
+  });
+
+  it('should parse ISO dato', () => {
+    expect(parseISO('2020-10-05').error).toBeUndefined();
+    expect(parseISO('2020-10-05').day).toBe(5);
+    expect(parseISO('2020-10-05').month).toBe(10);
+    expect(parseISO('2020-10-05').year).toBe(2020);
+  });
+
+  it('should parse ISO dato correct values', () => {
+    expect(parseISO('2021-01-01').day).toBe(1);
+    expect(parseISO('2021-01-31').day).toBe(31);
+    expect(parseISO('2020-01-32').error).toBe('Ugyldig dato');
+  });
+
+  it('should parse ISO dato with single values', () => {
+    expect(parseISO('2020-10-5').error).toBeUndefined();
+    expect(parseISO('2020-10-5').day).toBe(5);
+    expect(parseISO('2020-9-30').month).toBe(9);
+  });
+
+  it('should not parse illegal ISO format', () => {
+    expect(parseISO('05.10.2020').error).toBe('Ugyldig datoformat');
+    expect(parseISO('2020.10.05').error).toBe('Ugyldig datoformat');
+  });
+
+  it('should not allow invalid ISO values', () => {
+    expect(parseISO('2020-13-01').error).toBe('Ugyldig måned');
+    expect(parseISO('2020-12-00').error).toBe('Ugyldig dato');
+    expect(parseISO('2020-00-01').error).toBe('Ugyldig måned');
+    expect(parseISO('2020-01-35').error).toBe('Ugyldig dato');
   });
 });

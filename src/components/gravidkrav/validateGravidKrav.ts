@@ -45,6 +45,18 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     pushFeilmelding('kontrollsporsmaal-lonn-arbeidsdager', nextState.antallDagerError, feilmeldinger);
   }
 
+  if (nextState.endringskrav) {
+    if (nextState.endringsAarsak) {
+      delete nextState.endringsAarsakError;
+    } else {
+      nextState.endringsAarsakError = 'Angi årsaken til endringen';
+    }
+  }
+
+  if (nextState.endringsAarsakError) {
+    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
+  }
+
   nextState.dokumentasjonError = formatValidation(validateDokumentasjon(state.dokumentasjon), translate);
 
   if (nextState.dokumentasjonError) {
