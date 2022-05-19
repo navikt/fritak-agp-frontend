@@ -472,6 +472,26 @@ describe('GravidKravReducer', () => {
     expect(state.perioder?.length).toBe(2);
   });
 
+  it('should show and hide spinner', () => {
+    let state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.ShowSpinner
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.showSpinner).toBe(true);
+
+    let newState = GravidKravReducer(
+      state,
+      {
+        type: Actions.HideSpinner
+      },
+      translationMock as unknown as i18n
+    );
+    expect(newState.showSpinner).toBe(false);
+  });
+
   it('should add a periode and remove a periode', () => {
     const initialState = defaultGravidKravState();
     // @ts-ignore
@@ -498,5 +518,119 @@ describe('GravidKravReducer', () => {
     );
 
     expect(newState.perioder?.length).toBe(1);
+  });
+
+  it('should add an backend errormessage when the action is AddBackendError, no duplication', () => {
+    const defaultKrav = defaultGravidKravState();
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    let state = GravidKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+    expect(state.feilmeldinger.length).toBe(1);
+
+    let newState = GravidKravReducer(
+      state,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(newState.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+    expect(newState.feilmeldinger.length).toBe(1);
+  });
+
+  it('should remove all backend errormessages when the action is RemoveBackendError', () => {
+    const defaultKrav = defaultGravidKravState();
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    let state = GravidKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+    expect(state.feilmeldinger?.length).toBe(1);
+
+    let state2 = GravidKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding2'
+        }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state2.feilmeldinger[1].feilmelding).toBe('Feilmelding2');
+    expect(state2.feilmeldinger?.length).toBe(2);
+
+    let state3 = GravidKravReducer(
+      defaultKrav,
+      {
+        type: Actions.RemoveBackendError
+      },
+      translationMock as unknown as i18n
+    );
+
+    expect(state3.feilmeldinger?.length).toBe(0);
+  });
+
+  it('should remove all backend errormessages when the action is RemoveBackendError, no duplication', () => {
+    const defaultKrav = defaultGravidKravState();
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    let state = GravidKravReducer(
+      defaultKrav,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding'
+        }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
+    expect(state.feilmeldinger.length).toBe(1);
+
+    state = GravidKravReducer(
+      state,
+      {
+        type: Actions.AddBackendError,
+        payload: {
+          error: 'Feilmelding 2'
+        }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.feilmeldinger.length).toBe(2);
+
+    state = GravidKravReducer(
+      state,
+      {
+        type: Actions.RemoveBackendError
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.feilmeldinger.length).toBe(0);
   });
 });

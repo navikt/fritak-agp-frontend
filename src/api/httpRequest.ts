@@ -21,9 +21,10 @@ export const mapViolations = <Type>(status: number, json: any): ValidationRespon
   };
 };
 
-const postRequest = async <Type>(
+const httpRequest = async <Type>(
   path: string,
   payload: any,
+  method: 'POST' | 'DELETE' | 'PATCH',
   timeout: number = 10000
 ): Promise<ValidationResponse<Type>> => {
   return Promise.race([
@@ -42,7 +43,7 @@ const postRequest = async <Type>(
         'Content-Type': 'application/json'
       },
       credentials: 'include',
-      method: 'POST',
+      method: method,
       body: JSON.stringify(payload)
     })
       .then(async (response) =>
@@ -62,4 +63,4 @@ const postRequest = async <Type>(
   ]);
 };
 
-export default postRequest;
+export default httpRequest;

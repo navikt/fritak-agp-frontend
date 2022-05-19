@@ -3,6 +3,18 @@ import { render, screen } from '@testing-library/react';
 
 import FravaerRow from './FravaerRow';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => ({})),
+        t: (str: string) => str
+      }
+    };
+  }
+}));
+
 describe('FravaerRow', () => {
   it('should display an input field', () => {
     render(

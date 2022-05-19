@@ -34,7 +34,7 @@ describe('KravPeriode', () => {
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).not.toBeInTheDocument();
-    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row periodewrapper');
+    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('periodewrapper even');
   });
 
   it('should show second row', async () => {
@@ -54,7 +54,7 @@ describe('KravPeriode', () => {
     expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
-    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('row odd periodewrapper');
+    expect(screen.getByTestId('krav-periode-wrapper')).toHaveClass('periodewrapper odd');
   });
 
   it('should show a random row', async () => {
