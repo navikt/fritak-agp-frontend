@@ -32,3 +32,8 @@ spec:
     requests:
       cpu: 400m
       memory: 256Mi
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: true
