@@ -4,8 +4,9 @@ import { monthKey } from '../../utils/monthKey';
 import { MONTHS } from '../../utils/months';
 import { Aarsfravaer } from './Aarsfravaer';
 import { isAarsFravaerEmpty } from './isAarsFravaerEmpty';
+import { stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
-export const validerFravaer = (fravaer: FravaerType, state: KroniskState, nextState: KroniskState) => {
+export const validerFravaer = (fravaer: FravaerType, nextState: KroniskState) => {
   if (!nextState.fravaer) {
     nextState.fravaer = [];
   }
@@ -13,7 +14,8 @@ export const validerFravaer = (fravaer: FravaerType, state: KroniskState, nextSt
   if (month < 0 || month > 11) {
     throw new Error('Month må være mellom 0 og 11');
   }
-  const antallDager = !parseInt(dager) ? undefined : parseInt(dager);
+
+  const antallDager = stringishToNumber(dager);
   const monthProp = monthKey(MONTHS[month]);
   const aarfravaer = nextState.fravaer?.find((f) => f.year === year);
   if (aarfravaer === undefined) {
