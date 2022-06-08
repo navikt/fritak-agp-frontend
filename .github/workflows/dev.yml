@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev
+      - 'preprod/**'
 
 env:
   APP: fritak-agp-frontend
