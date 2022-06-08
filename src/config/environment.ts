@@ -20,7 +20,7 @@ class Environment {
   }
 
   get baseUrl() {
-    return '/fritak-agp/api/';
+    return '/fritak-agp';
   }
 
   get environmentMode() {

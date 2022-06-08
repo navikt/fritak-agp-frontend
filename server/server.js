@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const axios = require('axios').default;
+const proxy = require('express-http-proxy');
 
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../build';
@@ -23,28 +23,12 @@ const startServer = () => {
     res.redirect('/fritak-agp/');
   });
 
-  async function apiProxy(req, res, next) {
-    const apiPath = req.path.replace(BASE_PATH + '/api/', '');
-    const token = req.headers.authorization;
-    console.log(`Requesting ${API_URL}${apiPath} token: ${token} body: ${req.body}`);
-    try {
-      const { data } = await axios({
-        url: API_URL + apiPath,
-        method: req.method,
-        headers: {
-          Authorization: token
-        },
-        data: req.body
-      });
-      res.status(200).send(data);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  }
-
-  app.get(BASE_PATH + '/api/*', apiProxy);
-  app.post(BASE_PATH + '/api/*', apiProxy);
-  app.delete(BASE_PATH + '/api/*', apiProxy);
+  app.use(
+    BASE_PATH + '/api/*',
+    proxy(API_URL, {
+      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, '')
+    })
+  );
 
   app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, HOME_FOLDER, 'index.html'));
