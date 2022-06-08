@@ -28,27 +28,22 @@ const startServer = () => {
     });
   });
 
-  app.get(BASE_PATH + '/api/*', async function (req, res) {
+  async function apiProxy(req, res, next) {
     const apiPath = req.path.replace(BASE_PATH + '/api', '');
     const token = req.headers.authorization;
-    const { data } = await axios.get(API_URL + apiPath, {
+    const { data } = await axios.request({
+      url: API_URL + apiPath,
+      method: req.method,
       headers: {
         Authorization: token
       }
     });
     res.status(200).send(data);
-  });
+  }
 
-  app.post(BASE_PATH + '/api/*', async function (req, res) {
-    const apiPath = req.path.replace(BASE_PATH + '/api', '');
-    const token = req.headers.authorization;
-    const { data } = await axios.post(API_URL + apiPath, {
-      headers: {
-        Authorization: token
-      }
-    });
-    res.status(200).send(data);
-  });
+  app.get(BASE_PATH + '/api/*', apiProxy);
+  app.post(BASE_PATH + '/api/*', apiProxy);
+  app.delete(BASE_PATH + '/api/*', apiProxy);
 
   app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, HOME_FOLDER, 'index.html'));

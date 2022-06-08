@@ -20,16 +20,7 @@ class Environment {
   }
 
   get baseUrl() {
-    switch (this.environmentMode) {
-      case EnvironmentType.PROD:
-        return 'https://arbeidsgiver.nav.no/fritak-agp-api';
-      case EnvironmentType.PREPROD_DEV:
-        return 'https://fritakagp.dev.nav.no';
-      case EnvironmentType.TESTCAFE:
-        return 'http://localhost:3000';
-      default:
-        return 'http://localhost:3000';
-    }
+    return '/fritak-agp/api/';
   }
 
   get environmentMode() {
