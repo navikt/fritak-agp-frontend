@@ -12,7 +12,7 @@ const startServer = () => {
   app.use(express.json());
 
   app.use('/*', (req, res, next) => {
-    if (!req.headers['authorization']) {
+    if (!req.headers['authorization'] && !req.path.includes('/health')) {
       res.redirect(`/oauth2/login?redirect=${req.path}`);
     } else {
       next();
