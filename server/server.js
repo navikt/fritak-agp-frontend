@@ -11,22 +11,24 @@ const API_URL = process.env.API_URL || 'http://localhost:3000';
 const startServer = () => {
   app.use(express.json());
 
+  app.get('/health/is-alive', (req, res) => {
+    res.sendStatus(200);
+  });
+
+  app.get('/health/is-ready', (req, res) => {
+    res.sendStatus(200);
+  });
+
+  app.use(BASE_PATH, express.static(HOME_FOLDER));
+
   app.use('/*', (req, res, next) => {
-    if (!req.headers['authorization'] && !req.path.includes('/health')) {
+    if (!req.headers['authorization']) {
       res.redirect(`/oauth2/login?redirect=${req.path}`);
     } else {
       next();
     }
   });
 
-  app.use(BASE_PATH, express.static(HOME_FOLDER));
-
-  app.get('/health/is-alive', (req, res) => {
-    res.sendStatus(200);
-  });
-  app.get('/health/is-ready', (req, res) => {
-    res.sendStatus(200);
-  });
   app.get('/', (req, res) => {
     res.redirect('/fritak-agp/');
   });
