@@ -23,7 +23,7 @@ const startServer = () => {
 
   app.use('/*', (req, res, next) => {
     if (!req.headers['authorization']) {
-      res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+      res.redirect(`${BASE_PATH}/oauth2/login?redirect=${req.originalUrl}`);
     } else {
       next();
     }
