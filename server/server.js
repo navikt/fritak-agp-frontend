@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const axios = require('axios').default;
 
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../build';
 const PORT = process.env.PORT || 8080;
+const API_URL = process.env.API_URL || 'http://localhost:3000';
 
 const startServer = () => {
   app.use(BASE_PATH, express.static(HOME_FOLDER));
@@ -24,6 +26,28 @@ const startServer = () => {
       'login-url': process.env.LOGIN_URL,
       'api-url': process.env.API_BACKEND_URL
     });
+  });
+
+  app.get(BASE_PATH + '/api/*', async function (req, res) {
+    const apiPath = req.path.replace(BASE_PATH + '/api', '');
+    const token = req.headers.authorization;
+    const { data } = await axios.get(API_URL + apiPath, {
+      headers: {
+        Authorization: token
+      }
+    });
+    res.status(200).send(data);
+  });
+
+  app.post(BASE_PATH + '/api/*', async function (req, res) {
+    const apiPath = req.path.replace(BASE_PATH + '/api', '');
+    const token = req.headers.authorization;
+    const { data } = await axios.post(API_URL + apiPath, {
+      headers: {
+        Authorization: token
+      }
+    });
+    res.status(200).send(data);
   });
 
   app.get('/*', function (req, res) {
