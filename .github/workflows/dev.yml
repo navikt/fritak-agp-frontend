@@ -44,6 +44,10 @@ jobs:
           node-version: '14.x'
       - run: yarn install --frozen-lockfile
       - run: yarn lint
+      - name: Install node server dependencies
+        working-directory: ./server
+        run: |
+          yarn install --frozen-lockfile
 
 
   # Snyk:

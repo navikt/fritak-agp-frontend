@@ -21,13 +21,6 @@ const startServer = () => {
     res.redirect('/fritak-agp/');
   });
 
-  app.get(BASE_PATH + '/api/env', (req, res) => {
-    res.status(200).send({
-      'login-url': process.env.LOGIN_URL,
-      'api-url': process.env.API_BACKEND_URL
-    });
-  });
-
   async function apiProxy(req, res, next) {
     const apiPath = req.path.replace(BASE_PATH + '/api', '');
     const token = req.headers.authorization;
