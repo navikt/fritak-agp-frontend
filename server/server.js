@@ -24,14 +24,15 @@ const startServer = () => {
   async function apiProxy(req, res, next) {
     const apiPath = req.path.replace(BASE_PATH + '/api/', '');
     const token = req.headers.authorization;
-    console.log(`Requesting $API_URL + $apiPath`);
+    console.log(`Requesting ${API_URL} + ${apiPath}`);
     try {
       const { data } = await axios.request({
         url: API_URL + apiPath,
         method: req.method,
         headers: {
           Authorization: token
-        }
+        },
+        data: req.body
       });
       res.status(200).send(data);
     } catch (error) {
