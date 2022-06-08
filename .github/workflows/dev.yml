@@ -19,6 +19,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
+      - name: Install node server dependencies
+        working-directory: ./server
+        run: |
+          yarn install --frozen-lockfile
       - run: yarn build
       - uses: actions/upload-artifact@v2
         with:
@@ -44,11 +48,6 @@ jobs:
           node-version: '14.x'
       - run: yarn install --frozen-lockfile
       - run: yarn lint
-      - name: Install node server dependencies
-        working-directory: ./server
-        run: |
-          yarn install --frozen-lockfile
-
 
   # Snyk:
   #   runs-on: ubuntu-latest
