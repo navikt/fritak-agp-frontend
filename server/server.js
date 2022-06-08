@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 8080;
 const API_URL = process.env.API_URL || 'http://localhost:3000';
 
 const startServer = () => {
+  app.use(express.json());
+
   app.use(BASE_PATH, express.static(HOME_FOLDER));
 
   app.get('/health/is-alive', (req, res) => {
@@ -24,9 +26,9 @@ const startServer = () => {
   async function apiProxy(req, res, next) {
     const apiPath = req.path.replace(BASE_PATH + '/api/', '');
     const token = req.headers.authorization;
-    console.log(`Requesting ${API_URL} + ${apiPath}`);
+    console.log(`Requesting ${API_URL}${apiPath} token: ${token} body: ${req.body}`);
     try {
-      const { data } = await axios.request({
+      const { data } = await axios({
         url: API_URL + apiPath,
         method: req.method,
         headers: {
