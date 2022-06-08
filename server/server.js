@@ -22,16 +22,21 @@ const startServer = () => {
   });
 
   async function apiProxy(req, res, next) {
-    const apiPath = req.path.replace(BASE_PATH + '/api', '');
+    const apiPath = req.path.replace(BASE_PATH + '/api/', '');
     const token = req.headers.authorization;
-    const { data } = await axios.request({
-      url: API_URL + apiPath,
-      method: req.method,
-      headers: {
-        Authorization: token
-      }
-    });
-    res.status(200).send(data);
+    console.log(`Requesting $API_URL + $apiPath`);
+    try {
+      const { data } = await axios.request({
+        url: API_URL + apiPath,
+        method: req.method,
+        headers: {
+          Authorization: token
+        }
+      });
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
 
   app.get(BASE_PATH + '/api/*', apiProxy);
