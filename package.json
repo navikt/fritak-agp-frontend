@@ -45,7 +45,6 @@
     "@navikt/nav-dekoratoren-moduler": "^1.6.5",
     "@sentry/react": "^6.19.7",
     "@sentry/tracing": "^6.19.7",
-    "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "dayjs": "1.11.2",
     "i18next": "^21.6.15",
