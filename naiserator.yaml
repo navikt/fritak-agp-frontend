@@ -36,7 +36,6 @@ spec:
     enabled: true
     sidecar:
       enabled: true
-      autoLogin: true
   env:
     - name: API_URL
       value: '{{{api-url}}}'
