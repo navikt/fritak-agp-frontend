@@ -36,6 +36,7 @@ const startServer = () => {
   app.use(
     BASE_PATH + '/api/*',
     createProxyMiddleware({
+      target: API_URL,
       changeOrigin: true,
       pathRewrite: {
         '^/fritak-agp': ''
