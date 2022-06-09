@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const proxy = require('express-http-proxy');
 
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../build';
@@ -35,16 +35,15 @@ const startServer = () => {
 
   app.use(
     BASE_PATH + '/api/*',
-    createProxyMiddleware({
-      target: API_URL,
-      secure: true,
-      xfwd: true,
-      changeOrigin: true,
-      pathRewrite: {
-        '^/fritak-agp': ''
-      },
-      onError: (err, req, res) => {
-        console.error(`${req.method} ${req.path} => [${res.statusCode}:${res.statusText}]: ${err.message}`);
+    proxy(API_URL, {
+      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, ''),
+      proxyErrorHandler: (err, res, next) => {
+        console.log(`Error in proxy for ${host} ${err.message}, ${err.code}`);
+        if (err && err.code === 'ECONNREFUSED') {
+          console.log('proxyErrorHandler: Got ECONNREFUSED');
+          return res.status(503).send({ message: `Could not contact ${host}` });
+        }
+        next(err);
       }
     })
   );

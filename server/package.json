@@ -11,7 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express-http-proxy": "^1.6.3",
-    "http-proxy-middleware": "^2.0.6"
+    "express-http-proxy": "^1.6.3"
   }
 }
