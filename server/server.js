@@ -37,8 +37,14 @@ const startServer = () => {
     BASE_PATH + '/api/*',
     createProxyMiddleware({
       target: API_URL,
+      secure: true,
+      xfwd: true,
+      changeOrigin: true,
       pathRewrite: {
         '^/fritak-agp': ''
+      },
+      onError: (err, req, res) => {
+        console.error(`${req.method} ${req.path} => [${res.statusCode}:${res.statusText}]: ${err.message}`);
       }
     })
   );
