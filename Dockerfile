@@ -8,5 +8,7 @@ COPY server/ server/
 WORKDIR /var/server
 RUN npm install
 
+ENV DEBUG=express-http-proxy
+
 EXPOSE 8080
 ENTRYPOINT ["node", "server.js"]

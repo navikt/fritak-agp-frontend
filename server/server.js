@@ -36,7 +36,15 @@ const startServer = () => {
   app.use(
     BASE_PATH + '/api/*',
     proxy(API_URL, {
-      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, '')
+      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, ''),
+      proxyErrorHandler: (err, res, next) => {
+        console.log(`Error in proxy for ${host} ${err.message}, ${err.code}`);
+        if (err && err.code === 'ECONNREFUSED') {
+          console.log('proxyErrorHandler: Got ECONNREFUSED');
+          return res.status(503).send({ message: `Could not contact ${host}` });
+        }
+        next(err);
+      }
     })
   );
 
