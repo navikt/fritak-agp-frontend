@@ -9,8 +9,6 @@ const PORT = process.env.PORT || 8080;
 const API_URL = process.env.API_URL || 'http://localhost:3000';
 
 const startServer = () => {
-  app.use(express.json());
-
   app.get('/health/is-alive', (req, res) => {
     res.sendStatus(200);
   });
@@ -47,6 +45,8 @@ const startServer = () => {
       }
     })
   );
+
+  app.use(express.json());
 
   app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, HOME_FOLDER, 'index.html'));
