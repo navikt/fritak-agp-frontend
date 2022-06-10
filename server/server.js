@@ -17,20 +17,6 @@ const startServer = () => {
     res.sendStatus(200);
   });
 
-  app.use(BASE_PATH, express.static(HOME_FOLDER));
-
-  app.use('/*', (req, res, next) => {
-    if (!req.headers['authorization']) {
-      res.redirect(`${BASE_PATH}/oauth2/login?redirect=${req.originalUrl}`);
-    } else {
-      next();
-    }
-  });
-
-  app.get('/', (req, res) => {
-    res.redirect('/fritak-agp/');
-  });
-
   app.use(
     BASE_PATH + '/api/*',
     proxy(API_URL, {
@@ -45,6 +31,20 @@ const startServer = () => {
       }
     })
   );
+
+  app.use(BASE_PATH, express.static(HOME_FOLDER));
+
+  app.use('/*', (req, res, next) => {
+    if (!req.headers['authorization']) {
+      res.redirect(`${BASE_PATH}/oauth2/login?redirect=${req.originalUrl}`);
+    } else {
+      next();
+    }
+  });
+
+  app.get('/', (req, res) => {
+    res.redirect('/fritak-agp/');
+  });
 
   app.use(express.json());
 
