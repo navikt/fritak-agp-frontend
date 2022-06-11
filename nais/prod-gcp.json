@@ -3,5 +3,5 @@
   "namespace": "helsearbeidsgiver",
   "vault-enabled": false,
   "webproxy-enabled": false,
-  "api-url": "https://fritakagp.helsearbeidsgiver.svc.cluster.local"
+  "api-url": "http://fritakagp"
 }
