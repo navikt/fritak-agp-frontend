@@ -3,5 +3,5 @@
   "namespace": "helsearbeidsgiver",
   "vault-enabled": false,
   "webproxy-enabled": false,
-  "api-url": "https://arbeidsgiver.nav.no/fritak-agp-api"
+  "api-url": "https://fritakagp"
 }
