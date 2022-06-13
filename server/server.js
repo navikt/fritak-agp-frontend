@@ -20,6 +20,7 @@ const startServer = () => {
   app.use(
     BASE_PATH + '/api/*',
     proxy(API_URL, {
+      parseReqBody: false,
       limit: '50mb',
       proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, ''),
       proxyErrorHandler: (err, res, next) => {
