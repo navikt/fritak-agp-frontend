@@ -9,9 +9,9 @@ class Environment {
   get loginServiceUrl() {
     switch (this.environmentMode) {
       case EnvironmentType.PROD:
-        return 'https://loginservice.nav.no/login?redirect=XXX?loggedIn=true';
+        return 'https://arbeidsgiver.nav.no/fritak-agp/oauth2/login?redirect=XXX';
       case EnvironmentType.PREPROD_DEV:
-        return 'https://loginservice.dev.nav.no/login?redirect=XXX?loggedIn=true';
+        return 'https://arbeidsgiver.dev.nav.no/fritak-agp/oauth2/login?redirect=XXX';
       case EnvironmentType.TESTCAFE:
         return 'http://localhost:3000/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
       default:
@@ -19,17 +19,21 @@ class Environment {
     }
   }
 
-  get baseUrl() {
+  get logoutServiceUrl() {
     switch (this.environmentMode) {
       case EnvironmentType.PROD:
-        return 'https://arbeidsgiver.nav.no/fritak-agp-api';
+        return 'https://arbeidsgiver.nav.no/fritak-agp/oauth2/logout';
       case EnvironmentType.PREPROD_DEV:
-        return 'https://fritakagp.dev.nav.no';
+        return 'https://arbeidsgiver.dev.nav.no/fritak-agp/oauth2/logout';
       case EnvironmentType.TESTCAFE:
-        return 'http://localhost:3000';
+        return 'http://localhost:3000/not-in-use';
       default:
-        return 'http://localhost:3000';
+        return 'http://localhost:3000/not-in-use';
     }
+  }
+
+  get baseUrl() {
+    return '/fritak-agp';
   }
 
   get environmentMode() {

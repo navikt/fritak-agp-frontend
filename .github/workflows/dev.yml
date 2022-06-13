@@ -45,7 +45,6 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
-
   # Snyk:
   #   runs-on: ubuntu-latest
   #   steps:

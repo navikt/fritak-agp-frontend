@@ -16,6 +16,7 @@ import './GravidKvittering.scss';
 import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
+import environment from '../../config/environment';
 
 const GravidKvittering = () => {
   const { language } = useParams<PathParams>();
@@ -88,7 +89,7 @@ const GravidKvittering = () => {
           </Lenke>
         </div>
         <div>
-          <Lenke href='https://loginservice.nav.no/slo'>
+          <Lenke href={environment.logoutServiceUrl}>
             <Oversettelse langKey={LangKey.LOGG_UT} />
           </Lenke>
         </div>
