@@ -20,8 +20,8 @@ const startServer = () => {
   app.use(
     BASE_PATH + '/api/*',
     proxy(API_URL, {
-      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, ''),
       limit: '50mb',
+      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, ''),
       proxyErrorHandler: (err, res, next) => {
         console.log(`Error in proxy for ${host} ${err.message}, ${err.code}`);
         if (err && err.code === 'ECONNREFUSED') {
@@ -47,7 +47,7 @@ const startServer = () => {
     res.redirect('/fritak-agp/');
   });
 
-  app.use(express.json());
+  app.use(express.json({ limit: '50mb' }));
 
   app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, HOME_FOLDER, 'index.html'));
