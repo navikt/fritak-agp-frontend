@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const path = require('path');
 const proxy = require('express-http-proxy');
 
@@ -16,6 +17,12 @@ const startServer = () => {
   app.get('/health/is-ready', (req, res) => {
     res.sendStatus(200);
   });
+
+  app.use(
+    cors({
+      origin: /\.nav\.no$/
+    })
+  );
 
   app.use(
     BASE_PATH + '/api/*',
