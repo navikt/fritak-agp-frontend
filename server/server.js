@@ -21,6 +21,7 @@ const startServer = () => {
     BASE_PATH + '/api/*',
     proxy(API_URL, {
       proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, ''),
+      limit: '50mb',
       proxyErrorHandler: (err, res, next) => {
         console.log(`Error in proxy for ${host} ${err.message}, ${err.code}`);
         if (err && err.code === 'ECONNREFUSED') {
