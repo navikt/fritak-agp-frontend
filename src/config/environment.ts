@@ -9,9 +9,9 @@ class Environment {
   get loginServiceUrl() {
     switch (this.environmentMode) {
       case EnvironmentType.PROD:
-        return 'https://arbeidsgiver.nav.no/fritak-agp/oauth2/login?redirect=XXX?loggedIn=true';
+        return 'https://arbeidsgiver.nav.no/fritak-agp/oauth2/login?redirect=XXX';
       case EnvironmentType.PREPROD_DEV:
-        return 'https://arbeidsgiver.dev.nav.no/fritak-agp/oauth2/login?redirect=XXX?loggedIn=true';
+        return 'https://arbeidsgiver.dev.nav.no/fritak-agp/oauth2/login?redirect=XXX';
       case EnvironmentType.TESTCAFE:
         return 'http://localhost:3000/local/cookie-please?subject=10107400090&redirect=XXX?loggedIn=true';
       default:
