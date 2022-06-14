@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 const path = require('path');
 const proxy = require('express-http-proxy');
 
@@ -8,6 +7,7 @@ const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../build';
 const PORT = process.env.PORT || 8080;
 const API_URL = process.env.API_URL || 'http://localhost:3000';
+const API_BASEPATH = process.env.API_BASEPATH || '';
 
 const startServer = () => {
   app.get('/health/is-alive', (req, res) => {
@@ -19,17 +19,11 @@ const startServer = () => {
   });
 
   app.use(
-    cors({
-      origin: /\.nav\.no$/
-    })
-  );
-
-  app.use(
     BASE_PATH + '/api/*',
     proxy(API_URL, {
       parseReqBody: false,
       limit: '50mb',
-      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, ''),
+      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, API_BASEPATH),
       proxyErrorHandler: (err, res, next) => {
         console.log(`Error in proxy for ${host} ${err.message}, ${err.code}`);
         if (err && err.code === 'ECONNREFUSED') {

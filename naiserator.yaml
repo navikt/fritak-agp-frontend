@@ -6,7 +6,7 @@ metadata:
   labels:
     team: helsearbeidsgiver
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "256M"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50M"
 spec:
   image: {{ image }}
   port: 8080
@@ -41,3 +41,5 @@ spec:
   env:
     - name: API_URL
       value: '{{{api-url}}}'
+    - name: API_BASEPATH
+      value: '{{{api-basepath}}}'
