@@ -3,6 +3,9 @@ name: Produksjon
 on:
   release:
     types: [released]
+  push:
+    branches:
+      - 'prod/**'
 
 env:
   APP: fritak-agp-frontend
