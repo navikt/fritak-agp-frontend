@@ -24,6 +24,10 @@ const startServer = () => {
       parseReqBody: false,
       limit: '50mb',
       proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, API_BASEPATH),
+      proxyReqOptDecorator: (proxyReqOpts) => {
+        proxyReqOpts.headers['cookie'] = '';
+        return proxyReqOpts;
+      },
       proxyErrorHandler: (err, res, next) => {
         console.log(`Error in proxy for ${host} ${err.message}, ${err.code}`);
         if (err && err.code === 'ECONNREFUSED') {
