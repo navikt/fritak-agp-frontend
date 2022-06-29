@@ -2331,21 +2331,28 @@
   resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-0.17.2.tgz#04874e600a350ed101969af217f01e2516acda01"
   integrity sha512-+qZIm6rUeogt6OD2m8GPzgLiKV8lM3SYSYv7jUlVHoyJj1RB9iGK3hEceEhJh4aaVKiKZsYHiKc8MiRuMD64HA==
 
-"@navikt/ds-icons@^0.8.11", "@navikt/ds-icons@^0.8.12":
+"@navikt/ds-icons@^0.8.11":
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.8.12.tgz#de50a9d1230214e47c970be8344cd1f3cca491e3"
   integrity sha512-RcLrUOiJpdhiVKhpfV7NpciLU91CLCa5X/Vcze1o2q29iWrLU1tsp441IXLeHVc+4ESr65+KUb9WjAKuKXaCAw==
   dependencies:
     uuid "^8.3.2"
 
-"@navikt/ds-react@^0.18.2":
-  version "0.18.6"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.18.6.tgz#8598a46afc6e80ce338c1453d43d112331230d38"
-  integrity sha512-VfPdiB9ozDAN8XPF/ZLOLIFa8CkfSvnveFycHaQb7dvCCgf5Mvqbdp7KYq43210HsHk0fhB7p+dJmKcVgPb6lw==
+"@navikt/ds-icons@^0.8.13":
+  version "0.8.17"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.8.17.tgz#ddf124687e158a988d6be70f653ae3239aba90ad"
+  integrity sha512-CR1h9t0MZprEvTqlrlLd3cHhoYmriFWkETikPprUNl3AMJMSCDovVYzXtOgIyVeFbtwTPzGtShw5mgxlVWAEDg==
+  dependencies:
+    uuid "^8.3.2"
+
+"@navikt/ds-react@^0.18.7":
+  version "0.18.7"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.18.7.tgz#4deff9ea66174f16a91ab0bbe9b36d7d39c6133f"
+  integrity sha512-wrEvzb6lJQPbowhwYO4vi6WH/w0hHNQbljoeEIx0b46X5220OG/jb6Iiwi2Eol1cgactlohloPHHZjWmILDS+Q==
   dependencies:
     "@floating-ui/react-dom" "0.6.0"
     "@material-ui/core" "^4.12.3"
-    "@navikt/ds-icons" "^0.8.12"
+    "@navikt/ds-icons" "^0.8.13"
     "@popperjs/core" "^2.10.1"
     "@radix-ui/react-tabs" "0.1.5"
     "@radix-ui/react-toggle-group" "0.1.5"
