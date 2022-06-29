@@ -9,6 +9,7 @@ enum HttpStatus {
   BadRequest = 400,
   Unauthorized = 401,
   NotFound = 404,
+  PayloadTooLarge = 413,
   UnprocessableEntity = 422
 }
 

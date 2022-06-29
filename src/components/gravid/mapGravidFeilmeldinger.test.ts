@@ -2,6 +2,9 @@ import { defaultGravidState } from './GravidState';
 import mapGravidFeilmeldinger from './mapGravidFeilmeldinger';
 import mockValidationResponse from '../../mockData/mockValidationResponse';
 
+import * as uuid from 'uuid';
+jest.mock('uuid');
+
 describe('mapGravidFeilmeldinger', () => {
   const ALLE_FELTER = [
     'fnr',
@@ -45,5 +48,37 @@ describe('mapGravidFeilmeldinger', () => {
     for (let i = 0; i < 10; i++) {
       expect(feilmeldinger[i].feilmelding).toEqual('feil');
     }
+  });
+
+  it('should handle too large attachment  - 413 errorcode', () => {
+    const uuidSpy = jest.spyOn(uuid, 'v4');
+    uuidSpy.mockReturnValue('some-uuid');
+
+    const felter = [];
+    const state = defaultGravidState();
+    const feilmeldinger = mapGravidFeilmeldinger(mockValidationResponse(413, felter), state);
+
+    expect(feilmeldinger.length).toEqual(1);
+    //@ts-ignore
+    expect(state.periodeError).toBeUndefined();
+
+    expect(feilmeldinger[0].skjemaelementId).toEqual('backend-some-uuid');
+    expect(feilmeldinger[0].feilmelding).toEqual('Vedlegget er for stort, vi har begrenset det til 50 MB.');
+  });
+
+  it('should handle missing backend - 404 errorcode', () => {
+    const uuidSpy = jest.spyOn(uuid, 'v4');
+    uuidSpy.mockReturnValue('some-uuid');
+
+    const felter = [];
+    const state = defaultGravidState();
+    const feilmeldinger = mapGravidFeilmeldinger(mockValidationResponse(404, felter), state);
+
+    expect(feilmeldinger.length).toEqual(1);
+    //@ts-ignore
+    expect(state.periodeError).toBeUndefined();
+
+    expect(feilmeldinger[0].skjemaelementId).toEqual('backend-some-uuid');
+    expect(feilmeldinger[0].feilmelding).toEqual('Innsendingen feilet');
   });
 });

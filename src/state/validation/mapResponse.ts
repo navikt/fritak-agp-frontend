@@ -27,6 +27,8 @@ const mapResponse = <Type>(
       return map422(nextState);
     case HttpStatus.Error:
       return map500(nextState);
+    case HttpStatus.PayloadTooLarge:
+      return map400(nextState);
     default:
       return nextState;
   }

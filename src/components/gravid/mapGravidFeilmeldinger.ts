@@ -4,6 +4,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import { v4 as uuid } from 'uuid';
+import HttpStatus from '../../api/HttpStatus';
 
 const mapGravidFeilmeldinger = (
   response: ValidationResponse<GravidSoknadResponse>,
@@ -63,8 +64,12 @@ const mapGravidFeilmeldinger = (
     }
   });
 
-  if (response.status === 404) {
+  if (response.status === HttpStatus.NotFound) {
     feilmeldinger.push(lagFeil('backend-' + uuid(), 'Innsendingen feilet'));
+  }
+
+  if (response.status === HttpStatus.PayloadTooLarge) {
+    feilmeldinger.push(lagFeil('backend-' + uuid(), 'Vedlegget er for stort, vi har begrenset det til 50 MB.'));
   }
 
   return feilmeldinger;
