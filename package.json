@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@navikt/bedriftsmeny": "^3.5.3",
-    "@navikt/ds-css": "^0.17.3",
+    "@navikt/ds-css": "^0.18.7",
     "@navikt/ds-icons": "^0.8.13",
     "@navikt/ds-react": "^0.19.7",
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.3.9",
