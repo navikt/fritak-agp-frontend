@@ -487,8 +487,8 @@ const Locales: Record<
     nb:
       'NAV kan refundere sykepenger i arbeidsgiverperioden for arbeidstakere med en kronisk eller langvarig sykdom.' +
       ' Hvis NAV innvilger søknaden, kan du som arbeidsgiver kreve å få refundert sykepenger for alt sykefravær, fra den' +
-      ' dag som denne søknad er mottatt av NAV.  Fristen for å kreve refusjon er 3 måneder. Derfor bør dere sende sende' +
-      ' inn kravskjemaet for refusjon fortløpende og ikke vente til søknaden er ferdig behandlet.\n\n' +
+      ' dag som denne søknad er mottatt av NAV.  Fristen for å kreve refusjon er 3 måneder. Derfor bør dere [sende sende' +
+      ' inn kravskjemaet for refusjon](/nb/kronisk/krav) fortløpende og ikke vente til søknaden er ferdig behandlet.\n\n' +
       ' Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
       ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
       ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
@@ -497,7 +497,7 @@ const Locales: Record<
       'NAV can reimburse sickness benefits during the employer period for employees with a chronic or long-term illness.' +
       ' If NAV approves the application, you as the employer can demand reimbursement of sickness benefits for all sick leave,' +
       ' from the day this application is received by NAV. The deadline for claiming a refund is 3 months. Therefore, you should' +
-      ' submit the claim form for reimbursement continuously and do not wait until the application has been processed.\n\n' +
+      ' [submit the claim form for reimbursement](/en/kronisk/krav) continuously and do not wait until the application has been processed.\n\n' +
       ' We use information we already have about sick leave, in addition to the answers you give below.' +
       ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
       ' We will send a message to the employee notifying them that you have sent the application' +
