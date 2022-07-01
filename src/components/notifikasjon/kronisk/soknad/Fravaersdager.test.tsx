@@ -70,6 +70,18 @@ const fravaer = [
   }
 ];
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str: string) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => ({})),
+        t: (str: string) => str
+      }
+    };
+  }
+}));
+
 describe('Fravaersdager', () => {
   it('should sum up the days', () => {
     render(<Fravaersdager maanedsfravaer={fravaer} />);
