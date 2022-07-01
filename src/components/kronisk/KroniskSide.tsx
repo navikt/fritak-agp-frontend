@@ -184,9 +184,7 @@ const KroniskSide = () => {
           <Panel>
             <Systemtittel className='textfelt-padding-bottom'>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
             <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
-              <Normaltekst>
-                <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
-              </Normaltekst>
+              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
 
               <FravaerTabell
                 validated={state.validated || false}
