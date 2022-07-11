@@ -12,7 +12,7 @@
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
     "pretty-please": "pretty-quick --staged",
-    "pretty-commit": "pretty-quick --staged --pattern '**/*.*(ts|tsx|js)'",
+    "pretty-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx|js)\"",
     "prepare": "husky install",
     "preinstall": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index",
     "test:int": "testcafe firefox --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300"
