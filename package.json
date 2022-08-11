@@ -12,10 +12,15 @@
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
     "pretty-please": "pretty-quick --staged",
-    "pretty-commit": "pretty-quick --staged --pattern '**/*.*(ts|tsx|js)'",
+    "pretty-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx|js)\"",
     "prepare": "husky install",
-    "preinstall": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index",
+    "postinstall": "cross-os postinstall",
     "test:int": "testcafe firefox --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300"
+  },
+  "cross-os": {
+    "postinstall": {
+      "darwin": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index"
+    }
   },
   "engines": {
     "node": ">=14",
@@ -114,6 +119,7 @@
     "@types/react-modal": "3.x",
     "@types/react-router-dom": "5.x",
     "@types/uuid": "8.x",
+    "cross-os": "1.5.0",
     "eslint-plugin-testcafe": "^0.2.1",
     "eslint-plugin-typescript": "^0.14.0",
     "husky": "6.x",
