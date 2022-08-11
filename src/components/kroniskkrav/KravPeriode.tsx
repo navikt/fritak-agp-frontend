@@ -213,7 +213,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           <Label htmlFor={`belop-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
             <Hjelpetekst className='krav-padding-hjelpetekst'>
-              <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
+              <Oversettelse langKey={t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST)} />
             </Hjelpetekst>
           </Label>
           <div className='skjemalelement tekstvisning'>
