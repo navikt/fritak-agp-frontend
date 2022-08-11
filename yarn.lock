@@ -2318,10 +2318,10 @@
   resolved "https://registry.npmjs.org/@miherlosev/esm/-/esm-3.2.26.tgz"
   integrity sha512-TaW4jTGVE1/ln2VGFChnheMh589QCAZy1MVnLvjjSzZ4pEAa4WYAWPwFkDVZbSdPQdLfZy7LuTyZjWRkhX9/Gg==
 
-"@navikt/bedriftsmeny@^3.5.3":
-  version "3.5.3"
-  resolved "https://registry.npmjs.org/@navikt/bedriftsmeny/-/bedriftsmeny-3.5.3.tgz"
-  integrity sha512-rTgg1LmyxoP+ZktpStnDjPpJdbOH9WiW4adL8AXFDoH4WirelghciPuMGQpGeoP927ToUgA16uMx45wpF+/Fgg==
+"@navikt/bedriftsmeny@^3.5.4":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@navikt/bedriftsmeny/-/bedriftsmeny-3.6.2.tgz#c77f2e4eab966ee04b8fe175bc8774982b7f7822"
+  integrity sha512-DbZOUTaYthHKpkmccyjV1KcDZTJA2c/KAgxCWkyLU26HOQ2RCAnTSqzaOuEPtsgcvMV9GHLfAOnWV5dmZwVkXg==
   dependencies:
     "@types/amplitude-js" "^8.9.4"
     fuzzysort "^1.1.4"
