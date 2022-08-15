@@ -68,3 +68,9 @@
         width: 10rem;
     }
 }
+
+.veldig-lang-hjelpetekst .popover {
+    @media screen and (min-width: 768px) {
+        max-width: 60%;
+    }
+}
