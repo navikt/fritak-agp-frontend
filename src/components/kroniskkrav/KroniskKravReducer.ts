@@ -135,10 +135,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return validateKroniskKrav(nextState, translate);
 
     case Actions.AddPeriod: {
-      const key = uuid();
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: key }]
-        : [{ fom: {}, tom: {}, uniqueKey: key }];
+        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
+        : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
       return nextState;
     }
 
