@@ -160,8 +160,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     }
   };
 
-  const leggTilPeriode = (event: React.FormEvent) => {
-    event.preventDefault();
+  const leggTilPeriode = () => {
     dispatch({
       type: Actions.AddPeriode
     });

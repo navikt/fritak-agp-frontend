@@ -89,8 +89,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     dispatch({ type: Actions.HideServerError });
   };
 
-  const leggTilPeriode = (event: React.FormEvent) => {
-    event.preventDefault();
+  const leggTilPeriode = () => {
     dispatch({
       type: Actions.AddPeriod
     });
