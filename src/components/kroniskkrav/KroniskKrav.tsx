@@ -229,7 +229,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <Oversettelse
                 langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
                 variables={{
-                  lenkeGravid: buildLenke(lenker.Gravid, language)
+                  lenkeKronisk: buildLenke(lenker.Kronisk, language)
                 }}
               />
             </Ingress>
