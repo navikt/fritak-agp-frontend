@@ -10228,6 +10228,11 @@ nav-frontend-grid-style@1.x:
   resolved "https://registry.npmjs.org/nav-frontend-grid-style/-/nav-frontend-grid-style-1.0.2.tgz"
   integrity sha512-1oJoWseUfTuCV7dIvFjuyPq2QKaKQqn6P8OEKHiYCwujO3voBNAxUsuXuhpXWsaWchH8P4IeffeK2+ue7YyCKg==
 
+nav-frontend-grid-style@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/nav-frontend-grid-style/-/nav-frontend-grid-style-1.0.3.tgz#17d37ec96fbeb63d4055ee1b8493731cc1241e4e"
+  integrity sha512-SgTt3/JegDtTEUGGO2xrx6/frn+Eh2SS1oOGgeln98rUBlHPSOg1fyD44NlyA1lIqhHfYsMgN67ykrZByhVMjA==
+
 nav-frontend-grid@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/nav-frontend-grid/-/nav-frontend-grid-2.0.1.tgz"
