@@ -997,12 +997,12 @@ const Locales: Record<
   KRONISK_KRAV_INFO: {
     nb:
       'Dersom dere allerede har søkt om ' +
-      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeGravid}}) \n' +
+      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeKronisk}}) \n' +
       'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på\n' +
       'godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.',
     en:
       'Dersom dere allerede har søkt om ' +
-      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeGravid}}) \n' +
+      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeKronisk}}) \n' +
       'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på\n' +
       'godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.'
   },
