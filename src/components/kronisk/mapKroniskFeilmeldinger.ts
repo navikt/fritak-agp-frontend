@@ -3,6 +3,8 @@ import KroniskState from './KroniskState';
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
+import { v4 as uuid } from 'uuid';
+import HttpStatus from '../../api/HttpStatus';
 
 const mapKroniskFeilmeldinger = (response: ValidationResponse<KroniskSoknadResponse>, state: KroniskState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -33,6 +35,15 @@ const mapKroniskFeilmeldinger = (response: ValidationResponse<KroniskSoknadRespo
         feilmeldinger.push(lagFeil('soknad-perioder', v.message));
     }
   });
+
+  if (response.status === HttpStatus.NotFound) {
+    feilmeldinger.push(lagFeil('backend-' + uuid(), 'Innsendingen feilet'));
+  }
+
+  if (response.status === HttpStatus.PayloadTooLarge) {
+    feilmeldinger.push(lagFeil('backend-' + uuid(), 'Vedlegget er for stort, vi har begrenset det til 50 MB.'));
+  }
+
   return feilmeldinger;
 };
 

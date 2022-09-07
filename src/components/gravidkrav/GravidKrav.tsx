@@ -160,6 +160,12 @@ export const GravidKrav = (props: GravidKravProps) => {
     }
   };
 
+  const leggTilPeriode = () => {
+    dispatch({
+      type: Actions.AddPeriode
+    });
+  };
+
   useEffect(() => {
     dispatch({
       type: Actions.Orgnr,
@@ -340,14 +346,7 @@ export const GravidKrav = (props: GravidKravProps) => {
               <Row>
                 <Column md='6'>
                   {state.perioder && state.perioder.length < MAX_PERIODER && (
-                    <LeggTilKnapp
-                      onClick={() => {
-                        dispatch({
-                          type: Actions.AddPeriode,
-                          payload: {}
-                        });
-                      }}
-                    >
+                    <LeggTilKnapp onClick={leggTilPeriode}>
                       {t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}
                     </LeggTilKnapp>
                   )}

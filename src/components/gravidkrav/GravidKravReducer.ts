@@ -135,14 +135,16 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Reset:
       return Object.assign({}, defaultGravidKravState());
 
-    case Actions.AddPeriode:
+    case Actions.AddPeriode: {
       if (nextState.perioder.length >= MAX_PERIODER) {
         return nextState;
       }
-      nextState.perioder.push({
-        uniqueKey: uuid()
-      });
+
+      nextState.perioder = nextState.perioder
+        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
+        : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
       return nextState;
+    }
 
     case Actions.DeletePeriode:
       checkItemId(payload?.itemId);

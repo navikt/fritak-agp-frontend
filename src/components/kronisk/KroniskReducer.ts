@@ -26,7 +26,7 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       if (payload?.fravaer == undefined) {
         throw new Error('Du må spesifisere fravær');
       }
-      return validerFravaer(payload.fravaer, state, nextState);
+      return validerFravaer(payload.fravaer, nextState);
 
     case Actions.Bekreft:
       nextState.bekreft = payload?.bekreft;

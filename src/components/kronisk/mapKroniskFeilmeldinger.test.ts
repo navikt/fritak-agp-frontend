@@ -2,6 +2,9 @@ import mockValidationResponse from '../../mockData/mockValidationResponse';
 import { defaultKroniskState } from './KroniskState';
 import mapKroniskFeilmeldinger from './mapKroniskFeilmeldinger';
 
+import * as uuid from 'uuid';
+jest.mock('uuid');
+
 describe('mapKroniskFeilmeldinger', () => {
   const ALLE_FELTER = [
     'identitetsnummer',
@@ -35,8 +38,40 @@ describe('mapKroniskFeilmeldinger', () => {
     expect(feilmeldinger[4].skjemaelementId).toEqual('fravaer');
     expect(feilmeldinger[5].skjemaelementId).toEqual('soknad-perioder');
 
-    for (let i = 0; i < 5; i++) {
-      expect(feilmeldinger[i].feilmelding).toEqual('feil');
-    }
+    feilmeldinger.forEach((feilmelding) => {
+      expect(feilmelding.feilmelding).toEqual('feil');
+    });
+  });
+
+  it('should handle too large attachment  - 413 errorcode', () => {
+    const uuidSpy = jest.spyOn(uuid, 'v4');
+    uuidSpy.mockReturnValue('some-uuid');
+
+    const felter = [];
+    const state = defaultKroniskState();
+    const feilmeldinger = mapKroniskFeilmeldinger(mockValidationResponse(413, felter), state);
+
+    expect(feilmeldinger.length).toEqual(1);
+    //@ts-ignore
+    expect(state.periodeError).toBeUndefined();
+
+    expect(feilmeldinger[0].skjemaelementId).toEqual('backend-some-uuid');
+    expect(feilmeldinger[0].feilmelding).toEqual('Vedlegget er for stort, vi har begrenset det til 50 MB.');
+  });
+
+  it('should handle missing backend - 404 errorcode', () => {
+    const uuidSpy = jest.spyOn(uuid, 'v4');
+    uuidSpy.mockReturnValue('some-uuid');
+
+    const felter = [];
+    const state = defaultKroniskState();
+    const feilmeldinger = mapKroniskFeilmeldinger(mockValidationResponse(404, felter), state);
+
+    expect(feilmeldinger.length).toEqual(1);
+    //@ts-ignore
+    expect(state.periodeError).toBeUndefined();
+
+    expect(feilmeldinger[0].skjemaelementId).toEqual('backend-some-uuid');
+    expect(feilmeldinger[0].feilmelding).toEqual('Innsendingen feilet');
   });
 });

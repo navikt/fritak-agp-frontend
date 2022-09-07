@@ -2,5 +2,7 @@
   "ingress": "https://arbeidsgiver.dev.nav.no/fritak-agp",
   "namespace": "helsearbeidsgiver",
   "vault-enabled": false,
-  "webproxy-enabled": false
+  "webproxy-enabled": false,
+  "api-url": "https://fritakagp.dev.nav.no",
+  "api-basepath": ""
 }

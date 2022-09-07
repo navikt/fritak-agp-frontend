@@ -4,6 +4,7 @@ import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidKravState from '../components/gravidkrav/GravidKravState';
 import { v4 as uuid } from 'uuid';
+import HttpStatus from '../api/HttpStatus';
 
 const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: KroniskKravState | GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -52,8 +53,12 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
     }
   });
 
-  if (response.status === 404) {
+  if (response.status === HttpStatus.NotFound) {
     feilmeldinger.push(lagFeil('backend-' + uuid(), 'Innsendingen feilet'));
+  }
+
+  if (response.status === HttpStatus.PayloadTooLarge) {
+    feilmeldinger.push(lagFeil('backend-' + uuid(), 'Vedlegget er for stort, vi har begrenset det til 50 MB.'));
   }
 
   return feilmeldinger;

@@ -5,8 +5,6 @@ import arbeidsgiverResponse from './arbeidsgiverResponse';
 import kroniskKravResponse from './kroniskKravReponse';
 
 const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
-const cookiePlease = new RegExp(/\/local\/cookie-please/);
-const loginExpiry = new RegExp(/\/api\/v1\/login-expiry/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/kronisk\/krav/);
@@ -36,14 +34,6 @@ const grunnBeloepVerdier = {
 };
 
 const cookieMock = RequestMock()
-  .onRequestTo(loginExpiry)
-  .respond('"2025-08-02T10:51:34.000+00:00"', 200, headereJson)
-  .onRequestTo(cookiePlease)
-  .respond(
-    "<script>window.location.href='http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842?loggedIn=true';</script>",
-    200,
-    headereText
-  )
   .onRequestTo(arbeidsgiverAPI)
   .respond(arbeidsgiverResponse, 200, headereJson)
   .onRequestTo(navAuth)
