@@ -147,7 +147,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       const deleteStatus = await deleteGravidKrav(environment.baseUrl, state.kravId);
       if (deleteStatus.status === HttpStatus.Successfully) {
         setModalOpen(false);
-        history.replace(buildLenke(lenker.KroniskKravSlettetKvittering, language));
+        history.replace(buildLenke(lenker.GravidKravSlettetKvittering, language));
       } else {
         dispatch({
           type: Actions.AddBackendError,
