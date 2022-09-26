@@ -10199,6 +10199,11 @@ nav-frontend-paneler@^3.0.1:
   resolved "https://registry.npmjs.org/nav-frontend-paneler/-/nav-frontend-paneler-3.0.1.tgz"
   integrity sha512-FFV7fanUkIZ8X7vUUFXkX32KcFqTAxQNOOxrM52RSTvQy6TOOoYSMAALxXSMnzEQM3H0yCbq7/ctZzkZd29a6g==
 
+nav-frontend-paneler@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/nav-frontend-paneler/-/nav-frontend-paneler-3.0.2.tgz#1de91e57abcab76ec18400d9686050df55a0cce5"
+  integrity sha512-SJIOPC9znsmxHmeDHDWaXpr1K0uJoIlF+iEvC7svjZEOw1GaK6i6EoER9lysnyTnljFFMgyyt2OwpOp7sNulQQ==
+
 nav-frontend-popover-style@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/nav-frontend-popover-style/-/nav-frontend-popover-style-2.0.1.tgz"
