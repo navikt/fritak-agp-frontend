@@ -11,8 +11,6 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from './locale/Locales';
 import i18next from 'i18next';
-import lenker from './config/lenker';
-import Forside from './components/Forside';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;
@@ -29,8 +27,7 @@ export const Application = ({
 }: ApplicationProps) => (
   <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
     <Routes>
-      <Route path='/:language(nb|en)/*' element={<ApplicationRoutes />}></Route>
-      <Route path={lenker.Home} element={<Forside />} />
+      <Route path=':language/*' element={<ApplicationRoutes />}></Route>
     </Routes>
   </ArbeidsgiverProvider>
 );

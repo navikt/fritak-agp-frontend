@@ -2319,34 +2319,34 @@
     clsx "^1.1.1"
     react-modal "3.15.1"
 
-"@navikt/fnrvalidator@1.x":
-  version "1.1.4"
-  resolved "https://registry.npmjs.org/@navikt/fnrvalidator/-/fnrvalidator-1.1.4.tgz"
-  integrity sha512-IroYFqa8PpzVxtIk6ifeEQBFzsI2QJX/FSIQyBtJvpp2D8Cb5Z9+hGNFppCILWR+QYbY8Dkk48la7K5fPGXeWQ==
+"@navikt/fnrvalidator@^1.3.0":
+  version "1.3.3"
+  resolved "https://npm.pkg.github.com/download/@navikt/fnrvalidator/1.3.3/8414963a30e59e3056c9befea7bb022498a2a742#8414963a30e59e3056c9befea7bb022498a2a742"
+  integrity sha512-GsLa9ioYPGsDMBHcgKUNoYbZor09KyFIqSaWy8jy1I7f06q6DgUhdpZuRTHLVRCPjWqF2aLzKtvAfrw5dSeakg==
 
-"@navikt/helse-arbeidsgiver-felles-frontend@^0.3.9":
-  version "0.3.9"
-  resolved "https://registry.npmjs.org/@navikt/helse-arbeidsgiver-felles-frontend/-/helse-arbeidsgiver-felles-frontend-0.3.9.tgz"
-  integrity sha512-zicVNvalg62o0MSKHxqeYJtK5t2R5VBU0Wd8m90v7g644HqAxDvtT4zKwjhzEY5pMShIcC7tUIFgFX3MTtaDdQ==
+"@navikt/helse-arbeidsgiver-felles-frontend@^0.4.10":
+  version "0.4.10"
+  resolved "https://npm.pkg.github.com/download/@navikt/helse-arbeidsgiver-felles-frontend/0.4.10/b5a1154bc3ac737bdb66326c2dd5ae61789136b8#b5a1154bc3ac737bdb66326c2dd5ae61789136b8"
+  integrity sha512-zzBzwvxruOIu1dXXX4BMA1MsGnbt+h7PBWZaCxwLqk6Yd1mS9JCJU4z4DUDGLhxpR1Gou56zAEJ1ZE93glL2Mg==
   dependencies:
-    "@navikt/fnrvalidator" "1.x"
+    "@navikt/fnrvalidator" "^1.3.0"
     "@navikt/nav-dekoratoren-moduler" "^1.6.4"
-    "@navikt/textparser" "2.x"
+    "@navikt/textparser" "^2.2.0"
     classnames "^2.3.1"
-    flatpickr "4.x"
-    history "^5.0.1"
+    flatpickr "^4.6.13"
+    history "^5.3.0"
     lodash.throttle "^4.1.1"
-    nav-frontend-alertstriper "^4.0.1"
-    nav-frontend-alertstriper-style "^3.0.1"
+    nav-frontend-alertstriper "^4.0.2"
+    nav-frontend-alertstriper-style "^3.0.2"
     nav-frontend-chevron "1.x"
     nav-frontend-chevron-style "1.x"
     nav-frontend-core "^6.0.1"
-    nav-frontend-grid "^2.0.1"
-    nav-frontend-grid-style "1.x"
-    nav-frontend-hjelpetekst "^3.1.2"
+    nav-frontend-grid "^2.0.2"
+    nav-frontend-grid-style "^1.0.3"
+    nav-frontend-hjelpetekst "^3.1.3"
     nav-frontend-hjelpetekst-style "^3.0.1"
     nav-frontend-ikoner-assets "^3.0.1"
-    nav-frontend-ikonknapper "^2.1.2"
+    nav-frontend-ikonknapper "^2.1.3"
     nav-frontend-js-utils "^1.0.20"
     nav-frontend-knapper "^3.1.2"
     nav-frontend-knapper-style "^2.1.1"
@@ -2372,7 +2372,7 @@
     nav-frontend-veileder-style "^3.0.1"
     nav-frontend-veilederpanel "^2.0.2"
     nav-frontend-veilederpanel-style "^2.0.1"
-    react-flatpickr "^3.x"
+    react-flatpickr "^3.10.13"
 
 "@navikt/nav-dekoratoren-moduler@^1.6.4":
   version "1.6.4"
@@ -2398,7 +2398,7 @@
     prop-types "^15.7.2"
     react "^17.0.2"
 
-"@navikt/textparser@2.x", "@navikt/textparser@^2.0.0":
+"@navikt/textparser@^2.0.0", "@navikt/textparser@^2.2.0":
   version "2.2.0"
   resolved "https://registry.npmjs.org/@navikt/textparser/-/textparser-2.2.0.tgz"
   integrity sha512-856IJtaD8l0kA1pAokvzqorJZeouzaZ/wNv86ECm0ObYQI6vRhWPay/OdjiLYNN/yUnpDInY4CMdmAgEOQw5kQ==
@@ -7168,7 +7168,12 @@ flat-cache@^3.0.4:
     flatted "^3.1.0"
     rimraf "^3.0.2"
 
-flatpickr@4.x, flatpickr@^4.6.2:
+flatpickr@^4.6.13:
+  version "4.6.13"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.13.tgz#8a029548187fd6e0d670908471e43abe9ad18d94"
+  integrity sha512-97PMG/aywoYpB4IvbvUJi0RQi8vearvU0oov1WW3k0WZPBMrTQVqekSX5CjSG/M4Q3i6A/0FKXC7RyAoAUUSPw==
+
+flatpickr@^4.6.2:
   version "4.6.9"
   resolved "https://registry.npmjs.org/flatpickr/-/flatpickr-4.6.9.tgz"
   integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
@@ -7619,10 +7624,10 @@ highlight-es@^1.0.0:
     is-es2016-keyword "^1.0.0"
     js-tokens "^3.0.0"
 
-history@^5.0.1:
-  version "5.1.0"
-  resolved "https://registry.npmjs.org/history/-/history-5.1.0.tgz"
-  integrity sha512-zPuQgPacm2vH2xdORvGGz1wQMuHSIB56yNAy5FnLuwOwgSYyPKptJtcMm6Ev+hRGeS+GzhbmRacHzvlESbFwDg==
+history@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
+  integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
   dependencies:
     "@babel/runtime" "^7.7.6"
 
@@ -9980,20 +9985,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-nav-frontend-alertstriper-style@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-3.0.1.tgz"
-  integrity sha512-kbeepa7BBhhRcwbdkwFNeL4JsnVKJZmREOxN4T7QkPtzhhIdsngZTtGfxcmJE2YHyuyAQeNF3rgFlAtxaxgQow==
-
 nav-frontend-alertstriper-style@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-3.0.2.tgz#b64261ee633a59fecbfe3e10f18ece2962e516f9"
   integrity sha512-Mv2tTSjClDgo7E5PsTt4uOu8kxTae1yejBF5P1RU6Ba0LP32cFsxgPp44u/cssSYaOO09sHi0vcwhnFHCFmYIQ==
-
-nav-frontend-alertstriper@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/nav-frontend-alertstriper/-/nav-frontend-alertstriper-4.0.1.tgz"
-  integrity sha512-b+IWJsiyumtZPcxkQt+luwAUYC5i3f/MRVvDZsxn7l554PTXGLguW0j5ruOozlZSIzXBe/xnGskh5iyw3J5rew==
 
 nav-frontend-alertstriper@^4.0.2:
   version "4.0.2"
@@ -10025,20 +10020,10 @@ nav-frontend-ekspanderbartpanel@^4.0.3:
   resolved "https://registry.npmjs.org/nav-frontend-ekspanderbartpanel/-/nav-frontend-ekspanderbartpanel-4.0.3.tgz"
   integrity sha512-ftV8/G8WyrAUT2Hu4ohJKJwVx3XQkCCnPw6vVcwBmOu+jaiMVgj5WGn94ES+BDLHDWOeSzuZod7T72M1vKKkuQ==
 
-nav-frontend-grid-style@1.0.3:
+nav-frontend-grid-style@1.0.3, nav-frontend-grid-style@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/nav-frontend-grid-style/-/nav-frontend-grid-style-1.0.3.tgz#17d37ec96fbeb63d4055ee1b8493731cc1241e4e"
   integrity sha512-SgTt3/JegDtTEUGGO2xrx6/frn+Eh2SS1oOGgeln98rUBlHPSOg1fyD44NlyA1lIqhHfYsMgN67ykrZByhVMjA==
-
-nav-frontend-grid-style@1.x:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/nav-frontend-grid-style/-/nav-frontend-grid-style-1.0.2.tgz"
-  integrity sha512-1oJoWseUfTuCV7dIvFjuyPq2QKaKQqn6P8OEKHiYCwujO3voBNAxUsuXuhpXWsaWchH8P4IeffeK2+ue7YyCKg==
-
-nav-frontend-grid@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/nav-frontend-grid/-/nav-frontend-grid-2.0.1.tgz"
-  integrity sha512-vBOcgYJ3OOV0Xf/xUirdH+DrN5hBO1CG4xMVjB0elusu1WKBVqLOfKuYCkinzjXE98NwI+6s2DMIxNYDswgsSg==
 
 nav-frontend-grid@^2.0.2:
   version "2.0.2"
@@ -10055,11 +10040,6 @@ nav-frontend-hjelpetekst-style@^3.0.2:
   resolved "https://registry.yarnpkg.com/nav-frontend-hjelpetekst-style/-/nav-frontend-hjelpetekst-style-3.0.2.tgz#5025ea63e58bac8b9882da686393c89c3b762a2e"
   integrity sha512-7OMdkekxR9GfnAns1Qsp+BT54rAZJ9JFNIYz11LjNjKp95/aGe4LX41SwmSx+sw9xywp84pCe7ZFaJRte7ZCDw==
 
-nav-frontend-hjelpetekst@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.npmjs.org/nav-frontend-hjelpetekst/-/nav-frontend-hjelpetekst-3.1.2.tgz"
-  integrity sha512-D3kHzENBw82WwY4+Gvms2C9a3Zx2dkhycXwOExu34kwvXow17IsmHNKdUKvXVOEP4NVtXQxzxvXxDPyPGn1oBg==
-
 nav-frontend-hjelpetekst@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/nav-frontend-hjelpetekst/-/nav-frontend-hjelpetekst-3.1.3.tgz#56e0b6340afe928c86af2814ee667b938aef4606"
@@ -10069,11 +10049,6 @@ nav-frontend-ikoner-assets@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-3.0.1.tgz"
   integrity sha512-rRzdUl7w02xcX0ZljE3cmkow4haEePNP1gPuWRSvQt5ybL2eiE573l3lgsd4PuPuQp1T4fYFqFlPWjkUwpXVqw==
-
-nav-frontend-ikonknapper@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/nav-frontend-ikonknapper/-/nav-frontend-ikonknapper-2.1.2.tgz"
-  integrity sha512-LO8fHsLsL49HFatyzJb3eaAC5j/RfQ4EimJ04sropaTwX4EXlQuQ+yh7Nztms8zBqJ5DzuDAwRjjgq4/z8/3RQ==
 
 nav-frontend-ikonknapper@^2.1.3:
   version "2.1.3"
@@ -11875,10 +11850,10 @@ react-error-overlay@^6.0.10:
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.10.tgz"
   integrity sha512-mKR90fX7Pm5seCOfz8q9F+66VCc1PGsWSBxKbITjfKVQHMNF2zudxHnMdJiB1fRCb+XsbQV9sO9DCkgsMQgBIA==
 
-react-flatpickr@^3.x:
-  version "3.10.7"
-  resolved "https://registry.npmjs.org/react-flatpickr/-/react-flatpickr-3.10.7.tgz"
-  integrity sha512-dJ7cZAayefqWJnX4Xe8Piy13oK2h4aeGCH9tz+D2iSNh+kbezUAWVMVCKdTqjsNBqTMS4v0DkfMy2CP2atNCTQ==
+react-flatpickr@^3.10.13:
+  version "3.10.13"
+  resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.10.13.tgz#5b9d8f35f84e43f342fb0f0334b78a8dcd7d67c4"
+  integrity sha512-4m+K1K8jhvRFI8J/AHmQfA5hLALzhebEtEK8mLevXjX24MV3u502crzBn+EGFIBOfNUtrL5PId9FsGwgtuz/og==
   dependencies:
     flatpickr "^4.6.2"
     prop-types "^15.5.10"
