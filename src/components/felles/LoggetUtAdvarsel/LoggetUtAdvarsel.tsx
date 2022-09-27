@@ -2,9 +2,8 @@ import React from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { InternLenke } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { InternLenke, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
-import { LanguageParams } from '@navikt/helse-arbeidsgiver-felles-frontend/dist/context/language/LanguageContext';
 import injectRedirectPath from '../../../utils/injectRedirectPath';
 
 interface LoggetUtAdvarselInterface {
@@ -14,13 +13,17 @@ interface LoggetUtAdvarselInterface {
 }
 
 const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
-  let { language } = useParams<LanguageParams>();
+  let { language } = useParams();
 
   const handleCloseModal = () => {
     props.onClose();
   };
 
-  const loginServiceUrlAfterRedirect = injectRedirectPath(props.loginServiceUrl, props.tokenFornyet, language);
+  const loginServiceUrlAfterRedirect = injectRedirectPath(
+    props.loginServiceUrl,
+    props.tokenFornyet,
+    language as Language
+  );
 
   return (
     <ModalWrapper

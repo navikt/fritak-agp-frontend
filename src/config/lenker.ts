@@ -1,7 +1,7 @@
 import Language from '../locale/Language';
 
 enum lenker {
-  Home = '/:language/',
+  Home = '/',
   TokenFornyet = '/:language/token-fornyet',
   NotifikasjonGravidSoknad = '/:language/notifikasjon/gravid/soknad/:uuid',
   NotifikasjonGravidKrav = '/:language/notifikasjon/gravid/krav/:uuid',
@@ -15,7 +15,7 @@ enum lenker {
   GravidKravKvittering = '/:language/gravid/krav/kvittering',
   GravidKravSlettetKvittering = '/:language/gravid/krav/slettet/kvittering',
   GravidKravEndringKvittering = '/:language/gravid/krav/endring/kvittering',
-  KroniskKrav = '/:language/kronisk/krav',
+  KroniskKrav = '/kronisk/krav',
   KroniskKravKvittering = '/:language/kronisk/krav/kvittering',
   KroniskKravSlettetKvittering = '/:language/kronisk/krav/slettet/kvittering',
   KroniskKravEndringKvittering = '/:language/kronisk/krav/endring/kvittering',

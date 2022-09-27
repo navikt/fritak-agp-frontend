@@ -5,10 +5,9 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
-import { Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Language, Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKvitteringKeys } from './GravidKvitteringKeys';
 import { useParams } from 'react-router-dom';
-import PathParams from '../../locale/PathParams';
 import formatTiltakBeskrivelse from '../notifikasjon/gravid/soknad/formatTiltakBeskrivelse';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import formatOmplassering from '../notifikasjon/gravid/soknad/formatOmplassering';
@@ -19,7 +18,7 @@ import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import environment from '../../config/environment';
 
 const GravidKvittering = () => {
-  const { language } = useParams<PathParams>();
+  const { language } = useParams();
   const { response } = useContext(GravidSoknadKvitteringContext);
 
   const tilrettelegge = response?.response?.tilrettelegge;
@@ -84,7 +83,7 @@ const GravidKvittering = () => {
       </Panel>
       <Panel className='lenker-ut-panel'>
         <div>
-          <Lenke href={buildLenke(lenker.GravidKrav, language)}>
+          <Lenke href={buildLenke(lenker.GravidKrav, language as Language)}>
             <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_KRAV} />
           </Lenke>
         </div>

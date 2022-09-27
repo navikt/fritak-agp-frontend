@@ -3,15 +3,16 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import KvitteringLink from './KvitteringLink';
-import { Router } from 'react-router-dom';
-import mockHistory from '../../mockData/mockHistory';
+import { MemoryRouter } from 'react-router-dom';
+
+const initHistory = ['/fritak-agp'];
 
 describe('KvitteringLink', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
-      <Router history={mockHistory('/fritak-agp')}>
+      <MemoryRouter initialEntries={initHistory}>
         <KvitteringLink />
-      </Router>
+      </MemoryRouter>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

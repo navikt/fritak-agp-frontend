@@ -1,9 +1,8 @@
-import { Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import mockHistory from './mockData/mockHistory';
 import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
@@ -22,11 +21,11 @@ describe('ApplicationRoutes', () => {
   });
 
   const makeRoute = (path: string, arbeidsgivere: Array<Organisasjon> = [{ Name: '' } as Organisasjon]) => (
-    <Router history={mockHistory(path)}>
+    <MemoryRouter initialEntries={[path]}>
       <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={ArbeidsgiverStatus.Successfully} baseUrl=''>
         <ApplicationRoutes />
       </ArbeidsgiverProvider>
-    </Router>
+    </MemoryRouter>
   );
 
   it('should show default', () => {

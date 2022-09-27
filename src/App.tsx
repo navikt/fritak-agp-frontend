@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import environment from './config/environment';
@@ -11,6 +11,8 @@ import {
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from './locale/Locales';
 import i18next from 'i18next';
+import lenker from './config/lenker';
+import Forside from './components/Forside';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;
@@ -25,11 +27,12 @@ export const Application = ({
   arbeidsgivere,
   basePath = environment.baseUrl
 }: ApplicationProps) => (
-  <Route path='/:language(nb|en)/*'>
-    <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
-      <ApplicationRoutes />
-    </ArbeidsgiverProvider>
-  </Route>
+  <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
+    <Routes>
+      <Route path='/:language(nb|en)/*' element={<ApplicationRoutes />}></Route>
+      <Route path={lenker.Home} element={<Forside />} />
+    </Routes>
+  </ArbeidsgiverProvider>
 );
 
 const App = () => (
