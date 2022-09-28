@@ -15,9 +15,8 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
-import KvitteringLink from './KvitteringLink';
 import LangKey from '../../locale/LangKey';
-import lenker from '../../config/lenker';
+import lenker, { buildLenke } from '../../config/lenker';
 import {
   Side,
   Upload,
@@ -27,13 +26,15 @@ import {
   Fnr,
   Skillelinje,
   stringishToNumber,
-  ServerFeilAdvarsel
+  ServerFeilAdvarsel,
+  Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
@@ -43,6 +44,9 @@ const buildReducer =
 const KroniskSide = () => {
   const { i18n, t } = useTranslation();
   const { saveResponse } = useContext(KroniskSoknadKvitteringContext);
+
+  const { language } = useParams();
+  const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
@@ -105,7 +109,8 @@ const KroniskSide = () => {
   ]);
 
   if (state.kvittering === true) {
-    return <KvitteringLink />;
+    navigate(buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb), { replace: true });
+    return null;
   }
   return (
     <Side
