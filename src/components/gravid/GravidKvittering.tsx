@@ -5,7 +5,7 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
-import { Language, Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { InternLenke, Language, Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKvitteringKeys } from './GravidKvitteringKeys';
 import { useParams } from 'react-router-dom';
 import formatTiltakBeskrivelse from '../notifikasjon/gravid/soknad/formatTiltakBeskrivelse';
@@ -16,9 +16,10 @@ import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import environment from '../../config/environment';
+import PathParams from '../../locale/PathParams';
 
 const GravidKvittering = () => {
-  const { language } = useParams();
+  const { language } = useParams<PathParams>();
   const { response } = useContext(GravidSoknadKvitteringContext);
 
   const tilrettelegge = response?.response?.tilrettelegge;
@@ -93,9 +94,9 @@ const GravidKvittering = () => {
           </Lenke>
         </div>
         <div>
-          <Lenke href='/min-side-arbeidsgiver/'>
+          <InternLenke to='/min-side-arbeidsgiver/'>
             <Oversettelse langKey={LangKey.MIN_SIDE_ARBEIDSGIVER} />
-          </Lenke>
+          </InternLenke>
         </div>
       </Panel>
     </Side>
