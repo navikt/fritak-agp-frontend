@@ -16,10 +16,9 @@ import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import environment from '../../config/environment';
-import PathParams from '../../locale/PathParams';
 
 const GravidKvittering = () => {
-  const { language } = useParams<PathParams>();
+  const { language } = useParams();
   const { response } = useContext(GravidSoknadKvitteringContext);
 
   const tilrettelegge = response?.response?.tilrettelegge;
