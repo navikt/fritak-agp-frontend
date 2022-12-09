@@ -31,15 +31,15 @@ import {
   Feilmeldingspanel,
   Fnr,
   ServerFeilAdvarsel,
-  Skillelinje
+  Skillelinje,
+  Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
 import lenker, { buildLenke } from '../../config/lenker';
 import { GravidSideKeys } from './GravidSideKeys';
-import { Redirect, useParams } from 'react-router-dom';
-import PathParams from '../../locale/PathParams';
+import { useNavigate, useParams } from 'react-router-dom';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import dayjs from 'dayjs';
@@ -49,8 +49,10 @@ export const MAX_TILTAK_BESKRIVELSE = 2000;
 
 const GravidSide = (props: GravidSideProps) => {
   const { t, i18n } = useTranslation();
-  const { language } = useParams<PathParams>();
+  const { language } = useParams();
   const { saveResponse } = useContext(GravidSoknadKvitteringContext);
+
+  const navigate = useNavigate();
 
   const GravidReducerSettOpp =
     (Translate: i18n): Reducer<GravidState, GravidAction> =>
@@ -142,7 +144,8 @@ const GravidSide = (props: GravidSideProps) => {
   ]);
 
   if (state.kvittering) {
-    return <Redirect to={buildLenke(lenker.GravidKvittering, language)} />;
+    navigate(buildLenke(lenker.GravidKvittering, language as Language), { replace: true });
+    return null;
   }
 
   return (

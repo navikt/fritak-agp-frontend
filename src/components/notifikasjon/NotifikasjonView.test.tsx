@@ -4,14 +4,14 @@ import { cleanup } from '@testing-library/react';
 import NotifikasjonController from './NotifikasjonController';
 import { defaultNotitikasjonState, NotifikasjonState } from './state/NotifikasjonState';
 import NotifikasjonType from './felles/NotifikasjonType';
-import mockHistory from '../../mockData/mockHistory';
-import { Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import HttpStatus from '../../api/HttpStatus';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
+const initHistory = ['/'];
 describe('NotifikasjonView', () => {
   let htmlDivElement: Element = document.createElement('div');
 
@@ -34,9 +34,9 @@ describe('NotifikasjonView', () => {
   const INNHOLD = 'Informasjon om sykepenger';
 
   const buildNotifikasjonSide = (state: NotifikasjonState, notifikasjonType: NotifikasjonType) => (
-    <Router history={mockHistory('/')}>
+    <MemoryRouter initialEntries={initHistory}>
       <NotifikasjonController notifikasjonType={notifikasjonType} notifikasjonState={state} />
-    </Router>
+    </MemoryRouter>
   );
 
   it('should handle notfound', () => {

@@ -11,14 +11,9 @@ const innsendingAPI = new RegExp(/\/api\/v1\/kronisk\/krav/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': 'http://localhost:3000',
+  'access-control-allow-origin': 'http://127.0.0.1:3000',
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
-};
-
-const headereJsonUnauthorized = {
-  'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': '*'
 };
 
 const headereText = Object.apply({}, headereJson);
@@ -43,7 +38,7 @@ const cookieMock = RequestMock()
   .onRequestTo(innsendingAPI)
   .respond(kroniskKravResponse, 201, mockHeaders);
 
-fixture`Kronisk - Krav`.page`http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842&TestCafe=running`
+fixture`Kronisk - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
   .requestHooks(cookieMock)
   .beforeEach(async () => {
@@ -201,9 +196,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 })
     .expect(Selector('html').textContent)
-    .contains('153,85');
+    .contains('153');
 
-  await t.expect(Selector('html').textContent).contains('153,85');
+  await t.expect(Selector('html').textContent).contains('153');
 
   const tilDato = Selector('#til-dato-0');
   const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
