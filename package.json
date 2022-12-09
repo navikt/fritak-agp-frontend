@@ -131,8 +131,8 @@
     "react-test-renderer": "17.x",
     "sass": "1.x",
     "snyk": "1.x",
-    "testcafe": "^1.18.3",
-    "testcafe-react-selectors": "^4.1.5",
+    "testcafe": "^2.1.0",
+    "testcafe-react-selectors": "^5.0.2",
     "timezone-mock": "1.x",
     "ts-jest": "^27.0.3",
     "yet-another-fetch-mock": "4.x"
