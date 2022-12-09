@@ -2,12 +2,13 @@ import React from 'react';
 import KroniskSide from './KroniskSide';
 import { axe } from 'jest-axe';
 import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
-import { Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
-import mockHistory from '../../mockData/mockHistory';
+
+const initHistory = ['/'];
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -37,7 +38,7 @@ describe('KroniskSide', () => {
   it('should have no a11y violations', async () => {
     act(() => {
       render(
-        <Router history={mockHistory('/')}>
+        <MemoryRouter initialEntries={initHistory}>
           <ArbeidsgiverProvider
             arbeidsgivere={testOrganisasjoner}
             status={ArbeidsgiverStatus.Successfully}
@@ -45,7 +46,7 @@ describe('KroniskSide', () => {
           >
             <KroniskSide />
           </ArbeidsgiverProvider>
-        </Router>,
+        </MemoryRouter>,
         container
       );
     });

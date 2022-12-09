@@ -1,13 +1,21 @@
 name: End-to-End Tests
 on: [push]
 
+env:
+  NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
 jobs:
   test:
     name: Run TestCafe Tests
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+          registry-url: "https://npm.pkg.github.com"
       - name: Check out the repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - run: yarn install --frozen-lockfile
       - name: Run tests
         uses: DevExpress/testcafe-action@latest

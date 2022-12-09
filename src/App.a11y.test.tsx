@@ -2,15 +2,16 @@ import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Application } from './App';
-import { Router } from 'react-router-dom';
-import mockHistory from './mockData/mockHistory';
+import { MemoryRouter } from 'react-router-dom';
+
+const initHistory = ['/fritak-agp'];
 
 describe('Application.a11y', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
-      <Router history={mockHistory('/fritak-agp')}>
+      <MemoryRouter initialEntries={initHistory}>
         <Application />
-      </Router>
+      </MemoryRouter>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

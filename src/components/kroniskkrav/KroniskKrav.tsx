@@ -4,7 +4,7 @@ import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Redirect, useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
@@ -17,7 +17,6 @@ import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
 import KravPeriode from './KravPeriode';
-import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import {
@@ -31,7 +30,8 @@ import {
   stringishToNumber,
   LeggTilKnapp,
   HttpStatus,
-  ServerFeilAdvarsel
+  ServerFeilAdvarsel,
+  Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n as Ii18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
@@ -59,8 +59,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const { t, i18n } = useTranslation();
   const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  let { language, idKrav } = useParams<PathParams>();
-  const history = useHistory();
+  let { language, idKrav } = useParams();
+
+  const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -97,7 +98,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
   const handleCancleClicked = (event: React.FormEvent) => {
     event.preventDefault();
-    history.go(-1);
+    navigate(-1);
   };
 
   const handleDeleteClicked = async (event: React.FormEvent) => {
@@ -126,7 +127,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       const deleteStatus = await deleteKroniskKrav(environment.baseUrl, state.kravId);
       if (deleteStatus.status === HttpStatus.Successfully) {
         setModalOpen(false);
-        history.replace(buildLenke(lenker.KroniskKravSlettetKvittering, language));
+        navigate(buildLenke(lenker.KroniskKravSlettetKvittering, (language as Language) || Language.nb), {
+          replace: true
+        });
       } else {
         dispatch({
           type: Actions.AddBackendError,
@@ -210,7 +213,8 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   }, [idKrav]);
 
   if (state.kvittering) {
-    return <Redirect to={buildLenke(lenker.KroniskKravKvittering, language)} />;
+    navigate(buildLenke(lenker.KroniskKravKvittering, (language as Language) || Language.nb), { replace: true });
+    return null;
   }
 
   return (
@@ -229,7 +233,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <Oversettelse
                 langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
                 variables={{
-                  lenkeKronisk: buildLenke(lenker.Kronisk, language)
+                  lenkeKronisk: buildLenke(lenker.Kronisk, language as Language)
                 }}
               />
             </Ingress>

@@ -16,20 +16,16 @@ interface NotifikasjonStateProps {
   notifikasjonType: NotifikasjonType;
 }
 
-interface NotifikasjonParams {
-  uuid: string;
-}
-
 const NotifikasjonController = ({
   notifikasjonState,
   notifikasjonType = NotifikasjonType.Ukjent
 }: NotifikasjonStateProps) => {
   const [state, dispatch] = useReducer(NotifikasjonReducer, notifikasjonState, defaultNotitikasjonState);
   state.notifikasjonType = notifikasjonType;
-  let { uuid }: NotifikasjonParams = useParams();
+  let { uuid } = useParams();
   useEffect(() => {
     if (state.status === undefined) {
-      GetHandler(getNotifikasjonUrl(uuid, notifikasjonType))
+      GetHandler(getNotifikasjonUrl(uuid as string, notifikasjonType))
         .then((response) => {
           dispatch({
             type: Actions.HandleResponse,
