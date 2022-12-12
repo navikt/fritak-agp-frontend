@@ -1,6 +1,5 @@
-import { render, unmountComponentAtNode } from 'react-dom';
 import React from 'react';
-import { cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import NotifikasjonController from './NotifikasjonController';
 import { defaultNotitikasjonState, NotifikasjonState } from './state/NotifikasjonState';
 import NotifikasjonType from './felles/NotifikasjonType';
@@ -13,21 +12,6 @@ import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
 const initHistory = ['/'];
 describe('NotifikasjonView', () => {
-  let htmlDivElement: Element = document.createElement('div');
-
-  beforeEach(() => {
-    htmlDivElement = document.createElement('div');
-    document.body.appendChild(htmlDivElement);
-  });
-
-  afterEach(() => {
-    unmountComponentAtNode(htmlDivElement);
-    htmlDivElement.remove();
-    htmlDivElement = document.createElement('div');
-    jest.restoreAllMocks();
-    cleanup();
-  });
-
   const STATUS_PROGRESS = 'Venter...';
   const FANT_IKKE = 'Fant ikke';
   const FEILMELDING = 'Det oppstod en feil';
@@ -43,35 +27,35 @@ describe('NotifikasjonView', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.NotFound;
     state.notifikasjonType = NotifikasjonType.GravidSoknad;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FANT_IKKE);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
+    expect(container.textContent).toContain(FANT_IKKE);
   });
 
   it('should handle Unauthorized', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Unauthorized;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FANT_IKKE);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
+    expect(container.textContent).toContain(FANT_IKKE);
   });
 
   it('should show spinner', () => {
     const state = defaultNotitikasjonState();
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(STATUS_PROGRESS);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
+    expect(container.textContent).toContain(STATUS_PROGRESS);
   });
 
   it('should handle errors', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Error;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FEILMELDING);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
+    expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should handle timeout', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Timeout;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FEILMELDING);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
+    expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Gravid Søknad', () => {
@@ -80,15 +64,15 @@ describe('NotifikasjonView', () => {
     state.gravidSoknadResponse = {
       tiltak: ['']
     } as GravidSoknadResponse;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(INNHOLD);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
+    expect(container.textContent).toContain(INNHOLD);
   });
 
   it('should handle empty Gravid Søknad', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Successfully;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FEILMELDING);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
+    expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Gravid Krav', () => {
@@ -113,18 +97,18 @@ describe('NotifikasjonView', () => {
         }
       ]
     } as GravidKravResponse;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(INNHOLD);
-    expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
-    expect(htmlDivElement.textContent).toContain('04.05.20 - 05.06.20');
-    expect(htmlDivElement.textContent).toContain('kr 2 468,50');
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav));
+    expect(container.textContent).toContain(INNHOLD);
+    expect(container.textContent).toContain('02.01.20 - 03.02.20');
+    expect(container.textContent).toContain('04.05.20 - 05.06.20');
+    expect(container.textContent).toContain('kr 2 468,50');
   });
 
   it('should handle empty Gravid Krav', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Successfully;
-    render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FEILMELDING);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav));
+    expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Kronisk Krav', () => {
@@ -149,19 +133,19 @@ describe('NotifikasjonView', () => {
         }
       ]
     } as unknown as KroniskKravResponse;
-    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(INNHOLD);
-    expect(htmlDivElement.textContent).toContain('02.01.20 - 03.02.20');
-    expect(htmlDivElement.textContent).toContain('04.05.20 - 05.06.20');
-    expect(htmlDivElement.textContent).toContain('468,00');
-    expect(htmlDivElement.textContent).toContain('innen 15.01.20');
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav));
+    expect(container.textContent).toContain(INNHOLD);
+    expect(container.textContent).toContain('02.01.20 - 03.02.20');
+    expect(container.textContent).toContain('04.05.20 - 05.06.20');
+    expect(container.textContent).toContain('468,00');
+    expect(container.textContent).toContain('innen 15.01.20');
   });
 
   it('should handle empty Kronisk Krav', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Successfully;
-    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FEILMELDING);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav));
+    expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Kronisk Søknad', () => {
@@ -192,14 +176,14 @@ describe('NotifikasjonView', () => {
       oppgaveId: null,
       sendtAvNavn: 'ARTIG HEST'
     } as unknown as KroniskSoknadResponse;
-    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(INNHOLD);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad));
+    expect(container.textContent).toContain(INNHOLD);
   });
 
   it('should handle empty Kronisk Søknad', () => {
     const state = defaultNotitikasjonState();
     state.status = HttpStatus.Successfully;
-    render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad), htmlDivElement);
-    expect(htmlDivElement.textContent).toContain(FEILMELDING);
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad));
+    expect(container.textContent).toContain(FEILMELDING);
   });
 });

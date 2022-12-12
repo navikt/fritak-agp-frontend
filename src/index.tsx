@@ -1,7 +1,7 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import App from './App';
 import Modal from 'react-modal';
@@ -39,4 +39,6 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
 
 Modal.setAppElement('#root');
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
+const container = document.getElementById('root');
+const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+root.render(<App />);
