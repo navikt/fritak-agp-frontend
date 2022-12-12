@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import lenker from './config/lenker';
 import GravidSide from './components/gravid/GravidSide';
 import GravidKvittering from './components/gravid/GravidKvittering';
@@ -24,53 +24,41 @@ export const ApplicationRoutes = () => (
   <div className='application-routes'>
     <KroniskSoknadKvitteringProvider>
       <GravidSoknadKvitteringProvider>
-        <Switch>
-          <Route path={lenker.Gravid} exact={true} render={() => <GravidSide />} />
-          <Route path={lenker.GravidKvittering} exact={true} render={() => <GravidKvittering />} />
-          <Route path={lenker.Kronisk} exact={true} render={() => <KroniskSide />} />
-          <Route path={lenker.KroniskKvittering} render={() => <KroniskKvittering />} />
-          <Route
-            path={lenker.GravidKravKvittering}
-            exact={true}
-            render={() => <KravKvittering backTarget={lenker.GravidKrav} />}
-          />
+        <Routes>
+          <Route path={lenker.Gravid} element={<GravidSide />} />
+          <Route path={lenker.GravidKvittering} element={<GravidKvittering />} />
+          <Route path={lenker.Kronisk} element={<KroniskSide />} />
+          <Route path={lenker.KroniskKvittering} element={<KroniskKvittering />} />
+          <Route path={lenker.GravidKravKvittering} element={<KravKvittering backTarget={lenker.GravidKrav} />} />
           <Route
             path={lenker.GravidKravSlettetKvittering}
-            exact={true}
-            render={() => <KroniskKvitteringSlettet backTarget={lenker.GravidKrav} />}
+            element={<KroniskKvitteringSlettet backTarget={lenker.GravidKrav} />}
           />
-          <Route path={lenker.GravidKrav} exact={true} render={() => <GravidKrav />} />
-          <Route path={lenker.GravidKrav + '/:idKrav'} exact={true} render={() => <GravidKrav />} />
-          <Route
-            path={lenker.KroniskKravKvittering}
-            exact={true}
-            render={() => <KravKvittering backTarget={lenker.KroniskKrav} />}
-          />
+          <Route path={lenker.GravidKrav} element={<GravidKrav />} />
+          <Route path={lenker.GravidKrav + '/:idKrav'} element={<GravidKrav />} />
+          <Route path={lenker.KroniskKravKvittering} element={<KravKvittering backTarget={lenker.KroniskKrav} />} />
           <Route
             path={lenker.KroniskKravEndringKvittering}
-            exact={true}
-            render={() => <KravEndringKvittering backTarget={lenker.KroniskKrav} />}
+            element={<KravEndringKvittering backTarget={lenker.KroniskKrav} />}
           />
           <Route
             path={lenker.KroniskKravSlettetKvittering}
-            exact={true}
-            render={() => <KroniskKvitteringSlettet backTarget={lenker.KroniskKrav} />}
+            element={<KroniskKvitteringSlettet backTarget={lenker.KroniskKrav} />}
           />
           <Route
             path={lenker.KroniskKravEndringKvittering}
-            exact={true}
-            render={() => <KravEndringKvittering backTarget={lenker.KroniskKrav} />}
+            element={<KravEndringKvittering backTarget={lenker.KroniskKrav} />}
           />
-          <Route path={lenker.KroniskKrav} exact={true} render={() => <KroniskKrav />} />
-          <Route path={lenker.KroniskKrav + '/:idKrav'} exact={true} render={() => <KroniskKrav />} />
-          <Route path={lenker.TokenFornyet} render={() => <TokenFornyet />} />
-          <Route path={lenker.NotifikasjonGravidSoknad} render={() => <GravidSoknadController />} />
-          <Route path={lenker.NotifikasjonGravidKrav} render={() => <GravidKravController />} />
-          <Route path={lenker.NotifikasjonKroniskSoknad} render={() => <KroniskSoknadController />} />
-          <Route path={lenker.NotifikasjonKroniskKrav} render={() => <KroniskKravController />} />
-          <Route path={lenker.EksemplerLonnsdager} render={() => <EksempelLonningsdager />} />
-          <Route path={lenker.Home} render={() => <Forside />} />
-        </Switch>
+          <Route path={lenker.KroniskKrav} element={<KroniskKrav />} />
+          <Route path={lenker.KroniskKrav + '/:idKrav'} element={<KroniskKrav />} />
+          <Route path={lenker.TokenFornyet} element={<TokenFornyet />} />
+          <Route path={lenker.NotifikasjonGravidSoknad} element={<GravidSoknadController />} />
+          <Route path={lenker.NotifikasjonGravidKrav} element={<GravidKravController />} />
+          <Route path={lenker.NotifikasjonKroniskSoknad} element={<KroniskSoknadController />} />
+          <Route path={lenker.NotifikasjonKroniskKrav} element={<KroniskKravController />} />
+          <Route path={lenker.EksemplerLonnsdager} element={<EksempelLonningsdager />} />
+          <Route path={lenker.Home} element={<Forside />} />
+        </Routes>
       </GravidSoknadKvitteringProvider>
     </KroniskSoknadKvitteringProvider>
   </div>

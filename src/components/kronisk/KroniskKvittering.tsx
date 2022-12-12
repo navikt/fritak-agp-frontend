@@ -7,9 +7,8 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { InternLenke, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { InternLenke, Language, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
-import PathParams from '../../locale/PathParams';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import './KroniskKvittering.scss';
 import SoknadMottatt from '../gravid/SoknadMottatt';
@@ -19,7 +18,7 @@ import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
-  const { language } = useParams<PathParams>();
+  const { language } = useParams();
   const { response } = useContext(KroniskSoknadKvitteringContext);
 
   const harVedlegg: boolean = response?.response?.harVedlegg ? true : false;
@@ -75,7 +74,7 @@ const KroniskKvittering = () => {
 
         <Panel className='lenker-ut-panel'>
           <div>
-            <InternLenke to={buildLenke(lenker.KroniskKrav, language)}>Send krav om refusjon</InternLenke>
+            <InternLenke to={buildLenke(lenker.KroniskKrav, language as Language)}>Send krav om refusjon</InternLenke>
           </div>
           <div>
             <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>

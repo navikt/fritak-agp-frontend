@@ -13,14 +13,9 @@ const innsendingAPI = new RegExp(/\/api\/v1\/gravid\/soeknad/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': 'http://localhost:3000',
+  'access-control-allow-origin': 'http://127.0.0.1:3000',
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
-};
-
-const headereJsonUnauthorized = {
-  'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': '*'
 };
 
 const headereText = Object.apply({}, headereJson);
@@ -40,7 +35,7 @@ const cookieMock = RequestMock()
   .respond('"2025-08-02T10:51:34.000+00:00"', 200, headereJson)
   .onRequestTo(cookiePlease)
   .respond(
-    "<script>window.location.href='http://localhost:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842?loggedIn=true';</script>",
+    "<script>window.location.href='http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842?loggedIn=true';</script>",
     200,
     headereText
   )
@@ -53,7 +48,7 @@ const cookieMock = RequestMock()
   .onRequestTo(innsendingAPI)
   .respond(gravidSoknadResponse, 201, mockHeaders);
 
-fixture`Gravid - Søknad`.page`http://localhost:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842&TestCafe=running`
+fixture`Gravid - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
   .requestHooks(cookieMock)
   .beforeEach(async () => {

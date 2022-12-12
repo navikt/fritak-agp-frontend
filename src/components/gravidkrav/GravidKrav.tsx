@@ -4,7 +4,7 @@ import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
@@ -18,7 +18,6 @@ import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
-import PathParams from '../../locale/PathParams';
 import { useTranslation } from 'react-i18next';
 import { i18n as Ii18n } from 'i18next';
 import {
@@ -33,7 +32,8 @@ import {
   useArbeidsgiver,
   Upload,
   HttpStatus,
-  ServerFeilAdvarsel
+  ServerFeilAdvarsel,
+  Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
@@ -64,11 +64,11 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  const { language, idKrav } = useParams<PathParams>();
+  const { language, idKrav } = useParams();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatchResponse = (response: ValidationResponse<GravidKravResponse>) => {
     dispatch({
@@ -83,7 +83,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
   const handleCancleClicked = (event: React.FormEvent) => {
     event.preventDefault();
-    history.go(-1);
+    navigate(-1);
   };
 
   const handleCloseServerFeil = () => {
@@ -147,7 +147,9 @@ export const GravidKrav = (props: GravidKravProps) => {
       const deleteStatus = await deleteGravidKrav(environment.baseUrl, state.kravId);
       if (deleteStatus.status === HttpStatus.Successfully) {
         setModalOpen(false);
-        history.replace(buildLenke(lenker.GravidKravSlettetKvittering, language));
+        navigate(buildLenke(lenker.GravidKravSlettetKvittering, (language as Language) || Language.nb), {
+          replace: true
+        });
       } else {
         dispatch({
           type: Actions.AddBackendError,
@@ -244,9 +246,10 @@ export const GravidKrav = (props: GravidKravProps) => {
   }, [idKrav]);
 
   if (state.kvittering) {
-    return <Redirect to={buildLenke(lenker.GravidKravKvittering, language)} />;
+    navigate(buildLenke(lenker.GravidKravKvittering, (language as Language) || Language.nb), { replace: true });
+    return null;
   }
-  const lenkeGravid = buildLenke(lenker.Gravid, language);
+  const lenkeGravid = buildLenke(lenker.Gravid, (language as Language) || Language.nb);
 
   return (
     <Side
