@@ -369,19 +369,21 @@ const GravidSide = (props: GravidSideProps) => {
                     <Panel className='gravidside-panel-alert-gravid'>
                       <Alertstripe className='gravidside-alert-gravid' type='advarsel'>
                         <Normaltekst>
-                          {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
-                          <button
-                            className='lenke gravidside-lenke-knapp'
-                            onClick={() =>
-                              dispatch({
-                                type: Actions.Videre,
-                                payload: { videre: true }
-                              })
-                            }
-                          >
-                            {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_2)}
-                          </button>
-                          {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
+                          <>
+                            {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
+                            <button
+                              className='lenke gravidside-lenke-knapp'
+                              onClick={() =>
+                                dispatch({
+                                  type: Actions.Videre,
+                                  payload: { videre: true }
+                                })
+                              }
+                            >
+                              {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_2)}
+                            </button>
+                            {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
+                          </>
                         </Normaltekst>
                       </Alertstripe>
                     </Panel>

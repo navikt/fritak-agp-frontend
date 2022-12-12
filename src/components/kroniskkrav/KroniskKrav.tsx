@@ -301,10 +301,12 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
             </Systemtittel>
             <Ingress tag='span' className='textfelt-padding-bottom'>
-              {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
-              <Hjelpetekst className='krav-padding-hjelpetekst'>
-                <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
-              </Hjelpetekst>
+              <>
+                {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
+                <Hjelpetekst className='krav-padding-hjelpetekst'>
+                  <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+                </Hjelpetekst>
+              </>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               {state.perioder?.map((enkeltPeriode, index) => (

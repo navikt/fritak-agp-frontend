@@ -330,10 +330,12 @@ export const GravidKrav = (props: GravidKravProps) => {
               {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
             </Systemtittel>
             <Ingress tag='span' className='textfelt-padding-bottom'>
-              {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-              <Hjelpetekst className='krav-padding-hjelpetekst'>
-                <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
-              </Hjelpetekst>
+              <>
+                {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
+                <Hjelpetekst className='krav-padding-hjelpetekst'>
+                  <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
+                </Hjelpetekst>
+              </>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               {state.perioder?.map((enkeltPeriode, index) => (

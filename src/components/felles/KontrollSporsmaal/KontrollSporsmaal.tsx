@@ -36,11 +36,12 @@ const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsma
         defaultValue={defaultValue}
       />
       <Normaltekst className='kontrollsporsmaal-lonn-forklaring '>
-        {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING)}
-        <a href='/fritak-agp/nb/eksemplerlonnsdager' target='_blank'>
-          {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING_HREF)}
-        </a>
-        )
+        <>
+          {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING)}
+          <a href='/fritak-agp/nb/eksemplerlonnsdager' target='_blank'>
+            {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING_HREF)}
+          </a>
+        </>
       </Normaltekst>
       {!!feil && (
         <div className='skjemaelement__feilmelding'>
