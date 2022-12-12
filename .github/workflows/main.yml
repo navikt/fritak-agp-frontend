@@ -10,12 +10,18 @@ env:
   IMAGE: ghcr.io/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
 jobs:
 
   Bygg:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+          registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
@@ -28,9 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '18'
+          registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn test
 
@@ -38,9 +45,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '18'
+          registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
