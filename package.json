@@ -118,7 +118,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/react-modal": "3.x",
     "@types/react-router-dom": "5.x",
-    "@types/uuid": "8.x",
+    "@types/uuid": "^9.0.0",
     "cross-os": "1.5.0",
     "eslint-plugin-testcafe": "^0.2.1",
     "eslint-plugin-typescript": "^0.14.0",
