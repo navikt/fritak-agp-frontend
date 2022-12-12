@@ -5,8 +5,7 @@ import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsg
 import { MemoryRouter } from 'react-router-dom';
 import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';
-import { act } from 'react-dom/test-utils';
-import { render, unmountComponentAtNode } from 'react-dom';
+import { render } from '@testing-library/react';
 
 const initHistory = ['/'];
 
@@ -25,31 +24,15 @@ jest.mock('react-i18next', () => ({
 describe('KroniskSide', () => {
   jest.setTimeout(10000); // 10 second timeout
 
-  let container = document.createElement('div');
-  beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-  });
-  afterEach(() => {
-    unmountComponentAtNode(container);
-    container.remove();
-  });
-
   it('should have no a11y violations', async () => {
-    act(() => {
-      render(
-        <MemoryRouter initialEntries={initHistory}>
-          <ArbeidsgiverProvider
-            arbeidsgivere={testOrganisasjoner}
-            status={ArbeidsgiverStatus.Successfully}
-            baseUrl={''}
-          >
-            <KroniskSide />
-          </ArbeidsgiverProvider>
-        </MemoryRouter>,
-        container
-      );
-    });
+    const { container } = render(
+      <MemoryRouter initialEntries={initHistory}>
+        <ArbeidsgiverProvider arbeidsgivere={testOrganisasjoner} status={ArbeidsgiverStatus.Successfully} baseUrl={''}>
+          <KroniskSide />
+        </ArbeidsgiverProvider>
+      </MemoryRouter>
+    );
+
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
