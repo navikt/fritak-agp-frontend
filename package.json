@@ -42,7 +42,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/bedriftsmeny": "^4.0.2",
+    "@navikt/bedriftsmeny": "^5.0.0",
     "@navikt/ds-css": "^1.3.2",
     "@navikt/ds-icons": "^1.3.2",
     "@navikt/ds-react": "^1.3.2",
