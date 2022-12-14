@@ -49,7 +49,7 @@
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.4.10",
     "@navikt/nav-dekoratoren-moduler": "^1.6.5",
     "@sentry/react": "^7.13.0",
-    "@sentry/tracing": "^7.13.0",
+    "@sentry/tracing": "^7.21.1",
     "classnames": "^2.3.1",
     "dayjs": "1.11.4",
     "i18next": "^21.8.12",
