@@ -66,6 +66,10 @@ export const GravidKrav = (props: GravidKravProps) => {
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language, idKrav } = useParams();
 
+  useEffect(() => {
+    document.title = 'Krav om refusjon av sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
+  }, []);
+
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -332,7 +336,10 @@ export const GravidKrav = (props: GravidKravProps) => {
             <Ingress tag='span' className='textfelt-padding-bottom'>
               <>
                 {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-                <Hjelpetekst className='krav-padding-hjelpetekst'>
+                <Hjelpetekst
+                  className='krav-padding-hjelpetekst'
+                  title={t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL)}
+                >
                   <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
                 </Hjelpetekst>
               </>

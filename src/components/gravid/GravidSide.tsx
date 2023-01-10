@@ -64,6 +64,10 @@ const GravidSide = (props: GravidSideProps) => {
   const [state, dispatch] = useReducer(GravidReducerI18n, props.state, defaultGravidState);
   dayjs.extend(customParseFormat);
 
+  useEffect(() => {
+    document.title = 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
+  }, []);
+
   const handleUploadChanged = (file?: File) => {
     if (file) {
       getBase64file(file).then((base64encoded: any) => {

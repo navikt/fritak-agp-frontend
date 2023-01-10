@@ -1,6 +1,6 @@
 import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Column, Row } from 'nav-frontend-grid';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './EksempelLonningsdager.scss';
@@ -12,6 +12,10 @@ import eksempel5 from '../../static/eksempel5.png';
 import eksempel6 from '../../static/eksempel6.png';
 
 const EksempelLonningsdager = () => {
+  useEffect(() => {
+    document.title = 'Eksempler på hvordan du kan fylle ut dager det betales lønn - nav.no';
+  }, []);
+
   return (
     <Side
       bedriftsmeny={false}
