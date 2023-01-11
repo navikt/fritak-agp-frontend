@@ -8,7 +8,8 @@ import './KontrollSporsmaal.scss';
 export enum KontrollSporsmaalKeys {
   KONTROLLSPORSMAL_DAGER_LABEL = 'KONTROLLSPORSMAL_DAGER_LABEL',
   KONTROLLSPORSMAL_DAGER_FORKLARING = 'KONTROLLSPORSMAL_DAGER_FORKLARING',
-  KONTROLLSPORSMAL_DAGER_FORKLARING_HREF = 'KONTROLLSPORSMAL_DAGER_FORKLARING_HREF'
+  KONTROLLSPORSMAL_DAGER_FORKLARING_HREF = 'KONTROLLSPORSMAL_DAGER_FORKLARING_HREF',
+  KONTROLLSPORSMAL_DAGER_FORKLARING_SLUTT = 'KONTROLLSPORSMAL_DAGER_FORKLARING_SLUTT'
 }
 
 interface KontrollSporsmaalProps {
@@ -34,6 +35,7 @@ const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsma
         className={'kontrollsporsmaal-lonn-arbeidsdager ' + feilClass}
         onChange={onChange}
         defaultValue={defaultValue}
+        autoComplete='off'
       />
       <Normaltekst className='kontrollsporsmaal-lonn-forklaring '>
         <>
@@ -41,6 +43,7 @@ const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsma
           <a href='/fritak-agp/nb/eksemplerlonnsdager' target='_blank'>
             {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING_HREF)}
           </a>
+          {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING_SLUTT)}
         </>
       </Normaltekst>
       {!!feil && (

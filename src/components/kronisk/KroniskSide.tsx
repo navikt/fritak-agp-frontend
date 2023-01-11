@@ -48,6 +48,11 @@ const KroniskSide = () => {
   const { language } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title =
+      'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden ved kronisk eller langvarig sykdom - nav.no';
+  }, []);
+
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
