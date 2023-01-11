@@ -134,7 +134,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div className='antall-dager'>
           <Label htmlFor={`dager-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
-            <Hjelpetekst className='krav-padding-hjelpetekst'>
+            <Hjelpetekst className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL)}>
               {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
             </Hjelpetekst>
           </Label>
@@ -157,7 +157,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div className='periode-elementer'>
           <Label htmlFor={`belop-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TEXT)}
-            <Hjelpetekst className='krav-padding-hjelpetekst'>
+            <Hjelpetekst
+              className='krav-padding-hjelpetekst'
+              title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}
+            >
               <Systemtittel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</Systemtittel>
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
             </Hjelpetekst>
@@ -186,8 +189,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div>
           <Label htmlFor={`sykemeldingsgrad-${props.index}`}>
             Sykemeldingsgrad
-            <Hjelpetekst className='krav-padding-hjelpetekst'>
-              <Systemtittel>Gradert sykemelding</Systemtittel>
+            <Hjelpetekst className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
+              <Systemtittel>Gradert sykmelding</Systemtittel>
               Sykmeldingsgrad, minimum 20%
             </Hjelpetekst>
           </Label>
@@ -212,7 +215,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div>
           <Label htmlFor={`belop-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
-            <Hjelpetekst className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'>
+            <Hjelpetekst
+              className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
+              title={t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL)}
+            >
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
             </Hjelpetekst>
           </Label>

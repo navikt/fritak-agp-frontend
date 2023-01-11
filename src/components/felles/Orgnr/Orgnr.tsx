@@ -25,7 +25,7 @@ const Orgnr = (props: OrgnrProps) => {
       label={
         <div style={{ display: 'flex' }}>
           {props.label}
-          <Hjelpetekst className='orgnr-hjelpetekst'>
+          <Hjelpetekst className='orgnr-hjelpetekst' title={t(LangKey.ORGNR_HJELPETEKST_TITTEL)}>
             <Normaltekst>{t(LangKey.ORGNR_HJELPETEKST)}</Normaltekst>
           </Hjelpetekst>
         </div>
