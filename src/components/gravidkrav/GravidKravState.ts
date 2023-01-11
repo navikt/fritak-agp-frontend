@@ -9,7 +9,6 @@ export const defaultGravidKravState = (state?: GravidKravState): GravidKravState
     {
       fnr: '',
       perioder: [{ uniqueKey: uuid() }],
-      dokumentasjon: '',
       bekreft: false,
       feilmeldinger: Array<FeiloppsummeringFeil>(),
       formDirty: false,
@@ -42,7 +41,6 @@ export default interface GravidKravState extends ValidationState {
   orgnr?: string;
   perioder?: Array<Periode>;
   periodeError?: string;
-  dokumentasjon?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
   validated?: boolean;
   progress?: boolean;

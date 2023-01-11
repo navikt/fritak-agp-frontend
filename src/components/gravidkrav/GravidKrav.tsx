@@ -166,7 +166,6 @@ export const GravidKrav = (props: GravidKravProps) => {
             state.fnr,
             state.orgnr,
             state.perioder,
-            state.dokumentasjon,
             state.bekreft,
             state.antallDager,
             state.endringsAarsak!
@@ -177,14 +176,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       } else {
         postGravidKrav(
           environment.baseUrl,
-          mapGravidKravRequest(
-            state.fnr,
-            state.orgnr,
-            state.perioder,
-            state.dokumentasjon,
-            state.bekreft,
-            state.antallDager
-          )
+          mapGravidKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
         ).then((response) => {
           dispatchResponse(response);
         });
@@ -198,7 +190,6 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.perioder,
     state.fnr,
     state.bekreft,
-    state.dokumentasjon,
     state.orgnr,
     state.antallDager,
     state.kravId,

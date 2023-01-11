@@ -11,7 +11,6 @@ export enum Actions {
   Til,
   Dager,
   Beloep,
-  Dokumentasjon,
   Bekreft,
   Validate,
   Progress,
@@ -43,7 +42,6 @@ export interface Payload {
   bekreft?: boolean;
   progress?: boolean;
   kvittering?: boolean;
-  dokumentasjon?: string;
   response?: ValidationResponse<GravidKravResponse>;
   grunnbeloep?: number;
   antallDager?: number;

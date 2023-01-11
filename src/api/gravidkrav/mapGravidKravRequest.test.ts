@@ -18,7 +18,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         true,
         undefined
       );
@@ -39,7 +38,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         true,
         undefined
       );
@@ -60,7 +58,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         true,
         undefined
       );
@@ -81,7 +78,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         true,
         5
       );
@@ -101,7 +97,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         true,
         5
       );
@@ -121,32 +116,10 @@ describe('mapGravidKravRequest', () => {
             dager: 5
           }
         ],
-        'dokumentasjon',
         true,
         5
       );
     }).toThrowError();
-  });
-
-  it('should not throw error when empty dokumentasjon as it is optional', () => {
-    expect(() => {
-      mapGravidKravRequest(
-        '123',
-        '123',
-        [
-          {
-            uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
-            dager: 5,
-            belop: 3000
-          }
-        ],
-        undefined,
-        true,
-        5
-      );
-    }).not.toThrowError();
   });
 
   it('should throw error when empty bekreft', () => {
@@ -163,7 +136,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         undefined,
         5
       );
@@ -184,7 +156,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         true,
         5
       )
@@ -200,7 +171,6 @@ describe('mapGravidKravRequest', () => {
           månedsinntekt: 3000
         } as Arbeidsgiverperiode
       ],
-      dokumentasjon: 'dokumentasjon',
       bekreftet: true,
       antallDager: 5
     } as GravidKravRequest);
@@ -220,7 +190,6 @@ describe('mapGravidKravRequest', () => {
             belop: 3000
           }
         ],
-        'dokumentasjon',
         true,
         120
       )
@@ -236,7 +205,6 @@ describe('mapGravidKravRequest', () => {
           månedsinntekt: 3000
         } as Arbeidsgiverperiode
       ],
-      dokumentasjon: 'dokumentasjon',
       bekreftet: true,
       antallDager: 120
     } as GravidKravRequest);
