@@ -76,13 +76,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
       return validateGravidKrav(nextState, translate);
 
-    case Actions.Dokumentasjon:
-      if (!nextState.formDirty) {
-        nextState.formDirty = nextState.dokumentasjon !== payload?.dokumentasjon;
-      }
-      nextState.dokumentasjon = payload?.dokumentasjon;
-      return validateGravidKrav(nextState, translate);
-
     case Actions.Bekreft:
       if (!nextState.formDirty) {
         nextState.formDirty = nextState.bekreft !== payload?.bekreft;

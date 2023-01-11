@@ -14,7 +14,6 @@ import GravidKravProps from './GravidKravProps';
 import GravidKravReducer, { MAX_PERIODER } from './GravidKravReducer';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { Actions, GravidKravAction } from './Actions';
-import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
@@ -30,7 +29,6 @@ import {
   Fnr,
   Skillelinje,
   useArbeidsgiver,
-  Upload,
   HttpStatus,
   ServerFeilAdvarsel,
   Language
@@ -103,27 +101,6 @@ export const GravidKrav = (props: GravidKravProps) => {
       type: Actions.EndringsAarsak,
       payload: {
         endringsAarsak: aarsak
-      }
-    });
-  };
-
-  const handleUploadChanged = (file?: File) => {
-    if (file) {
-      getBase64file(file).then((base64encoded: any) => {
-        dispatch({
-          type: Actions.Dokumentasjon,
-          payload: {
-            dokumentasjon: base64encoded
-          }
-        });
-      });
-    }
-  };
-  const handleDelete = () => {
-    dispatch({
-      type: Actions.Dokumentasjon,
-      payload: {
-        dokumentasjon: undefined
       }
     });
   };
@@ -364,26 +341,6 @@ export const GravidKrav = (props: GravidKravProps) => {
                   )}
                 </Column>
               </Row>
-            </SkjemaGruppe>
-          </Panel>
-
-          <Skillelinje />
-
-          <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>
-              {t(GravidKravKeys.GRAVID_KRAV_DOKUMENTASJON_TITTEL)}
-            </Systemtittel>
-            <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_DOKUMENTASJON_INGRESS} />
-            <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
-              <Upload
-                className='knapp-innsending-top'
-                id='upload'
-                label={t(GravidKravKeys.GRAVID_KRAV_LAST_OPP)}
-                extensions='.pdf'
-                onChange={handleUploadChanged}
-                fileSize={5000000}
-                onDelete={handleDelete}
-              />
             </SkjemaGruppe>
           </Panel>
 
