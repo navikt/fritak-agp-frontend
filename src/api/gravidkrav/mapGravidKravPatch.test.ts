@@ -18,29 +18,27 @@ describe('mapGravidKravPatch', () => {
     }
   ];
 
-  const dokumentasjon = 'dokumentasjon';
-
   it('should throw an error on missing fnr', () => {
-    expect(() =>
-      mapGravidKravPatch(undefined, 'orgnr', perioder, dokumentasjon, true, 5, EndringsAarsak.ANNET)
-    ).toThrow('Fnr må spesifiseres');
+    expect(() => mapGravidKravPatch(undefined, 'orgnr', perioder, true, 5, EndringsAarsak.ANNET)).toThrow(
+      'Fnr må spesifiseres'
+    );
   });
 
   it('should throw an error on missing orgnr', () => {
-    expect(() => mapGravidKravPatch('fnr', undefined, perioder, dokumentasjon, true, 5, EndringsAarsak.ANNET)).toThrow(
+    expect(() => mapGravidKravPatch('fnr', undefined, perioder, true, 5, EndringsAarsak.ANNET)).toThrow(
       'Orgnr må spesifiseres'
     );
   });
   it('should throw an error on missing periode', () => {
-    expect(() => mapGravidKravPatch('fnr', 'orgnr', undefined, dokumentasjon, true, 5, EndringsAarsak.ANNET)).toThrow(
+    expect(() => mapGravidKravPatch('fnr', 'orgnr', undefined, true, 5, EndringsAarsak.ANNET)).toThrow(
       'Perioder må spesifiseres'
     );
   });
 
   it('should throw an error on missing bekreft', () => {
-    expect(() =>
-      mapGravidKravPatch('fnr', 'orgnr', perioder, dokumentasjon, undefined, 5, EndringsAarsak.ANNET)
-    ).toThrow('Bekreft må spesifiseres');
+    expect(() => mapGravidKravPatch('fnr', 'orgnr', perioder, undefined, 5, EndringsAarsak.ANNET)).toThrow(
+      'Bekreft må spesifiseres'
+    );
   });
 
   it('should return some data', () => {
@@ -58,11 +56,8 @@ describe('mapGravidKravPatch', () => {
           tom: '2022-04-22'
         }
       ],
-      virksomhetsnummer: 'orgnr',
-      dokumentasjon
+      virksomhetsnummer: 'orgnr'
     };
-    expect(mapGravidKravPatch('fnr', 'orgnr', perioder, dokumentasjon, true, 5, EndringsAarsak.ANNET)).toEqual(
-      expected
-    );
+    expect(mapGravidKravPatch('fnr', 'orgnr', perioder, true, 5, EndringsAarsak.ANNET)).toEqual(expected);
   });
 });
