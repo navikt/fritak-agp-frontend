@@ -6,7 +6,6 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
-import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
@@ -21,15 +20,19 @@ interface KravPeriodeProps {
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
+  Actions: any;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
   const dispatch = props.dispatch;
 
+  const Actions = props.Actions;
   const fjernPeriode = (itemId: string): void => {
+    console.log('Slettehandler', itemId, Actions.DeletePeriode); // eslint-disable-line
+
     dispatch({
-      type: Actions.DeletePeriod,
+      type: Actions.DeletePeriode,
       payload: {
         itemId
       }

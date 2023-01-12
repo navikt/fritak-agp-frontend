@@ -26,6 +26,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={false}
+        Actions={Actions}
       />
     );
 
@@ -47,6 +48,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
+        Actions={Actions}
       />
     );
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
@@ -68,6 +70,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
+        Actions={Actions}
       />
     );
 
@@ -88,6 +91,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
+        Actions={Actions}
       />
     );
 
@@ -101,7 +105,7 @@ describe('KravPeriode', () => {
 
     slettButton?.click();
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { itemId: 'mocked' }, type: Actions.DeletePeriod });
+    expect(mockDispatch).toHaveBeenCalledWith({ payload: { itemId: 'mocked' }, type: Actions.DeletePeriode });
   });
 
   it('call dispatch when beløp has been updated', async () => {
@@ -114,6 +118,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
+        Actions={Actions}
       />
     );
 
@@ -134,6 +139,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
+        Actions={Actions}
       />
     );
 
@@ -154,6 +160,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={false}
+        Actions={Actions}
       />
     );
     const results = await axe(container);
@@ -173,6 +180,7 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
+        Actions={Actions}
       />
     );
     const results = await axe(container);

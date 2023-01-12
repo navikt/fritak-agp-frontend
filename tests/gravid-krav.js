@@ -45,180 +45,180 @@ fixture`Gravid - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/krav?bedr
     await waitForReact();
   });
 
-// test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
-//   await t
-//     .click(ReactSelector('Hovedknapp'))
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler fødselsnummer')
-//         .withText('Mangler antall arbeidsdager')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler til dato')
-//         .withText('Mangler dager')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
-//         .withText('Bekreft at opplysningene er korrekt').visible
-//     )
-//     .ok();
+test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
+  await t
+    .click(ReactSelector('Hovedknapp'))
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler fødselsnummer')
+        .withText('Mangler antall arbeidsdager')
+        .withText('Mangler fra dato')
+        .withText('Mangler til dato')
+        .withText('Mangler dager')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma')
+        .withText('Bekreft at opplysningene er korrekt').visible
+    )
+    .ok();
 
-//   await t
-//     .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler fødselsnummer')
-//         .withText('Mangler antall arbeidsdager')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler til dato')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
-//     )
-//     .ok()
-//     .expect(
-//       ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
-//     )
-//     .notOk();
+  await t
+    .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler fødselsnummer')
+        .withText('Mangler antall arbeidsdager')
+        .withText('Mangler fra dato')
+        .withText('Mangler til dato')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
+    )
+    .ok()
+    .expect(
+      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+    )
+    .notOk();
 
-//   await t
-//     .typeText(ReactSelector('KontrollSporsmaal'), '260')
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler fødselsnummer')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler til dato')
-//         .withText('Mangler dager')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
-//     )
-//     .ok()
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Bekreft at opplysningene er korrekt')
-//         .withText('Mangler antall arbeidsdager')
-//         .with({ timeout: 100 }).visible
-//     )
-//     .notOk();
+  await t
+    .typeText(ReactSelector('KontrollSporsmaal'), '260')
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler fødselsnummer')
+        .withText('Mangler fra dato')
+        .withText('Mangler til dato')
+        .withText('Mangler dager')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
+    )
+    .ok()
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Bekreft at opplysningene er korrekt')
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
+    )
+    .notOk();
 
-//   const fnr = ReactSelector('Fnr');
+  const fnr = ReactSelector('Fnr');
 
-//   await t
-//     .typeText(fnr, '260')
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Ugyldig fødselsnummer')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler til dato')
-//         .withText('Mangler dager')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
-//     )
-//     .ok()
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Bekreft at opplysningene er korrekt')
-//         .withText('Mangler antall arbeidsdager')
-//         .with({ timeout: 100 }).visible
-//     )
-//     .notOk();
+  await t
+    .typeText(fnr, '260')
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Ugyldig fødselsnummer')
+        .withText('Mangler fra dato')
+        .withText('Mangler til dato')
+        .withText('Mangler dager')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
+    )
+    .ok()
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Bekreft at opplysningene er korrekt')
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
+    )
+    .notOk();
 
-//   await t
-//     .click(fnr)
-//     .pressKey('ctrl+a delete')
-//     .typeText(fnr, '20125027610')
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler til dato')
-//         .withText('Mangler dager')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
-//     )
-//     .ok()
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Ugyldig fødselsnummer')
-//         .withText('Bekreft at opplysningene er korrekt')
-//         .withText('Mangler antall arbeidsdager')
-//         .with({ timeout: 100 }).visible
-//     )
-//     .notOk();
+  await t
+    .click(fnr)
+    .pressKey('ctrl+a delete')
+    .typeText(fnr, '20125027610')
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler fra dato')
+        .withText('Mangler til dato')
+        .withText('Mangler dager')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma').visible
+    )
+    .ok()
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Ugyldig fødselsnummer')
+        .withText('Bekreft at opplysningene er korrekt')
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
+    )
+    .notOk();
 
-//   const belop = Selector('#belop-0');
-//   await t
-//     .typeText(belop, '5000')
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler til dato')
-//         .withText('Mangler dager').visible
-//     )
-//     .ok()
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
-//         .withText('Ugyldig fødselsnummer')
-//         .withText('Bekreft at opplysningene er korrekt')
-//         .withText('Mangler antall arbeidsdager')
-//         .with({ timeout: 100 }).visible
-//     )
-//     .notOk();
+  const belop = Selector('#belop-0');
+  await t
+    .typeText(belop, '5000')
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler fra dato')
+        .withText('Mangler til dato')
+        .withText('Mangler dager').visible
+    )
+    .ok()
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma')
+        .withText('Ugyldig fødselsnummer')
+        .withText('Bekreft at opplysningene er korrekt')
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
+    )
+    .notOk();
 
-//   const velgDager = Selector('#dager-0');
-//   const velgDagerOption = velgDager.find('option');
+  const velgDager = Selector('#dager-0');
+  const velgDagerOption = velgDager.find('option');
 
-//   await t
-//     .click(velgDager)
-//     .click(velgDagerOption.withText('5'))
-//     .expect(ReactSelector('Feiloppsummering').withText('Mangler fra dato').withText('Mangler til dato').visible)
-//     .ok()
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler dager')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
-//         .withText('Ugyldig fødselsnummer')
-//         .withText('Bekreft at opplysningene er korrekt')
-//         .withText('Mangler antall arbeidsdager')
-//         .with({ timeout: 100 }).visible
-//     )
-//     .notOk();
+  await t
+    .click(velgDager)
+    .click(velgDagerOption.withText('5'))
+    .expect(ReactSelector('Feiloppsummering').withText('Mangler fra dato').withText('Mangler til dato').visible)
+    .ok()
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler dager')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma')
+        .withText('Ugyldig fødselsnummer')
+        .withText('Bekreft at opplysningene er korrekt')
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
+    )
+    .notOk();
 
-//   const fraDato = Selector('#fra-dato-0');
-//   const valgtFraDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)');
-//   await t
-//     .click(fraDato)
-//     .click(valgtFraDato)
-//     .expect(ReactSelector('Feiloppsummering').withText('Mangler til dato').visible)
-//     .ok()
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler dager')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
-//         .withText('Ugyldig fødselsnummer')
-//         .withText('Bekreft at opplysningene er korrekt')
-//         .withText('Mangler antall arbeidsdager')
-//         .with({ timeout: 100 }).visible
-//     )
-//     .notOk()
-//     .expect(Selector('html').textContent)
-//     .contains('153');
+  const fraDato = Selector('#fra-dato-0');
+  const valgtFraDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)');
+  await t
+    .click(fraDato)
+    .click(valgtFraDato)
+    .expect(ReactSelector('Feiloppsummering').withText('Mangler til dato').visible)
+    .ok()
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler fra dato')
+        .withText('Mangler dager')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma')
+        .withText('Ugyldig fødselsnummer')
+        .withText('Bekreft at opplysningene er korrekt')
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
+    )
+    .notOk()
+    .expect(Selector('html').textContent)
+    .contains('153');
 
-//   await t.expect(Selector('html').textContent).contains('153');
+  await t.expect(Selector('html').textContent).contains('153');
 
-//   const tilDato = Selector('#til-dato-0');
-//   const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
-//   await t
-//     .click(tilDato)
-//     .click(valgtTilDato)
-//     .expect(
-//       ReactSelector('Feiloppsummering')
-//         .withText('Mangler til dato')
-//         .withText('Mangler fra dato')
-//         .withText('Mangler dager')
-//         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
-//         .withText('Ugyldig fødselsnummer')
-//         .withText('Bekreft at opplysningene er korrekt')
-//         .withText('Mangler antall arbeidsdager')
-//         .with({ timeout: 100 }).visible
-//     )
-//     .notOk({ timeout: 500 });
+  const tilDato = Selector('#til-dato-0');
+  const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
+  await t
+    .click(tilDato)
+    .click(valgtTilDato)
+    .expect(
+      ReactSelector('Feiloppsummering')
+        .withText('Mangler til dato')
+        .withText('Mangler fra dato')
+        .withText('Mangler dager')
+        .withText('Oppgi beløp med kun tall med maks to tall etter komma')
+        .withText('Ugyldig fødselsnummer')
+        .withText('Bekreft at opplysningene er korrekt')
+        .withText('Mangler antall arbeidsdager')
+        .with({ timeout: 100 }).visible
+    )
+    .notOk({ timeout: 500 });
 
-//   await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Kravet er mottatt');
-// });
+  await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Kravet er mottatt');
+});
 
 test('Legg til og fjern perioder', async (t) => {
   await t
@@ -229,11 +229,10 @@ test('Legg til og fjern perioder', async (t) => {
     .ok();
 
   await t
-    .scrollBy(0, 600)
+    // .scrollBy(0, 600)
     .click(ReactSelector('Fareknapp').withText('Slett'))
     .expect(Selector('#belop-0').visible)
     .ok()
-    .debug()
     .expect(Selector('#belop-1').with({ timeout: 100 }).visible)
     .notOk({ timeout: 500 });
 });
