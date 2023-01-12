@@ -140,7 +140,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     }
 
     case Actions.DeletePeriode:
-      console.log('Slett', payload?.itemId); // eslint-disable-line
       checkItemId(payload?.itemId);
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
       return validateGravidKrav(nextState, translate);

@@ -29,8 +29,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const Actions = props.Actions;
   const fjernPeriode = (itemId: string): void => {
-    console.log('Slettehandler', itemId, Actions.DeletePeriode); // eslint-disable-line
-
     dispatch({
       type: Actions.DeletePeriode,
       payload: {
