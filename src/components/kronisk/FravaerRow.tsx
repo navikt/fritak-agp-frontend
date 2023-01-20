@@ -27,7 +27,9 @@ export const FravaerRow = (props: FravaerRowProps) => {
   ) {
     return (
       <>
-        <td>{oversettKortMaaned(t, props.month)}</td>
+        <td>
+          <abbr title={oversettLangMaaned(t, props.month)}>{oversettKortMaaned(t, props.month)}</abbr>
+        </td>
         <td>
           <FravaerInput onChange={props.onChange} month={props.month} year={props.year} fravaer={props.fravaer} />
         </td>
@@ -45,6 +47,10 @@ export const FravaerRow = (props: FravaerRowProps) => {
 
 export default FravaerRow;
 
-function oversettKortMaaned(t: TFunction<'translation', undefined>, month: number): React.ReactNode {
+function oversettKortMaaned(t: TFunction<'translation', undefined>, month: number): string {
   return t(FravaerTabellKeys['FRAVAERTABELL_MONTH_' + (month + 1)]).substring(0, 3);
+}
+
+function oversettLangMaaned(t: TFunction<'translation', undefined>, month: number): string {
+  return t(FravaerTabellKeys['FRAVAERTABELL_MONTH_' + (month + 1)]);
 }
