@@ -48,7 +48,7 @@ export const FravaerRow = (props: FravaerRowProps) => {
 export default FravaerRow;
 
 function oversettKortMaaned(t: TFunction<'translation', undefined>, month: number): string {
-  return t(FravaerTabellKeys['FRAVAERTABELL_MONTH_' + (month + 1)]).substring(0, 3);
+  return oversettLangMaaned(t, month).substring(0, 3);
 }
 
 function oversettLangMaaned(t: TFunction<'translation', undefined>, month: number): string {
