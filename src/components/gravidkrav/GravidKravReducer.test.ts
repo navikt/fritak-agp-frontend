@@ -303,30 +303,6 @@ describe('GravidKravReducer', () => {
     expect(state.progress).toEqual(true);
   });
 
-  it('should set dokumentasjon', () => {
-    let state = GravidKravReducer(
-      defaultGravidKravState(),
-      {
-        type: Actions.Dokumentasjon,
-        payload: { dokumentasjon: 'Joda' }
-      },
-      translationMock as unknown as i18n
-    );
-    expect(state.dokumentasjon).toEqual('Joda');
-  });
-
-  it('should set dokumentasjon to be empty', () => {
-    let state = GravidKravReducer(
-      defaultGravidKravState(),
-      {
-        type: Actions.Dokumentasjon,
-        payload: { dokumentasjon: '' }
-      },
-      translationMock as unknown as i18n
-    );
-    expect(state.dokumentasjon).toEqual('');
-  });
-
   it('should validate', () => {
     let state = defaultGravidKravState();
     state = GravidKravReducer(
@@ -443,7 +419,6 @@ describe('GravidKravReducer', () => {
     expect(state.fnrError).toBeUndefined();
     expect(state.orgnrError).toBeUndefined();
     expect(state.bekreftError).toBeUndefined();
-    expect(state.dokumentasjonError).toBeUndefined();
     expect(state.feilmeldinger?.length).toEqual(0);
   });
 

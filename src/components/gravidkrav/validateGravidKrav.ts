@@ -16,7 +16,6 @@ import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_GRAVID_DATO } from '../../confi
 import formatValidation from '../../utils/formatValidation';
 import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
 import dayjs from 'dayjs';
-import validateDokumentasjon from '../../validation/validateDokumentasjon';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;
@@ -55,12 +54,6 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
 
   if (nextState.endringsAarsakError) {
     pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
-  }
-
-  nextState.dokumentasjonError = formatValidation(validateDokumentasjon(state.dokumentasjon), translate);
-
-  if (nextState.dokumentasjonError) {
-    pushFeilmelding('upload', nextState.dokumentasjonError, feilmeldinger);
   }
 
   state.perioder?.forEach((periode, index) => {

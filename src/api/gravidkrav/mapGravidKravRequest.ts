@@ -8,7 +8,6 @@ export const mapGravidKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
   perioder: Array<Periode> | undefined,
-  dokumentasjon: string | undefined,
   bekreft: boolean | undefined,
   antallDager: number | undefined
 ): GravidKravRequest => {
@@ -53,7 +52,6 @@ export const mapGravidKravRequest = (
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
     perioder: arbeidsgiverPerioder,
-    dokumentasjon: dokumentasjon,
     bekreftet: bekreft,
     antallDager: antallDager
   };
