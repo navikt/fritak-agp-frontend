@@ -48,6 +48,11 @@ const KroniskSide = () => {
   const { language } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title =
+      'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden ved kronisk eller langvarig sykdom - nav.no';
+  }, []);
+
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
@@ -188,7 +193,7 @@ const KroniskSide = () => {
 
           <Panel>
             <Systemtittel className='textfelt-padding-bottom'>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
-            <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
+            <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaertabell' aria-live='polite'>
               <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
 
               <FravaerTabell

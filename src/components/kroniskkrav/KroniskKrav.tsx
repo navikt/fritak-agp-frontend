@@ -65,6 +65,11 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    document.title =
+      'Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no';
+  }, []);
+
   const dispatchResponse = (response: ValidationResponse<KroniskKravResponse>) => {
     dispatch({
       type: Actions.HandleResponse,
@@ -317,6 +322,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   lonnspliktDager={state.antallDager}
                   key={enkeltPeriode.uniqueKey}
                   slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
+                  Actions={Actions}
                 />
               ))}
               <Row>
