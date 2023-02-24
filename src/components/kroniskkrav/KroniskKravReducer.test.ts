@@ -494,7 +494,7 @@ describe('KroniskKravReducer', () => {
     expect(state.perioder?.length).toBe(2);
   });
 
-  it('should delete periode when the action is DeletePeriod', () => {
+  it('should delete periode when the action is DeletePeriode', () => {
     const defaultKrav = defaultKroniskKravState();
 
     expect(defaultKrav.perioder?.length).toBe(1);
@@ -514,7 +514,7 @@ describe('KroniskKravReducer', () => {
     let state2 = KroniskKravReducer(
       state,
       {
-        type: Actions.DeletePeriod,
+        type: Actions.DeletePeriode,
         payload: {
           itemId: itemId
         }
@@ -525,7 +525,7 @@ describe('KroniskKravReducer', () => {
     expect(state2.perioder?.length).toBe(1);
   });
 
-  it('should delete periode when the action is DeletePeriod', () => {
+  it('should delete periode when the action is KravEndring', () => {
     const defaultKrav = defaultKroniskKravState();
 
     expect(defaultKrav.perioder?.length).toBe(1);

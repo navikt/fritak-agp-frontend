@@ -163,7 +163,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
     }
 
-    case Actions.DeletePeriod:
+    case Actions.DeletePeriode:
       checkItemId(payload?.itemId);
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
       return validateKroniskKrav(nextState, translate);
