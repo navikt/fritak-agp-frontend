@@ -62,7 +62,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .contains('Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe?');
 
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Fødselsnummer må fylles ut')
@@ -237,7 +237,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(Selector('html').textContent)
     .contains(
       'Kvittering for mottatt søknad om fritak fra arbeidsgiverperioden grunnet risiko for høyt sykefravær knyttet til graviditet.'

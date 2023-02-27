@@ -1,13 +1,14 @@
-import { Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import React from 'react';
+import '@navikt/ds-css';
 
 const PrintKnapp = () => {
   const skrivUt = () => window.print();
 
   return (
-    <Knapp onClick={() => skrivUt()} className='skjul-fra-print'>
+    <Button onClick={() => skrivUt()} className='skjul-fra-print'>
       Skriv ut kvittering
-    </Knapp>
+    </Button>
   );
 };
 

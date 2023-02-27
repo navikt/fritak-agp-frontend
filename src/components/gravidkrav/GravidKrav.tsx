@@ -3,7 +3,6 @@ import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -49,6 +48,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
+import { Button } from '@navikt/ds-react';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -352,26 +352,27 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
           <Panel>
-            <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
+            <Button onClick={handleSubmitClicked} loading={state.progress}>
               {state.endringskrav ? (
                 <>{t(GravidKravKeys.GRAVID_KRAV_LONN_ENDRE)} </>
               ) : (
                 <>{t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)} </>
               )}
-            </Hovedknapp>
+            </Button>
             {state.endringskrav && (
               <>
-                <Knapp onClick={handleCancleClicked} className='avbrytknapp'>
+                <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
                   Avbryt
-                </Knapp>
-                <Fareknapp
+                </Button>
+                <Button
+                  variant='danger'
                   onClick={handleDeleteClicked}
                   className='sletteknapp'
-                  spinner={state.progress}
+                  loading={state.progress}
                   disabled={state.formDirty}
                 >
                   Slett krav
-                </Fareknapp>
+                </Button>
               </>
             )}
           </Panel>

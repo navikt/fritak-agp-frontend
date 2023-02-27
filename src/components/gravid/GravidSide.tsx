@@ -3,8 +3,6 @@ import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
-import Alertstripe from 'nav-frontend-alertstriper';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -44,6 +42,8 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { Alert, Button } from '@navikt/ds-react';
+import '@navikt/ds-css';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -371,7 +371,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <>
                     <Skillelinje />
                     <Panel className='gravidside-panel-alert-gravid'>
-                      <Alertstripe className='gravidside-alert-gravid' type='advarsel'>
+                      <Alert className='gravidside-alert-gravid' variant='warning'>
                         <Normaltekst>
                           <>
                             {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
@@ -389,7 +389,7 @@ const GravidSide = (props: GravidSideProps) => {
                             {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
                           </>
                         </Normaltekst>
-                      </Alertstripe>
+                      </Alert>
                     </Panel>
                   </>
                 )
@@ -437,7 +437,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
                   <Panel>
-                    <Hovedknapp onClick={handleSubmitClicked}>{t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}</Hovedknapp>
+                    <Button onClick={handleSubmitClicked}>{t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}</Button>
                   </Panel>
                 </>
               )}

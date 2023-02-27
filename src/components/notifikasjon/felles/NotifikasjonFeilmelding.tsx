@@ -1,8 +1,10 @@
 import React from 'react';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 
 const NotifikasjonFeilmelding = () => (
-  <AlertStripeFeil className='notifikasjon__feilmelding'>Det oppstod en feil</AlertStripeFeil>
+  <Alert variant='error' className='notifikasjon__feilmelding'>
+    Det oppstod en feil
+  </Alert>
 );
 
 export default NotifikasjonFeilmelding;

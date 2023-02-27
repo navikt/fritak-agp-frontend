@@ -10,9 +10,10 @@ import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
-import { Fareknapp } from 'nav-frontend-knapper';
 import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../config/konstanter';
+import { Button } from '@navikt/ds-react';
+import '@navikt/ds-css';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -229,9 +230,13 @@ const KravPeriode = (props: KravPeriodeProps) => {
         </div>
         {props.slettbar && (
           <div className='slett-periode-wrapper'>
-            <Fareknapp onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)} className='slett-periode'>
+            <Button
+              variant='danger'
+              onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)}
+              className='slett-periode'
+            >
               Slett
-            </Fareknapp>
+            </Button>
           </div>
         )}
       </div>

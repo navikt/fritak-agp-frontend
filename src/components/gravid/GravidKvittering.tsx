@@ -1,7 +1,6 @@
 import Panel from 'nav-frontend-paneler';
 import React, { useContext } from 'react';
 import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
-import Alertstripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
@@ -16,6 +15,7 @@ import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import environment from '../../config/environment';
+import { Alert } from '@navikt/ds-react';
 
 const GravidKvittering = () => {
   const { language } = useParams();
@@ -74,9 +74,9 @@ const GravidKvittering = () => {
         <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_SKRIV_UT} />
       </Panel>
       <Panel>
-        <Alertstripe type='info'>
+        <Alert variant='info'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
-        </Alertstripe>
+        </Alert>
       </Panel>
       <Panel className='skjul-fra-print'>
         <PrintKnapp />

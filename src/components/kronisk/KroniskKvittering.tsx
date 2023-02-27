@@ -3,7 +3,6 @@ import { Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +14,7 @@ import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Fravaersdager from '../notifikasjon/kronisk/soknad/Fravaersdager';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
+import { Alert } from '@navikt/ds-react';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
@@ -63,10 +63,10 @@ const KroniskKvittering = () => {
           </Normaltekst>
         </Panel>
         <Panel>
-          <AlertStripeInfo>
+          <Alert variant='info'>
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
             dere å oversitte fristen, som er tre måneder.
-          </AlertStripeInfo>
+          </Alert>
         </Panel>
         <Panel>
           <PrintKnapp />

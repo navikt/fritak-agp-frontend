@@ -9,9 +9,7 @@ import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import 'nav-frontend-core/dist/main.css';
 import 'nav-frontend-typografi-style/dist/main.css';
 import 'nav-frontend-skjema-style/dist/main.css';
-import 'nav-frontend-knapper-style/dist/main.css';
 import 'nav-frontend-hjelpetekst-style/dist/main.css';
-import 'nav-frontend-alertstriper-style/dist/main.css';
 import 'nav-frontend-grid-style/dist/main.css';
 import 'nav-frontend-chevron-style/dist/main.css';
 import 'nav-frontend-lenker-style/dist/main.css';
@@ -27,6 +25,7 @@ import '@navikt/helse-arbeidsgiver-felles-frontend/dist/library.css';
 import env, { EnvironmentType } from './config/environment';
 import './components/felles/Upload/Upload.sass';
 import { Integrations } from '@sentry/tracing';
+import '@navikt/ds-css';
 
 if (env.environmentMode !== EnvironmentType.LOCAL) {
   Sentry.init({
