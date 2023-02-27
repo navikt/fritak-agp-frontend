@@ -27,7 +27,7 @@ describe('SlettKravModal', () => {
       </div>
     );
 
-    const neiButton = screen.getByText('Nei', { selector: 'button' });
+    const neiButton = screen.getByText('Nei');
     userEvent.click(neiButton);
 
     expect(onCloseMock).toBeCalled();
@@ -43,9 +43,7 @@ describe('SlettKravModal', () => {
       </div>
     );
 
-    const jaButton = screen.getByText('Ja', { selector: 'button' });
-
-    userEvent.click(jaButton);
+    userEvent.click(screen.getByText('Ja'));
 
     expect(onOKClickedMock).toBeCalled();
   });
