@@ -202,8 +202,12 @@ const Locales: Record<
     en: 'Submit application'
   },
   GRAVID_SIDE_OMPLASSERING_IKKE_MULIG: {
-    nb: 'Omplassering er ikke mulig - oppgi årsak:',
-    en: 'Relocation is not possible - state reason:'
+    nb: 'Omplassering er ikke mulig',
+    en: 'Relocation is not possible'
+  },
+  GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK: {
+    nb: '- oppgi årsak:',
+    en: '- state reason:'
   },
   GRAVID_SIDE_OMPLASSERING_MOTSETTER_SEG: {
     nb: 'Den ansatte ønsker ikke omplassering',

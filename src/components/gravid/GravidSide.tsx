@@ -2,7 +2,7 @@ import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Checkbox, CheckboxGruppe, Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -42,7 +42,7 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Alert, Button } from '@navikt/ds-react';
+import { Alert, Button, RadioGroup, Radio } from '@navikt/ds-react';
 import '@navikt/ds-css';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
@@ -61,6 +61,12 @@ const GravidSide = (props: GravidSideProps) => {
 
   const GravidReducerI18n: Reducer<GravidState, GravidAction> = GravidReducerSettOpp(i18n);
 
+  const handleTilretteleggingChange = (val: string) => {
+    dispatch({
+      type: Actions.Tilrettelegge,
+      payload: { tilrettelegge: val === 'ja' }
+    });
+  };
   const [state, dispatch] = useReducer(GravidReducerI18n, props.state, defaultGravidState);
   dayjs.extend(customParseFormat);
 
@@ -245,35 +251,18 @@ const GravidSide = (props: GravidSideProps) => {
                         className='arbeidsmiljo-ingress'
                         langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
                       />
-                      <RadioGruppe
+                      <RadioGroup
                         legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
                         className='gravidside-radiogruppe-tilrettelegging'
+                        onChange={(val: any) => handleTilretteleggingChange(val)}
                       >
-                        <Radio
-                          label={t(LangKey.JA)}
-                          name='sitteplass'
-                          value='ja'
-                          defaultChecked={state.tilrettelegge === true}
-                          onClick={() =>
-                            dispatch({
-                              type: Actions.Tilrettelegge,
-                              payload: { tilrettelegge: true }
-                            })
-                          }
-                        />
-                        <Radio
-                          label={t(LangKey.NEI)}
-                          name='sitteplass'
-                          value='nei'
-                          defaultChecked={state.tilrettelegge === false}
-                          onClick={() =>
-                            dispatch({
-                              type: Actions.Tilrettelegge,
-                              payload: { tilrettelegge: false }
-                            })
-                          }
-                        />
-                      </RadioGruppe>
+                        <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
+                          {t(LangKey.JA)}
+                        </Radio>
+                        <Radio name='sitteplass' value='nei' defaultChecked={state.tilrettelegge === false}>
+                          {t(LangKey.NEI)}
+                        </Radio>
+                      </RadioGroup>
                     </SkjemaGruppe>
                   </Column>
                 </Row>
@@ -325,12 +314,14 @@ const GravidSide = (props: GravidSideProps) => {
                   </Row>
                   <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
                     <div className='gravid-side-radiogruppe-omplassering'>
-                      <RadioGruppe legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_TITTEL)}>
+                      <RadioGroup
+                        legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_TITTEL)}
+                        defaultValue={state.omplassering}
+                      >
                         {OmplasseringCheckboxes.map((a) => {
                           return (
                             <Radio
                               key={a.value}
-                              label={t(a.label)}
                               name='omplassering'
                               onChange={() =>
                                 dispatch({
@@ -338,17 +329,22 @@ const GravidSide = (props: GravidSideProps) => {
                                   payload: { omplasseringForsoek: a.value }
                                 })
                               }
-                              checked={state.omplassering === a.value}
-                            />
+                              value={a.value}
+                            >
+                              {t(a.label)}
+                            </Radio>
                           );
                         })}
 
-                        <RadioGruppe className='gravideside-radiogruppe-indentert'>
+                        <RadioGroup
+                          className='gravideside-radiogruppe-indentert'
+                          defaultValue={state.omplasseringAarsak}
+                          legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK)}
+                        >
                           {AarsakCheckboxes.map((a) => {
                             return (
                               <Radio
                                 key={a.value}
-                                label={t(a.label)}
                                 name='omplassering-umulig'
                                 onChange={() =>
                                   dispatch({
@@ -357,12 +353,14 @@ const GravidSide = (props: GravidSideProps) => {
                                   })
                                 }
                                 disabled={state.omplassering !== Omplassering.IKKE_MULIG}
-                                checked={state.omplasseringAarsak === a.value}
-                              />
+                                value={a.value}
+                              >
+                                {t(a.label)}
+                              </Radio>
                             );
                           })}
-                        </RadioGruppe>
-                      </RadioGruppe>
+                        </RadioGroup>
+                      </RadioGroup>
                     </div>
                   </SkjemaGruppe>
                 </Panel>

@@ -220,7 +220,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   await t
-    .click(Selector('label').withText('Omplassering er ikke mulig - oppgi årsak:'))
+    .click(Selector('label').withText('Omplassering er ikke mulig'))
     .expect(ReactSelector('Feiloppsummering').withText('Velg årsak til at omplassering ikke er mulig').visible)
     .ok()
     .click(Selector('label').withText('Vi får ikke kontakt med den ansatte'))
