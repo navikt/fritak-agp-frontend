@@ -185,7 +185,7 @@ const GravidSide = (props: GravidSideProps) => {
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
                     <Column md='3' xs='12'>
-                      <Heading size='medium' className='textfelt-padding-bottom'>
+                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                         {t(LangKey.DEN_ANSATTE)}
                       </Heading>
                       <Fnr
@@ -204,7 +204,7 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Heading size='medium' className='textfelt-padding-bottom'>
+                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                         &nbsp;
                       </Heading>
                       <DatoVelger
@@ -224,7 +224,7 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Heading size='medium' className='textfelt-padding-bottom'>
+                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                         {t(LangKey.ARBEIDSGIVEREN)}
                       </Heading>
                       <Orgnr
@@ -249,7 +249,7 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel className='gravidside-panel-arbeidssituasjon'>
                 <Row>
                   <Column sm='8' xs='12'>
-                    <Heading size='medium' className='textfelt-padding-bottom'>
+                    <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                       {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
                     </Heading>
                     <SkjemaGruppe>
@@ -404,7 +404,7 @@ const GravidSide = (props: GravidSideProps) => {
                   <Skillelinje />
 
                   <Panel>
-                    <Heading size='medium' className='textfelt-padding-bottom'>
+                    <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                       {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
                     </Heading>
                     <SkjemaGruppe

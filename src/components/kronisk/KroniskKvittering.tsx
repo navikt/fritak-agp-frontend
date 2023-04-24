@@ -30,7 +30,7 @@ const KroniskKvittering = () => {
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
-          <Heading size='xlarge'>
+          <Heading size='xlarge' level='1'>
             Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom
           </Heading>
         </Panel>
@@ -45,7 +45,9 @@ const KroniskKvittering = () => {
         </Panel>
 
         <Panel>
-          <Heading size='small'>Detaljer fra søknaden:</Heading>
+          <Heading size='small' level='4'>
+            Detaljer fra søknaden:
+          </Heading>
           <BodyLong className='luft-under'>Navn: {navn}</BodyLong>
           <BodyLong className='luft-under'>
             <Dokumentasjon harVedlegg={harVedlegg} />

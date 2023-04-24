@@ -23,7 +23,9 @@ const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
-          <Heading size='xlarge'>{t(KravKvitteringSlettetKeys.KRAV_KVITTERING_SLETTET_TITTEL)}</Heading>
+          <Heading size='xlarge' level='1'>
+            {t(KravKvitteringSlettetKeys.KRAV_KVITTERING_SLETTET_TITTEL)}
+          </Heading>
         </Panel>
 
         <Panel>

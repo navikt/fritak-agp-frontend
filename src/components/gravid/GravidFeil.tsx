@@ -9,7 +9,9 @@ const GravidFeil = () => {
 
   return (
     <Panel>
-      <Heading size='small'>{t(LangKey.DET_OPPSTOD_EN_FEIL)}</Heading>
+      <Heading size='small' level='4'>
+        {t(LangKey.DET_OPPSTOD_EN_FEIL)}
+      </Heading>
     </Panel>
   );
 };

@@ -31,7 +31,9 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
           <Panel className='notifikasjon-innhold__hvit'>
             <Row>
               <Column>
-                <Heading size='large'>{props.title}</Heading>
+                <Heading size='large' level='2'>
+                  {props.title}
+                </Heading>
                 <BodyLong>{dayjs(props.dato).format('DD.MM.YYYY')}</BodyLong>
               </Column>
             </Row>

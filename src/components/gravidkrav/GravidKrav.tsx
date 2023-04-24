@@ -264,7 +264,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             </>
           )}
           <Panel id='gravidkrav-panel-den-ansatte'>
-            <Heading size='medium' className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(LangKey.DEN_ANSATTE)}
             </Heading>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
@@ -300,7 +300,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
-            <Heading size='medium' className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
             </Heading>
             <Ingress tag='span' className='textfelt-padding-bottom'>

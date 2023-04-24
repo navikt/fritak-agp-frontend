@@ -269,7 +269,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           )}
 
           <Panel id='kroniskkrav-panel-den-ansatte'>
-            <Heading size='medium' className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
             </Heading>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
@@ -304,7 +304,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Skillelinje />
 
           <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
-            <Heading size='medium' className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
             </Heading>
             <Ingress tag='span' className='textfelt-padding-bottom'>

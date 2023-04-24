@@ -23,7 +23,9 @@ const KravKvittering = (props: KravKvitteringProps) => {
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
-          <Heading size='xlarge'>{t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}</Heading>
+          <Heading size='xlarge' level='1'>
+            {t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}
+          </Heading>
         </Panel>
 
         <Panel>

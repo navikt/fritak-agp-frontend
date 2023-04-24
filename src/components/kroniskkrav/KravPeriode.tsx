@@ -162,7 +162,9 @@ const KravPeriode = (props: KravPeriodeProps) => {
               className='krav-padding-hjelpetekst'
               title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}
             >
-              <Heading size='medium'>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</Heading>
+              <Heading size='medium' level='3'>
+                {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}
+              </Heading>
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
             </Hjelpetekst>
           </Label>
@@ -191,7 +193,9 @@ const KravPeriode = (props: KravPeriodeProps) => {
           <Label htmlFor={`sykemeldingsgrad-${props.index}`}>
             Sykemeldingsgrad
             <Hjelpetekst className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
-              <Heading size='medium'>Gradert sykmelding</Heading>
+              <Heading size='medium' level='3'>
+                Gradert sykmelding
+              </Heading>
               Sykmeldingsgrad, minimum 20%
             </Hjelpetekst>
           </Label>

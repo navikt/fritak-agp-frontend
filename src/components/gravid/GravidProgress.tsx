@@ -10,7 +10,9 @@ const GravidProgress = () => {
 
   return (
     <Panel>
-      <Heading size='small'>{t(GravidKvitteringKeys.GRAVID_KVITTERING_SENDER_INN)}</Heading>
+      <Heading size='small' level='4'>
+        {t(GravidKvitteringKeys.GRAVID_KVITTERING_SENDER_INN)}
+      </Heading>
       <BodyLong>{t(GravidKvitteringKeys.GRAVID_KVITTERING_VENNLIGST_VENT)}</BodyLong>
       <NavFrontendSpinner />
     </Panel>

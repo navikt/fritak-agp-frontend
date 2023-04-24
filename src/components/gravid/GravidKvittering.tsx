@@ -33,7 +33,7 @@ const GravidKvittering = () => {
   return (
     <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering' bedriftsmeny={false}>
       <Panel>
-        <Heading size='xlarge'>
+        <Heading size='xlarge' level='1'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_TITTEL} />
         </Heading>
       </Panel>
@@ -45,7 +45,9 @@ const GravidKvittering = () => {
       </Panel>
 
       <Panel>
-        <Heading size='small'>Detaljer fra søknaden:</Heading>
+        <Heading size='small' level='4'>
+          Detaljer fra søknaden:
+        </Heading>
         <BodyLong className='luft-under'>Navn: {navn}</BodyLong>
         <BodyLong className='luft-under'>
           Tilrettelegging av arbeidsdagen {tilrettelegge ? 'er' : 'er ikke'} forsøkt

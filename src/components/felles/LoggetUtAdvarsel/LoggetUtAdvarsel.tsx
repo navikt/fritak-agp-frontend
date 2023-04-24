@@ -34,7 +34,9 @@ const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
       shouldCloseOnOverlayClick={false}
     >
       <Alert variant='warning' className='logget-ut-advarsel__innhold'>
-        <Heading size='large'>Du er blitt logget ut, følg instruksjonene for ikke å miste data</Heading>
+        <Heading size='large' level='2'>
+          Du er blitt logget ut, følg instruksjonene for ikke å miste data
+        </Heading>
         <ul>
           <li>Ikke lukk dette vinduet</li>
           <li>

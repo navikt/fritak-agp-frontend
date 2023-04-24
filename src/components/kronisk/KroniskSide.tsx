@@ -139,7 +139,7 @@ const KroniskSide = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
-                  <Heading size='medium' className='textfelt-padding-bottom'>
+                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                     {t(LangKey.DEN_ANSATTE)}
                   </Heading>
                   <Fnr
@@ -153,7 +153,7 @@ const KroniskSide = () => {
                   />
                 </Column>
                 <Column sm='4' xs='6'>
-                  <Heading size='medium' className='textfelt-padding-bottom'>
+                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                     {t(LangKey.ARBEIDSGIVEREN)}
                   </Heading>
                   <Orgnr
@@ -176,7 +176,7 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Heading size='medium' className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
             </Heading>
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
@@ -196,7 +196,7 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Heading size='medium' className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
             </Heading>
             <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaertabell' aria-live='polite'>

@@ -12,7 +12,11 @@ export default function SelectEndring(props: SelectEndringProps) {
   return (
     <Select
       id='select-endring-dropdown'
-      label={<Heading size='medium'>Årsak til endring</Heading>}
+      label={
+        <Heading size='medium' level='3'>
+          Årsak til endring
+        </Heading>
+      }
       onChange={props.onChange}
       feil={props.feil}
     >
