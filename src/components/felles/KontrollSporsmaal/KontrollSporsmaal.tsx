@@ -1,10 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import { Input, Label } from 'nav-frontend-skjema';
-import { Feilmelding } from 'nav-frontend-typografi';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import './KontrollSporsmaal.scss';
-import { BodyLong } from '@navikt/ds-react';
+import { BodyLong, ErrorMessage } from '@navikt/ds-react';
 
 export enum KontrollSporsmaalKeys {
   KONTROLLSPORSMAL_DAGER_LABEL = 'KONTROLLSPORSMAL_DAGER_LABEL',
@@ -49,7 +48,7 @@ const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsma
       </BodyLong>
       {!!feil && (
         <div className='skjemaelement__feilmelding'>
-          <Feilmelding className=''>{feil}</Feilmelding>
+          <ErrorMessage>{feil}</ErrorMessage>
         </div>
       )}
     </div>
