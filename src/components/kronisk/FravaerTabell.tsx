@@ -20,7 +20,7 @@ const FravaerTabell = (props: DagerTabellProps) => {
   const thisYear = years[years.length - 1];
   const thisMonth = new Date().getMonth();
   return (
-    <table className='tabell tabell--stripet tabell--border fravaer-tabell'>
+    <table className='tabell tabell--stripet tabell--border fravaer-tabell' id='fravaer'>
       <thead>
         <tr key={'years-header'}>
           {years.map((year) => (

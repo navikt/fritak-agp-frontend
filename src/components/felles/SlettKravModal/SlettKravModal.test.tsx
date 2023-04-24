@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import SlettKravModal from './SlettKravModal';
@@ -27,8 +27,8 @@ describe('SlettKravModal', () => {
       </div>
     );
 
-    const neiButton = screen.getByText('Nei', { selector: 'button' });
-    userEvent.click(neiButton);
+    const neiButton = screen.getByText(/Nei/);
+    fireEvent.click(neiButton);
 
     expect(onCloseMock).toBeCalled();
   });
@@ -43,10 +43,10 @@ describe('SlettKravModal', () => {
       </div>
     );
 
-    const jaButton = screen.getByText('Ja', { selector: 'button' });
+    const button = screen.getByText(/Ja/);
 
-    userEvent.click(jaButton);
+    fireEvent.click(button);
 
-    expect(onOKClickedMock).toBeCalled();
+    expect(onOKClickedMock).toHaveBeenCalled();
   });
 });

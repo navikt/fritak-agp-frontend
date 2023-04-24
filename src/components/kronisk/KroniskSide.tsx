@@ -11,7 +11,6 @@ import KroniskReducer from './KroniskReducer';
 import { Actions, KroniskAction } from './Actions';
 import getBase64file from '../../utils/getBase64File';
 import FravaerTabell from './FravaerTabell';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
@@ -35,6 +34,7 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '@navikt/ds-react';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
@@ -193,7 +193,7 @@ const KroniskSide = () => {
 
           <Panel>
             <Systemtittel className='textfelt-padding-bottom'>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
-            <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
+            <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaertabell' aria-live='polite'>
               <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
 
               <FravaerTabell
@@ -263,9 +263,9 @@ const KroniskSide = () => {
           <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
           <Panel>
-            <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
+            <Button onClick={handleSubmit} loading={state.progress}>
               {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
-            </Hovedknapp>
+            </Button>
           </Panel>
         </Column>
         {state.notAuthorized && (

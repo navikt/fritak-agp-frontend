@@ -47,7 +47,7 @@ fixture`Gravid - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/krav?bedr
 
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send krav'))
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Mangler fødselsnummer')
@@ -217,7 +217,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Kravet er mottatt');
+  await t
+    .click(Selector('button').withText('Send krav'))
+    .expect(Selector('html').textContent)
+    .contains('Kravet er mottatt');
 });
 
 test('Legg til og fjern perioder', async (t) => {
@@ -229,7 +232,7 @@ test('Legg til og fjern perioder', async (t) => {
     .ok();
 
   await t
-    .click(ReactSelector('Fareknapp').withText('Slett'))
+    .click(Selector('button').withText('Slett'))
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').with({ timeout: 100 }).visible)

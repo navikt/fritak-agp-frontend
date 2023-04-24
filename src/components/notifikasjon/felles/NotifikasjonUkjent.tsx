@@ -1,4 +1,8 @@
 import React from 'react';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 
-export const NotifikasjonUkjent = () => <AlertStripeInfo className='notifikasjon__ukjent'>Fant ikke</AlertStripeInfo>;
+export const NotifikasjonUkjent = () => (
+  <Alert variant='info' className='notifikasjon__ukjent'>
+    Fant ikke
+  </Alert>
+);

@@ -62,7 +62,7 @@ fixture`Kronisk - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/sokn
 
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Mangler fødselsnummer')
@@ -179,7 +179,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(Selector('html').textContent)
     .contains('Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom');
 });
