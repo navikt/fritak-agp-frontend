@@ -1,7 +1,6 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
@@ -41,7 +40,7 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Alert, BodyLong, Button, Heading, RadioGroup, Radio } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Heading, Ingress, RadioGroup, Radio } from '@navikt/ds-react';
 import '@navikt/ds-css';
 import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 

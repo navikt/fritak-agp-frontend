@@ -1,5 +1,4 @@
 import React, { Reducer, useEffect, useReducer, useState } from 'react';
-import { Ingress } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
@@ -47,7 +46,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading } from '@navikt/ds-react';
+import { Button, Heading, Ingress } from '@navikt/ds-react';
 import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 const buildReducer =
@@ -307,7 +306,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
             </Heading>
-            <Ingress tag='span' className='textfelt-padding-bottom'>
+            <Ingress as='span' className='textfelt-padding-bottom'>
               <>
                 {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
                 <Hjelpetekst className='krav-padding-hjelpetekst'>
