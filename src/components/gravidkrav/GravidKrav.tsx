@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, Reducer, useState } from 'react';
-import { Ingress, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
@@ -47,7 +47,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button } from '@navikt/ds-react';
+import { Button, Heading } from '@navikt/ds-react';
 import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 export const GravidKrav = (props: GravidKravProps) => {
@@ -264,7 +264,9 @@ export const GravidKrav = (props: GravidKravProps) => {
             </>
           )}
           <Panel id='gravidkrav-panel-den-ansatte'>
-            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
+            <Heading size='medium' className='textfelt-padding-bottom'>
+              {t(LangKey.DEN_ANSATTE)}
+            </Heading>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
@@ -298,9 +300,9 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='textfelt-padding-bottom'>
+            <Heading size='medium' className='textfelt-padding-bottom'>
               {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
-            </Systemtittel>
+            </Heading>
             <Ingress tag='span' className='textfelt-padding-bottom'>
               <>
                 {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}

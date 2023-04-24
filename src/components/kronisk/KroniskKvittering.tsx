@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
@@ -14,7 +13,7 @@ import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Fravaersdager from '../notifikasjon/kronisk/soknad/Fravaersdager';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
-import { Alert } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading } from '@navikt/ds-react';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
@@ -31,36 +30,36 @@ const KroniskKvittering = () => {
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
-          <Sidetittel>
+          <Heading size='xlarge'>
             Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom
-          </Sidetittel>
+          </Heading>
         </Panel>
 
         <Panel>
-          <Normaltekst>
+          <BodyLong>
             En kopi av kvittering er også sendt til meldingsboksen deres i{' '}
             <Lenke href='https://www.altinn.no'>Altinn</Lenke>. Meldingen er kun synlig for for de som har tilgang til å
             sende inntektsmelding i altinn. Den ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte
             oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.
-          </Normaltekst>
+          </BodyLong>
         </Panel>
 
         <Panel>
-          <Undertittel>Detaljer fra søknaden:</Undertittel>
-          <Normaltekst className='luft-under'>Navn: {navn}</Normaltekst>
-          <Normaltekst className='luft-under'>
+          <Heading size='small'>Detaljer fra søknaden:</Heading>
+          <BodyLong className='luft-under'>Navn: {navn}</BodyLong>
+          <BodyLong className='luft-under'>
             <Dokumentasjon harVedlegg={harVedlegg} />
-          </Normaltekst>
-          <Normaltekst className='luft-under'>
+          </BodyLong>
+          <BodyLong className='luft-under'>
             <Fravaersdager maanedsfravaer={fravaer} />
-          </Normaltekst>
+          </BodyLong>
           <SoknadMottatt className='luft-under' mottatt={opprettet} />
-          <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
+          <BodyLong>Innrapportert av: {sendtAvNavn}</BodyLong>
         </Panel>
         <Panel className='skjul-fra-print'>
-          <Normaltekst>
+          <BodyLong>
             Du kan skrive ut eller lagre kvitteringen ved å klikke på knappen &quot;Skriv ut kvittering&quot;.
-          </Normaltekst>
+          </BodyLong>
         </Panel>
         <Panel>
           <Alert variant='info'>

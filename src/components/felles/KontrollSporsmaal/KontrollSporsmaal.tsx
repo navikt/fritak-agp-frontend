@@ -1,9 +1,10 @@
 import { v4 as uuid } from 'uuid';
 import { Input, Label } from 'nav-frontend-skjema';
-import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
+import { Feilmelding } from 'nav-frontend-typografi';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import './KontrollSporsmaal.scss';
+import { BodyLong } from '@navikt/ds-react';
 
 export enum KontrollSporsmaalKeys {
   KONTROLLSPORSMAL_DAGER_LABEL = 'KONTROLLSPORSMAL_DAGER_LABEL',
@@ -37,7 +38,7 @@ const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsma
         defaultValue={defaultValue}
         autoComplete='off'
       />
-      <Normaltekst className='kontrollsporsmaal-lonn-forklaring '>
+      <BodyLong className='kontrollsporsmaal-lonn-forklaring '>
         <>
           {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING)}
           <a href='/fritak-agp/nb/eksemplerlonnsdager' target='_blank'>
@@ -45,7 +46,7 @@ const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsma
           </a>
           {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING_SLUTT)}
         </>
-      </Normaltekst>
+      </BodyLong>
       {!!feil && (
         <div className='skjemaelement__feilmelding'>
           <Feilmelding className=''>{feil}</Feilmelding>

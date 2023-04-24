@@ -5,7 +5,7 @@ import NotifikasjonType from './NotifikasjonType';
 import Panel from 'nav-frontend-paneler';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { BodyLong, Heading } from '@navikt/ds-react';
 
 interface NotifikasjonInnholdProps {
   children: any;
@@ -31,8 +31,8 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
           <Panel className='notifikasjon-innhold__hvit'>
             <Row>
               <Column>
-                <Innholdstittel>{props.title}</Innholdstittel>
-                <Normaltekst>{dayjs(props.dato).format('DD.MM.YYYY')}</Normaltekst>
+                <Heading size='large'>{props.title}</Heading>
+                <BodyLong>{dayjs(props.dato).format('DD.MM.YYYY')}</BodyLong>
               </Column>
             </Row>
 

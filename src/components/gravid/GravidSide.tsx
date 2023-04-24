@@ -1,7 +1,7 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress } from 'nav-frontend-typografi';
 import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
@@ -41,7 +41,7 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Alert, Button, RadioGroup, Radio } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Heading, RadioGroup, Radio } from '@navikt/ds-react';
 import '@navikt/ds-css';
 import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
@@ -185,7 +185,9 @@ const GravidSide = (props: GravidSideProps) => {
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
                     <Column md='3' xs='12'>
-                      <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
+                      <Heading size='medium' className='textfelt-padding-bottom'>
+                        {t(LangKey.DEN_ANSATTE)}
+                      </Heading>
                       <Fnr
                         id='fnr'
                         label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -202,7 +204,9 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Systemtittel className='textfelt-padding-bottom'>&nbsp;</Systemtittel>
+                      <Heading size='medium' className='textfelt-padding-bottom'>
+                        &nbsp;
+                      </Heading>
                       <DatoVelger
                         className='termindato'
                         id='termindato'
@@ -220,7 +224,9 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
+                      <Heading size='medium' className='textfelt-padding-bottom'>
+                        {t(LangKey.ARBEIDSGIVEREN)}
+                      </Heading>
                       <Orgnr
                         label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                         orgnr={state.orgnr}
@@ -243,9 +249,9 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel className='gravidside-panel-arbeidssituasjon'>
                 <Row>
                   <Column sm='8' xs='12'>
-                    <Systemtittel className='textfelt-padding-bottom'>
+                    <Heading size='medium' className='textfelt-padding-bottom'>
                       {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
-                    </Systemtittel>
+                    </Heading>
                     <SkjemaGruppe>
                       <Oversettelse
                         className='arbeidsmiljo-ingress'
@@ -370,7 +376,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Skillelinje />
                     <Panel className='gravidside-panel-alert-gravid'>
                       <Alert className='gravidside-alert-gravid' variant='warning'>
-                        <Normaltekst>
+                        <BodyLong>
                           <>
                             {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
                             <button
@@ -386,7 +392,7 @@ const GravidSide = (props: GravidSideProps) => {
                             </button>
                             {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
                           </>
-                        </Normaltekst>
+                        </BodyLong>
                       </Alert>
                     </Panel>
                   </>
@@ -398,9 +404,9 @@ const GravidSide = (props: GravidSideProps) => {
                   <Skillelinje />
 
                   <Panel>
-                    <Systemtittel className='textfelt-padding-bottom'>
+                    <Heading size='medium' className='textfelt-padding-bottom'>
                       {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
-                    </Systemtittel>
+                    </Heading>
                     <SkjemaGruppe
                       feil={state.dokumentasjonError}
                       feilmeldingId='dokumentasjonFeilmeldingId'

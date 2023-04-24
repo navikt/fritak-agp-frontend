@@ -1,7 +1,7 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress } from 'nav-frontend-typografi';
 import { Checkbox, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
@@ -33,7 +33,7 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '@navikt/ds-react';
+import { BodyLong, Button, Heading } from '@navikt/ds-react';
 import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 const buildReducer =
@@ -139,7 +139,9 @@ const KroniskSide = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
-                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
+                  <Heading size='medium' className='textfelt-padding-bottom'>
+                    {t(LangKey.DEN_ANSATTE)}
+                  </Heading>
                   <Fnr
                     id='fnr'
                     label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -151,7 +153,9 @@ const KroniskSide = () => {
                   />
                 </Column>
                 <Column sm='4' xs='6'>
-                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
+                  <Heading size='medium' className='textfelt-padding-bottom'>
+                    {t(LangKey.ARBEIDSGIVEREN)}
+                  </Heading>
                   <Orgnr
                     label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                     orgnr={state.orgnr}
@@ -172,9 +176,9 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>
+            <Heading size='medium' className='textfelt-padding-bottom'>
               {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
-            </Systemtittel>
+            </Heading>
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
               <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
               <Upload
@@ -192,7 +196,9 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
+            <Heading size='medium' className='textfelt-padding-bottom'>
+              {t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
+            </Heading>
             <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaertabell' aria-live='polite'>
               <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
 
@@ -232,9 +238,9 @@ const KroniskSide = () => {
                 });
               }}
             />
-            <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
+            <BodyLong className='kontrollsporsmaal-lonn-forklaring'>
               {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_TEXT)}
-            </Normaltekst>
+            </BodyLong>
 
             <Checkbox
               className='checkbox-unntak'

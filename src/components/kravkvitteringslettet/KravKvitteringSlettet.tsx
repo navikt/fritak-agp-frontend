@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Normaltekst, Sidetittel } from 'nav-frontend-typografi';
 import Lenke from 'nav-frontend-lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { Language, Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-
 import KravKvitteringSlettetKeys from './KravKvitteringSlettetKeys';
 import { Link, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
+import { BodyLong, Heading } from '@navikt/ds-react';
 
 interface KravKvitteringSlettetProps {
   backTarget: lenker;
@@ -23,7 +23,7 @@ const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
-          <Sidetittel>{t(KravKvitteringSlettetKeys.KRAV_KVITTERING_SLETTET_TITTEL)}</Sidetittel>
+          <Heading size='xlarge'>{t(KravKvitteringSlettetKeys.KRAV_KVITTERING_SLETTET_TITTEL)}</Heading>
         </Panel>
 
         <Panel>
@@ -31,12 +31,12 @@ const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
         </Panel>
 
         <Panel>
-          <Normaltekst>
+          <BodyLong>
             <Link to={backTarget}>{t(KravKvitteringSlettetKeys.KRAV_KVITTERING_SLETTET_OPPRETT_NYTT_KRAV)}</Link>
-          </Normaltekst>
-          <Normaltekst>
+          </BodyLong>
+          <BodyLong>
             <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
-          </Normaltekst>
+          </BodyLong>
         </Panel>
       </Row>
     </Side>

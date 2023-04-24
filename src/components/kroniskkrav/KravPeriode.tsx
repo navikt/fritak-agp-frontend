@@ -2,7 +2,6 @@ import { datoToString, DatoVelger, Oversettelse, stringishToNumber } from '@navi
 import dayjs from 'dayjs';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Input, Label } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
@@ -12,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
 import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../config/konstanter';
-import { Button } from '@navikt/ds-react';
+import { Button, Heading } from '@navikt/ds-react';
 import '@navikt/ds-css';
 
 interface KravPeriodeProps {
@@ -163,7 +162,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               className='krav-padding-hjelpetekst'
               title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}
             >
-              <Systemtittel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</Systemtittel>
+              <Heading size='medium'>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</Heading>
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
             </Hjelpetekst>
           </Label>
@@ -192,7 +191,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           <Label htmlFor={`sykemeldingsgrad-${props.index}`}>
             Sykemeldingsgrad
             <Hjelpetekst className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
-              <Systemtittel>Gradert sykmelding</Systemtittel>
+              <Heading size='medium'>Gradert sykmelding</Heading>
               Sykmeldingsgrad, minimum 20%
             </Hjelpetekst>
           </Label>

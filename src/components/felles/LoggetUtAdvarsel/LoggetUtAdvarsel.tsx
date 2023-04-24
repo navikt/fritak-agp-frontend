@@ -1,10 +1,9 @@
 import React from 'react';
 import ModalWrapper from 'nav-frontend-modal';
-import { Innholdstittel } from 'nav-frontend-typografi';
 import { InternLenke, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import injectRedirectPath from '../../../utils/injectRedirectPath';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
 
 interface LoggetUtAdvarselInterface {
   onClose: any;
@@ -35,7 +34,7 @@ const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
       shouldCloseOnOverlayClick={false}
     >
       <Alert variant='warning' className='logget-ut-advarsel__innhold'>
-        <Innholdstittel>Du er blitt logget ut, følg instruksjonene for ikke å miste data</Innholdstittel>
+        <Heading size='large'>Du er blitt logget ut, følg instruksjonene for ikke å miste data</Heading>
         <ul>
           <li>Ikke lukk dette vinduet</li>
           <li>

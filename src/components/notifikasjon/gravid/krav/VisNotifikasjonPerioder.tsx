@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
 import KravPeriode from '../../../../api/gravidkrav/KravPeriode';
+import { BodyLong } from '@navikt/ds-react';
 
 const formaterDato = (dato: string) => {
   return dayjs(dato).format('DD.MM.YY');
@@ -16,9 +16,9 @@ const VisNotifikasjonPerioder = ({ perioder }: VisNotifikasjonPerioderProps) => 
     <>
       {perioder.length > 1 ? (
         perioder.map((periode) => (
-          <Normaltekst key={periode.fom}>
+          <BodyLong key={periode.fom}>
             {formaterDato(periode.fom)} - {formaterDato(periode.tom)}.
-          </Normaltekst>
+          </BodyLong>
         ))
       ) : (
         <>
