@@ -3,7 +3,6 @@ import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
@@ -49,6 +48,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
+import { Button } from '@navikt/ds-react';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -64,6 +64,11 @@ export const KroniskKrav = (props: KroniskKravProps) => {
   const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    document.title =
+      'Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no';
+  }, []);
 
   const dispatchResponse = (response: ValidationResponse<KroniskKravResponse>) => {
     dispatch({
@@ -317,6 +322,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   lonnspliktDager={state.antallDager}
                   key={enkeltPeriode.uniqueKey}
                   slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
+                  Actions={Actions}
                 />
               ))}
               <Row>
@@ -344,26 +350,27 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
           <Panel>
-            <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
+            <Button onClick={handleSubmitClicked} loading={state.progress}>
               {state.endringskrav ? (
                 <>{t(KroniskKravKeys.KRONISK_KRAV_ENDRE)}</>
               ) : (
                 <>{t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}</>
               )}
-            </Hovedknapp>
+            </Button>
             {state.endringskrav && (
               <>
-                <Knapp onClick={handleCancleClicked} className='avbrytknapp'>
+                <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
                   Avbryt
-                </Knapp>
-                <Fareknapp
+                </Button>
+                <Button
+                  variant='danger'
                   onClick={handleDeleteClicked}
                   className='sletteknapp'
-                  spinner={state.progress}
+                  loading={state.progress}
                   disabled={state.formDirty}
                 >
                   Slett krav
-                </Fareknapp>
+                </Button>
               </>
             )}
           </Panel>

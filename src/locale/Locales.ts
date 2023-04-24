@@ -202,8 +202,12 @@ const Locales: Record<
     en: 'Submit application'
   },
   GRAVID_SIDE_OMPLASSERING_IKKE_MULIG: {
-    nb: 'Omplassering er ikke mulig - oppgi årsak:',
-    en: 'Relocation is not possible - state reason:'
+    nb: 'Omplassering er ikke mulig',
+    en: 'Relocation is not possible'
+  },
+  GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK: {
+    nb: '- oppgi årsak:',
+    en: '- state reason:'
   },
   GRAVID_SIDE_OMPLASSERING_MOTSETTER_SEG: {
     nb: 'Den ansatte ønsker ikke omplassering',
@@ -369,6 +373,10 @@ const Locales: Record<
       '--From and including the first to and including the last day of absence in the employer period.\n' +
       '--You must choose _both_ the first and last day. If the absence is only for one day, you choose the same day twice.\n' +
       '##-'
+  },
+  GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL: {
+    nb: 'Hva menes med virksomhetsnummer',
+    en: 'What is meant by business number'
   },
   GRAVID_KRAV_DAGER_ANTALL: {
     nb: 'Antall dager',
@@ -627,6 +635,10 @@ const Locales: Record<
     nb: 'Slik finner dere beløpet dere kan kreve:',
     en: "Here's how to find the amount you can claim:"
   },
+  KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL: {
+    nb: 'Hvordan finner dere beløpet dere kan kreve.',
+    en: 'How to find the amount you can claim.'
+  },
   KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST: {
     nb:
       '-##' +
@@ -657,6 +669,10 @@ const Locales: Record<
     nb: 'Antall dager',
     en: 'Number of days'
   },
+  KRONISK_KRAV_PERIODE_DAGER_TITTEL: {
+    nb: 'Antall dager det kreves refusjon for.',
+    en: 'Number of days for which reimbursement is claimed.'
+  },
   KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST: {
     nb: 'Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.',
     en: 'Weekends and public holidays can be included if they are part of the regular working hours.'
@@ -664,6 +680,10 @@ const Locales: Record<
   KRONISK_KRAV_PERIODE_BEREGNET_LABEL: {
     nb: 'Foreløpig beregnet refusjon',
     en: 'Preliminary calculated refund'
+  },
+  KRONISK_KRAV_PERIODE_BEREGNET_TITTEL: {
+    nb: 'Beskrivelse av foreløpig beregnet refusjon',
+    en: 'Description of preliminary calculated refund'
   },
   KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST: {
     nb:
@@ -684,6 +704,10 @@ const Locales: Record<
   KONTROLLSPORSMAL_DAGER_FORKLARING_HREF: {
     nb: 'eksempler se her',
     en: 'examples see here'
+  },
+  KONTROLLSPORSMAL_DAGER_FORKLARING_SLUTT: {
+    nb: ')',
+    en: ')'
   },
   KRAV_KVITTERING_TITTEL: {
     nb: 'Kravet er mottatt',
@@ -833,6 +857,10 @@ const Locales: Record<
   ORGNR_HJELPETEKST: {
     nb: 'Vi spør etter virksomhetsnummer. Virksomhetsnummer er organisasjonsnummeret til underenheten som den opplysningspliktige driver.',
     en: 'We ask for company number. Company number is the organization number for the subunit.'
+  },
+  ORGNR_HJELPETEKST_TITTEL: {
+    nb: 'Hva menes med virksomhetsnummer?',
+    en: 'What do we think of by company number?'
   },
   SOKNADSSKJEMA: {
     nb: 'Søknadsskjema',

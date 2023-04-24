@@ -6,14 +6,14 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
-import { Actions } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
-import { Fareknapp } from 'nav-frontend-knapper';
 import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../config/konstanter';
+import { Button } from '@navikt/ds-react';
+import '@navikt/ds-css';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -21,15 +21,17 @@ interface KravPeriodeProps {
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
+  Actions: any;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
   const dispatch = props.dispatch;
 
+  const Actions = props.Actions;
   const fjernPeriode = (itemId: string): void => {
     dispatch({
-      type: Actions.DeletePeriod,
+      type: Actions.DeletePeriode,
       payload: {
         itemId
       }
@@ -134,7 +136,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div className='antall-dager'>
           <Label htmlFor={`dager-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
-            <Hjelpetekst className='krav-padding-hjelpetekst'>
+            <Hjelpetekst className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL)}>
               {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
             </Hjelpetekst>
           </Label>
@@ -157,7 +159,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div className='periode-elementer'>
           <Label htmlFor={`belop-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TEXT)}
-            <Hjelpetekst className='krav-padding-hjelpetekst'>
+            <Hjelpetekst
+              className='krav-padding-hjelpetekst'
+              title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}
+            >
               <Systemtittel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</Systemtittel>
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
             </Hjelpetekst>
@@ -186,8 +191,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div>
           <Label htmlFor={`sykemeldingsgrad-${props.index}`}>
             Sykemeldingsgrad
-            <Hjelpetekst className='krav-padding-hjelpetekst'>
-              <Systemtittel>Gradert sykemelding</Systemtittel>
+            <Hjelpetekst className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
+              <Systemtittel>Gradert sykmelding</Systemtittel>
               Sykmeldingsgrad, minimum 20%
             </Hjelpetekst>
           </Label>
@@ -212,7 +217,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div>
           <Label htmlFor={`belop-${props.index}`}>
             {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
-            <Hjelpetekst className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'>
+            <Hjelpetekst
+              className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
+              title={t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL)}
+            >
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
             </Hjelpetekst>
           </Label>
@@ -222,9 +230,13 @@ const KravPeriode = (props: KravPeriodeProps) => {
         </div>
         {props.slettbar && (
           <div className='slett-periode-wrapper'>
-            <Fareknapp onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)} className='slett-periode'>
+            <Button
+              variant='danger'
+              onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)}
+              className='slett-periode'
+            >
               Slett
-            </Fareknapp>
+            </Button>
           </div>
         )}
       </div>

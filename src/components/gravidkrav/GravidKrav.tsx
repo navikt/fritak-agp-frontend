@@ -3,7 +3,6 @@ import { Ingress, Systemtittel } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -14,7 +13,6 @@ import GravidKravProps from './GravidKravProps';
 import GravidKravReducer, { MAX_PERIODER } from './GravidKravReducer';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { Actions, GravidKravAction } from './Actions';
-import getBase64file from '../../utils/getBase64File';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
@@ -30,7 +28,6 @@ import {
   Fnr,
   Skillelinje,
   useArbeidsgiver,
-  Upload,
   HttpStatus,
   ServerFeilAdvarsel,
   Language
@@ -51,6 +48,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
+import { Button } from '@navikt/ds-react';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -65,6 +63,10 @@ export const GravidKrav = (props: GravidKravProps) => {
   const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language, idKrav } = useParams();
+
+  useEffect(() => {
+    document.title = 'Krav om refusjon av sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
+  }, []);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -99,27 +101,6 @@ export const GravidKrav = (props: GravidKravProps) => {
       type: Actions.EndringsAarsak,
       payload: {
         endringsAarsak: aarsak
-      }
-    });
-  };
-
-  const handleUploadChanged = (file?: File) => {
-    if (file) {
-      getBase64file(file).then((base64encoded: any) => {
-        dispatch({
-          type: Actions.Dokumentasjon,
-          payload: {
-            dokumentasjon: base64encoded
-          }
-        });
-      });
-    }
-  };
-  const handleDelete = () => {
-    dispatch({
-      type: Actions.Dokumentasjon,
-      payload: {
-        dokumentasjon: undefined
       }
     });
   };
@@ -185,7 +166,6 @@ export const GravidKrav = (props: GravidKravProps) => {
             state.fnr,
             state.orgnr,
             state.perioder,
-            state.dokumentasjon,
             state.bekreft,
             state.antallDager,
             state.endringsAarsak!
@@ -196,14 +176,7 @@ export const GravidKrav = (props: GravidKravProps) => {
       } else {
         postGravidKrav(
           environment.baseUrl,
-          mapGravidKravRequest(
-            state.fnr,
-            state.orgnr,
-            state.perioder,
-            state.dokumentasjon,
-            state.bekreft,
-            state.antallDager
-          )
+          mapGravidKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
         ).then((response) => {
           dispatchResponse(response);
         });
@@ -217,7 +190,6 @@ export const GravidKrav = (props: GravidKravProps) => {
     state.perioder,
     state.fnr,
     state.bekreft,
-    state.dokumentasjon,
     state.orgnr,
     state.antallDager,
     state.kravId,
@@ -332,7 +304,10 @@ export const GravidKrav = (props: GravidKravProps) => {
             <Ingress tag='span' className='textfelt-padding-bottom'>
               <>
                 {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-                <Hjelpetekst className='krav-padding-hjelpetekst'>
+                <Hjelpetekst
+                  className='krav-padding-hjelpetekst'
+                  title={t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL)}
+                >
                   <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
                 </Hjelpetekst>
               </>
@@ -346,6 +321,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                   lonnspliktDager={state.antallDager}
                   key={enkeltPeriode.uniqueKey}
                   slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
+                  Actions={Actions}
                 />
               ))}
               <Row>
@@ -357,26 +333,6 @@ export const GravidKrav = (props: GravidKravProps) => {
                   )}
                 </Column>
               </Row>
-            </SkjemaGruppe>
-          </Panel>
-
-          <Skillelinje />
-
-          <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>
-              {t(GravidKravKeys.GRAVID_KRAV_DOKUMENTASJON_TITTEL)}
-            </Systemtittel>
-            <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_DOKUMENTASJON_INGRESS} />
-            <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
-              <Upload
-                className='knapp-innsending-top'
-                id='upload'
-                label={t(GravidKravKeys.GRAVID_KRAV_LAST_OPP)}
-                extensions='.pdf'
-                onChange={handleUploadChanged}
-                fileSize={5000000}
-                onDelete={handleDelete}
-              />
             </SkjemaGruppe>
           </Panel>
 
@@ -396,26 +352,27 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
           <Panel>
-            <Hovedknapp onClick={handleSubmitClicked} spinner={state.progress}>
+            <Button onClick={handleSubmitClicked} loading={state.progress}>
               {state.endringskrav ? (
                 <>{t(GravidKravKeys.GRAVID_KRAV_LONN_ENDRE)} </>
               ) : (
                 <>{t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)} </>
               )}
-            </Hovedknapp>
+            </Button>
             {state.endringskrav && (
               <>
-                <Knapp onClick={handleCancleClicked} className='avbrytknapp'>
+                <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
                   Avbryt
-                </Knapp>
-                <Fareknapp
+                </Button>
+                <Button
+                  variant='danger'
                   onClick={handleDeleteClicked}
                   className='sletteknapp'
-                  spinner={state.progress}
+                  loading={state.progress}
                   disabled={state.formDirty}
                 >
                   Slett krav
-                </Fareknapp>
+                </Button>
               </>
             )}
           </Panel>

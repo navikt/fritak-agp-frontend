@@ -21,3 +21,4 @@
 .eslintcache
 /server/node_modules
 .vscode
+.dccache

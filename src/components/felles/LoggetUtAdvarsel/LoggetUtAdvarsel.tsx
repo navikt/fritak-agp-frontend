@@ -1,10 +1,10 @@
 import React from 'react';
 import ModalWrapper from 'nav-frontend-modal';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import { InternLenke, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import injectRedirectPath from '../../../utils/injectRedirectPath';
+import { Alert } from '@navikt/ds-react';
 
 interface LoggetUtAdvarselInterface {
   onClose: any;
@@ -34,7 +34,7 @@ const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
       contentLabel=''
       shouldCloseOnOverlayClick={false}
     >
-      <AlertStripeFeil className='logget-ut-advarsel__innhold'>
+      <Alert variant='warning' className='logget-ut-advarsel__innhold'>
         <Innholdstittel>Du er blitt logget ut, følg instruksjonene for ikke å miste data</Innholdstittel>
         <ul>
           <li>Ikke lukk dette vinduet</li>
@@ -48,7 +48,7 @@ const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
           <li>Lukk denne meldingen og klikk igjen på knappen “Send søknad om refusjon”</li>
         </ul>
         <InternLenke onClick={() => handleCloseModal()}>Jeg har logget inn på nytt - lukk dette vinduet</InternLenke>
-      </AlertStripeFeil>
+      </Alert>
     </ModalWrapper>
   );
 };
