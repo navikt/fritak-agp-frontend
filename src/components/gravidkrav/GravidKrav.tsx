@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, Reducer, useState } from 'react';
-import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -20,11 +19,8 @@ import { i18n as Ii18n } from 'i18next';
 import {
   Side,
   LeggTilKnapp,
-  Oversettelse,
   stringishToNumber,
-  BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr,
   Skillelinje,
   useArbeidsgiver,
   HttpStatus,
@@ -46,8 +42,11 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, Ingress } from '@navikt/ds-react';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import { Button, Heading, Ingress, Panel } from '@navikt/ds-react';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -275,7 +274,6 @@ export const GravidKrav = (props: GravidKravProps) => {
                     fnr={state.fnr}
                     placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
-                    onValidate={() => {}}
                     onChange={(fnr: string) =>
                       dispatch({
                         type: Actions.Fnr,

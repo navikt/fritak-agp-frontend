@@ -1,5 +1,4 @@
 import React, { Reducer, useEffect, useReducer, useState } from 'react';
-import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -19,10 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import {
   Side,
-  Oversettelse,
-  BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr,
   Skillelinje,
   useArbeidsgiver,
   stringishToNumber,
@@ -46,8 +42,11 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, Ingress } from '@navikt/ds-react';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import { Button, Heading, Ingress, Panel } from '@navikt/ds-react';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>

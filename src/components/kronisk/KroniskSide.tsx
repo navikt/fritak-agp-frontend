@@ -1,7 +1,6 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -18,10 +17,7 @@ import lenker, { buildLenke } from '../../config/lenker';
 import {
   Side,
   Upload,
-  Oversettelse,
-  BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr,
   Skillelinje,
   stringishToNumber,
   Language
@@ -32,8 +28,11 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BodyLong, Button, Checkbox, Heading, Ingress } from '@navikt/ds-react';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import { BodyLong, Button, Checkbox, Heading, Ingress, Panel, TextField } from '@navikt/ds-react';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
@@ -147,7 +146,6 @@ const KroniskSide = () => {
                     fnr={state.fnr}
                     placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
-                    onValidate={() => {}}
                     onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
                   />
                 </Column>
@@ -220,14 +218,15 @@ const KroniskSide = () => {
             </SkjemaGruppe>
           </Panel>
           <Panel>
-            <Label htmlFor='soknad-perioder'>{t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}</Label>
-            <Input
+            <TextField
+              label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}
               id='soknad-perioder'
-              bredde='XS'
+              // size='small'
+              // bredde='XS'
               inputMode='numeric'
               pattern='[0-9]*'
               className='kontrollsporsmaal-lonn-arbeidsdager'
-              feil={state.antallPerioderError}
+              error={state.antallPerioderError}
               onChange={(evt) => {
                 dispatch({
                   type: Actions.AntallPerioder,

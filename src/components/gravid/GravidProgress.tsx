@@ -1,9 +1,7 @@
-import Panel from 'nav-frontend-paneler';
-
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GravidKvitteringKeys } from './GravidKvitteringKeys';
-import { BodyLong, Heading, Loader } from '@navikt/ds-react';
+import { BodyLong, Heading, Loader, Panel } from '@navikt/ds-react';
 
 const GravidProgress = () => {
   const { t } = useTranslation();

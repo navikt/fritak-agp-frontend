@@ -1,7 +1,6 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import { SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -22,11 +21,8 @@ import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
 import {
   Side,
   Upload,
-  Oversettelse,
   DatoVelger,
-  BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr,
   Skillelinje,
   Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
@@ -48,11 +44,16 @@ import {
   CheckboxGroup,
   Heading,
   Ingress,
+  Panel,
   RadioGroup,
-  Radio
+  Radio,
+  Textarea
 } from '@navikt/ds-react';
 import '@navikt/ds-css';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -203,7 +204,6 @@ const GravidSide = (props: GravidSideProps) => {
                         fnr={state.fnr}
                         placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                         feilmelding={state.fnrError}
-                        onValidate={() => {}}
                         onChange={(fnr: string) =>
                           dispatch({
                             type: Actions.Fnr,
@@ -311,9 +311,9 @@ const GravidSide = (props: GravidSideProps) => {
                         })}
 
                         <Textarea
-                          className='textarea-min-hoyde'
+                          label={t(GravidSideKeys.GRAVID_SIDE_TILTAK_FRITEKST)}
                           value={state.tiltakBeskrivelse || ''}
-                          feil={state.tiltakBeskrivelseError}
+                          error={state.tiltakBeskrivelseError}
                           onChange={(evt) =>
                             dispatch({
                               type: Actions.TiltakBeskrivelse,

@@ -1,11 +1,9 @@
 import React from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import Lenke from 'nav-frontend-lenker';
 import NotifikasjonType from './NotifikasjonType';
-import Panel from 'nav-frontend-paneler';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
-import { BodyLong, Heading } from '@navikt/ds-react';
+import { BodyLong, Heading, Link, Panel } from '@navikt/ds-react';
 
 interface NotifikasjonInnholdProps {
   children: any;
@@ -20,9 +18,9 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
       <Row>
         <Column>
           <div className={'notifikasjon-innhold__path'}>
-            <Lenke href='/min-side-arbeidsgiver/'>Ditt NAV / </Lenke>
-            <Lenke href=''>Beskjeder / </Lenke>
-            <Lenke href=''>Din arbeidsgiver har søkt om utvidet støtte</Lenke>
+            <Link href='/min-side-arbeidsgiver/'>Ditt NAV / </Link>
+            <Link href=''>Beskjeder / </Link>
+            <Link href=''>Din arbeidsgiver har søkt om utvidet støtte</Link>
           </div>
         </Column>
       </Row>

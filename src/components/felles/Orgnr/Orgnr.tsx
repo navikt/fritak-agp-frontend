@@ -1,9 +1,8 @@
 import React from 'react';
-import { Input } from 'nav-frontend-skjema';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../../locale/LangKey';
-import { BodyLong } from '@navikt/ds-react';
+import { BodyLong, TextField } from '@navikt/ds-react';
 import './Orgnr.scss';
 
 interface OrgnrProps {
@@ -18,7 +17,7 @@ const Orgnr = (props: OrgnrProps) => {
   const { t } = useTranslation();
 
   return (
-    <Input
+    <TextField
       defaultValue={props.orgnr}
       placeholder={props.placeholder}
       id='arbeidsgiverFeilmeldingId'
@@ -31,7 +30,7 @@ const Orgnr = (props: OrgnrProps) => {
         </div>
       }
       onChange={(evt) => props.onChange(evt.target.value)}
-      feil={props.feilmelding}
+      error={props.feilmelding}
     />
   );
 };

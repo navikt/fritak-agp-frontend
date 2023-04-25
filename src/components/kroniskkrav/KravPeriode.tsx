@@ -1,4 +1,4 @@
-import { datoToString, DatoVelger, Oversettelse, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { datoToString, DatoVelger, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Input, Label } from 'nav-frontend-skjema';
@@ -13,6 +13,7 @@ import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../config/konstanter';
 import { Button, Heading } from '@navikt/ds-react';
 import '@navikt/ds-css';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
 
 interface KravPeriodeProps {
   dispatch: any;

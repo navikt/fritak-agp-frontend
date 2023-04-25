@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid';
-import { Input, Label } from 'nav-frontend-skjema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import './KontrollSporsmaal.scss';
-import { BodyLong, ErrorMessage } from '@navikt/ds-react';
+import { BodyLong, ErrorMessage, TextField } from '@navikt/ds-react';
+import { ExternalLinkIcon } from '@navikt/aksel-icons';
 
 export enum KontrollSporsmaalKeys {
   KONTROLLSPORSMAL_DAGER_LABEL = 'KONTROLLSPORSMAL_DAGER_LABEL',
@@ -26,22 +26,22 @@ const KontrollSporsmaal = ({ onChange, id, feil, defaultValue }: KontrollSporsma
 
   return (
     <div className='skjemaelement kontrollsporsmaal'>
-      <Label htmlFor={elementId}>{t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_LABEL)}</Label>
-      <Input
+      <TextField
         id={elementId}
-        bredde='XS'
         inputMode='numeric'
         pattern='[0-9]*'
         className={'kontrollsporsmaal-lonn-arbeidsdager ' + feilClass}
         onChange={onChange}
         defaultValue={defaultValue}
         autoComplete='off'
+        label={t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_LABEL)}
       />
       <BodyLong className='kontrollsporsmaal-lonn-forklaring '>
         <>
           {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING)}
           <a href='/fritak-agp/nb/eksemplerlonnsdager' target='_blank'>
             {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING_HREF)}
+            <ExternalLinkIcon title='åpner i ny fane' />
           </a>
           {t(KontrollSporsmaalKeys.KONTROLLSPORSMAL_DAGER_FORKLARING_SLUTT)}
         </>

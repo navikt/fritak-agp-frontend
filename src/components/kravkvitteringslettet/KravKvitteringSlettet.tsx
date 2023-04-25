@@ -1,14 +1,13 @@
 import React from 'react';
 import { Row } from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import Lenke from 'nav-frontend-lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { Language, Oversettelse, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Language, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import KravKvitteringSlettetKeys from './KravKvitteringSlettetKeys';
 import { Link, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
-import { BodyLong, Heading } from '@navikt/ds-react';
+import { BodyLong, Heading, Panel, Link as NLink } from '@navikt/ds-react';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
 
 interface KravKvitteringSlettetProps {
   backTarget: lenker;
@@ -37,7 +36,7 @@ const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
             <Link to={backTarget}>{t(KravKvitteringSlettetKeys.KRAV_KVITTERING_SLETTET_OPPRETT_NYTT_KRAV)}</Link>
           </BodyLong>
           <BodyLong>
-            <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
+            <NLink href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</NLink>
           </BodyLong>
         </Panel>
       </Row>

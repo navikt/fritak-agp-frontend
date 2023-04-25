@@ -5,8 +5,7 @@ import dayjs from 'dayjs';
 import formatNumberForCurrency from './FormatNumberForCurrency';
 import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
 import VisNotifikasjonPerioder from './VisNotifikasjonPerioder';
-import Lenke from 'nav-frontend-lenker';
-import { BodyLong } from '@navikt/ds-react';
+import { BodyLong, Link } from '@navikt/ds-react';
 
 export interface GravidSoknadNotifikasjonProps {
   gravidKravVisning: GravidKravVisning;
@@ -34,7 +33,7 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
       </BodyLong>
       <BodyLong className='textfelt-padding-bottom'>
         Hvis det ikke stemmer at du var borte på grunn av sykdom disse dagene, ber vi deg si fra til NAV innen{' '}
-        {respondByDate}. Bruk gjerne <Lenke href='https://www.nav.no/skrivtiloss'>Skriv til oss</Lenke> på nav.no. Hører
+        {respondByDate}. Bruk gjerne <Link href='https://www.nav.no/skrivtiloss'>Skriv til oss</Link> på nav.no. Hører
         vi ikke fra deg, betyr det at du bekrefter opplysningene.
       </BodyLong>
       <BodyLong className='textfelt-padding-bottom'>

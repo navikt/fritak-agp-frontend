@@ -5,7 +5,6 @@ import {
   IngenTilgangAdvarselKeys,
   LoggetUtAdvarselKeys,
   PageNotFoundKeys,
-  ServerFeilAdvarselKeys,
   TilgangsfeilSideKeys,
   TokenFornyetKeys,
   UploadKeys,
@@ -32,6 +31,7 @@ import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldings
 import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/KravKvitteringSlettetKeys';
 import { KravEndringKvitteringKeys } from '../components/kravendringkvittering/KravEndringKvitteringKeys';
 import { ValidateDokumentasjonKeys } from '../validation/validateDokumentasjon';
+import { ServerFeilAdvarselKeys } from '../components/felles/ServerFeilAdvarsel/ServerFeilAdvarselKeys';
 
 export interface Locale {
   en: string;
@@ -160,6 +160,10 @@ const Locales: Record<
   GRAVID_SIDE_TILTAK_ANNET: {
     nb: 'Annet, gi en kort beskrivelse av hva dere har gjort:',
     en: 'Other, give a brief description of what you have done:'
+  },
+  GRAVID_SIDE_TILTAK_FRITEKST: {
+    nb: 'Beskrivelse av tiltak',
+    en: 'Description of what you have done'
   },
   GRAVID_SIDE_OMPLASSERING_TITTEL: {
     nb: 'Har dere forsøkt omplassering til en annen jobb?',
@@ -802,13 +806,14 @@ const Locales: Record<
     nb: 'Vi klarte ikke logge deg inn. Vennligst prøv igjen senere.',
     en: 'We were unable to log you in. Please try again later.'
   },
+  SERVER_FEIL_ADVARSEL_HEADING: {
+    nb: 'Det har desverre oppstått en teknisk feil hos oss',
+
+    en: 'Unfortunately, a technical error has occurred'
+  },
   SERVER_FEIL_ADVARSEL_TEXT: {
-    nb:
-      '_Det har desverre oppstått en teknisk feil hos oss_\n\n' +
-      'Prøv igjen litt senere, og [kontakt oss gjerne dersom det ikke ordner seg.](https://arbeidsgiver.nav.no/kontakt-oss/)',
-    en:
-      '_Unfortunately, a technical error has occurred_\n\n' +
-      'Please try again later and [feel free to contact us if it does not work out.](https://arbeidsgiver.nav.no/kontakt-oss/)'
+    nb: 'Prøv igjen litt senere, og [kontakt oss gjerne dersom det ikke ordner seg.](https://arbeidsgiver.nav.no/kontakt-oss/)',
+    en: 'Please try again later and [feel free to contact us if it does not work out.](https://arbeidsgiver.nav.no/kontakt-oss/)'
   },
   SERVER_FEIL_ADVARSEL_HIDE: {
     nb: 'Skjul denne meldingen.',

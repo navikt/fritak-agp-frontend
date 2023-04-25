@@ -1612,6 +1612,11 @@
   resolved "https://registry.yarnpkg.com/@miherlosev/esm/-/esm-3.2.26.tgz#a516b35d8b8b4eac29598f1c2c23e30a4d260200"
   integrity sha512-TaW4jTGVE1/ln2VGFChnheMh589QCAZy1MVnLvjjSzZ4pEAa4WYAWPwFkDVZbSdPQdLfZy7LuTyZjWRkhX9/Gg==
 
+"@navikt/aksel-icons@^2.8.16":
+  version "2.8.16"
+  resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/2.8.16/991af8aea9179f6df5e8905e213b8bf1137b2f6b#991af8aea9179f6df5e8905e213b8bf1137b2f6b"
+  integrity sha512-RCvI9a8bBl4SE7x/cUMyZEgD/uL7xo8xuCwwtMN6WXXt0cbhLlZjXdn2S+T4J4KFZjZo82DZKhpZLyqEJjqMcw==
+
 "@navikt/aksel-icons@^2.9.8":
   version "2.9.8"
   resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/2.9.8/04e4868d2f8f1022b52e9de54668127f6d0f5052#04e4868d2f8f1022b52e9de54668127f6d0f5052"
@@ -7929,22 +7934,22 @@ nav-frontend-lukknapp@^2.0.1, nav-frontend-lukknapp@^2.0.2:
   resolved "https://registry.yarnpkg.com/nav-frontend-lukknapp/-/nav-frontend-lukknapp-2.0.2.tgz#c074bbf4b1a6a89b3d00ac4358c739ec2b46bd8d"
   integrity sha512-ItSQSmbfSE8GPDcAGkWGIVydYUuzvYAMVJ9pMKpItvAUfZ+Dt7HyYLXjfSxwi10ign4fpi9dsZGKfsFYyOQ2RQ==
 
-nav-frontend-modal-style@^2.0.1, nav-frontend-modal-style@^2.0.2:
+nav-frontend-modal-style@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-modal-style/-/nav-frontend-modal-style-2.0.2.tgz#d92bb6877cad7940366d60b263721b7984224b96"
   integrity sha512-XKKE1Y+AAGobT218eKOV/cmTgauudG7nU30PUeLTfiQnCeuzt6ZRhwM7cdUfgCVVlAfK/pNHbZYK1vGr8l1iGw==
 
-nav-frontend-modal@^2.0.1, nav-frontend-modal@^2.0.2:
+nav-frontend-modal@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-modal/-/nav-frontend-modal-2.0.2.tgz#361051a991d9f523373725e0031e61040848ef52"
   integrity sha512-Ajm2OdNyS/JAjgK9xas0vNOUQ6iUudy6Fhx4w/RmMJY2TSGB23FKTL8+cgi/Th+PbeUkPvZDbDyB0nQf7db5Ug==
 
-nav-frontend-paneler-style@^2.0.1, nav-frontend-paneler-style@^2.0.2:
+nav-frontend-paneler-style@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-paneler-style/-/nav-frontend-paneler-style-2.0.2.tgz#f36a1705103ca8603dca1c9fa2dae809eea00439"
   integrity sha512-bb0Gc/XUPJqgEQKQd37Zj/xRq875zMmHhdn621xd2/BXVpO1f1Eu6V6IPhf4y0jqNlNrvDLDSh4DxHHHf/s9/A==
 
-nav-frontend-paneler@^3.0.1, nav-frontend-paneler@^3.0.2:
+nav-frontend-paneler@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-paneler/-/nav-frontend-paneler-3.0.2.tgz#1de91e57abcab76ec18400d9686050df55a0cce5"
   integrity sha512-SJIOPC9znsmxHmeDHDWaXpr1K0uJoIlF+iEvC7svjZEOw1GaK6i6EoER9lysnyTnljFFMgyyt2OwpOp7sNulQQ==
