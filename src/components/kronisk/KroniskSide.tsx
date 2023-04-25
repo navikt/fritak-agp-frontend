@@ -1,7 +1,7 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Checkbox, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -32,7 +32,7 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BodyLong, Button, Heading, Ingress } from '@navikt/ds-react';
+import { BodyLong, Button, Checkbox, Heading, Ingress } from '@navikt/ds-react';
 import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 const buildReducer =
@@ -244,13 +244,14 @@ const KroniskSide = () => {
             <Checkbox
               className='checkbox-unntak'
               defaultChecked={state.ikkeHistoriskFravaer}
-              label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
               onChange={() => {
                 dispatch({
                   type: Actions.ToggleUnntak
                 });
               }}
-            />
+            >
+              {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
+            </Checkbox>
           </Panel>
           <Skillelinje />
 

@@ -1,7 +1,7 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
-import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
+import { SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -40,7 +40,17 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Alert, BodyLong, Button, Heading, Ingress, RadioGroup, Radio } from '@navikt/ds-react';
+import {
+  Alert,
+  BodyLong,
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Heading,
+  Ingress,
+  RadioGroup,
+  Radio
+} from '@navikt/ds-react';
 import '@navikt/ds-css';
 import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
@@ -277,17 +287,16 @@ const GravidSide = (props: GravidSideProps) => {
                 <Panel className='gravidside-panel-tiltak'>
                   <Row>
                     <Column sm='8' xs='12'>
-                      <CheckboxGruppe
+                      <CheckboxGroup
                         legend={t(GravidSideKeys.GRAVID_SIDE_TILTAK_TITTEL)}
-                        feil={state.tiltakError}
-                        feilmeldingId='tiltakFeilmeldingId'
+                        error={state.tiltakError}
+                        errorId='tiltakFeilmeldingId'
                       >
                         {TiltakCheckboxes.map((a) => {
                           return (
                             <Checkbox
                               defaultChecked={isCheckboxChecked(a.value)}
                               key={a.id}
-                              label={t(a.label)}
                               id={a.id}
                               onChange={() =>
                                 dispatch({
@@ -295,7 +304,9 @@ const GravidSide = (props: GravidSideProps) => {
                                   payload: { tiltak: a.value }
                                 })
                               }
-                            />
+                            >
+                              {t(a.label)}
+                            </Checkbox>
                           );
                         })}
 
@@ -314,7 +325,7 @@ const GravidSide = (props: GravidSideProps) => {
                           disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
                           maxLength={MAX_TILTAK_BESKRIVELSE}
                         />
-                      </CheckboxGruppe>
+                      </CheckboxGroup>
                     </Column>
                   </Row>
                   <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
