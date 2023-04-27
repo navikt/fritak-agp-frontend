@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
@@ -37,7 +37,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn test
@@ -48,7 +48,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
@@ -68,7 +68,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@master
       - uses: actions/download-artifact@v2
