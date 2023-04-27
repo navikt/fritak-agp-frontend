@@ -1,4 +1,4 @@
-FROM navikt/node-express:18-alpine
+FROM node:18-alpine
 
 WORKDIR /var
 
