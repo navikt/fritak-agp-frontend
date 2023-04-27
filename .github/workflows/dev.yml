@@ -19,7 +19,7 @@ jobs:
   Bygg:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: "https://npm.pkg.github.com"
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: "https://npm.pkg.github.com"
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: "https://npm.pkg.github.com"
@@ -66,7 +66,7 @@ jobs:
     needs: [Kodekvalitet,Eslint,Bygg]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: "https://npm.pkg.github.com"
