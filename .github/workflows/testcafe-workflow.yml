@@ -15,7 +15,7 @@ jobs:
           node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - name: Check out the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - name: Run tests
         uses: DevExpress/testcafe-action@latest
