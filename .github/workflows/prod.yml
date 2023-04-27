@@ -41,7 +41,7 @@ jobs:
           node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@master
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: fritak-frontend-artifact
           path: build
