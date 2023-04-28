@@ -18,14 +18,7 @@ import { Omplassering } from './Omplassering';
 import environment from '../../config/environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
-import {
-  Side,
-  Upload,
-  DatoVelger,
-  Feilmeldingspanel,
-  Skillelinje,
-  Language
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Side, Upload, Feilmeldingspanel, Skillelinje, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
@@ -54,6 +47,7 @@ import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
+import Datovelger from '../datovelger/Datovelger';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -216,15 +210,12 @@ const GravidSide = (props: GravidSideProps) => {
                       <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                         &nbsp;
                       </Heading>
-                      <DatoVelger
-                        className='termindato'
+                      <Datovelger
                         id='termindato'
                         label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
-                        feilmelding={state.termindatoError}
-                        placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
-                        dato={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
-                        defaultDate={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
-                        onChange={(termindato: Date) => {
+                        error={state.termindatoError}
+                        defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                        onDateChange={(termindato: Date | undefined) => {
                           dispatch({
                             type: Actions.Termindato,
                             payload: { termindato }

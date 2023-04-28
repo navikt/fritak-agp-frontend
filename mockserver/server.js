@@ -40,4 +40,4 @@ app.post('/fritak-agp/api/v1/kronisk/soeknad', function (req, res) {
   res.status(401).send('Unauthorized');
 });
 
-app.listen(3000);
+app.listen(8080);

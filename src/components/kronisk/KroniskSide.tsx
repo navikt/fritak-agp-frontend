@@ -221,8 +221,6 @@ const KroniskSide = () => {
             <TextField
               label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}
               id='soknad-perioder'
-              // size='small'
-              // bredde='XS'
               inputMode='numeric'
               pattern='[0-9]*'
               className='kontrollsporsmaal-lonn-arbeidsdager'

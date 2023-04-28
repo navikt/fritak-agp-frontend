@@ -6,12 +6,7 @@ import SelectDager from './SelectDager';
 
 describe('SelectDager', () => {
   it('should have no a11y violations', async () => {
-    const { container } = render(
-      <label>
-        Dager
-        <SelectDager />
-      </label>
-    );
+    const { container } = render(<SelectDager label='test' />);
     const results = await axe(container);
 
     expect(results).toHaveNoViolations();
