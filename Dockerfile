@@ -1,4 +1,4 @@
-FROM navikt/node-express:14-alpine
+FROM navikt/node-express:18
 
 WORKDIR /var
 
@@ -6,10 +6,10 @@ COPY build/ build/
 COPY server/ server/
 
 WORKDIR /var/server
-RUN npm install
+RUN npm ci
 
 # Uncommet for debugging of express-http-proxy
-ENV DEBUG=express-http-proxy
+# ENV DEBUG=express-http-proxy
 
 EXPOSE 8080
 ENTRYPOINT ["node", "server.js"]

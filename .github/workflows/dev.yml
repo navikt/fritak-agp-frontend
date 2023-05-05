@@ -19,14 +19,14 @@ jobs:
   Bygg:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: fritak-frontend-artifact
           path: ${{ github.workspace }}/build/**/*
@@ -35,9 +35,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn test
@@ -46,9 +46,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
@@ -66,17 +66,17 @@ jobs:
     needs: [Kodekvalitet,Eslint,Bygg]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@master
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: fritak-frontend-artifact
           path: build
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -90,7 +90,7 @@ jobs:
     needs: [Docker]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: helsearbeidsgiver

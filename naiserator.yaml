@@ -38,6 +38,13 @@ spec:
     enabled: true
     sidecar:
       enabled: true
+  accessPolicy:
+    outbound:
+      external:
+        - host: '{{{outbound-external-host}}}'
+      rules:
+        - application: nav-dekoratoren
+          namespace: personbruker
   env:
     - name: API_URL
       value: '{{{api-url}}}'
