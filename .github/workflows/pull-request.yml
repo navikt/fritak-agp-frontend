@@ -15,14 +15,14 @@ jobs:
   Bygg:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: fritak-frontend-artifact
           path: ${{ github.workspace }}/build/**/*
@@ -31,9 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn test
@@ -42,9 +42,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
           registry-url: "https://npm.pkg.github.com"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
