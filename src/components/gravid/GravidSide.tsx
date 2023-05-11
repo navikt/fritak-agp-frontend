@@ -28,7 +28,6 @@ import {
   BekreftOpplysningerPanel,
   Feilmeldingspanel,
   Fnr,
-  ServerFeilAdvarsel,
   Skillelinje,
   Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
@@ -44,6 +43,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Alert, Button, RadioGroup, Radio } from '@navikt/ds-react';
 import '@navikt/ds-css';
+import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
