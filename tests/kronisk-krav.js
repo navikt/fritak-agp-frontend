@@ -8,6 +8,7 @@ const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/kronisk\/krav/);
+const deko = new RegExp(/\/dekoratoren/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -36,7 +37,9 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(kroniskKravResponse, 201, mockHeaders);
+  .respond(kroniskKravResponse, 201, mockHeaders)
+  .onRequestTo(deko)
+  .respond('', 201, mockHeaders);
 
 fixture`Kronisk - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])

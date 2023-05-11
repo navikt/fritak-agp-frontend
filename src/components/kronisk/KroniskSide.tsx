@@ -25,7 +25,6 @@ import {
   Fnr,
   Skillelinje,
   stringishToNumber,
-  ServerFeilAdvarsel,
   Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
@@ -35,6 +34,7 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
+import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>

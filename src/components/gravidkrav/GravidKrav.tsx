@@ -29,7 +29,6 @@ import {
   Skillelinje,
   useArbeidsgiver,
   HttpStatus,
-  ServerFeilAdvarsel,
   Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKravKeys } from './GravidKravKeys';
@@ -49,6 +48,7 @@ import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
 import { Button } from '@navikt/ds-react';
+import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();

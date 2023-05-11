@@ -29,7 +29,6 @@ import {
   stringishToNumber,
   LeggTilKnapp,
   HttpStatus,
-  ServerFeilAdvarsel,
   Language
 } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n as Ii18n } from 'i18next';
@@ -49,6 +48,7 @@ import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
 import { Button } from '@navikt/ds-react';
+import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
