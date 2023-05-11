@@ -10,6 +10,7 @@ const loginExpiry = new RegExp(/\/api\/v1\/login-expiry/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/gravid\/soeknad/);
+const deko = new RegExp(/\/dekoratoren/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -46,7 +47,9 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(gravidSoknadResponse, 201, mockHeaders);
+  .respond(gravidSoknadResponse, 201, mockHeaders)
+  .onRequestTo(deko)
+  .respond('', 201, mockHeaders);
 
 fixture`Gravid - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])

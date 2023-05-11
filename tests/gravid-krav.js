@@ -8,6 +8,7 @@ const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/gravid\/krav/);
+const deko = new RegExp(/\/dekoratoren/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -36,7 +37,9 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(gravidKravResponse, 201, mockHeaders);
+  .respond(gravidKravResponse, 201, mockHeaders)
+  .onRequestTo(deko)
+  .respond('', 201, mockHeaders);
 
 fixture`Gravid - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/krav?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
@@ -48,6 +51,7 @@ fixture`Gravid - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/krav?bedr
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
     .click(Selector('button').withText('Send krav'))
+    // .debug()
     .expect(
       ReactSelector('Feiloppsummering')
         .withText('Mangler fødselsnummer')
