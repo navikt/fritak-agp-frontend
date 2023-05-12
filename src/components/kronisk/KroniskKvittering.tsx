@@ -43,7 +43,7 @@ const KroniskKvittering = () => {
         </Panel>
 
         <Panel>
-          <Heading size='small' level='4'>
+          <Heading size='small' level='2'>
             Detaljer fra søknaden:
           </Heading>
           <BodyLong className='luft-under'>Navn: {navn}</BodyLong>

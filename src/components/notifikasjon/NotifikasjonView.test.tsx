@@ -12,7 +12,7 @@ import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
 const initHistory = ['/'];
 describe('NotifikasjonView', () => {
-  const STATUS_PROGRESS = 'Venter...';
+  const STATUS_PROGRESS = 'venter...';
   const FANT_IKKE = 'Fant ikke';
   const FEILMELDING = 'Det oppstod en feil';
   const INNHOLD = 'Informasjon om sykepenger';

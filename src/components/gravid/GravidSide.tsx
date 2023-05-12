@@ -295,6 +295,7 @@ const GravidSide = (props: GravidSideProps) => {
                                   payload: { tiltak: a.value }
                                 })
                               }
+                              value={a.value}
                             >
                               {t(a.label)}
                             </Checkbox>
