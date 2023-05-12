@@ -125,7 +125,7 @@
     "prettier": "2.x",
     "pretty-quick": "3.x",
     "react-scripts": "^5.0.0",
-    "react-test-renderer": "17.x",
+    "react-test-renderer": "18.x",
     "sass": "1.x",
     "snyk": "1.x",
     "testcafe": "^2.6.0",
