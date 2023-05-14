@@ -6,7 +6,6 @@ import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
 
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer, { MAX_PERIODER } from './GravidKravReducer';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
@@ -42,7 +41,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, Ingress, Panel } from '@navikt/ds-react';
+import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -303,12 +302,12 @@ export const GravidKrav = (props: GravidKravProps) => {
             <Ingress as='span' className='textfelt-padding-bottom'>
               <>
                 {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-                <Hjelpetekst
+                <HelpText
                   className='krav-padding-hjelpetekst'
                   title={t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL)}
                 >
                   <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
-                </Hjelpetekst>
+                </HelpText>
               </>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>

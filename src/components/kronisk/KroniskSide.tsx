@@ -137,7 +137,7 @@ const KroniskSide = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
-                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                  <Heading size='medium' level='2' className='textfelt-padding-bottom'>
                     {t(LangKey.DEN_ANSATTE)}
                   </Heading>
                   <Fnr

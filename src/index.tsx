@@ -9,7 +9,6 @@ import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import 'nav-frontend-core/dist/main.css';
 import 'nav-frontend-typografi-style/dist/main.css';
 import 'nav-frontend-skjema-style/dist/main.css';
-import 'nav-frontend-hjelpetekst-style/dist/main.css';
 import 'nav-frontend-grid-style/dist/main.css';
 import 'nav-frontend-chevron-style/dist/main.css';
 import 'nav-frontend-lenker-style/dist/main.css';

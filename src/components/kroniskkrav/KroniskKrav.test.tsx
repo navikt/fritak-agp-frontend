@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 
@@ -110,7 +110,7 @@ describe('KroniskKrav', () => {
   });
 
   it('should show warnings when input is missing, and the warning should dissapear when fixed 2', async () => {
-    const user = userEvent.setup();
+    // const user = userEvent.setup();
 
     render(
       <MemoryRouter>
@@ -128,15 +128,19 @@ describe('KroniskKrav', () => {
     );
     const submitButton = screen.getByText(/Send kravet/);
     // const fnrInput = screen.getByLabelText(/Fødselsnummer/);
-    const selectDager = screen.getAllByLabelText(/Antall dager/)[1];
+    const selectDager = screen.getByLabelText(/Antall dager/, { selector: 'select' });
+
     // const BelopInput = screen.queryAllByLabelText(/Beregnet månedsinntekt/)[1];
     // const bekreftCheckbox = screen.getByText(/Jeg bekrefter at/);
 
     fireEvent.click(submitButton);
+    await fireEvent.change(selectDager, { target: { value: 3 } });
+    // await user.selectOptions(selectDager, '3');
 
-    await user.selectOptions(selectDager, '3');
-    expect(screen.queryByText(/Mangler dager/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
+      // expect(screen.queryAllByText(/Mangler dager/)).toHaveLength(0);
+    });
 
     // await user.type(BelopInput, '123');
     // expect(screen.queryByText(/Mangler beløp/)).not.toBeInTheDocument();

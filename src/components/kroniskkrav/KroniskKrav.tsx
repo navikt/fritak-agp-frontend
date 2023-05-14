@@ -5,7 +5,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
@@ -42,7 +41,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, Ingress, Panel } from '@navikt/ds-react';
+import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -267,7 +266,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           )}
 
           <Panel id='kroniskkrav-panel-den-ansatte'>
-            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+            <Heading size='medium' level='2' className='textfelt-padding-bottom'>
               {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
             </Heading>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
@@ -305,14 +304,12 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
             </Heading>
-            <Ingress as='span' className='textfelt-padding-bottom'>
-              <>
-                {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
-                <Hjelpetekst className='krav-padding-hjelpetekst'>
-                  <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
-                </Hjelpetekst>
-              </>
-            </Ingress>
+            <div className='textfelt-padding-bottom ingress'>
+              {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
+              <HelpText className='krav-padding-hjelpetekst'>
+                <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+              </HelpText>
+            </div>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               {state.perioder?.map((enkeltPeriode, index) => (
                 <KravPeriode

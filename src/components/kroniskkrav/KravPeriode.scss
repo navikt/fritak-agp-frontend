@@ -7,14 +7,25 @@
     grid-template-columns: [col1] 25% [col2] 25% [col3] auto [col4] 25%;
     grid-template-rows: [row1] auto [row2] auto;
     gap: 1rem;
-    contain: content;
-
+    
     @media screen and (max-width: 1024px) {
         grid-template-columns: [col1] 50% [col2] auto;
     }
-
+    
     @media screen and (max-width: 608px) {
         grid-template-columns: [col1] auto;
+    }
+
+    .label-uten-hjelp {
+        padding-top: .375rem;
+    }
+
+    .label-med-hjelp {
+        display: inline-block;
+    
+        .navds-help-text {
+            display: inline-block;
+        }
     }
 }
 .periodewrapper {
@@ -45,6 +56,14 @@
 
     .mnd-inntekt  {
         max-width: 66%;
+
+        > label {
+            display: inline-block;
+
+            > div {
+                display: inline-block;
+            }
+        }
     }
 
     .slett-periode-wrapper {
@@ -58,6 +77,7 @@
             }
         }
     }
+
 
     .mnd-inntekt,
     .periode-elementer,

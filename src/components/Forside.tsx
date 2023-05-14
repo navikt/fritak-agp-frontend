@@ -11,7 +11,7 @@ const Forside = () => {
     <Side sidetittel='Søknadsskjemaer' title='Skjema for gravide og kronisk syke' subtitle='Søknadsskjema'>
       <Row>
         <Column md='6'>
-          <Heading size='small' level='4'>
+          <Heading size='small' level='2'>
             Gravid
           </Heading>
           <BodyLong>
@@ -22,7 +22,7 @@ const Forside = () => {
           </BodyLong>
         </Column>
         <Column md='6'>
-          <Heading size='small' level='4'>
+          <Heading size='small' level='2'>
             Kronisk
           </Heading>
           <BodyLong>

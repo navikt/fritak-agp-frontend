@@ -1,6 +1,5 @@
 import { datoToString, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
 
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
@@ -99,7 +98,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
     <div className='krav-kort' data-testid='krav-periode-wrapper'>
       <Datovelger
         id={`fra-dato-${props.index}`}
-        label={t(LangKey.KRONISK_KRAV_PERIODE_FRA)}
+        label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_FRA)}</div>}
         onDateChange={(fraDato: Date | undefined) => {
           fraDatoValgt(fraDato, props.enkeltPeriode.uniqueKey);
         }}
@@ -111,7 +110,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
       <Datovelger
         id={`til-dato-${props.index}`}
-        label={t(LangKey.KRONISK_KRAV_PERIODE_TIL)}
+        label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_TIL)}</div>}
         onDateChange={(tilDate: Date | undefined) => {
           dispatch({
             type: Actions.Til,
@@ -128,12 +127,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
       <SelectDager
         label={
-          <>
+          <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
-            <Hjelpetekst className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL)}>
+            <HelpText className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL)}>
               {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
-            </Hjelpetekst>
-          </>
+            </HelpText>
+          </div>
         }
         className='periode-elementer'
         id={`dager-${props.index}`}
@@ -152,13 +151,13 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
       <TextField
         label={
-          <>
+          <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TEXT)}
             <HelpText className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}>
               <TextLabel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</TextLabel>
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
             </HelpText>
-          </>
+          </div>
         }
         className='mnd-inntekt'
         id={`belop-${props.index}`}
@@ -181,13 +180,13 @@ const KravPeriode = (props: KravPeriodeProps) => {
       <TextField
         id={`sykemeldingsgrad-${props.index}`}
         label={
-          <>
+          <div className='label-med-hjelp'>
             Sykemeldingsgrad
-            <Hjelpetekst className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
+            <HelpText className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
               <TextLabel>Gradert sykmelding</TextLabel>
               Sykmeldingsgrad, minimum 20%
-            </Hjelpetekst>
-          </>
+            </HelpText>
+          </div>
         }
         inputMode='numeric'
         pattern='[0-9]*'
@@ -207,13 +206,15 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
       <div>
         <TextLabel>
-          {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
-          <Hjelpetekst
-            className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
-            title={t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL)}
-          >
-            <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
-          </Hjelpetekst>
+          <div className='label-med-hjelp'>
+            {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
+            <HelpText
+              className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
+              title={t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL)}
+            >
+              <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
+            </HelpText>
+          </div>
         </TextLabel>
         <div className='skjemalelement tekstvisning'>
           {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}

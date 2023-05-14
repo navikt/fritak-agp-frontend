@@ -28,6 +28,8 @@ describe('KroniskSide', () => {
     const { container } = render(
       <MemoryRouter initialEntries={initHistory}>
         <ArbeidsgiverProvider arbeidsgivere={testOrganisasjoner} status={ArbeidsgiverStatus.Successfully} baseUrl={''}>
+          <h1>h1</h1>
+          <h2>h2</h2>
           <KroniskSide />
         </ArbeidsgiverProvider>
       </MemoryRouter>

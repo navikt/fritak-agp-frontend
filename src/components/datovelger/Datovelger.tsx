@@ -8,7 +8,7 @@ interface DatovelgerProps {
   toDate?: Date;
   fromDate?: Date;
   id?: string;
-  label?: string;
+  label?: React.ReactNode;
   hideLabel?: boolean;
   disabled?: boolean;
   defaultMonth?: Date;
