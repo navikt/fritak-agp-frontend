@@ -123,6 +123,7 @@
     "testcafe-react-selectors": "^5.0.2",
     "timezone-mock": "1.x",
     "ts-jest": "^29.1.0",
+    "typescript-plugin-css-modules": "^5.0.1",
     "yet-another-fetch-mock": "4.1.0"
   }
 }
