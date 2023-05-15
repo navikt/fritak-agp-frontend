@@ -137,7 +137,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         className='periode-elementer'
         id={`dager-${props.index}`}
         value={props.enkeltPeriode.dager}
-        onSelect={(event: React.FormEvent<HTMLSelectElement>) =>
+        onChange={(event: React.FormEvent<HTMLSelectElement>) =>
           dispatch({
             type: Actions.Dager,
             payload: {
