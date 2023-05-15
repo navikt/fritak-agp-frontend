@@ -10,3 +10,5 @@ export interface ValidationState {
   kvittering?: boolean; // Mottatt godkjent svar fra backend
   feilmeldinger: Array<FeiloppsummeringFeil>;
 }
+
+export default ValidationState;

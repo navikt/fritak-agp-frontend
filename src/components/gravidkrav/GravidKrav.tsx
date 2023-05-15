@@ -15,14 +15,7 @@ import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import { useTranslation } from 'react-i18next';
 import { i18n as Ii18n } from 'i18next';
-import {
-  Side,
-  LeggTilKnapp,
-  stringishToNumber,
-  useArbeidsgiver,
-  HttpStatus,
-  Language
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
 import KravPeriode from '../kroniskkrav/KravPeriode';
@@ -46,6 +39,13 @@ import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import Skillelinje from '../felles/Skillelinje';
+import Side from '../felles/Side/Side';
+import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import HttpStatus from '../../api/HttpStatus';
+import Language from '../../locale/Language';
+import stringishToNumber from '../../utils/stringishToNumber';
+import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
+import TextLabel from '../TextLabel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -299,8 +299,8 @@ export const GravidKrav = (props: GravidKravProps) => {
             <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
             </Heading>
-            <Ingress as='span' className='textfelt-padding-bottom'>
-              <>
+            <TextLabel className='textfelt-padding-bottom'>
+              <div className='label-med-hjelp'>
                 {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
                 <HelpText
                   className='krav-padding-hjelpetekst'
@@ -308,9 +308,9 @@ export const GravidKrav = (props: GravidKravProps) => {
                 >
                   <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
                 </HelpText>
-              </>
-            </Ingress>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
+              </div>
+            </TextLabel>
+            <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
               {state.perioder?.map((enkeltPeriode, index) => (
                 <KravPeriode
                   dispatch={dispatch}
@@ -322,15 +322,11 @@ export const GravidKrav = (props: GravidKravProps) => {
                   Actions={Actions}
                 />
               ))}
-              <Row>
-                <Column md='6'>
-                  {state.perioder && state.perioder.length < MAX_PERIODER && (
-                    <LeggTilKnapp onClick={leggTilPeriode}>
-                      {t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}
-                    </LeggTilKnapp>
-                  )}
-                </Column>
-              </Row>
+              <div>
+                {state.perioder && state.perioder.length < MAX_PERIODER && (
+                  <LeggTilKnapp onClick={leggTilPeriode}>{t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}</LeggTilKnapp>
+                )}
+              </div>
             </SkjemaGruppe>
           </Panel>
 

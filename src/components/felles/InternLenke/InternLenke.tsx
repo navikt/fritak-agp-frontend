@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Flatknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 
 interface InternLenkeProps {
   to?: string;
@@ -27,9 +27,9 @@ export const InternLenke: React.FC<InternLenkeProps> = ({
     );
   } else {
     return (
-      <Flatknapp className={'intern-lenke ' + className} onClick={onClick} onKeyDown={onKeyDown}>
+      <Button variant='tertiary' className={'intern-lenke ' + className} onClick={onClick} onKeyDown={onKeyDown}>
         {children}
-      </Flatknapp>
+      </Button>
     );
   }
 };

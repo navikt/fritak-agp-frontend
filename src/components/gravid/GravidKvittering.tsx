@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
-import { InternLenke, Language, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidKvitteringKeys } from './GravidKvitteringKeys';
 import { useParams } from 'react-router-dom';
 import formatTiltakBeskrivelse from '../notifikasjon/gravid/soknad/formatTiltakBeskrivelse';
@@ -14,6 +13,9 @@ import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import environment from '../../config/environment';
 import { Alert, Heading, BodyLong, Panel, Link } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import Side from '../felles/Side/Side';
+import InternLenke from '../felles/InternLenke/InternLenke';
+import Language from '../../locale/Language';
 
 const GravidKvittering = () => {
   const { language } = useParams();

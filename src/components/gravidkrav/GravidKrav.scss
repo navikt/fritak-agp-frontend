@@ -41,4 +41,15 @@
         display: inline flow-root list-item;
         list-style-type: " ";
     }
+
+    .label-med-hjelp {
+        display: flex;
+        white-space: nowrap;
+    }
+
+    .krav-kort-wrapper {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+    }
 }

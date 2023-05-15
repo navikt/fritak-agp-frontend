@@ -1,11 +1,12 @@
 import React from 'react';
 import KroniskSide from './KroniskSide';
 import { axe } from 'jest-axe';
-import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { MemoryRouter } from 'react-router-dom';
 import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';
 import { render } from '@testing-library/react';
+import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import ArbeidsgiverStatus from '../../context/arbeidsgiver/ArbeidsgiverStatus';
 
 const initHistory = ['/'];
 

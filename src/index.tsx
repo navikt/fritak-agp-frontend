@@ -17,9 +17,9 @@ import 'nav-frontend-veilederpanel-style/dist/main.css';
 import 'nav-frontend-popover-style/dist/main.css';
 import 'nav-frontend-tabell-style/dist/main.css';
 import 'nav-frontend-knapper-style/dist/main.css';
-import '@navikt/helse-arbeidsgiver-felles-frontend/dist/library.css';
+// import '@navikt/helse-arbeidsgiver-felles-frontend/dist/library.css';
 import env, { EnvironmentType } from './config/environment';
-import './components/felles/Upload/Upload.sass';
+// import './components/felles/Upload/Upload.sass';
 import { Integrations } from '@sentry/tracing';
 import '@navikt/ds-css';
 

@@ -15,14 +15,6 @@ import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravReque
 import KravPeriode from './KravPeriode';
 import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
-import {
-  Side,
-  useArbeidsgiver,
-  stringishToNumber,
-  LeggTilKnapp,
-  HttpStatus,
-  Language
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n as Ii18n } from 'i18next';
 import { KroniskKravKeys } from './KroniskKravKeys';
 import LangKey from '../../locale/LangKey';
@@ -46,6 +38,13 @@ import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import Skillelinje from '../felles/Skillelinje';
+import Side from '../felles/Side/Side';
+import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
+import Language from '../../locale/Language';
+import HttpStatus from '../../api/HttpStatus';
+import stringishToNumber from '../../utils/stringishToNumber';
+import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
+import TextLabel from '../TextLabel';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -304,13 +303,15 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
             </Heading>
-            <div className='textfelt-padding-bottom ingress'>
-              {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
-              <HelpText className='krav-padding-hjelpetekst'>
-                <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
-              </HelpText>
-            </div>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
+            <TextLabel className='textfelt-padding-bottom'>
+              <div className='label-med-hjelp'>
+                {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
+                <HelpText className='krav-padding-hjelpetekst'>
+                  <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+                </HelpText>
+              </div>
+            </TextLabel>
+            <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
               {state.perioder?.map((enkeltPeriode, index) => (
                 <KravPeriode
                   dispatch={dispatch}
@@ -322,13 +323,11 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   Actions={Actions}
                 />
               ))}
-              <Row>
-                <Column md='6'>
-                  {state.perioder && state.perioder.length < MAX_PERIODER && (
-                    <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
-                  )}
-                </Column>
-              </Row>
+              <div>
+                {state.perioder && state.perioder.length < MAX_PERIODER && (
+                  <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
+                )}
+              </div>
             </SkjemaGruppe>
           </Panel>
           <Skillelinje />

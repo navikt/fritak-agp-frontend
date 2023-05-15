@@ -10,7 +10,7 @@ export default function TextLabel(props: TextLabelProps) {
   const theClassName = props.className || '';
 
   return (
-    <div className={`navds-text-field__label navds-label navds-label--${size} ${theClassName}`} {...props}>
+    <div {...props} className={`navds-text-field__label navds-label navds-label--${size} ${theClassName}`}>
       {props.children}
     </div>
   );

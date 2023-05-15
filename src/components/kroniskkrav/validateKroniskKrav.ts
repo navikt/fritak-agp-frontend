@@ -1,13 +1,4 @@
 import KroniskKravState from './KroniskKravState';
-import {
-  validateBeloep,
-  validateFra,
-  validateOrgnr,
-  pushFeilmelding,
-  validateBekreft,
-  validateFnr,
-  validateTil
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
@@ -16,6 +7,13 @@ import formatValidation from '../../utils/formatValidation';
 import dayjs from 'dayjs';
 import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
+import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import validateFra from '../../validation/validateFra';
+import validateTil from '../../validation/validateTil';
+import validateBeloep from '../../validation/validateBeloep';
+import validateBekreft from '../../validation/validateBekreft';
+import validateOrgnr from '../../validation/validateOrgnr';
+import validateFnr from '../../validation/validateFnr';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_KRONISK_DATO;

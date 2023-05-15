@@ -2,12 +2,13 @@ import React from 'react';
 import { Row } from 'nav-frontend-grid';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { Language, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import KravEndringKvitteringKeys from './KravEndringKvitteringKeys';
 import { Link, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import { BodyLong, Heading, Link as NLink, Panel } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import Side from '../felles/Side/Side';
+import Language from '../../locale/Language';
 
 interface KravEndringKvitteringProps {
   backTarget: lenker;

@@ -25,21 +25,22 @@
         float: right;
     }
 
-    // .navds-help-text {
-    //     display: inline flow-root list-item;
-    //     list-style-type: " ";
-    // }
-
     .ingress {
         font-size: var(--a-font-size-large);
         font-weight: var(--a-font-weight-bold);
         line-height: var(--a-font-line-height-large);
-
-        // .navds-help-text {
-        //     display: inline-block;
-        // }
     }
     
+    .label-med-hjelp {
+        display: flex;
+        white-space: nowrap;
+    }
+
+    .krav-kort-wrapper {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+    }
 }
 
 .kroniskkrav-modal {

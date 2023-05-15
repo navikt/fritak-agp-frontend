@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { ArbeidsgiverProvider, LanguageProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
@@ -13,6 +12,8 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import { languageInit } from '../../locale/languageInit';
 import Language from '../../locale/Language';
+import { LanguageProvider } from '../../context/language/LanguageContext';
+import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 jest.unmock('react-i18next');

@@ -20,6 +20,10 @@
         display: flex;
         white-space: nowrap;
     }
+
+    &:first {
+        background-color: blue;
+    }
 }
 .periodewrapper {
     margin: 0.25rem;
