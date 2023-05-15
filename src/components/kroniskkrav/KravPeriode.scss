@@ -16,17 +16,9 @@
         grid-template-columns: [col1] auto;
     }
 
-    .label-uten-hjelp {
-        padding-top: .375rem;
-    }
-
     .label-med-hjelp {
-        display: inline-block;
+        display: flex;
         white-space: nowrap;
-    
-        .navds-help-text {
-            display: inline-block;
-        }
     }
 }
 .periodewrapper {
