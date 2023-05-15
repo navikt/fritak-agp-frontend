@@ -1,4 +1,3 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import GravidState from './GravidState';
 import { Tiltak } from './Tiltak';
 import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
@@ -9,6 +8,7 @@ import validateTermindato from '../../validation/validateTermindato';
 import { GravidSideKeys } from './GravidSideKeys';
 import formatValidation from '../../utils/formatValidation';
 import validateDokumentasjon from '../../validation/validateDokumentasjon';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 export const validateGravid = (state: GravidState, translate: i18n): GravidState => {
   if (!state.validated) {

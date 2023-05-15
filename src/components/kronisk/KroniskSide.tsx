@@ -14,14 +14,7 @@ import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LangKey from '../../locale/LangKey';
 import lenker, { buildLenke } from '../../config/lenker';
-import {
-  Side,
-  Upload,
-  Feilmeldingspanel,
-  Skillelinje,
-  stringishToNumber,
-  Language
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Side, Upload, Skillelinje, stringishToNumber, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
@@ -33,6 +26,7 @@ import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>

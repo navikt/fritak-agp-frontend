@@ -18,7 +18,7 @@ import { Omplassering } from './Omplassering';
 import environment from '../../config/environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
-import { Side, Upload, Feilmeldingspanel, Skillelinje, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Side, Upload, Skillelinje, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
@@ -48,6 +48,7 @@ import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel'
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Datovelger from '../datovelger/Datovelger';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 

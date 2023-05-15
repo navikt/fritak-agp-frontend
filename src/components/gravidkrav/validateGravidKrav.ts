@@ -1,4 +1,3 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import GravidKravState, { Periode } from './GravidKravState';
 import {
   pushFeilmelding,
@@ -16,6 +15,7 @@ import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_GRAVID_DATO } from '../../confi
 import formatValidation from '../../utils/formatValidation';
 import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
 import dayjs from 'dayjs';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;

@@ -17,7 +17,6 @@ import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import {
   Side,
-  Feilmeldingspanel,
   Skillelinje,
   useArbeidsgiver,
   stringishToNumber,
@@ -46,6 +45,7 @@ import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>

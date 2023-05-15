@@ -1,4 +1,3 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import KroniskKravState from './KroniskKravState';
 import {
   validateBeloep,
@@ -16,6 +15,7 @@ import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_KRONISK_DATO } from '../../conf
 import formatValidation from '../../utils/formatValidation';
 import dayjs from 'dayjs';
 import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_KRONISK_DATO;

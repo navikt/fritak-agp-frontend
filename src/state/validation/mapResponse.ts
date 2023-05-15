@@ -1,8 +1,8 @@
 import ValidationResponse from './ValidationResponse';
 import HttpStatus from '../../api/HttpStatus';
 import { ValidationState } from './ValidationState';
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { map200, map201, map400, map401, map422, map500 } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 const mapResponse = <Type>(
   response: ValidationResponse<Type>,
