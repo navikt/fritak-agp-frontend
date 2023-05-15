@@ -53,7 +53,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(Selector('button').withText('Send krav'))
     // .debug()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Mangler antall arbeidsdager')
         .withText('Mangler fra dato')
@@ -67,7 +67,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Mangler antall arbeidsdager')
         .withText('Mangler fra dato')
@@ -76,14 +76,15 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk();
 
   await t
     .typeText(ReactSelector('KontrollSporsmaal'), '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
@@ -92,7 +93,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler antall arbeidsdager')
         .with({ timeout: 100 }).visible
@@ -104,7 +105,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(fnr, '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
@@ -113,7 +114,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler antall arbeidsdager')
         .with({ timeout: 100 }).visible
@@ -125,7 +126,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .pressKey('ctrl+a delete')
     .typeText(fnr, '20125027610')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
         .withText('Mangler dager')
@@ -133,7 +134,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler antall arbeidsdager')
@@ -145,14 +146,14 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(belop, '5000')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
         .withText('Mangler dager').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
@@ -167,10 +168,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(velgDager)
     .click(velgDagerOption.withText(/5/))
-    .expect(ReactSelector('Feiloppsummering').withText('Mangler fra dato').withText('Mangler til dato').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Mangler fra dato').withText('Mangler til dato').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler dager')
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
@@ -185,10 +186,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(fraDato)
     .click(valgtFraDato)
-    .expect(ReactSelector('Feiloppsummering').withText('Mangler til dato').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Mangler til dato').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fra dato')
         .withText('Mangler dager')
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
@@ -209,7 +210,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(tilDato)
     .click(valgtTilDato)
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler til dato')
         .withText('Mangler fra dato')
         .withText('Mangler dager')
