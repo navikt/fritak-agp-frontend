@@ -1,8 +1,6 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Checkbox, CheckboxGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -20,17 +18,7 @@ import { Omplassering } from './Omplassering';
 import environment from '../../config/environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
-import {
-  Side,
-  Upload,
-  Oversettelse,
-  DatoVelger,
-  BekreftOpplysningerPanel,
-  Feilmeldingspanel,
-  Fnr,
-  Skillelinje,
-  Language
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { Side, Upload, Feilmeldingspanel, Skillelinje, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
@@ -41,9 +29,25 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Alert, Button, RadioGroup, Radio } from '@navikt/ds-react';
+import {
+  Alert,
+  BodyLong,
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Heading,
+  Ingress,
+  Panel,
+  RadioGroup,
+  Radio,
+  Textarea
+} from '@navikt/ds-react';
 import '@navikt/ds-css';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
+import Datovelger from '../datovelger/Datovelger';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -185,14 +189,15 @@ const GravidSide = (props: GravidSideProps) => {
                 <SkjemaGruppe aria-live='polite'>
                   <Row>
                     <Column md='3' xs='12'>
-                      <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
+                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                        {t(LangKey.DEN_ANSATTE)}
+                      </Heading>
                       <Fnr
                         id='fnr'
                         label={t(LangKey.FODSELSNUMMER_LABEL)}
                         fnr={state.fnr}
                         placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                         feilmelding={state.fnrError}
-                        onValidate={() => {}}
                         onChange={(fnr: string) =>
                           dispatch({
                             type: Actions.Fnr,
@@ -202,16 +207,15 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Systemtittel className='textfelt-padding-bottom'>&nbsp;</Systemtittel>
-                      <DatoVelger
-                        className='termindato'
+                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                        &nbsp;
+                      </Heading>
+                      <Datovelger
                         id='termindato'
                         label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
-                        feilmelding={state.termindatoError}
-                        placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
-                        dato={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
-                        defaultDate={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
-                        onChange={(termindato: Date) => {
+                        error={state.termindatoError}
+                        defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                        onDateChange={(termindato: Date | undefined) => {
                           dispatch({
                             type: Actions.Termindato,
                             payload: { termindato }
@@ -220,7 +224,9 @@ const GravidSide = (props: GravidSideProps) => {
                       />
                     </Column>
                     <Column md='3' xs='12'>
-                      <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
+                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                        {t(LangKey.ARBEIDSGIVEREN)}
+                      </Heading>
                       <Orgnr
                         label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                         orgnr={state.orgnr}
@@ -243,9 +249,9 @@ const GravidSide = (props: GravidSideProps) => {
               <Panel className='gravidside-panel-arbeidssituasjon'>
                 <Row>
                   <Column sm='8' xs='12'>
-                    <Systemtittel className='textfelt-padding-bottom'>
+                    <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                       {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
-                    </Systemtittel>
+                    </Heading>
                     <SkjemaGruppe>
                       <Oversettelse
                         className='arbeidsmiljo-ingress'
@@ -272,17 +278,16 @@ const GravidSide = (props: GravidSideProps) => {
                 <Panel className='gravidside-panel-tiltak'>
                   <Row>
                     <Column sm='8' xs='12'>
-                      <CheckboxGruppe
+                      <CheckboxGroup
                         legend={t(GravidSideKeys.GRAVID_SIDE_TILTAK_TITTEL)}
-                        feil={state.tiltakError}
-                        feilmeldingId='tiltakFeilmeldingId'
+                        error={state.tiltakError}
+                        errorId='tiltakFeilmeldingId'
                       >
                         {TiltakCheckboxes.map((a) => {
                           return (
                             <Checkbox
                               defaultChecked={isCheckboxChecked(a.value)}
                               key={a.id}
-                              label={t(a.label)}
                               id={a.id}
                               onChange={() =>
                                 dispatch({
@@ -290,14 +295,17 @@ const GravidSide = (props: GravidSideProps) => {
                                   payload: { tiltak: a.value }
                                 })
                               }
-                            />
+                              value={a.value}
+                            >
+                              {t(a.label)}
+                            </Checkbox>
                           );
                         })}
 
                         <Textarea
-                          className='textarea-min-hoyde'
+                          label={t(GravidSideKeys.GRAVID_SIDE_TILTAK_FRITEKST)}
                           value={state.tiltakBeskrivelse || ''}
-                          feil={state.tiltakBeskrivelseError}
+                          error={state.tiltakBeskrivelseError}
                           onChange={(evt) =>
                             dispatch({
                               type: Actions.TiltakBeskrivelse,
@@ -309,7 +317,7 @@ const GravidSide = (props: GravidSideProps) => {
                           disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
                           maxLength={MAX_TILTAK_BESKRIVELSE}
                         />
-                      </CheckboxGruppe>
+                      </CheckboxGroup>
                     </Column>
                   </Row>
                   <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
@@ -370,7 +378,7 @@ const GravidSide = (props: GravidSideProps) => {
                     <Skillelinje />
                     <Panel className='gravidside-panel-alert-gravid'>
                       <Alert className='gravidside-alert-gravid' variant='warning'>
-                        <Normaltekst>
+                        <BodyLong>
                           <>
                             {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
                             <button
@@ -386,7 +394,7 @@ const GravidSide = (props: GravidSideProps) => {
                             </button>
                             {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
                           </>
-                        </Normaltekst>
+                        </BodyLong>
                       </Alert>
                     </Panel>
                   </>
@@ -398,9 +406,9 @@ const GravidSide = (props: GravidSideProps) => {
                   <Skillelinje />
 
                   <Panel>
-                    <Systemtittel className='textfelt-padding-bottom'>
+                    <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                       {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
-                    </Systemtittel>
+                    </Heading>
                     <SkjemaGruppe
                       feil={state.dokumentasjonError}
                       feilmeldingId='dokumentasjonFeilmeldingId'

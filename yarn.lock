@@ -1612,6 +1612,11 @@
   resolved "https://registry.yarnpkg.com/@miherlosev/esm/-/esm-3.2.26.tgz#a516b35d8b8b4eac29598f1c2c23e30a4d260200"
   integrity sha512-TaW4jTGVE1/ln2VGFChnheMh589QCAZy1MVnLvjjSzZ4pEAa4WYAWPwFkDVZbSdPQdLfZy7LuTyZjWRkhX9/Gg==
 
+"@navikt/aksel-icons@^2.8.16":
+  version "2.8.16"
+  resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/2.8.16/991af8aea9179f6df5e8905e213b8bf1137b2f6b#991af8aea9179f6df5e8905e213b8bf1137b2f6b"
+  integrity sha512-RCvI9a8bBl4SE7x/cUMyZEgD/uL7xo8xuCwwtMN6WXXt0cbhLlZjXdn2S+T4J4KFZjZo82DZKhpZLyqEJjqMcw==
+
 "@navikt/aksel-icons@^2.9.8":
   version "2.9.8"
   resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/2.9.8/04e4868d2f8f1022b52e9de54668127f6d0f5052#04e4868d2f8f1022b52e9de54668127f6d0f5052"
@@ -1625,15 +1630,20 @@
     "@types/amplitude-js" "^8.9.4"
     fuzzysort "^1.1.4"
 
-"@navikt/ds-css@^2.8.11":
-  version "2.9.8"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/2.9.8/f620f8fc013050d272d89485bb46042819363cc2#f620f8fc013050d272d89485bb46042819363cc2"
-  integrity sha512-6MnIJpH/pX9VYXGcO2hUn9WWqUTk1WdIiPVQQbj3jTZhUKNwnT2bofcB+OrIfCST9o0qDyYeGVfVsuAyQpZxRA==
+"@navikt/ds-css@^3.1.3":
+  version "3.1.3"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/3.1.3/116ce75c3a55983f8530a879d373f4cd11c7ec51#116ce75c3a55983f8530a879d373f4cd11c7ec51"
+  integrity sha512-oLGz8l0EouCwIwT+Pwwrw3Y7m48RP+OKx9Vj1utKHXvol+vxNH/t22C63Gql559T9pwRZEek6ug5O53ZuUDM7Q==
 
-"@navikt/ds-icons@^2.8.11", "@navikt/ds-icons@^2.9.8":
+"@navikt/ds-icons@^2.9.8":
   version "2.9.8"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/2.9.8/b6f22493a3b836e00762dcc0a4397c64beb634e0#b6f22493a3b836e00762dcc0a4397c64beb634e0"
   integrity sha512-5IdVN4rmpXnznQMUz5YPxDoY17nykV3Oy/YCpq6gF69JRbhjwgQ+4LI/eV1tFFLaM/EW73qFCaEzhP0DY3prEw==
+
+"@navikt/ds-icons@^3.1.3":
+  version "3.1.3"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/3.1.3/6f0b23311a383d8cad94c291d49c7a98b07a5dbc#6f0b23311a383d8cad94c291d49c7a98b07a5dbc"
+  integrity sha512-SImOgyYsaLy9H4DBSTeQDCaLSpPZ2djZwc3cOSGLEbSEr0ZX/au0yoRLqg9v/Py8RnuxWzVGanXfywK5Y9G3yA==
 
 "@navikt/ds-react@^2.8.11":
   version "2.9.8"
@@ -7862,16 +7872,6 @@ nav-frontend-core@^6.0.1:
   resolved "https://registry.yarnpkg.com/nav-frontend-core/-/nav-frontend-core-6.0.1.tgz#81feef412890cb84074d329a2e3a8b6bca4ba314"
   integrity sha512-zFAPRXgmS3Nhu5SyafsTnCFg2/PEbrUF+g1xGo+pKIxGfJgCeLi47gPSe7Kjeh3IwIo0ex3cA7tfbUIWOY65dQ==
 
-nav-frontend-ekspanderbartpanel-style@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-ekspanderbartpanel-style/-/nav-frontend-ekspanderbartpanel-style-2.0.2.tgz#a78c610ccacc408a59406981f62254b8b5949964"
-  integrity sha512-p2enXZfqvM+mXMcyG5ASonQ79Pz3h0x3RN7Bncsp1PSspDrj2uBJvyfD0y/SwLMlo04yH8Gm5JMAeP1q/wqhwg==
-
-nav-frontend-ekspanderbartpanel@^4.0.3:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/nav-frontend-ekspanderbartpanel/-/nav-frontend-ekspanderbartpanel-4.0.4.tgz#34c777b405b787c4b8809e76a4778a3f2084e1b0"
-  integrity sha512-MNIhCAcHH0K6LMvmLAcqjSUAyH54dSZvDLgXE3UPtmAwlhgTIoHarB1nsoNHauoBvByLosR3pclrX4VY9Wc8Rw==
-
 nav-frontend-grid-style@1.0.3, nav-frontend-grid-style@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/nav-frontend-grid-style/-/nav-frontend-grid-style-1.0.3.tgz#17d37ec96fbeb63d4055ee1b8493731cc1241e4e"
@@ -7882,7 +7882,7 @@ nav-frontend-grid@^2.0.2:
   resolved "https://registry.yarnpkg.com/nav-frontend-grid/-/nav-frontend-grid-2.0.2.tgz#7e341f7743d4eedab4fc5f7a5bdb12b3d447034e"
   integrity sha512-SnyipZQNzX3Tj2WpyNx89G0NFTcOKX1eWMFasr9mHT/RjWvFMXzqPPJetOawWlL2w0cnJ4rygxo93iQEMk7CAA==
 
-nav-frontend-hjelpetekst-style@^3.0.1, nav-frontend-hjelpetekst-style@^3.0.2:
+nav-frontend-hjelpetekst-style@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-hjelpetekst-style/-/nav-frontend-hjelpetekst-style-3.0.2.tgz#5025ea63e58bac8b9882da686393c89c3b762a2e"
   integrity sha512-7OMdkekxR9GfnAns1Qsp+BT54rAZJ9JFNIYz11LjNjKp95/aGe4LX41SwmSx+sw9xywp84pCe7ZFaJRte7ZCDw==
@@ -7939,22 +7939,22 @@ nav-frontend-lukknapp@^2.0.1, nav-frontend-lukknapp@^2.0.2:
   resolved "https://registry.yarnpkg.com/nav-frontend-lukknapp/-/nav-frontend-lukknapp-2.0.2.tgz#c074bbf4b1a6a89b3d00ac4358c739ec2b46bd8d"
   integrity sha512-ItSQSmbfSE8GPDcAGkWGIVydYUuzvYAMVJ9pMKpItvAUfZ+Dt7HyYLXjfSxwi10ign4fpi9dsZGKfsFYyOQ2RQ==
 
-nav-frontend-modal-style@^2.0.1, nav-frontend-modal-style@^2.0.2:
+nav-frontend-modal-style@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-modal-style/-/nav-frontend-modal-style-2.0.2.tgz#d92bb6877cad7940366d60b263721b7984224b96"
   integrity sha512-XKKE1Y+AAGobT218eKOV/cmTgauudG7nU30PUeLTfiQnCeuzt6ZRhwM7cdUfgCVVlAfK/pNHbZYK1vGr8l1iGw==
 
-nav-frontend-modal@^2.0.1, nav-frontend-modal@^2.0.2:
+nav-frontend-modal@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-modal/-/nav-frontend-modal-2.0.2.tgz#361051a991d9f523373725e0031e61040848ef52"
   integrity sha512-Ajm2OdNyS/JAjgK9xas0vNOUQ6iUudy6Fhx4w/RmMJY2TSGB23FKTL8+cgi/Th+PbeUkPvZDbDyB0nQf7db5Ug==
 
-nav-frontend-paneler-style@^2.0.1, nav-frontend-paneler-style@^2.0.2:
+nav-frontend-paneler-style@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-paneler-style/-/nav-frontend-paneler-style-2.0.2.tgz#f36a1705103ca8603dca1c9fa2dae809eea00439"
   integrity sha512-bb0Gc/XUPJqgEQKQd37Zj/xRq875zMmHhdn621xd2/BXVpO1f1Eu6V6IPhf4y0jqNlNrvDLDSh4DxHHHf/s9/A==
 
-nav-frontend-paneler@^3.0.1, nav-frontend-paneler@^3.0.2:
+nav-frontend-paneler@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-paneler/-/nav-frontend-paneler-3.0.2.tgz#1de91e57abcab76ec18400d9686050df55a0cce5"
   integrity sha512-SJIOPC9znsmxHmeDHDWaXpr1K0uJoIlF+iEvC7svjZEOw1GaK6i6EoER9lysnyTnljFFMgyyt2OwpOp7sNulQQ==

@@ -1,6 +1,6 @@
-import Spinner from 'nav-frontend-spinner';
+import { Loader } from '@navikt/ds-react';
 import React from 'react';
 
 export const NotifikasjonSpinner = () => {
-  return <Spinner type={'XXL'} className='notifikasjon-spinner' />;
+  return <Loader size='3xlarge' className='notifikasjon-spinner' />;
 };

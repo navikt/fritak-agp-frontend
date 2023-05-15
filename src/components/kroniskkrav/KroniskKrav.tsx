@@ -1,13 +1,10 @@
 import React, { Reducer, useEffect, useReducer, useState } from 'react';
-import { Ingress, Systemtittel } from 'nav-frontend-typografi';
-import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
@@ -20,10 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import {
   Side,
-  Oversettelse,
-  BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr,
   Skillelinje,
   useArbeidsgiver,
   stringishToNumber,
@@ -47,8 +41,11 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button } from '@navikt/ds-react';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -269,7 +266,9 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           )}
 
           <Panel id='kroniskkrav-panel-den-ansatte'>
-            <Systemtittel className='textfelt-padding-bottom'>{t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}</Systemtittel>
+            <Heading size='medium' level='2' className='textfelt-padding-bottom'>
+              {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
+            </Heading>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
@@ -302,17 +301,15 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Skillelinje />
 
           <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
-            </Systemtittel>
-            <Ingress tag='span' className='textfelt-padding-bottom'>
-              <>
-                {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
-                <Hjelpetekst className='krav-padding-hjelpetekst'>
-                  <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
-                </Hjelpetekst>
-              </>
-            </Ingress>
+            </Heading>
+            <div className='textfelt-padding-bottom ingress'>
+              {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
+              <HelpText className='krav-padding-hjelpetekst'>
+                <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+              </HelpText>
+            </div>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>
               {state.perioder?.map((enkeltPeriode, index) => (
                 <KravPeriode

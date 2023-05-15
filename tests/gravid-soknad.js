@@ -187,7 +187,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   const terminDato = Selector('#termindato');
-  const valgtTerminDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
+  const valgtTerminDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
   await t
     .click(terminDato)
     .click(valgtTerminDato)

@@ -1,8 +1,6 @@
-import { datoToString, DatoVelger, Oversettelse, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { datoToString, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { Input, Label } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
+
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
@@ -12,8 +10,11 @@ import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
 import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../config/konstanter';
-import { Button } from '@navikt/ds-react';
+import { Button, HelpText, TextField } from '@navikt/ds-react';
 import '@navikt/ds-css';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import Datovelger from '../datovelger/Datovelger';
+import TextLabel from '../TextLabel';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -38,7 +39,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
     });
   };
 
-  const fraDatoValgt = (fraDato: Date, itemId: string) => {
+  const fraDatoValgt = (fraDato: Date | undefined, itemId: string) => {
     if (fraDato) {
       getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbelopRespons) => {
         if (grunnbelopRespons.grunnbeloep) {
@@ -64,8 +65,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
   const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
 
   const today = new Date();
-
-  const oddClass = props.index % 2 ? 'odd' : 'even';
 
   const defaultFom =
     props.enkeltPeriode.fom && props.enkeltPeriode.fom.year
@@ -96,150 +95,142 @@ const KravPeriode = (props: KravPeriodeProps) => {
   }, []); // eslint-disable-line
 
   return (
-    <div className='krav-kort'>
-      <div className={'periodewrapper ' + oddClass} data-testid='krav-periode-wrapper'>
-        <div>
-          <DatoVelger
-            className='datovelger-periode'
-            id={`fra-dato-${props.index}`}
-            placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
-            label={t(LangKey.KRONISK_KRAV_PERIODE_FRA)}
-            onChange={(fraDato: Date) => {
-              fraDatoValgt(fraDato, props.enkeltPeriode.uniqueKey);
-            }}
-            feilmelding={props.enkeltPeriode.fomError}
-            maxDate={today}
-            minDate={MIN_KRONISK_DATO}
-            dato={defaultFom}
-          />
-        </div>
-        <div>
-          <DatoVelger
-            className='datovelger-periode'
-            id={`til-dato-${props.index}`}
-            placeholder={t(LangKey.KRONISK_KRAV_PERIODE_FORMAT)}
-            label={t(LangKey.KRONISK_KRAV_PERIODE_TIL)}
-            onChange={(tilDate: Date) => {
-              dispatch({
-                type: Actions.Til,
-                payload: {
-                  til: tilDate,
-                  itemId: props.enkeltPeriode.uniqueKey
-                }
-              });
-            }}
-            feilmelding={props.enkeltPeriode.tomError}
-            maxDate={today}
-            dato={defaultTom}
-          />
-        </div>
-        <div className='antall-dager'>
-          <Label htmlFor={`dager-${props.index}`}>
+    <div className='krav-kort' data-testid='krav-periode-wrapper'>
+      <Datovelger
+        id={`fra-dato-${props.index}`}
+        label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_FRA)}</div>}
+        onDateChange={(fraDato: Date | undefined) => {
+          fraDatoValgt(fraDato, props.enkeltPeriode.uniqueKey);
+        }}
+        error={props.enkeltPeriode.fomError}
+        toDate={today}
+        fromDate={MIN_KRONISK_DATO}
+        defaultSelected={defaultFom}
+      />
+
+      <Datovelger
+        id={`til-dato-${props.index}`}
+        label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_TIL)}</div>}
+        onDateChange={(tilDate: Date | undefined) => {
+          dispatch({
+            type: Actions.Til,
+            payload: {
+              til: tilDate,
+              itemId: props.enkeltPeriode.uniqueKey
+            }
+          });
+        }}
+        error={props.enkeltPeriode.tomError}
+        toDate={today}
+        defaultSelected={defaultTom}
+      />
+
+      <SelectDager
+        label={
+          <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
-            <Hjelpetekst className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL)}>
+            <HelpText className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL)}>
               {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
-            </Hjelpetekst>
-          </Label>
-          <SelectDager
-            className='periode-elementer'
-            id={`dager-${props.index}`}
-            value={props.enkeltPeriode.dager}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              dispatch({
-                type: Actions.Dager,
-                payload: {
-                  dager: stringishToNumber(event.currentTarget.value),
-                  itemId: props.enkeltPeriode.uniqueKey
-                }
-              })
+            </HelpText>
+          </div>
+        }
+        className='periode-elementer'
+        id={`dager-${props.index}`}
+        value={props.enkeltPeriode.dager}
+        onChange={(event: React.FormEvent<HTMLSelectElement>) =>
+          dispatch({
+            type: Actions.Dager,
+            payload: {
+              dager: stringishToNumber(event.currentTarget.value),
+              itemId: props.enkeltPeriode.uniqueKey
             }
-            feil={props.enkeltPeriode.dagerError}
-          />
-        </div>
-        <div className='periode-elementer'>
-          <Label htmlFor={`belop-${props.index}`}>
+          })
+        }
+        error={props.enkeltPeriode.dagerError}
+      />
+
+      <TextField
+        label={
+          <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TEXT)}
-            <Hjelpetekst
-              className='krav-padding-hjelpetekst'
-              title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}
-            >
-              <Systemtittel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</Systemtittel>
+            <HelpText className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}>
+              <TextLabel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</TextLabel>
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
-            </Hjelpetekst>
-          </Label>
-          <Input
-            className='mnd-inntekt'
-            id={`belop-${props.index}`}
-            inputMode='numeric'
-            pattern='[0-9]*'
-            placeholder='Kr:'
-            defaultValue={props.enkeltPeriode.belop}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              dispatch({
-                type: Actions.Beloep,
-                payload: {
-                  belop: stringishToNumber(event.currentTarget.value),
-                  itemId: props.enkeltPeriode.uniqueKey
-                }
-              })
+            </HelpText>
+          </div>
+        }
+        className='mnd-inntekt'
+        id={`belop-${props.index}`}
+        inputMode='numeric'
+        pattern='[0-9]*'
+        placeholder='Kr:'
+        defaultValue={props.enkeltPeriode.belop}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch({
+            type: Actions.Beloep,
+            payload: {
+              belop: stringishToNumber(event.currentTarget.value),
+              itemId: props.enkeltPeriode.uniqueKey
             }
-            feil={props.enkeltPeriode.belopError}
-          />
-        </div>
-      </div>
-      <div className={'periodewrapper ' + oddClass}>
-        <div>
-          <Label htmlFor={`sykemeldingsgrad-${props.index}`}>
+          })
+        }
+        error={props.enkeltPeriode.belopError}
+      />
+
+      <TextField
+        id={`sykemeldingsgrad-${props.index}`}
+        label={
+          <div className='label-med-hjelp'>
             Sykemeldingsgrad
-            <Hjelpetekst className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
-              <Systemtittel>Gradert sykmelding</Systemtittel>
+            <HelpText className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
+              <TextLabel>Gradert sykmelding</TextLabel>
               Sykmeldingsgrad, minimum 20%
-            </Hjelpetekst>
-          </Label>
-          <Input
-            id={`sykemeldingsgrad-${props.index}`}
-            inputMode='numeric'
-            pattern='[0-9]*'
-            placeholder='100%'
-            defaultValue={defaultSykemeldingsgrad}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              dispatch({
-                type: Actions.Sykemeldingsgrad,
-                payload: {
-                  sykemeldingsgrad: event.currentTarget.value,
-                  itemId: props.enkeltPeriode.uniqueKey
-                }
-              })
+            </HelpText>
+          </div>
+        }
+        inputMode='numeric'
+        pattern='[0-9]*'
+        placeholder='100%'
+        defaultValue={defaultSykemeldingsgrad}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch({
+            type: Actions.Sykemeldingsgrad,
+            payload: {
+              sykemeldingsgrad: event.currentTarget.value,
+              itemId: props.enkeltPeriode.uniqueKey
             }
-            feil={props.enkeltPeriode.sykemeldingsgradError}
-          />
-        </div>
-        <div>
-          <Label htmlFor={`belop-${props.index}`}>
+          })
+        }
+        error={props.enkeltPeriode.sykemeldingsgradError}
+      />
+
+      <div>
+        <TextLabel>
+          <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
-            <Hjelpetekst
+            <HelpText
               className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
               title={t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL)}
             >
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
-            </Hjelpetekst>
-          </Label>
-          <div className='skjemalelement tekstvisning'>
-            {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
+            </HelpText>
           </div>
+        </TextLabel>
+        <div className='skjemalelement tekstvisning'>
+          {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
         </div>
-        {props.slettbar && (
-          <div className='slett-periode-wrapper'>
-            <Button
-              variant='danger'
-              onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)}
-              className='slett-periode'
-            >
-              Slett
-            </Button>
-          </div>
-        )}
       </div>
+      {props.slettbar && (
+        <div className='slett-periode-wrapper'>
+          <Button
+            variant='danger'
+            onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)}
+            className='slett-periode'
+          >
+            Slett
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

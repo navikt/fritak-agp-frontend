@@ -1,7 +1,6 @@
 .kroniskkrav {
     .krav-padding-hjelpetekst {
-        margin-left: 1rem;
-        position: absolute;
+        margin-left: 1rem !important;
     }
 
     .datoelement {
@@ -26,6 +25,20 @@
         float: right;
     }
 
+    // .navds-help-text {
+    //     display: inline flow-root list-item;
+    //     list-style-type: " ";
+    // }
+
+    .ingress {
+        font-size: var(--a-font-size-large);
+        font-weight: var(--a-font-weight-bold);
+        line-height: var(--a-font-line-height-large);
+
+        // .navds-help-text {
+        //     display: inline-block;
+        // }
+    }
     
 }
 

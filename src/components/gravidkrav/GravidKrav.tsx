@@ -1,6 +1,4 @@
 import React, { useEffect, useReducer, Reducer, useState } from 'react';
-import { Ingress, Systemtittel } from 'nav-frontend-typografi';
-import Panel from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,7 +6,6 @@ import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
 
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer, { MAX_PERIODER } from './GravidKravReducer';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
@@ -21,11 +18,8 @@ import { i18n as Ii18n } from 'i18next';
 import {
   Side,
   LeggTilKnapp,
-  Oversettelse,
   stringishToNumber,
-  BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr,
   Skillelinje,
   useArbeidsgiver,
   HttpStatus,
@@ -47,8 +41,11 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button } from '@navikt/ds-react';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -264,7 +261,9 @@ export const GravidKrav = (props: GravidKravProps) => {
             </>
           )}
           <Panel id='gravidkrav-panel-den-ansatte'>
-            <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+              {t(LangKey.DEN_ANSATTE)}
+            </Heading>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
@@ -274,7 +273,6 @@ export const GravidKrav = (props: GravidKravProps) => {
                     fnr={state.fnr}
                     placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
-                    onValidate={() => {}}
                     onChange={(fnr: string) =>
                       dispatch({
                         type: Actions.Fnr,
@@ -298,18 +296,18 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Skillelinje />
 
           <Panel id='gravidkrav-panel-tapt-arbeidstid'>
-            <Systemtittel className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
-            </Systemtittel>
-            <Ingress tag='span' className='textfelt-padding-bottom'>
+            </Heading>
+            <Ingress as='span' className='textfelt-padding-bottom'>
               <>
                 {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-                <Hjelpetekst
+                <HelpText
                   className='krav-padding-hjelpetekst'
                   title={t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL)}
                 >
                   <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
-                </Hjelpetekst>
+                </HelpText>
               </>
             </Ingress>
             <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'}>

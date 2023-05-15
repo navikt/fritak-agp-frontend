@@ -1,8 +1,6 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Checkbox, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -19,10 +17,7 @@ import lenker, { buildLenke } from '../../config/lenker';
 import {
   Side,
   Upload,
-  Oversettelse,
-  BekreftOpplysningerPanel,
   Feilmeldingspanel,
-  Fnr,
   Skillelinje,
   stringishToNumber,
   Language
@@ -33,8 +28,11 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '@navikt/ds-react';
-import ServerFeilAdvarsel from '../ServerFeilAdvarsel/ServerFeilAdvarsel';
+import { BodyLong, Button, Checkbox, Heading, Ingress, Panel, TextField } from '@navikt/ds-react';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
@@ -139,19 +137,22 @@ const KroniskSide = () => {
             <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
               <Row>
                 <Column sm='4' xs='6'>
-                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
+                  <Heading size='medium' level='2' className='textfelt-padding-bottom'>
+                    {t(LangKey.DEN_ANSATTE)}
+                  </Heading>
                   <Fnr
                     id='fnr'
                     label={t(LangKey.FODSELSNUMMER_LABEL)}
                     fnr={state.fnr}
                     placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
                     feilmelding={state.fnrError}
-                    onValidate={() => {}}
                     onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
                   />
                 </Column>
                 <Column sm='4' xs='6'>
-                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
+                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                    {t(LangKey.ARBEIDSGIVEREN)}
+                  </Heading>
                   <Orgnr
                     label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
                     orgnr={state.orgnr}
@@ -172,9 +173,9 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
               {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
-            </Systemtittel>
+            </Heading>
             <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
               <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
               <Upload
@@ -192,7 +193,9 @@ const KroniskSide = () => {
           <Skillelinje />
 
           <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+              {t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
+            </Heading>
             <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaertabell' aria-live='polite'>
               <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
 
@@ -215,14 +218,13 @@ const KroniskSide = () => {
             </SkjemaGruppe>
           </Panel>
           <Panel>
-            <Label htmlFor='soknad-perioder'>{t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}</Label>
-            <Input
+            <TextField
+              label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}
               id='soknad-perioder'
-              bredde='XS'
               inputMode='numeric'
               pattern='[0-9]*'
               className='kontrollsporsmaal-lonn-arbeidsdager'
-              feil={state.antallPerioderError}
+              error={state.antallPerioderError}
               onChange={(evt) => {
                 dispatch({
                   type: Actions.AntallPerioder,
@@ -232,20 +234,21 @@ const KroniskSide = () => {
                 });
               }}
             />
-            <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
+            <BodyLong className='kontrollsporsmaal-lonn-forklaring'>
               {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_TEXT)}
-            </Normaltekst>
+            </BodyLong>
 
             <Checkbox
               className='checkbox-unntak'
               defaultChecked={state.ikkeHistoriskFravaer}
-              label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
               onChange={() => {
                 dispatch({
                   type: Actions.ToggleUnntak
                 });
               }}
-            />
+            >
+              {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
+            </Checkbox>
           </Panel>
           <Skillelinje />
 
