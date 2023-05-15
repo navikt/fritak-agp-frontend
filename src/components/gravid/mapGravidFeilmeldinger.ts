@@ -1,10 +1,10 @@
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidState from './GravidState';
-import { lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import { v4 as uuid } from 'uuid';
 import HttpStatus from '../../api/HttpStatus';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
+import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
 
 const mapGravidFeilmeldinger = (
   response: ValidationResponse<GravidSoknadResponse>,

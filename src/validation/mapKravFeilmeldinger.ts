@@ -1,9 +1,10 @@
 import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
 import KroniskKravState from '../components/kroniskkrav/KroniskKravState';
-import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidKravState from '../components/gravidkrav/GravidKravState';
 import { v4 as uuid } from 'uuid';
 import HttpStatus from '../api/HttpStatus';
+import lagFeil from '../components/felles/Feilmeldingspanel/lagFeil';
 
 export interface FeiloppsummeringFeil {
   skjemaelementId: string;
