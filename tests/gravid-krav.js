@@ -166,7 +166,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t
     .click(velgDager)
-    .click(velgDagerOption.withText('5'))
+    .click(velgDagerOption.withText(/5/))
     .expect(ReactSelector('Feiloppsummering').withText('Mangler fra dato').withText('Mangler til dato').visible)
     .ok()
     .expect(
@@ -181,7 +181,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk();
 
   const fraDato = Selector('#fra-dato-0');
-  const valgtFraDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)');
+  const valgtFraDato = Selector('.rdp .rdp-row:nth-child(2) .rdp-cell:nth-child(3)');
   await t
     .click(fraDato)
     .click(valgtFraDato)
@@ -204,7 +204,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t.expect(Selector('html').textContent).contains('153');
 
   const tilDato = Selector('#til-dato-0');
-  const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
+  const valgtTilDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
   await t
     .click(tilDato)
     .click(valgtTilDato)
