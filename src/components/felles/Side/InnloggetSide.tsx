@@ -2,12 +2,12 @@ import React from 'react';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import Lenke from 'nav-frontend-lenker';
 import './InnloggetSide.css';
 import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { useTranslation } from 'react-i18next';
 import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
 import { InnloggetSideKeys } from './InnloggetSideKeys';
+import { Link } from '@navikt/ds-react';
 
 interface SideProps {
   children: React.ReactNode;
@@ -37,7 +37,7 @@ const InnloggetSide = (props: SideProps) => {
             <Row>
               <Column>
                 <div className={'innloggetside__minside_arbeidsgiver'}>
-                  <Lenke href='/min-side-arbeidsgiver/'>&lt;&lt; {t(InnloggetSideKeys.INNLOGGET_SIDE_MIN_SIDE)}</Lenke>
+                  <Link href='/min-side-arbeidsgiver/'>&lt;&lt; {t(InnloggetSideKeys.INNLOGGET_SIDE_MIN_SIDE)}</Link>
                 </div>
               </Column>
             </Row>

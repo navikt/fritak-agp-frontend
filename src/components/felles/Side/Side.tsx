@@ -1,6 +1,5 @@
 import React from 'react';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import Lenke from 'nav-frontend-lenker';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
@@ -10,6 +9,7 @@ import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
 import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { SideKeys } from './SideKeys';
 import './Side.sass';
+import { Link } from '@navikt/ds-react';
 
 interface SideProps {
   children: React.ReactNode;
@@ -39,7 +39,7 @@ const Side = (props: SideProps) => {
         {!props.skjulTilbakeLenke && (
           <Container>
             <div className={'side__minside_arbeidsgiver'}>
-              <Lenke href='/min-side-arbeidsgiver/'>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Lenke>
+              <Link href='/min-side-arbeidsgiver/'>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Link>
             </div>
           </Container>
         )}

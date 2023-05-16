@@ -40,7 +40,7 @@ const Upload = (props: UploadProps) => {
   };
   return (
     <div className={'upload ' + props.className}>
-      <label className='knapp upload-filknapp'>
+      <label className='navds-button navds-button--secondary upload-filknapp'>
         <input
           className='upload-fileinput'
           type='file'
