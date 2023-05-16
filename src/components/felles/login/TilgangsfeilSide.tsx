@@ -1,8 +1,8 @@
 import React from 'react';
-import Alertstripe from 'nav-frontend-alertstriper';
 import { useTranslation } from 'react-i18next';
 import Side from '../Side/Side';
 import { TilgangsfeilSideKeys } from './TilgangsfeilSideKeys';
+import { Alert } from '@navikt/ds-react';
 
 export const TilgangsfeilSide = () => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export const TilgangsfeilSide = () => {
       subtitle={t(TilgangsfeilSideKeys.TILGANGSFEILSIDE_ERROR) as unknown as string}
       bedriftsmeny={false}
     >
-      <Alertstripe type='feil'>{t(TilgangsfeilSideKeys.TILGANGSFEILSIDE_LOGIN)}</Alertstripe>
+      <Alert variant='error'>{t(TilgangsfeilSideKeys.TILGANGSFEILSIDE_LOGIN)}</Alert>
     </Side>
   );
 };

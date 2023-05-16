@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './SideIndentering.sass';
+
 interface SideIndenteringProps {
   children: any;
 }

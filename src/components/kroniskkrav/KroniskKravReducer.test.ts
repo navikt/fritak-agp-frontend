@@ -4,9 +4,9 @@ import { defaultKroniskKravState } from './KroniskKravState';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
-import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
+import Language from '../../locale/Language';
 
 describe('KroniskKravReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);

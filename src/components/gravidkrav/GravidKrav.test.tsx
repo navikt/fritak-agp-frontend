@@ -4,7 +4,7 @@ import { axe } from 'jest-axe';
 
 import GravidKrav from './GravidKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 
 describe('GravidKrav', () => {
   it('should have no a11y violations', async () => {

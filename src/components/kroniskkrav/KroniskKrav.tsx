@@ -226,159 +226,158 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       title={t(KroniskKravKeys.KRONISK_KRAV_TITLE)}
       subtitle={t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE)}
     >
-      <Row>
-        <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
-        <Column>
+      <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
+
+      <Panel>
+        <Ingress className='textfelt-padding-bottom'>
+          <Oversettelse
+            langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
+            variables={{
+              lenkeKronisk: buildLenke(lenker.Kronisk, language as Language)
+            }}
+          />
+        </Ingress>
+        <Ingress>
+          <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
+        </Ingress>
+      </Panel>
+      <Skillelinje />
+
+      {state.endringskrav && (
+        <>
           <Panel>
-            <Ingress className='textfelt-padding-bottom'>
-              <Oversettelse
-                langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
-                variables={{
-                  lenkeKronisk: buildLenke(lenker.Kronisk, language as Language)
-                }}
-              />
-            </Ingress>
-            <Ingress>
-              <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
-            </Ingress>
-          </Panel>
-          <Skillelinje />
-
-          {state.endringskrav && (
-            <>
-              <Panel>
-                <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
-                  <Row>
-                    <Column sm='4' xs='6'>
-                      <SelectEndring
-                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                          setEndringsAarsak(event.target.value as EndringsAarsak)
-                        }
-                        feil={state.endringsAarsakError}
-                      />
-                    </Column>
-                  </Row>
-                </SkjemaGruppe>
-              </Panel>
-              <Skillelinje />
-            </>
-          )}
-
-          <Panel id='kroniskkrav-panel-den-ansatte'>
-            <Heading size='medium' level='2' className='textfelt-padding-bottom'>
-              {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
-            </Heading>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
+            <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
               <Row>
                 <Column sm='4' xs='6'>
-                  <Fnr
-                    id='fnr'
-                    label={t(LangKey.FODSELSNUMMER_LABEL)}
-                    fnr={state.fnr}
-                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                    feilmelding={state.fnrError}
-                    onChange={(fnr: string) =>
-                      dispatch({
-                        type: Actions.Fnr,
-                        payload: { fnr: fnr }
-                      })
+                  <SelectEndring
+                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                      setEndringsAarsak(event.target.value as EndringsAarsak)
                     }
-                  />
-                </Column>
-                <Column sm='8' xs='8'>
-                  <KontrollSporsmaal
-                    onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
-                    id='kontrollsporsmaal-lonn-arbeidsdager'
-                    feil={state.antallDagerError}
-                    defaultValue={state.antallDager}
+                    feil={state.endringsAarsakError}
                   />
                 </Column>
               </Row>
             </SkjemaGruppe>
           </Panel>
-
           <Skillelinje />
+        </>
+      )}
 
-          <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
-            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-              {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
-            </Heading>
-            <TextLabel className='textfelt-padding-bottom'>
-              <div className='label-med-hjelp'>
-                {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
-                <HelpText className='krav-padding-hjelpetekst'>
-                  <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
-                </HelpText>
-              </div>
-            </TextLabel>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
-              {state.perioder?.map((enkeltPeriode, index) => (
-                <KravPeriode
-                  dispatch={dispatch}
-                  enkeltPeriode={enkeltPeriode}
-                  index={index}
-                  lonnspliktDager={state.antallDager}
-                  key={enkeltPeriode.uniqueKey}
-                  slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-                  Actions={Actions}
-                />
-              ))}
-              <div>
-                {state.perioder && state.perioder.length < MAX_PERIODER && (
-                  <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
-                )}
-              </div>
-            </SkjemaGruppe>
-          </Panel>
-          <Skillelinje />
+      <Panel id='kroniskkrav-panel-den-ansatte'>
+        <Heading size='medium' level='2' className='textfelt-padding-bottom'>
+          {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
+        </Heading>
+        <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
+          <Row>
+            <Column sm='4' xs='6'>
+              <Fnr
+                id='fnr'
+                label={t(LangKey.FODSELSNUMMER_LABEL)}
+                fnr={state.fnr}
+                placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+                feilmelding={state.fnrError}
+                onChange={(fnr: string) =>
+                  dispatch({
+                    type: Actions.Fnr,
+                    payload: { fnr: fnr }
+                  })
+                }
+              />
+            </Column>
+            <Column sm='8' xs='8'>
+              <KontrollSporsmaal
+                onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+                id='kontrollsporsmaal-lonn-arbeidsdager'
+                feil={state.antallDagerError}
+                defaultValue={state.antallDager}
+              />
+            </Column>
+          </Row>
+        </SkjemaGruppe>
+      </Panel>
 
-          <BekreftOpplysningerPanel
-            checked={!!state.bekreft}
-            feil={state.bekreftError}
-            onChange={() =>
-              dispatch({
-                type: Actions.Bekreft,
-                payload: { bekreft: !state.bekreft }
-              })
-            }
-          />
+      <Skillelinje />
 
-          <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
-
-          <Panel>
-            <Button onClick={handleSubmitClicked} loading={state.progress}>
-              {state.endringskrav ? (
-                <>{t(KroniskKravKeys.KRONISK_KRAV_ENDRE)}</>
-              ) : (
-                <>{t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}</>
-              )}
-            </Button>
-            {state.endringskrav && (
-              <>
-                <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
-                  Avbryt
-                </Button>
-                <Button
-                  variant='danger'
-                  onClick={handleDeleteClicked}
-                  className='sletteknapp'
-                  loading={state.progress}
-                  disabled={state.formDirty}
-                >
-                  Slett krav
-                </Button>
-              </>
+      <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
+        <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+          {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
+        </Heading>
+        <TextLabel className='textfelt-padding-bottom'>
+          <div className='label-med-hjelp'>
+            {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
+            <HelpText className='krav-padding-hjelpetekst'>
+              <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+            </HelpText>
+          </div>
+        </TextLabel>
+        <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
+          {state.perioder?.map((enkeltPeriode, index) => (
+            <KravPeriode
+              dispatch={dispatch}
+              enkeltPeriode={enkeltPeriode}
+              index={index}
+              lonnspliktDager={state.antallDager}
+              key={enkeltPeriode.uniqueKey}
+              slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
+              Actions={Actions}
+            />
+          ))}
+          <div>
+            {state.perioder && state.perioder.length < MAX_PERIODER && (
+              <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
             )}
-          </Panel>
-        </Column>
-        {state.notAuthorized && (
-          <LoggetUtAdvarsel
-            onClose={handleCloseNotAuthorized}
-            tokenFornyet={lenker.TokenFornyet}
-            loginServiceUrl={environment.loginServiceUrl}
-          />
+          </div>
+        </SkjemaGruppe>
+      </Panel>
+      <Skillelinje />
+
+      <BekreftOpplysningerPanel
+        checked={!!state.bekreft}
+        feil={state.bekreftError}
+        onChange={() =>
+          dispatch({
+            type: Actions.Bekreft,
+            payload: { bekreft: !state.bekreft }
+          })
+        }
+      />
+
+      <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
+
+      <Panel>
+        <Button onClick={handleSubmitClicked} loading={state.progress}>
+          {state.endringskrav ? (
+            <>{t(KroniskKravKeys.KRONISK_KRAV_ENDRE)}</>
+          ) : (
+            <>{t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}</>
+          )}
+        </Button>
+        {state.endringskrav && (
+          <>
+            <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
+              Avbryt
+            </Button>
+            <Button
+              variant='danger'
+              onClick={handleDeleteClicked}
+              className='sletteknapp'
+              loading={state.progress}
+              disabled={state.formDirty}
+            >
+              Slett krav
+            </Button>
+          </>
         )}
-      </Row>
+      </Panel>
+
+      {state.notAuthorized && (
+        <LoggetUtAdvarsel
+          onClose={handleCloseNotAuthorized}
+          tokenFornyet={lenker.TokenFornyet}
+          loginServiceUrl={environment.loginServiceUrl}
+        />
+      )}
+
       <SlettKravModal
         onOKClicked={onOKClicked}
         showSpinner={!!state.showSpinner}

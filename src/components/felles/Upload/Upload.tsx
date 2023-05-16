@@ -3,6 +3,7 @@ import { Feilmelding } from 'nav-frontend-typografi';
 import { useTranslation } from 'react-i18next';
 import { UploadKeys } from './UploadKeys';
 import { Button } from '@navikt/ds-react';
+import './Upload.sass';
 
 interface UploadProps {
   id: string;

@@ -5,8 +5,8 @@ import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
-import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
+import Language from '../../locale/Language';
 
 describe('validateKronisk', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);

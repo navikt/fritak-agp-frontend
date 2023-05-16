@@ -1,6 +1,6 @@
-import { Panel } from '@navikt/ds-react';
-import { Undertittel, Innholdstittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import React from 'react';
+import './SoknadTittel.sass';
 
 interface SoknadTittelProps {
   children: any;
@@ -9,10 +9,12 @@ interface SoknadTittelProps {
 
 const SoknadTittel = (props: SoknadTittelProps) => {
   return (
-    <Panel className='panel--heading'>
-      <Undertittel>{props.subtitle ? props.subtitle.toUpperCase() : '&nbsp;'}</Undertittel>
-      <Innholdstittel>{props.children}</Innholdstittel>
-    </Panel>
+    <div className='panel--heading'>
+      <Heading size='small'>{props.subtitle ? props.subtitle.toUpperCase() : '&nbsp;'}</Heading>
+      <Heading size='large' level='1'>
+        {props.children}
+      </Heading>
+    </div>
   );
 };
 

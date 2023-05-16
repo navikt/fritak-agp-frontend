@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
 import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { SideKeys } from './SideKeys';
+import './Side.sass';
 
 interface SideProps {
   children: React.ReactNode;
@@ -37,13 +38,9 @@ const Side = (props: SideProps) => {
       <main className={'side ' + props.className}>
         {!props.skjulTilbakeLenke && (
           <Container>
-            <Row>
-              <Column>
-                <div className={'side__minside_arbeidsgiver'}>
-                  <Lenke href='/min-side-arbeidsgiver/'>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Lenke>
-                </div>
-              </Column>
-            </Row>
+            <div className={'side__minside_arbeidsgiver'}>
+              <Lenke href='/min-side-arbeidsgiver/'>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Lenke>
+            </div>
           </Container>
         )}
 

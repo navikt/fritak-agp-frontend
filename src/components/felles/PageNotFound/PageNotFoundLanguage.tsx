@@ -1,5 +1,5 @@
 import { PageNotFoundKeys } from './PageNotFoundKeys';
-import { Locale } from '../../locale/Locale';
+import { Locale } from '../../../locale/Locales';
 
 export const PageNotFoundLanguage: Record<PageNotFoundKeys, Locale> = {
   PAGE_NOT_FOUND_TITLE: {
