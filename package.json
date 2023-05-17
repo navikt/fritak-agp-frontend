@@ -43,7 +43,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^2.8.16",
+    "@navikt/aksel-icons": "^2.9.0",
     "@navikt/bedriftsmeny": "^4.0.2",
     "@navikt/ds-css": "^3.1.3",
     "@navikt/ds-icons": "^3.1.3",
