@@ -3,7 +3,6 @@ import { Row } from 'nav-frontend-grid';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { InternLenke, Language, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import './KroniskKvittering.scss';
@@ -12,6 +11,9 @@ import PrintKnapp from '../felles/PrintKnapp';
 import Fravaersdager from '../notifikasjon/kronisk/soknad/Fravaersdager';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import { Alert, BodyLong, Heading, Link, Panel } from '@navikt/ds-react';
+import Side from '../felles/Side/Side';
+import InternLenke from '../felles/InternLenke/InternLenke';
+import Language from '../../locale/Language';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();

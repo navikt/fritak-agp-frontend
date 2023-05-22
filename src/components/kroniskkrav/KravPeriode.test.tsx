@@ -7,11 +7,12 @@ import { KroniskKravPeriode } from './KroniskKravState';
 import { Actions } from './Actions';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
-import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
+import Language from '../../locale/Language';
 
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
+// eslint-disable-next-line react/display-name
 jest.doMock('../datovelger/Datovelger', () => () => {
   return <div>Datovelger</div>;
 });

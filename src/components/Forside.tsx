@@ -3,8 +3,9 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Link } from 'react-router-dom';
 import lenker, { buildLenke } from '../config/lenker';
 import Language from '../locale/Language';
-import { Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
+
 import { BodyLong, Heading } from '@navikt/ds-react';
+import Side from './felles/Side/Side';
 
 const Forside = () => {
   return (

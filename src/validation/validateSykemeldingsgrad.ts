@@ -1,4 +1,4 @@
-import ValidationResult from '@navikt/helse-arbeidsgiver-felles-frontend/dist/validation/ValidationResult';
+import ValidationResult from '../utils/ValidationResult';
 
 export enum ValidateSykemeldingsgradKeys {
   VALIDATE_SYKEMELDINGSGRAD_LOW = 'VALIDATE_SYKEMELDINGSGRAD_LOW',

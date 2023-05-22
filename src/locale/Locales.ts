@@ -1,23 +1,7 @@
 import LangKey from './LangKey';
-import {
-  BekreftOpplysningerKeys,
-  FeilmeldingspanelKeys,
-  IngenTilgangAdvarselKeys,
-  LoggetUtAdvarselKeys,
-  PageNotFoundKeys,
-  TilgangsfeilSideKeys,
-  TokenFornyetKeys,
-  UploadKeys,
-  validateBekreftKeys,
-  validateBeloepKeys,
-  validateFnrKeys,
-  validateFraKeys,
-  validateOrgnrKeys,
-  validateTilKeys
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+
 import { ValidateDagerKeys } from '../validation/validateDager';
 import { KroniskKravKeys } from '../components/kroniskkrav/KroniskKravKeys';
-import { SideKeys } from '@navikt/helse-arbeidsgiver-felles-frontend/dist/components/Side/SideKeys';
 import { KroniskSideKeys } from '../components/kronisk/KroniskSideKeys';
 import { GravidKravKeys } from '../components/gravidkrav/GravidKravKeys';
 import { GravidSideKeys } from '../components/gravid/GravidSideKeys';
@@ -32,6 +16,21 @@ import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/K
 import { KravEndringKvitteringKeys } from '../components/kravendringkvittering/KravEndringKvitteringKeys';
 import { ValidateDokumentasjonKeys } from '../validation/validateDokumentasjon';
 import { ServerFeilAdvarselKeys } from '../components/felles/ServerFeilAdvarsel/ServerFeilAdvarselKeys';
+import { BekreftOpplysningerKeys } from '../components/felles/BekreftOpplysningerPanel/BekreftOpplysningerKeys';
+import { FeilmeldingspanelKeys } from '../components/felles/Feilmeldingspanel/FeilmeldingspanelKeys';
+import { IngenTilgangAdvarselKeys } from '../components/felles/login/IngenTilgangAdvarselKeys';
+import { LoggetUtAdvarselKeys } from '../components/felles/login/LoggetUtAdvarselKeys';
+import { TokenFornyetKeys } from '../components/felles/login/TokenFornyetKeys';
+import { TilgangsfeilSideKeys } from '../components/felles/login/TilgangsfeilSideKeys';
+import { UploadKeys } from '../components/felles/Upload/UploadKeys';
+import { SideKeys } from '../components/felles/Side/SideKeys';
+import { validateTilKeys } from '../validation/validateTil';
+import { validateOrgnrKeys } from '../validation/validateOrgnr';
+import { validateFraKeys } from '../validation/validateFra';
+import { validateFnrKeys } from '../validation/validateFnr';
+import { validateBeloepKeys } from '../validation/validateBeloep';
+import { validateBekreftKeys } from '../validation/validateBekreft';
+import { PageNotFoundKeys } from '../components/felles/PageNotFound/PageNotFoundKeys';
 
 export interface Locale {
   en: string;

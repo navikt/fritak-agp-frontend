@@ -1,12 +1,15 @@
 import KroniskState from './KroniskState';
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { validerFravaerTabell } from './validerFravaerTabell';
-import { pushFeilmelding, validateOrgnr, isValidOrgnr, validateFnr } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import validateAntallPerioder from '../../validation/validateAntallPerioder';
 import { MAX_FRAVAERSPERIODER, MIN_FRAVAERSPERIODER } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
 import validateDokumentasjon from '../../validation/validateDokumentasjon';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
+import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
+import validateFnr from '../../validation/validateFnr';
+import isValidOrgnr from '../../validation/isValidOrgnr';
+import validateOrgnr from '../../validation/validateOrgnr';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState, translate: i18n): KroniskState => {

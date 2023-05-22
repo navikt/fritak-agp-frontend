@@ -1,8 +1,8 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { Aarsfravaer } from './Aarsfravaer';
 import { MONTHS } from '../../utils/months';
 import { validerFravaerMaaned } from './validerFravaerMaaned';
 import { monthKey } from '../../utils/monthKey';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 export const validerFravaerTabell = (
   liste: Array<Aarsfravaer>,

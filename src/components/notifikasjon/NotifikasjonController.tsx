@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import NotifikasjonView from './NotifikasjonView';
 import Actions from './state/Actions';
 import NotifikasjonPayload from './state/NotifikasjonPayload';
-import { SideRamme } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import SideRamme from '../felles/Side/SideRamme';
 
 interface NotifikasjonStateProps {
   notifikasjonState?: NotifikasjonState;

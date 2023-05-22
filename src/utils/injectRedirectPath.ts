@@ -1,5 +1,5 @@
-import Language from '@navikt/helse-arbeidsgiver-felles-frontend/dist/locale/Language';
 import environment from '../config/environment';
+import Language from '../locale/Language';
 
 function injectRedirectPath(loginServiceUrl: string, injectedPath: string, lang: Language): string {
   const host = window.location.origin;

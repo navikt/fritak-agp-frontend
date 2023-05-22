@@ -1,6 +1,6 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { MONTHS } from '../../utils/months';
 import { maxDaysInMonth } from '../../utils/maxDaysInMonth';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 export const validerFravaerMaaned = (year: number, month: number, dag?: number): FeiloppsummeringFeil | undefined => {
   if (!dag) {

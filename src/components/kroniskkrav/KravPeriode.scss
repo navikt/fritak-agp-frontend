@@ -19,6 +19,14 @@
     .label-med-hjelp {
         display: flex;
         white-space: nowrap;
+
+        span {
+            white-space: break-spaces;
+        }
+    }
+
+    &:first {
+        background-color: blue;
     }
 }
 .periodewrapper {

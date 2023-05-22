@@ -1,7 +1,6 @@
 import React from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
-import { Dato, lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import '../../mockData/mockWindowLocation';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
@@ -10,6 +9,8 @@ import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
 
 import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
+import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
+import { Dato } from '../../utils/dato/Dato';
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {

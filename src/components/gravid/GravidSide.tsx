@@ -18,7 +18,6 @@ import { Omplassering } from './Omplassering';
 import environment from '../../config/environment';
 import postGravid from '../../api/gravid/postGravid';
 import { mapGravidRequest } from '../../api/gravid/mapGravidRequest';
-import { Side, Upload, Feilmeldingspanel, Skillelinje, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
@@ -48,6 +47,11 @@ import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel'
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
 import Datovelger from '../datovelger/Datovelger';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
+import Skillelinje from '../felles/Skillelinje';
+import Side from '../felles/Side/Side';
+import Upload from '../felles/Upload/Upload';
+import Language from '../../locale/Language';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -170,294 +174,289 @@ const GravidSide = (props: GravidSideProps) => {
       title={t(GravidSideKeys.GRAVID_SIDE_TITTEL)}
       subtitle={t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL)}
     >
-      <Row>
-        <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
-        <Column>
-          {!!state.progress && <GravidProgress />}
+      <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
 
-          {!state.progress && !state.kvittering && (
-            <div>
-              <Panel>
-                <Ingress>
-                  <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_INGRESS} />
-                </Ingress>
-              </Panel>
+      {!!state.progress && <GravidProgress />}
 
+      {!state.progress && !state.kvittering && (
+        <div>
+          <Panel>
+            <Ingress>
+              <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_INGRESS} />
+            </Ingress>
+          </Panel>
+
+          <Skillelinje />
+
+          <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
+            <SkjemaGruppe aria-live='polite'>
+              <Row>
+                <Column md='3' xs='12'>
+                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                    {t(LangKey.DEN_ANSATTE)}
+                  </Heading>
+                  <Fnr
+                    id='fnr'
+                    label={t(LangKey.FODSELSNUMMER_LABEL)}
+                    fnr={state.fnr}
+                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+                    feilmelding={state.fnrError}
+                    onChange={(fnr: string) =>
+                      dispatch({
+                        type: Actions.Fnr,
+                        payload: { fnr: fnr }
+                      })
+                    }
+                  />
+                </Column>
+                <Column md='3' xs='12'>
+                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                    &nbsp;
+                  </Heading>
+                  <Datovelger
+                    id='termindato'
+                    label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
+                    error={state.termindatoError}
+                    defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                    onDateChange={(termindato: Date | undefined) => {
+                      dispatch({
+                        type: Actions.Termindato,
+                        payload: { termindato }
+                      });
+                    }}
+                  />
+                </Column>
+                <Column md='3' xs='12'>
+                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                    {t(LangKey.ARBEIDSGIVEREN)}
+                  </Heading>
+                  <Orgnr
+                    label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
+                    orgnr={state.orgnr}
+                    placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
+                    feilmelding={state.orgnrError}
+                    onChange={(orgnr: string) =>
+                      dispatch({
+                        type: Actions.Orgnr,
+                        payload: { orgnr: orgnr }
+                      })
+                    }
+                  />
+                </Column>
+              </Row>
+            </SkjemaGruppe>
+          </Panel>
+
+          <Skillelinje />
+
+          <Panel className='gravidside-panel-arbeidssituasjon'>
+            <Row>
+              <Column sm='8' xs='12'>
+                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                  {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
+                </Heading>
+                <SkjemaGruppe>
+                  <Oversettelse
+                    className='arbeidsmiljo-ingress'
+                    langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
+                  />
+                  <RadioGroup
+                    legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
+                    className='gravidside-radiogruppe-tilrettelegging'
+                    onChange={(val: any) => handleTilretteleggingChange(val)}
+                  >
+                    <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
+                      {t(LangKey.JA)}
+                    </Radio>
+                    <Radio name='sitteplass' value='nei' defaultChecked={state.tilrettelegge === false}>
+                      {t(LangKey.NEI)}
+                    </Radio>
+                  </RadioGroup>
+                </SkjemaGruppe>
+              </Column>
+            </Row>
+          </Panel>
+
+          {state.tilrettelegge === true ? (
+            <Panel className='gravidside-panel-tiltak'>
+              <CheckboxGroup
+                legend={t(GravidSideKeys.GRAVID_SIDE_TILTAK_TITTEL)}
+                error={state.tiltakError}
+                errorId='tiltakFeilmeldingId'
+              >
+                {TiltakCheckboxes.map((a) => {
+                  return (
+                    <Checkbox
+                      defaultChecked={isCheckboxChecked(a.value)}
+                      key={a.id}
+                      id={a.id}
+                      onChange={() =>
+                        dispatch({
+                          type: Actions.ToggleTiltak,
+                          payload: { tiltak: a.value }
+                        })
+                      }
+                      value={a.value}
+                    >
+                      {t(a.label)}
+                    </Checkbox>
+                  );
+                })}
+
+                <Textarea
+                  label={t(GravidSideKeys.GRAVID_SIDE_TILTAK_FRITEKST)}
+                  value={state.tiltakBeskrivelse || ''}
+                  error={state.tiltakBeskrivelseError}
+                  onChange={(evt) =>
+                    dispatch({
+                      type: Actions.TiltakBeskrivelse,
+                      payload: {
+                        tiltakBeskrivelse: evt.currentTarget.value
+                      }
+                    })
+                  }
+                  disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
+                  maxLength={MAX_TILTAK_BESKRIVELSE}
+                />
+              </CheckboxGroup>
+
+              <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
+                <div className='gravid-side-radiogruppe-omplassering'>
+                  <RadioGroup
+                    legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_TITTEL)}
+                    defaultValue={state.omplassering}
+                  >
+                    {OmplasseringCheckboxes.map((a) => {
+                      return (
+                        <Radio
+                          key={a.value}
+                          name='omplassering'
+                          onChange={() =>
+                            dispatch({
+                              type: Actions.OmplasseringForsoek,
+                              payload: { omplasseringForsoek: a.value }
+                            })
+                          }
+                          value={a.value}
+                        >
+                          {t(a.label)}
+                        </Radio>
+                      );
+                    })}
+
+                    <RadioGroup
+                      className='gravideside-radiogruppe-indentert'
+                      defaultValue={state.omplasseringAarsak}
+                      legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK)}
+                    >
+                      {AarsakCheckboxes.map((a) => {
+                        return (
+                          <Radio
+                            key={a.value}
+                            name='omplassering-umulig'
+                            onChange={() =>
+                              dispatch({
+                                type: Actions.OmplasseringAarsak,
+                                payload: { omplasseringAarsak: a.value }
+                              })
+                            }
+                            disabled={state.omplassering !== Omplassering.IKKE_MULIG}
+                            value={a.value}
+                          >
+                            {t(a.label)}
+                          </Radio>
+                        );
+                      })}
+                    </RadioGroup>
+                  </RadioGroup>
+                </div>
+              </SkjemaGruppe>
+            </Panel>
+          ) : (
+            state.tilrettelegge === false && (
+              <>
+                <Skillelinje />
+                <Panel className='gravidside-panel-alert-gravid'>
+                  <Alert className='gravidside-alert-gravid' variant='warning'>
+                    <BodyLong>
+                      <>
+                        {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
+                        <button
+                          className='lenke gravidside-lenke-knapp'
+                          onClick={() =>
+                            dispatch({
+                              type: Actions.Videre,
+                              payload: { videre: true }
+                            })
+                          }
+                        >
+                          {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_2)}
+                        </button>
+                        {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
+                      </>
+                    </BodyLong>
+                  </Alert>
+                </Panel>
+              </>
+            )
+          )}
+
+          {(state.tilrettelegge === true || state.videre) && (
+            <>
               <Skillelinje />
 
-              <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
-                <SkjemaGruppe aria-live='polite'>
-                  <Row>
-                    <Column md='3' xs='12'>
-                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                        {t(LangKey.DEN_ANSATTE)}
-                      </Heading>
-                      <Fnr
-                        id='fnr'
-                        label={t(LangKey.FODSELSNUMMER_LABEL)}
-                        fnr={state.fnr}
-                        placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                        feilmelding={state.fnrError}
-                        onChange={(fnr: string) =>
-                          dispatch({
-                            type: Actions.Fnr,
-                            payload: { fnr: fnr }
-                          })
-                        }
-                      />
-                    </Column>
-                    <Column md='3' xs='12'>
-                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                        &nbsp;
-                      </Heading>
-                      <Datovelger
-                        id='termindato'
-                        label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
-                        error={state.termindatoError}
-                        defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
-                        onDateChange={(termindato: Date | undefined) => {
-                          dispatch({
-                            type: Actions.Termindato,
-                            payload: { termindato }
-                          });
-                        }}
-                      />
-                    </Column>
-                    <Column md='3' xs='12'>
-                      <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                        {t(LangKey.ARBEIDSGIVEREN)}
-                      </Heading>
-                      <Orgnr
-                        label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
-                        orgnr={state.orgnr}
-                        placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
-                        feilmelding={state.orgnrError}
-                        onChange={(orgnr: string) =>
-                          dispatch({
-                            type: Actions.Orgnr,
-                            payload: { orgnr: orgnr }
-                          })
-                        }
-                      />
-                    </Column>
-                  </Row>
+              <Panel>
+                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                  {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
+                </Heading>
+                <SkjemaGruppe
+                  feil={state.dokumentasjonError}
+                  feilmeldingId='dokumentasjonFeilmeldingId'
+                  aria-live='polite'
+                >
+                  <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
+                  <Upload
+                    id='upload'
+                    fileSize={5000000}
+                    className='knapp-innsending-top'
+                    label={t(GravidSideKeys.GRAVID_SIDE_OPPLASTINGSKNAPP)}
+                    extensions='.pdf'
+                    onChange={handleUploadChanged}
+                    onDelete={handleDelete}
+                  />
                 </SkjemaGruppe>
               </Panel>
 
               <Skillelinje />
 
-              <Panel className='gravidside-panel-arbeidssituasjon'>
-                <Row>
-                  <Column sm='8' xs='12'>
-                    <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                      {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
-                    </Heading>
-                    <SkjemaGruppe>
-                      <Oversettelse
-                        className='arbeidsmiljo-ingress'
-                        langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
-                      />
-                      <RadioGroup
-                        legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
-                        className='gravidside-radiogruppe-tilrettelegging'
-                        onChange={(val: any) => handleTilretteleggingChange(val)}
-                      >
-                        <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
-                          {t(LangKey.JA)}
-                        </Radio>
-                        <Radio name='sitteplass' value='nei' defaultChecked={state.tilrettelegge === false}>
-                          {t(LangKey.NEI)}
-                        </Radio>
-                      </RadioGroup>
-                    </SkjemaGruppe>
-                  </Column>
-                </Row>
+              <BekreftOpplysningerPanel
+                checked={state.bekreft || false}
+                feil={state.bekreftError}
+                onChange={() =>
+                  dispatch({
+                    type: Actions.Bekreft,
+                    payload: { bekreft: !state.bekreft }
+                  })
+                }
+              />
+
+              <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
+
+              <Panel>
+                <Button onClick={handleSubmitClicked}>{t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}</Button>
               </Panel>
-
-              {state.tilrettelegge === true ? (
-                <Panel className='gravidside-panel-tiltak'>
-                  <Row>
-                    <Column sm='8' xs='12'>
-                      <CheckboxGroup
-                        legend={t(GravidSideKeys.GRAVID_SIDE_TILTAK_TITTEL)}
-                        error={state.tiltakError}
-                        errorId='tiltakFeilmeldingId'
-                      >
-                        {TiltakCheckboxes.map((a) => {
-                          return (
-                            <Checkbox
-                              defaultChecked={isCheckboxChecked(a.value)}
-                              key={a.id}
-                              id={a.id}
-                              onChange={() =>
-                                dispatch({
-                                  type: Actions.ToggleTiltak,
-                                  payload: { tiltak: a.value }
-                                })
-                              }
-                              value={a.value}
-                            >
-                              {t(a.label)}
-                            </Checkbox>
-                          );
-                        })}
-
-                        <Textarea
-                          label={t(GravidSideKeys.GRAVID_SIDE_TILTAK_FRITEKST)}
-                          value={state.tiltakBeskrivelse || ''}
-                          error={state.tiltakBeskrivelseError}
-                          onChange={(evt) =>
-                            dispatch({
-                              type: Actions.TiltakBeskrivelse,
-                              payload: {
-                                tiltakBeskrivelse: evt.currentTarget.value
-                              }
-                            })
-                          }
-                          disabled={!state?.tiltak?.includes(Tiltak.ANNET)}
-                          maxLength={MAX_TILTAK_BESKRIVELSE}
-                        />
-                      </CheckboxGroup>
-                    </Column>
-                  </Row>
-                  <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
-                    <div className='gravid-side-radiogruppe-omplassering'>
-                      <RadioGroup
-                        legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_TITTEL)}
-                        defaultValue={state.omplassering}
-                      >
-                        {OmplasseringCheckboxes.map((a) => {
-                          return (
-                            <Radio
-                              key={a.value}
-                              name='omplassering'
-                              onChange={() =>
-                                dispatch({
-                                  type: Actions.OmplasseringForsoek,
-                                  payload: { omplasseringForsoek: a.value }
-                                })
-                              }
-                              value={a.value}
-                            >
-                              {t(a.label)}
-                            </Radio>
-                          );
-                        })}
-
-                        <RadioGroup
-                          className='gravideside-radiogruppe-indentert'
-                          defaultValue={state.omplasseringAarsak}
-                          legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK)}
-                        >
-                          {AarsakCheckboxes.map((a) => {
-                            return (
-                              <Radio
-                                key={a.value}
-                                name='omplassering-umulig'
-                                onChange={() =>
-                                  dispatch({
-                                    type: Actions.OmplasseringAarsak,
-                                    payload: { omplasseringAarsak: a.value }
-                                  })
-                                }
-                                disabled={state.omplassering !== Omplassering.IKKE_MULIG}
-                                value={a.value}
-                              >
-                                {t(a.label)}
-                              </Radio>
-                            );
-                          })}
-                        </RadioGroup>
-                      </RadioGroup>
-                    </div>
-                  </SkjemaGruppe>
-                </Panel>
-              ) : (
-                state.tilrettelegge === false && (
-                  <>
-                    <Skillelinje />
-                    <Panel className='gravidside-panel-alert-gravid'>
-                      <Alert className='gravidside-alert-gravid' variant='warning'>
-                        <BodyLong>
-                          <>
-                            {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_1)}
-                            <button
-                              className='lenke gravidside-lenke-knapp'
-                              onClick={() =>
-                                dispatch({
-                                  type: Actions.Videre,
-                                  payload: { videre: true }
-                                })
-                              }
-                            >
-                              {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_2)}
-                            </button>
-                            {t(GravidSideKeys.GRAVID_SIDE_IKKE_KOMPLETT_3)}
-                          </>
-                        </BodyLong>
-                      </Alert>
-                    </Panel>
-                  </>
-                )
-              )}
-
-              {(state.tilrettelegge === true || state.videre) && (
-                <>
-                  <Skillelinje />
-
-                  <Panel>
-                    <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                      {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
-                    </Heading>
-                    <SkjemaGruppe
-                      feil={state.dokumentasjonError}
-                      feilmeldingId='dokumentasjonFeilmeldingId'
-                      aria-live='polite'
-                    >
-                      <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
-                      <Upload
-                        id='upload'
-                        fileSize={5000000}
-                        className='knapp-innsending-top'
-                        label={t(GravidSideKeys.GRAVID_SIDE_OPPLASTINGSKNAPP)}
-                        extensions='.pdf'
-                        onChange={handleUploadChanged}
-                        onDelete={handleDelete}
-                      />
-                    </SkjemaGruppe>
-                  </Panel>
-
-                  <Skillelinje />
-
-                  <BekreftOpplysningerPanel
-                    checked={state.bekreft || false}
-                    feil={state.bekreftError}
-                    onChange={() =>
-                      dispatch({
-                        type: Actions.Bekreft,
-                        payload: { bekreft: !state.bekreft }
-                      })
-                    }
-                  />
-
-                  <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
-
-                  <Panel>
-                    <Button onClick={handleSubmitClicked}>{t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}</Button>
-                  </Panel>
-                </>
-              )}
-            </div>
+            </>
           )}
-        </Column>
-        {state.notAuthorized && (
-          <LoggetUtAdvarsel
-            onClose={handleCloseNotAuthorized}
-            tokenFornyet={lenker.TokenFornyet}
-            loginServiceUrl={environment.loginServiceUrl}
-          />
-        )}
-      </Row>
+        </div>
+      )}
+
+      {state.notAuthorized && (
+        <LoggetUtAdvarsel
+          onClose={handleCloseNotAuthorized}
+          tokenFornyet={lenker.TokenFornyet}
+          loginServiceUrl={environment.loginServiceUrl}
+        />
+      )}
     </Side>
   );
 };

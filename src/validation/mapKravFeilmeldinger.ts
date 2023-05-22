@@ -1,10 +1,15 @@
 import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
 import KroniskKravState from '../components/kroniskkrav/KroniskKravState';
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { lagFeil, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidKravState from '../components/gravidkrav/GravidKravState';
 import { v4 as uuid } from 'uuid';
 import HttpStatus from '../api/HttpStatus';
+import lagFeil from '../components/felles/Feilmeldingspanel/lagFeil';
+import stringishToNumber from '../utils/stringishToNumber';
+
+export interface FeiloppsummeringFeil {
+  skjemaelementId: string;
+  feilmelding: string;
+}
 
 const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: KroniskKravState | GravidKravState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
@@ -15,7 +20,7 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
     const propertyPathParts = v.propertyPath.match(regexSplitPattern);
 
     if (!propertyPathParts) {
-      return feilmeldinger;
+      return;
     }
 
     const [propertyPath, pathIndexString, subPath] = propertyPathParts;

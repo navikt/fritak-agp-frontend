@@ -1,4 +1,4 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 export interface ValidationState {
   validated?: boolean; // Validert gyldig
@@ -10,3 +10,5 @@ export interface ValidationState {
   kvittering?: boolean; // Mottatt godkjent svar fra backend
   feilmeldinger: Array<FeiloppsummeringFeil>;
 }
+
+export default ValidationState;

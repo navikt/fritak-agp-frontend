@@ -1,4 +1,3 @@
-import { datoToString, stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import dayjs from 'dayjs';
 
 import React, { useEffect } from 'react';
@@ -15,6 +14,8 @@ import '@navikt/ds-css';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Datovelger from '../datovelger/Datovelger';
 import TextLabel from '../TextLabel';
+import stringishToNumber from '../../utils/stringishToNumber';
+import { datoToString } from '../../utils/dato/Dato';
 
 interface KravPeriodeProps {
   dispatch: any;

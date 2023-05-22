@@ -1,8 +1,9 @@
 import React from 'react';
-import { InternLenke, Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import injectRedirectPath from '../../../utils/injectRedirectPath';
 import { Alert, Heading, Modal } from '@navikt/ds-react';
+import InternLenke from '../InternLenke/InternLenke';
+import Language from '../../../locale/Language';
 
 interface LoggetUtAdvarselInterface {
   onClose: any;

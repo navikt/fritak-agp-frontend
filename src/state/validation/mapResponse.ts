@@ -1,8 +1,13 @@
 import ValidationResponse from './ValidationResponse';
 import HttpStatus from '../../api/HttpStatus';
 import { ValidationState } from './ValidationState';
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
-import { map200, map201, map400, map401, map422, map500 } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
+import map200 from './map200';
+import map201 from './map201';
+import map400 from './map400';
+import map401 from './map401';
+import map422 from './map422';
+import map500 from './map500';
 
 const mapResponse = <Type>(
   response: ValidationResponse<Type>,
@@ -12,7 +17,7 @@ const mapResponse = <Type>(
   const nextState = Object.assign({}, state);
   switch (response.status) {
     case HttpStatus.Successfully:
-      return map200(nextState, response);
+      return map200(nextState);
     case HttpStatus.Created:
       return map201(nextState);
     case HttpStatus.BadRequest:

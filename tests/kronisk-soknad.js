@@ -67,7 +67,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(Selector('button').withText('Send søknad'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fravær må fylles ut')
@@ -78,14 +78,15 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fravær må fylles ut').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk({ timeout: 500 });
 
@@ -94,14 +95,15 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(fnr, '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fravær må fylles ut').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk({ timeout: 500 });
 
@@ -110,12 +112,12 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .pressKey('ctrl+a delete')
     .typeText(fnr, '20125027610')
     .expect(
-      ReactSelector('Feiloppsummering').withText('Virksomhetsnummer må fylles ut').withText('Fravær må fylles ut')
+      Selector('.navds-error-summary__list').withText('Virksomhetsnummer må fylles ut').withText('Fravær må fylles ut')
         .visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
         .with({ timeout: 100 }).visible
@@ -127,10 +129,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t
     .typeText(orgnr, '260')
-    .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Fravær må fylles ut').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Mangler fødselsnummer')
@@ -142,10 +144,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(orgnr)
     .pressKey('ctrl+a delete')
     .typeText(orgnr, '974652277')
-    .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Fravær må fylles ut').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler fødselsnummer')
@@ -156,7 +158,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(Selector('#fim3fiy2020'), '5')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fravær må fylles ut')
         .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Arbeid om den ansatte må fylles ut')
@@ -170,7 +172,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(Selector('#soknad-perioder'), '5')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fravær må fylles ut')
         .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Arbeid om den ansatte må fylles ut')
