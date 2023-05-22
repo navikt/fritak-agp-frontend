@@ -13,7 +13,7 @@ describe('validateBeloep', () => {
     expect(validateBeloep('123', 123, true)).toBeUndefined();
   });
 
-  it('should verify that there beløp is valid', () => {
+  it('should verify that there beløp is invalid when belop is higher than max', () => {
     expect(validateBeloep('123', 122, true)).not.toBeUndefined();
   });
 
@@ -40,10 +40,6 @@ describe('validateBeloep', () => {
   });
 
   it('should return an error when beloep is missing and not required', () => {
-    expect(validateBeloep(undefined, 1000, false)).toBeUndefined();
-  });
-
-  it('should return undefined when beloep is missing and not required', () => {
     expect(validateBeloep(undefined, 1000, false)).toBeUndefined();
   });
 
