@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Container } from 'nav-frontend-grid';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
@@ -37,24 +37,24 @@ const Side = (props: SideProps) => {
 
       <main className={'side ' + props.className}>
         {!props.skjulTilbakeLenke && (
-          <Container>
-            <div className={'side__minside_arbeidsgiver'}>
+          <Container className='side__breadcrumb'>
+            <div className='side__minside_arbeidsgiver'>
               <Link href='/min-side-arbeidsgiver/'>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Link>
             </div>
           </Container>
         )}
 
         <Container className={'side__innhold'}>
-          <Row>
-            <Column>
+          <div>
+            <div>
               {props.title && <SoknadTittel subtitle={props.subtitle}>{props.title}</SoknadTittel>}
 
               <SideIndentering>
                 {showChildren(props.bedriftsmeny, arbeidsgivere) && props.children}
                 {!showChildren(props.bedriftsmeny, arbeidsgivere) && <IngenTilgangAdvarsel />}
               </SideIndentering>
-            </Column>
-          </Row>
+            </div>
+          </div>
         </Container>
       </main>
     </div>

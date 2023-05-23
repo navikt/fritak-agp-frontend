@@ -6,7 +6,7 @@ export const pushFeilmelding = (
   feilmeldinger: Array<FeiloppsummeringFeil>
 ) => {
   feilmeldinger.push({
-    skjemaelementId: skjemaelementId,
+    skjemaelementId: '#' + skjemaelementId,
     feilmelding: feilmelding
   });
 };

@@ -7,10 +7,8 @@ import App from './App';
 import Modal from 'react-modal';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import 'nav-frontend-core/dist/main.css';
-import 'nav-frontend-typografi-style/dist/main.css';
 import 'nav-frontend-skjema-style/dist/main.css';
 import 'nav-frontend-grid-style/dist/main.css';
-// import 'nav-frontend-tabell-style/dist/main.css';
 import env, { EnvironmentType } from './config/environment';
 import '@navikt/ds-css';
 
