@@ -2,6 +2,11 @@
 
 .fravaer-tabell
   margin: 1rem 0 0
+  border: 1px solid rgba(0,0,0,.55)
+  border-collapse: collapse
+  th
+    border: 1px solid rgba(0,0,0,.55)
+    padding: 1rem
   tr:nth-child(1)
     th
       background-color: $tabellGra
@@ -28,5 +33,10 @@
     text-align: center !important
     width: 12.5%
     padding: 0rem 1rem !important
+    border: 1px solid black
   .empty-month
     background-color: #dddddd !important
+
+  tbody tr:nth-child(odd):not(.tabell__tr--valgt) td, tbody tr:nth-child(odd):not(.tabell__tr--valgt) th 
+    background: rgba(0,0,0,.03)
+    
