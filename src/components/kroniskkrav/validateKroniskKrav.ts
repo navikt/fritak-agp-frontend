@@ -14,6 +14,7 @@ import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
 import validateOrgnr from '../../validation/validateOrgnr';
 import validateFnr from '../../validation/validateFnr';
+import textify from '../../utils/textify';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_KRONISK_DATO;
@@ -37,7 +38,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
     const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
 
-    aktuellPeriode.fomError = translate.t(valideringFraStatus?.key as string, { value: minDato });
+    aktuellPeriode.fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
 
     const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
 
@@ -46,7 +47,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       translate
     );
 
-    aktuellPeriode.tomError = translate.t(valideringTilStatus?.key as string, { value: minDato });
+    aktuellPeriode.tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
 
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
     aktuellPeriode.belopError = formatValidation(

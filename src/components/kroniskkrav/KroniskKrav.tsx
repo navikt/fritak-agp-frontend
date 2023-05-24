@@ -45,6 +45,7 @@ import HttpStatus from '../../api/HttpStatus';
 import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
+import textify from '../../utils/textify';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -223,8 +224,8 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       bedriftsmeny={true}
       className='kroniskkrav kravside'
       sidetittel={t(KroniskKravKeys.KRONISK_KRAV_SIDETITTEL)}
-      title={t(KroniskKravKeys.KRONISK_KRAV_TITLE)}
-      subtitle={t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE)}
+      title={textify(t(KroniskKravKeys.KRONISK_KRAV_TITLE))}
+      subtitle={textify(t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE))}
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
 

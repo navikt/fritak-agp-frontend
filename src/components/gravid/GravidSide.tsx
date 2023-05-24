@@ -166,13 +166,16 @@ const GravidSide = (props: GravidSideProps) => {
     return null;
   }
 
+  const title = t(GravidSideKeys.GRAVID_SIDE_TITTEL);
+  const subtitle = t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL);
+
   return (
     <Side
       bedriftsmeny={false}
       className='gravid-side'
       sidetittel={t(LangKey.SOKNADSSKJEMA)}
-      title={t(GravidSideKeys.GRAVID_SIDE_TITTEL)}
-      subtitle={t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL)}
+      title={title}
+      subtitle={subtitle}
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
 
