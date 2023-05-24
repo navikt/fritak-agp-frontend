@@ -372,23 +372,23 @@ describe('KroniskReducer', () => {
     const expectedFeilmeldinger = [
       {
         feilmelding: 'Mangler fødselsnummer',
-        skjemaelementId: 'fnr'
+        skjemaelementId: '#fnr'
       },
       {
         feilmelding: 'Virksomhetsnummer må fylles ut',
-        skjemaelementId: 'orgnr'
+        skjemaelementId: '#orgnr'
       },
       {
         feilmelding: 'Mangler antall fraværsperioder',
-        skjemaelementId: 'soknad-perioder'
+        skjemaelementId: '#soknad-perioder'
       },
       {
         feilmelding: 'Bekreft at opplysningene er korrekte',
-        skjemaelementId: 'bekreftFeilmeldingId'
+        skjemaelementId: '#bekreftFeilmeldingId'
       },
       {
         feilmelding: 'Fravær må fylles ut.',
-        skjemaelementId: 'fravaer'
+        skjemaelementId: '#fravaer'
       }
     ];
     let state1 = KroniskReducer(

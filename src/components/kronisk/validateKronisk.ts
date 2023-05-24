@@ -44,7 +44,7 @@ export const validateKronisk = (state: KroniskState, translate: i18n): KroniskSt
 
   const arbeidFeilmeldinger = validerFravaerTabell(nextState?.fravaer || [], !!nextState.ikkeHistoriskFravaer);
 
-  if (arbeidFeilmeldinger.length == 1 && arbeidFeilmeldinger[0].skjemaelementId == 'fravaer') {
+  if (arbeidFeilmeldinger?.length == 1 && arbeidFeilmeldinger[0].skjemaelementId == '#fravaer') {
     if (nextState.ikkeHistoriskFravaer) {
       nextState.fravaerError =
         'Fravær kan ikke være fylt ut når det er huket av for at det ikke finnes historisk fravær.';
