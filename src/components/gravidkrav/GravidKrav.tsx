@@ -219,14 +219,17 @@ export const GravidKrav = (props: GravidKravProps) => {
     return null;
   }
   const lenkeGravid = buildLenke(lenker.Gravid, (language as Language) || Language.nb);
+  const title = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR);
+  const subtitle = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE);
 
+  const arbeidstidHjelpetekstTitle = t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL);
   return (
     <Side
       bedriftsmeny={true}
       className='gravidkrav kravside'
       sidetittel={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_LITEN)}
-      title={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR)}
-      subtitle={t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE)}
+      title={title}
+      subtitle={subtitle}
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
 
@@ -301,10 +304,7 @@ export const GravidKrav = (props: GravidKravProps) => {
         <TextLabel className='textfelt-padding-bottom'>
           <div className='label-med-hjelp'>
             {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-            <HelpText
-              className='krav-padding-hjelpetekst'
-              title={t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL)}
-            >
+            <HelpText className='krav-padding-hjelpetekst' title={arbeidstidHjelpetekstTitle}>
               <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
             </HelpText>
           </div>

@@ -113,14 +113,12 @@ const KroniskSide = () => {
     navigate(buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb), { replace: true });
     return null;
   }
+
+  const sidetittel = t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL);
+  const title = t(KroniskSideKeys.KRONISK_SIDE_TITLE);
+  const subtitle = t(KroniskSideKeys.KRONISK_SIDE_SUBTITLE);
   return (
-    <Side
-      bedriftsmeny={false}
-      className='kronisk-side'
-      sidetittel={t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL)}
-      title={t(KroniskSideKeys.KRONISK_SIDE_TITLE)}
-      subtitle={t(KroniskSideKeys.KRONISK_SIDE_SUBTITLE)}
-    >
+    <Side bedriftsmeny={false} className='kronisk-side' sidetittel={sidetittel} title={title} subtitle={subtitle}>
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
 
       <Panel>

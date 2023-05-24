@@ -16,6 +16,7 @@ import Datovelger from '../datovelger/Datovelger';
 import TextLabel from '../TextLabel';
 import stringishToNumber from '../../utils/stringishToNumber';
 import { datoToString } from '../../utils/dato/Dato';
+import textify from '../../utils/textify';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -130,7 +131,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
         label={
           <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
-            <HelpText className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL)}>
+            <HelpText
+              className='krav-padding-hjelpetekst'
+              title={textify(t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL))}
+            >
               {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
             </HelpText>
           </div>
@@ -154,7 +158,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
         label={
           <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TEXT)}
-            <HelpText className='krav-padding-hjelpetekst' title={t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL)}>
+            <HelpText
+              className='krav-padding-hjelpetekst'
+              title={textify(t(LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL))}
+            >
               <TextLabel>{t(LangKey.KRONISK_KRAV_PERIODE_BELOP_TITTEL)}</TextLabel>
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST} />
             </HelpText>
@@ -211,7 +218,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
             {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
             <HelpText
               className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
-              title={t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL)}
+              title={textify(t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL))}
             >
               <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
             </HelpText>

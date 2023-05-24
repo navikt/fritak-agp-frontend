@@ -15,6 +15,8 @@ interface OrgnrProps {
 const Orgnr = (props: OrgnrProps) => {
   const { t } = useTranslation();
 
+  const oversettelse = t(LangKey.ORGNR_HJELPETEKST_TITTEL);
+
   return (
     <TextField
       defaultValue={props.orgnr}
@@ -23,7 +25,7 @@ const Orgnr = (props: OrgnrProps) => {
       label={
         <div style={{ display: 'flex' }}>
           {props.label}
-          <HelpText className='orgnr-hjelpetekst' title={t(LangKey.ORGNR_HJELPETEKST_TITTEL)}>
+          <HelpText className='orgnr-hjelpetekst' title={oversettelse}>
             <BodyLong>{t(LangKey.ORGNR_HJELPETEKST)}</BodyLong>
           </HelpText>
         </div>
