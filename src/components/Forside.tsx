@@ -1,5 +1,4 @@
 import React from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import { Link } from 'react-router-dom';
 import lenker, { buildLenke } from '../config/lenker';
 import Language from '../locale/Language';
@@ -7,11 +6,13 @@ import Language from '../locale/Language';
 import { BodyLong, Heading } from '@navikt/ds-react';
 import Side from './felles/Side/Side';
 
+import './Forside.scss';
+
 const Forside = () => {
   return (
     <Side sidetittel='Søknadsskjemaer' title='Skjema for gravide og kronisk syke' subtitle='Søknadsskjema'>
-      <Row>
-        <Column md='6'>
+      <div>
+        <div className='forside--kolonne'>
           <Heading size='small' level='2'>
             Gravid
           </Heading>
@@ -21,8 +22,8 @@ const Forside = () => {
           <BodyLong>
             Gå til skjema for <Link to={buildLenke(lenker.GravidKrav, Language.nb)}>gravide krav</Link>
           </BodyLong>
-        </Column>
-        <Column md='6'>
+        </div>
+        <div className='forside--kolonne'>
           <Heading size='small' level='2'>
             Kronisk
           </Heading>
@@ -32,8 +33,8 @@ const Forside = () => {
           <BodyLong>
             Gå til skjema for <Link to={buildLenke(lenker.KroniskKrav, Language.nb)}>kronisk syke krav</Link>
           </BodyLong>
-        </Column>
-      </Row>
+        </div>
+      </div>
     </Side>
   );
 };

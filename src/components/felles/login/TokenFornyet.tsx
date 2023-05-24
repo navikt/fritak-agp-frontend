@@ -1,10 +1,9 @@
 import React from 'react';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Container, Row } from 'nav-frontend-grid';
 import { useTranslation } from 'react-i18next';
 import Side from '../Side/Side';
 import { TokenFornyetKeys } from './TokenFornyetKeys';
-import { Panel } from '@navikt/ds-react';
+import { BodyLong, Heading, Panel } from '@navikt/ds-react';
 
 export const TokenFornyet = () => {
   const { t } = useTranslation();
@@ -18,10 +17,10 @@ export const TokenFornyet = () => {
       <Container className={'side__innhold'}>
         <Row>
           <Panel>
-            <Innholdstittel>{t(TokenFornyetKeys.TOKEN_FORNYET_TITLE)}</Innholdstittel>
+            <Heading size='large'>{t(TokenFornyetKeys.TOKEN_FORNYET_TITLE)}</Heading>
           </Panel>
           <Panel>
-            <Normaltekst>{t(TokenFornyetKeys.TOKEN_FORNYET_INFO)}</Normaltekst>
+            <BodyLong>{t(TokenFornyetKeys.TOKEN_FORNYET_INFO)}</BodyLong>
           </Panel>
         </Row>
       </Container>

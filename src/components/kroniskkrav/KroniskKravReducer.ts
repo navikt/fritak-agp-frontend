@@ -179,7 +179,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.RemoveBackendError:
       nextState.feilmeldinger = nextState.feilmeldinger.filter(
-        (feilmelding) => !feilmelding.skjemaelementId.startsWith('backend')
+        (feilmelding) => !feilmelding.skjemaelementId.startsWith('#backend')
       );
       return nextState;
 

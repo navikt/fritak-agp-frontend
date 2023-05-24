@@ -25,6 +25,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     const state2 = validateKronisk(state, i18n);
+    console.log(state2);
     expect(state2.fnrError).not.toBeUndefined();
     expect(state2.orgnrError).not.toBeUndefined();
     expect(state2.fravaerError).not.toBeUndefined();

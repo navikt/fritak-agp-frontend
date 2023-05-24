@@ -1,4 +1,3 @@
-import { SkjemaGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Oversettelse from '../Oversettelse/Oversettelse';
@@ -24,11 +23,15 @@ const BekreftOpplysningerPanel = ({
 
   return (
     <Panel className='bekreft-opplysninger-panel'>
-      <SkjemaGruppe feilmeldingId='bekreftFeilmeldingId'>
-        <ConfirmationPanel label={t(labelKey)} checked={checked} error={feil} onChange={onChange}>
-          <Oversettelse langKey={textKey} />
-        </ConfirmationPanel>
-      </SkjemaGruppe>
+      <ConfirmationPanel
+        label={t(labelKey)}
+        checked={checked}
+        error={feil}
+        onChange={onChange}
+        id='bekreftFeilmeldingId'
+      >
+        <Oversettelse langKey={textKey} />
+      </ConfirmationPanel>
     </Panel>
   );
 };

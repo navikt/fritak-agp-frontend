@@ -255,24 +255,23 @@ const GravidSide = (props: GravidSideProps) => {
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                   {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
                 </Heading>
-                <SkjemaGruppe>
-                  <Oversettelse
-                    className='arbeidsmiljo-ingress'
-                    langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
-                  />
-                  <RadioGroup
-                    legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
-                    className='gravidside-radiogruppe-tilrettelegging'
-                    onChange={(val: any) => handleTilretteleggingChange(val)}
-                  >
-                    <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
-                      {t(LangKey.JA)}
-                    </Radio>
-                    <Radio name='sitteplass' value='nei' defaultChecked={state.tilrettelegge === false}>
-                      {t(LangKey.NEI)}
-                    </Radio>
-                  </RadioGroup>
-                </SkjemaGruppe>
+
+                <Oversettelse
+                  className='arbeidsmiljo-ingress'
+                  langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
+                />
+                <RadioGroup
+                  legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
+                  className='gravidside-radiogruppe-tilrettelegging'
+                  onChange={(val: any) => handleTilretteleggingChange(val)}
+                >
+                  <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
+                    {t(LangKey.JA)}
+                  </Radio>
+                  <Radio name='sitteplass' value='nei' defaultChecked={state.tilrettelegge === false}>
+                    {t(LangKey.NEI)}
+                  </Radio>
+                </RadioGroup>
               </Column>
             </Row>
           </Panel>
@@ -320,57 +319,51 @@ const GravidSide = (props: GravidSideProps) => {
                 />
               </CheckboxGroup>
 
-              <SkjemaGruppe feil={state.omplasseringError} feilmeldingId='omplasseringFeilmeldingId'>
-                <div className='gravid-side-radiogruppe-omplassering'>
-                  <RadioGroup
-                    legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_TITTEL)}
-                    defaultValue={state.omplassering}
-                  >
-                    {OmplasseringCheckboxes.map((a) => {
-                      return (
-                        <Radio
-                          key={a.value}
-                          name='omplassering'
-                          onChange={() =>
-                            dispatch({
-                              type: Actions.OmplasseringForsoek,
-                              payload: { omplasseringForsoek: a.value }
-                            })
-                          }
-                          value={a.value}
-                        >
-                          {t(a.label)}
-                        </Radio>
-                      );
-                    })}
+              <div className='gravid-side-radiogruppe-omplassering'>
+                <RadioGroup
+                  legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_TITTEL)}
+                  defaultValue={state.omplassering}
+                  error={state.omplasseringError}
+                  id='omplasseringFeilmeldingId'
+                  onChange={(value) =>
+                    dispatch({
+                      type: Actions.OmplasseringForsoek,
+                      payload: { omplasseringForsoek: value }
+                    })
+                  }
+                >
+                  {OmplasseringCheckboxes.map((a) => {
+                    return (
+                      <Radio key={a.value} name='omplassering' value={a.value}>
+                        {t(a.label)}
+                      </Radio>
+                    );
+                  })}
 
-                    <RadioGroup
-                      className='gravideside-radiogruppe-indentert'
-                      defaultValue={state.omplasseringAarsak}
-                      legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK)}
-                    >
-                      {AarsakCheckboxes.map((a) => {
-                        return (
-                          <Radio
-                            key={a.value}
-                            name='omplassering-umulig'
-                            onChange={() =>
-                              dispatch({
-                                type: Actions.OmplasseringAarsak,
-                                payload: { omplasseringAarsak: a.value }
-                              })
-                            }
-                            disabled={state.omplassering !== Omplassering.IKKE_MULIG}
-                            value={a.value}
-                          >
-                            {t(a.label)}
-                          </Radio>
-                        );
-                      })}
-                    </RadioGroup>
+                  <RadioGroup
+                    className='gravideside-radiogruppe-indentert'
+                    defaultValue={state.omplasseringAarsak}
+                    legend={t(GravidSideKeys.GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK)}
+                    onChange={(value) =>
+                      dispatch({
+                        type: Actions.OmplasseringAarsak,
+                        payload: { omplasseringAarsak: value }
+                      })
+                    }
+                  >
+                    {AarsakCheckboxes.map((a) => (
+                      <Radio
+                        key={a.value}
+                        name='omplassering-umulig'
+                        disabled={state.omplassering !== Omplassering.IKKE_MULIG}
+                        value={a.value}
+                      >
+                        {t(a.label)}
+                      </Radio>
+                    ))}
                   </RadioGroup>
-                </div>
-              </SkjemaGruppe>
+                </RadioGroup>
+              </div>
             </Panel>
           ) : (
             state.tilrettelegge === false && (

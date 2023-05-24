@@ -181,7 +181,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.RemoveBackendError:
       nextState.feilmeldinger = nextState.feilmeldinger.filter(
-        (feilmelding) => !feilmelding.skjemaelementId.startsWith('backend')
+        (feilmelding) => !feilmelding.skjemaelementId.startsWith('#backend')
       );
       return nextState;
 
