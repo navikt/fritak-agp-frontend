@@ -9905,9 +9905,9 @@ slash@^4.0.0:
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
 
 snyk@1.x:
-  version "1.1162.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1162.0.tgz#64172ea0b4bd530fbb8ed45ad6efba7d6ea8bed3"
-  integrity sha512-qF0kbrELHFmLcOPtQ92P6tFZwO7Yai5A/G8zUr9CdAt5g52BUdOMDPk5CTgLROCfWduKVfspO6oCLhY19viXlQ==
+  version "1.1169.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1169.0.tgz#c4edad7e7fe70ab679d5c947b6a72204392f583b"
+  integrity sha512-Tf5xn7GNZD78VY/qSy++KpaKPIfvyL4R1NtHZQnuyKB0GYt47d2XCT64BteLhVnB19XYtyp1cjPE0hwUEoPxTg==
   dependencies:
     "@sentry/node" "^7.36.0"
     global-agent "^3.0.0"
