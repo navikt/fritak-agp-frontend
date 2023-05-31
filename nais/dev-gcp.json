@@ -3,7 +3,7 @@
   "namespace": "helsearbeidsgiver",
   "vault-enabled": false,
   "webproxy-enabled": false,
-  "api-url": "https://fritakagp.intern.dev.nav.no",
+  "api-url": "https://fritakagp-api.intern.dev.nav.no",
   "api-basepath": "",
-  "outbound-external-host": "fritakagp.intern.dev.nav.no"
+  "outbound-external-host": "fritakagp-api.intern.dev.nav.no"
 }
