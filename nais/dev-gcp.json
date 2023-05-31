@@ -4,6 +4,6 @@
   "vault-enabled": false,
   "webproxy-enabled": false,
   "api-url": "https://fritakagp-api.intern.dev.nav.no",
-  "api-basepath": "",
+  "api-basepath": "/fritak-agp-api",
   "outbound-external-host": "fritakagp-api.intern.dev.nav.no"
 }
