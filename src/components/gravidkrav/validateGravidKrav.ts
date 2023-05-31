@@ -16,6 +16,7 @@ import validateTil from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
 import antallDagerIArbeidsgiverperiode from '../../utils/antallDagerIArbeidsgiverperiode';
+import dagerMellomPerioder from '../../utils/dagerMellomPerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;
@@ -83,11 +84,31 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
       translate
     );
 
-    const periodefeil = antallDagerIArbeidsgiverperiode(arbeidsgiverperiode.perioder);
-    arbeidsgiverperiode.perioderError;
+    const antallDager = antallDagerIArbeidsgiverperiode(arbeidsgiverperiode.perioder);
+    if (antallDager > 16) {
+      pushFeilmelding(
+        'arbeidsgiverperiode-' + index,
+        'Arbeidsgiverperioden kan maksimalt være 16 dager.',
+        feilmeldinger
+      );
+    }
 
     fyllPeriodeFeilmeldingsboks(arbeidsgiverperiode, index, feilmeldinger);
   });
+
+  const mellomDager = dagerMellomPerioder(state.perioder);
+
+  if (mellomDager) {
+    mellomDager.forEach((dager, index) => {
+      if (dager < 16) {
+        pushFeilmelding(
+          'arbeidsgiverperiode-' + index,
+          'Det må være minst 16 dager mellom arbeidsgiverperiodene.',
+          feilmeldinger
+        );
+      }
+    });
+  }
 
   nextState.bekreftError = formatValidation(validateBekreft(state.bekreft, state.validated), translate);
   if (nextState.bekreftError) {

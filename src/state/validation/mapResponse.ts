@@ -8,17 +8,14 @@ import map400 from './map400';
 import map401 from './map401';
 import map422 from './map422';
 import map500 from './map500';
-import GravidKravState from '../../components/gravidkrav/GravidKravState';
-import KroniskKravState from '../../components/kroniskkrav/KroniskKravState';
-import GravidState from '../../components/gravid/GravidState';
+// import GravidKravState from '../../components/gravidkrav/GravidKravState';
+// import KroniskKravState from '../../components/kroniskkrav/KroniskKravState';
+// import GravidState from '../../components/gravid/GravidState';
 
 const mapResponse = <Type>(
   response: ValidationResponse<Type>,
-  state: GravidKravState | KroniskKravState | GravidState,
-  mapFeilmeldinger: (
-    response: ValidationResponse<Type>,
-    state: GravidKravState | KroniskKravState | GravidState
-  ) => FeiloppsummeringFeil[]
+  state: any,
+  mapFeilmeldinger: (response: ValidationResponse<Type>, state: any) => FeiloppsummeringFeil[]
 ): ValidationState => {
   const nextState = Object.assign({}, state);
   switch (response.status) {

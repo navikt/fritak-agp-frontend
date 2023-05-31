@@ -15,6 +15,8 @@ import validateBekreft from '../../validation/validateBekreft';
 import validateOrgnr from '../../validation/validateOrgnr';
 import validateFnr from '../../validation/validateFnr';
 import textify from '../../utils/textify';
+import antallDagerIArbeidsgiverperiode from '../../utils/antallDagerIArbeidsgiverperiode';
+import dagerMellomPerioder from '../../utils/dagerMellomPerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_KRONISK_DATO;
@@ -24,7 +26,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     return state;
   }
   const nextState = Object.assign({}, state);
-  const feilmeldinger = new Array<FeiloppsummeringFeil>();
+  const feilmeldinger: Array<FeiloppsummeringFeil> = [];
 
   validateFodselsnummer(nextState, state, translate, feilmeldinger);
 
@@ -81,7 +83,30 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     if (arbeidsgiverperiode.sykemeldingsgradError) {
       pushFeilmelding(`sykemeldingsgrad-${apindex}`, arbeidsgiverperiode.sykemeldingsgradError, feilmeldinger);
     }
+
+    const antallDager = antallDagerIArbeidsgiverperiode(arbeidsgiverperiode.perioder);
+    if (antallDager > 16) {
+      pushFeilmelding(
+        'arbeidsgiverperiode-' + apindex,
+        'Arbeidsgiverperioden kan maksimalt være 16 dager.',
+        feilmeldinger
+      );
+    }
   });
+
+  const mellomDager = dagerMellomPerioder(state.perioder);
+
+  if (mellomDager) {
+    mellomDager.forEach((dager, index) => {
+      if (dager < 16) {
+        pushFeilmelding(
+          'arbeidsgiverperiode-' + index,
+          'Det må være minst 16 dager mellom arbeidsgiverperiodene.',
+          feilmeldinger
+        );
+      }
+    });
+  }
 
   validateBekreftelse(nextState, state, translate, feilmeldinger);
 

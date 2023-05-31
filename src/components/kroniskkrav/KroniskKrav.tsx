@@ -328,6 +328,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                 key={enkeltPeriode.uniqueKey}
                 slettbar={slettbar}
                 Actions={Actions}
+                id={`arbeidsgiverperiode-${index}`}
               />
               {!!avstanderMellomPerioder[index] && avstanderMellomPerioder[index] < 17 && (
                 <ErrorMessage>

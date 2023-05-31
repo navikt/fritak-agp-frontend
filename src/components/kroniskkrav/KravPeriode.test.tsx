@@ -35,6 +35,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={false}
         Actions={Actions}
+        id='id'
       />
     );
 
@@ -56,6 +57,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
+        id='id'
       />
     );
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
@@ -77,6 +79,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
+        id='id'
       />
     );
 
@@ -98,6 +101,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
+        id='id'
       />
     );
 
@@ -125,6 +129,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
+        id='id'
       />
     );
 
@@ -147,6 +152,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
+        id='id'
       />
     );
 
@@ -168,6 +174,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={false}
         Actions={Actions}
+        id='id'
       />
     );
     const results = await axe(container);
@@ -188,6 +195,7 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
+        id='id'
       />
     );
     const results = await axe(container);

@@ -7,7 +7,7 @@ export default function antallDagerMellomArbeidsgiverperioder(arbeidsgiverperiod
   let forrigePeriode = arbeidsgiverperioder.shift();
   let dagerMellom;
   arbeidsgiverperioder.forEach((nestePeriode) => {
-    if (!forrigePeriode || !forrigePeriode.tom) safePush(dagerMellom, 0);
+    if (!forrigePeriode?.tom) safePush(dagerMellom, 0);
     else {
       const forrigeTom = dayjs(datoToString(forrigePeriode.tom));
       const denneFom = dayjs(datoToString(nestePeriode.fom));
@@ -22,6 +22,9 @@ export default function antallDagerMellomArbeidsgiverperioder(arbeidsgiverperiod
 }
 
 function safePush(liste, element) {
-  if (!liste) liste = [element];
-  else liste.push(element);
+  if (!liste) {
+    liste = [element];
+  } else {
+    liste.push(element);
+  }
 }

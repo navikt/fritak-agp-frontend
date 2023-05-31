@@ -326,6 +326,7 @@ export const GravidKrav = (props: GravidKravProps) => {
                 key={enkeltPeriode.uniqueKey}
                 slettbar={slettbar}
                 Actions={Actions}
+                id={`arbeidsgiverperiode-${index}`}
               />
               {!!avstanderMellomPerioder[index] && avstanderMellomPerioder[index] < 17 && (
                 <ErrorMessage>
