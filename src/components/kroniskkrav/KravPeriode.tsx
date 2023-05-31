@@ -193,7 +193,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               </HelpText>
             </div>
           }
-          className='periode-elementer'
+          className='periode-elementer antall-dager'
           id={`dager-${props.index}`}
           value={props.enkeltPeriode.dager}
           onChange={(event: React.FormEvent<HTMLSelectElement>) =>
@@ -241,6 +241,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
         <TextField
           id={`sykemeldingsgrad-${props.index}`}
+          className='sykmeldingsgrad'
           label={
             <div className='label-med-hjelp'>
               Sykemeldingsgrad
@@ -278,7 +279,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               </HelpText>
             </div>
           </TextLabel>
-          <div className='skjemalelement tekstvisning'>
+          <div className='skjemalelement tekstvisning beregnet-refusjon'>
             {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
           </div>
         </div>

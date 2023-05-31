@@ -7,8 +7,7 @@ export default function dagerMellomPerioder(
   perioder: Array<GravidKravPeriode | KroniskKravPeriode> | undefined
 ): Array<number> {
   let periodeMinMax;
-  // eslint-disable-next-line no-debugger
-  debugger;
+
   if (perioder) {
     perioder.forEach((arbeidsgiverperiode) => {
       const aper = finnPerioder(arbeidsgiverperiode);
