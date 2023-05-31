@@ -1,8 +1,31 @@
-.krav-kort {
-    padding: 0.25rem 0.625rem 0.625rem;
-    border-radius: 0.125rem;
+.krav-periode-wrapper {
+border-radius: 0.125rem;
     border: 1px solid #cdcecf;
     box-shadow: 5px 5px 5px 2px #f5f3f0;
+    padding: 1rem;
+
+    .legg-til-kronis-periode {
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 1rem  ;
+    }
+}
+
+.krav-kort-dato {
+    display: grid;
+    grid-template-columns: [col1] 25% [col2] 25% [col3] auto;
+    grid-template-rows: [row1] auto;
+    gap: 1rem;
+    
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: [col1] 50% [col2] auto;
+    }
+    
+    @media screen and (max-width: 608px) {
+        grid-template-columns: [col1] auto;
+    }
+}
+.krav-kort {    
     display: grid;
     grid-template-columns: [col1] 25% [col2] 25% [col3] auto [col4] 25%;
     grid-template-rows: [row1] auto [row2] auto;
@@ -15,7 +38,10 @@
     @media screen and (max-width: 608px) {
         grid-template-columns: [col1] auto;
     }
+}
 
+.krav-kort-dato,
+.krav-kort {    
     .label-med-hjelp {
         display: flex;
         white-space: nowrap;
@@ -29,87 +55,17 @@
         background-color: blue;
     }
 }
-.periodewrapper {
-    margin: 0.25rem;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-
-    &.andre {
-        margin-top: 1rem;
-    }
-    .datowrapper {
-        margin-top: auto;
-    }
-
-    .tekstvisning {
-        padding-top: .75rem;
-    }
-
-    .datovelger-periode {
-        max-width: calc( 100% - 0.25rem);
-        min-width: 10rem;
-    }
-
-    .skjemaelement__label {
-        margin-top: 1rem;
-    }
-
-    .mnd-inntekt  {
-        max-width: 66%;
-
-        > label {
-            display: inline-block;
-
-            > div {
-                display: inline-block;
-            }
-        }
-    }
-
-    .slett-periode-wrapper {
-        @media screen and (min-width: 608px) {
-            margin-left: auto;
-            margin-top: 3rem;
-        }
-        .knapp {
-            @media screen and (max-width: 608px) {
-                margin-top: 1rem;
-            }
-        }
-    }
-
-
-    .mnd-inntekt,
-    .periode-elementer,
-    .antall-dager {
-        min-width: 10rem;
-    }
-    
-    &.hide-labels {
-        label {
-            display: none;
-        }
-        
-        .skjemaelement {
-            padding-top: 1rem;
-        }
-        .tekstvisning {
-            padding-top: 1.75rem;
-        }
-        
-        .slett-periode-wrapper {
-            padding-top: 1.625rem;
-        }
-    }
-
-    input  {
-        width: 10rem;
-    }
-}
 
 .veldig-lang-hjelpetekst .popover {
     @media screen and (min-width: 768px) {
         max-width: 60%;
     }
+}
+
+.dagesvarsel {
+    margin-top: auto;
+}
+
+.kort-feilmelding-oppsumering {
+    padding: 1rem 0;
 }

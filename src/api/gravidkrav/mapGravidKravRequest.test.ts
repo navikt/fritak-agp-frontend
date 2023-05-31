@@ -12,8 +12,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             dager: 5,
             belop: 3000
           }
@@ -32,8 +37,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             dager: 5,
             belop: 3000
           }
@@ -52,8 +62,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('99.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('99.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             dager: 5,
             belop: 3000
           }
@@ -72,8 +87,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('99.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('99.04.2025')
+              }
+            ],
             dager: 5,
             belop: 3000
           }
@@ -92,8 +112,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             belop: 3000
           }
         ],
@@ -111,8 +136,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             dager: 5
           }
         ],
@@ -130,8 +160,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             dager: 5,
             belop: 3000
           }
@@ -150,8 +185,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             dager: 5,
             belop: 3000
           }
@@ -164,8 +204,12 @@ describe('mapGravidKravRequest', () => {
       virksomhetsnummer: '456',
       perioder: [
         {
-          fom: '2020-02-01',
-          tom: '2025-04-03',
+          perioder: [
+            {
+              fom: '2020-02-01',
+              tom: '2025-04-03'
+            }
+          ],
           gradering: 1,
           antallDagerMedRefusjon: 5,
           månedsinntekt: 3000
@@ -184,8 +228,13 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            perioder: [
+              {
+                uniqueKey: 'p1',
+                fom: parseDato('01.02.2020'),
+                tom: parseDato('03.04.2025')
+              }
+            ],
             dager: 5,
             belop: 3000
           }
@@ -198,8 +247,12 @@ describe('mapGravidKravRequest', () => {
       virksomhetsnummer: '456',
       perioder: [
         {
-          fom: '2020-02-01',
-          tom: '2025-04-03',
+          perioder: [
+            {
+              fom: '2020-02-01',
+              tom: '2025-04-03'
+            }
+          ],
           gradering: 1,
           antallDagerMedRefusjon: 5,
           månedsinntekt: 3000

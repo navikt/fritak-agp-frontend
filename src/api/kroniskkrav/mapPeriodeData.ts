@@ -16,8 +16,10 @@ export const beregnSykemeldingGradering = (sykemeldingsgrad: string | undefined)
 
 const mapPeriodeData = (perioder: KroniskKravPeriode[]): Array<Arbeidsgiverperiode> => {
   return perioder.map((enkeltPeriode) => ({
-    fom: datoToString(enkeltPeriode.fom),
-    tom: datoToString(enkeltPeriode.tom),
+    perioder: enkeltPeriode.perioder.map((delPeriode) => ({
+      fom: datoToString(delPeriode.fom),
+      tom: datoToString(delPeriode.tom)
+    })),
     antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
     månedsinntekt: enkeltPeriode.belop ?? 0,
     gradering: beregnSykemeldingGradering(enkeltPeriode.sykemeldingsgrad)

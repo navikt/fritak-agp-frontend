@@ -7,6 +7,7 @@ import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
+import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 
 const checkItemId = (itemId?: string) => {
   if (itemId === undefined) {
@@ -17,7 +18,9 @@ const checkItemId = (itemId?: string) => {
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, translate: i18n): KroniskKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
-  nextState.perioder = nextState.perioder ? nextState.perioder : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder
+    ? nextState.perioder
+    : [{ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -37,9 +40,14 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Fra:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
-        ? parseDateTilDato(payload.fra)
-        : undefined;
+
+      nextState.perioder.forEach((arbeidsgiverperioder) => {
+        arbeidsgiverperioder.perioder.forEach((delperiode) => {
+          if (delperiode.uniqueKey === payload?.itemId) {
+            delperiode.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
+          }
+        });
+      });
 
       return validateKroniskKrav(nextState, translate);
 
@@ -47,11 +55,36 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       checkItemId(payload?.itemId);
 
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
-        ? parseDateTilDato(payload.til)
-        : undefined;
+
+      nextState.perioder.forEach((arbeidsgiverperioder) => {
+        arbeidsgiverperioder.perioder.forEach((delperiode) => {
+          if (delperiode.uniqueKey === payload?.itemId) {
+            delperiode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
+          }
+        });
+      });
 
       return validateKroniskKrav(nextState, translate);
+
+    case Actions.AddDelperiode: {
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)?.perioder.push({ uniqueKey: uuid() });
+
+      // arbeidsgiverperiode?.perioder.push({ uniqueKey: uuid() });
+
+      return validateKroniskKrav(nextState, translate);
+    }
+
+    case Actions.SlettDelperiode: {
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.forEach((arbeidsgiverperiode) => {
+        arbeidsgiverperiode.perioder = arbeidsgiverperiode.perioder.filter(
+          (delperiode) => delperiode.uniqueKey !== payload?.itemId
+        );
+      });
+      return validateKroniskKrav(nextState, translate);
+    }
 
     case Actions.Dager:
       checkItemId(payload?.itemId);
@@ -116,7 +149,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.progress = false;
       nextState.submitting = false;
       nextState.showSpinner = false;
-      return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as KroniskKravState;
+      return mapResponse<KroniskKravResponse>(payload.response, nextState, mapKravFeilmeldinger) as KroniskKravState;
 
     case Actions.Grunnbeloep: {
       checkItemId(payload?.itemId);
@@ -136,8 +169,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.AddPeriod: {
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
-        : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+        ? nextState.perioder.concat({ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] })
+        : [{ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] }];
       return nextState;
     }
 
@@ -149,8 +182,11 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
         nextState.antallDager = krav.antallDager;
         nextState.perioder = krav.perioder.map((periode) => ({
           uniqueKey: uuid(),
-          fom: parseISO(periode.fom),
-          tom: parseISO(periode.tom),
+          perioder: periode.perioder.map((delperiode) => ({
+            uniqueKey: uuid(),
+            fom: parseISO(delperiode.fom),
+            tom: parseISO(delperiode.tom)
+          })),
           dager: Number(periode.antallDagerMedRefusjon),
           belop: Number(periode.månedsinntekt),
           sykemeldingsgrad: (periode.gradering * 100).toString()

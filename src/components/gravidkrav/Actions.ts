@@ -28,7 +28,9 @@ export enum Actions {
   EndringsAarsak,
   ShowSpinner,
   HideSpinner,
-  HideServerError
+  HideServerError,
+  AddDelperiode,
+  SlettDelperiode
 }
 
 export interface Payload {

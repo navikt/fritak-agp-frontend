@@ -113,7 +113,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
 
-    expect(state.perioder && state?.perioder[0]?.fom?.value).toEqual('05.06.2020');
+    expect(state.perioder && state?.perioder[0]?.perioder[0].fom?.value).toEqual('05.06.2020');
     expect(state.formDirty).toBe(true);
   });
 
@@ -130,22 +130,20 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0]?.fom?.value).toBeUndefined();
+    expect(state.perioder && state.perioder[0]?.perioder[0].fom?.value).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
-    expect(() => {
-      const state = KroniskKravReducer(
-        defaultKroniskKravState(),
-        {
-          type: Actions.Fra,
-          payload: { fra: undefined, itemId: '0' }
-        },
-        i18n
-      );
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.Fra,
+        payload: { fra: undefined, itemId: '0' }
+      },
+      i18n
+    );
 
-      expect(state.perioder && state.perioder[0].fom).toBeUndefined();
-    });
+    expect(state.perioder && state.perioder[0].perioder[0].fom).toBeUndefined();
   });
 
   it('should set the til', () => {
@@ -164,7 +162,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.perioder && state.perioder[0].perioder[0].tom?.value).toEqual('05.06.2020');
     expect(state.formDirty).toBe(true);
   });
 
@@ -181,7 +179,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].tom).toBeUndefined();
+    expect(state.perioder && state.perioder[0].perioder[0].tom).toBeUndefined();
   });
 
   it('should set the dager', () => {
@@ -197,7 +195,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].dager).toEqual(3);
+    expect(state.perioder?.[0]?.dager).toEqual(3);
     expect(state.formDirty).toBe(true);
   });
 
@@ -214,7 +212,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].belop).toEqual(233);
+    expect(state.perioder?.[0]?.belop).toEqual(233);
     expect(state.formDirty).toBe(true);
   });
 
@@ -450,7 +448,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].sykemeldingsgrad).toEqual('12');
+    expect(state.perioder?.[0]?.sykemeldingsgrad).toEqual('12');
   });
 
   it('should throw on undefined itemId for Sykemeldingsgrad', () => {
@@ -542,8 +540,12 @@ describe('KroniskKravReducer', () => {
             antallDager: 1,
             perioder: [
               {
-                fom: '2022-11-12',
-                tom: '2022-12-13',
+                perioder: [
+                  {
+                    fom: '2022-11-12',
+                    tom: '2022-12-13'
+                  }
+                ],
                 antallDagerMedRefusjon: 5,
                 månedsinntekt: 123,
                 gradering: 1,
@@ -567,10 +569,10 @@ describe('KroniskKravReducer', () => {
     );
 
     if (!state) {
-      state = { feilmeldinger: [] };
+      state = { feilmeldinger: [], perioder: [] };
     }
-    const fom = state.perioder![0].fom;
-    const tom = state.perioder![0].tom;
+    const fom = state.perioder?.[0].perioder[0].fom;
+    const tom = state.perioder?.[0].perioder[0].tom;
 
     expect(fom?.value).toBe('12.11.2022');
     expect(tom?.value).toBe('13.12.2022');

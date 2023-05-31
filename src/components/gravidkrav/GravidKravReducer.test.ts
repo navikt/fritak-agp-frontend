@@ -124,7 +124,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    expect(state.perioder && state.perioder[0].fom?.value).toBeUndefined();
+    expect(state.perioder && state.perioder[0].perioder[0].fom?.value).toBeUndefined();
   });
 
   it('should set the tom', () => {
@@ -140,7 +140,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.perioder && state.perioder[0].perioder[0].tom?.value).toEqual('05.06.2020');
   });
 
   it('should clear tom when empty payload', () => {
@@ -156,7 +156,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    expect(state.perioder && state.perioder[0].tom).toBeUndefined();
+    expect(state.perioder && state.perioder[0].perioder[0].tom).toBeUndefined();
   });
 
   it('should throw on tom when itemId is missing', () => {

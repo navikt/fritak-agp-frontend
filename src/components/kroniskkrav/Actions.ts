@@ -30,7 +30,9 @@ export enum Actions {
   ShowSpinner,
   HideSpinner,
   HideServerError,
-  SetFormClean
+  SetFormClean,
+  AddDelperiode,
+  SlettDelperiode
 }
 
 export interface Payload {

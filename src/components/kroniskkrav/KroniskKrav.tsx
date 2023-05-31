@@ -31,7 +31,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { Button, ErrorMessage, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -46,6 +46,8 @@ import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import textify from '../../utils/textify';
+import kroniskKravKanSlettes from './kroniskeKravKanSlettes';
+import dagerMellomPerioder from '../../utils/dagerMellomPerioder';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -219,6 +221,10 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     return null;
   }
 
+  const avstanderMellomPerioder = dagerMellomPerioder(state.perioder);
+
+  const slettbar = kroniskKravKanSlettes(state.perioder);
+
   return (
     <Side
       bedriftsmeny={true}
@@ -313,15 +319,23 @@ export const KroniskKrav = (props: KroniskKravProps) => {
         </TextLabel>
         <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
           {state.perioder?.map((enkeltPeriode, index) => (
-            <KravPeriode
-              dispatch={dispatch}
-              enkeltPeriode={enkeltPeriode}
-              index={index}
-              lonnspliktDager={state.antallDager}
-              key={enkeltPeriode.uniqueKey}
-              slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-              Actions={Actions}
-            />
+            <>
+              <KravPeriode
+                dispatch={dispatch}
+                enkeltPeriode={enkeltPeriode}
+                index={index}
+                lonnspliktDager={state.antallDager}
+                key={enkeltPeriode.uniqueKey}
+                slettbar={slettbar}
+                Actions={Actions}
+              />
+              {!!avstanderMellomPerioder[index] && avstanderMellomPerioder[index] < 17 && (
+                <ErrorMessage>
+                  Det må være minst 16 dager mellom arbeidsgiverperiodene. Nå er det{' '}
+                  {avstanderMellomPerioder[index] - 1}
+                </ErrorMessage>
+              )}
+            </>
           ))}
           <div>
             {state.perioder && state.perioder.length < MAX_PERIODER && (

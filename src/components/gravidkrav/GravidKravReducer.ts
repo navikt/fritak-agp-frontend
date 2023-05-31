@@ -19,7 +19,9 @@ const checkItemId = (itemId?: string) => {
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, translate: i18n): GravidKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
-  nextState.perioder = nextState.perioder ? nextState.perioder : [{ uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder
+    ? nextState.perioder
+    : [{ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -39,20 +41,49 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Fra:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
-        ? parseDateTilDato(payload.fra)
-        : undefined;
 
+      nextState.perioder.forEach((arbeidsgiverperioder) => {
+        arbeidsgiverperioder.perioder.forEach((delperiode) => {
+          if (delperiode.uniqueKey === payload?.itemId) {
+            delperiode.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
+          }
+        });
+      });
       return validateGravidKrav(nextState, translate);
 
     case Actions.Til:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
-        ? parseDateTilDato(payload.til)
-        : undefined;
+
+      nextState.perioder.forEach((arbeidsgiverperioder) => {
+        arbeidsgiverperioder.perioder.forEach((delperiode) => {
+          if (delperiode.uniqueKey === payload?.itemId) {
+            delperiode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
+          }
+        });
+      });
 
       return validateGravidKrav(nextState, translate);
+
+    case Actions.AddDelperiode: {
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)?.perioder.push({ uniqueKey: uuid() });
+
+      // arbeidsgiverperiode?.perioder.push({ uniqueKey: uuid() });
+
+      return validateGravidKrav(nextState, translate);
+    }
+
+    case Actions.SlettDelperiode: {
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.forEach((arbeidsgiverperiode) => {
+        arbeidsgiverperiode.perioder = arbeidsgiverperiode.perioder.filter(
+          (delperiode) => delperiode.uniqueKey !== payload?.itemId
+        );
+      });
+      return validateGravidKrav(nextState, translate);
+    }
 
     case Actions.Dager:
       checkItemId(payload?.itemId);
@@ -134,8 +165,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       }
 
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
-        : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+        ? nextState.perioder.concat({ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] })
+        : [{ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] }];
       return nextState;
     }
 
@@ -156,8 +187,11 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
         nextState.antallDager = krav.antallDager;
         nextState.perioder = krav.perioder.map((periode) => ({
           uniqueKey: uuid(),
-          fom: parseISO(periode.fom),
-          tom: parseISO(periode.tom),
+          perioder: periode.perioder.map((delperiode) => ({
+            uniqueKey: uuid(),
+            fom: parseISO(delperiode.fom),
+            tom: parseISO(delperiode.tom)
+          })),
           dager: Number(periode.antallDagerMedRefusjon),
           belop: Number(periode.månedsinntekt),
           sykemeldingsgrad: (periode.gradering * 100).toString()

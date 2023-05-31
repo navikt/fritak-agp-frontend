@@ -10,7 +10,12 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
       fnr: '',
       perioder: [
         {
-          uniqueKey: uuid()
+          uniqueKey: uuid(),
+          perioder: [
+            {
+              uniqueKey: uuid()
+            }
+          ]
         }
       ],
       bekreft: false,
@@ -28,7 +33,7 @@ export default interface KroniskKravState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  perioder?: Array<KroniskKravPeriode>;
+  perioder: Array<KroniskKravPeriode>;
   periodeError?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
   validated?: boolean;
@@ -51,10 +56,6 @@ export default interface KroniskKravState extends ValidationState {
 }
 
 export interface KroniskKravPeriode {
-  fom?: Dato;
-  fomError?: string;
-  tom?: Dato;
-  tomError?: string;
   dager?: number;
   dagerError?: string;
   belop?: number;
@@ -64,4 +65,13 @@ export interface KroniskKravPeriode {
   sykemeldingsgrad?: string;
   sykemeldingsgradError?: string;
   gradering?: number;
+  perioder: Array<Delperiode>;
+}
+
+export interface Delperiode {
+  uniqueKey: string;
+  fom?: Dato;
+  fomError?: string;
+  tom?: Dato;
+  tomError?: string;
 }

@@ -10,7 +10,7 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import Language from '../../locale/Language';
 
-const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
+const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked', perioder: [] };
 
 // eslint-disable-next-line react/display-name
 jest.doMock('../datovelger/Datovelger', () => () => {

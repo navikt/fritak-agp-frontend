@@ -1,4 +1,4 @@
-import GravidKravState, { Periode } from './GravidKravState';
+import GravidKravState, { GravidKravPeriode } from './GravidKravState';
 
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
@@ -15,6 +15,7 @@ import validateFra from '../../validation/validateFra';
 import validateTil from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
+import antallDagerIArbeidsgiverperiode from '../../utils/antallDagerIArbeidsgiverperiode';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;
@@ -24,7 +25,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     return state;
   }
   const nextState = Object.assign({}, state);
-  const feilmeldinger = new Array<FeiloppsummeringFeil>();
+  const feilmeldinger: Array<FeiloppsummeringFeil> = [];
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   if (nextState.fnrError) {
     pushFeilmelding('ansatteFeilmeldingId', nextState.fnrError, feilmeldinger);
@@ -55,26 +56,37 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
   }
 
-  state.perioder?.forEach((periode, index) => {
+  state.perioder?.forEach((arbeidsgiverperiode, index) => {
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
 
-    const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
-    const fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
-    periode.fomError = fomError;
+    arbeidsgiverperiode.perioder.forEach((delperioder) => {
+      const valideringFraStatus = validateFra(delperioder.fom, MIN_DATE, !!state.validated);
+      const fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
+      delperioder.fomError = fomError;
 
-    const valideringTilStatus = validateTil(periode.fom, periode.tom, MIN_DATE, !!state.validated);
-    const tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
-    periode.tomError = tomError;
+      const valideringTilStatus = validateTil(delperioder.fom, delperioder.tom, MIN_DATE, !!state.validated);
+      const tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
+      delperioder.tomError = tomError;
+    });
 
-    periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
-    periode.belopError = formatValidation(validateBeloep('' + periode.belop, MAX, !!nextState.validated), translate);
-
-    periode.sykemeldingsgradError = formatValidation(
-      validateSykemeldingsgrad(periode.sykemeldingsgrad, !!state.validated),
+    arbeidsgiverperiode.dagerError = formatValidation(
+      validateDager(arbeidsgiverperiode.dager, !!state.validated),
+      translate
+    );
+    arbeidsgiverperiode.belopError = formatValidation(
+      validateBeloep('' + arbeidsgiverperiode.belop, MAX, !!nextState.validated),
       translate
     );
 
-    fyllPeriodeFeilmeldingsboks(periode, index, feilmeldinger);
+    arbeidsgiverperiode.sykemeldingsgradError = formatValidation(
+      validateSykemeldingsgrad(arbeidsgiverperiode.sykemeldingsgrad, !!state.validated),
+      translate
+    );
+
+    const periodefeil = antallDagerIArbeidsgiverperiode(arbeidsgiverperiode.perioder);
+    arbeidsgiverperiode.perioderError;
+
+    fyllPeriodeFeilmeldingsboks(arbeidsgiverperiode, index, feilmeldinger);
   });
 
   nextState.bekreftError = formatValidation(validateBekreft(state.bekreft, state.validated), translate);
@@ -87,14 +99,20 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   return nextState;
 };
 
-const fyllPeriodeFeilmeldingsboks = (periode: Periode, index: number, feilmeldinger: FeiloppsummeringFeil[]) => {
-  if (periode.fomError) {
-    pushFeilmelding(`fra-dato-${index}`, periode.fomError, feilmeldinger);
-  }
+const fyllPeriodeFeilmeldingsboks = (
+  periode: GravidKravPeriode,
+  index: number,
+  feilmeldinger: FeiloppsummeringFeil[]
+) => {
+  periode.perioder.forEach((delperiode) => {
+    if (delperiode.fomError) {
+      pushFeilmelding(`fra-dato-${index}`, delperiode.fomError, feilmeldinger);
+    }
 
-  if (periode.tomError) {
-    pushFeilmelding(`til-dato-${index}`, periode.tomError, feilmeldinger);
-  }
+    if (delperiode.tomError) {
+      pushFeilmelding(`til-dato-${index}`, delperiode.tomError, feilmeldinger);
+    }
+  });
 
   if (periode.dagerError) {
     pushFeilmelding(`dager-${index}`, periode.dagerError, feilmeldinger);

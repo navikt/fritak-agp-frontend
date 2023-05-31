@@ -12,7 +12,7 @@ export interface FeiloppsummeringFeil {
 }
 
 const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: KroniskKravState | GravidKravState) => {
-  const feilmeldinger = new Array<FeiloppsummeringFeil>();
+  const feilmeldinger: Array<FeiloppsummeringFeil> = [];
 
   response.violations.forEach((v) => {
     const regexSplitPattern = /([^[.\]])+/g;
@@ -89,21 +89,21 @@ const mapPeriodeFeilmeldinger = (
       );
       break;
 
-    case 'fom':
-      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-        state.perioder[pathIndex].fomError = v.message || 'Fra dato kan ikke være etter til dato';
-      }
+    // case 'fom':
+    //   if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+    //     state.perioder[pathIndex].perioder[0].fomError = v.message || 'Fra dato kan ikke være etter til dato';
+    //   }
 
-      feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}`, v.message || 'Fra dato kan ikke være etter til dato'));
-      break;
+    //   feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}`, v.message || 'Fra dato kan ikke være etter til dato'));
+    //   break;
 
-    case 'tom':
-      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-        state.perioder[pathIndex].tomError = v.message;
-      }
+    // case 'tom':
+    //   if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+    //     state.perioder[pathIndex].tomError = v.message;
+    //   }
 
-      feilmeldinger.push(lagFeil(`til-dato-${pathIndex}`, v.message));
-      break;
+    //   feilmeldinger.push(lagFeil(`til-dato-${pathIndex}`, v.message));
+    //   break;
 
     case 'månedsinntekt':
       if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {

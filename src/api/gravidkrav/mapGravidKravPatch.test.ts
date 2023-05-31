@@ -7,8 +7,13 @@ describe('mapGravidKravPatch', () => {
   const enDato: Dato = parseDato('22.04.2022');
   const perioder: Array<KroniskKravPeriode> = [
     {
-      fom: enDato,
-      tom: enDato,
+      perioder: [
+        {
+          fom: enDato,
+          tom: enDato,
+          uniqueKey: 'raaandom-string'
+        }
+      ],
       dager: 5,
       belop: 125,
       grunnbeloep: 678,
