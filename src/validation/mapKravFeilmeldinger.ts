@@ -55,6 +55,11 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
         state.antallDagerError = v.message;
         feilmeldinger.push(lagFeil('kontrollsporsmaal-lonn-arbeidsdager', v.message));
         break;
+
+      case 'perioder[0]':
+        state.antallDagerError = v.message;
+        feilmeldinger.push(lagFeil('dager', v.message));
+        break;
     }
   });
 

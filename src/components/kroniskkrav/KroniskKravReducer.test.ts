@@ -7,9 +7,25 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import Language from '../../locale/Language';
+import * as uuid from 'uuid';
+jest.mock('uuid');
 
 describe('KroniskKravReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
+
+  beforeEach(() => {
+    const uuidSpy = jest.spyOn(uuid, 'v4');
+    uuidSpy
+      .mockReturnValueOnce('uuid1')
+      .mockReturnValueOnce('uuid2')
+      .mockReturnValueOnce('uuid3')
+      .mockReturnValueOnce('uuid4')
+      .mockReturnValue('some-uuid');
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   it('should throw error', () => {
     expect(() => {
@@ -99,7 +115,7 @@ describe('KroniskKravReducer', () => {
   it('should set the fra', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-ignore
-    const itemId = defaultKrav.perioder[0].uniqueKey;
+    const itemId = defaultKrav.perioder[0].perioder[0].uniqueKey;
 
     let state = KroniskKravReducer(
       defaultKrav,
@@ -120,7 +136,7 @@ describe('KroniskKravReducer', () => {
   it('should set the fra when fom is undefined', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-ignore
-    const itemId = defaultKrav.perioder[0].uniqueKey;
+    const itemId = defaultKrav.perioder[0].perioder[0].uniqueKey;
 
     let state = KroniskKravReducer(
       defaultKrav,
@@ -149,7 +165,7 @@ describe('KroniskKravReducer', () => {
   it('should set the til', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-ignore
-    const itemId = defaultKrav.perioder[0].uniqueKey;
+    const itemId = defaultKrav.perioder[0].perioder[0].uniqueKey;
 
     let state = KroniskKravReducer(
       defaultKrav,
@@ -405,10 +421,16 @@ describe('KroniskKravReducer', () => {
 
     expect(state.perioder ? state.perioder[0].uniqueKey : undefined).not.toBeUndefined();
     expect(defaultState.perioder ? defaultState.perioder[0].uniqueKey : undefined).not.toBeUndefined();
+
     // @ts-ignore
-    if (state.perioder) delete state.perioder[0].uniqueKey;
+    delete state.perioder[0].uniqueKey;
     // @ts-ignore
-    if (defaultState.perioder) delete defaultState.perioder[0].uniqueKey;
+    delete defaultState.perioder[0].uniqueKey;
+    // @ts-ignore
+    delete state.perioder[0].perioder[0].uniqueKey;
+    // @ts-ignore
+    delete defaultState.perioder[0].perioder[0].uniqueKey;
+
     expect(state).toEqual(defaultState);
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toBeUndefined();

@@ -28,19 +28,19 @@ describe('validateGravidKrav', () => {
     const state = defaultGravidKravState();
     state.validated = true;
     state.fnr = '123';
-    if (state.perioder) {
-      state.perioder = [
-        {
-          uniqueKey: 'unik1',
-          perioder: [
-            {
-              fom: parseDato('12.12.2014'),
-              uniqueKey: 'unik'
-            }
-          ]
-        }
-      ];
-    }
+    // if (state.perioder) {
+    state.perioder = [
+      {
+        uniqueKey: 'unik1',
+        perioder: [
+          {
+            fom: parseDato('12.12.1014'),
+            uniqueKey: 'unik'
+          }
+        ]
+      }
+    ];
+    // }
 
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
 

@@ -9,6 +9,19 @@ describe('mapKroniskKravFeilmeldinger', () => {
   const ALLE_FELTER = [
     'identitetsnummer',
     'virksomhetsnummer',
+    'perioder[0].perioder[0].fom',
+    'perioder[0].perioder[0].tom',
+    'perioder[0].antallDagerMedRefusjon',
+    'perioder[0].månedsinntekt',
+    'perioder[0].gradering',
+    'bekreftet',
+    'perioder',
+    'antallDager'
+  ];
+
+  const ALLE_GAMLE_FELTER = [
+    'identitetsnummer',
+    'virksomhetsnummer',
     'perioder[0].fom',
     'perioder[0].tom',
     'perioder[0].antallDagerMedRefusjon',
@@ -26,8 +39,8 @@ describe('mapKroniskKravFeilmeldinger', () => {
     expect(state.fnrError).toBe('feil');
     expect(state.orgnrError).toBe('feil');
     expect(state.bekreftError).toBe('feil');
-    // const fraError = state?.perioder ? state?.perioder[0]?.fomError : '';
-    // expect(fraError).toBe('feil');
+    const fraError = state?.perioder ? state?.perioder[0]?.perioder[0]?.fomError : '';
+    expect(fraError).toBe('feil');
     // const tilError = state?.perioder ? state?.perioder[0]?.tomError : '';
     // expect(tilError).toBe('feil');
     const dagerError = state?.perioder ? state?.perioder[0]?.dagerError : '';
@@ -83,17 +96,17 @@ describe('mapKroniskKravFeilmeldinger', () => {
   });
 
   it('should handle strange stuff from the backend - fom', () => {
-    const felter = ['perioder[1].fom'];
+    const felter = ['perioder[1].perioder[0].fom'];
     const state = defaultKroniskKravState();
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
 
     expect(feilmeldinger.length).toEqual(1);
     //@ts-ignore
-    expect(state.perioder[0].fomError).toBeUndefined();
+    expect(state.perioder[0].perioder[0].fomError).toBeUndefined();
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 
-    expect(feilmeldinger[0].skjemaelementId).toEqual('fra-dato-1');
+    expect(feilmeldinger).toEqual('fra-dato-1');
   });
 
   it('should handle missing message from the backend  - fom', () => {
@@ -103,7 +116,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
     expect(feilmeldinger.length).toEqual(1);
     //@ts-ignore
-    expect(state.perioder[0].fomError).toBe('Fra dato kan ikke være etter til dato');
+    expect(state.perioder[0].perioder[0].fomError).toBe('Fra dato kan ikke være etter til dato');
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 
@@ -125,7 +138,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
   });
 
   it('should handle missing message from the backend  - tom', () => {
-    const felter = ['perioder[0].tom'];
+    const felter = ['perioder[0].perioder[0].tom'];
     const state = defaultKroniskKravState();
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter), state);
 

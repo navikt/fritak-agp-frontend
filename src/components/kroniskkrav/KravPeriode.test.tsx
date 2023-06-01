@@ -10,12 +10,12 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import Language from '../../locale/Language';
 
-const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked', perioder: [] };
+const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked', perioder: [{ uniqueKey: 'mocked2' }] };
 
 // eslint-disable-next-line react/display-name
-jest.doMock('../datovelger/Datovelger', () => () => {
-  return <div>Datovelger</div>;
-});
+// jest.doMock('../datovelger/Datovelger', () => () => {
+//   return <div>Datovelger</div>;
+// });
 
 describe('KravPeriode', () => {
   languageInit(i18next, Language.nb, Locales);
@@ -26,6 +26,7 @@ describe('KravPeriode', () => {
 
   it('should show first row', async () => {
     const mockDispatch = jest.fn();
+    // jest.unmock('../datovelger/Datovelger');
 
     render(
       <KravPeriode
