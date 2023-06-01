@@ -103,7 +103,7 @@
     "sass": "1.x",
     "snyk": "1.x",
     "testcafe": "^2.6.0",
-    "testcafe-react-selectors": "^5.0.2",
+    "testcafe-react-selectors": "^5.0.3",
     "timezone-mock": "1.x",
     "ts-jest": "^29.1.0",
     "yet-another-fetch-mock": "4.1.0"
