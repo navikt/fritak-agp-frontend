@@ -181,7 +181,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  const fraDato = Selector('#fra-dato-0');
+  const fraDato = Selector('#fra-dato-0-0');
   const valgtFraDato = Selector('.rdp .rdp-row:nth-child(2) .rdp-cell:nth-child(3)');
   await t
     .click(fraDato)
@@ -204,7 +204,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t.expect(Selector('html').textContent).contains('153');
 
-  const tilDato = Selector('#til-dato-0');
+  const tilDato = Selector('#til-dato-0-0');
   const valgtTilDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
   await t
     .click(tilDato)
