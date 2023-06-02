@@ -1,4 +1,4 @@
-import React, { Reducer, useEffect, useReducer, useState } from 'react';
+import React, { Fragment, Reducer, useEffect, useReducer, useState } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -319,7 +319,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
         </TextLabel>
         <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
           {state.perioder?.map((enkeltPeriode, index) => (
-            <>
+            <Fragment key={enkeltPeriode.uniqueKey}>
               <KravPeriode
                 dispatch={dispatch}
                 enkeltPeriode={enkeltPeriode}
@@ -336,7 +336,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   {avstanderMellomPerioder[index] - 1}
                 </ErrorMessage>
               )}
-            </>
+            </Fragment>
           ))}
           <div>
             {state.perioder && state.perioder.length < MAX_PERIODER && (

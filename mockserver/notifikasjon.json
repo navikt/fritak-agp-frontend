@@ -1,0 +1,25 @@
+{
+  "krav": "krav",
+
+  "identitetsnummer": "10107400090",
+  "virksomhetsnummer": "999263550",
+  "antallDager": 260,
+  "perioder": [
+    {
+      "perioder": [
+        {
+          "fom": "2023-01-03",
+          "tom": "2023-01-11"
+        },
+        {
+          "fom": "2023-01-15",
+          "tom": "2023-01-21"
+        }
+      ],
+      "antallDagerMedRefusjon": 5,
+      "månedsinntekt": 34000,
+      "gradering": 1
+    }
+  ],
+  "id": "identifikator"
+}

@@ -32,14 +32,15 @@ describe('mapKroniskKravFeilmeldinger', () => {
     'antallDager'
   ];
 
-  it('should map all violations', () => {
+  it('should map all violations - nytt format', () => {
     const state = defaultKroniskKravState();
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, ALLE_FELTER, 'feil'), state);
-
+    console.log('state', state);
+    console.log('feilmeldinger', feilmeldinger);
     expect(state.fnrError).toBe('feil');
     expect(state.orgnrError).toBe('feil');
     expect(state.bekreftError).toBe('feil');
-    const fraError = state?.perioder ? state?.perioder[0]?.perioder[0]?.fomError : '';
+    const fraError = state?.perioder[0]?.perioder[0]?.fomError || '';
     expect(fraError).toBe('feil');
     // const tilError = state?.perioder ? state?.perioder[0]?.tomError : '';
     // expect(tilError).toBe('feil');
@@ -53,8 +54,44 @@ describe('mapKroniskKravFeilmeldinger', () => {
     expect(feilmeldinger.length).toEqual(10);
     expect(feilmeldinger[0].skjemaelementId).toEqual('fnr');
     expect(feilmeldinger[1].skjemaelementId).toEqual('orgnr');
-    expect(feilmeldinger[2].skjemaelementId).toEqual('fra-dato-0');
-    expect(feilmeldinger[3].skjemaelementId).toEqual('til-dato-0');
+    expect(feilmeldinger[2].skjemaelementId).toEqual('fra-dato-0-0');
+    expect(feilmeldinger[3].skjemaelementId).toEqual('til-dato-0-0');
+    expect(feilmeldinger[4].skjemaelementId).toEqual('dager-0');
+    expect(feilmeldinger[5].skjemaelementId).toEqual('beloep-0');
+    expect(feilmeldinger[6].skjemaelementId).toEqual('sykemeldingsgrad-0');
+    expect(feilmeldinger[7].skjemaelementId).toEqual('bekreft');
+    expect(feilmeldinger[8].skjemaelementId).toEqual('dager');
+    expect(feilmeldinger[9].skjemaelementId).toEqual('kontrollsporsmaal-lonn-arbeidsdager');
+
+    for (let i = 0; i < 9; i++) {
+      expect(feilmeldinger[i].feilmelding).toEqual('feil');
+    }
+  });
+
+  it('should map all violations - gammelt format', () => {
+    const state = defaultKroniskKravState();
+    const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, ALLE_GAMLE_FELTER, 'feil'), state);
+    console.log('state', state);
+    console.log('feilmeldinger', feilmeldinger);
+    expect(state.fnrError).toBe('feil');
+    expect(state.orgnrError).toBe('feil');
+    expect(state.bekreftError).toBe('feil');
+    const fraError = state?.perioder[0]?.perioder[0]?.fomError || '';
+    expect(fraError).toBe('feil');
+    const tilError = state?.perioder[0]?.perioder[0]?.tomError || '';
+    expect(tilError).toBe('feil');
+    const dagerError = state?.perioder ? state?.perioder[0]?.dagerError : '';
+    expect(dagerError).toBe('feil');
+    const belopError = state?.perioder ? state?.perioder[0]?.belopError : '';
+    expect(belopError).toBe('feil');
+    expect(state.bekreftError).toBe('feil');
+    expect(state.antallDagerError).toBe('feil');
+
+    expect(feilmeldinger.length).toEqual(10);
+    expect(feilmeldinger[0].skjemaelementId).toEqual('fnr');
+    expect(feilmeldinger[1].skjemaelementId).toEqual('orgnr');
+    expect(feilmeldinger[2].skjemaelementId).toEqual('fra-dato-0-0');
+    expect(feilmeldinger[3].skjemaelementId).toEqual('til-dato-0-0');
     expect(feilmeldinger[4].skjemaelementId).toEqual('dager-0');
     expect(feilmeldinger[5].skjemaelementId).toEqual('beloep-0');
     expect(feilmeldinger[6].skjemaelementId).toEqual('sykemeldingsgrad-0');
@@ -106,7 +143,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 
-    expect(feilmeldinger).toEqual('fra-dato-1');
+    expect(feilmeldinger).toEqual([{ feilmelding: 'feil', skjemaelementId: 'fra-dato-1-0' }]);
   });
 
   it('should handle missing message from the backend  - fom', () => {
@@ -120,7 +157,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 
-    expect(feilmeldinger[0].skjemaelementId).toEqual('fra-dato-0');
+    expect(feilmeldinger[0].skjemaelementId).toEqual('fra-dato-0-0');
   });
 
   it('should handle strange stuff from the backend - tom', () => {
@@ -134,7 +171,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 
-    expect(feilmeldinger[0].skjemaelementId).toEqual('til-dato-1');
+    expect(feilmeldinger[0].skjemaelementId).toEqual('til-dato-1-0');
   });
 
   it('should handle missing message from the backend  - tom', () => {
@@ -148,7 +185,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     //@ts-ignore
     expect(state.perioder[1]).toBeUndefined();
 
-    expect(feilmeldinger[0].skjemaelementId).toEqual('til-dato-0');
+    expect(feilmeldinger[0].skjemaelementId).toEqual('til-dato-0-0');
   });
 
   it('should handle strange stuff from the backend - månedsinntekt', () => {

@@ -185,17 +185,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
         nextState.fnr = krav.identitetsnummer;
         nextState.orgnr = krav.virksomhetsnummer;
         nextState.antallDager = krav.antallDager;
-        nextState.perioder = krav.perioder.map((periode) => ({
-          uniqueKey: uuid(),
-          perioder: periode.perioder.map((delperiode) => ({
-            uniqueKey: uuid(),
-            fom: parseISO(delperiode.fom),
-            tom: parseISO(delperiode.tom)
-          })),
-          dager: Number(periode.antallDagerMedRefusjon),
-          belop: Number(periode.månedsinntekt),
-          sykemeldingsgrad: (periode.gradering * 100).toString()
-        }));
+        nextState.perioder = formaterPerioderFraBackend(krav.perioder);
         nextState.kravId = krav.id;
         nextState.endringskrav = true;
       }
@@ -244,5 +234,33 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       throw new Error(`Ugyldig action: ${action.type}`);
   }
 };
+
+export function formaterPerioderFraBackend(perioder) {
+  return perioder.map((periode) => ({
+    uniqueKey: uuid(),
+    perioder: formaterGammelEllerNyPeriode(periode),
+    dager: Number(periode.antallDagerMedRefusjon),
+    belop: Number(periode.månedsinntekt),
+    sykemeldingsgrad: (periode.gradering * 100).toString()
+  }));
+}
+
+function formaterGammelEllerNyPeriode(perioder) {
+  if (perioder.perioder) {
+    return perioder.perioder.map((delperiode) => ({
+      uniqueKey: uuid(),
+      fom: parseISO(delperiode.fom),
+      tom: parseISO(delperiode.tom)
+    }));
+  } else {
+    return [
+      {
+        uniqueKey: uuid(),
+        fom: parseISO(perioder.fom),
+        tom: parseISO(perioder.tom)
+      }
+    ];
+  }
+}
 
 export default GravidKravReducer;

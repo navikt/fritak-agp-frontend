@@ -1,13 +1,14 @@
 import { Actions, KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
-import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
+import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
+import { formaterPerioderFraBackend } from '../gravidkrav/GravidKravReducer';
 
 const checkItemId = (itemId?: string) => {
   if (itemId === undefined) {
@@ -180,17 +181,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
         nextState.fnr = krav.identitetsnummer;
         nextState.orgnr = krav.virksomhetsnummer;
         nextState.antallDager = krav.antallDager;
-        nextState.perioder = krav.perioder.map((periode) => ({
-          uniqueKey: uuid(),
-          perioder: periode.perioder.map((delperiode) => ({
-            uniqueKey: uuid(),
-            fom: parseISO(delperiode.fom),
-            tom: parseISO(delperiode.tom)
-          })),
-          dager: Number(periode.antallDagerMedRefusjon),
-          belop: Number(periode.månedsinntekt),
-          sykemeldingsgrad: (periode.gradering * 100).toString()
-        }));
+        nextState.perioder = formaterPerioderFraBackend(krav.perioder);
         nextState.kravId = krav.id;
         nextState.endringskrav = true;
         nextState.formDirty = false;

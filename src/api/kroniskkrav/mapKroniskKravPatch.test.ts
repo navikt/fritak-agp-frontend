@@ -54,10 +54,14 @@ describe('mapKroniskKravPatch', () => {
       perioder: [
         {
           antallDagerMedRefusjon: 5,
-          fom: '2022-04-22',
+          perioder: [
+            {
+              fom: '2022-04-22',
+              tom: '2022-04-22'
+            }
+          ],
           gradering: 0.5,
-          månedsinntekt: 125,
-          tom: '2022-04-22'
+          månedsinntekt: 125
         }
       ],
       virksomhetsnummer: 'orgnr'
