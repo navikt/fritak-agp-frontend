@@ -228,9 +228,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .contains('Kravet er mottatt');
 });
 
-test('Legg til og fjern perioder', async (t) => {
+test('Legg til og fjern arbeidsgiverperioder', async (t) => {
   await t
-    .click(ReactSelector('LeggTilKnapp'))
+    .click(ReactSelector('LeggTilKnapp').withText(/fraværsperiode/))
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').visible)
@@ -241,5 +241,21 @@ test('Legg til og fjern perioder', async (t) => {
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').with({ timeout: 100 }).visible)
+    .notOk({ timeout: 500 });
+});
+
+test('Legg til og fjern delperioder', async (t) => {
+  await t
+    .click(ReactSelector('LeggTilKnapp').withText(/ny rad/))
+    .expect(Selector('#fra-dato-0-0').visible)
+    .ok()
+    .expect(Selector('#fra-dato-0-1').visible)
+    .ok();
+
+  await t
+    .click(Selector('button').withText('Slett'))
+    .expect(Selector('#fra-dato-0-0').visible)
+    .ok()
+    .expect(Selector('#fra-dato-0-1').with({ timeout: 100 }).visible)
     .notOk({ timeout: 500 });
 });
