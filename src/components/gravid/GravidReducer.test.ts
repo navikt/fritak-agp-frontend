@@ -265,13 +265,7 @@ describe('GravidReducer', () => {
       },
       translationMock as unknown as i18n
     );
-    expect(state.termindato).toEqual({
-      day: 11,
-      millis: 1602370800000,
-      month: 10,
-      value: '11.10.2020',
-      year: 2020
-    });
+    expect(state.termindato).toEqual(new Date('2020-10-11 00:00:00'));
   });
 
   it('should set termindato to be empty', () => {

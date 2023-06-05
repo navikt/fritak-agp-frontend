@@ -1,5 +1,4 @@
 import { ValidationState } from '../../state/validation/ValidationState';
-import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
 import EndringsAarsak from '../gravidkrav/EndringsAarsak';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
@@ -70,8 +69,8 @@ export interface KroniskKravPeriode {
 
 export interface Delperiode {
   uniqueKey: string;
-  fom?: Dato;
+  fom?: Date;
   fomError?: string;
-  tom?: Dato;
+  tom?: Date;
   tomError?: string;
 }

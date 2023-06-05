@@ -1,10 +1,10 @@
 import EndringsAarsak from '../../components/gravidkrav/EndringsAarsak';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
-import { Dato, parseDato } from '../../utils/dato/Dato';
+import parseDato from '../../utils/parseDato';
 import { mapKroniskKravPatch } from './mapKroniskKravPatch';
 
 describe('mapKroniskKravPatch', () => {
-  const enDato: Dato = parseDato('22.04.2022');
+  const enDato = parseDato('22.04.2022');
   const perioder: Array<KroniskKravPeriode> = [
     {
       perioder: [

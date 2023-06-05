@@ -1,7 +1,7 @@
 import { mapKroniskKravRequest } from './mapKroniskKravRequest';
-import { parseDato } from '../../utils/dato/Dato';
 import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
+import parseDato from '../../utils/parseDato';
 
 describe('mapKroniskKravRequest', () => {
   it('should throw error when missing fnr', () => {

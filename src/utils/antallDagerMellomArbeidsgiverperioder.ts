@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { datoToString } from './dato/Dato';
 import { Delperiode } from '../components/kroniskkrav/KroniskKravState';
 
 export default function antallDagerMellomArbeidsgiverperioder(arbeidsgiverperioder: Array<Delperiode>): Array<number> {
@@ -9,10 +8,10 @@ export default function antallDagerMellomArbeidsgiverperioder(arbeidsgiverperiod
   arbeidsgiverperioder.forEach((nestePeriode) => {
     if (!forrigePeriode?.tom) safePush(dagerMellom, 0);
     else {
-      const forrigeTom = dayjs(datoToString(forrigePeriode.tom));
-      const denneFom = dayjs(datoToString(nestePeriode.fom));
+      const forrigeTom = forrigePeriode.tom;
+      const denneFom = nestePeriode.fom;
 
-      safePush(dagerMellom, forrigeTom.diff(denneFom));
+      safePush(dagerMellom, dayjs(forrigeTom).diff(denneFom));
     }
 
     forrigePeriode = nestePeriode;

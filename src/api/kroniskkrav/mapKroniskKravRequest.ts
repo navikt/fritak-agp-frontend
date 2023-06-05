@@ -21,11 +21,11 @@ export const mapKroniskKravRequest = (
   }
 
   perioder.forEach((arbeidsgiverperiode) => {
-    arbeidsgiverperiode.perioder.map((enkeltperiode) => {
-      if (enkeltperiode.fom?.error) {
+    arbeidsgiverperiode.perioder.forEach((enkeltperiode) => {
+      if (!enkeltperiode.fom) {
         throw new Error('Fra må spesifiseres');
       }
-      if (enkeltperiode.tom?.error) {
+      if (!enkeltperiode.tom) {
         throw new Error('Til må spesifiseres');
       }
     });

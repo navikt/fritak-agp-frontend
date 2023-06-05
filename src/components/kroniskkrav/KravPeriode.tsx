@@ -17,9 +17,9 @@ import TextLabel from '../TextLabel';
 import stringishToNumber from '../../utils/stringishToNumber';
 import textify from '../../utils/textify';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
-import { Dato, parseDateTilDato, datoToString } from '../../utils/dato/Dato';
 import ButtonSlette from '../felles/ButtonSlette';
 import antallDagerIArbeidsgiverperiode from '../../utils/antallDagerIArbeidsgiverperiode';
+import formatISO from '../../utils/formatISO';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -83,7 +83,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   useEffect(() => {
     if (harFom(props.enkeltPeriode.perioder)) {
-      getGrunnbeloep(datoToString(minimumFom(props.enkeltPeriode.perioder)))
+      getGrunnbeloep(formatISO(minimumFom(props.enkeltPeriode.perioder)))
         .then((grunnbelopRespons) => {
           if (grunnbelopRespons.grunnbeloep) {
             dispatch({
@@ -119,7 +119,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               error={periode.fomError}
               toDate={today}
               fromDate={MIN_KRONISK_DATO}
-              defaultSelected={finnDefaultFom(periode)}
+              defaultSelected={periode.fom}
             />
 
             <Datovelger
@@ -136,7 +136,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               }}
               error={periode.tomError}
               toDate={today}
-              defaultSelected={finnDefaultTom(periode)}
+              defaultSelected={periode.tom}
             />
             {!kanSlettes && dagerIPerioden > 16 && index + 1 === props.enkeltPeriode.perioder.length && (
               <ErrorMessage className='dagesvarsel'>
@@ -301,14 +301,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
 export default KravPeriode;
 
-function finnDefaultFom(periode) {
-  return periode.fom?.year ? dayjs(datoToString(periode.fom)).toDate() : undefined;
-}
-
-function finnDefaultTom(periode) {
-  return periode.tom?.year ? dayjs(datoToString(periode.tom)).toDate() : undefined;
-}
-
 function harFom(perioder) {
   if (!perioder || perioder.length === 0) {
     return false;
@@ -318,12 +310,12 @@ function harFom(perioder) {
   });
 }
 
-function minimumFom(perioder: Array<Delperiode>): Dato {
-  let minimumFomVerdi: Dato = parseDateTilDato(new Date());
+function minimumFom(perioder: Array<Delperiode>): Date {
+  let minimumFomVerdi: Date = new Date();
 
   perioder.forEach((periode) => {
-    minimumFomVerdi =
-      periode.fom?.millis && periode.fom.millis < minimumFomVerdi!.millis! ? periode.fom : minimumFomVerdi;
+    const fom = periode.fom ? periode.fom : minimumFomVerdi;
+    minimumFomVerdi = fom < minimumFomVerdi ? fom : minimumFomVerdi;
   });
 
   return minimumFomVerdi;

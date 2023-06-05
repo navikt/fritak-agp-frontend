@@ -1,4 +1,4 @@
-import { parseDato } from '../utils/dato/Dato';
+import parseDato from '../utils/parseDato';
 import validateFra from './validateFra';
 
 describe('validateFra', () => {

@@ -8,6 +8,7 @@ import Locales from '../../locale/Locales';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import Language from '../../locale/Language';
 import * as uuid from 'uuid';
+import parseDato from '../../utils/parseDato';
 jest.mock('uuid');
 
 describe('KroniskKravReducer', () => {
@@ -122,14 +123,14 @@ describe('KroniskKravReducer', () => {
       {
         type: Actions.Fra,
         payload: {
-          fra: new Date('2020.06.05 12:00:00'),
+          fra: parseDato('05.06.2020'),
           itemId
         }
       },
       i18n
     );
 
-    expect(state.perioder && state?.perioder[0]?.perioder[0].fom?.value).toEqual('05.06.2020');
+    expect(state.perioder && state?.perioder[0]?.perioder[0].fom).toEqual(parseDato('05.06.2020'));
     expect(state.formDirty).toBe(true);
   });
 
@@ -146,7 +147,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0]?.perioder[0].fom?.value).toBeUndefined();
+    expect(state.perioder && state.perioder[0]?.perioder[0].fom).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
@@ -172,13 +173,13 @@ describe('KroniskKravReducer', () => {
       {
         type: Actions.Til,
         payload: {
-          til: new Date('2020.06.05 12:00:00'),
+          til: parseDato('05.06.2020'),
           itemId
         }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.perioder && state.perioder[0].perioder[0].tom).toEqual(parseDato('05.06.2020'));
     expect(state.formDirty).toBe(true);
   });
 
@@ -596,8 +597,8 @@ describe('KroniskKravReducer', () => {
     const fom = state.perioder?.[0].perioder[0].fom;
     const tom = state.perioder?.[0].perioder[0].tom;
 
-    expect(fom?.value).toBe('12.11.2022');
-    expect(tom?.value).toBe('13.12.2022');
+    expect(fom).toEqual(parseDato('12.11.2022'));
+    expect(tom).toEqual(parseDato('13.12.2022'));
   });
 
   it('should show and hide spinner', () => {

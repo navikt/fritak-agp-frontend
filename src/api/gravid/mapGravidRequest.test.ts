@@ -2,6 +2,7 @@ import { mapGravidRequest } from './mapGravidRequest';
 import { Tiltak } from '../../components/gravid/Tiltak';
 import { Omplassering } from '../../components/gravid/Omplassering';
 import { Aarsak } from '../../components/gravid/Aarsak';
+import parseDato from '../../utils/parseDato';
 
 describe('mapGravidRequest', () => {
   it('should not fail when fnr is 0', () => {
@@ -116,13 +117,9 @@ describe('mapGravidRequest', () => {
       Aarsak.FAAR_IKKE_KONTAKT,
       '',
       true,
-      {
-        value: '12.12.2020',
-        year: 2020,
-        month: 11,
-        day: 12
-      }
+      parseDato('12.11.2020')
     );
+
     expect(request.identitetsnummer).toEqual('123');
     expect(request.virksomhetsnummer).toEqual('456');
     expect(request.tilrettelegge).toEqual(true);

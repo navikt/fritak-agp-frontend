@@ -1,7 +1,6 @@
 import { Actions, KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
-import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
@@ -45,7 +44,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.perioder.forEach((arbeidsgiverperioder) => {
         arbeidsgiverperioder.perioder.forEach((delperiode) => {
           if (delperiode.uniqueKey === payload?.itemId) {
-            delperiode.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
+            delperiode.fom = payload?.fra;
           }
         });
       });
@@ -60,7 +59,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.perioder.forEach((arbeidsgiverperioder) => {
         arbeidsgiverperioder.perioder.forEach((delperiode) => {
           if (delperiode.uniqueKey === payload?.itemId) {
-            delperiode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
+            delperiode.tom = payload?.til;
           }
         });
       });

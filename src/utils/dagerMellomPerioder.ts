@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { GravidKravPeriode } from '../components/gravidkrav/GravidKravState';
 import { Delperiode, KroniskKravPeriode } from '../components/kroniskkrav/KroniskKravState';
-import { datoToString } from './dato/Dato';
 
 export default function dagerMellomPerioder(
   perioder: Array<GravidKravPeriode | KroniskKravPeriode> | undefined
@@ -28,12 +27,12 @@ function finnPerioder(arbeidsgiverperiode: GravidKravPeriode | KroniskKravPeriod
   return arbeidsgiverperiode.perioder.reduce((acc, current) => {
     const periode: Delperiode = structuredClone(current);
 
-    if (periode.fom?.year && acc.fom?.year && periode.tom?.year && acc.tom?.year) {
-      if (dayjs(datoToString(periode.fom)) > dayjs(datoToString(acc.fom))) {
+    if (periode.fom && acc.fom && periode.tom && acc.tom) {
+      if (periode.fom > acc.fom) {
         periode.fom = acc.fom;
       }
 
-      if (dayjs(datoToString(periode.tom)) < dayjs(datoToString(acc.tom))) {
+      if (periode.tom < acc.tom) {
         periode.tom = acc.tom;
       }
     }
@@ -52,10 +51,9 @@ function avstandIDager(periodeMinMax: any): number[] {
       return 0;
     } else {
       if (periode.fom?.year && periodeMinMax[index - 1].tom?.year) {
-        const dager = dayjs(datoToString(periode.fom)).diff(dayjs(datoToString(periodeMinMax[index - 1].tom)), 'd');
+        const dager = dayjs(periode.fom).diff(periodeMinMax[index - 1].tom, 'd');
 
-        if (dager < 0)
-          return dayjs(datoToString(periodeMinMax[index - 1].fom)).diff(dayjs(datoToString(periode.tom)), 'd');
+        if (dager < 0) return dayjs(periodeMinMax[index - 1].fom).diff(periode.tom, 'd');
         else return dager;
       } else {
         return 0;

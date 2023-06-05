@@ -1,5 +1,4 @@
 import { Delperiode } from '../components/kroniskkrav/KroniskKravState';
-import { datoToString } from './dato/Dato';
 import dayjs from 'dayjs';
 
 export default function antallDagerIArbeidsgiverperiode(perioder: Array<Delperiode> | undefined): number {
@@ -12,12 +11,12 @@ export default function antallDagerIArbeidsgiverperiode(perioder: Array<Delperio
   const brukbarePerioder = perioder
     .filter((periode) => !!periode.fom && !!periode.tom)
     .map((periode) => ({
-      fom: dayjs(datoToString(periode.fom)),
-      tom: dayjs(datoToString(periode.tom))
+      fom: periode.fom,
+      tom: periode.tom
     }));
 
   brukbarePerioder.forEach((periode) => {
-    dagerTotalt = periode.tom.diff(periode.fom!, 'd') + dagerTotalt + 1;
+    dagerTotalt = dayjs(periode.tom).diff(periode.fom!, 'd') + dagerTotalt + 1;
   });
   return dagerTotalt;
 }

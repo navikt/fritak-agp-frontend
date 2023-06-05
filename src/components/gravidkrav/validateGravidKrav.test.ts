@@ -1,6 +1,6 @@
 import { validateGravidKrav } from './validateGravidKrav';
 import { defaultGravidKravState } from './GravidKravState';
-import { parseDato } from '../../utils/dato/Dato';
+import parseDato from '../../utils/parseDato';
 import { i18n } from 'i18next';
 
 const translationMock = {

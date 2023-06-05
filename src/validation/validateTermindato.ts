@@ -1,16 +1,10 @@
-import { Dato } from '../utils/dato/Dato';
-
 export const validateTermindato = (
-  termindato: Dato | undefined,
+  termindato: Date | undefined,
   required: boolean,
   feilmelding: string
 ): string | undefined => {
-  if (!termindato?.value) {
+  if (!termindato) {
     return required ? feilmelding : undefined;
-  }
-
-  if (termindato && termindato.error) {
-    return required ? termindato.error : undefined;
   }
 };
 

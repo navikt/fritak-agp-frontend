@@ -1,12 +1,12 @@
 import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
+import parseISO from '../../utils/parseISO';
 
 export const MAX_PERIODER = 50;
 
@@ -45,7 +45,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.perioder.forEach((arbeidsgiverperioder) => {
         arbeidsgiverperioder.perioder.forEach((delperiode) => {
           if (delperiode.uniqueKey === payload?.itemId) {
-            delperiode.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
+            delperiode.fom = payload.fra;
           }
         });
       });
@@ -58,7 +58,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.perioder.forEach((arbeidsgiverperioder) => {
         arbeidsgiverperioder.perioder.forEach((delperiode) => {
           if (delperiode.uniqueKey === payload?.itemId) {
-            delperiode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
+            delperiode.tom = payload.til;
           }
         });
       });

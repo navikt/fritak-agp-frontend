@@ -1,8 +1,8 @@
 import { GravidKravRequest } from './GravidKravRequest';
-import { datoToString } from '../../utils/dato/Dato';
 import { GravidKravPeriode } from '../../components/gravidkrav/GravidKravState';
 import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
 import { beregnSykemeldingGradering } from '../kroniskkrav/mapPeriodeData';
+import formatISO from '../../utils/formatISO';
 
 export const mapGravidKravRequest = (
   fnr: string | undefined,
@@ -22,10 +22,10 @@ export const mapGravidKravRequest = (
   }
   perioder?.forEach((areidsgiverperiode) => {
     areidsgiverperiode.perioder.forEach((periode) => {
-      if (periode.fom?.error) {
+      if (!periode.fom) {
         throw new Error('Fra må spesifiseres');
       }
-      if (periode.tom?.error) {
+      if (!periode.tom) {
         throw new Error('Til må spesifiseres');
       }
     });
@@ -44,8 +44,8 @@ export const mapGravidKravRequest = (
 
   const arbeidsgiverPerioder: Array<Arbeidsgiverperiode> = perioder?.map((periode) => ({
     perioder: periode.perioder.map((delperiode) => ({
-      fom: datoToString(delperiode.fom),
-      tom: datoToString(delperiode.tom)
+      fom: formatISO(delperiode.fom) || '',
+      tom: formatISO(delperiode.tom) || ''
     })),
     antallDagerMedRefusjon: periode.dager || 0,
     månedsinntekt: Number(periode.belop || 0),

@@ -1,6 +1,6 @@
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
-import { parseDato } from '../../utils/dato/Dato';
 import mapPeriodeData, { beregnSykemeldingGradering } from './mapPeriodeData';
+import parseDato from '../../utils/parseDato';
 
 describe('mapPeriodeData', () => {
   it('should map the data', () => {

@@ -1,6 +1,6 @@
 import { validateKroniskKrav } from './validateKroniskKrav';
 import { defaultKroniskKravState } from './KroniskKravState';
-import { parseDato } from '../../utils/dato/Dato';
+import parseDato from '../../utils/parseDato';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
