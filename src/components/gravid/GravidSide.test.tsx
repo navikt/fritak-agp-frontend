@@ -1,16 +1,16 @@
 import React from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
-import { Dato, lagFeil } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import '../../mockData/mockWindowLocation';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
+import env from '../../config/environment';
 
 import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
+import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -35,6 +35,10 @@ jest.mock('react-i18next', () => ({
     };
   }
 }));
+
+jest
+  .spyOn(env, 'minSideArbeidsgiver', 'get')
+  .mockReturnValue('https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session');
 
 describe('GravidSide', () => {
   const FODSELSNR = /FODSELSNUMMER_LABEL/;
@@ -122,7 +126,7 @@ describe('GravidSide', () => {
 
     const neiSjekkboks = screen.getByLabelText(/NEI/);
 
-    userEvent.click(neiSjekkboks);
+    fireEvent.click(neiSjekkboks);
 
     expect(screen.getByText(VIDERE)).toBeInTheDocument();
     expect(screen.queryByText(GRAVID_SIDE_TILTAK_TITTEL)).not.toBeInTheDocument();
@@ -175,7 +179,7 @@ describe('GravidSide', () => {
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
 
     const jaSjekkboks = screen.getByLabelText(/JA/);
-    userEvent.click(jaSjekkboks);
+    fireEvent.click(jaSjekkboks);
 
     expect(screen.getByText(GRAVID_SIDE_TILTAK_TITTEL)).toBeInTheDocument();
     expect(screen.queryByText(VIDERE)).not.toBeInTheDocument();
@@ -205,10 +209,10 @@ describe('GravidSide', () => {
     );
 
     const jaSjekkboks = screen.getByLabelText(/JA/);
-    userEvent.click(jaSjekkboks);
+    fireEvent.click(jaSjekkboks);
 
     const submitKnapp = screen.getByText(/GRAVID_SIDE_SEND_SOKNAD/);
-    userEvent.click(submitKnapp);
+    fireEvent.click(submitKnapp);
 
     expect(screen.getByText(/VALIDATE_FNR_MISSING/)).toBeInTheDocument();
     expect(screen.getByText(/GRAVID_VALIDERING_MANGLER_FODSELSNUMMER/)).toBeInTheDocument();
@@ -235,13 +239,13 @@ describe('GravidSide', () => {
     );
 
     const neiSjekkboks = screen.getByLabelText(/NEI/);
-    userEvent.click(neiSjekkboks);
+    fireEvent.click(neiSjekkboks);
 
     const videreKnapp = screen.getByText(/GRAVID_SIDE_IKKE_KOMPLETT_2/);
-    userEvent.click(videreKnapp);
+    fireEvent.click(videreKnapp);
 
     const submitKnapp = screen.getByText(/GRAVID_SIDE_SEND_SOKNAD/);
-    userEvent.click(submitKnapp);
+    fireEvent.click(submitKnapp);
 
     expect(screen.getByText('VALIDATE_FNR_MISSING')).toBeInTheDocument();
     expect(screen.getByText('VALIDATE_ORGNR_MISSSING')).toBeInTheDocument();
@@ -251,12 +255,7 @@ describe('GravidSide', () => {
   it('skal beholde feltverdier ved valideringsfeil fra backend', async () => {
     const state = defaultGravidState();
 
-    const termindato: Dato = {
-      day: 1,
-      month: 5,
-      year: 2021,
-      value: '01.05.2021'
-    };
+    const termindato = new Date(2021, 4, 1);
 
     state.orgnr = testOrgnr.GyldigeOrgnr.TestOrg1;
     state.fnr = testFnr.GyldigeFraDolly.TestPerson1;
@@ -285,11 +284,11 @@ describe('GravidSide', () => {
     );
 
     const jaSjekkboks = screen.getAllByLabelText(/JA/);
-    userEvent.click(jaSjekkboks[0]);
+    fireEvent.click(jaSjekkboks[0]);
 
     const tilrettelagtRadioUsjekket = screen.getByLabelText(/GRAVID_SIDE_TILTAK_HJEMMEKONTOR/);
     expect(tilrettelagtRadioUsjekket).not.toBeChecked();
-    userEvent.click(tilrettelagtRadioUsjekket);
+    fireEvent.click(tilrettelagtRadioUsjekket);
     expect(tilrettelagtRadioUsjekket).toBeChecked();
 
     const submitKnapp = await screen.findByText(/GRAVID_SIDE_SEND_SOKNAD/);

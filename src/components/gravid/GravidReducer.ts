@@ -3,10 +3,11 @@ import { Actions, GravidAction } from './Actions';
 import { validateGravid } from './validateGravid';
 import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
-import { parseDateTilDato } from '../../utils/dato/Dato';
+
 import mapResponse from '../../state/validation/mapResponse';
 import mapGravidFeilmeldinger from './mapGravidFeilmeldinger';
 import { i18n } from 'i18next';
+import GravidSoknadResponse from '../../api/gravid/GravidSoknadResponse';
 
 export const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState, translate: i18n) => {
   if (!nextState.tiltak) {
@@ -109,7 +110,7 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       nextState.submitting = false;
       nextState.progress = false;
       nextState.validated = false;
-      return mapResponse(payload.response, nextState, mapGravidFeilmeldinger);
+      return mapResponse<GravidSoknadResponse>(payload.response, nextState, mapGravidFeilmeldinger);
 
     case Actions.Reset:
       return Object.assign({}, defaultGravidState());
@@ -118,7 +119,15 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       if (payload?.termindato === undefined) {
         nextState.termindato = undefined;
       } else {
-        nextState.termindato = parseDateTilDato(payload?.termindato);
+        nextState.termindato = payload?.termindato;
+      }
+      return validateGravid(nextState, translate);
+
+    case Actions.TermindatoValidering:
+      if (payload?.termindatoValidering === undefined) {
+        nextState.termindatoValidering = undefined;
+      } else {
+        nextState.termindatoValidering = payload?.termindatoValidering;
       }
       return validateGravid(nextState, translate);
 

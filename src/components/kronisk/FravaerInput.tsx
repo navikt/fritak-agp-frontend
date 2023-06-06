@@ -1,10 +1,10 @@
 import { Aarsfravaer } from './Aarsfravaer';
 import { getFravaerByMonth } from './getFravaerByMonth';
 import { validerFravaerMaaned } from './validerFravaerMaaned';
-import { Input } from 'nav-frontend-skjema';
 import { FravaerType } from './Actions';
 import React, { useState } from 'react';
 import MONTHS from '../../utils/months';
+import { TextField } from '@navikt/ds-react';
 
 export interface FravaerInputProps {
   month: number;
@@ -34,11 +34,12 @@ export const FravaerInput = (props: FravaerInputProps) => {
   };
 
   return (
-    <Input
+    <TextField
       label={MONTHS[props.month] + ' ' + props.year}
       id={'fim' + props.month + 'fiy' + props.year}
-      feil={feil}
+      error={feil}
       onChange={changeHandler}
+      hideLabel
     />
   );
 };

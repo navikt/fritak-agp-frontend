@@ -10,17 +10,13 @@ const loginExpiry = new RegExp(/\/api\/v1\/login-expiry/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/kronisk\/soeknad/);
+const deko = new RegExp(/\/dekoratoren/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
   'access-control-allow-origin': 'http://127.0.0.1:3000',
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
-};
-
-const headereJsonUnauthorized = {
-  'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': '*'
 };
 
 const headereText = Object.apply({}, headereJson);
@@ -51,7 +47,9 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(kroniskSoknadResponse, 201, mockHeaders);
+  .respond(kroniskSoknadResponse, 201, mockHeaders)
+  .onRequestTo(deko)
+  .respond('', 201, mockHeaders);
 
 fixture`Kronisk - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/soknad?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
@@ -60,11 +58,12 @@ fixture`Kronisk - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/sokn
     await waitForReact();
   });
 
+// eslint-disable-next-line jest/expect-expect
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fravær må fylles ut')
@@ -75,14 +74,15 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fravær må fylles ut').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk({ timeout: 500 });
 
@@ -91,14 +91,15 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(fnr, '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fravær må fylles ut').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk({ timeout: 500 });
 
@@ -107,12 +108,12 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .pressKey('ctrl+a delete')
     .typeText(fnr, '20125027610')
     .expect(
-      ReactSelector('Feiloppsummering').withText('Virksomhetsnummer må fylles ut').withText('Fravær må fylles ut')
+      Selector('.navds-error-summary__list').withText('Virksomhetsnummer må fylles ut').withText('Fravær må fylles ut')
         .visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
         .with({ timeout: 100 }).visible
@@ -124,10 +125,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t
     .typeText(orgnr, '260')
-    .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Fravær må fylles ut').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Mangler fødselsnummer')
@@ -139,10 +140,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(orgnr)
     .pressKey('ctrl+a delete')
     .typeText(orgnr, '974652277')
-    .expect(ReactSelector('Feiloppsummering').withText('Fravær må fylles ut').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Fravær må fylles ut').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler fødselsnummer')
@@ -153,7 +154,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(Selector('#fim3fiy2020'), '5')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fravær må fylles ut')
         .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Arbeid om den ansatte må fylles ut')
@@ -167,7 +168,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(Selector('#soknad-perioder'), '5')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fravær må fylles ut')
         .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Arbeid om den ansatte må fylles ut')
@@ -179,7 +180,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(Selector('html').textContent)
     .contains('Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom');
 });

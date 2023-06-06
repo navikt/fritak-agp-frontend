@@ -3,6 +3,7 @@ import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
+import { DateValidationT } from '@navikt/ds-react';
 
 export enum Actions {
   Reset,
@@ -22,7 +23,8 @@ export enum Actions {
   Kvittering,
   NotAuthorized,
   HideServerError,
-  Termindato
+  Termindato,
+  TermindatoValidering
 }
 
 export type Payload = {
@@ -40,6 +42,7 @@ export type Payload = {
   dokumentasjon?: string;
   response?: ValidationResponse<GravidSoknadResponse>;
   termindato?: Date;
+  termindatoValidering?: DateValidationT;
 };
 
 export type GravidAction = {

@@ -1,5 +1,10 @@
 .kontrollsporsmaal-lonn-arbeidsdager {
-    display: inline-block;
+    // display: inline-block;
+
+    input {
+        display: block;
+        max-width: 4rem;
+    }
 }
 
 .typo-normal.kontrollsporsmaal-lonn-forklaring {

@@ -13,12 +13,12 @@ import { GravidSoknadController } from './components/notifikasjon/gravid/soknad/
 import { GravidKravController } from './components/notifikasjon/gravid/krav/GravidKravController';
 import { KroniskSoknadController } from './components/notifikasjon/kronisk/soknad/KroniskSoknadController';
 import { KroniskKravController } from './components/notifikasjon/kronisk/krav/KroniskKravController';
-import { TokenFornyet } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import GravidSoknadKvitteringProvider from './context/GravidSoknadKvitteringContext';
 import KroniskSoknadKvitteringProvider from './context/KroniskSoknadKvitteringContext';
 import EksempelLonningsdager from './components/eksempellonnsdager/EksempelLonningsdager';
 import KroniskKvitteringSlettet from './components/kravkvitteringslettet/KravKvitteringSlettet';
 import KravEndringKvittering from './components/kravendringkvittering/KravEndringKvittering';
+import TokenFornyet from './components/felles/login/TokenFornyet';
 
 export const ApplicationRoutes = () => (
   <div className='application-routes'>

@@ -4,7 +4,7 @@ import { monthKey } from '../../utils/monthKey';
 import { MONTHS } from '../../utils/months';
 import { Aarsfravaer } from './Aarsfravaer';
 import { isAarsFravaerEmpty } from './isAarsFravaerEmpty';
-import { stringishToNumber } from '@navikt/helse-arbeidsgiver-felles-frontend';
+import stringishToNumber from '../../utils/stringishToNumber';
 
 export const validerFravaer = (fravaer: FravaerType, nextState: KroniskState) => {
   if (!nextState.fravaer) {

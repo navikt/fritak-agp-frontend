@@ -1,6 +1,6 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { Aarsfravaer } from './Aarsfravaer';
 import { ValidationState } from '../../state/validation/ValidationState';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 export const defaultKroniskState = (): KroniskState => {
   return {

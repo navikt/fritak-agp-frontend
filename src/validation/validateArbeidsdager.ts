@@ -1,4 +1,4 @@
-import ValidationResult from '@navikt/helse-arbeidsgiver-felles-frontend/dist/validation/ValidationResult';
+import ValidationResult from '../utils/ValidationResult';
 
 export enum ValidateArbeidsdagerKeys {
   VALIDATE_ARBEIDSDAGER_MISSING = 'VALIDATE_ARBEIDSDAGER_MISSING',

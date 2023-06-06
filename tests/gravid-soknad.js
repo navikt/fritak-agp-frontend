@@ -10,6 +10,7 @@ const loginExpiry = new RegExp(/\/api\/v1\/login-expiry/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/gravid\/soeknad/);
+const deko = new RegExp(/\/dekoratoren/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -46,7 +47,9 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(gravidSoknadResponse, 201, mockHeaders);
+  .respond(gravidSoknadResponse, 201, mockHeaders)
+  .onRequestTo(deko)
+  .respond('', 201, mockHeaders);
 
 fixture`Gravid - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
@@ -55,6 +58,7 @@ fixture`Gravid - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad
     await waitForReact();
   });
 
+// eslint-disable-next-line jest/expect-expect
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
     .click(Selector('label').withText('Ja'))
@@ -62,9 +66,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .contains('Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe?');
 
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fødselsnummer må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Termindato må fylles ut')
@@ -77,7 +81,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fødselsnummer må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Termindato må fylles ut')
@@ -86,30 +90,17 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk({ timeout: 500 });
-
-  // await t
-  // .typeText(ReactSelector('KontrollSporsmaal'), '260')
-  // .expect(
-  //   ReactSelector('Feiloppsummering')
-  //     .withText('Mangler fødselsnummer')
-  //     .withText('Mangler fra dato')
-  //     .withText('Mangler til dato')
-  //     .withText('Mangler dager')
-  //     .withText('Mangler beløp').visible
-  // )
-  // .ok()
-  // .expect(ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').withText('Mangler antall arbeidsdager').visible)
-  // .notOk();
 
   const fnr = ReactSelector('Fnr');
 
   await t
     .typeText(fnr, '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fødselsnummer må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Termindato må fylles ut')
@@ -118,7 +109,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk({ timeout: 500 });
 
@@ -127,7 +119,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .pressKey('ctrl+a delete')
     .typeText(fnr, '20125027610')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Termindato må fylles ut')
         .withText('Spesifiser hvilke tiltak som er forsøkt')
@@ -135,7 +127,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fødselsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
         .with({ timeout: 100 }).visible
@@ -148,7 +140,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(orgnr, '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Termindato må fylles ut')
         .withText('Spesifiser hvilke tiltak som er forsøkt')
@@ -156,7 +148,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Fødselsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
         .with({ timeout: 100 }).visible
@@ -168,14 +160,14 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .pressKey('ctrl+a delete')
     .typeText(orgnr, '974652277')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Termindato må fylles ut')
         .withText('Spesifiser hvilke tiltak som er forsøkt')
         .withText('Velg omplassering').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fødselsnummer må fylles ut')
         .withText('Bekreft at opplysningene er korrekt')
@@ -184,18 +176,18 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   const terminDato = Selector('#termindato');
-  const valgtTerminDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
+  const valgtTerminDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
   await t
     .click(terminDato)
     .click(valgtTerminDato)
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Spesifiser hvilke tiltak som er forsøkt')
         .withText('Velg omplassering').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Termindato må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
         .withText('Fødselsnummer må fylles ut')
@@ -206,10 +198,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t
     .click(Selector('#hjemmekontor'))
-    .expect(ReactSelector('Feiloppsummering').withText('Velg omplassering').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Velg omplassering').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Spesifiser hvilke tiltak som er forsøkt')
         .withText('Termindato må fylles ut')
         .withText('Virksomhetsnummer må fylles ut')
@@ -220,12 +212,12 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   await t
-    .click(Selector('label').withText('Omplassering er ikke mulig - oppgi årsak:'))
-    .expect(ReactSelector('Feiloppsummering').withText('Velg årsak til at omplassering ikke er mulig').visible)
+    .click(Selector('label').withText('Omplassering er ikke mulig'))
+    .expect(Selector('.navds-error-summary__list').withText('Velg årsak til at omplassering ikke er mulig').visible)
     .ok()
     .click(Selector('label').withText('Vi får ikke kontakt med den ansatte'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Velg årsak til at omplassering ikke er mulig')
         .withText('Påkjenninger om den ansatte må fylles ut')
         .withText('Arbeid om den ansatte må fylles ut')
@@ -237,7 +229,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notOk({ timeout: 500 });
 
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send søknad'))
     .expect(Selector('html').textContent)
     .contains(
       'Kvittering for mottatt søknad om fritak fra arbeidsgiverperioden grunnet risiko for høyt sykefravær knyttet til graviditet.'

@@ -3,8 +3,9 @@ import Forside from './Forside';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { MemoryRouter } from 'react-router-dom';
-import { ArbeidsgiverProvider, ArbeidsgiverStatus } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { ArbeidsgiverProvider } from '../context/arbeidsgiver/ArbeidsgiverContext';
+import ArbeidsgiverStatus from '../context/arbeidsgiver/ArbeidsgiverStatus';
 
 const initHistory = ['/'];
 

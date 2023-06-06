@@ -1,0 +1,3 @@
+export enum SideKeys {
+  SIDE_MIN_SIDE_ARBEIDSGIVER = 'SIDE_MIN_SIDE_ARBEIDSGIVER'
+}

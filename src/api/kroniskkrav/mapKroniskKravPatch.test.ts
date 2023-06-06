@@ -1,14 +1,19 @@
 import EndringsAarsak from '../../components/gravidkrav/EndringsAarsak';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
-import { Dato, parseDato } from '../../utils/dato/Dato';
+import parseDato from '../../utils/parseDato';
 import { mapKroniskKravPatch } from './mapKroniskKravPatch';
 
 describe('mapKroniskKravPatch', () => {
-  const enDato: Dato = parseDato('22.04.2022');
+  const enDato = parseDato('22.04.2022');
   const perioder: Array<KroniskKravPeriode> = [
     {
-      fom: enDato,
-      tom: enDato,
+      perioder: [
+        {
+          fom: enDato,
+          tom: enDato,
+          uniqueKey: 'raaandom-string'
+        }
+      ],
       dager: 5,
       belop: 125,
       grunnbeloep: 678,
@@ -49,10 +54,14 @@ describe('mapKroniskKravPatch', () => {
       perioder: [
         {
           antallDagerMedRefusjon: 5,
-          fom: '2022-04-22',
+          perioder: [
+            {
+              fom: '2022-04-22',
+              tom: '2022-04-22'
+            }
+          ],
           gradering: 0.5,
-          månedsinntekt: 125,
-          tom: '2022-04-22'
+          månedsinntekt: 125
         }
       ],
       virksomhetsnummer: 'orgnr'

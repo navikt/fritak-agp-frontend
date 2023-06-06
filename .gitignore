@@ -14,10 +14,10 @@
 
 # misc
 .DS_Store
-
+src/index.css
 *.log*
 /src/react-app-env.d.ts
-*.css
 .eslintcache
 /server/node_modules
 .vscode
+.dccache

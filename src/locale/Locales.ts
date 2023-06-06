@@ -1,24 +1,7 @@
 import LangKey from './LangKey';
-import {
-  BekreftOpplysningerKeys,
-  FeilmeldingspanelKeys,
-  IngenTilgangAdvarselKeys,
-  LoggetUtAdvarselKeys,
-  PageNotFoundKeys,
-  ServerFeilAdvarselKeys,
-  TilgangsfeilSideKeys,
-  TokenFornyetKeys,
-  UploadKeys,
-  validateBekreftKeys,
-  validateBeloepKeys,
-  validateFnrKeys,
-  validateFraKeys,
-  validateOrgnrKeys,
-  validateTilKeys
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
+
 import { ValidateDagerKeys } from '../validation/validateDager';
 import { KroniskKravKeys } from '../components/kroniskkrav/KroniskKravKeys';
-import { SideKeys } from '@navikt/helse-arbeidsgiver-felles-frontend/dist/components/Side/SideKeys';
 import { KroniskSideKeys } from '../components/kronisk/KroniskSideKeys';
 import { GravidKravKeys } from '../components/gravidkrav/GravidKravKeys';
 import { GravidSideKeys } from '../components/gravid/GravidSideKeys';
@@ -32,6 +15,22 @@ import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldings
 import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/KravKvitteringSlettetKeys';
 import { KravEndringKvitteringKeys } from '../components/kravendringkvittering/KravEndringKvitteringKeys';
 import { ValidateDokumentasjonKeys } from '../validation/validateDokumentasjon';
+import { ServerFeilAdvarselKeys } from '../components/felles/ServerFeilAdvarsel/ServerFeilAdvarselKeys';
+import { BekreftOpplysningerKeys } from '../components/felles/BekreftOpplysningerPanel/BekreftOpplysningerKeys';
+import { FeilmeldingspanelKeys } from '../components/felles/Feilmeldingspanel/FeilmeldingspanelKeys';
+import { IngenTilgangAdvarselKeys } from '../components/felles/login/IngenTilgangAdvarselKeys';
+import { LoggetUtAdvarselKeys } from '../components/felles/login/LoggetUtAdvarselKeys';
+import { TokenFornyetKeys } from '../components/felles/login/TokenFornyetKeys';
+import { TilgangsfeilSideKeys } from '../components/felles/login/TilgangsfeilSideKeys';
+import { UploadKeys } from '../components/felles/Upload/UploadKeys';
+import { SideKeys } from '../components/felles/Side/SideKeys';
+import { validateTilKeys } from '../validation/validateTil';
+import { validateOrgnrKeys } from '../validation/validateOrgnr';
+import { validateFraKeys } from '../validation/validateFra';
+import { validateFnrKeys } from '../validation/validateFnr';
+import { validateBeloepKeys } from '../validation/validateBeloep';
+import { validateBekreftKeys } from '../validation/validateBekreft';
+import { PageNotFoundKeys } from '../components/felles/PageNotFound/PageNotFoundKeys';
 
 export interface Locale {
   en: string;
@@ -161,6 +160,10 @@ const Locales: Record<
     nb: 'Annet, gi en kort beskrivelse av hva dere har gjort:',
     en: 'Other, give a brief description of what you have done:'
   },
+  GRAVID_SIDE_TILTAK_FRITEKST: {
+    nb: 'Beskrivelse av tiltak',
+    en: 'Description of what you have done'
+  },
   GRAVID_SIDE_OMPLASSERING_TITTEL: {
     nb: 'Har dere forsøkt omplassering til en annen jobb?',
     en: 'Have you tried relocation to another job?'
@@ -202,8 +205,12 @@ const Locales: Record<
     en: 'Submit application'
   },
   GRAVID_SIDE_OMPLASSERING_IKKE_MULIG: {
-    nb: 'Omplassering er ikke mulig - oppgi årsak:',
-    en: 'Relocation is not possible - state reason:'
+    nb: 'Omplassering er ikke mulig',
+    en: 'Relocation is not possible'
+  },
+  GRAVID_SIDE_OMPLASSERING_IKKE_MULIG_AARSAK: {
+    nb: '- oppgi årsak:',
+    en: '- state reason:'
   },
   GRAVID_SIDE_OMPLASSERING_MOTSETTER_SEG: {
     nb: 'Den ansatte ønsker ikke omplassering',
@@ -369,6 +376,10 @@ const Locales: Record<
       '--From and including the first to and including the last day of absence in the employer period.\n' +
       '--You must choose _both_ the first and last day. If the absence is only for one day, you choose the same day twice.\n' +
       '##-'
+  },
+  GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL: {
+    nb: 'Hva menes med virksomhetsnummer',
+    en: 'What is meant by business number'
   },
   GRAVID_KRAV_DAGER_ANTALL: {
     nb: 'Antall dager',
@@ -596,8 +607,8 @@ const Locales: Record<
   KRONISK_SIDE_FRAVAER_DESCRIPTION: {
     nb:
       'For å vurdere retten til fritak fra arbeidsgiverperiode ser vi på arbeidstakerens historiske fravær. Dere kan gå ' +
-      '2 år tilbake i tid hvis både arbeidsforholdet og helseproblemene har vart så lenge. Angi antall dager med ' +
-      'sykefravær i hver måned.',
+      '2 år tilbake i tid hvis både arbeidsforholdet og helseproblemene har vart så lenge. Angi antall dager med sykefravær ' +
+      'i hver måned. Oppgi alle egenmeldte dager, samt hele og graderte sykmeldingsdager.',
     en:
       "To assess the right to exemption from the employer period, we look at the employee's historical absence. You can " +
       'go 2 years back in time if both the employment relationship and the health problems have lasted that long. Enter ' +
@@ -627,6 +638,10 @@ const Locales: Record<
     nb: 'Slik finner dere beløpet dere kan kreve:',
     en: "Here's how to find the amount you can claim:"
   },
+  KRONISK_KRAV_PERIODE_BELOP_HJELP_TITTEL: {
+    nb: 'Hvordan finner dere beløpet dere kan kreve.',
+    en: 'How to find the amount you can claim.'
+  },
   KRONISK_KRAV_PERIODE_BELOP_HJELPETEKST: {
     nb:
       '-##' +
@@ -653,9 +668,17 @@ const Locales: Record<
     nb: 'Til dato',
     en: 'To date'
   },
+  KRONISK_KRAV_PERIODE_LEGG_TIL: {
+    nb: '+ Legg til periode',
+    en: '+ Legg til periode'
+  },
   KRONISK_KRAV_PERIODE_DAGER_LABEL: {
     nb: 'Antall dager',
     en: 'Number of days'
+  },
+  KRONISK_KRAV_PERIODE_DAGER_TITTEL: {
+    nb: 'Antall dager det kreves refusjon for.',
+    en: 'Number of days for which reimbursement is claimed.'
   },
   KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST: {
     nb: 'Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.',
@@ -664,6 +687,10 @@ const Locales: Record<
   KRONISK_KRAV_PERIODE_BEREGNET_LABEL: {
     nb: 'Foreløpig beregnet refusjon',
     en: 'Preliminary calculated refund'
+  },
+  KRONISK_KRAV_PERIODE_BEREGNET_TITTEL: {
+    nb: 'Beskrivelse av foreløpig beregnet refusjon',
+    en: 'Description of preliminary calculated refund'
   },
   KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST: {
     nb:
@@ -684,6 +711,10 @@ const Locales: Record<
   KONTROLLSPORSMAL_DAGER_FORKLARING_HREF: {
     nb: 'eksempler se her',
     en: 'examples see here'
+  },
+  KONTROLLSPORSMAL_DAGER_FORKLARING_SLUTT: {
+    nb: ')',
+    en: ')'
   },
   KRAV_KVITTERING_TITTEL: {
     nb: 'Kravet er mottatt',
@@ -778,13 +809,14 @@ const Locales: Record<
     nb: 'Vi klarte ikke logge deg inn. Vennligst prøv igjen senere.',
     en: 'We were unable to log you in. Please try again later.'
   },
+  SERVER_FEIL_ADVARSEL_HEADING: {
+    nb: 'Det har desverre oppstått en teknisk feil hos oss',
+
+    en: 'Unfortunately, a technical error has occurred'
+  },
   SERVER_FEIL_ADVARSEL_TEXT: {
-    nb:
-      '_Det har desverre oppstått en teknisk feil hos oss_\n\n' +
-      'Prøv igjen litt senere, og [kontakt oss gjerne dersom det ikke ordner seg.](https://arbeidsgiver.nav.no/kontakt-oss/)',
-    en:
-      '_Unfortunately, a technical error has occurred_\n\n' +
-      'Please try again later and [feel free to contact us if it does not work out.](https://arbeidsgiver.nav.no/kontakt-oss/)'
+    nb: 'Prøv igjen litt senere, og [kontakt oss gjerne dersom det ikke ordner seg.](https://arbeidsgiver.nav.no/kontakt-oss/)',
+    en: 'Please try again later and [feel free to contact us if it does not work out.](https://arbeidsgiver.nav.no/kontakt-oss/)'
   },
   SERVER_FEIL_ADVARSEL_HIDE: {
     nb: 'Skjul denne meldingen.',
@@ -833,6 +865,10 @@ const Locales: Record<
   ORGNR_HJELPETEKST: {
     nb: 'Vi spør etter virksomhetsnummer. Virksomhetsnummer er organisasjonsnummeret til underenheten som den opplysningspliktige driver.',
     en: 'We ask for company number. Company number is the organization number for the subunit.'
+  },
+  ORGNR_HJELPETEKST_TITTEL: {
+    nb: 'Hva menes med virksomhetsnummer?',
+    en: 'What do we think of by company number?'
   },
   SOKNADSSKJEMA: {
     nb: 'Søknadsskjema',

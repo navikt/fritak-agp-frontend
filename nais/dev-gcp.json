@@ -1,8 +1,9 @@
 {
-  "ingress": "https://arbeidsgiver.dev.nav.no/fritak-agp",
+  "ingress": "https://arbeidsgiver.intern.dev.nav.no/fritak-agp",
   "namespace": "helsearbeidsgiver",
   "vault-enabled": false,
   "webproxy-enabled": false,
-  "api-url": "https://fritakagp.dev.nav.no",
-  "api-basepath": ""
+  "api-url": "https://fritakagp-api.intern.dev.nav.no",
+  "api-basepath": "/fritak-agp-api",
+  "outbound-external-host": "fritakagp-api.intern.dev.nav.no"
 }

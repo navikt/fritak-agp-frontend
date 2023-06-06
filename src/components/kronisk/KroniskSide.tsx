@@ -1,8 +1,6 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Checkbox, Input, Label, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -11,30 +9,28 @@ import KroniskReducer from './KroniskReducer';
 import { Actions, KroniskAction } from './Actions';
 import getBase64file from '../../utils/getBase64File';
 import FravaerTabell from './FravaerTabell';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import postKronisk from '../../api/kronisk/postKronisk';
 import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LangKey from '../../locale/LangKey';
 import lenker, { buildLenke } from '../../config/lenker';
-import {
-  Side,
-  Upload,
-  Oversettelse,
-  BekreftOpplysningerPanel,
-  Feilmeldingspanel,
-  Fnr,
-  Skillelinje,
-  stringishToNumber,
-  ServerFeilAdvarsel,
-  Language
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BodyLong, Button, Checkbox, Heading, Ingress, Panel, TextField } from '@navikt/ds-react';
+import Fnr from '../felles/Fnr/Fnr';
+import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
+import Oversettelse from '../felles/Oversettelse/Oversettelse';
+import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel';
+import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
+import Skillelinje from '../felles/Skillelinje';
+import Side from '../felles/Side/Side';
+import Language from '../../locale/Language';
+import stringishToNumber from '../../utils/stringishToNumber';
+import Upload from '../felles/Upload/Upload';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
@@ -47,6 +43,11 @@ const KroniskSide = () => {
 
   const { language } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title =
+      'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden ved kronisk eller langvarig sykdom - nav.no';
+  }, []);
 
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
@@ -112,165 +113,166 @@ const KroniskSide = () => {
     navigate(buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb), { replace: true });
     return null;
   }
+
+  const sidetittel = t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL);
+  const title = t(KroniskSideKeys.KRONISK_SIDE_TITLE);
+  const subtitle = t(KroniskSideKeys.KRONISK_SIDE_SUBTITLE);
   return (
-    <Side
-      bedriftsmeny={false}
-      className='kronisk-side'
-      sidetittel={t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL)}
-      title={t(KroniskSideKeys.KRONISK_SIDE_TITLE)}
-      subtitle={t(KroniskSideKeys.KRONISK_SIDE_SUBTITLE)}
-    >
-      <Row>
-        <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
-        <Column>
-          <Panel>
-            <Ingress>
-              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_INGRESS} />
-            </Ingress>
-          </Panel>
-          <Skillelinje />
+    <Side bedriftsmeny={false} className='kronisk-side' sidetittel={sidetittel} title={title} subtitle={subtitle}>
+      <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
 
-          <Panel id='kroniskside-panel-ansatte'>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
-              <Row>
-                <Column sm='4' xs='6'>
-                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.DEN_ANSATTE)}</Systemtittel>
-                  <Fnr
-                    id='fnr'
-                    label={t(LangKey.FODSELSNUMMER_LABEL)}
-                    fnr={state.fnr}
-                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                    feilmelding={state.fnrError}
-                    onValidate={() => {}}
-                    onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
-                  />
-                </Column>
-                <Column sm='4' xs='6'>
-                  <Systemtittel className='textfelt-padding-bottom'>{t(LangKey.ARBEIDSGIVEREN)}</Systemtittel>
-                  <Orgnr
-                    label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
-                    orgnr={state.orgnr}
-                    placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
-                    feilmelding={state.orgnrError}
-                    onChange={(orgnr: string) =>
-                      dispatch({
-                        type: Actions.Orgnr,
-                        payload: { orgnr: orgnr }
-                      })
-                    }
-                  />
-                </Column>
-              </Row>
-            </SkjemaGruppe>
-          </Panel>
+      <Panel>
+        <Ingress>
+          <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_INGRESS} />
+        </Ingress>
+      </Panel>
+      <Skillelinje />
 
-          <Skillelinje />
-
-          <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>
-              {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
-            </Systemtittel>
-            <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
-              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
-              <Upload
-                className='knapp-innsending-top'
-                id='upload'
-                label={t(KroniskSideKeys.KRONISK_SIDE_UPLOAD)}
-                extensions='.pdf'
-                onChange={handleUploadChanged}
-                fileSize={5000000}
-                onDelete={handleDelete}
+      <Panel id='kroniskside-panel-ansatte'>
+        <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
+          <Row>
+            <Column sm='4' xs='6'>
+              <Heading size='medium' level='2' className='textfelt-padding-bottom'>
+                {t(LangKey.DEN_ANSATTE)}
+              </Heading>
+              <Fnr
+                id='fnr'
+                label={t(LangKey.FODSELSNUMMER_LABEL)}
+                fnr={state.fnr}
+                placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+                feilmelding={state.fnrError}
+                onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
               />
-            </SkjemaGruppe>
-          </Panel>
-
-          <Skillelinje />
-
-          <Panel>
-            <Systemtittel className='textfelt-padding-bottom'>{t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}</Systemtittel>
-            <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaer' aria-live='polite'>
-              <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
-
-              <FravaerTabell
-                validated={state.validated || false}
-                fravaer={state.fravaer}
-                onChange={(evt) => {
+            </Column>
+            <Column sm='4' xs='6'>
+              <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                {t(LangKey.ARBEIDSGIVEREN)}
+              </Heading>
+              <Orgnr
+                label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
+                orgnr={state.orgnr}
+                placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
+                feilmelding={state.orgnrError}
+                onChange={(orgnr: string) =>
                   dispatch({
-                    type: Actions.Fravaer,
-                    payload: {
-                      fravaer: {
-                        year: evt.year,
-                        month: evt.month,
-                        dager: evt.dager
-                      }
-                    }
-                  });
-                }}
+                    type: Actions.Orgnr,
+                    payload: { orgnr: orgnr }
+                  })
+                }
               />
-            </SkjemaGruppe>
-          </Panel>
-          <Panel>
-            <Label htmlFor='soknad-perioder'>{t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}</Label>
-            <Input
-              id='soknad-perioder'
-              bredde='XS'
-              inputMode='numeric'
-              pattern='[0-9]*'
-              className='kontrollsporsmaal-lonn-arbeidsdager'
-              feil={state.antallPerioderError}
-              onChange={(evt) => {
-                dispatch({
-                  type: Actions.AntallPerioder,
-                  payload: {
-                    antallPerioder: stringishToNumber(evt.target.value)
-                  }
-                });
-              }}
-            />
-            <Normaltekst className='kontrollsporsmaal-lonn-forklaring'>
-              {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_TEXT)}
-            </Normaltekst>
+            </Column>
+          </Row>
+        </SkjemaGruppe>
+      </Panel>
 
-            <Checkbox
-              className='checkbox-unntak'
-              defaultChecked={state.ikkeHistoriskFravaer}
-              label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
-              onChange={() => {
-                dispatch({
-                  type: Actions.ToggleUnntak
-                });
-              }}
-            />
-          </Panel>
-          <Skillelinje />
+      <Skillelinje />
 
-          <BekreftOpplysningerPanel
-            checked={state.bekreft || false}
-            feil={state.bekreftError}
-            onChange={() =>
+      <Panel>
+        <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+          {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
+        </Heading>
+        <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
+          <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
+          <Upload
+            className='knapp-innsending-top'
+            id='upload'
+            label={t(KroniskSideKeys.KRONISK_SIDE_UPLOAD)}
+            extensions='.pdf'
+            onChange={handleUploadChanged}
+            fileSize={5000000}
+            onDelete={handleDelete}
+          />
+        </SkjemaGruppe>
+      </Panel>
+
+      <Skillelinje />
+
+      <Panel>
+        <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+          {t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
+        </Heading>
+        <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaertabell' aria-live='polite'>
+          <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
+
+          <FravaerTabell
+            validated={state.validated || false}
+            fravaer={state.fravaer}
+            onChange={(evt) => {
               dispatch({
-                type: Actions.Bekreft,
-                payload: { bekreft: !state.bekreft }
-              })
-            }
+                type: Actions.Fravaer,
+                payload: {
+                  fravaer: {
+                    year: evt.year,
+                    month: evt.month,
+                    dager: evt.dager
+                  }
+                }
+              });
+            }}
           />
+        </SkjemaGruppe>
+      </Panel>
+      <Panel>
+        <TextField
+          label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}
+          id='soknad-perioder'
+          inputMode='numeric'
+          pattern='[0-9]*'
+          className='kontrollsporsmaal-lonn-arbeidsdager'
+          error={state.antallPerioderError}
+          onChange={(evt) => {
+            dispatch({
+              type: Actions.AntallPerioder,
+              payload: {
+                antallPerioder: stringishToNumber(evt.target.value)
+              }
+            });
+          }}
+        />
+        <BodyLong className='kontrollsporsmaal-lonn-forklaring'>
+          {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_TEXT)}
+        </BodyLong>
 
-          <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
+        <Checkbox
+          className='checkbox-unntak'
+          defaultChecked={state.ikkeHistoriskFravaer}
+          onChange={() => {
+            dispatch({
+              type: Actions.ToggleUnntak
+            });
+          }}
+        >
+          {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
+        </Checkbox>
+      </Panel>
+      <Skillelinje />
 
-          <Panel>
-            <Hovedknapp onClick={handleSubmit} spinner={state.progress}>
-              {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
-            </Hovedknapp>
-          </Panel>
-        </Column>
-        {state.notAuthorized && (
-          <LoggetUtAdvarsel
-            onClose={handleCloseNotAuthorized}
-            tokenFornyet={lenker.TokenFornyet}
-            loginServiceUrl={environment.loginServiceUrl}
-          />
-        )}
-      </Row>
+      <BekreftOpplysningerPanel
+        checked={state.bekreft || false}
+        feil={state.bekreftError}
+        onChange={() =>
+          dispatch({
+            type: Actions.Bekreft,
+            payload: { bekreft: !state.bekreft }
+          })
+        }
+      />
+
+      <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
+
+      <Panel>
+        <Button onClick={handleSubmit} loading={state.progress}>
+          {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
+        </Button>
+      </Panel>
+
+      {state.notAuthorized && (
+        <LoggetUtAdvarsel
+          onClose={handleCloseNotAuthorized}
+          tokenFornyet={lenker.TokenFornyet}
+          loginServiceUrl={environment.loginServiceUrl}
+        />
+      )}
     </Side>
   );
 };

@@ -12,7 +12,7 @@ describe('validerFravaerTabell ', () => {
     expect(feil).toEqual([
       {
         feilmelding: 'Januar 2021 må være mindre enn 31 dager',
-        skjemaelementId: 'Januar-2021'
+        skjemaelementId: '#Januar-2021'
       }
     ]);
     expect(feil.length).toEqual(1);
@@ -28,7 +28,7 @@ describe('validerFravaerTabell ', () => {
     expect(feil).toEqual([
       {
         feilmelding: 'Januar 2021 må være mindre eller lik 31 dager',
-        skjemaelementId: 'Januar-2021'
+        skjemaelementId: '#Januar-2021'
       }
     ]);
     expect(feil.length).toEqual(1);
@@ -44,7 +44,7 @@ describe('validerFravaerTabell ', () => {
     expect(feil).toEqual([
       {
         feilmelding: 'Februar 2021 må være mindre eller lik 28 dager',
-        skjemaelementId: 'Februar-2021'
+        skjemaelementId: '#Februar-2021'
       }
     ]);
     expect(feil.length).toEqual(1);
@@ -60,11 +60,11 @@ describe('validerFravaerTabell ', () => {
     expect(feil).toEqual([
       {
         feilmelding: 'Januar 2021 må være mindre enn 31 dager',
-        skjemaelementId: 'Januar-2021'
+        skjemaelementId: '#Januar-2021'
       },
       {
         feilmelding: 'Fravær kan ikke være fylt ut når det er huket av for at det ikke finnes historisk fravær.',
-        skjemaelementId: 'fravaer'
+        skjemaelementId: '#fravaer'
       }
     ]);
     expect(feil.length).toEqual(2);
@@ -80,11 +80,11 @@ describe('validerFravaerTabell ', () => {
     expect(feil).toEqual([
       {
         feilmelding: 'Januar 2021 må være mindre eller lik 31 dager',
-        skjemaelementId: 'Januar-2021'
+        skjemaelementId: '#Januar-2021'
       },
       {
         feilmelding: 'Fravær kan ikke være fylt ut når det er huket av for at det ikke finnes historisk fravær.',
-        skjemaelementId: 'fravaer'
+        skjemaelementId: '#fravaer'
       }
     ]);
     expect(feil.length).toEqual(2);
@@ -100,11 +100,11 @@ describe('validerFravaerTabell ', () => {
     expect(feil).toEqual([
       {
         feilmelding: 'Februar 2021 må være mindre eller lik 28 dager',
-        skjemaelementId: 'Februar-2021'
+        skjemaelementId: '#Februar-2021'
       },
       {
         feilmelding: 'Fravær kan ikke være fylt ut når det er huket av for at det ikke finnes historisk fravær.',
-        skjemaelementId: 'fravaer'
+        skjemaelementId: '#fravaer'
       }
     ]);
     expect(feil.length).toEqual(2);

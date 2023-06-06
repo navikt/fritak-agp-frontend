@@ -3,21 +3,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import environment from './config/environment';
-import {
-  LanguageProvider,
-  ArbeidsgiverStatus,
-  ArbeidsgiverProvider,
-  LoginStatus
-} from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from './locale/Locales';
 import i18next from 'i18next';
+import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
+import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
+import { LanguageProvider } from './context/language/LanguageContext';
 
 interface ApplicationProps {
-  loginStatus?: LoginStatus;
   arbeidsgiverStatus?: ArbeidsgiverStatus;
   arbeidsgivere?: Array<Organisasjon>;
   basePath?: string;
-  loginServiceUrl?: string;
 }
 
 export const Application = ({

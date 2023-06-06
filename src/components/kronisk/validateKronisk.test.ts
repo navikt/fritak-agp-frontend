@@ -5,8 +5,8 @@ import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
-import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
+import Language from '../../locale/Language';
 
 describe('validateKronisk', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
@@ -25,6 +25,7 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     const state2 = validateKronisk(state, i18n);
+
     expect(state2.fnrError).not.toBeUndefined();
     expect(state2.orgnrError).not.toBeUndefined();
     expect(state2.fravaerError).not.toBeUndefined();

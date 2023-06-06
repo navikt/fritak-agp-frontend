@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
-import { Normaltekst } from 'nav-frontend-typografi';
+
 import React from 'react';
+import { BodyLong } from '@navikt/ds-react';
 
 interface SoknadMottattProps {
   mottatt: string | undefined;
@@ -10,7 +11,7 @@ interface SoknadMottattProps {
 const SoknadMottatt = (props: SoknadMottattProps) => {
   const formatertMottatt = dayjs(props.mottatt).format('DD.MM.YYYY kl. HH:mm');
 
-  return <Normaltekst className={props.className}>Mottatt: {formatertMottatt}</Normaltekst>;
+  return <BodyLong className={props.className}>Mottatt: {formatertMottatt}</BodyLong>;
 };
 
 export default SoknadMottatt;

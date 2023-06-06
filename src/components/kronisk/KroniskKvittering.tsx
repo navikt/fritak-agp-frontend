@@ -1,13 +1,8 @@
 import React, { useContext } from 'react';
 import { Row } from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi';
-import Lenke from 'nav-frontend-lenker';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import { InternLenke, Language, Side } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import { useParams } from 'react-router-dom';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import './KroniskKvittering.scss';
@@ -15,6 +10,10 @@ import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Fravaersdager from '../notifikasjon/kronisk/soknad/Fravaersdager';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
+import { Alert, BodyLong, Heading, Link, Panel } from '@navikt/ds-react';
+import Side from '../felles/Side/Side';
+import InternLenke from '../felles/InternLenke/InternLenke';
+import Language from '../../locale/Language';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
@@ -31,42 +30,44 @@ const KroniskKvittering = () => {
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <Row>
         <Panel>
-          <Sidetittel>
+          <Heading size='xlarge' level='1'>
             Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom
-          </Sidetittel>
+          </Heading>
         </Panel>
 
         <Panel>
-          <Normaltekst>
+          <BodyLong>
             En kopi av kvittering er også sendt til meldingsboksen deres i{' '}
-            <Lenke href='https://www.altinn.no'>Altinn</Lenke>. Meldingen er kun synlig for for de som har tilgang til å
+            <Link href='https://www.altinn.no'>Altinn</Link>. Meldingen er kun synlig for for de som har tilgang til å
             sende inntektsmelding i altinn. Den ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte
             oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.
-          </Normaltekst>
+          </BodyLong>
         </Panel>
 
         <Panel>
-          <Undertittel>Detaljer fra søknaden:</Undertittel>
-          <Normaltekst className='luft-under'>Navn: {navn}</Normaltekst>
-          <Normaltekst className='luft-under'>
+          <Heading size='small' level='2'>
+            Detaljer fra søknaden:
+          </Heading>
+          <BodyLong className='luft-under'>Navn: {navn}</BodyLong>
+          <BodyLong className='luft-under'>
             <Dokumentasjon harVedlegg={harVedlegg} />
-          </Normaltekst>
-          <Normaltekst className='luft-under'>
+          </BodyLong>
+          <BodyLong className='luft-under'>
             <Fravaersdager maanedsfravaer={fravaer} />
-          </Normaltekst>
+          </BodyLong>
           <SoknadMottatt className='luft-under' mottatt={opprettet} />
-          <Normaltekst>Innrapportert av: {sendtAvNavn}</Normaltekst>
+          <BodyLong>Innrapportert av: {sendtAvNavn}</BodyLong>
         </Panel>
         <Panel className='skjul-fra-print'>
-          <Normaltekst>
+          <BodyLong>
             Du kan skrive ut eller lagre kvitteringen ved å klikke på knappen &quot;Skriv ut kvittering&quot;.
-          </Normaltekst>
+          </BodyLong>
         </Panel>
         <Panel>
-          <AlertStripeInfo>
+          <Alert variant='info'>
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
             dere å oversitte fristen, som er tre måneder.
-          </AlertStripeInfo>
+          </Alert>
         </Panel>
         <Panel>
           <PrintKnapp />
@@ -77,10 +78,10 @@ const KroniskKvittering = () => {
             <InternLenke to={buildLenke(lenker.KroniskKrav, language as Language)}>Send krav om refusjon</InternLenke>
           </div>
           <div>
-            <Lenke href='https://loginservice.nav.no/slo'>Logg ut</Lenke>
+            <Link href='https://loginservice.nav.no/slo'>Logg ut</Link>
           </div>
           <div>
-            <Lenke href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Lenke>
+            <Link href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Link>
           </div>
         </Panel>
       </Row>

@@ -2,7 +2,8 @@ import { Aarsfravaer } from './Aarsfravaer';
 import { isFuture } from '../../utils/isFuture';
 import { FravaerInput } from './FravaerInput';
 import React from 'react';
-import { TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { FravaerTabellKeys } from './FravaerTabellKeys';
 
 interface FravaerRowProps {
@@ -27,7 +28,9 @@ export const FravaerRow = (props: FravaerRowProps) => {
   ) {
     return (
       <>
-        <td>{oversettKortMaaned(t, props.month)}</td>
+        <td>
+          <abbr title={oversettLangMaaned(t, props.month)}>{oversettKortMaaned(t, props.month)}</abbr>
+        </td>
         <td>
           <FravaerInput onChange={props.onChange} month={props.month} year={props.year} fravaer={props.fravaer} />
         </td>
@@ -45,6 +48,10 @@ export const FravaerRow = (props: FravaerRowProps) => {
 
 export default FravaerRow;
 
-function oversettKortMaaned(t: TFunction<'translation', undefined>, month: number): React.ReactNode {
-  return t(FravaerTabellKeys['FRAVAERTABELL_MONTH_' + (month + 1)]).substring(0, 3);
+function oversettKortMaaned(t: TFunction, month: number): string {
+  return oversettLangMaaned(t, month).substring(0, 3);
+}
+
+function oversettLangMaaned(t: TFunction, month: number): string {
+  return t(FravaerTabellKeys['FRAVAERTABELL_MONTH_' + (month + 1)]);
 }

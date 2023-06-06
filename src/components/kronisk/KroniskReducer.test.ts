@@ -3,10 +3,10 @@ import { Actions, KroniskAction } from './Actions';
 import { defaultKroniskState } from './KroniskState';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import i18next from 'i18next';
-import { Language } from '@navikt/helse-arbeidsgiver-felles-frontend';
 import Locales from '../../locale/Locales';
 import { languageInit } from '../../locale/languageInit';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
+import Language from '../../locale/Language';
 
 describe('KroniskReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
@@ -372,23 +372,23 @@ describe('KroniskReducer', () => {
     const expectedFeilmeldinger = [
       {
         feilmelding: 'Mangler fødselsnummer',
-        skjemaelementId: 'fnr'
+        skjemaelementId: '#fnr'
       },
       {
         feilmelding: 'Virksomhetsnummer må fylles ut',
-        skjemaelementId: 'orgnr'
+        skjemaelementId: '#orgnr'
       },
       {
         feilmelding: 'Mangler antall fraværsperioder',
-        skjemaelementId: 'soknad-perioder'
+        skjemaelementId: '#soknad-perioder'
       },
       {
         feilmelding: 'Bekreft at opplysningene er korrekte',
-        skjemaelementId: 'bekreftFeilmeldingId'
+        skjemaelementId: '#bekreftFeilmeldingId'
       },
       {
         feilmelding: 'Fravær må fylles ut.',
-        skjemaelementId: 'fravaer'
+        skjemaelementId: '#fravaer'
       }
     ];
     let state1 = KroniskReducer(

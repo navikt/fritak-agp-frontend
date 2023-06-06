@@ -1,7 +1,6 @@
 .kroniskkrav {
     .krav-padding-hjelpetekst {
-        margin-left: 1rem;
-        position: absolute;
+        margin-left: 1rem !important;
     }
 
     .datoelement {
@@ -26,7 +25,26 @@
         float: right;
     }
 
+    .ingress {
+        font-size: var(--a-font-size-large);
+        font-weight: var(--a-font-weight-bold);
+        line-height: var(--a-font-line-height-large);
+    }
     
+    .label-med-hjelp {
+        display: flex;
+        white-space: nowrap;
+
+        span {
+            white-space: break-spaces;
+        }
+    }
+
+    .krav-kort-wrapper {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+    }
 }
 
 .kroniskkrav-modal {
@@ -43,4 +61,8 @@
     .navds-modal__button {
         display: none;
     }
+}
+
+.periode-button-slette {
+    margin-top: 2rem;
 }

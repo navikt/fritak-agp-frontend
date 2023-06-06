@@ -1,9 +1,9 @@
-import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { Aarsak } from './Aarsak';
 import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
 import { ValidationState } from '../../state/validation/ValidationState';
-import { Dato } from '../../utils/dato/Dato';
+import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
+import { DateValidationT } from '@navikt/ds-react';
 
 export const defaultGravidState = (state?: GravidState): GravidState => {
   return Object.assign(
@@ -46,6 +46,7 @@ export default interface GravidState extends ValidationState {
   error?: boolean;
   login?: boolean;
   submitting?: boolean;
-  termindato?: Dato;
+  termindato?: Date;
   termindatoError?: string;
+  termindatoValidering?: DateValidationT;
 }

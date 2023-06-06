@@ -2,16 +2,18 @@ import ValidationResponse from '../../state/validation/ValidationResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import { GravidKrav } from '../../context/krav';
 import IEndringsAarsak from './EndringsAarsak';
+import { DateValidationT } from '@navikt/ds-react';
 
 export enum Actions {
   Reset,
   Fnr,
   Orgnr,
   Fra,
+  FraValidering,
   Til,
+  TilValidering,
   Dager,
   Beloep,
-  Dokumentasjon,
   Bekreft,
   Validate,
   Progress,
@@ -21,15 +23,17 @@ export enum Actions {
   Grunnbeloep,
   antallDager,
   AddPeriode,
-  DeletePeriode,
   Sykemeldingsgrad,
+  DeletePeriode,
   KravEndring,
   AddBackendError,
   RemoveBackendError,
   EndringsAarsak,
   ShowSpinner,
   HideSpinner,
-  HideServerError
+  HideServerError,
+  AddDelperiode,
+  SlettDelperiode
 }
 
 export interface Payload {
@@ -37,13 +41,13 @@ export interface Payload {
   orgnr?: string;
   fra?: Date;
   til?: Date;
+  validering?: DateValidationT;
   dager?: number;
   belop?: number;
   videre?: boolean;
   bekreft?: boolean;
   progress?: boolean;
   kvittering?: boolean;
-  dokumentasjon?: string;
   response?: ValidationResponse<GravidKravResponse>;
   grunnbeloep?: number;
   antallDager?: number;

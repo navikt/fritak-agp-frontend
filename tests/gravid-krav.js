@@ -8,6 +8,7 @@ const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
 const innsendingAPI = new RegExp(/\/api\/v1\/gravid\/krav/);
+const deko = new RegExp(/\/dekoratoren/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -36,7 +37,9 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(gravidKravResponse, 201, mockHeaders);
+  .respond(gravidKravResponse, 201, mockHeaders)
+  .onRequestTo(deko)
+  .respond('', 201, mockHeaders);
 
 fixture`Gravid - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/krav?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
@@ -45,11 +48,13 @@ fixture`Gravid - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/krav?bedr
     await waitForReact();
   });
 
+// eslint-disable-next-line jest/expect-expect
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('button').withText('Send krav'))
+    // .debug()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Mangler antall arbeidsdager')
         .withText('Mangler fra dato')
@@ -63,7 +68,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(ReactSelector('BekreftOpplysningerPanel').find('input'))
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Mangler antall arbeidsdager')
         .withText('Mangler fra dato')
@@ -72,14 +77,15 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 }).visible
+      Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').with({ timeout: 100 })
+        .visible
     )
     .notOk();
 
   await t
     .typeText(ReactSelector('KontrollSporsmaal'), '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fødselsnummer')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
@@ -88,7 +94,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler antall arbeidsdager')
         .with({ timeout: 100 }).visible
@@ -100,7 +106,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(fnr, '260')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
@@ -109,7 +115,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler antall arbeidsdager')
         .with({ timeout: 100 }).visible
@@ -121,7 +127,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .pressKey('ctrl+a delete')
     .typeText(fnr, '20125027610')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
         .withText('Mangler dager')
@@ -129,7 +135,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
         .withText('Mangler antall arbeidsdager')
@@ -141,14 +147,14 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(belop, '5000')
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fra dato')
         .withText('Mangler til dato')
         .withText('Mangler dager').visible
     )
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
         .withText('Bekreft at opplysningene er korrekt')
@@ -162,11 +168,11 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t
     .click(velgDager)
-    .click(velgDagerOption.withText('5'))
-    .expect(ReactSelector('Feiloppsummering').withText('Mangler fra dato').withText('Mangler til dato').visible)
+    .click(velgDagerOption.withText(/5/))
+    .expect(Selector('.navds-error-summary__list').withText('Mangler fra dato').withText('Mangler til dato').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler dager')
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
         .withText('Ugyldig fødselsnummer')
@@ -176,15 +182,15 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk();
 
-  const fraDato = Selector('#fra-dato-0');
-  const valgtFraDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)');
+  const fraDato = Selector('#fra-dato-0-0');
+  const valgtFraDato = Selector('.rdp .rdp-row:nth-child(2) .rdp-cell:nth-child(3)');
   await t
     .click(fraDato)
     .click(valgtFraDato)
-    .expect(ReactSelector('Feiloppsummering').withText('Mangler til dato').visible)
+    .expect(Selector('.navds-error-summary__list').withText('Mangler til dato').visible)
     .ok()
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler fra dato')
         .withText('Mangler dager')
         .withText('Oppgi beløp med kun tall med maks to tall etter komma')
@@ -199,13 +205,13 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t.expect(Selector('html').textContent).contains('153');
 
-  const tilDato = Selector('#til-dato-0');
-  const valgtTilDato = Selector('.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)');
+  const tilDato = Selector('#til-dato-0-0');
+  const valgtTilDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
   await t
     .click(tilDato)
     .click(valgtTilDato)
     .expect(
-      ReactSelector('Feiloppsummering')
+      Selector('.navds-error-summary__list')
         .withText('Mangler til dato')
         .withText('Mangler fra dato')
         .withText('Mangler dager')
@@ -217,22 +223,40 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  await t.click(ReactSelector('Hovedknapp')).expect(Selector('html').textContent).contains('Kravet er mottatt');
+  await t
+    .click(Selector('button').withText('Send krav'))
+    .expect(Selector('html').textContent)
+    .contains('Kravet er mottatt');
 });
 
-test('Legg til og fjern perioder', async (t) => {
+test('Legg til og fjern arbeidsgiverperioder', async (t) => {
   await t
-    .click(ReactSelector('LeggTilKnapp'))
+    .click(ReactSelector('LeggTilKnapp').withText(/fraværsperiode/))
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').visible)
     .ok();
 
   await t
-    .scrollBy(0, 200)
-    .click(ReactSelector('Fareknapp').withText('Slett'))
+    .click(Selector('button').withText('Slett'))
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').with({ timeout: 100 }).visible)
+    .notOk({ timeout: 500 });
+});
+
+test('Legg til og fjern delperioder', async (t) => {
+  await t
+    .click(ReactSelector('LeggTilKnapp').withText(/ny rad/))
+    .expect(Selector('#fra-dato-0-0').visible)
+    .ok()
+    .expect(Selector('#fra-dato-0-1').visible)
+    .ok();
+
+  await t
+    .click(Selector('button').withText('Slett'))
+    .expect(Selector('#fra-dato-0-0').visible)
+    .ok()
+    .expect(Selector('#fra-dato-0-1').with({ timeout: 100 }).visible)
     .notOk({ timeout: 500 });
 });

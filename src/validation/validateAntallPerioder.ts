@@ -1,4 +1,4 @@
-import ValidationResult from '@navikt/helse-arbeidsgiver-felles-frontend/dist/validation/ValidationResult';
+import ValidationResult from '../utils/ValidationResult';
 
 export enum ValidateAntallPerioderKeys {
   VALIDATE_ANTALL_PERIODER_MISSING = 'VALIDATE_ANTALL_PERIODER_MISSING',
