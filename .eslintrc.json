@@ -8,7 +8,8 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:jsx-a11y/recommended",
-        "plugin:jest/recommended"
+        "plugin:jest/recommended",
+        "plugin:testcafe/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
