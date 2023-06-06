@@ -1,3 +1,4 @@
+import { DateValidationT } from '@navikt/ds-react';
 import ValidationResult from '../utils/ValidationResult';
 
 export enum validateTilKeys {
@@ -21,10 +22,18 @@ const validateTil = (
   fra: Date | undefined,
   til: Date | undefined,
   minDate: Date,
-  required: boolean = false
+  required: boolean = false,
+  valideringer?: DateValidationT
 ): ValidateTilResult | undefined => {
   if (!til) {
     return required ? { key: validateTilKeys.VALIDATE_TIL_MISSING } : undefined;
+  }
+
+  if (required && valideringer?.isInvalid) {
+    return {
+      key: validateTilKeys.VALIDATE_TIL_INVALID,
+      value: minDate.toLocaleDateString('nb')
+    };
   }
 
   if (required && til < minDate) {

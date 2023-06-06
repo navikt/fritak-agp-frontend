@@ -147,7 +147,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0]?.perioder[0].fom).toBeUndefined();
+    expect(state.perioder[0]?.perioder[0].fom).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
@@ -160,7 +160,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
 
-    expect(state.perioder && state.perioder[0].perioder[0].fom).toBeUndefined();
+    expect(state.perioder[0]?.perioder[0].fom).toBeUndefined();
   });
 
   it('should set the til', () => {
@@ -179,7 +179,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].perioder[0].tom).toEqual(parseDato('05.06.2020'));
+    expect(state.perioder[0]?.perioder[0].tom).toEqual(parseDato('05.06.2020'));
     expect(state.formDirty).toBe(true);
   });
 
@@ -196,7 +196,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].perioder[0].tom).toBeUndefined();
+    expect(state.perioder[0]?.perioder[0].tom).toBeUndefined();
   });
 
   it('should set the dager', () => {
@@ -592,7 +592,7 @@ describe('KroniskKravReducer', () => {
     );
 
     if (!state) {
-      state = { feilmeldinger: [], perioder: [] };
+      state = { feilmeldinger: [], perioder: [], tilValidering: {}, fraValidering: {} };
     }
     const fom = state.perioder?.[0].perioder[0].fom;
     const tom = state.perioder?.[0].perioder[0].tom;

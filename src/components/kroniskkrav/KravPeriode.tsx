@@ -120,6 +120,15 @@ const KravPeriode = (props: KravPeriodeProps) => {
               toDate={today}
               fromDate={MIN_KRONISK_DATO}
               defaultSelected={periode.fom}
+              onValidate={(val) =>
+                dispatch({
+                  type: Actions.FraValidering,
+                  payload: {
+                    validering: val,
+                    itemId: props.enkeltPeriode.uniqueKey
+                  }
+                })
+              }
             />
 
             <Datovelger
@@ -137,6 +146,15 @@ const KravPeriode = (props: KravPeriodeProps) => {
               error={periode.tomError}
               toDate={today}
               defaultSelected={periode.tom}
+              onValidate={(val) =>
+                dispatch({
+                  type: Actions.TilValidering,
+                  payload: {
+                    validering: val,
+                    itemId: props.enkeltPeriode.uniqueKey
+                  }
+                })
+              }
             />
             {!kanSlettes && dagerIPerioden > 16 && index + 1 === props.enkeltPeriode.perioder.length && (
               <ErrorMessage className='dagesvarsel'>

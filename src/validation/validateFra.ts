@@ -1,3 +1,4 @@
+import { DateValidationT } from '@navikt/ds-react';
 import ValidationResult from '../utils/ValidationResult';
 import dayjs from 'dayjs';
 
@@ -17,10 +18,18 @@ export interface ValidateFraResult extends ValidationResult {
 export const validateFra = (
   fra: Date | undefined,
   minDate: Date,
-  required: boolean = false
+  required: boolean = false,
+  valideringer?: DateValidationT
 ): ValidateFraResult | undefined => {
   if (required && !fra) {
     return { key: validateFraKeys.VALIDATE_FRA_MISSING };
+  }
+
+  if (required && valideringer?.isInvalid) {
+    return {
+      key: validateFraKeys.VALIDATE_FRA_FOM_INVALID,
+      value: minDate.toLocaleDateString('nb')
+    };
   }
 
   if (required && fra && dayjs(fra).diff(minDate) < 0) {

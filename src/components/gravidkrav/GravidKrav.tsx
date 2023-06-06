@@ -104,13 +104,13 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const handleSubmitClicked = async () => {
+  const handleSubmitClicked = () => {
     dispatch({
       type: Actions.Validate
     });
   };
 
-  const handleDeleteClicked = async (event: React.FormEvent) => {
+  const handleDeleteClicked = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch({
       type: Actions.RemoveBackendError
@@ -169,16 +169,32 @@ export const GravidKrav = (props: GravidKravProps) => {
             state.antallDager,
             state.endringsAarsak!
           )
-        ).then((response) => {
-          dispatchResponse(response);
-        });
+        )
+          .then((response) => {
+            dispatchResponse(response);
+          })
+          .catch((err) => {
+            console.error(err);
+            dispatch({
+              type: Actions.AddBackendError,
+              payload: { error: 'Innsending feilet' }
+            });
+          });
       } else {
         postGravidKrav(
           environment.baseUrl,
           mapGravidKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
-        ).then((response) => {
-          dispatchResponse(response);
-        });
+        )
+          .then((response) => {
+            dispatchResponse(response);
+          })
+          .catch((err) => {
+            console.error(err);
+            dispatch({
+              type: Actions.AddBackendError,
+              payload: { error: 'Innsending feilet' }
+            });
+          });
       }
     }
   }, [

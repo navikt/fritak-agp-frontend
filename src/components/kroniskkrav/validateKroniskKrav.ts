@@ -39,11 +39,22 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   nextState.perioder?.forEach((arbeidsgiverperiode) => {
     arbeidsgiverperiode.perioder.forEach((aktuellPeriode) => {
       const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
-      const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
+      const valideringFraStatus = validateFra(
+        aktuellPeriode.fom,
+        MIN_DATE,
+        !!state.validated,
+        state.fraValidering[aktuellPeriode.uniqueKey] ?? undefined
+      );
 
       aktuellPeriode.fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
 
-      const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
+      const valideringTilStatus = validateTil(
+        aktuellPeriode.fom,
+        aktuellPeriode.tom,
+        MIN_DATE,
+        !!state.validated,
+        state.tilValidering[aktuellPeriode.uniqueKey]
+      );
 
       aktuellPeriode.tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
     });

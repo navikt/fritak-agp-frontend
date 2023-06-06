@@ -51,6 +51,20 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
       return validateKroniskKrav(nextState, translate);
 
+    case Actions.FraValidering:
+      checkItemId(payload?.itemId);
+      nextState.formDirty = true;
+
+      if (payload?.itemId) {
+        if (payload?.validering) {
+          nextState.fraValidering[payload.itemId] = payload?.validering;
+        } else {
+          delete nextState.fraValidering[payload.itemId];
+        }
+      }
+
+      return validateKroniskKrav(nextState, translate);
+
     case Actions.Til:
       checkItemId(payload?.itemId);
 
@@ -63,6 +77,20 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
           }
         });
       });
+
+      return validateKroniskKrav(nextState, translate);
+
+    case Actions.TilValidering:
+      checkItemId(payload?.itemId);
+      nextState.formDirty = true;
+
+      if (payload?.itemId) {
+        if (payload?.validering) {
+          nextState.tilValidering[payload.itemId] = payload?.validering;
+        } else {
+          delete nextState.tilValidering[payload.itemId];
+        }
+      }
 
       return validateKroniskKrav(nextState, translate);
 

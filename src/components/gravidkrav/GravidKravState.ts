@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import EndringsAarsak from './EndringsAarsak';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 import { Delperiode } from '../kroniskkrav/KroniskKravState';
+import { DateValidationT } from '@navikt/ds-react';
 
 export const defaultGravidKravState = (state?: GravidKravState): GravidKravState => {
   return Object.assign(
@@ -22,9 +23,11 @@ export const defaultGravidKravState = (state?: GravidKravState): GravidKravState
       feilmeldinger: Array<FeiloppsummeringFeil>(),
       formDirty: false,
       showSpinner: false,
-      endringskrav: false
+      endringskrav: false,
+      tilValidering: {},
+      fraValidering: {}
     },
-    state || {}
+    state ?? {}
   );
 };
 
@@ -66,4 +69,6 @@ export default interface GravidKravState extends ValidationState {
   endringsAarsakError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
+  tilValidering: { [key: string]: DateValidationT | undefined };
+  fraValidering: { [key: string]: DateValidationT | undefined };
 }

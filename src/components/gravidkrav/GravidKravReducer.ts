@@ -51,6 +51,20 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       });
       return validateGravidKrav(nextState, translate);
 
+    case Actions.FraValidering:
+      checkItemId(payload?.itemId);
+      nextState.formDirty = true;
+
+      if (payload?.itemId) {
+        if (payload?.validering) {
+          nextState.fraValidering[payload.itemId] = payload?.validering;
+        } else {
+          delete nextState.fraValidering[payload.itemId];
+        }
+      }
+
+      return validateGravidKrav(nextState, translate);
+
     case Actions.Til:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
@@ -62,6 +76,20 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
           }
         });
       });
+
+      return validateGravidKrav(nextState, translate);
+
+    case Actions.TilValidering:
+      checkItemId(payload?.itemId);
+      nextState.formDirty = true;
+
+      if (payload?.itemId) {
+        if (payload?.validering) {
+          nextState.tilValidering[payload.itemId] = payload?.validering;
+        } else {
+          delete nextState.tilValidering[payload.itemId];
+        }
+      }
 
       return validateGravidKrav(nextState, translate);
 

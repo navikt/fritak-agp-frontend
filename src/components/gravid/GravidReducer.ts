@@ -123,6 +123,14 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       }
       return validateGravid(nextState, translate);
 
+    case Actions.TermindatoValidering:
+      if (payload?.termindatoValidering === undefined) {
+        nextState.termindatoValidering = undefined;
+      } else {
+        nextState.termindatoValidering = payload?.termindatoValidering;
+      }
+      return validateGravid(nextState, translate);
+
     case Actions.NotAuthorized:
       nextState.notAuthorized = false;
       return nextState;

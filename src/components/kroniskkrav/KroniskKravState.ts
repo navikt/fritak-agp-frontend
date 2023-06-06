@@ -2,6 +2,7 @@ import { ValidationState } from '../../state/validation/ValidationState';
 import { v4 as uuid } from 'uuid';
 import EndringsAarsak from '../gravidkrav/EndringsAarsak';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
+import { DateValidationT } from '@navikt/ds-react';
 
 export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravState => {
   return Object.assign(
@@ -21,9 +22,11 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
       feilmeldinger: Array<FeiloppsummeringFeil>(),
       formDirty: false,
       showSpinner: false,
-      endringskrav: false
+      endringskrav: false,
+      tilValidering: {},
+      fraValidering: {}
     },
-    state || {}
+    state ?? {}
   );
 };
 
@@ -52,6 +55,8 @@ export default interface KroniskKravState extends ValidationState {
   endringsAarsakError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
+  tilValidering: { [key: string]: DateValidationT | undefined };
+  fraValidering: { [key: string]: DateValidationT | undefined };
 }
 
 export interface KroniskKravPeriode {
