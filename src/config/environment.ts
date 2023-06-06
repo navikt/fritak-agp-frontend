@@ -58,6 +58,15 @@ class Environment {
     // https://g.nav.no/api/v1/grunnbeloep?dato=2020-02-12 hvis man trenger å spørre på dato
   }
 
+  get minSideArbeidsgiver() {
+    switch (this.environmentMode) {
+      case EnvironmentType.PROD:
+        return 'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session';
+      default:
+        return 'https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver/sak-restore-session';
+    }
+  }
+
   private isTestCafeRunning() {
     const urlParams = new URLSearchParams(window.location.search);
     const testCafe = urlParams.get('TestCafe');
