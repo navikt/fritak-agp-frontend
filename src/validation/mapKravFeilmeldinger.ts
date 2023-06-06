@@ -12,7 +12,7 @@ export interface FeiloppsummeringFeil {
 }
 
 const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: KroniskKravState | GravidKravState) => {
-  const feilmeldinger = new Array<FeiloppsummeringFeil>();
+  const feilmeldinger: Array<FeiloppsummeringFeil> = [];
 
   response.violations.forEach((v) => {
     const regexSplitPattern = /([^[.\]])+/g;
@@ -23,7 +23,9 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
       return;
     }
 
-    const [propertyPath, pathIndexString, subPath] = propertyPathParts;
+    console.log('propertyPathParts', propertyPathParts);
+
+    const [propertyPath, pathIndexString, subPath, ...resten] = propertyPathParts;
 
     const pathIndex = stringishToNumber(pathIndexString);
 
@@ -43,7 +45,7 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
         break;
 
       case 'perioder':
-        mapPeriodeFeilmeldinger(subPath, pathIndex, state, v, feilmeldinger);
+        mapPeriodeFeilmeldinger(subPath, pathIndex, state, v, feilmeldinger, resten);
         break;
 
       case 'bekreftet':
@@ -54,6 +56,11 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
       case 'antallDager':
         state.antallDagerError = v.message;
         feilmeldinger.push(lagFeil('kontrollsporsmaal-lonn-arbeidsdager', v.message));
+        break;
+
+      case 'perioder[0]':
+        state.antallDagerError = v.message;
+        feilmeldinger.push(lagFeil('dager', v.message));
         break;
     }
   });
@@ -76,8 +83,11 @@ const mapPeriodeFeilmeldinger = (
   pathIndex: number | undefined,
   state: GravidKravState | KroniskKravState,
   v: ValidationProblemDetail,
-  feilmeldinger: FeiloppsummeringFeil[]
+  feilmeldinger: FeiloppsummeringFeil[],
+  resten: Array<string>
 ) => {
+  console.log('subPath', subPath);
+  console.log('resten', resten);
   switch (subPath) {
     case 'antallDagerMedRefusjon':
       if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
@@ -91,18 +101,18 @@ const mapPeriodeFeilmeldinger = (
 
     case 'fom':
       if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-        state.perioder[pathIndex].fomError = v.message || 'Fra dato kan ikke være etter til dato';
+        state.perioder[pathIndex].perioder[0].fomError = v.message || 'Fra dato kan ikke være etter til dato';
       }
 
-      feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}`, v.message || 'Fra dato kan ikke være etter til dato'));
+      feilmeldinger.push(lagFeil(`fra-dato-${pathIndex}-0`, v.message || 'Fra dato kan ikke være etter til dato'));
       break;
 
     case 'tom':
       if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-        state.perioder[pathIndex].tomError = v.message;
+        state.perioder[pathIndex].perioder[0].tomError = v.message;
       }
 
-      feilmeldinger.push(lagFeil(`til-dato-${pathIndex}`, v.message));
+      feilmeldinger.push(lagFeil(`til-dato-${pathIndex}-0`, v.message));
       break;
 
     case 'månedsinntekt':
@@ -121,6 +131,28 @@ const mapPeriodeFeilmeldinger = (
         lagFeil(`sykemeldingsgrad-${pathIndex}`, v.message || 'Sykemeldingsgraden må være mellom 20% og 100%')
       );
       break;
+    case 'perioder': {
+      if (resten[1] === 'fom') {
+        if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+          state.perioder[pathIndex].perioder[resten[0]].fomError = v.message || 'Fra dato kan ikke være etter til dato';
+        }
+
+        feilmeldinger.push(
+          lagFeil(`fra-dato-${pathIndex}-${resten[0]}`, v.message || 'Fra dato kan ikke være etter til dato')
+        );
+      }
+
+      if (resten[1] === 'tom') {
+        if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+          state.perioder[pathIndex].perioder[resten[0]].tomError = v.message || 'Fra dato kan ikke være etter til dato';
+        }
+
+        feilmeldinger.push(
+          lagFeil(`til-dato-${pathIndex}-${resten[0]}`, v.message || 'Fra dato kan ikke være etter til dato')
+        );
+      }
+      break;
+    }
 
     default:
       state.periodeError = v.message;

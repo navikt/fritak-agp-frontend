@@ -32,7 +32,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { Button, ErrorMessage, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -46,6 +46,8 @@ import Language from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
+import kroniskKravKanSlettes from '../kroniskkrav/kroniskeKravKanSlettes';
+import dagerMellomPerioder from '../../utils/dagerMellomPerioder';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -102,13 +104,13 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const handleSubmitClicked = async () => {
+  const handleSubmitClicked = () => {
     dispatch({
       type: Actions.Validate
     });
   };
 
-  const handleDeleteClicked = async (event: React.FormEvent) => {
+  const handleDeleteClicked = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch({
       type: Actions.RemoveBackendError
@@ -167,16 +169,32 @@ export const GravidKrav = (props: GravidKravProps) => {
             state.antallDager,
             state.endringsAarsak!
           )
-        ).then((response) => {
-          dispatchResponse(response);
-        });
+        )
+          .then((response) => {
+            dispatchResponse(response);
+          })
+          .catch((err) => {
+            console.error(err);
+            dispatch({
+              type: Actions.AddBackendError,
+              payload: { error: 'Innsending feilet' }
+            });
+          });
       } else {
         postGravidKrav(
           environment.baseUrl,
           mapGravidKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
-        ).then((response) => {
-          dispatchResponse(response);
-        });
+        )
+          .then((response) => {
+            dispatchResponse(response);
+          })
+          .catch((err) => {
+            console.error(err);
+            dispatch({
+              type: Actions.AddBackendError,
+              payload: { error: 'Innsending feilet' }
+            });
+          });
       }
     }
   }, [
@@ -223,6 +241,10 @@ export const GravidKrav = (props: GravidKravProps) => {
   const subtitle = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE);
 
   const arbeidstidHjelpetekstTitle = t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL);
+
+  const avstanderMellomPerioder = dagerMellomPerioder(state.perioder);
+  const slettbar = kroniskKravKanSlettes(state.perioder);
+
   return (
     <Side
       bedriftsmeny={true}
@@ -311,15 +333,24 @@ export const GravidKrav = (props: GravidKravProps) => {
         </TextLabel>
         <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
           {state.perioder?.map((enkeltPeriode, index) => (
-            <KravPeriode
-              dispatch={dispatch}
-              enkeltPeriode={enkeltPeriode}
-              index={index}
-              lonnspliktDager={state.antallDager}
-              key={enkeltPeriode.uniqueKey}
-              slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-              Actions={Actions}
-            />
+            <>
+              <KravPeriode
+                dispatch={dispatch}
+                enkeltPeriode={enkeltPeriode}
+                index={index}
+                lonnspliktDager={state.antallDager}
+                key={enkeltPeriode.uniqueKey}
+                slettbar={slettbar}
+                Actions={Actions}
+                id={`arbeidsgiverperiode-${index}`}
+              />
+              {!!avstanderMellomPerioder[index] && avstanderMellomPerioder[index] < 17 && (
+                <ErrorMessage>
+                  Det må være minst 16 dager mellom arbeidsgiverperiodene. Nå er det{' '}
+                  {avstanderMellomPerioder[index] - 1}
+                </ErrorMessage>
+              )}
+            </>
           ))}
           <div>
             {state.perioder && state.perioder.length < MAX_PERIODER && (

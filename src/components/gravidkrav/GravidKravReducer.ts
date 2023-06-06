@@ -1,12 +1,12 @@
 import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
+import parseISO from '../../utils/parseISO';
 
 export const MAX_PERIODER = 50;
 
@@ -19,7 +19,9 @@ const checkItemId = (itemId?: string) => {
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, translate: i18n): GravidKravState => {
   const nextState = Object.assign({}, state);
   const { payload } = action;
-  nextState.perioder = nextState.perioder ? nextState.perioder : [{ uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder
+    ? nextState.perioder
+    : [{ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -39,20 +41,77 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     case Actions.Fra:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
-        ? parseDateTilDato(payload.fra)
-        : undefined;
+
+      nextState.perioder.forEach((arbeidsgiverperioder) => {
+        arbeidsgiverperioder.perioder.forEach((delperiode) => {
+          if (delperiode.uniqueKey === payload?.itemId) {
+            delperiode.fom = payload.fra;
+          }
+        });
+      });
+      return validateGravidKrav(nextState, translate);
+
+    case Actions.FraValidering:
+      checkItemId(payload?.itemId);
+      nextState.formDirty = true;
+
+      if (payload?.itemId) {
+        if (payload?.validering) {
+          nextState.fraValidering[payload.itemId] = payload?.validering;
+        } else {
+          delete nextState.fraValidering[payload.itemId];
+        }
+      }
 
       return validateGravidKrav(nextState, translate);
 
     case Actions.Til:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.tom = payload?.til
-        ? parseDateTilDato(payload.til)
-        : undefined;
+
+      nextState.perioder.forEach((arbeidsgiverperioder) => {
+        arbeidsgiverperioder.perioder.forEach((delperiode) => {
+          if (delperiode.uniqueKey === payload?.itemId) {
+            delperiode.tom = payload.til;
+          }
+        });
+      });
 
       return validateGravidKrav(nextState, translate);
+
+    case Actions.TilValidering:
+      checkItemId(payload?.itemId);
+      nextState.formDirty = true;
+
+      if (payload?.itemId) {
+        if (payload?.validering) {
+          nextState.tilValidering[payload.itemId] = payload?.validering;
+        } else {
+          delete nextState.tilValidering[payload.itemId];
+        }
+      }
+
+      return validateGravidKrav(nextState, translate);
+
+    case Actions.AddDelperiode: {
+      checkItemId(payload?.itemId);
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)?.perioder.push({ uniqueKey: uuid() });
+
+      // arbeidsgiverperiode?.perioder.push({ uniqueKey: uuid() });
+
+      return validateGravidKrav(nextState, translate);
+    }
+
+    case Actions.SlettDelperiode: {
+      checkItemId(payload?.itemId);
+
+      nextState.perioder.forEach((arbeidsgiverperiode) => {
+        arbeidsgiverperiode.perioder = arbeidsgiverperiode.perioder.filter(
+          (delperiode) => delperiode.uniqueKey !== payload?.itemId
+        );
+      });
+      return validateGravidKrav(nextState, translate);
+    }
 
     case Actions.Dager:
       checkItemId(payload?.itemId);
@@ -134,8 +193,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       }
 
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
-        : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+        ? nextState.perioder.concat({ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] })
+        : [{ uniqueKey: uuid(), perioder: [{ uniqueKey: uuid() }] }];
       return nextState;
     }
 
@@ -154,14 +213,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
         nextState.fnr = krav.identitetsnummer;
         nextState.orgnr = krav.virksomhetsnummer;
         nextState.antallDager = krav.antallDager;
-        nextState.perioder = krav.perioder.map((periode) => ({
-          uniqueKey: uuid(),
-          fom: parseISO(periode.fom),
-          tom: parseISO(periode.tom),
-          dager: Number(periode.antallDagerMedRefusjon),
-          belop: Number(periode.månedsinntekt),
-          sykemeldingsgrad: (periode.gradering * 100).toString()
-        }));
+        nextState.perioder = formaterPerioderFraBackend(krav.perioder);
         nextState.kravId = krav.id;
         nextState.endringskrav = true;
       }
@@ -210,5 +262,33 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       throw new Error(`Ugyldig action: ${action.type}`);
   }
 };
+
+export function formaterPerioderFraBackend(perioder) {
+  return perioder.map((periode) => ({
+    uniqueKey: uuid(),
+    perioder: formaterGammelEllerNyPeriode(periode),
+    dager: Number(periode.antallDagerMedRefusjon),
+    belop: Number(periode.månedsinntekt),
+    sykemeldingsgrad: (periode.gradering * 100).toString()
+  }));
+}
+
+function formaterGammelEllerNyPeriode(perioder) {
+  if (perioder.perioder) {
+    return perioder.perioder.map((delperiode) => ({
+      uniqueKey: uuid(),
+      fom: parseISO(delperiode.fom),
+      tom: parseISO(delperiode.tom)
+    }));
+  } else {
+    return [
+      {
+        uniqueKey: uuid(),
+        fom: parseISO(perioder.fom),
+        tom: parseISO(perioder.tom)
+      }
+    ];
+  }
+}
 
 export default GravidKravReducer;

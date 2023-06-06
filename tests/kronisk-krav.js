@@ -48,6 +48,7 @@ fixture`Kronisk - Krav`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/krav?be
     await waitForReact();
   });
 
+// eslint-disable-next-line jest/expect-expect
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
     .click(Selector('button').withText('Send krav'))
@@ -181,7 +182,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  const fraDato = Selector('#fra-dato-0');
+  const fraDato = Selector('#fra-dato-0-0');
   const valgtFraDato = Selector('.rdp .rdp-row:nth-child(2) .rdp-cell:nth-child(3)');
   await t
     .click(fraDato)
@@ -204,7 +205,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t.expect(Selector('html').textContent).contains('153');
 
-  const tilDato = Selector('#til-dato-0');
+  const tilDato = Selector('#til-dato-0-0');
   const valgtTilDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
   await t
     .click(tilDato)
@@ -230,7 +231,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
 test('Legg til og fjern perioder', async (t) => {
   await t
-    .click(ReactSelector('LeggTilKnapp'))
+    .click(ReactSelector('LeggTilKnapp').withText(/fraværsperiode/))
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').visible)
@@ -242,5 +243,21 @@ test('Legg til og fjern perioder', async (t) => {
     .expect(Selector('#belop-0').visible)
     .ok()
     .expect(Selector('#belop-1').with({ timeout: 100 }).visible)
+    .notOk({ timeout: 500 });
+});
+
+test('Legg til og fjern delperioder', async (t) => {
+  await t
+    .click(ReactSelector('LeggTilKnapp').withText(/ny rad/))
+    .expect(Selector('#fra-dato-0-0').visible)
+    .ok()
+    .expect(Selector('#fra-dato-0-1').visible)
+    .ok();
+
+  await t
+    .click(Selector('button').withText('Slett'))
+    .expect(Selector('#fra-dato-0-0').visible)
+    .ok()
+    .expect(Selector('#fra-dato-0-1').with({ timeout: 100 }).visible)
     .notOk({ timeout: 500 });
 });

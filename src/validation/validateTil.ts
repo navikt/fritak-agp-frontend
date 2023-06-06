@@ -1,5 +1,4 @@
-import { Dato } from '../utils/dato/Dato';
-import isBeforeDate from '../utils/dato/isBeforeDate';
+import { DateValidationT } from '@navikt/ds-react';
 import ValidationResult from '../utils/ValidationResult';
 
 export enum validateTilKeys {
@@ -20,38 +19,42 @@ export interface ValidateTilResult extends ValidationResult {
 }
 
 const validateTil = (
-  fra: Dato | undefined,
-  til: Dato | undefined,
+  fra: Date | undefined,
+  til: Date | undefined,
   minDate: Date,
-  required: boolean = false
+  required: boolean = false,
+  valideringer?: DateValidationT
 ): ValidateTilResult | undefined => {
-  if (!til?.value) {
+  if (!til) {
     return required ? { key: validateTilKeys.VALIDATE_TIL_MISSING } : undefined;
   }
 
-  if (required && til?.value && isBeforeDate(til, minDate)) {
+  if (required && valideringer?.isInvalid) {
     return {
       key: validateTilKeys.VALIDATE_TIL_INVALID,
       value: minDate.toLocaleDateString('nb')
     };
   }
 
-  if (!fra || !til) {
+  if (required && til < minDate) {
+    return {
+      key: validateTilKeys.VALIDATE_TIL_INVALID,
+      value: minDate.toLocaleDateString('nb')
+    };
+  }
+
+  if (!fra) {
     return undefined;
   }
 
   if (!required) {
     return;
   }
-  if (fra.error || !fra.millis) {
-    return { key: validateTilKeys.VALIDATE_TIL_FOM_ERROR };
-  }
-  if (til.error || !til.millis) {
-    return { key: validateTilKeys.VALIDATE_TIL_ERROR };
-  }
-  if (fra.millis > til.millis) {
+
+  if (fra > til) {
     return { key: validateTilKeys.VALIDATE_TIL_TOO_EARLY };
   }
+
   return undefined;
 };
 

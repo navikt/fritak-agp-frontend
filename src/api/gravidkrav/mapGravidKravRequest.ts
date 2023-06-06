@@ -1,13 +1,13 @@
 import { GravidKravRequest } from './GravidKravRequest';
-import { datoToString } from '../../utils/dato/Dato';
-import { Periode } from '../../components/gravidkrav/GravidKravState';
+import { GravidKravPeriode } from '../../components/gravidkrav/GravidKravState';
 import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
 import { beregnSykemeldingGradering } from '../kroniskkrav/mapPeriodeData';
+import formatISO from '../../utils/formatISO';
 
 export const mapGravidKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  perioder: Array<Periode> | undefined,
+  perioder: Array<GravidKravPeriode> | undefined,
   bekreft: boolean | undefined,
   antallDager: number | undefined
 ): GravidKravRequest => {
@@ -20,17 +20,19 @@ export const mapGravidKravRequest = (
   if (!perioder) {
     throw new Error('Perioder må spesifiseres');
   }
-  perioder?.forEach((periode) => {
-    if (periode.fom?.error) {
-      throw new Error('Fra må spesifiseres');
-    }
-    if (periode.tom?.error) {
-      throw new Error('Til må spesifiseres');
-    }
-    if (periode.dager === undefined) {
+  perioder?.forEach((areidsgiverperiode) => {
+    areidsgiverperiode.perioder.forEach((periode) => {
+      if (!periode.fom) {
+        throw new Error('Fra må spesifiseres');
+      }
+      if (!periode.tom) {
+        throw new Error('Til må spesifiseres');
+      }
+    });
+    if (areidsgiverperiode.dager === undefined) {
       throw new Error('Dager må spesifiseres');
     }
-    if (periode.belop === undefined) {
+    if (areidsgiverperiode.belop === undefined) {
       throw new Error('Beløp må spesifiseres');
     }
   });
@@ -41,8 +43,10 @@ export const mapGravidKravRequest = (
   perioder = perioder || [];
 
   const arbeidsgiverPerioder: Array<Arbeidsgiverperiode> = perioder?.map((periode) => ({
-    fom: datoToString(periode.fom),
-    tom: datoToString(periode.tom),
+    perioder: periode.perioder.map((delperiode) => ({
+      fom: formatISO(delperiode.fom) || '',
+      tom: formatISO(delperiode.tom) || ''
+    })),
     antallDagerMedRefusjon: periode.dager || 0,
     månedsinntekt: Number(periode.belop || 0),
     gradering: beregnSykemeldingGradering(periode.sykemeldingsgrad)

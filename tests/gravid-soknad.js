@@ -58,6 +58,7 @@ fixture`Gravid - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad
     await waitForReact();
   });
 
+// eslint-disable-next-line jest/expect-expect
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
     .click(Selector('label').withText('Ja'))
@@ -93,20 +94,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
         .visible
     )
     .notOk({ timeout: 500 });
-
-  // await t
-  // .typeText(ReactSelector('KontrollSporsmaal'), '260')
-  // .expect(
-  //   Selector('.navds-error-summary__list')
-  //     .withText('Mangler fødselsnummer')
-  //     .withText('Mangler fra dato')
-  //     .withText('Mangler til dato')
-  //     .withText('Mangler dager')
-  //     .withText('Mangler beløp').visible
-  // )
-  // .ok()
-  // .expect(Selector('.navds-error-summary__list').withText('Bekreft at opplysningene er korrekt').withText('Mangler antall arbeidsdager').visible)
-  // .notOk();
 
   const fnr = ReactSelector('Fnr');
 

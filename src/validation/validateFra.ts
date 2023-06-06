@@ -1,6 +1,6 @@
-import { Dato } from '../utils/dato/Dato';
-import isBeforeDate from '../utils/dato/isBeforeDate';
+import { DateValidationT } from '@navikt/ds-react';
 import ValidationResult from '../utils/ValidationResult';
+import dayjs from 'dayjs';
 
 export enum validateFraKeys {
   VALIDATE_FRA_MISSING = 'VALIDATE_FRA_MISSING',
@@ -16,24 +16,29 @@ export interface ValidateFraResult extends ValidationResult {
 }
 
 export const validateFra = (
-  fra: Dato | undefined,
+  fra: Date | undefined,
   minDate: Date,
-  required: boolean = false
+  required: boolean = false,
+  valideringer?: DateValidationT
 ): ValidateFraResult | undefined => {
-  if (required && !fra?.value) {
+  if (required && !fra) {
     return { key: validateFraKeys.VALIDATE_FRA_MISSING };
   }
 
-  if (required && fra?.value && isBeforeDate(fra, minDate)) {
+  if (required && valideringer?.isInvalid) {
     return {
       key: validateFraKeys.VALIDATE_FRA_FOM_INVALID,
       value: minDate.toLocaleDateString('nb')
     };
   }
 
-  if (fra && fra.error) {
-    return required ? { key: validateFraKeys.VALIDATE_FRA_FOM_ERROR } : undefined;
+  if (required && fra && dayjs(fra).diff(minDate) < 0) {
+    return {
+      key: validateFraKeys.VALIDATE_FRA_FOM_INVALID,
+      value: minDate.toLocaleDateString('nb')
+    };
   }
+
   return undefined;
 };
 

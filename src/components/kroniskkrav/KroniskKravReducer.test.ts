@@ -7,9 +7,26 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import Language from '../../locale/Language';
+import * as uuid from 'uuid';
+import parseDato from '../../utils/parseDato';
+jest.mock('uuid');
 
 describe('KroniskKravReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
+
+  beforeEach(() => {
+    const uuidSpy = jest.spyOn(uuid, 'v4');
+    uuidSpy
+      .mockReturnValueOnce('uuid1')
+      .mockReturnValueOnce('uuid2')
+      .mockReturnValueOnce('uuid3')
+      .mockReturnValueOnce('uuid4')
+      .mockReturnValue('some-uuid');
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   it('should throw error', () => {
     expect(() => {
@@ -99,28 +116,28 @@ describe('KroniskKravReducer', () => {
   it('should set the fra', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-ignore
-    const itemId = defaultKrav.perioder[0].uniqueKey;
+    const itemId = defaultKrav.perioder[0].perioder[0].uniqueKey;
 
     let state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Fra,
         payload: {
-          fra: new Date('2020.06.05 12:00:00'),
+          fra: parseDato('05.06.2020'),
           itemId
         }
       },
       i18n
     );
 
-    expect(state.perioder && state?.perioder[0]?.fom?.value).toEqual('05.06.2020');
+    expect(state.perioder && state?.perioder[0]?.perioder[0].fom).toEqual(parseDato('05.06.2020'));
     expect(state.formDirty).toBe(true);
   });
 
   it('should set the fra when fom is undefined', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-ignore
-    const itemId = defaultKrav.perioder[0].uniqueKey;
+    const itemId = defaultKrav.perioder[0].perioder[0].uniqueKey;
 
     let state = KroniskKravReducer(
       defaultKrav,
@@ -130,41 +147,39 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0]?.fom?.value).toBeUndefined();
+    expect(state.perioder[0]?.perioder[0].fom).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
-    expect(() => {
-      const state = KroniskKravReducer(
-        defaultKroniskKravState(),
-        {
-          type: Actions.Fra,
-          payload: { fra: undefined, itemId: '0' }
-        },
-        i18n
-      );
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.Fra,
+        payload: { fra: undefined, itemId: '0' }
+      },
+      i18n
+    );
 
-      expect(state.perioder && state.perioder[0].fom).toBeUndefined();
-    });
+    expect(state.perioder[0]?.perioder[0].fom).toBeUndefined();
   });
 
   it('should set the til', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-ignore
-    const itemId = defaultKrav.perioder[0].uniqueKey;
+    const itemId = defaultKrav.perioder[0].perioder[0].uniqueKey;
 
     let state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Til,
         payload: {
-          til: new Date('2020.06.05 12:00:00'),
+          til: parseDato('05.06.2020'),
           itemId
         }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.perioder[0]?.perioder[0].tom).toEqual(parseDato('05.06.2020'));
     expect(state.formDirty).toBe(true);
   });
 
@@ -181,7 +196,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].tom).toBeUndefined();
+    expect(state.perioder[0]?.perioder[0].tom).toBeUndefined();
   });
 
   it('should set the dager', () => {
@@ -197,7 +212,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].dager).toEqual(3);
+    expect(state.perioder?.[0]?.dager).toEqual(3);
     expect(state.formDirty).toBe(true);
   });
 
@@ -214,7 +229,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].belop).toEqual(233);
+    expect(state.perioder?.[0]?.belop).toEqual(233);
     expect(state.formDirty).toBe(true);
   });
 
@@ -407,10 +422,16 @@ describe('KroniskKravReducer', () => {
 
     expect(state.perioder ? state.perioder[0].uniqueKey : undefined).not.toBeUndefined();
     expect(defaultState.perioder ? defaultState.perioder[0].uniqueKey : undefined).not.toBeUndefined();
+
     // @ts-ignore
-    if (state.perioder) delete state.perioder[0].uniqueKey;
+    delete state.perioder[0].uniqueKey;
     // @ts-ignore
-    if (defaultState.perioder) delete defaultState.perioder[0].uniqueKey;
+    delete defaultState.perioder[0].uniqueKey;
+    // @ts-ignore
+    delete state.perioder[0].perioder[0].uniqueKey;
+    // @ts-ignore
+    delete defaultState.perioder[0].perioder[0].uniqueKey;
+
     expect(state).toEqual(defaultState);
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toBeUndefined();
@@ -450,7 +471,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].sykemeldingsgrad).toEqual('12');
+    expect(state.perioder?.[0]?.sykemeldingsgrad).toEqual('12');
   });
 
   it('should throw on undefined itemId for Sykemeldingsgrad', () => {
@@ -542,8 +563,12 @@ describe('KroniskKravReducer', () => {
             antallDager: 1,
             perioder: [
               {
-                fom: '2022-11-12',
-                tom: '2022-12-13',
+                perioder: [
+                  {
+                    fom: '2022-11-12',
+                    tom: '2022-12-13'
+                  }
+                ],
                 antallDagerMedRefusjon: 5,
                 månedsinntekt: 123,
                 gradering: 1,
@@ -567,13 +592,13 @@ describe('KroniskKravReducer', () => {
     );
 
     if (!state) {
-      state = { feilmeldinger: [] };
+      state = { feilmeldinger: [], perioder: [], tilValidering: {}, fraValidering: {} };
     }
-    const fom = state.perioder![0].fom;
-    const tom = state.perioder![0].tom;
+    const fom = state.perioder?.[0].perioder[0].fom;
+    const tom = state.perioder?.[0].perioder[0].tom;
 
-    expect(fom?.value).toBe('12.11.2022');
-    expect(tom?.value).toBe('13.12.2022');
+    expect(fom).toEqual(parseDato('12.11.2022'));
+    expect(tom).toEqual(parseDato('13.12.2022'));
   });
 
   it('should show and hide spinner', () => {

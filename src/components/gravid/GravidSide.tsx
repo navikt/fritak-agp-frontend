@@ -220,7 +220,7 @@ const GravidSide = (props: GravidSideProps) => {
                     id='termindato'
                     label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
                     error={state.termindatoError}
-                    defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                    defaultSelected={state.termindato}
                     onDateChange={(termindato: Date | undefined) => {
                       dispatch({
                         type: Actions.Termindato,

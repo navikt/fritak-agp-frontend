@@ -1,16 +1,17 @@
-import { Dato } from '../utils/dato/Dato';
+import { DateValidationT } from '@navikt/ds-react';
 
 export const validateTermindato = (
-  termindato: Dato | undefined,
+  termindato: Date | undefined,
   required: boolean,
-  feilmelding: string
+  feilmelding: string,
+  validation?: DateValidationT
 ): string | undefined => {
-  if (!termindato?.value) {
-    return required ? feilmelding : undefined;
+  if (validation?.isInvalid) {
+    return required ? 'Dato er ikke gyldig' : undefined;
   }
 
-  if (termindato && termindato.error) {
-    return required ? termindato.error : undefined;
+  if (!termindato) {
+    return required ? feilmelding : undefined;
   }
 };
 
