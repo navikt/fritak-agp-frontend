@@ -14,6 +14,7 @@ import { Alert, BodyLong, Heading, Link, Panel } from '@navikt/ds-react';
 import Side from '../felles/Side/Side';
 import InternLenke from '../felles/InternLenke/InternLenke';
 import Language from '../../locale/Language';
+import env from '../../config/environment';
 
 const KroniskKvittering = () => {
   const { t } = useTranslation();
@@ -81,7 +82,7 @@ const KroniskKvittering = () => {
             <Link href='https://loginservice.nav.no/slo'>Logg ut</Link>
           </div>
           <div>
-            <Link href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Link>
+            <Link href={env.minSideArbeidsgiver}>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Link>
           </div>
         </Panel>
       </Row>
