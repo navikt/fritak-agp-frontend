@@ -32,7 +32,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, ErrorMessage, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { Button, ErrorMessage, Heading, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -240,8 +240,6 @@ export const GravidKrav = (props: GravidKravProps) => {
   const title = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR);
   const subtitle = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE);
 
-  const arbeidstidHjelpetekstTitle = t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL);
-
   const avstanderMellomPerioder = dagerMellomPerioder(state.perioder);
   const slettbar = kroniskKravKanSlettes(state.perioder);
 
@@ -324,12 +322,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
         </Heading>
         <TextLabel className='textfelt-padding-bottom'>
-          <div className='label-med-hjelp'>
-            {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-            <HelpText className='krav-padding-hjelpetekst' title={arbeidstidHjelpetekstTitle}>
-              <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
-            </HelpText>
-          </div>
+          <div className='label-med-hjelp'>{t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}</div>
         </TextLabel>
         <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
           {state.perioder?.map((enkeltPeriode, index) => (

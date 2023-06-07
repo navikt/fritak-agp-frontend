@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
 import { Delperiode, KroniskKravPeriode } from './KroniskKravState';
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
 import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../config/konstanter';
-import { Button, ErrorMessage, HelpText, TextField } from '@navikt/ds-react';
+import { Button, ErrorMessage, Heading, HelpText, TextField } from '@navikt/ds-react';
 import '@navikt/ds-css';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Datovelger from '../datovelger/Datovelger';
@@ -20,6 +20,7 @@ import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import ButtonSlette from '../felles/ButtonSlette';
 import antallDagerIArbeidsgiverperiode from '../../utils/antallDagerIArbeidsgiverperiode';
 import formatISO from '../../utils/formatISO';
+import { KroniskKravKeys } from './KroniskKravKeys';
 
 interface KravPeriodeProps {
   dispatch: any;
@@ -46,6 +47,14 @@ const KravPeriode = (props: KravPeriodeProps) => {
   };
 
   const fraDatoValgt = (fraDato: Date | undefined, itemId: string, periodeItemId: string) => {
+    dispatch({
+      type: Actions.Fra,
+      payload: {
+        fra: fraDato,
+        itemId: itemId
+      }
+    });
+
     if (fraDato) {
       getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD'))
         .then((grunnbelopRespons) => {
@@ -54,7 +63,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               type: Actions.Grunnbeloep,
               payload: {
                 grunnbeloep: grunnbelopRespons.grunnbeloep.grunnbeloep,
-                itemId: itemId
+                itemId: periodeItemId
               }
             });
           }
@@ -63,14 +72,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
           console.log(error);
         });
     }
-
-    dispatch({
-      type: Actions.Fra,
-      payload: {
-        fra: fraDato,
-        itemId: periodeItemId
-      }
-    });
   };
 
   const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
@@ -102,19 +103,27 @@ const KravPeriode = (props: KravPeriodeProps) => {
   }, []); // eslint-disable-line
 
   const kanSlettes = props.enkeltPeriode.perioder.length > 1;
-
+  debugger; // eslint-disable-line
   const dagerIPerioden = antallDagerIArbeidsgiverperiode(props.enkeltPeriode.perioder);
 
   return (
     <div className='krav-periode-wrapper' data-testid='krav-periode-wrapper' id={props.id}>
+      <div className='krav-periode-header'>
+        <Heading size='small' level='4'>
+          Arbeidsgiverperiode
+        </Heading>
+        <HelpText>
+          <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+        </HelpText>
+      </div>
       {props.enkeltPeriode.perioder.map((periode, index) => (
-        <>
-          <div className='krav-kort-dato' key={periode.uniqueKey}>
+        <Fragment key={periode.uniqueKey}>
+          <div className='krav-kort-dato'>
             <Datovelger
               id={`fra-dato-${props.index}-${index}`}
               label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_FRA)}</div>}
               onDateChange={(fraDato: Date | undefined) => {
-                fraDatoValgt(fraDato, props.enkeltPeriode.uniqueKey, periode.uniqueKey);
+                fraDatoValgt(fraDato, periode.uniqueKey, props.enkeltPeriode.uniqueKey);
               }}
               error={periode.fomError}
               toDate={today}
@@ -183,7 +192,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
               </ErrorMessage>
             </div>
           )}
-        </>
+        </Fragment>
       ))}
       <LeggTilKnapp
         onClick={() =>

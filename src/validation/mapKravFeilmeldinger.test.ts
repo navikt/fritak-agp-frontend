@@ -35,8 +35,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
   it('should map all violations - nytt format', () => {
     const state = defaultKroniskKravState();
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, ALLE_FELTER, 'feil'), state);
-    console.log('state', state);
-    console.log('feilmeldinger', feilmeldinger);
+
     expect(state.fnrError).toBe('feil');
     expect(state.orgnrError).toBe('feil');
     expect(state.bekreftError).toBe('feil');
@@ -71,8 +70,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
   it('should map all violations - gammelt format', () => {
     const state = defaultKroniskKravState();
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, ALLE_GAMLE_FELTER, 'feil'), state);
-    console.log('state', state);
-    console.log('feilmeldinger', feilmeldinger);
+
     expect(state.fnrError).toBe('feil');
     expect(state.orgnrError).toBe('feil');
     expect(state.bekreftError).toBe('feil');

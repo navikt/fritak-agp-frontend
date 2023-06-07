@@ -1,5 +1,5 @@
 .krav-periode-wrapper {
-border-radius: 0.125rem;
+    border-radius: 0.125rem;
     border: 1px solid #cdcecf;
     box-shadow: 5px 5px 5px 2px #f5f3f0;
     padding: 1rem;
@@ -8,6 +8,12 @@ border-radius: 0.125rem;
         margin: 0;
         padding-top: 0;
         padding-bottom: 1rem  ;
+    }
+
+    .krav-periode-header {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
     }
 }
 
