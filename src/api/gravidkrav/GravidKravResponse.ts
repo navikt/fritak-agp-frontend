@@ -1,4 +1,5 @@
 import KravPeriode from './KravPeriode';
+import KravPeriodeMedDelperiode from './KravPeriodeMedDelperiode';
 
 interface GravidKravResponse {
   id: string;
@@ -6,7 +7,7 @@ interface GravidKravResponse {
   sendtAv: string;
   virksomhetsnummer: string;
   identitetsnummer: string;
-  perioder: Array<KravPeriode>;
+  perioder: Array<KravPeriode | KravPeriodeMedDelperiode>;
   harVedlegg: boolean;
   antallDager: number | null;
   journalpostId: string;

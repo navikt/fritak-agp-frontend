@@ -1,0 +1,30 @@
+{
+  "id": "string",
+  "opprettet": "2023-05-05T12:30:33",
+  "virksomhetsnummer": "987564321",
+  "virksomhetsnavn": "Ampert Piggsvin barnehage",
+  "identitetsnummer": "10107400090",
+  "arbeidstyper": ["string[]"],
+  "paakjenningstyper": "string[]",
+  "paakjenningBeskrivelse?": "string",
+  "fravaer": [
+    {
+      "yearMonth": "2002-11",
+      "antallDagerMedFravaer": 5
+    },
+    {
+      "yearMonth": "2003-01",
+      "antallDagerMedFravaer": 7
+    },
+    {
+      "yearMonth": "2003-02",
+      "antallDagerMedFravaer": 8
+    }
+  ],
+  "navn": "Tinge Ling",
+  "sendtAv": "12345678901",
+  "sendtAvNavn": "Peter Pan",
+  "harVedlegg": false,
+  "journalpostId": "string",
+  "oppgaveId": "string"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "string",
+  "opprettet": "2022-12-12T14:59:59",
+  "sendtAv": "Anne Paa Landet",
+  "virksomhetsnummer": "987654321",
+  "identitetsnummer": "10107400090",
+  "perioder": [
+    {
+      "perioder": [
+        {
+          "fom": "2022-12-05",
+          "tom": "2022-12-15"
+        },
+        {
+          "fom": "2023-01-05",
+          "tom": "2023-01-15"
+        }
+      ],
+      "antallDagerMedRefusjon": 5,
+      "belop": 12345
+    },
+    {
+      "perioder": [
+        {
+          "fom": "2023-02-05",
+          "tom": "2023-02-15"
+        },
+        {
+          "fom": "2023-03-05",
+          "tom": "2023-03-15"
+        }
+      ],
+      "antallDagerMedRefusjon": 7,
+      "belop": 23456
+    }
+  ],
+  "harVedlegg": false,
+  "antallDager": 260,
+  "journalpostId": "string",
+  "oppgaveId": "string",
+  "virksomhetsnavn": "Ampert Piggsvin barnehage"
+}

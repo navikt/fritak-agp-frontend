@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React from 'react';
 import KravPeriode from '../../../../api/gravidkrav/KravPeriode';
+import KravPeriodeMedDelperiode from '../../../../api/gravidkrav/KravPeriodeMedDelperiode';
 import { BodyLong } from '@navikt/ds-react';
 
 const formaterDato = (dato: string) => {
@@ -8,25 +9,29 @@ const formaterDato = (dato: string) => {
 };
 
 interface VisNotifikasjonPerioderProps {
-  perioder: KravPeriode[];
+  perioder: Array<KravPeriode | KravPeriodeMedDelperiode>;
 }
 
 const VisNotifikasjonPerioder = ({ perioder }: VisNotifikasjonPerioderProps) => {
-  return (
-    <>
-      {perioder.length > 1 ? (
-        perioder.map((periode) => (
-          <BodyLong key={periode.fom}>
-            {formaterDato(periode.fom)} - {formaterDato(periode.tom)}.
-          </BodyLong>
-        ))
-      ) : (
-        <>
-          {formaterDato(perioder[0].fom)} - {formaterDato(perioder[0].tom)}.
-        </>
-      )}
-    </>
-  );
+  return perioder.map((periode) => {
+    if (isKravPeriodeMedDelperiode(periode)) {
+      return periode.perioder.map((delperiode) => (
+        <BodyLong key={delperiode.fom}>
+          {formaterDato(delperiode.fom)} - {formaterDato(delperiode.tom)}.
+        </BodyLong>
+      ));
+    } else {
+      return (
+        <BodyLong key={periode.fom}>
+          {formaterDato(periode.fom)} - {formaterDato(periode.tom)}.
+        </BodyLong>
+      );
+    }
+  });
 };
 
 export default VisNotifikasjonPerioder;
+
+function isKravPeriodeMedDelperiode(object: any): object is KravPeriodeMedDelperiode {
+  return 'perioder' in object;
+}
