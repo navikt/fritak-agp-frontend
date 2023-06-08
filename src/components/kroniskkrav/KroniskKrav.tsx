@@ -1,6 +1,5 @@
 import React, { Fragment, Reducer, useEffect, useReducer, useState } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
@@ -253,18 +252,17 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       {state.endringskrav && (
         <>
           <Panel>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
-              <Row>
-                <Column sm='4' xs='6'>
-                  <SelectEndring
-                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                      setEndringsAarsak(event.target.value as EndringsAarsak)
-                    }
-                    feil={state.endringsAarsakError}
-                  />
-                </Column>
-              </Row>
-            </SkjemaGruppe>
+            <Row>
+              <Column sm='4' xs='6'>
+                <SelectEndring
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                    setEndringsAarsak(event.target.value as EndringsAarsak)
+                  }
+                  feil={state.endringsAarsakError}
+                  errorID='endring'
+                />
+              </Column>
+            </Row>
           </Panel>
           <Skillelinje />
         </>
@@ -274,33 +272,33 @@ export const KroniskKrav = (props: KroniskKravProps) => {
         <Heading size='medium' level='2' className='textfelt-padding-bottom'>
           {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
         </Heading>
-        <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
-          <Row>
-            <Column sm='4' xs='6'>
-              <Fnr
-                id='fnr'
-                label={t(LangKey.FODSELSNUMMER_LABEL)}
-                fnr={state.fnr}
-                placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                feilmelding={state.fnrError}
-                onChange={(fnr: string) =>
-                  dispatch({
-                    type: Actions.Fnr,
-                    payload: { fnr: fnr }
-                  })
-                }
-              />
-            </Column>
-            <Column sm='8' xs='8'>
-              <KontrollSporsmaal
-                onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
-                id='kontrollsporsmaal-lonn-arbeidsdager'
-                feil={state.antallDagerError}
-                defaultValue={state.antallDager}
-              />
-            </Column>
-          </Row>
-        </SkjemaGruppe>
+
+        <Row>
+          <Column sm='4' xs='6'>
+            <Fnr
+              id='fnr'
+              label={t(LangKey.FODSELSNUMMER_LABEL)}
+              fnr={state.fnr}
+              placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+              feilmelding={state.fnrError}
+              onChange={(fnr: string) =>
+                dispatch({
+                  type: Actions.Fnr,
+                  payload: { fnr: fnr }
+                })
+              }
+              feilmeldingId='ansatt'
+            />
+          </Column>
+          <Column sm='8' xs='8'>
+            <KontrollSporsmaal
+              onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+              id='kontrollsporsmaal-lonn-arbeidsdager'
+              feil={state.antallDagerError}
+              defaultValue={state.antallDager}
+            />
+          </Column>
+        </Row>
       </Panel>
 
       <Skillelinje />
@@ -312,7 +310,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
         <TextLabel className='textfelt-padding-bottom'>
           <div className='label-med-hjelp'>{t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}</div>
         </TextLabel>
-        <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
+        <div aria-live='polite' id='arbeidsperiode' className='krav-kort-wrapper'>
           {state.perioder?.map((enkeltPeriode, index) => (
             <Fragment key={enkeltPeriode.uniqueKey}>
               <KravPeriode
@@ -338,7 +336,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
             )}
           </div>
-        </SkjemaGruppe>
+        </div>
       </Panel>
       <Skillelinje />
 
