@@ -1,6 +1,5 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -34,6 +33,7 @@ import {
   Button,
   Checkbox,
   CheckboxGroup,
+  Fieldset,
   Heading,
   Ingress,
   Panel,
@@ -192,62 +192,60 @@ const GravidSide = (props: GravidSideProps) => {
           <Skillelinje />
 
           <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
-            <SkjemaGruppe aria-live='polite'>
-              <Row>
-                <Column md='3' xs='12'>
-                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                    {t(LangKey.DEN_ANSATTE)}
-                  </Heading>
-                  <Fnr
-                    id='fnr'
-                    label={t(LangKey.FODSELSNUMMER_LABEL)}
-                    fnr={state.fnr}
-                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                    feilmelding={state.fnrError}
-                    onChange={(fnr: string) =>
-                      dispatch({
-                        type: Actions.Fnr,
-                        payload: { fnr: fnr }
-                      })
-                    }
-                  />
-                </Column>
-                <Column md='3' xs='12'>
-                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                    &nbsp;
-                  </Heading>
-                  <Datovelger
-                    id='termindato'
-                    label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
-                    error={state.termindatoError}
-                    defaultSelected={state.termindato}
-                    onDateChange={(termindato: Date | undefined) => {
-                      dispatch({
-                        type: Actions.Termindato,
-                        payload: { termindato }
-                      });
-                    }}
-                  />
-                </Column>
-                <Column md='3' xs='12'>
-                  <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                    {t(LangKey.ARBEIDSGIVEREN)}
-                  </Heading>
-                  <Orgnr
-                    label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
-                    orgnr={state.orgnr}
-                    placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
-                    feilmelding={state.orgnrError}
-                    onChange={(orgnr: string) =>
-                      dispatch({
-                        type: Actions.Orgnr,
-                        payload: { orgnr: orgnr }
-                      })
-                    }
-                  />
-                </Column>
-              </Row>
-            </SkjemaGruppe>
+            <Row>
+              <Column md='3' xs='12'>
+                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                  {t(LangKey.DEN_ANSATTE)}
+                </Heading>
+                <Fnr
+                  id='fnr'
+                  label={t(LangKey.FODSELSNUMMER_LABEL)}
+                  fnr={state.fnr}
+                  placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+                  feilmelding={state.fnrError}
+                  onChange={(fnr: string) =>
+                    dispatch({
+                      type: Actions.Fnr,
+                      payload: { fnr: fnr }
+                    })
+                  }
+                />
+              </Column>
+              <Column md='3' xs='12'>
+                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                  &nbsp;
+                </Heading>
+                <Datovelger
+                  id='termindato'
+                  label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
+                  error={state.termindatoError}
+                  defaultSelected={state.termindato}
+                  onDateChange={(termindato: Date | undefined) => {
+                    dispatch({
+                      type: Actions.Termindato,
+                      payload: { termindato }
+                    });
+                  }}
+                />
+              </Column>
+              <Column md='3' xs='12'>
+                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                  {t(LangKey.ARBEIDSGIVEREN)}
+                </Heading>
+                <Orgnr
+                  label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
+                  orgnr={state.orgnr}
+                  placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
+                  feilmelding={state.orgnrError}
+                  onChange={(orgnr: string) =>
+                    dispatch({
+                      type: Actions.Orgnr,
+                      payload: { orgnr: orgnr }
+                    })
+                  }
+                />
+              </Column>
+            </Row>
           </Panel>
 
           <Skillelinje />
@@ -405,10 +403,12 @@ const GravidSide = (props: GravidSideProps) => {
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                   {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
                 </Heading>
-                <SkjemaGruppe
-                  feil={state.dokumentasjonError}
-                  feilmeldingId='dokumentasjonFeilmeldingId'
+                <Fieldset
+                  error={state.dokumentasjonError}
+                  errorId='dokumentasjonFeilmeldingId'
                   aria-live='polite'
+                  legend='Innsending av dokumentasjon'
+                  hideLegend={true}
                 >
                   <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
                   <Upload
@@ -420,7 +420,7 @@ const GravidSide = (props: GravidSideProps) => {
                     onChange={handleUploadChanged}
                     onDelete={handleDelete}
                   />
-                </SkjemaGruppe>
+                </Fieldset>
               </Panel>
 
               <Skillelinje />

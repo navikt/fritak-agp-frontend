@@ -9,6 +9,7 @@ interface FnrProps {
   feilmelding?: string;
   placeholder: string;
   className?: string;
+  feilmeldingId?: string;
   onChange: (fnr: string) => void;
 }
 
@@ -23,6 +24,7 @@ const Fnr = (props: FnrProps) => {
       label={props.label}
       onChange={(evt) => props.onChange(evt.target.value)}
       error={props.feilmelding}
+      errorId={props.feilmeldingId}
     />
   );
 };

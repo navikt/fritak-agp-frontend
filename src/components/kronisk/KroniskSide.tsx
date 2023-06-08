@@ -1,6 +1,5 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -20,7 +19,7 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BodyLong, Button, Checkbox, Heading, Ingress, Panel, TextField } from '@navikt/ds-react';
+import { BodyLong, Button, Checkbox, Fieldset, Heading, Ingress, Panel, TextField } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -129,7 +128,7 @@ const KroniskSide = () => {
       <Skillelinje />
 
       <Panel id='kroniskside-panel-ansatte'>
-        <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
+        <div aria-live='polite' id='ansatt'>
           <Row>
             <Column sm='4' xs='6'>
               <Heading size='medium' level='2' className='textfelt-padding-bottom'>
@@ -162,7 +161,7 @@ const KroniskSide = () => {
               />
             </Column>
           </Row>
-        </SkjemaGruppe>
+        </div>
       </Panel>
 
       <Skillelinje />
@@ -171,7 +170,13 @@ const KroniskSide = () => {
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
         </Heading>
-        <SkjemaGruppe feil={state.dokumentasjonError} feilmeldingId='dokumentasjon' aria-live='polite'>
+        <Fieldset
+          error={state.dokumentasjonError}
+          errorId='dokumentasjon'
+          aria-live='polite'
+          legend={t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
+          hideLegend={true}
+        >
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
           <Upload
             className='knapp-innsending-top'
@@ -182,7 +187,7 @@ const KroniskSide = () => {
             fileSize={5000000}
             onDelete={handleDelete}
           />
-        </SkjemaGruppe>
+        </Fieldset>
       </Panel>
 
       <Skillelinje />
@@ -191,7 +196,13 @@ const KroniskSide = () => {
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
         </Heading>
-        <SkjemaGruppe feil={state.fravaerError} feilmeldingId='fravaertabell' aria-live='polite'>
+        <Fieldset
+          error={state.fravaerError}
+          errorId='fravaertabell'
+          aria-live='polite'
+          legend={t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
+          hideLegend={true}
+        >
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />
 
           <FravaerTabell
@@ -210,7 +221,7 @@ const KroniskSide = () => {
               });
             }}
           />
-        </SkjemaGruppe>
+        </Fieldset>
       </Panel>
       <Panel>
         <TextField
