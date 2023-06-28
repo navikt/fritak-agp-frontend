@@ -362,7 +362,7 @@ const Locales: Record<
     en: 'Period of absence'
   },
   GRAVID_KRAV_ARBEIDSTID_PERIODE: {
-    nb: 'Angi de dager i arbeidsgiverperioden som den ansatte var borte',
+    nb: 'Hvilken periode var den ansatte borte?',
     en: 'What period was the employee away? '
   },
   GRAVID_KRAV_ARBEIDSTID_HJELPETEKST: {
@@ -1047,7 +1047,7 @@ const Locales: Record<
     en: 'Employee'
   },
   KRONISK_KRAV_PERIOD_AWAY: {
-    nb: 'Angi de dager i arbeidsgiverperioden som den ansatte var borte',
+    nb: 'Hvilken periode var den ansatte borte?',
     en: 'What time was the employee not working?'
   },
   KRONISK_KRAV_ADD_PERIOD: {

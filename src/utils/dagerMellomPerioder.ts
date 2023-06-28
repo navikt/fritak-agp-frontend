@@ -10,12 +10,14 @@ export default function dagerMellomPerioder(
   if (perioder) {
     perioder.forEach((arbeidsgiverperiode) => {
       const aper = finnPerioder(arbeidsgiverperiode);
+
       if (!periodeMinMax) periodeMinMax = [aper];
       else periodeMinMax.push(aper);
     });
   }
 
   const avstanderMellomPerioder: Array<number> = avstandIDager(periodeMinMax);
+
   avstanderMellomPerioder.shift();
 
   return avstanderMellomPerioder;
@@ -24,6 +26,7 @@ export default function dagerMellomPerioder(
 function finnPerioder(arbeidsgiverperiode: GravidKravPeriode | KroniskKravPeriode) {
   return arbeidsgiverperiode.perioder.reduce((acc, current) => {
     const periode: Delperiode = structuredClone(current);
+
     if (periode.fom && acc.fom && periode.tom && acc.tom) {
       if (periode.fom > acc.fom) {
         periode.fom = acc.fom;
@@ -38,7 +41,7 @@ function finnPerioder(arbeidsgiverperiode: GravidKravPeriode | KroniskKravPeriod
   });
 }
 
-function avstandIDager(periodeMinMax: Array<Delperiode>): number[] {
+function avstandIDager(periodeMinMax: any): number[] {
   if (!periodeMinMax) {
     return [];
   }
@@ -47,7 +50,7 @@ function avstandIDager(periodeMinMax: Array<Delperiode>): number[] {
     if (index === 0) {
       return 0;
     } else {
-      if (periode.fom && periodeMinMax[index - 1].tom) {
+      if (periode.fom?.year && periodeMinMax[index - 1].tom?.year) {
         const dager = dayjs(periode.fom).diff(periodeMinMax[index - 1].tom, 'd');
 
         if (dager < 0) return dayjs(periodeMinMax[index - 1].fom).diff(periode.tom, 'd');

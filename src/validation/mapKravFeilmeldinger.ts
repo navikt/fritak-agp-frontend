@@ -23,6 +23,8 @@ const mapKravFeilmeldinger = <Type>(response: ValidationResponse<Type>, state: K
       return;
     }
 
+    console.log('propertyPathParts', propertyPathParts);
+
     const [propertyPath, pathIndexString, subPath, ...resten] = propertyPathParts;
 
     const pathIndex = stringishToNumber(pathIndexString);
@@ -84,6 +86,8 @@ const mapPeriodeFeilmeldinger = (
   feilmeldinger: FeiloppsummeringFeil[],
   resten: Array<string>
 ) => {
+  console.log('subPath', subPath);
+  console.log('resten', resten);
   switch (subPath) {
     case 'antallDagerMedRefusjon':
       if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {

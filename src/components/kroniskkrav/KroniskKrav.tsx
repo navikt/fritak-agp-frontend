@@ -31,7 +31,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, ErrorMessage, Heading, Ingress, Panel } from '@navikt/ds-react';
+import { Button, ErrorMessage, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -310,7 +310,12 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
         </Heading>
         <TextLabel className='textfelt-padding-bottom'>
-          <div className='label-med-hjelp'>{t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}</div>
+          <div className='label-med-hjelp'>
+            {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
+            <HelpText className='krav-padding-hjelpetekst'>
+              <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+            </HelpText>
+          </div>
         </TextLabel>
         <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
           {state.perioder?.map((enkeltPeriode, index) => (
