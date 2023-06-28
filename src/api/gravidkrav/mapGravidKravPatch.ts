@@ -1,5 +1,5 @@
 import { GravidKravRequest } from './GravidKravRequest';
-import { GravidKravPeriode } from '../../components/gravidkrav/GravidKravState';
+import { Periode } from '../../components/gravidkrav/GravidKravState';
 import { mapGravidKravRequest } from './mapGravidKravRequest';
 import EndringsAarsak from '../../components/gravidkrav/EndringsAarsak';
 
@@ -10,7 +10,7 @@ export interface GravidKravPatch extends GravidKravRequest {
 export const mapGravidKravPatch = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  perioder: Array<GravidKravPeriode> | undefined,
+  perioder: Array<Periode> | undefined,
   bekreft: boolean | undefined,
   antallDager: number | undefined,
   aarsakEndring: EndringsAarsak

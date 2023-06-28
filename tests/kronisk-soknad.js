@@ -19,6 +19,11 @@ const headereJson = {
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
 };
 
+const headereJsonUnauthorized = {
+  'content-type': 'application/json; charset=UTF-8',
+  'access-control-allow-origin': '*'
+};
+
 const headereText = Object.apply({}, headereJson);
 
 headereText['content-type'] = 'text/html; charset=UTF-8';
@@ -58,7 +63,6 @@ fixture`Kronisk - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/sokn
     await waitForReact();
   });
 
-// eslint-disable-next-line jest/expect-expect
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
     .click(Selector('button').withText('Send søknad'))

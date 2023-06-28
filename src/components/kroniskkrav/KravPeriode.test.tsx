@@ -10,12 +10,12 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import Language from '../../locale/Language';
 
-const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked', perioder: [{ uniqueKey: 'mocked2' }] };
+const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
 // eslint-disable-next-line react/display-name
-// jest.doMock('../datovelger/Datovelger', () => () => {
-//   return <div>Datovelger</div>;
-// });
+jest.doMock('../datovelger/Datovelger', () => () => {
+  return <div>Datovelger</div>;
+});
 
 describe('KravPeriode', () => {
   languageInit(i18next, Language.nb, Locales);
@@ -26,7 +26,6 @@ describe('KravPeriode', () => {
 
   it('should show first row', async () => {
     const mockDispatch = jest.fn();
-    // jest.unmock('../datovelger/Datovelger');
 
     render(
       <KravPeriode
@@ -36,7 +35,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={false}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -58,7 +56,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
@@ -80,7 +77,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -102,7 +98,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -130,7 +125,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -153,7 +147,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -175,7 +168,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={false}
         Actions={Actions}
-        id='id'
       />
     );
     const results = await axe(container);
@@ -196,7 +188,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
     const results = await axe(container);

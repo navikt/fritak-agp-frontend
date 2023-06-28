@@ -10,6 +10,7 @@ import { Omplassering } from './Omplassering';
 
 import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
+import { Dato } from '../../utils/dato/Dato';
 
 jest.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -250,7 +251,12 @@ describe('GravidSide', () => {
   it('skal beholde feltverdier ved valideringsfeil fra backend', async () => {
     const state = defaultGravidState();
 
-    const termindato = new Date(2021, 4, 1);
+    const termindato: Dato = {
+      day: 1,
+      month: 5,
+      year: 2021,
+      value: '01.05.2021'
+    };
 
     state.orgnr = testOrgnr.GyldigeOrgnr.TestOrg1;
     state.fnr = testFnr.GyldigeFraDolly.TestPerson1;

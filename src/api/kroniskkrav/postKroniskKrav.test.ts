@@ -12,12 +12,8 @@ describe('postKroniskKrav', () => {
     virksomhetsnummer: 'string',
     perioder: [
       {
-        perioder: [
-          {
-            fom: 'string',
-            tom: 'string'
-          }
-        ],
+        fom: 'string',
+        tom: 'string',
         antallDagerMedRefusjon: 5,
         månedsinntekt: 1234,
         gradering: 1

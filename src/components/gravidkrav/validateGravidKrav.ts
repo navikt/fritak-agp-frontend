@@ -1,4 +1,4 @@
-import GravidKravState, { GravidKravPeriode } from './GravidKravState';
+import GravidKravState, { Periode } from './GravidKravState';
 
 import validateDager from '../../validation/validateDager';
 import { i18n } from 'i18next';
@@ -15,8 +15,6 @@ import validateFra from '../../validation/validateFra';
 import validateTil from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
-import antallDagerIArbeidsgiverperiode from '../../utils/antallDagerIArbeidsgiverperiode';
-import dagerMellomPerioder from '../../utils/dagerMellomPerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;
@@ -26,7 +24,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     return state;
   }
   const nextState = Object.assign({}, state);
-  const feilmeldinger: Array<FeiloppsummeringFeil> = [];
+  const feilmeldinger = new Array<FeiloppsummeringFeil>();
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   if (nextState.fnrError) {
     pushFeilmelding('ansatteFeilmeldingId', nextState.fnrError, feilmeldinger);
@@ -57,69 +55,27 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
   }
 
-  state.perioder?.forEach((arbeidsgiverperiode, index) => {
+  state.perioder?.forEach((periode, index) => {
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
 
-    arbeidsgiverperiode.perioder.forEach((delperioder) => {
-      const valideringFraStatus = validateFra(
-        delperioder.fom,
-        MIN_DATE,
-        !!state.validated,
-        state.fraValidering[delperioder.uniqueKey]
-      );
-      const fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
-      delperioder.fomError = fomError;
+    const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
+    const fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
+    periode.fomError = fomError;
 
-      const valideringTilStatus = validateTil(
-        delperioder.fom,
-        delperioder.tom,
-        MIN_DATE,
-        !!state.validated,
-        state.tilValidering[delperioder.uniqueKey] ?? undefined
-      );
-      const tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
-      delperioder.tomError = tomError;
-    });
+    const valideringTilStatus = validateTil(periode.fom, periode.tom, MIN_DATE, !!state.validated);
+    const tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
+    periode.tomError = tomError;
 
-    arbeidsgiverperiode.dagerError = formatValidation(
-      validateDager(arbeidsgiverperiode.dager, !!state.validated),
-      translate
-    );
-    arbeidsgiverperiode.belopError = formatValidation(
-      validateBeloep('' + arbeidsgiverperiode.belop, MAX, !!nextState.validated),
+    periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
+    periode.belopError = formatValidation(validateBeloep('' + periode.belop, MAX, !!nextState.validated), translate);
+
+    periode.sykemeldingsgradError = formatValidation(
+      validateSykemeldingsgrad(periode.sykemeldingsgrad, !!state.validated),
       translate
     );
 
-    arbeidsgiverperiode.sykemeldingsgradError = formatValidation(
-      validateSykemeldingsgrad(arbeidsgiverperiode.sykemeldingsgrad, !!state.validated),
-      translate
-    );
-
-    const antallDager = antallDagerIArbeidsgiverperiode(arbeidsgiverperiode.perioder);
-    if (antallDager > 16) {
-      pushFeilmelding(
-        'arbeidsgiverperiode-' + index,
-        'Arbeidsgiverperioden kan maksimalt være 16 dager.',
-        feilmeldinger
-      );
-    }
-
-    fyllPeriodeFeilmeldingsboks(arbeidsgiverperiode, index, feilmeldinger);
+    fyllPeriodeFeilmeldingsboks(periode, index, feilmeldinger);
   });
-
-  const mellomDager = dagerMellomPerioder(state.perioder);
-
-  if (mellomDager) {
-    mellomDager.forEach((dager, index) => {
-      if (dager < 16) {
-        pushFeilmelding(
-          'arbeidsgiverperiode-' + index,
-          'Det må være minst 16 dager mellom arbeidsgiverperiodene.',
-          feilmeldinger
-        );
-      }
-    });
-  }
 
   nextState.bekreftError = formatValidation(validateBekreft(state.bekreft, state.validated), translate);
   if (nextState.bekreftError) {
@@ -131,20 +87,14 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   return nextState;
 };
 
-const fyllPeriodeFeilmeldingsboks = (
-  periode: GravidKravPeriode,
-  index: number,
-  feilmeldinger: FeiloppsummeringFeil[]
-) => {
-  periode.perioder.forEach((delperiode) => {
-    if (delperiode.fomError) {
-      pushFeilmelding(`fra-dato-${index}`, delperiode.fomError, feilmeldinger);
-    }
+const fyllPeriodeFeilmeldingsboks = (periode: Periode, index: number, feilmeldinger: FeiloppsummeringFeil[]) => {
+  if (periode.fomError) {
+    pushFeilmelding(`fra-dato-${index}`, periode.fomError, feilmeldinger);
+  }
 
-    if (delperiode.tomError) {
-      pushFeilmelding(`til-dato-${index}`, delperiode.tomError, feilmeldinger);
-    }
-  });
+  if (periode.tomError) {
+    pushFeilmelding(`til-dato-${index}`, periode.tomError, feilmeldinger);
+  }
 
   if (periode.dagerError) {
     pushFeilmelding(`dager-${index}`, periode.dagerError, feilmeldinger);

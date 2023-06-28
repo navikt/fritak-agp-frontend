@@ -668,10 +668,6 @@ const Locales: Record<
     nb: 'Til dato',
     en: 'To date'
   },
-  KRONISK_KRAV_PERIODE_LEGG_TIL: {
-    nb: '+ Legg til periode',
-    en: '+ Legg til periode'
-  },
   KRONISK_KRAV_PERIODE_DAGER_LABEL: {
     nb: 'Antall dager',
     en: 'Number of days'

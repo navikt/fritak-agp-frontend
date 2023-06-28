@@ -6,18 +6,14 @@ export interface KravRad {
   kravtype: string;
 }
 
-interface Arbeidsgiverperiode {
-  perioder: Array<Periode>;
+interface Periode {
+  fom: string;
+  tom: string;
   antallDagerMedRefusjon: number;
   månedsinntekt: number;
   gradering: number;
   dagsats: number;
   belop: number;
-}
-
-interface Periode {
-  fom: string;
-  tom: string;
 }
 
 interface Krav {
@@ -27,7 +23,7 @@ interface Krav {
   virksomhetsnummer: string;
   identitetsnummer: string;
   navn: string;
-  perioder: Array<Arbeidsgiverperiode>;
+  perioder: Periode[];
   kontrollDager: number | null;
   antallDager: number;
   journalpostId: string;

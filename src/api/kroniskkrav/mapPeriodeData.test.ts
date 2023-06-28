@@ -1,33 +1,23 @@
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
+import { parseDato } from '../../utils/dato/Dato';
 import mapPeriodeData, { beregnSykemeldingGradering } from './mapPeriodeData';
-import parseDato from '../../utils/parseDato';
 
 describe('mapPeriodeData', () => {
   it('should map the data', () => {
     const perioder: KroniskKravPeriode[] = [
       {
-        perioder: [
-          {
-            fom: parseDato('01.02.2020'),
-            fomError: 'error',
-            tom: parseDato('03.04.2025'),
-            tomError: 'error',
-            uniqueKey: '77-777-p'
-          }
-        ],
+        fom: parseDato('01.02.2020'),
+        fomError: 'error',
+        tom: parseDato('03.04.2025'),
+        tomError: 'error',
         dager: 5,
         dagerError: 'error',
         belop: 3000,
         uniqueKey: '77-777'
       },
       {
-        perioder: [
-          {
-            fom: parseDato('23.02.2020'),
-            tom: parseDato('24.04.2025'),
-            uniqueKey: '77-778-p'
-          }
-        ],
+        fom: parseDato('23.02.2020'),
+        tom: parseDato('24.04.2025'),
         dager: 7,
         sykemeldingsgrad: '50',
         belop: 3500,
@@ -36,23 +26,15 @@ describe('mapPeriodeData', () => {
     ];
     expect(mapPeriodeData(perioder)).toEqual([
       {
-        perioder: [
-          {
-            fom: '2020-02-01',
-            tom: '2025-04-03'
-          }
-        ],
+        fom: '2020-02-01',
+        tom: '2025-04-03',
         gradering: 1,
         antallDagerMedRefusjon: 5,
         månedsinntekt: 3000
       },
       {
-        perioder: [
-          {
-            fom: '2020-02-23',
-            tom: '2025-04-24'
-          }
-        ],
+        fom: '2020-02-23',
+        tom: '2025-04-24',
         gradering: 0.5,
         antallDagerMedRefusjon: 7,
         månedsinntekt: 3500
@@ -63,28 +45,18 @@ describe('mapPeriodeData', () => {
   it('should map the data even when data is undefined', () => {
     const perioder: KroniskKravPeriode[] = [
       {
-        perioder: [
-          {
-            uniqueKey: '77-777-p',
-            fom: parseDato('01.02.2020'),
-            fomError: 'error',
-            tom: parseDato('03.04.2025'),
-            tomError: 'error'
-          }
-        ],
+        fom: parseDato('01.02.2020'),
+        fomError: 'error',
+        tom: parseDato('03.04.2025'),
+        tomError: 'error',
         dager: 5,
         dagerError: 'error',
         belop: 3000,
         uniqueKey: '77-777'
       },
       {
-        perioder: [
-          {
-            uniqueKey: '77-778-p',
-            fom: parseDato('23.02.2020'),
-            tom: parseDato('24.04.2025')
-          }
-        ],
+        fom: parseDato('23.02.2020'),
+        tom: parseDato('24.04.2025'),
         dager: undefined,
         belop: undefined,
         uniqueKey: '77-778'
@@ -92,23 +64,15 @@ describe('mapPeriodeData', () => {
     ];
     expect(mapPeriodeData(perioder)).toEqual([
       {
-        perioder: [
-          {
-            fom: '2020-02-01',
-            tom: '2025-04-03'
-          }
-        ],
+        fom: '2020-02-01',
+        tom: '2025-04-03',
         gradering: 1,
         antallDagerMedRefusjon: 5,
         månedsinntekt: 3000
       },
       {
-        perioder: [
-          {
-            fom: '2020-02-23',
-            tom: '2025-04-24'
-          }
-        ],
+        fom: '2020-02-23',
+        tom: '2025-04-24',
         gradering: 1,
         antallDagerMedRefusjon: 0,
         månedsinntekt: 0

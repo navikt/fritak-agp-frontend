@@ -2,16 +2,13 @@ import ValidationResponse from '../../state/validation/ValidationResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { KroniskKrav } from '../../context/krav';
 import IEndringsAarsak from '../gravidkrav/EndringsAarsak';
-import { DateValidationT } from '@navikt/ds-react';
 
 export enum Actions {
   Reset,
   Fnr,
   Orgnr,
   Fra,
-  FraValidering,
   Til,
-  TilValidering,
   Dager,
   Beloep,
   Dokumentasjon,
@@ -33,9 +30,7 @@ export enum Actions {
   ShowSpinner,
   HideSpinner,
   HideServerError,
-  SetFormClean,
-  AddDelperiode,
-  SlettDelperiode
+  SetFormClean
 }
 
 export interface Payload {
@@ -43,7 +38,6 @@ export interface Payload {
   orgnr?: string;
   fra?: Date;
   til?: Date;
-  validering?: DateValidationT;
   dager?: number;
   belop?: number;
   videre?: boolean;

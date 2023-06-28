@@ -1,8 +1,8 @@
 import { ValidationState } from '../../state/validation/ValidationState';
+import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
 import EndringsAarsak from '../gravidkrav/EndringsAarsak';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
-import { DateValidationT } from '@navikt/ds-react';
 
 export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravState => {
   return Object.assign(
@@ -10,23 +10,16 @@ export const defaultKroniskKravState = (state?: KroniskKravState): KroniskKravSt
       fnr: '',
       perioder: [
         {
-          uniqueKey: uuid(),
-          perioder: [
-            {
-              uniqueKey: uuid()
-            }
-          ]
+          uniqueKey: uuid()
         }
       ],
       bekreft: false,
       feilmeldinger: Array<FeiloppsummeringFeil>(),
       formDirty: false,
       showSpinner: false,
-      endringskrav: false,
-      tilValidering: {},
-      fraValidering: {}
+      endringskrav: false
     },
-    state ?? {}
+    state || {}
   );
 };
 
@@ -35,7 +28,7 @@ export default interface KroniskKravState extends ValidationState {
   fnrError?: string;
   orgnr?: string;
   orgnrError?: string;
-  perioder: Array<KroniskKravPeriode>;
+  perioder?: Array<KroniskKravPeriode>;
   periodeError?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
   validated?: boolean;
@@ -55,11 +48,13 @@ export default interface KroniskKravState extends ValidationState {
   endringsAarsakError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
-  tilValidering: { [key: string]: DateValidationT | undefined };
-  fraValidering: { [key: string]: DateValidationT | undefined };
 }
 
 export interface KroniskKravPeriode {
+  fom?: Dato;
+  fomError?: string;
+  tom?: Dato;
+  tomError?: string;
   dager?: number;
   dagerError?: string;
   belop?: number;
@@ -69,13 +64,4 @@ export interface KroniskKravPeriode {
   sykemeldingsgrad?: string;
   sykemeldingsgradError?: string;
   gradering?: number;
-  perioder: Array<Delperiode>;
-}
-
-export interface Delperiode {
-  uniqueKey: string;
-  fom?: Date;
-  fomError?: string;
-  tom?: Date;
-  tomError?: string;
 }

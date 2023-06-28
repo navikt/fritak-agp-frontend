@@ -5,7 +5,7 @@ import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import { i18n } from 'i18next';
-import parseDato from '../../utils/parseDato';
+import { parseDato } from '../../utils/dato/Dato';
 
 const translationMock = {
   t: (param: any) => param

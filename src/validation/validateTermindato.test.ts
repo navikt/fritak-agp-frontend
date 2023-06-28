@@ -1,4 +1,4 @@
-import parseDato from '../utils/parseDato';
+import { parseDato } from '../utils/dato/Dato';
 import { validateTermindato } from './validateTermindato';
 
 describe('validateTermindato', () => {
@@ -23,8 +23,6 @@ describe('validateTermindato', () => {
   });
 
   it('should show error when illegal dato', () => {
-    expect(validateTermindato(parseDato('99.99.2020'), true, 'Termindato må fylles ut')).toBe(
-      'Termindato må fylles ut'
-    );
+    expect(validateTermindato(parseDato('99.99.2020'), true, 'Termindato må fylles ut')).toBe('Ugyldig dato');
   });
 });

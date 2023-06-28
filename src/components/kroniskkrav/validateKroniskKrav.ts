@@ -15,8 +15,6 @@ import validateBekreft from '../../validation/validateBekreft';
 import validateOrgnr from '../../validation/validateOrgnr';
 import validateFnr from '../../validation/validateFnr';
 import textify from '../../utils/textify';
-import antallDagerIArbeidsgiverperiode from '../../utils/antallDagerIArbeidsgiverperiode';
-import dagerMellomPerioder from '../../utils/dagerMellomPerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_KRONISK_DATO;
@@ -26,7 +24,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     return state;
   }
   const nextState = Object.assign({}, state);
-  const feilmeldinger: Array<FeiloppsummeringFeil> = [];
+  const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   validateFodselsnummer(nextState, state, translate, feilmeldinger);
 
@@ -36,88 +34,49 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
 
   validateEndringsAarsak(nextState, feilmeldinger);
 
-  nextState.perioder?.forEach((arbeidsgiverperiode) => {
-    arbeidsgiverperiode.perioder.forEach((aktuellPeriode) => {
-      const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
-      const valideringFraStatus = validateFra(
-        aktuellPeriode.fom,
-        MIN_DATE,
-        !!state.validated,
-        state.fraValidering[aktuellPeriode.uniqueKey] ?? undefined
-      );
+  nextState.perioder?.forEach((aktuellPeriode) => {
+    const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
+    const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
 
-      aktuellPeriode.fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
+    aktuellPeriode.fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
 
-      const valideringTilStatus = validateTil(
-        aktuellPeriode.fom,
-        aktuellPeriode.tom,
-        MIN_DATE,
-        !!state.validated,
-        state.tilValidering[aktuellPeriode.uniqueKey]
-      );
+    const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
 
-      aktuellPeriode.tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
-    });
-    arbeidsgiverperiode.sykemeldingsgradError = formatValidation(
-      validateSykemeldingsgrad(arbeidsgiverperiode.sykemeldingsgrad, !!state.validated),
+    aktuellPeriode.sykemeldingsgradError = formatValidation(
+      validateSykemeldingsgrad(aktuellPeriode.sykemeldingsgrad, !!state.validated),
       translate
     );
-    arbeidsgiverperiode.dagerError = formatValidation(
-      validateDager(arbeidsgiverperiode.dager, !!state.validated),
-      translate
-    );
-    arbeidsgiverperiode.belopError = formatValidation(
-      validateBeloep(stringOrUndefined(arbeidsgiverperiode.belop), MAX, !!state.validated),
+
+    aktuellPeriode.tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
+
+    aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
+    aktuellPeriode.belopError = formatValidation(
+      validateBeloep(stringOrUndefined(aktuellPeriode.belop), MAX, !!state.validated),
       translate
     );
   });
 
-  nextState.perioder?.forEach((arbeidsgiverperiode, apindex) => {
-    arbeidsgiverperiode.perioder.forEach((aktuellPeriode, index) => {
-      if (aktuellPeriode.fomError) {
-        pushFeilmelding(`fra-dato-${apindex}-${index}`, aktuellPeriode.fomError, feilmeldinger);
-      }
-
-      if (aktuellPeriode.tomError) {
-        pushFeilmelding(`til-dato-${apindex}-${index}`, aktuellPeriode.tomError, feilmeldinger);
-      }
-    });
-
-    if (arbeidsgiverperiode.dagerError) {
-      pushFeilmelding(`dager-${apindex}`, arbeidsgiverperiode.dagerError, feilmeldinger);
+  nextState.perioder?.forEach((aktuellPeriode, index) => {
+    if (aktuellPeriode.fomError) {
+      pushFeilmelding(`fra-dato-${index}`, aktuellPeriode.fomError, feilmeldinger);
     }
 
-    if (arbeidsgiverperiode.belopError) {
-      pushFeilmelding(`belop-${apindex}`, arbeidsgiverperiode.belopError, feilmeldinger);
+    if (aktuellPeriode.tomError) {
+      pushFeilmelding(`til-dato-${index}`, aktuellPeriode.tomError, feilmeldinger);
     }
 
-    if (arbeidsgiverperiode.sykemeldingsgradError) {
-      pushFeilmelding(`sykemeldingsgrad-${apindex}`, arbeidsgiverperiode.sykemeldingsgradError, feilmeldinger);
+    if (aktuellPeriode.dagerError) {
+      pushFeilmelding(`dager-${index}`, aktuellPeriode.dagerError, feilmeldinger);
     }
 
-    const antallDager = antallDagerIArbeidsgiverperiode(arbeidsgiverperiode.perioder);
-    if (antallDager > 16) {
-      pushFeilmelding(
-        'arbeidsgiverperiode-' + apindex,
-        'Arbeidsgiverperioden kan maksimalt være 16 dager.',
-        feilmeldinger
-      );
+    if (aktuellPeriode.belopError) {
+      pushFeilmelding(`belop-${index}`, aktuellPeriode.belopError, feilmeldinger);
+    }
+
+    if (aktuellPeriode.sykemeldingsgradError) {
+      pushFeilmelding(`sykemeldingsgrad-${index}`, aktuellPeriode.sykemeldingsgradError, feilmeldinger);
     }
   });
-
-  const mellomDager = dagerMellomPerioder(state.perioder);
-
-  if (mellomDager) {
-    mellomDager.forEach((dager, index) => {
-      if (dager < 16) {
-        pushFeilmelding(
-          'arbeidsgiverperiode-' + index,
-          'Det må være minst 16 dager mellom arbeidsgiverperiodene.',
-          feilmeldinger
-        );
-      }
-    });
-  }
 
   validateBekreftelse(nextState, state, translate, feilmeldinger);
 

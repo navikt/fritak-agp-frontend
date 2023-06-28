@@ -8,8 +8,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:jsx-a11y/recommended",
-        "plugin:jest/recommended",
-        "plugin:testcafe/recommended"
+        "plugin:jest/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -32,6 +31,7 @@
         "typescript"
     ],
     "rules": {
+        "no-console": "error",
         "max-len": [
             "error", 160, {
                 "ignoreUrls": true,

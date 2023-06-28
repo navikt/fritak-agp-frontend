@@ -25,8 +25,7 @@ export const validateGravid = (state: GravidState, translate: i18n): GravidState
   nextState.termindatoError = validateTermindato(
     state.termindato,
     state.validated,
-    translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TERMINDATO),
-    state.termindatoValidering
+    translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_TERMINDATO)
   );
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
   const bekreftError = translate.t(GravidSideKeys.GRAVID_VALIDERING_MANGLER_BEKREFT);

@@ -1,4 +1,4 @@
-import parseDato from '../utils/parseDato';
+import { parseDato } from '../utils/dato/Dato';
 import validateTil from './validateTil';
 
 describe('validateTil', () => {
@@ -10,7 +10,7 @@ describe('validateTil', () => {
   });
 
   it('should show errors when errors in dates', () => {
-    expect(validateTil(parseDato('aa.02.2021'), parseDato('03.04.2021'), minDate, true)).toBeUndefined();
+    expect(validateTil(parseDato('aa.02.2021'), parseDato('03.04.2021'), minDate, true)).not.toBeUndefined();
     expect(validateTil(parseDato('01.02.2021'), parseDato('aa.04.2021'), minDate, true)).not.toBeUndefined();
   });
 

@@ -1,5 +1,5 @@
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
-import formatISO from '../../utils/formatISO';
+import { datoToString } from '../../utils/dato/Dato';
 import { getNumericPart } from '../../validation/validateSykemeldingsgrad';
 import { Arbeidsgiverperiode } from './KroniskKravRequest';
 
@@ -16,10 +16,8 @@ export const beregnSykemeldingGradering = (sykemeldingsgrad: string | undefined)
 
 const mapPeriodeData = (perioder: KroniskKravPeriode[]): Array<Arbeidsgiverperiode> => {
   return perioder.map((enkeltPeriode) => ({
-    perioder: enkeltPeriode.perioder.map((delPeriode) => ({
-      fom: formatISO(delPeriode.fom) || '',
-      tom: formatISO(delPeriode.tom) || ''
-    })),
+    fom: datoToString(enkeltPeriode.fom),
+    tom: datoToString(enkeltPeriode.tom),
     antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
     månedsinntekt: enkeltPeriode.belop ?? 0,
     gradering: beregnSykemeldingGradering(enkeltPeriode.sykemeldingsgrad)
