@@ -9,7 +9,6 @@ import { BodyLong, Heading, Panel, Link as NLink } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
 import Language from '../../locale/Language';
-import env from '../../config/environment';
 
 interface KravKvitteringSlettetProps {
   backTarget: lenker;
@@ -38,7 +37,7 @@ const KravKvitteringSlettet = (props: KravKvitteringSlettetProps) => {
             <Link to={backTarget}>{t(KravKvitteringSlettetKeys.KRAV_KVITTERING_SLETTET_OPPRETT_NYTT_KRAV)}</Link>
           </BodyLong>
           <BodyLong>
-            <NLink href={env.minSideArbeidsgiver}>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</NLink>
+            <NLink href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</NLink>
           </BodyLong>
         </Panel>
       </Row>
