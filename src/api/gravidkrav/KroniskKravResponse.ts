@@ -1,5 +1,4 @@
 import KravPeriode from './KravPeriode';
-import KravPeriodeMedDelperiode from './KravPeriodeMedDelperiode';
 
 interface KroniskKravResponse {
   id: string;
@@ -7,7 +6,7 @@ interface KroniskKravResponse {
   sendtAv: string;
   virksomhetsnummer: string;
   identitetsnummer: string;
-  perioder: Array<KravPeriode | KravPeriodeMedDelperiode>;
+  perioder: Array<KravPeriode>;
   harVedlegg: boolean;
   antallDager: number | null;
   journalpostId: string;

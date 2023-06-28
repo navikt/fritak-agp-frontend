@@ -41,19 +41,11 @@ app.post('/fritak-agp/api/v1/kronisk/soeknad', function (req, res) {
 });
 
 app.get('/fritak-agp/api/v1/gravid/krav/*', function (req, res) {
-  res.sendFile('gravid-krav-notifikasjon.json', options);
+  res.sendFile('notifikasjon.json', options);
 });
 
 app.get('/fritak-agp/api/v1/kronisk/krav/*', function (req, res) {
-  res.sendFile('gravid-krav-notifikasjon-gammel.json', options);
-});
-
-app.get('/fritak-agp/api/v1/gravid/soeknad/*', function (req, res) {
-  res.sendFile('gravid-soeknad-notifikasjon.json', options);
-});
-
-app.get('/fritak-agp/api/v1/kronisk/soeknad/*', function (req, res) {
-  res.sendFile('kronisk-soeknad-notifikasjon.json', options);
+  res.sendFile('notifikasjon-gammel.json', options);
 });
 
 app.listen(8080);
