@@ -7,7 +7,6 @@ import '../../mockData/mockWindowLocation';
 import { render } from '@testing-library/react';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import ArbeidsgiverStatus from '../../context/arbeidsgiver/ArbeidsgiverStatus';
-import env from '../../config/environment';
 
 const initHistory = ['/'];
 
@@ -22,10 +21,6 @@ jest.mock('react-i18next', () => ({
     };
   }
 }));
-
-jest
-  .spyOn(env, 'minSideArbeidsgiver', 'get')
-  .mockReturnValue('https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session');
 
 describe('KroniskSide', () => {
   jest.setTimeout(10000); // 10 second timeout

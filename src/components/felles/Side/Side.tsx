@@ -10,7 +10,6 @@ import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverConte
 import { SideKeys } from './SideKeys';
 import './Side.sass';
 import { Link } from '@navikt/ds-react';
-import env from '../../../config/environment';
 
 interface SideProps {
   children: React.ReactNode;
@@ -40,7 +39,7 @@ const Side = (props: SideProps) => {
         {!props.skjulTilbakeLenke && (
           <Container className='side__breadcrumb'>
             <div className='side__minside_arbeidsgiver'>
-              <Link href={env.minSideArbeidsgiver}>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Link>
+              <Link href='/min-side-arbeidsgiver/'>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Link>
             </div>
           </Container>
         )}

@@ -7,7 +7,6 @@ import { MemoryRouter } from 'react-router-dom';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
-import env from '../../config/environment';
 
 import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
@@ -35,10 +34,6 @@ jest.mock('react-i18next', () => ({
     };
   }
 }));
-
-jest
-  .spyOn(env, 'minSideArbeidsgiver', 'get')
-  .mockReturnValue('https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session');
 
 describe('GravidSide', () => {
   const FODSELSNR = /FODSELSNUMMER_LABEL/;
