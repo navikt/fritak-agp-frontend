@@ -607,8 +607,8 @@ const Locales: Record<
   KRONISK_SIDE_FRAVAER_DESCRIPTION: {
     nb:
       'For å vurdere retten til fritak fra arbeidsgiverperiode ser vi på arbeidstakerens historiske fravær. Dere kan gå ' +
-      '2 år tilbake i tid hvis både arbeidsforholdet og helseproblemene har vart så lenge. Angi antall dager med sykefravær ' +
-      'i hver måned. Oppgi alle egenmeldte dager, samt hele og graderte sykmeldingsdager.',
+      '2 år tilbake i tid hvis både arbeidsforholdet og helseproblemene har vart så lenge. Angi antall dager med ' +
+      'sykefravær i hver måned.',
     en:
       "To assess the right to exemption from the employer period, we look at the employee's historical absence. You can " +
       'go 2 years back in time if both the employment relationship and the health problems have lasted that long. Enter ' +
