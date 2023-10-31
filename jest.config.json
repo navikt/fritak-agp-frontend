@@ -6,10 +6,10 @@
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
   },
+  "transformIgnorePatterns": ["node_modules/(?!(msw))"],
   "collectCoverage": true,
   "coverageDirectory": "../coverage",
-  "coveragePathIgnorePatterns": [
-  ],
+  "coveragePathIgnorePatterns": [],
   "coverageThreshold": {
     "global": {
       "branches": 50,
