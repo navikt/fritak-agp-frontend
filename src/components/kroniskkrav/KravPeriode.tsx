@@ -96,6 +96,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
     }
   }, []); // eslint-disable-line
 
+<<<<<<< HEAD
+=======
+  const kanSlettes = props.enkeltPeriode.perioder.length > 1;
+  const dagerIPerioden = antallDagerIArbeidsgiverperiode(props.enkeltPeriode.perioder);
+
+>>>>>>> cffdb6d (Fjernet debugger)
   return (
     <div className='krav-kort' data-testid='krav-periode-wrapper'>
       <Datovelger
