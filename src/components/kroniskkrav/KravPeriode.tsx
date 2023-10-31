@@ -103,7 +103,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
   }, []); // eslint-disable-line
 
   const kanSlettes = props.enkeltPeriode.perioder.length > 1;
-  debugger; // eslint-disable-line
   const dagerIPerioden = antallDagerIArbeidsgiverperiode(props.enkeltPeriode.perioder);
 
   return (
