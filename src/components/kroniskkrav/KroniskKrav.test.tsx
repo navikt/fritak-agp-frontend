@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
 import i18next from 'i18next';

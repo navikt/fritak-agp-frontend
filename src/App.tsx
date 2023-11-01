@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny';
 import environment from './config/environment';
 import Locales from './locale/Locales';
 import i18next from 'i18next';

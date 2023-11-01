@@ -131,7 +131,7 @@ const KroniskSide = () => {
       <Panel id='kroniskside-panel-ansatte'>
         <Fieldset aria-live='polite' errorId={'ansatt'} legend={t(LangKey.DEN_ANSATTE)} hideLegend={true}>
           <div>
-            <div sm='4' xs='6'>
+            <div>
               <Heading size='medium' level='2' className='textfelt-padding-bottom'>
                 {t(LangKey.DEN_ANSATTE)}
               </Heading>
@@ -144,7 +144,7 @@ const KroniskSide = () => {
                 onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
               />
             </div>
-            <div sm='4' xs='6'>
+            <div>
               <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                 {t(LangKey.ARBEIDSGIVEREN)}
               </Heading>

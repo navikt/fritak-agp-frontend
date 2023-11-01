@@ -2,9 +2,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
 import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
+import { Organisasjon } from '@navikt/bedriftsmeny';
 
 describe('ApplicationRoutes', () => {
   const makeRoute = (path: string, arbeidsgivere: Array<Organisasjon> = [{ Name: '' } as Organisasjon]) => (

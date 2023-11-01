@@ -1,4 +1,4 @@
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny';
 
 type ArbeidsgivereResponse = {
   status: number;

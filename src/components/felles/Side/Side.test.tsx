@@ -4,7 +4,7 @@
 import React from 'react';
 import Side, { showChildren } from './Side';
 import { MemoryRouter } from 'react-router-dom';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny';
 // import mockHistory from '../../../mock/mockHistory';
 import ArbeidsgiverStatus from '../../../context/arbeidsgiver/ArbeidsgiverStatus';
 import { ArbeidsgiverProvider } from '../../../context/arbeidsgiver/ArbeidsgiverContext';

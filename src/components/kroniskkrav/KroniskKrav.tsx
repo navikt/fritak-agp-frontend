@@ -249,7 +249,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           <Panel>
             <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
               <div>
-                <div sm='4' xs='6'>
+                <div>
                   <SelectEndring
                     onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                       setEndringsAarsak(event.target.value as EndringsAarsak)
@@ -275,7 +275,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           hideLegend={true}
         >
           <div>
-            <div sm='4' xs='6'>
+            <div>
               <Fnr
                 id='fnr'
                 label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -290,7 +290,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                 }
               />
             </div>
-            <div sm='8' xs='8'>
+            <div>
               <KontrollSporsmaal
                 onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
                 id='kontrollsporsmaal-lonn-arbeidsdager'
@@ -316,7 +316,13 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             </HelpText>
           </div>
         </TextLabel>
-        <Fieldset aria-live='polite' errorId={'arbeidsperiode'} className='krav-kort-wrapper'>
+        <Fieldset
+          aria-live='polite'
+          errorId={'arbeidsperiode'}
+          className='krav-kort-wrapper'
+          legend='Krav periode'
+          hideLegend={true}
+        >
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
               dispatch={dispatch}
