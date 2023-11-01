@@ -1,6 +1,6 @@
 import React, { Reducer, useEffect, useReducer, useState } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
+// import { div, div } from 'nav-frontend-grid';
+// import { Fieldset } from 'nav-frontend-skjema';
 import { useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
@@ -31,7 +31,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { Button, Fieldset, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -247,18 +247,18 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       {state.endringskrav && (
         <>
           <Panel>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
-              <Row>
-                <Column sm='4' xs='6'>
+            <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
+              <div>
+                <div sm='4' xs='6'>
                   <SelectEndring
                     onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                       setEndringsAarsak(event.target.value as EndringsAarsak)
                     }
                     feil={state.endringsAarsakError}
                   />
-                </Column>
-              </Row>
-            </SkjemaGruppe>
+                </div>
+              </div>
+            </Fieldset>
           </Panel>
           <Skillelinje />
         </>
@@ -268,9 +268,14 @@ export const KroniskKrav = (props: KroniskKravProps) => {
         <Heading size='medium' level='2' className='textfelt-padding-bottom'>
           {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
         </Heading>
-        <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
-          <Row>
-            <Column sm='4' xs='6'>
+        <Fieldset
+          aria-live='polite'
+          errorId={'ansatt'}
+          legend={t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
+          hideLegend={true}
+        >
+          <div>
+            <div sm='4' xs='6'>
               <Fnr
                 id='fnr'
                 label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -284,17 +289,17 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                   })
                 }
               />
-            </Column>
-            <Column sm='8' xs='8'>
+            </div>
+            <div sm='8' xs='8'>
               <KontrollSporsmaal
                 onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
                 id='kontrollsporsmaal-lonn-arbeidsdager'
                 feil={state.antallDagerError}
                 defaultValue={state.antallDager}
               />
-            </Column>
-          </Row>
-        </SkjemaGruppe>
+            </div>
+          </div>
+        </Fieldset>
       </Panel>
 
       <Skillelinje />
@@ -311,7 +316,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             </HelpText>
           </div>
         </TextLabel>
-        <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
+        <Fieldset aria-live='polite' errorId={'arbeidsperiode'} className='krav-kort-wrapper'>
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
               dispatch={dispatch}
@@ -328,7 +333,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
             )}
           </div>
-        </SkjemaGruppe>
+        </Fieldset>
       </Panel>
       <Skillelinje />
 

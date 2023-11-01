@@ -13,6 +13,7 @@ interface DatovelgerProps {
   disabled?: boolean;
   defaultMonth?: Date;
   error?: React.ReactNode;
+  className?: string;
 }
 
 export default function Datovelger({
@@ -25,7 +26,8 @@ export default function Datovelger({
   hideLabel,
   disabled,
   defaultMonth,
-  error
+  error,
+  className
 }: DatovelgerProps) {
   if (!defaultSelected || !isValid(defaultSelected)) {
     defaultSelected = undefined;
@@ -54,6 +56,7 @@ export default function Datovelger({
         hideLabel={hideLabel}
         disabled={disabled}
         error={error}
+        className={className}
       />
     </UNSAFE_DatePicker>
   );

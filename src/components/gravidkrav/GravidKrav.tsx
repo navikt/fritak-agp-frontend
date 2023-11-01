@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, Reducer, useState } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
+// import { div, div } from 'nav-frontend-grid';
+// import { Fieldset } from 'nav-frontend-skjema';
 import { useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -32,7 +32,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { Button, Fieldset, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -236,8 +236,6 @@ export const GravidKrav = (props: GravidKravProps) => {
       <Panel>
         <Ingress className='textfelt-padding-bottom'>
           <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
-        </Ingress>
-        <Ingress>
           <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
         </Ingress>
       </Panel>
@@ -246,18 +244,18 @@ export const GravidKrav = (props: GravidKravProps) => {
       {state.endringskrav && (
         <>
           <Panel>
-            <SkjemaGruppe aria-live='polite' feilmeldingId={'endring'}>
-              <Row>
-                <Column sm='4' xs='6'>
-                  <SelectEndring
-                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                      setEndringsAarsak(event.target.value as EndringsAarsak)
-                    }
-                    feil={state.endringsAarsakError}
-                  />
-                </Column>
-              </Row>
-            </SkjemaGruppe>
+            <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
+              <div>
+                {/* <div sm='4' xs='6'> */}
+                <SelectEndring
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                    setEndringsAarsak(event.target.value as EndringsAarsak)
+                  }
+                  feil={state.endringsAarsakError}
+                />
+                {/* </div> */}
+              </div>
+            </Fieldset>
           </Panel>
           <Skillelinje />
         </>
@@ -266,33 +264,33 @@ export const GravidKrav = (props: GravidKravProps) => {
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(LangKey.DEN_ANSATTE)}
         </Heading>
-        <SkjemaGruppe aria-live='polite' feilmeldingId={'ansatt'}>
-          <Row>
-            <Column sm='4' xs='6'>
-              <Fnr
-                id='fnr'
-                label={t(LangKey.FODSELSNUMMER_LABEL)}
-                fnr={state.fnr}
-                placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                feilmelding={state.fnrError}
-                onChange={(fnr: string) =>
-                  dispatch({
-                    type: Actions.Fnr,
-                    payload: { fnr: fnr }
-                  })
-                }
-              />
-            </Column>
-            <Column sm='8' xs='8'>
-              <KontrollSporsmaal
-                onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
-                id='kontrollsporsmaal-lonn-arbeidsdager'
-                feil={state.antallDagerError}
-                defaultValue={state.antallDager}
-              />
-            </Column>
-          </Row>
-        </SkjemaGruppe>
+        <Fieldset aria-live='polite' errorId={'ansatt'} legend='' hideLegend={true}>
+          <div>
+            {/* <div sm='4' xs='6'> */}
+            <Fnr
+              id='fnr'
+              label={t(LangKey.FODSELSNUMMER_LABEL)}
+              fnr={state.fnr}
+              placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+              feilmelding={state.fnrError}
+              onChange={(fnr: string) =>
+                dispatch({
+                  type: Actions.Fnr,
+                  payload: { fnr: fnr }
+                })
+              }
+            />
+            {/* </div> */}
+            {/* <div sm='8' xs='8'> */}
+            <KontrollSporsmaal
+              onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
+              id='kontrollsporsmaal-lonn-arbeidsdager'
+              feil={state.antallDagerError}
+              defaultValue={state.antallDager}
+            />
+            {/* </div> */}
+          </div>
+        </Fieldset>
       </Panel>
 
       <Skillelinje />
@@ -309,7 +307,13 @@ export const GravidKrav = (props: GravidKravProps) => {
             </HelpText>
           </div>
         </TextLabel>
-        <SkjemaGruppe aria-live='polite' feilmeldingId={'arbeidsperiode'} className='krav-kort-wrapper'>
+        <Fieldset
+          aria-live='polite'
+          errorId={'arbeidsperiode'}
+          className='krav-kort-wrapper'
+          legend='Kravperioder'
+          hideLegend={true}
+        >
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
               dispatch={dispatch}
@@ -326,7 +330,7 @@ export const GravidKrav = (props: GravidKravProps) => {
               <LeggTilKnapp onClick={leggTilPeriode}>{t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}</LeggTilKnapp>
             )}
           </div>
-        </SkjemaGruppe>
+        </Fieldset>
       </Panel>
 
       <Skillelinje />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'nav-frontend-grid';
+// import { div } from 'nav-frontend-grid';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
 import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { SideKeys } from './SideKeys';
-import './Side.sass';
+import './Side.scss';
+import './SideIndentering.sass';
 import { Link } from '@navikt/ds-react';
 import env from '../../../config/environment';
 
@@ -38,14 +39,14 @@ const Side = (props: SideProps) => {
 
       <main className={'side ' + props.className}>
         {!props.skjulTilbakeLenke && (
-          <Container className='side__breadcrumb'>
+          <div className='side__breadcrumb container'>
             <div className='side__minside_arbeidsgiver'>
               <Link href={env.minSideArbeidsgiver}>&lt;&lt; {t(SideKeys.SIDE_MIN_SIDE_ARBEIDSGIVER)}</Link>
             </div>
-          </Container>
+          </div>
         )}
 
-        <Container className={'side__innhold'}>
+        <div className='side__innhold container'>
           <div>
             <div>
               {props.title && <SoknadTittel subtitle={props.subtitle}>{props.title}</SoknadTittel>}
@@ -56,7 +57,7 @@ const Side = (props: SideProps) => {
               </SideIndentering>
             </div>
           </div>
-        </Container>
+        </div>
       </main>
     </div>
   );

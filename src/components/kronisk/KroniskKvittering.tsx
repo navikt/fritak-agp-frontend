@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Row } from 'nav-frontend-grid';
+// import { div } from 'nav-frontend-grid';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +28,7 @@ const KroniskKvittering = () => {
 
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
-      <Row>
+      <div>
         <Panel>
           <Heading size='xlarge' level='1'>
             Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom
@@ -84,7 +84,7 @@ const KroniskKvittering = () => {
             <Link href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Link>
           </div>
         </Panel>
-      </Row>
+      </div>
     </Side>
   );
 };

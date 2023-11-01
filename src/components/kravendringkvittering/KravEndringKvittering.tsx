@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from 'nav-frontend-grid';
+// import { div } from 'nav-frontend-grid';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import KravEndringKvitteringKeys from './KravEndringKvitteringKeys';
@@ -21,7 +21,7 @@ const KravEndringKvittering = (props: KravEndringKvitteringProps) => {
 
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
-      <Row>
+      <div>
         <Panel>
           <Heading size='xlarge' level='1'>
             {t(KravEndringKvitteringKeys.KRAV_ENDRING_KVITTERING_TITTEL)}
@@ -40,7 +40,7 @@ const KravEndringKvittering = (props: KravEndringKvitteringProps) => {
             <NLink href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</NLink>
           </BodyLong>
         </Panel>
-      </Row>
+      </div>
     </Side>
   );
 };

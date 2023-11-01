@@ -33,7 +33,7 @@ app.post('/fritak-agp/api/v1/kronisk/krav', function (req, res) {
 });
 
 app.post('/fritak-agp/api/v1/gravid/soeknad', function (req, res) {
-  res.status(401).send('Unauthorized');
+  res.status(200).send('Unauthorized');
 });
 
 app.post('/fritak-agp/api/v1/kronisk/soeknad', function (req, res) {
