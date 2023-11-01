@@ -1,4 +1,4 @@
-const mockWindowLocationResponse = jest.fn();
+const mockWindowLocationResponse = vi.fn();
 
 Object.defineProperty(window, 'location', {
   value: {

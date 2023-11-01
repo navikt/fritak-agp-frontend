@@ -70,7 +70,7 @@ const fravaer = [
   }
 ];
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,

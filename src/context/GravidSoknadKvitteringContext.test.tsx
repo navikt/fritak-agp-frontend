@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+// import '@testing-library/vi-dom';
 import GravidSoknadKvitteringProvider, { GravidSoknadKvitteringContext } from './GravidSoknadKvitteringContext';
 import ValidationResponse from '../state/validation/ValidationResponse';
 import GravidSoknadResponse from '../api/gravid/GravidSoknadResponse';

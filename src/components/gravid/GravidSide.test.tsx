@@ -13,7 +13,7 @@ import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
 import { Dato } from '../../utils/dato/Dato';
 
-jest.mock('nav-frontend-tekstomrade', () => {
+vi.mock('nav-frontend-tekstomrade', () => {
   return {
     __esModule: true,
     BoldRule: true,
@@ -25,7 +25,7 @@ jest.mock('nav-frontend-tekstomrade', () => {
   };
 });
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,
@@ -37,9 +37,9 @@ jest.mock('react-i18next', () => ({
   }
 }));
 
-jest
-  .spyOn(env, 'minSideArbeidsgiver', 'get')
-  .mockReturnValue('https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session');
+vi.spyOn(env, 'minSideArbeidsgiver', 'get').mockReturnValue(
+  'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session'
+);
 
 describe('GravidSide', () => {
   const FODSELSNR = /FODSELSNUMMER_LABEL/;

@@ -12,7 +12,7 @@ timezone_mock.register('Europe/London');
 const initHistory = ['/'];
 
 describe('LoginContext', () => {
-  let assignMock = jest.fn();
+  let assignMock = vi.fn();
   let container = document.createElement('div');
 
   beforeEach(() => {

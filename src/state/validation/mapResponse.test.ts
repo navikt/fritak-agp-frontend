@@ -13,7 +13,7 @@ describe('mapResponse', () => {
       progress: false,
       serverError: false
     };
-    const result = mapResponse(response, { feilmeldinger: [] }, jest.fn());
+    const result = mapResponse(response, { feilmeldinger: [] }, vi.fn());
     expect(result).toEqual(expected);
   });
 
@@ -27,7 +27,7 @@ describe('mapResponse', () => {
       kvittering: true,
       progress: false
     };
-    const result = mapResponse(response, { feilmeldinger: [] }, jest.fn());
+    const result = mapResponse(response, { feilmeldinger: [] }, vi.fn());
     expect(result).toEqual(expected);
   });
 
@@ -41,7 +41,7 @@ describe('mapResponse', () => {
       progress: false,
       serverError: true
     };
-    const result = mapResponse(response, { feilmeldinger: [] }, jest.fn());
+    const result = mapResponse(response, { feilmeldinger: [] }, vi.fn());
     expect(result).toEqual(expected);
   });
 
@@ -55,7 +55,7 @@ describe('mapResponse', () => {
       progress: false,
       notAuthorized: true
     };
-    const result = mapResponse(response, { feilmeldinger: [] }, jest.fn());
+    const result = mapResponse(response, { feilmeldinger: [] }, vi.fn());
     expect(result).toEqual(expected);
   });
 
@@ -70,7 +70,7 @@ describe('mapResponse', () => {
       progress: false,
       kvittering: false
     };
-    const result = mapResponse(response, { feilmeldinger: [] }, jest.fn());
+    const result = mapResponse(response, { feilmeldinger: [] }, vi.fn());
     expect(result).toEqual(expected);
   });
 
@@ -84,7 +84,7 @@ describe('mapResponse', () => {
       progress: false,
       serverError: true
     };
-    const result = mapResponse(response, { feilmeldinger: [] }, jest.fn());
+    const result = mapResponse(response, { feilmeldinger: [] }, vi.fn());
     expect(result).toEqual(expected);
   });
 
@@ -102,7 +102,7 @@ describe('mapResponse', () => {
       progress: false,
       serverError: true
     };
-    const mockMapFeilmeldinger = jest.fn().mockReturnValue([{ feil: 'feil' }]);
+    const mockMapFeilmeldinger = vi.fn().mockReturnValue([{ feil: 'feil' }]);
 
     const result = mapResponse(response, { feilmeldinger: [] }, mockMapFeilmeldinger);
     expect(result).toEqual(expected);
@@ -116,7 +116,7 @@ describe('mapResponse', () => {
     const expected = {
       feilmeldinger: []
     };
-    const mockMapFeilmeldinger = jest.fn().mockReturnValue([{ feil: 'feil' }]);
+    const mockMapFeilmeldinger = vi.fn().mockReturnValue([{ feil: 'feil' }]);
 
     const result = mapResponse(response, { feilmeldinger: [] }, mockMapFeilmeldinger);
     expect(result).toEqual(expected);

@@ -9,7 +9,7 @@ describe('SlettKravModal', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
       <div className='kravside'>
-        <SlettKravModal onOKClicked={jest.fn()} showSpinner={false} modalOpen={true} onClose={jest.fn()} />
+        <SlettKravModal onOKClicked={vi.fn()} showSpinner={false} modalOpen={true} onClose={vi.fn()} />
       </div>
     );
     const results = await axe(container);
@@ -20,10 +20,10 @@ describe('SlettKravModal', () => {
   });
 
   it('should run the onClose function when "Nei" has been pressed', () => {
-    const onCloseMock = jest.fn();
+    const onCloseMock = vi.fn();
     render(
       <div className='kravside'>
-        <SlettKravModal onOKClicked={jest.fn()} showSpinner={false} modalOpen={true} onClose={onCloseMock} />
+        <SlettKravModal onOKClicked={vi.fn()} showSpinner={false} modalOpen={true} onClose={onCloseMock} />
       </div>
     );
 
@@ -34,8 +34,8 @@ describe('SlettKravModal', () => {
   });
 
   it('should run the onOKClicked function when "Ja" has been pressed', () => {
-    const onCloseMock = jest.fn();
-    const onOKClickedMock = jest.fn();
+    const onCloseMock = vi.fn();
+    const onOKClickedMock = vi.fn();
 
     render(
       <div className='kravside'>

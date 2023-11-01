@@ -2,7 +2,7 @@ import postKroniskKrav from './postKroniskKrav';
 
 import KroniskKravRequest from './KroniskKravRequest';
 
-jest.mock('../httpRequest');
+vi.mock('../httpRequest');
 
 import httpRequest from '../httpRequest';
 

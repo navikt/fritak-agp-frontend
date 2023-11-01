@@ -19,7 +19,7 @@ describe('loginExpiryAPI', () => {
       status: 200,
       json: () => Promise.resolve(input)
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const loginExpiry = await GetLoginExpiry('');
     expect(loginExpiry.tidspunkt).toEqual(new Date(2020, 0, 23, 8, 27, 57, 125));
   });
@@ -29,7 +29,7 @@ describe('loginExpiryAPI', () => {
       status: 402,
       json: () => Promise.resolve()
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const loginExpiry = await GetLoginExpiry('');
     expect(loginExpiry.tidspunkt).toBeUndefined();
   });
@@ -39,20 +39,20 @@ describe('loginExpiryAPI', () => {
       status: 401,
       json: () => Promise.resolve()
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const loginExpiry = await GetLoginExpiry('');
     expect(loginExpiry.tidspunkt).toBeUndefined();
   });
 
   /**
-   * @jest-environment jsdom
+   * @vi-environment jsdom
    */
   it('should return a status and empty string when endpoint has error', async () => {
     const mockApi = Promise.resolve({
       status: 500,
       json: () => Promise.resolve()
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const loginExpiry = await GetLoginExpiry('');
     expect(loginExpiry.tidspunkt).toBeUndefined();
   });

@@ -3,7 +3,7 @@ import { defaultKroniskKravState } from '../components/kroniskkrav/KroniskKravSt
 import mapKroniskKravFeilmeldinger from './mapKravFeilmeldinger';
 
 import * as uuid from 'uuid';
-jest.mock('uuid');
+vi.mock('uuid');
 
 describe('mapKroniskKravFeilmeldinger', () => {
   const ALLE_FELTER = [
@@ -229,7 +229,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
   });
 
   it('should handle too large attachment  - 413 errorcode', () => {
-    const uuidSpy = jest.spyOn(uuid, 'v4');
+    const uuidSpy = vi.spyOn(uuid, 'v4');
     uuidSpy.mockReturnValue('some-uuid');
 
     const felter = [];
@@ -245,7 +245,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
   });
 
   it('should handle missing backend - 404 errorcode', () => {
-    const uuidSpy = jest.spyOn(uuid, 'v4');
+    const uuidSpy = vi.spyOn(uuid, 'v4');
     uuidSpy.mockReturnValue('some-uuid');
 
     const felter = [];

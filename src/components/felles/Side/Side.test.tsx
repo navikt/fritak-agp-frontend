@@ -1,5 +1,5 @@
 /**
- * @jest-environment jsdom
+ * @vi-environment jsdom
  */
 import React from 'react';
 import Side, { showChildren } from './Side';

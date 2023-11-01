@@ -3,7 +3,7 @@ import { defaultKroniskState } from './KroniskState';
 import mapKroniskFeilmeldinger from './mapKroniskFeilmeldinger';
 
 import * as uuid from 'uuid';
-jest.mock('uuid');
+vi.mock('uuid');
 
 describe('mapKroniskFeilmeldinger', () => {
   const ALLE_FELTER = [
@@ -44,7 +44,7 @@ describe('mapKroniskFeilmeldinger', () => {
   });
 
   it('should handle too large attachment  - 413 errorcode', () => {
-    const uuidSpy = jest.spyOn(uuid, 'v4');
+    const uuidSpy = vi.spyOn(uuid, 'v4');
     uuidSpy.mockReturnValue('some-uuid');
 
     const felter = [];
@@ -60,7 +60,7 @@ describe('mapKroniskFeilmeldinger', () => {
   });
 
   it('should handle missing backend - 404 errorcode', () => {
-    const uuidSpy = jest.spyOn(uuid, 'v4');
+    const uuidSpy = vi.spyOn(uuid, 'v4');
     uuidSpy.mockReturnValue('some-uuid');
 
     const felter = [];

@@ -4,7 +4,7 @@ import testBackendOrganisasjoner from '../../mock/testBackendOrganisasjoner';
 
 describe('ArbeidsgiverAPI', () => {
   afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('skal returnere arbeidsgivere', async () => {
@@ -12,7 +12,7 @@ describe('ArbeidsgiverAPI', () => {
       status: 200,
       json: () => Promise.resolve(testBackendOrganisasjoner)
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
     const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
     expect(result.status).toEqual(200);
     expect(result.organisasjoner.length).toEqual(7);
@@ -32,7 +32,7 @@ describe('ArbeidsgiverAPI', () => {
           testBackendOrganisasjoner
         })
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere('')).toStrictEqual({
       status: 401,
       organisasjoner: []
@@ -44,7 +44,7 @@ describe('ArbeidsgiverAPI', () => {
       status: 500,
       json: () => Promise.resolve({})
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockError);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockError);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere('')).toStrictEqual({
       status: 500,
       organisasjoner: []
@@ -56,7 +56,7 @@ describe('ArbeidsgiverAPI', () => {
       status: 401,
       json: {}
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere('')).toStrictEqual({
       status: 401,
       organisasjoner: []
@@ -68,7 +68,7 @@ describe('ArbeidsgiverAPI', () => {
       status: 1234,
       json: {}
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere('')).toStrictEqual({
       status: -2,
       organisasjoner: []
@@ -76,16 +76,16 @@ describe('ArbeidsgiverAPI', () => {
   });
 
   it('skal håndtere timeout', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const mockTimeout = Promise.resolve({
       status: -3,
       json: () => Promise.reject({})
     } as Response);
 
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockTimeout);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockTimeout);
     const verdi = ArbeidsgiverAPI.GetArbeidsgivere('');
-    jest.advanceTimersByTime(15000);
+    vi.advanceTimersByTime(15000);
     expect(await verdi).toStrictEqual({
       status: ArbeidsgiverStatus.Timeout,
       organisasjoner: []

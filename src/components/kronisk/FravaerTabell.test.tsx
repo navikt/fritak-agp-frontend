@@ -4,7 +4,7 @@ import { axe } from 'jest-axe';
 import FravaerTabell from './FravaerTabell';
 import '../../mockData/mockWindowLocation';
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,

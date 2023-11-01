@@ -11,7 +11,7 @@ import env from '../../config/environment';
 
 const initHistory = ['/'];
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,
@@ -23,12 +23,12 @@ jest.mock('react-i18next', () => ({
   }
 }));
 
-jest
-  .spyOn(env, 'minSideArbeidsgiver', 'get')
-  .mockReturnValue('https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session');
+vi.spyOn(env, 'minSideArbeidsgiver', 'get').mockReturnValue(
+  'https://arbeidsgiver.nav.no/min-side-arbeidsgiver/sak-restore-session'
+);
 
 describe('KroniskSide', () => {
-  jest.setTimeout(10000); // 10 second timeout
+  // vi.setTimeout(10000); // 10 second timeout
 
   it('should have no a11y violations', async () => {
     const { container } = render(
