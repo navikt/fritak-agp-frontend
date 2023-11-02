@@ -1,6 +1,5 @@
 import React, { Reducer, useEffect, useReducer, useState } from 'react';
-// import { div, div } from 'nav-frontend-grid';
-// import { Fieldset } from 'nav-frontend-skjema';
+
 import { useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
@@ -274,22 +273,22 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           legend={t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
           hideLegend={true}
         >
-          <div>
-            <div>
-              <Fnr
-                id='fnr'
-                label={t(LangKey.FODSELSNUMMER_LABEL)}
-                fnr={state.fnr}
-                placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                feilmelding={state.fnrError}
-                onChange={(fnr: string) =>
-                  dispatch({
-                    type: Actions.Fnr,
-                    payload: { fnr: fnr }
-                  })
-                }
-              />
-            </div>
+          <div className='krav-persondata'>
+            <Fnr
+              id='fnr'
+              label={t(LangKey.FODSELSNUMMER_LABEL)}
+              fnr={state.fnr}
+              placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+              feilmelding={state.fnrError}
+              onChange={(fnr: string) =>
+                dispatch({
+                  type: Actions.Fnr,
+                  payload: { fnr: fnr }
+                })
+              }
+              className='krav-fnr'
+            />
+
             <div>
               <KontrollSporsmaal
                 onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
