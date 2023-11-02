@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// import { div } from 'nav-frontend-grid';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';

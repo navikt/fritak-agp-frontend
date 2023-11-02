@@ -1,5 +1,4 @@
 import React from 'react';
-// import { div } from 'nav-frontend-grid';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import { KravKvitteringKeys } from './KravKvitteringKeys';

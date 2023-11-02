@@ -1,5 +1,4 @@
 import React from 'react';
-// import '@testing-library/vi-dom';
 import { render, fireEvent, screen } from '@testing-library/react';
 
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';

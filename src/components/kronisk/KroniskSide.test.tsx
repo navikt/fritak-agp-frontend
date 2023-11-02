@@ -28,8 +28,6 @@ vi.spyOn(env, 'minSideArbeidsgiver', 'get').mockReturnValue(
 );
 
 describe('KroniskSide', () => {
-  // vi.setTimeout(10000); // 10 second timeout
-
   it('should have no a11y violations', async () => {
     const { container } = render(
       <MemoryRouter initialEntries={initHistory}>

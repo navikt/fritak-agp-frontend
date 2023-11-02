@@ -19,17 +19,7 @@ const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 vi.unmock('react-i18next');
 const i18n = languageInit(i18next, Language.nb, Locales);
 
-// vi.setTimeout(50000);
-
 describe('KroniskKrav', () => {
-  // beforeAll(async () => {
-  //   vi.useFakeTimers();
-  // });
-
-  // afterAll(() => {
-  //   vi.useRealTimers();
-  // });
-
   it('should have no a11y violations', async () => {
     const { container } = render(
       <MemoryRouter>

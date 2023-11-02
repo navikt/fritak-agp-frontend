@@ -1,6 +1,5 @@
 import React from 'react';
-// import '@testing-library/vi-dom';
-import { render, screen, act } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Upload from './Upload';
 

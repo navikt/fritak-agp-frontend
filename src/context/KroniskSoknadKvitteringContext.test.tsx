@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { render, screen } from '@testing-library/react';
-// import '@testing-library/vi-dom';
 import GravidSoknadKvitteringProvider, { KroniskSoknadKvitteringContext } from './KroniskSoknadKvitteringContext';
 import ValidationResponse from '../state/validation/ValidationResponse';
 import KroniskSoknadResponse from '../api/kronisk/KroniskSoknadResponse';

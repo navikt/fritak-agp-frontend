@@ -1,6 +1,4 @@
 import React, { useEffect, useReducer, Reducer, useState } from 'react';
-// import { div, div } from 'nav-frontend-grid';
-// import { Fieldset } from 'nav-frontend-skjema';
 import { useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';

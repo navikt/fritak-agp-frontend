@@ -1,5 +1,4 @@
 import React from 'react';
-// import { div, div } from 'nav-frontend-grid';
 import NotifikasjonType from './NotifikasjonType';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';

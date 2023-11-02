@@ -1,6 +1,4 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
-// import { div, div } from 'nav-frontend-grid';
-// import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';

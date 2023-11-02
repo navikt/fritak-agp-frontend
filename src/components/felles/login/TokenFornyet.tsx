@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Container, Row } from 'nav-frontend-grid';
 import { useTranslation } from 'react-i18next';
 import Side from '../Side/Side';
 import { TokenFornyetKeys } from './TokenFornyetKeys';

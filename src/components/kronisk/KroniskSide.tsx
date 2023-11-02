@@ -1,6 +1,4 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
-// import { div, div } from 'nav-frontend-grid';
-// import { Fieldset } from 'nav-frontend-skjema';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';

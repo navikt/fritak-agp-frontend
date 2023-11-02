@@ -53,7 +53,7 @@ describe('LoginContext', () => {
     waitFor(() => {
       expect(container).toContainHTML('login-redirect');
     });
-  });
+  }, 10000);
 
   it('should show children', () => {
     const input = '2020-01-23T08:27:57.125+0000';

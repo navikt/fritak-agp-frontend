@@ -1,5 +1,4 @@
 import React from 'react';
-// import { div } from 'nav-frontend-grid';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
