@@ -16,9 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
-    "typeRoots": ["./typings", "./node_modules/@types"],
-    "types": ["vite/client", "@testing-library/jest-dom"]
+    "typeRoots": ["./typings", "vite/client", "./node_modules/@types"]
   },
-  "include": ["src"],
+  "include": ["src", "./vitest.setup.ts"],
   "exclude": ["**/*.test.ts*", "src/mock/**/*", "src/mockData/**/*"]
 }

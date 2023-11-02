@@ -7,7 +7,7 @@ interface LoginRedirectProps {
 
 const LoginRedirect = (props: LoginRedirectProps) => {
   window.location.href = redirectUrl(props.loginServiceUrl, window.location.href);
-  return <div className='login-redirect' />;
+  return <div className='login-redirect'>login-redirect</div>;
 };
 
 export default LoginRedirect;
