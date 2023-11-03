@@ -101,7 +101,7 @@
     "react-test-renderer": "18.x",
     "sass": "1.x",
     "snyk": "1.x",
-    "testcafe": "^2.6.2",
+    "testcafe": "^3.3.0",
     "testcafe-react-selectors": "^5.0.3",
     "timezone-mock": "1.x",
     "vite": "^4.5.0",
