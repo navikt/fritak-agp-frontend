@@ -19,7 +19,7 @@ jobs:
   Bygg:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: 'https://npm.pkg.github.com'
@@ -37,7 +37,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: 'https://npm.pkg.github.com'
@@ -63,7 +63,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: 'https://npm.pkg.github.com'
