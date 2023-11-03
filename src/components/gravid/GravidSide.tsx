@@ -191,7 +191,6 @@ const GravidSide = (props: GravidSideProps) => {
           <Skillelinje />
 
           <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
-            {/* <Fieldset legend={t(LangKey.DEN_ANSATTE)} hideLegend={true} aria-live='polite'> */}
             <div className='soknad-ansatte-persondata'>
               <div>
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
@@ -245,7 +244,6 @@ const GravidSide = (props: GravidSideProps) => {
                 />
               </div>
             </div>
-            {/* </Fieldset> */}
           </Panel>
 
           <Skillelinje />
