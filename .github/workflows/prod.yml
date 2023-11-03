@@ -16,30 +16,31 @@ env:
   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
 jobs:
-
   Bygg:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - uses: actions/upload-artifact@v3
         with:
           name: fritak-frontend-artifact
-          path: ${{ github.workspace }}/build/**/*
+          path: ${{ github.workspace }}/dist/**/*
 
   Docker:
     needs: [Bygg]
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - uses: actions/download-artifact@v3
         with:
@@ -59,11 +60,13 @@ jobs:
   Deploy:
     needs: [Docker]
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - uses: nais/deploy/actions/deploy@v1
         env:
