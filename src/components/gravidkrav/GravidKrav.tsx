@@ -244,12 +244,14 @@ export const GravidKrav = (props: GravidKravProps) => {
           <Panel>
             <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
               <div>
+                {/* <div sm='4' xs='6'> */}
                 <SelectEndring
                   onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                     setEndringsAarsak(event.target.value as EndringsAarsak)
                   }
                   feil={state.endringsAarsakError}
                 />
+                {/* </div> */}
               </div>
             </Fieldset>
           </Panel>
@@ -261,7 +263,7 @@ export const GravidKrav = (props: GravidKravProps) => {
           {t(LangKey.DEN_ANSATTE)}
         </Heading>
         <Fieldset aria-live='polite' errorId={'ansatt'} legend='' hideLegend={true}>
-          <div className='krav-persondata'>
+          <div>
             {/* <div sm='4' xs='6'> */}
             <Fnr
               id='fnr'
@@ -275,7 +277,6 @@ export const GravidKrav = (props: GravidKravProps) => {
                   payload: { fnr: fnr }
                 })
               }
-              className='krav-fnr'
             />
             {/* </div> */}
             {/* <div sm='8' xs='8'> */}

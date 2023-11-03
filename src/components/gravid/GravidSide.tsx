@@ -191,43 +191,46 @@ const GravidSide = (props: GravidSideProps) => {
           <Skillelinje />
 
           <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
-            <div className='soknad-ansatte-persondata'>
+            <Fieldset legend={t(LangKey.DEN_ANSATTE)} hideLegend={true} aria-live='polite'>
               <div>
+                {/* <div md='3' xs='12'> */}
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                   {t(LangKey.DEN_ANSATTE)}
                 </Heading>
-                <div className='persondata'>
-                  <Fnr
-                    id='fnr'
-                    label={t(LangKey.FODSELSNUMMER_LABEL)}
-                    fnr={state.fnr}
-                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                    feilmelding={state.fnrError}
-                    onChange={(fnr: string) =>
-                      dispatch({
-                        type: Actions.Fnr,
-                        payload: { fnr: fnr }
-                      })
-                    }
-                  />
-
-                  <Datovelger
-                    id='termindato'
-                    label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
-                    error={state.termindatoError}
-                    defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
-                    onDateChange={(termindato: Date | undefined) => {
-                      dispatch({
-                        type: Actions.Termindato,
-                        payload: { termindato }
-                      });
-                    }}
-                    className='termindato'
-                  />
-                </div>
-              </div>
-              <div className='arbeidsgiverdata'>
-                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                <Fnr
+                  id='fnr'
+                  label={t(LangKey.FODSELSNUMMER_LABEL)}
+                  fnr={state.fnr}
+                  placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+                  feilmelding={state.fnrError}
+                  onChange={(fnr: string) =>
+                    dispatch({
+                      type: Actions.Fnr,
+                      payload: { fnr: fnr }
+                    })
+                  }
+                />
+                {/* </div> */}
+                {/* <div md='3' xs='12'> */}
+                {/* <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                  &nbsp;
+                </Heading> */}
+                <Datovelger
+                  id='termindato'
+                  label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
+                  error={state.termindatoError}
+                  defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                  onDateChange={(termindato: Date | undefined) => {
+                    dispatch({
+                      type: Actions.Termindato,
+                      payload: { termindato }
+                    });
+                  }}
+                  className='termindato'
+                />
+                {/* </div> */}
+                {/* <div md='3' xs='12'> */}
+                <Heading size='medium' level='3' className='textfelt-padding-bottom textfelt-padding-top'>
                   {t(LangKey.ARBEIDSGIVEREN)}
                 </Heading>
                 <Orgnr
@@ -242,8 +245,9 @@ const GravidSide = (props: GravidSideProps) => {
                     })
                   }
                 />
+                {/* </div> */}
               </div>
-            </div>
+            </Fieldset>
           </Panel>
 
           <Skillelinje />

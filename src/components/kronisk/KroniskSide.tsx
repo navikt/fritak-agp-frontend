@@ -127,13 +127,12 @@ const KroniskSide = () => {
       <Skillelinje />
 
       <Panel id='kroniskside-panel-ansatte'>
-        {/* <Fieldset aria-live='polite' errorId={'ansatt'} legend={t(LangKey.DEN_ANSATTE)} hideLegend={true}> */}
-        <div className='soknad-ansatte-persondata'>
+        <Fieldset aria-live='polite' errorId={'ansatt'} legend={t(LangKey.DEN_ANSATTE)} hideLegend={true}>
           <div>
-            <Heading size='medium' level='2' className='textfelt-padding-bottom'>
-              {t(LangKey.DEN_ANSATTE)}
-            </Heading>
-            <div className='persondata'>
+            <div>
+              <Heading size='medium' level='2' className='textfelt-padding-bottom'>
+                {t(LangKey.DEN_ANSATTE)}
+              </Heading>
               <Fnr
                 id='fnr'
                 label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -143,27 +142,25 @@ const KroniskSide = () => {
                 onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
               />
             </div>
+            <div>
+              <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                {t(LangKey.ARBEIDSGIVEREN)}
+              </Heading>
+              <Orgnr
+                label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
+                orgnr={state.orgnr}
+                placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
+                feilmelding={state.orgnrError}
+                onChange={(orgnr: string) =>
+                  dispatch({
+                    type: Actions.Orgnr,
+                    payload: { orgnr: orgnr }
+                  })
+                }
+              />
+            </div>
           </div>
-
-          <div className='arbeidsgiverdata'>
-            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-              {t(LangKey.ARBEIDSGIVEREN)}
-            </Heading>
-            <Orgnr
-              label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
-              orgnr={state.orgnr}
-              placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
-              feilmelding={state.orgnrError}
-              onChange={(orgnr: string) =>
-                dispatch({
-                  type: Actions.Orgnr,
-                  payload: { orgnr: orgnr }
-                })
-              }
-            />
-          </div>
-        </div>
-        {/* </Fieldset> */}
+        </Fieldset>
       </Panel>
 
       <Skillelinje />
