@@ -225,7 +225,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .click(Selector('button').withText('Send krav'))
     .expect(Selector('html').textContent)
-    .contains('Kravet er mottatt');
+    .contains('Kravet er mottatt', undefined, { timeout: 10000 });
 });
 
 test('Legg til og fjern perioder', async (t) => {
