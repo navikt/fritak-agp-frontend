@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import FravaerRow from './FravaerRow';
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,
@@ -28,7 +28,7 @@ describe('FravaerRow', () => {
               thisMonth={2}
               thisYear={2021}
               fravaer={[]}
-              onChange={jest.fn}
+              onChange={vi.fn}
             />
           </tr>
         </tbody>
@@ -50,7 +50,7 @@ describe('FravaerRow', () => {
               thisMonth={4}
               thisYear={2021}
               fravaer={[]}
-              onChange={jest.fn}
+              onChange={vi.fn}
             />
           </tr>
         </tbody>
@@ -72,7 +72,7 @@ describe('FravaerRow', () => {
               thisMonth={3}
               thisYear={2021}
               fravaer={[]}
-              onChange={jest.fn}
+              onChange={vi.fn}
             />
           </tr>
         </tbody>

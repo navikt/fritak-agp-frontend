@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import KontrollSporsmaal from './KontrollSporsmaal';
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,
@@ -16,7 +16,7 @@ jest.mock('react-i18next', () => ({
 
 describe('KontrollSporsmaal', () => {
   it('should have no a11y violations', async () => {
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
 
     const { container } = render(<KontrollSporsmaal onChange={mockCallback} />);
     const results = await axe(container);
@@ -24,7 +24,7 @@ describe('KontrollSporsmaal', () => {
   });
 
   it('should have no a11y violations when there is an error', async () => {
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
 
     const { container } = render(<KontrollSporsmaal onChange={mockCallback} feil='FEIL!' />);
     const results = await axe(container);
@@ -32,7 +32,7 @@ describe('KontrollSporsmaal', () => {
   });
 
   it('should show the error', async () => {
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
 
     render(<KontrollSporsmaal onChange={mockCallback} feil='FEIL!' />);
 
@@ -40,7 +40,7 @@ describe('KontrollSporsmaal', () => {
   });
 
   it('should show the id', async () => {
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
 
     render(<KontrollSporsmaal onChange={mockCallback} feil='FEIL!' id='ikkerandomid' />);
 

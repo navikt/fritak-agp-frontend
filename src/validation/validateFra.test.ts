@@ -1,4 +1,4 @@
-import parseDato from '../utils/parseDato';
+import { parseDato } from '../utils/dato/Dato';
 import validateFra from './validateFra';
 
 describe('validateFra', () => {
@@ -13,7 +13,7 @@ describe('validateFra', () => {
   });
 
   it('should show error when empty value and required', () => {
-    expect(validateFra(parseDato(''), minDate, true)).not.toBeUndefined();
+    expect(validateFra(parseDato(''), minDate, true)).toBeDefined();
   });
 
   it('should not show error when valid and required', () => {
@@ -21,7 +21,7 @@ describe('validateFra', () => {
   });
 
   it('should show errors when before earliest valid date', () => {
-    expect(validateFra(parseDato('28.01.2021'), minDate, true)).not.toBeUndefined();
+    expect(validateFra(parseDato('28.01.2021'), minDate, true)).toBeDefined();
   });
 
   it('should not show error when valid and not required', () => {
@@ -29,6 +29,6 @@ describe('validateFra', () => {
   });
 
   it('should show error when illegal dato', () => {
-    expect(validateFra(parseDato('99.99.2021'), minDate, true)).not.toBeUndefined();
+    expect(validateFra(parseDato('99.99.2021'), minDate, true)).toBeDefined();
   });
 });

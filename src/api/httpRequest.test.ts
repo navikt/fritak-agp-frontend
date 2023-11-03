@@ -26,7 +26,7 @@ describe('httpRequest', () => {
   });
 
   it('should catch exceptions', async () => {
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.reject());
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.reject());
     expect(await httpRequest('/Path', {}, 'POST')).toEqual({
       status: 500,
       violations: []
@@ -66,15 +66,15 @@ describe('httpRequest', () => {
   });
 
   it('should reject with status Timeout if the backend does not respond', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     mockFetch(-33, []);
     const resultat = httpRequest('/Path', {}, 'POST');
-    jest.advanceTimersByTime(15000);
+    vi.advanceTimersByTime(15000);
     expect(await resultat).toEqual({
       status: HttpStatus.Timeout,
       violations: []
     });
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should pass on the violation when the server responds with 422', async () => {

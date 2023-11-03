@@ -14,7 +14,7 @@ describe('getGrunnbeloep', () => {
       status: 200,
       json: () => Promise.resolve(input)
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.resolve(mockApi));
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.resolve(mockApi));
     const resultat = await getGrunnbeloep();
     expect(resultat.grunnbeloep).toEqual(input);
   });
@@ -24,7 +24,7 @@ describe('getGrunnbeloep', () => {
       status: 402,
       json: () => Promise.resolve()
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const grunnbelop = await getGrunnbeloep();
     expect(grunnbelop.grunnbeloep).toBeUndefined();
     expect(grunnbelop.status).toBe(-2);
@@ -35,7 +35,7 @@ describe('getGrunnbeloep', () => {
       status: 401,
       json: () => Promise.resolve()
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const grunnbelop = await getGrunnbeloep();
     expect(grunnbelop.grunnbeloep).toBeUndefined();
     expect(grunnbelop.status).toBe(401);
@@ -46,7 +46,7 @@ describe('getGrunnbeloep', () => {
       status: 500,
       json: () => Promise.resolve()
     } as Response);
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockApi);
     const grunnbelop = await getGrunnbeloep();
     expect(grunnbelop.grunnbeloep).toBeUndefined();
     expect(grunnbelop.status).toBe(500);
@@ -65,7 +65,7 @@ describe('getGrunnbeloep', () => {
       status: 200,
       json: () => Promise.resolve(input)
     } as Response);
-    const fetchSpy = jest.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.resolve(mockApi));
+    const fetchSpy = vi.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.resolve(mockApi));
     const resultat = await getGrunnbeloep('2020-01-01');
     expect(resultat.grunnbeloep).toEqual(input);
     expect(fetchSpy).toHaveBeenLastCalledWith('https://g.nav.no/api/v1/grunnbeloep?dato=2020-01-01', {

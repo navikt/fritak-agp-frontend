@@ -1,40 +1,30 @@
 import { ValidationState } from '../../state/validation/ValidationState';
+import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
 import EndringsAarsak from './EndringsAarsak';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
-import { Delperiode } from '../kroniskkrav/KroniskKravState';
-import { DateValidationT } from '@navikt/ds-react';
 
 export const defaultGravidKravState = (state?: GravidKravState): GravidKravState => {
   return Object.assign(
     {
       fnr: '',
-      perioder: [
-        {
-          uniqueKey: uuid(),
-          perioder: [
-            {
-              uniqueKey: uuid()
-            }
-          ]
-        }
-      ],
+      perioder: [{ uniqueKey: uuid() }],
       bekreft: false,
       feilmeldinger: Array<FeiloppsummeringFeil>(),
       formDirty: false,
       showSpinner: false,
-      endringskrav: false,
-      tilValidering: {},
-      fraValidering: {}
+      endringskrav: false
     },
-    state ?? {}
+    state || {}
   );
 };
 
-export interface GravidKravPeriode {
+export interface Periode {
   uniqueKey: string;
-  perioder: Array<Delperiode>;
-  perioderError?: string;
+  fom?: Dato;
+  fomError?: string;
+  tom?: Dato;
+  tomError?: string;
   dager?: number;
   dagerError?: string;
   belop?: number;
@@ -49,7 +39,7 @@ export default interface GravidKravState extends ValidationState {
   fnrError?: string;
   orgnrError?: string;
   orgnr?: string;
-  perioder: Array<GravidKravPeriode>;
+  perioder?: Array<Periode>;
   periodeError?: string;
   feilmeldinger: Array<FeiloppsummeringFeil>;
   validated?: boolean;
@@ -69,6 +59,4 @@ export default interface GravidKravState extends ValidationState {
   endringsAarsakError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
-  tilValidering: { [key: string]: DateValidationT | undefined };
-  fraValidering: { [key: string]: DateValidationT | undefined };
 }

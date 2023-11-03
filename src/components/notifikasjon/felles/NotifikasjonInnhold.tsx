@@ -1,5 +1,4 @@
 import React from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import NotifikasjonType from './NotifikasjonType';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
@@ -15,33 +14,33 @@ interface NotifikasjonInnholdProps {
 const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
   return (
     <div className='notifikasjon-innhold'>
-      <Row>
-        <Column>
+      <div>
+        <div>
           <div className={'notifikasjon-innhold__path'}>
             <Link href='/min-side-arbeidsgiver/'>Ditt NAV / </Link>
             <Link href=''>Beskjeder / </Link>
             <Link href=''>Din arbeidsgiver har søkt om utvidet støtte</Link>
           </div>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
+        </div>
+      </div>
+      <div>
+        <div>
           <Panel className='notifikasjon-innhold__hvit'>
-            <Row>
-              <Column>
+            <div>
+              <div>
                 <Heading size='large' level='2'>
                   {props.title}
                 </Heading>
                 <BodyLong>{dayjs(props.dato).format('DD.MM.YYYY')}</BodyLong>
-              </Column>
-            </Row>
+              </div>
+            </div>
 
-            <Row>
-              <Column className='notifikasjon-innhold__children'>{props.children}</Column>
-            </Row>
+            <div>
+              <div className='notifikasjon-innhold__children'>{props.children}</div>
+            </div>
           </Panel>
-        </Column>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };

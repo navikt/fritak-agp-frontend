@@ -2,7 +2,7 @@ import postKroniskKrav from './postKroniskKrav';
 
 import KroniskKravRequest from './KroniskKravRequest';
 
-jest.mock('../httpRequest');
+vi.mock('../httpRequest');
 
 import httpRequest from '../httpRequest';
 
@@ -12,12 +12,8 @@ describe('postKroniskKrav', () => {
     virksomhetsnummer: 'string',
     perioder: [
       {
-        perioder: [
-          {
-            fom: 'string',
-            tom: 'string'
-          }
-        ],
+        fom: 'string',
+        tom: 'string',
         antallDagerMedRefusjon: 5,
         månedsinntekt: 1234,
         gradering: 1

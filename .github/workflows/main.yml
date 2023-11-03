@@ -14,14 +14,13 @@ env:
   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
 jobs:
-
   Bygg:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
@@ -37,7 +36,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
       - run: yarn install --frozen-lockfile
       - run: yarn test
 
@@ -48,10 +47,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
       - run: yarn install --frozen-lockfile
       - run: yarn lint
-
 
   # Snyk:
   #   runs-on: ubuntu-latest
@@ -63,8 +61,10 @@ jobs:
   #         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   Docker:
-    needs: [Kodekvalitet,Eslint,Bygg]
+    needs: [Kodekvalitet, Eslint, Bygg]
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - uses: actions/checkout@master
       - uses: actions/download-artifact@v3
@@ -85,6 +85,8 @@ jobs:
   Deploy:
     needs: [Docker]
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - uses: actions/checkout@v3
       - uses: nais/deploy/actions/deploy@v1

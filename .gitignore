@@ -8,9 +8,11 @@
 
 # testing
 /coverage
+/sonar-report.xml
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store

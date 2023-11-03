@@ -1,5 +1,4 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -33,13 +32,13 @@ import {
   Button,
   Checkbox,
   CheckboxGroup,
-  Fieldset,
   Heading,
   Ingress,
   Panel,
   RadioGroup,
   Radio,
-  Textarea
+  Textarea,
+  Fieldset
 } from '@navikt/ds-react';
 import '@navikt/ds-css';
 import Fnr from '../felles/Fnr/Fnr';
@@ -192,43 +191,42 @@ const GravidSide = (props: GravidSideProps) => {
           <Skillelinje />
 
           <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
-            <Row>
-              <Column md='3' xs='12'>
+            <div className='soknad-ansatte-persondata'>
+              <div>
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                   {t(LangKey.DEN_ANSATTE)}
                 </Heading>
-                <Fnr
-                  id='fnr'
-                  label={t(LangKey.FODSELSNUMMER_LABEL)}
-                  fnr={state.fnr}
-                  placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
-                  feilmelding={state.fnrError}
-                  onChange={(fnr: string) =>
-                    dispatch({
-                      type: Actions.Fnr,
-                      payload: { fnr: fnr }
-                    })
-                  }
-                />
-              </Column>
-              <Column md='3' xs='12'>
-                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                  &nbsp;
-                </Heading>
-                <Datovelger
-                  id='termindato'
-                  label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
-                  error={state.termindatoError}
-                  defaultSelected={state.termindato}
-                  onDateChange={(termindato: Date | undefined) => {
-                    dispatch({
-                      type: Actions.Termindato,
-                      payload: { termindato }
-                    });
-                  }}
-                />
-              </Column>
-              <Column md='3' xs='12'>
+                <div className='persondata'>
+                  <Fnr
+                    id='fnr'
+                    label={t(LangKey.FODSELSNUMMER_LABEL)}
+                    fnr={state.fnr}
+                    placeholder={t(LangKey.FODSELSNUMMER_PLACEHOLDER)}
+                    feilmelding={state.fnrError}
+                    onChange={(fnr: string) =>
+                      dispatch({
+                        type: Actions.Fnr,
+                        payload: { fnr: fnr }
+                      })
+                    }
+                  />
+
+                  <Datovelger
+                    id='termindato'
+                    label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
+                    error={state.termindatoError}
+                    defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                    onDateChange={(termindato: Date | undefined) => {
+                      dispatch({
+                        type: Actions.Termindato,
+                        payload: { termindato }
+                      });
+                    }}
+                    className='termindato'
+                  />
+                </div>
+              </div>
+              <div className='arbeidsgiverdata'>
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                   {t(LangKey.ARBEIDSGIVEREN)}
                 </Heading>
@@ -244,37 +242,37 @@ const GravidSide = (props: GravidSideProps) => {
                     })
                   }
                 />
-              </Column>
-            </Row>
+              </div>
+            </div>
           </Panel>
 
           <Skillelinje />
 
           <Panel className='gravidside-panel-arbeidssituasjon'>
-            <Row>
-              <Column sm='8' xs='12'>
-                <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                  {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
-                </Heading>
+            <div>
+              {/* <div sm='8' xs='12'> */}
+              <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+                {t(GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO)}
+              </Heading>
 
-                <Oversettelse
-                  className='arbeidsmiljo-ingress'
-                  langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
-                />
-                <RadioGroup
-                  legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
-                  className='gravidside-radiogruppe-tilrettelegging'
-                  onChange={(val: any) => handleTilretteleggingChange(val)}
-                >
-                  <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
-                    {t(LangKey.JA)}
-                  </Radio>
-                  <Radio name='sitteplass' value='nei' defaultChecked={state.tilrettelegge === false}>
-                    {t(LangKey.NEI)}
-                  </Radio>
-                </RadioGroup>
-              </Column>
-            </Row>
+              <Oversettelse
+                className='arbeidsmiljo-ingress'
+                langKey={GravidSideKeys.GRAVID_SIDE_ARBEIDSMILJO_INGRESS}
+              />
+              <RadioGroup
+                legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
+                className='gravidside-radiogruppe-tilrettelegging'
+                onChange={(val: any) => handleTilretteleggingChange(val)}
+              >
+                <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
+                  {t(LangKey.JA)}
+                </Radio>
+                <Radio name='sitteplass' value='nei' defaultChecked={state.tilrettelegge === false}>
+                  {t(LangKey.NEI)}
+                </Radio>
+              </RadioGroup>
+              {/* </div> */}
+            </div>
           </Panel>
 
           {state.tilrettelegge === true ? (
@@ -407,7 +405,7 @@ const GravidSide = (props: GravidSideProps) => {
                   error={state.dokumentasjonError}
                   errorId='dokumentasjonFeilmeldingId'
                   aria-live='polite'
-                  legend='Innsending av dokumentasjon'
+                  legend='Opplasting av dokumentasjon'
                   hideLegend={true}
                 >
                   <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />

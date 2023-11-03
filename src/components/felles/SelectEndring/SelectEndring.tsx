@@ -5,7 +5,6 @@ import { Heading, Select } from '@navikt/ds-react';
 interface SelectEndringProps {
   onChange?: any;
   feil?: string;
-  errorID?: string;
 }
 
 export default function SelectEndring(props: SelectEndringProps) {
@@ -19,7 +18,6 @@ export default function SelectEndring(props: SelectEndringProps) {
       }
       onChange={props.onChange}
       error={props.feil}
-      errorId={props.errorID}
     >
       <option value=''>Velg årsak</option>
       <option value={EndringsAarsak.TARIFFENDRING}>Tariffendring</option>

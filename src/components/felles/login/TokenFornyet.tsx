@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container, Row } from 'nav-frontend-grid';
 import { useTranslation } from 'react-i18next';
 import Side from '../Side/Side';
 import { TokenFornyetKeys } from './TokenFornyetKeys';
@@ -14,16 +13,16 @@ export const TokenFornyet = () => {
       title={t(TokenFornyetKeys.TOKEN_FORNYET_TITLE) as unknown as string}
       subtitle={t(TokenFornyetKeys.TOKEN_FORNYET_LOGIN) as unknown as string}
     >
-      <Container className={'side__innhold'}>
-        <Row>
+      <div className={'side__innhold'}>
+        <div>
           <Panel>
             <Heading size='large'>{t(TokenFornyetKeys.TOKEN_FORNYET_TITLE)}</Heading>
           </Panel>
           <Panel>
             <BodyLong>{t(TokenFornyetKeys.TOKEN_FORNYET_INFO)}</BodyLong>
           </Panel>
-        </Row>
-      </Container>
+        </div>
+      </div>
     </Side>
   );
 };

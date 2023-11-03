@@ -14,20 +14,20 @@ describe('validateBeloep', () => {
   });
 
   it('should verify that there beløp is invalid when belop is higher than max', () => {
-    expect(validateBeloep('123', 122, true)).not.toBeUndefined();
+    expect(validateBeloep('123', 122, true)).toBeDefined();
   });
 
   it('should verify that there is a beloep missing when required', () => {
-    expect(validateBeloep(undefined, 1000, true)).not.toBeUndefined();
+    expect(validateBeloep(undefined, 1000, true)).toBeDefined();
   });
 
   it('should return an error if beloep is not numeric', () => {
-    expect(validateBeloep('money', 122, true)).not.toBeUndefined();
+    expect(validateBeloep('money', 122, true)).toBeDefined();
     expect(validateBeloep('money', 122, true)?.key).toBe('VALIDATE_BELOEP_AMOUNT_NOT_NUMERIC');
   });
 
   it('should return an error when beloep is missing and required', () => {
-    expect(validateBeloep(undefined, 1000, true)).not.toBeUndefined();
+    expect(validateBeloep(undefined, 1000, true)).toBeDefined();
     expect(validateBeloep(undefined, 122, true)?.key).toBe('VALIDATE_BELOEP_AMOUNT_MISSING');
   });
 

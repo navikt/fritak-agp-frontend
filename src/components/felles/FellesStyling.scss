@@ -12,6 +12,64 @@
     padding-bottom: 1rem;
 }
 
+.textfelt-padding-top {
+    padding-top: 1rem;
+}
+
 .textfelt-padding-dobbel-bottom {
     padding-bottom: 2rem;
+}
+
+.persondata {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+}
+
+.arbeidsgiverdata {
+    display: flex;
+    gap: .125rem;
+    flex-direction: column;
+}
+
+.soknad-ansatte-persondata {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .soknad-ansatte-persondata {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 768px) {
+    .persondata {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 539px) {
+    .persondata {
+        flex-direction: column;
+    }
+}
+
+.krav-persondata {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.krav-fnr {
+    min-width: fit-content;
+    max-height: 48px;
+    margin: .125rem;
+}
+
+@media (max-width: 739px) {
+    .krav-persondata {
+        flex-direction: column;
+    }
 }

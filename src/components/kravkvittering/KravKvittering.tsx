@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row } from 'nav-frontend-grid';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
 import { KravKvitteringKeys } from './KravKvitteringKeys';
@@ -9,7 +8,6 @@ import { BodyLong, Heading, Panel, Link as NLink } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
 import Language from '../../locale/Language';
-import env from '../../config/environment';
 
 interface KravKvitteringProps {
   backTarget: lenker;
@@ -22,7 +20,7 @@ const KravKvittering = (props: KravKvitteringProps) => {
 
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
-      <Row>
+      <div>
         <Panel>
           <Heading size='xlarge' level='1'>
             {t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}
@@ -38,10 +36,10 @@ const KravKvittering = (props: KravKvitteringProps) => {
             <Link to={backTarget}>{t(KravKvitteringKeys.KRAV_KVITTERING_OPPRETT_NYTT_KRAV)}</Link>
           </BodyLong>
           <BodyLong>
-            <NLink href={env.minSideArbeidsgiver}>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</NLink>
+            <NLink href='/min-side-arbeidsgiver/'>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</NLink>
           </BodyLong>
         </Panel>
-      </Row>
+      </div>
     </Side>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, Reducer, useState } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import { useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -31,7 +30,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, ErrorMessage, Heading, Ingress, Panel } from '@navikt/ds-react';
+import { Button, Fieldset, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -45,8 +44,6 @@ import Language from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
-import kroniskKravKanSlettes from '../kroniskkrav/kroniskeKravKanSlettes';
-import dagerMellomPerioder from '../../utils/dagerMellomPerioder';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -103,13 +100,13 @@ export const GravidKrav = (props: GravidKravProps) => {
     });
   };
 
-  const handleSubmitClicked = () => {
+  const handleSubmitClicked = async () => {
     dispatch({
       type: Actions.Validate
     });
   };
 
-  const handleDeleteClicked = (event: React.FormEvent) => {
+  const handleDeleteClicked = async (event: React.FormEvent) => {
     event.preventDefault();
     dispatch({
       type: Actions.RemoveBackendError
@@ -168,32 +165,16 @@ export const GravidKrav = (props: GravidKravProps) => {
             state.antallDager,
             state.endringsAarsak!
           )
-        )
-          .then((response) => {
-            dispatchResponse(response);
-          })
-          .catch((err) => {
-            console.error(err);
-            dispatch({
-              type: Actions.AddBackendError,
-              payload: { error: 'Innsending feilet' }
-            });
-          });
+        ).then((response) => {
+          dispatchResponse(response);
+        });
       } else {
         postGravidKrav(
           environment.baseUrl,
           mapGravidKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
-        )
-          .then((response) => {
-            dispatchResponse(response);
-          })
-          .catch((err) => {
-            console.error(err);
-            dispatch({
-              type: Actions.AddBackendError,
-              payload: { error: 'Innsending feilet' }
-            });
-          });
+        ).then((response) => {
+          dispatchResponse(response);
+        });
       }
     }
   }, [
@@ -239,9 +220,7 @@ export const GravidKrav = (props: GravidKravProps) => {
   const title = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR);
   const subtitle = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE);
 
-  const avstanderMellomPerioder = dagerMellomPerioder(state.perioder);
-  const slettbar = kroniskKravKanSlettes(state.perioder);
-
+  const arbeidstidHjelpetekstTitle = t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL);
   return (
     <Side
       bedriftsmeny={true}
@@ -255,8 +234,6 @@ export const GravidKrav = (props: GravidKravProps) => {
       <Panel>
         <Ingress className='textfelt-padding-bottom'>
           <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
-        </Ingress>
-        <Ingress>
           <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
         </Ingress>
       </Panel>
@@ -265,17 +242,16 @@ export const GravidKrav = (props: GravidKravProps) => {
       {state.endringskrav && (
         <>
           <Panel>
-            <Row>
-              <Column sm='4' xs='6'>
+            <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
+              <div>
                 <SelectEndring
                   onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                     setEndringsAarsak(event.target.value as EndringsAarsak)
                   }
                   feil={state.endringsAarsakError}
-                  errorID='endring'
                 />
-              </Column>
-            </Row>
+              </div>
+            </Fieldset>
           </Panel>
           <Skillelinje />
         </>
@@ -284,9 +260,9 @@ export const GravidKrav = (props: GravidKravProps) => {
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(LangKey.DEN_ANSATTE)}
         </Heading>
-
-        <Row>
-          <Column sm='4' xs='6'>
+        <Fieldset aria-live='polite' errorId={'ansatt'} legend='' hideLegend={true}>
+          <div className='krav-persondata'>
+            {/* <div sm='4' xs='6'> */}
             <Fnr
               id='fnr'
               label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -299,18 +275,19 @@ export const GravidKrav = (props: GravidKravProps) => {
                   payload: { fnr: fnr }
                 })
               }
-              feilmeldingId={'ansatt'}
+              className='krav-fnr'
             />
-          </Column>
-          <Column sm='8' xs='8'>
+            {/* </div> */}
+            {/* <div sm='8' xs='8'> */}
             <KontrollSporsmaal
               onChange={(event) => setArbeidsdagerDagerPrAar(event.target.value)}
               id='kontrollsporsmaal-lonn-arbeidsdager'
               feil={state.antallDagerError}
               defaultValue={state.antallDager}
             />
-          </Column>
-        </Row>
+            {/* </div> */}
+          </div>
+        </Fieldset>
       </Panel>
 
       <Skillelinje />
@@ -320,35 +297,37 @@ export const GravidKrav = (props: GravidKravProps) => {
           {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
         </Heading>
         <TextLabel className='textfelt-padding-bottom'>
-          <div className='label-med-hjelp'>{t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}</div>
+          <div className='label-med-hjelp'>
+            {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
+            <HelpText className='krav-padding-hjelpetekst' title={arbeidstidHjelpetekstTitle}>
+              <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
+            </HelpText>
+          </div>
         </TextLabel>
-        <div aria-live='polite' id={'arbeidsperiode'} className='krav-kort-wrapper'>
+        <Fieldset
+          aria-live='polite'
+          errorId={'arbeidsperiode'}
+          className='krav-kort-wrapper'
+          legend='Kravperioder'
+          hideLegend={true}
+        >
           {state.perioder?.map((enkeltPeriode, index) => (
-            <>
-              <KravPeriode
-                dispatch={dispatch}
-                enkeltPeriode={enkeltPeriode}
-                index={index}
-                lonnspliktDager={state.antallDager}
-                key={enkeltPeriode.uniqueKey}
-                slettbar={slettbar}
-                Actions={Actions}
-                id={`arbeidsgiverperiode-${index}`}
-              />
-              {!!avstanderMellomPerioder[index] && avstanderMellomPerioder[index] < 17 && (
-                <ErrorMessage>
-                  Det må være minst 16 dager mellom arbeidsgiverperiodene. Nå er det{' '}
-                  {avstanderMellomPerioder[index] - 1}
-                </ErrorMessage>
-              )}
-            </>
+            <KravPeriode
+              dispatch={dispatch}
+              enkeltPeriode={enkeltPeriode}
+              index={index}
+              lonnspliktDager={state.antallDager}
+              key={enkeltPeriode.uniqueKey}
+              slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
+              Actions={Actions}
+            />
           ))}
           <div>
             {state.perioder && state.perioder.length < MAX_PERIODER && (
               <LeggTilKnapp onClick={leggTilPeriode}>{t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}</LeggTilKnapp>
             )}
           </div>
-        </div>
+        </Fieldset>
       </Panel>
 
       <Skillelinje />

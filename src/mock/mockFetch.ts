@@ -1,5 +1,5 @@
 const mockFetch = (status: number, json: any) => {
-  jest.spyOn(window, 'fetch').mockImplementationOnce(() =>
+  vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
     Promise.resolve({
       status: status,
       json: () => Promise.resolve(json)

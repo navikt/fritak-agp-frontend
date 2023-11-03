@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import Tekstomrade, { BoldRule, HighlightRule, LinebreakRule } from 'nav-frontend-tekstomrade';
+import { parse, build, AST, LinebreakRule, BoldRule, HighlightRule } from '@navikt/textparser';
 import { ListeRule } from './ListeRule';
 import { UListeRule } from './UListeRule';
 import { LenkeRule } from './LenkeRule';
@@ -7,7 +7,6 @@ import React from 'react';
 
 interface OversettelseProps {
   langKey: string;
-  as?: string;
   variables?: any;
   className?: any;
 }
@@ -19,17 +18,17 @@ ul end: ##-
 bold: _text_
 link: [link name](link url)
  */
-const Oversettelse = ({ className, langKey, variables, as = 'span' }: OversettelseProps) => {
+const Oversettelse = ({ className, langKey, variables }: OversettelseProps) => {
   const { t } = useTranslation();
-  return (
-    <Tekstomrade
-      className={className}
-      as={as}
-      rules={[ListeRule, UListeRule, HighlightRule, BoldRule, LenkeRule, LinebreakRule]}
-    >
-      {t(langKey, variables) as unknown as string}
-    </Tekstomrade>
-  );
+  const rules = [ListeRule, UListeRule, LinebreakRule, LenkeRule, BoldRule, HighlightRule];
+
+  const text = t(langKey, variables) as unknown as string;
+
+  const ast: AST = parse(text, rules);
+
+  const reactOutput: React.ReactElement<{}> = build(ast, rules);
+
+  return <span className={className}>{reactOutput}</span>;
 };
 
 export default Oversettelse;

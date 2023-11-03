@@ -102,13 +102,13 @@ const Locales: Record<
     nb:
       'NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet. Dette gjelder bare hvis tilrettelegging' +
       ' eller omplassering ikke er mulig. Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
-      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
-      ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\n' +
+      'Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
       '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
     en:
       'NAV can cover sickness benefits during the employer period if the absence is due to health problems during pregnancy. This only applies ' +
       'if facilitation or relocation is not possible. We use information we already have about sick leave, in addition to the answers you give below.' +
-      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\n' +
       'We will send a message to the employee notifying them that you have sent the application' +
       '\n\nAll fields must be filled out unless otherwise stated'
   },
@@ -362,7 +362,7 @@ const Locales: Record<
     en: 'Period of absence'
   },
   GRAVID_KRAV_ARBEIDSTID_PERIODE: {
-    nb: 'Angi de dager i arbeidsgiverperioden som den ansatte var borte',
+    nb: 'Hvilken periode var den ansatte borte?',
     en: 'What period was the employee away? '
   },
   GRAVID_KRAV_ARBEIDSTID_HJELPETEKST: {
@@ -607,8 +607,8 @@ const Locales: Record<
   KRONISK_SIDE_FRAVAER_DESCRIPTION: {
     nb:
       'For å vurdere retten til fritak fra arbeidsgiverperiode ser vi på arbeidstakerens historiske fravær. Dere kan gå ' +
-      '2 år tilbake i tid hvis både arbeidsforholdet og helseproblemene har vart så lenge. Angi antall dager med sykefravær ' +
-      'i hver måned. Oppgi alle egenmeldte dager, samt hele og graderte sykmeldingsdager.',
+      '2 år tilbake i tid hvis både arbeidsforholdet og helseproblemene har vart så lenge. Angi antall dager med ' +
+      'sykefravær i hver måned.',
     en:
       "To assess the right to exemption from the employer period, we look at the employee's historical absence. You can " +
       'go 2 years back in time if both the employment relationship and the health problems have lasted that long. Enter ' +
@@ -667,10 +667,6 @@ const Locales: Record<
   KRONISK_KRAV_PERIODE_TIL: {
     nb: 'Til dato',
     en: 'To date'
-  },
-  KRONISK_KRAV_PERIODE_LEGG_TIL: {
-    nb: '+ Legg til periode',
-    en: '+ Legg til periode'
   },
   KRONISK_KRAV_PERIODE_DAGER_LABEL: {
     nb: 'Antall dager',
@@ -896,7 +892,7 @@ const Locales: Record<
   },
   ALLE_FELT_PAKREVD: {
     nb:
-      'Vi sender en melding til den ansatte med informasjon om at du har sendt refusjonskravet.\n' +
+      'Vi sender en melding til den ansatte med informasjon om at du har sendt refusjonskravet.\n\n' +
       'Alle felter må fylles ut.',
     en:
       'We will send a message to the employee notifying them about your reimbursement claim.\n' +
@@ -1033,13 +1029,13 @@ const Locales: Record<
   KRONISK_KRAV_INFO: {
     nb:
       'Dersom dere allerede har søkt om ' +
-      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeKronisk}}) \n' +
-      'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på\n' +
+      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeKronisk}}) ' +
+      'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på ' +
       'godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.',
     en:
       'Dersom dere allerede har søkt om ' +
-      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeKronisk}}) \n' +
-      'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på\n' +
+      '[at NAV skal dekke sykepenger i arbeidsgiverperioden]({{-lenkeKronisk}}) ' +
+      'kan dere rette krav om refusjon via dette skjemaet. Vi anbefaler å gjøre dette uten å vente på ' +
       'godkjennelse av søknaden, for å potensielt unngå foreldelse av kravet.'
   },
   KRONISK_KRAV_EMPLOYEE: {
@@ -1047,7 +1043,7 @@ const Locales: Record<
     en: 'Employee'
   },
   KRONISK_KRAV_PERIOD_AWAY: {
-    nb: 'Angi de dager i arbeidsgiverperioden som den ansatte var borte',
+    nb: 'Hvilken periode var den ansatte borte?',
     en: 'What time was the employee not working?'
   },
   KRONISK_KRAV_ADD_PERIOD: {

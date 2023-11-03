@@ -3,6 +3,7 @@ import { waitForReact, ReactSelector } from 'testcafe-react-selectors';
 import { mockHeaders } from '@smartive/testcafe-utils';
 import kroniskSoknadResponse from './kroniskSoknadResponse';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
+import { screen } from '@testing-library/testcafe';
 
 const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
 const cookiePlease = new RegExp(/\/local\/cookie-please/);
@@ -17,6 +18,11 @@ const headereJson = {
   'access-control-allow-origin': 'http://127.0.0.1:3000',
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
+};
+
+const headereJsonUnauthorized = {
+  'content-type': 'application/json; charset=UTF-8',
+  'access-control-allow-origin': '*'
 };
 
 const headereText = Object.apply({}, headereJson);
@@ -58,7 +64,6 @@ fixture`Kronisk - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/sokn
     await waitForReact();
   });
 
-// eslint-disable-next-line jest/expect-expect
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
     .click(Selector('button').withText('Send søknad'))
@@ -86,7 +91,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  const fnr = ReactSelector('Fnr');
+  const fnr = screen.getAllByLabelText('Fødselsnummer (11 siffer)'); // ReactSelector('Fnr');
 
   await t
     .typeText(fnr, '260')

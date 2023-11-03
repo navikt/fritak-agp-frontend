@@ -1,5 +1,4 @@
 import React, { Reducer, useContext, useEffect, useReducer } from 'react';
-import { Column, Row } from 'nav-frontend-grid';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -128,12 +127,13 @@ const KroniskSide = () => {
       <Skillelinje />
 
       <Panel id='kroniskside-panel-ansatte'>
-        <div aria-live='polite' id='ansatt'>
-          <Row>
-            <Column sm='4' xs='6'>
-              <Heading size='medium' level='2' className='textfelt-padding-bottom'>
-                {t(LangKey.DEN_ANSATTE)}
-              </Heading>
+        {/* <Fieldset aria-live='polite' errorId={'ansatt'} legend={t(LangKey.DEN_ANSATTE)} hideLegend={true}> */}
+        <div className='soknad-ansatte-persondata'>
+          <div>
+            <Heading size='medium' level='2' className='textfelt-padding-bottom'>
+              {t(LangKey.DEN_ANSATTE)}
+            </Heading>
+            <div className='persondata'>
               <Fnr
                 id='fnr'
                 label={t(LangKey.FODSELSNUMMER_LABEL)}
@@ -142,26 +142,28 @@ const KroniskSide = () => {
                 feilmelding={state.fnrError}
                 onChange={(fnr: string) => dispatch({ type: Actions.Fnr, payload: { fnr: fnr } })}
               />
-            </Column>
-            <Column sm='4' xs='6'>
-              <Heading size='medium' level='3' className='textfelt-padding-bottom'>
-                {t(LangKey.ARBEIDSGIVEREN)}
-              </Heading>
-              <Orgnr
-                label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
-                orgnr={state.orgnr}
-                placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
-                feilmelding={state.orgnrError}
-                onChange={(orgnr: string) =>
-                  dispatch({
-                    type: Actions.Orgnr,
-                    payload: { orgnr: orgnr }
-                  })
-                }
-              />
-            </Column>
-          </Row>
+            </div>
+          </div>
+
+          <div className='arbeidsgiverdata'>
+            <Heading size='medium' level='3' className='textfelt-padding-bottom'>
+              {t(LangKey.ARBEIDSGIVEREN)}
+            </Heading>
+            <Orgnr
+              label={t(LangKey.VIRKSOMHETSNUMMER_LABEL)}
+              orgnr={state.orgnr}
+              placeholder={t(LangKey.VIRKSOMHETSNUMMER_PLACEHOLDER)}
+              feilmelding={state.orgnrError}
+              onChange={(orgnr: string) =>
+                dispatch({
+                  type: Actions.Orgnr,
+                  payload: { orgnr: orgnr }
+                })
+              }
+            />
+          </div>
         </div>
+        {/* </Fieldset> */}
       </Panel>
 
       <Skillelinje />
@@ -174,7 +176,7 @@ const KroniskSide = () => {
           error={state.dokumentasjonError}
           errorId='dokumentasjon'
           aria-live='polite'
-          legend={t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
+          legend={t(KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT)}
           hideLegend={true}
         >
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
@@ -200,7 +202,7 @@ const KroniskSide = () => {
           error={state.fravaerError}
           errorId='fravaertabell'
           aria-live='polite'
-          legend={t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
+          legend={t(KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION)}
           hideLegend={true}
         >
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_FRAVAER_DESCRIPTION} />

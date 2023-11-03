@@ -1,6 +1,6 @@
 import { validateGravidKrav } from './validateGravidKrav';
 import { defaultGravidKravState } from './GravidKravState';
-import parseDato from '../../utils/parseDato';
+import { parseDato } from '../../utils/dato/Dato';
 import { i18n } from 'i18next';
 
 const translationMock = {
@@ -28,25 +28,10 @@ describe('validateGravidKrav', () => {
     const state = defaultGravidKravState();
     state.validated = true;
     state.fnr = '123';
-    // if (state.perioder) {
-    state.perioder = [
-      {
-        uniqueKey: 'unik1',
-        perioder: [
-          {
-            fom: parseDato('12.12.1014'),
-            uniqueKey: 'unik'
-          }
-        ]
-      }
-    ];
-    // }
-
+    if (state.perioder) state.perioder[0].fom = parseDato('14.14.2014');
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
-
-    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid', perioder: [{ uniqueKey: 'uuid2' }] }];
-
-    expect(state2.perioder[0].perioder[0].fomError).not.toBeUndefined();
+    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];
+    expect(state2.perioder[0].fomError).not.toBeUndefined();
   });
 
   it('should show til error when invalid', () => {
@@ -54,33 +39,23 @@ describe('validateGravidKrav', () => {
     state.validated = true;
     state.fnr = '123';
     if (state.perioder) {
-      state.perioder = [
-        {
-          uniqueKey: 'unik1',
-          perioder: [
-            {
-              fom: parseDato('12.12.2014'),
-              tom: parseDato('11.11.2014'),
-              uniqueKey: 'unik'
-            }
-          ]
-        }
-      ];
+      state.perioder[0].fom = parseDato('12.12.2014');
+      state.perioder[0].tom = parseDato('11.11.2014');
     }
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
-    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid', perioder: [{ uniqueKey: 'uuid2' }] }];
-    expect(state2.perioder[0].perioder[0].tomError).not.toBeUndefined();
+    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];
+    expect(state2.perioder[0].tomError).not.toBeUndefined();
   });
 
   it('should not show errors until validation flagged', () => {
     const state = defaultGravidKravState();
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
-    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid', perioder: [{ uniqueKey: 'uuid2' }] }];
+    if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];
     expect(state2.feilmeldinger?.length).toEqual(0);
     expect(state2.fnrError).toBeUndefined();
     expect(state2.orgnrError).toBeUndefined();
-    expect(state2.perioder[0].perioder[0].fomError).toBeUndefined();
-    expect(state2.perioder[0].perioder[0].tomError).toBeUndefined();
+    expect(state2.perioder[0].fomError).toBeUndefined();
+    expect(state2.perioder[0].tomError).toBeUndefined();
     expect(state2.perioder[0].dagerError).toBeUndefined();
     expect(state2.perioder[0].belopError).toBeUndefined();
     expect(state2.bekreftError).toBeUndefined();

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { DateValidationT, UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
 import { isValid } from 'date-fns';
 
 interface DatovelgerProps {
@@ -13,7 +13,7 @@ interface DatovelgerProps {
   disabled?: boolean;
   defaultMonth?: Date;
   error?: React.ReactNode;
-  onValidate?: (val: DateValidationT) => void;
+  className?: string;
 }
 
 export default function Datovelger({
@@ -26,7 +26,8 @@ export default function Datovelger({
   hideLabel,
   disabled,
   defaultMonth,
-  error
+  error,
+  className
 }: DatovelgerProps) {
   if (!defaultSelected || !isValid(defaultSelected)) {
     defaultSelected = undefined;
@@ -55,6 +56,7 @@ export default function Datovelger({
         hideLabel={hideLabel}
         disabled={disabled}
         error={error}
+        className={className}
       />
     </UNSAFE_DatePicker>
   );

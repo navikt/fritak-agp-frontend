@@ -1,6 +1,5 @@
 import React from 'react';
-import '@testing-library/jest-dom';
-import { render, screen, act } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Upload from './Upload';
 
@@ -12,8 +11,8 @@ describe('Upload', () => {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     } as unknown as File;
 
-    const handleChange = jest.fn();
-    const handleDelete = jest.fn();
+    const handleChange = vi.fn();
+    const handleDelete = vi.fn();
 
     const view = render(
       <Upload
@@ -40,8 +39,8 @@ describe('Upload', () => {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     } as unknown as File;
 
-    const handleChange = jest.fn();
-    const handleDelete = jest.fn();
+    const handleChange = vi.fn();
+    const handleDelete = vi.fn();
 
     const view = render(
       <Upload

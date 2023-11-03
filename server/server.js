@@ -4,7 +4,7 @@ const path = require('path');
 const proxy = require('express-http-proxy');
 
 const BASE_PATH = '/fritak-agp';
-const HOME_FOLDER = '../build';
+const HOME_FOLDER = '../dist';
 const PORT = process.env.PORT || 8080;
 const API_URL = process.env.API_URL || 'http://localhost:3000';
 const API_BASEPATH = process.env.API_BASEPATH || '';

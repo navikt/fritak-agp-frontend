@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container, Row } from 'nav-frontend-grid';
 
 interface SideRammeProps {
   children: any;
@@ -8,9 +7,9 @@ interface SideRammeProps {
 const SideRamme = (props: SideRammeProps) => {
   return (
     <main className='side-ramme'>
-      <Container>
-        <Row>{props.children}</Row>
-      </Container>
+      <div>
+        <div>{props.children}</div>
+      </div>
     </main>
   );
 };

@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
 import i18next from 'i18next';
@@ -16,10 +16,8 @@ import { LanguageProvider } from '../../context/language/LanguageContext';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
-jest.unmock('react-i18next');
+vi.unmock('react-i18next');
 const i18n = languageInit(i18next, Language.nb, Locales);
-
-jest.setTimeout(50000);
 
 describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {
@@ -108,7 +106,7 @@ describe('KroniskKrav', () => {
 
     // await user.click(bekreftCheckbox);
     // expect(screen.queryByText(/Bekreft at opplysningene er korrekt/)).not.toBeInTheDocument();
-  });
+  }, 10000);
 
   it('should show warnings when input is missing, and the warning should dissapear when fixed 2', async () => {
     // const user = userEvent.setup();
@@ -186,7 +184,7 @@ describe('KroniskKrav', () => {
 
     // await user.click(bekreftCheckbox);
     // expect(screen.queryByText(/Bekreft at opplysningene er korrekt/)).not.toBeInTheDocument();
-  });
+  }, 10000);
 
   it('should show warnings when input is missing, and the warning should dissapear when fixed 4', async () => {
     const user = userEvent.setup();
@@ -223,5 +221,5 @@ describe('KroniskKrav', () => {
 
     await user.click(bekreftCheckbox);
     expect(screen.queryByText(/Bekreft at opplysningene er korrekt/)).not.toBeInTheDocument();
-  });
+  }, 10000);
 });

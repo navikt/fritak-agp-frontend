@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,9 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
-    "typeRoots": ["./typings", "./node_modules/@types"]
+    "typeRoots": ["./typings", "vite/client", "./node_modules/@types"]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src", "./vitest.setup.ts"],
+  "exclude": ["**/*.test.ts*", "src/mock/**/*", "src/mockData/**/*"]
 }

@@ -2,7 +2,7 @@ FROM navikt/node-express:18
 
 WORKDIR /var
 
-COPY build/ build/
+COPY dist/ dist/
 COPY server/ server/
 
 WORKDIR /var/server

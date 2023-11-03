@@ -25,7 +25,7 @@ app.get('/fritak-agp/api/v1/arbeidsgivere', function (req, res) {
 });
 
 app.post('/fritak-agp/api/v1/gravid/krav', function (req, res) {
-  res.status(201).sendFile('kvittering.json', options);
+  res.status(401).send('Unauthorized');
 });
 
 app.post('/fritak-agp/api/v1/kronisk/krav', function (req, res) {
@@ -33,27 +33,11 @@ app.post('/fritak-agp/api/v1/kronisk/krav', function (req, res) {
 });
 
 app.post('/fritak-agp/api/v1/gravid/soeknad', function (req, res) {
-  res.status(201).sendFile('kvittering.json', options);
+  res.status(200).send('Unauthorized');
 });
 
 app.post('/fritak-agp/api/v1/kronisk/soeknad', function (req, res) {
   res.status(401).send('Unauthorized');
-});
-
-app.get('/fritak-agp/api/v1/gravid/krav/*', function (req, res) {
-  res.sendFile('gravid-krav-notifikasjon.json', options);
-});
-
-app.get('/fritak-agp/api/v1/kronisk/krav/*', function (req, res) {
-  res.sendFile('gravid-krav-notifikasjon-gammel.json', options);
-});
-
-app.get('/fritak-agp/api/v1/gravid/soeknad/*', function (req, res) {
-  res.sendFile('gravid-soeknad-notifikasjon.json', options);
-});
-
-app.get('/fritak-agp/api/v1/kronisk/soeknad/*', function (req, res) {
-  res.sendFile('kronisk-soeknad-notifikasjon.json', options);
 });
 
 app.listen(8080);

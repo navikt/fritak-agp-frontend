@@ -9,7 +9,7 @@ export const languageInit = (translate: i18n, lang: Language, bundle: Record<str
     resources: buildResources(bundle),
     lng: 'nb',
     react: {
-      useSuspense: false
+      useSuspense: true
     }
   });
   return translate;

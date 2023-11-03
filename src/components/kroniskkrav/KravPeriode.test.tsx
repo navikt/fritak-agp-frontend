@@ -10,23 +10,22 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import Language from '../../locale/Language';
 
-const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked', perioder: [{ uniqueKey: 'mocked2' }] };
+const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
 // eslint-disable-next-line react/display-name
-// jest.doMock('../datovelger/Datovelger', () => () => {
-//   return <div>Datovelger</div>;
-// });
+vi.doMock('../datovelger/Datovelger', () => () => {
+  return <div>Datovelger</div>;
+});
 
 describe('KravPeriode', () => {
   languageInit(i18next, Language.nb, Locales);
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should show first row', async () => {
-    const mockDispatch = jest.fn();
-    // jest.unmock('../datovelger/Datovelger');
+    const mockDispatch = vi.fn();
 
     render(
       <KravPeriode
@@ -36,7 +35,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={false}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -48,7 +46,7 @@ describe('KravPeriode', () => {
   });
 
   it('should show second row', async () => {
-    const mockDispatch = jest.fn();
+    const mockDispatch = vi.fn();
 
     render(
       <KravPeriode
@@ -58,7 +56,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
@@ -69,7 +66,7 @@ describe('KravPeriode', () => {
   });
 
   it('should show a random row', async () => {
-    const mockDispatch = jest.fn();
+    const mockDispatch = vi.fn();
     const randomRow = 667;
 
     render(
@@ -80,7 +77,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -92,7 +88,7 @@ describe('KravPeriode', () => {
   });
 
   it('should show and delete the second row when clicked second row', async () => {
-    const mockDispatch = jest.fn();
+    const mockDispatch = vi.fn();
 
     render(
       <KravPeriode
@@ -102,7 +98,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -120,7 +115,7 @@ describe('KravPeriode', () => {
   });
 
   it('call dispatch when beløp has been updated', async () => {
-    const mockDispatch = jest.fn();
+    const mockDispatch = vi.fn();
 
     render(
       <KravPeriode
@@ -130,7 +125,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -142,8 +136,8 @@ describe('KravPeriode', () => {
   });
 
   it.skip('call dispatch when dager has been updated', async () => {
-    const mockDispatch = jest.fn();
-    // jest.unmock('../datovelger/Datovelger');
+    const mockDispatch = vi.fn();
+    // vi.unmock('../datovelger/Datovelger');
 
     render(
       <KravPeriode
@@ -153,7 +147,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
 
@@ -165,7 +158,7 @@ describe('KravPeriode', () => {
   });
 
   it.skip('should have no a11y violations for 1 row', async () => {
-    const mockDispatch = jest.fn();
+    const mockDispatch = vi.fn();
 
     const { container } = render(
       <KravPeriode
@@ -175,7 +168,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={false}
         Actions={Actions}
-        id='id'
       />
     );
     const results = await axe(container);
@@ -186,7 +178,7 @@ describe('KravPeriode', () => {
   });
 
   it.skip('should have no a11y violations for more rows - when Datovelger behaves', async () => {
-    const mockDispatch = jest.fn();
+    const mockDispatch = vi.fn();
 
     const { container } = render(
       <KravPeriode
@@ -196,7 +188,6 @@ describe('KravPeriode', () => {
         lonnspliktDager={260}
         slettbar={true}
         Actions={Actions}
-        id='id'
       />
     );
     const results = await axe(container);

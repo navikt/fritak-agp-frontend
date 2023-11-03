@@ -3,14 +3,14 @@ import { validateFnr } from './validateFnr';
 
 describe('validateFnr', () => {
   it('should give error when undefined value and required', async () => {
-    expect(validateFnr(undefined, true)?.key).toEqual('VALIDATE_FNR_MISSING');
+    expect(validateFnr(undefined, true)?.key).toBe('VALIDATE_FNR_MISSING');
   });
   it('should give error when empty value and required', async () => {
-    expect(validateFnr('', true)?.key).toEqual('VALIDATE_FNR_MISSING');
+    expect(validateFnr('', true)?.key).toBe('VALIDATE_FNR_MISSING');
   });
 
   it('should give error when invalid value and required', async () => {
-    expect(validateFnr('123', true)?.key).toEqual('VALIDATE_FNR_INVALID');
+    expect(validateFnr('123', true)?.key).toBe('VALIDATE_FNR_INVALID');
   });
   it('should not give error when invalid value and not required', async () => {
     expect(validateFnr('123', false)).toBeUndefined();

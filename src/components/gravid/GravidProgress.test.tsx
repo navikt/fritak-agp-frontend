@@ -3,7 +3,7 @@ import GravidProgress from './GravidProgress';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,

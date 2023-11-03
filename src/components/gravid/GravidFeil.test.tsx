@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import LangKey from '../../locale/LangKey';
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str,
