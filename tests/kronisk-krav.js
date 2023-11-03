@@ -3,6 +3,7 @@ import { waitForReact, ReactSelector } from 'testcafe-react-selectors';
 import { mockHeaders } from '@smartive/testcafe-utils';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 import kroniskKravResponse from './kroniskKravReponse';
+import { screen } from '@testing-library/testcafe';
 
 const arbeidsgiverAPI = new RegExp(/\/api\/v1\/arbeidsgivere/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
@@ -100,7 +101,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  const fnr = ReactSelector('Fnr');
+  const fnr = screen.getAllByLabelText('Fødselsnummer (11 siffer)'); // ReactSelector('Fnr');
 
   await t
     .typeText(fnr, '260')
