@@ -222,6 +222,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
+  await t.click(fnr).pressKey('ctrl+a delete').typeText(fnr, '20125027610');
+
   await t
     .click(Selector('button').withText('Send krav'))
     .expect(Selector('html').textContent)
