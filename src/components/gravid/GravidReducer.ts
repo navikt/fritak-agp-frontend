@@ -91,7 +91,7 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       return validateGravid(nextState, translate);
 
     case Actions.HideServerError:
-      nextState.serverError = undefined;
+      nextState.serverError = false;
       return validateGravid(nextState, translate);
 
     case Actions.Validate: {

@@ -19,7 +19,7 @@ import { ServerFeilAdvarselKeys } from '../components/felles/ServerFeilAdvarsel/
 import { BekreftOpplysningerKeys } from '../components/felles/BekreftOpplysningerPanel/BekreftOpplysningerKeys';
 import { FeilmeldingspanelKeys } from '../components/felles/Feilmeldingspanel/FeilmeldingspanelKeys';
 import { IngenTilgangAdvarselKeys } from '../components/felles/login/IngenTilgangAdvarselKeys';
-import { LoggetUtAdvarselKeys } from '../components/felles/login/LoggetUtAdvarselKeys';
+import { LoggetUtAdvarselKeys } from '../components/felles/LoggetUtAdvarsel/LoggetUtAdvarselKeys';
 import { TokenFornyetKeys } from '../components/felles/login/TokenFornyetKeys';
 import { TilgangsfeilSideKeys } from '../components/felles/login/TilgangsfeilSideKeys';
 import { UploadKeys } from '../components/felles/Upload/UploadKeys';

@@ -189,11 +189,13 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk({ timeout: 500 });
 
-  const terminDato = Selector('#termindato');
-  const valgtTerminDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
+  const terminDato = screen.getAllByLabelText('Termindato'); // ReactSelector('Fnr');
+
   await t
     .click(terminDato)
-    .click(valgtTerminDato)
+    .pressKey('ctrl+a delete')
+    .typeText(terminDato, '27.08.21')
+
     .expect(
       Selector('.navds-error-summary__list')
         .withText('Spesifiser hvilke tiltak som er forsøkt')
