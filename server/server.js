@@ -68,6 +68,7 @@ const startServer = () => {
   app.use(function (err, req, res) {
     // eslint-disable-next-line no-console
     console.error('Server: Error 500', err);
+    res.status(500).send('500 Error');
   });
 
   app.listen(PORT, () => {
