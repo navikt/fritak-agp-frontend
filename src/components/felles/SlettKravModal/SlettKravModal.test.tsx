@@ -3,7 +3,6 @@ import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import SlettKravModal from './SlettKravModal';
-import userEvent from '@testing-library/user-event';
 
 describe('SlettKravModal', () => {
   it('should have no a11y violations', async () => {

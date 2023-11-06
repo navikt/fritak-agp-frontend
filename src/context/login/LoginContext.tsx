@@ -36,8 +36,6 @@ export const LoginProvider = ({
     }
   });
 
-  console.log('LoginProvider', expiry);
-
   switch (expiry) {
     case LoginStatus.Checking:
       return <LoginChecking />;

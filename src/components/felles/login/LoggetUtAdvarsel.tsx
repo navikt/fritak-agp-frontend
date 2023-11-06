@@ -30,7 +30,7 @@ const LoggetUtAdvarsel = ({ onClose, loginServiceUrl, tokenFornyet }: LoggetUtAd
       className={'logget-ut-advarsel'}
       shouldCloseOnOverlayClick={false}
     >
-      <Modal.Content>
+      <Modal.Body>
         <Alert variant='error' className='logget-ut-advarsel__innhold'>
           <Heading size='large' level='2'>
             {t(LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_LOGGET_UT)}
@@ -44,7 +44,7 @@ const LoggetUtAdvarsel = ({ onClose, loginServiceUrl, tokenFornyet }: LoggetUtAd
             {t(LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_LOGIN)}
           </InternLenke>
         </Alert>
-      </Modal.Content>
+      </Modal.Body>
     </Modal>
   );
 };

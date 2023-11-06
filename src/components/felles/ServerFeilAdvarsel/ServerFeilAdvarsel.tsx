@@ -19,7 +19,7 @@ const ServerFeilAdvarsel = (props: ServerFeilAdvarselProps) => {
       closeButton={true}
       aria-labelledby='modal-heading'
     >
-      <Modal.Content>
+      <Modal.Body>
         <Alert variant='error' className='server-feil-advarsel--innhold'>
           <Heading spacing level='2' size='medium' id='modal-heading'>
             {t(ServerFeilAdvarselKeys.SERVER_FEIL_ADVARSEL_HEADING)}
@@ -32,7 +32,7 @@ const ServerFeilAdvarsel = (props: ServerFeilAdvarselProps) => {
             <Link onClick={() => props.onClose()}>{t(ServerFeilAdvarselKeys.SERVER_FEIL_ADVARSEL_HIDE)}</Link>
           </div>
         </Alert>
-      </Modal.Content>
+      </Modal.Body>
     </Modal>
   );
 };

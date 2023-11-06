@@ -4,7 +4,6 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import App from './App';
-import Modal from 'react-modal';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import env, { EnvironmentType } from './config/environment';
 import '@navikt/ds-css';
@@ -17,8 +16,6 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
     tracesSampleRate: 0.5
   });
 }
-
-Modal.setAppElement('#root');
 
 const container = document.getElementById('root');
 const root = createRoot(container!); // createRoot(container!) if you use TypeScript

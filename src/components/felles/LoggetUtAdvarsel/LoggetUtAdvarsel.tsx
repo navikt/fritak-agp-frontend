@@ -28,12 +28,10 @@ const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
     <Modal
       open={true}
       onClose={() => handleCloseModal()}
-      closeButton={false}
       className={'logget-ut-advarsel'}
       aria-labelledby='modal-heading'
-      shouldCloseOnOverlayClick={false}
     >
-      <Modal.Content>
+      <Modal.Body>
         <Alert variant='warning' className='logget-ut-advarsel__innhold'>
           <Heading size='large' level='2' id='modal-heading'>
             Du er blitt logget ut, følg instruksjonene for ikke å miste data
@@ -51,7 +49,7 @@ const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
           </ul>
           <InternLenke onClick={() => handleCloseModal()}>Jeg har logget inn på nytt - lukk dette vinduet</InternLenke>
         </Alert>
-      </Modal.Content>
+      </Modal.Body>
     </Modal>
   );
 };
