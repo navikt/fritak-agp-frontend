@@ -19,11 +19,6 @@ const headereJson = {
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
 };
 
-const headereJsonUnauthorized = {
-  'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': '*'
-};
-
 const headereText = Object.apply({}, headereJson);
 
 headereText['content-type'] = 'text/html; charset=UTF-8';
