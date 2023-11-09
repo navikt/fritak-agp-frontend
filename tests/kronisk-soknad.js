@@ -1,6 +1,5 @@
 import { RequestMock, Selector } from 'testcafe';
 import { waitForReact, ReactSelector } from 'testcafe-react-selectors';
-import { mockHeaders } from '@smartive/testcafe-utils';
 import kroniskSoknadResponse from './kroniskSoknadResponse';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 import { screen } from '@testing-library/testcafe';
@@ -51,11 +50,11 @@ const cookieMock = RequestMock()
   .onRequestTo(navAuth)
   .respond(null, 200, headereJson)
   .onRequestTo(grunnBeloep)
-  .respond(grunnBeloepVerdier, 200, mockHeaders)
+  .respond(grunnBeloepVerdier, 200, headereJson)
   .onRequestTo(innsendingAPI)
-  .respond(kroniskSoknadResponse, 201, mockHeaders)
+  .respond(kroniskSoknadResponse, 201, headereJson)
   .onRequestTo(deko)
-  .respond('', 201, mockHeaders);
+  .respond('', 201, headereJson);
 
 fixture`Kronisk - Søknad`.page`http://127.0.0.1:3000/fritak-agp/nb/kronisk/soknad?bedrift=810007842&TestCafe=running`
   .clientScripts([{ module: 'mockdate' }, { content: "MockDate.set('2021-08-25')" }])
