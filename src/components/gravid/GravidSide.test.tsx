@@ -9,9 +9,9 @@ import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
 import env from '../../config/environment';
 
-import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
 import { Dato } from '../../utils/dato/Dato';
+import { http, HttpResponse } from 'msw';
 
 vi.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -272,16 +272,9 @@ describe('GravidSide', () => {
     // @ts-ignore
     window.location = new URL('https://www.dev.nav.no');
 
-    let mock: FetchMock;
-    let spy: SpyMiddleware;
-
-    spy = new SpyMiddleware();
-    mock = FetchMock.configure({
-      middleware: spy.middleware
+    http.post('https://fritakagp.dev.nav.no/api/v1/gravid/soeknad', () => {
+      return new HttpResponse(null, { status: 401 });
     });
-    expect(spy.size()).toBe(0);
-
-    mock.post('https://fritakagp.dev.nav.no/api/v1/gravid/soeknad', (req, res, ctx) => res(ctx.status(401)));
 
     render(
       <MemoryRouter>
