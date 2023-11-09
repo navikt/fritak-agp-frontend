@@ -96,7 +96,7 @@
     "jest-axe": "7.x",
     "less": "^4.2.0",
     "mockdate": "^3.0.5",
-    "msw": "^2.0.1",
+    "msw": "^2.0.4",
     "prettier": "2.x",
     "pretty-quick": "3.x",
     "react-test-renderer": "18.x",
