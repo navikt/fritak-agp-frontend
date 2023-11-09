@@ -11,11 +11,12 @@ import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import environment from '../../config/environment';
-import { Alert, Heading, BodyLong, Panel, Link } from '@navikt/ds-react';
+import { Alert, Heading, BodyLong, Panel } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
 import InternLenke from '../felles/InternLenke/InternLenke';
 import Language from '../../locale/Language';
+import { Link } from 'react-router-dom';
 
 const GravidKvittering = () => {
   const { language } = useParams();
@@ -85,12 +86,12 @@ const GravidKvittering = () => {
       </Panel>
       <Panel className='lenker-ut-panel'>
         <div>
-          <Link href={buildLenke(lenker.GravidKrav, language as Language)}>
+          <Link to={buildLenke(lenker.GravidKrav, language as Language)}>
             <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_KRAV} />
           </Link>
         </div>
         <div>
-          <Link href={environment.logoutServiceUrl}>
+          <Link to={environment.logoutServiceUrl} className='lenke'>
             <Oversettelse langKey={LangKey.LOGG_UT} />
           </Link>
         </div>

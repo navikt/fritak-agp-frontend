@@ -10,14 +10,11 @@ import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
-import { languageInit } from '../../locale/languageInit';
-import Language from '../../locale/Language';
 import { LanguageProvider } from '../../context/language/LanguageContext';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 vi.unmock('react-i18next');
-const i18n = languageInit(i18next, Language.nb, Locales);
 
 describe('KroniskKrav', () => {
   it('should have no a11y violations', async () => {

@@ -182,11 +182,13 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     )
     .notOk();
 
-  const fraDato = Selector('#fra-dato-0');
-  const valgtFraDato = Selector('.rdp .rdp-row:nth-child(2) .rdp-cell:nth-child(3)');
+  const fraDato = screen.getAllByLabelText('Fra dato');
+
   await t
     .click(fraDato)
-    .click(valgtFraDato)
+    .pressKey('ctrl+a delete')
+    .typeText(fraDato, '07.08.21')
+
     .expect(Selector('.navds-error-summary__list').withText('Mangler til dato').visible)
     .ok()
     .expect(
@@ -205,11 +207,12 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t.expect(Selector('html').textContent).contains('153');
 
-  const tilDato = Selector('#til-dato-0');
-  const valgtTilDato = Selector('.rdp .rdp-row:nth-child(4) .rdp-cell:nth-child(4)');
+  const tilDato = screen.getAllByLabelText('Til dato');
   await t
     .click(tilDato)
-    .click(valgtTilDato)
+    .pressKey('ctrl+a delete')
+    .typeText(tilDato, '17.08.21')
+
     .expect(
       Selector('.navds-error-summary__list')
         .withText('Mangler til dato')

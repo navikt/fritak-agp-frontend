@@ -17,7 +17,7 @@ describe('KroniskReducer', () => {
 
   it('should set the fnr', () => {
     let state = runAction({ type: Actions.Fnr, payload: { fnr: '123' } });
-    expect(state.fnr).toEqual('123');
+    expect(state.fnr).toBe('123');
   });
 
   it('should set the fnr to empty', () => {
@@ -29,7 +29,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.fnr).toEqual('');
+    expect(state.fnr).toBe('');
   });
 
   it('should set the orgnr', () => {
@@ -41,7 +41,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.orgnr).toEqual('456');
+    expect(state.orgnr).toBe('456');
   });
 
   it('should set the orgnr to undefined', () => {
@@ -64,7 +64,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.orgnr).toEqual('');
+    expect(state.orgnr).toBe('');
   });
 
   it('should set the antallPerioder to undefined', () => {
@@ -110,7 +110,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.bekreft).toEqual(true);
+    expect(state.bekreft).toBeTruthy();
   });
 
   it('should set the bekreft to false', () => {
@@ -122,7 +122,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.bekreft).toEqual(false);
+    expect(state.bekreft).toBeFalsy();
   });
 
   it('should set the progress to false', () => {
@@ -134,7 +134,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.progress).toEqual(false);
+    expect(state.progress).toBeFalsy();
   });
 
   it('should set the progress to true', () => {
@@ -146,7 +146,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.progress).toEqual(true);
+    expect(state.progress).toBeTruthy();
   });
 
   it('should set, update and remove fravær', () => {
@@ -159,10 +159,10 @@ describe('KroniskReducer', () => {
       i18n
     );
     let { fravaer } = state;
-    expect(fravaer?.length).toEqual(1);
+    expect(fravaer?.length).toBe(1);
     let Aarsfravaer = fravaer!![0];
-    expect(Aarsfravaer.year).toEqual(2018);
-    expect(Aarsfravaer.okt).toEqual(2);
+    expect(Aarsfravaer.year).toBe(2018);
+    expect(Aarsfravaer.okt).toBe(2);
     let state2 = KroniskReducer(
       state,
       {
@@ -171,7 +171,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state2.fravaer![0].okt).toEqual(3);
+    expect(state2.fravaer![0].okt).toBe(3);
     let state3 = KroniskReducer(
       state,
       {
@@ -180,7 +180,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state3.fravaer?.length).toEqual(0);
+    expect(state3.fravaer?.length).toBe(0);
   });
 
   it('Fravaer - should handle empty state', () => {
@@ -194,7 +194,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state2.fravaer?.length).toEqual(0);
+    expect(state2.fravaer?.length).toBe(0);
   });
 
   it('Fravaer - should throw error when empty param', () => {
@@ -242,7 +242,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.dokumentasjon).toEqual('Joda');
+    expect(state.dokumentasjon).toBe('Joda');
   });
 
   it('should set dokumentasjon to be empty', () => {
@@ -254,7 +254,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.dokumentasjon).toEqual('');
+    expect(state.dokumentasjon).toBe('');
   });
 
   it('should set progress', () => {
@@ -266,7 +266,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.progress).toEqual(true);
+    expect(state.progress).toBeTruthy();
   });
 
   it('should set progress', () => {
@@ -291,7 +291,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.kvittering).toEqual(true);
+    expect(state.kvittering).toBeTruthy();
   });
 
   it('should toggle periodeUnntak', () => {
@@ -302,7 +302,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.ikkeHistoriskFravaer).toEqual(true);
+    expect(state.ikkeHistoriskFravaer).toBeTruthy();
 
     let state2 = KroniskReducer(
       state,
@@ -312,7 +312,7 @@ describe('KroniskReducer', () => {
       i18n
     );
 
-    expect(state2.ikkeHistoriskFravaer).toEqual(false);
+    expect(state2.ikkeHistoriskFravaer).toBeFalsy();
   });
 
   it('should set notAuthorized to false', () => {
@@ -325,7 +325,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.notAuthorized).toEqual(false);
+    expect(state.notAuthorized).toBeFalsy();
   });
 
   it('should set serverError to false', () => {
@@ -338,7 +338,7 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.serverError).toBeUndefined();
+    expect(state.serverError).toBeFalsy();
   });
 
   it('should handle response', () => {
@@ -350,9 +350,9 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    expect(state.submitting).toEqual(false);
-    expect(state.progress).toEqual(false);
-    expect(state.validated).toEqual(false);
+    expect(state.submitting).toBeFalsy();
+    expect(state.progress).toBeFalsy();
+    expect(state.validated).toBeFalsy();
   });
 
   it('should not allow empty response', () => {
@@ -419,6 +419,6 @@ describe('KroniskReducer', () => {
     expect(state.fravaerError).toBeUndefined();
     expect(state.bekreftError).toBeUndefined();
     expect(state.dokumentasjonError).toBeUndefined();
-    expect(state.feilmeldinger.length).toEqual(0);
+    expect(state.feilmeldinger.length).toBe(0);
   });
 });

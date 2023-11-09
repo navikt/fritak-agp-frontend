@@ -120,9 +120,9 @@ const KroniskSide = () => {
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
 
       <Panel>
-        <Ingress>
+        <BodyLong size='large'>
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_INGRESS} />
-        </Ingress>
+        </BodyLong>
       </Panel>
       <Skillelinje />
 

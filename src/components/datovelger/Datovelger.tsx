@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { isValid } from 'date-fns';
 
 interface DatovelgerProps {
@@ -33,7 +33,7 @@ export default function Datovelger({
     defaultSelected = undefined;
   }
 
-  const { datepickerProps, inputProps, reset } = UNSAFE_useDatepicker({
+  const { datepickerProps, inputProps, reset } = useDatepicker({
     toDate: toDate,
     fromDate: fromDate,
     onDateChange: onDateChange,
@@ -48,8 +48,8 @@ export default function Datovelger({
   }, [defaultSelected]); // eslint-disable-line
 
   return (
-    <UNSAFE_DatePicker {...datepickerProps}>
-      <UNSAFE_DatePicker.Input
+    <DatePicker {...datepickerProps}>
+      <DatePicker.Input
         {...inputProps}
         label={label}
         id={id}
@@ -58,6 +58,6 @@ export default function Datovelger({
         error={error}
         className={className}
       />
-    </UNSAFE_DatePicker>
+    </DatePicker>
   );
 }

@@ -1,57 +1,44 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import injectRedirectPath from '../../../utils/injectRedirectPath';
-import { Alert, Heading, Modal } from '@navikt/ds-react';
+import Oversettelse from '../Oversettelse/Oversettelse';
 import InternLenke from '../InternLenke/InternLenke';
+import injectRedirectPath from '../../../utils/injectRedirectPath';
+import { LoggetUtAdvarselKeys } from './LoggetUtAdvarselKeys';
 import Language from '../../../locale/Language';
+import { Alert, Heading, Modal } from '@navikt/ds-react';
 
-interface LoggetUtAdvarselInterface {
-  onClose: any;
-  tokenFornyet: string;
+interface LoggetUtAdvarselProps {
+  onClose: Function;
   loginServiceUrl: string;
+  tokenFornyet: string;
 }
 
-const LoggetUtAdvarsel = (props: LoggetUtAdvarselInterface) => {
+const LoggetUtAdvarsel = ({ onClose, loginServiceUrl, tokenFornyet }: LoggetUtAdvarselProps) => {
+  const { t } = useTranslation();
   let { language } = useParams();
-
+  const loginServiceUrlAfterRedirect = injectRedirectPath(loginServiceUrl, tokenFornyet, language as Language);
   const handleCloseModal = () => {
-    props.onClose();
+    onClose();
   };
 
-  const loginServiceUrlAfterRedirect = injectRedirectPath(
-    props.loginServiceUrl,
-    props.tokenFornyet,
-    language as Language
-  );
-
   return (
-    <Modal
-      open={true}
-      onClose={() => handleCloseModal()}
-      closeButton={false}
-      className={'logget-ut-advarsel'}
-      aria-labelledby='modal-heading'
-      shouldCloseOnOverlayClick={false}
-    >
-      <Modal.Content>
-        <Alert variant='warning' className='logget-ut-advarsel__innhold'>
-          <Heading size='large' level='2' id='modal-heading'>
-            Du er blitt logget ut, følg instruksjonene for ikke å miste data
+    <Modal open={true} onClose={() => handleCloseModal()} className={'logget-ut-advarsel'}>
+      <Modal.Body>
+        <Alert variant='error' className='logget-ut-advarsel__innhold'>
+          <Heading size='large' level='2'>
+            {t(LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_LOGGET_UT)}
           </Heading>
-          <ul>
-            <li>Ikke lukk dette vinduet</li>
-            <li>
-              <a href={loginServiceUrlAfterRedirect} rel='noopener noreferrer' target='_blank'>
-                Åpne ID-Porten (innlogging) i nytt vindu ved å klikke på denne lenken.
-              </a>
-            </li>
-            <li>Logg inn på nytt i ID-porten.</li>
-            <li>Returner til dette vinduet.</li>
-            <li>Lukk denne meldingen og klikk igjen på knappen “Send søknad om refusjon”</li>
-          </ul>
-          <InternLenke onClick={() => handleCloseModal()}>Jeg har logget inn på nytt - lukk dette vinduet</InternLenke>
+
+          <Oversettelse
+            langKey={LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_INFO}
+            variables={{ innloggingUrl: loginServiceUrlAfterRedirect }}
+          />
+          <InternLenke onClick={() => handleCloseModal()}>
+            {t(LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_LOGIN)}
+          </InternLenke>
         </Alert>
-      </Modal.Content>
+      </Modal.Body>
     </Modal>
   );
 };
