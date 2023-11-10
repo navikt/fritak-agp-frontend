@@ -25,11 +25,10 @@ describe('validateKronisk', () => {
     const state = defaultKroniskState();
     state.validated = true;
     const state2 = validateKronisk(state, i18n);
-    console.log(state2);
-    expect(state2.fnrError).not.toBeUndefined();
-    expect(state2.orgnrError).not.toBeUndefined();
-    expect(state2.fravaerError).not.toBeUndefined();
-    expect(state2.bekreftError).not.toBeUndefined();
+    expect(state2.fnrError).toBeDefined();
+    expect(state2.orgnrError).toBeDefined();
+    expect(state2.fravaerError).toBeDefined();
+    expect(state2.bekreftError).toBeDefined();
   });
 
   it('should not show error messages when validated and valid values', () => {
@@ -58,7 +57,7 @@ describe('validateKronisk', () => {
     state.validated = true;
     state.fnr = '123';
     const state2 = validateKronisk(state, i18n);
-    expect(state2.fnrError).not.toBeUndefined();
+    expect(state2.fnrError).toBeDefined();
   });
 
   it('should show error when invalid orgnr', () => {
@@ -66,7 +65,7 @@ describe('validateKronisk', () => {
     state.validated = true;
     state.orgnr = '123';
     const state2 = validateKronisk(state, i18n);
-    expect(state2.orgnrError).not.toBeUndefined();
+    expect(state2.orgnrError).toBeDefined();
   });
 
   it('should not show error when valid fravær', () => {
