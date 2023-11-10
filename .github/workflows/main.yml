@@ -27,7 +27,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: fritak-frontend-artifact
-          path: ${{ github.workspace }}/build/**/*
+          path: ${{ github.workspace }}/dist/**/*
 
   Kodekvalitet:
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: fritak-frontend-artifact
-          path: build
+          path: dist
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
