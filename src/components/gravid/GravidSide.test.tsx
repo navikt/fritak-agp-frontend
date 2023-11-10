@@ -8,6 +8,7 @@ import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
 import env from '../../config/environment';
+import { vi } from 'vitest';
 
 import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
 import { Dato } from '../../utils/dato/Dato';

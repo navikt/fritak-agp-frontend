@@ -1,4 +1,4 @@
-import { RequestMock, Selector } from 'testcafe';
+import { RequestMock, Selector, fixture, test } from 'testcafe';
 import { waitForReact, ReactSelector } from 'testcafe-react-selectors';
 import kroniskSoknadResponse from './kroniskSoknadResponse';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
