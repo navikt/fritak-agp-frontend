@@ -97,7 +97,7 @@
     "less": "^4.2.0",
     "mockdate": "^3.0.5",
     "msw": "^2.0.4",
-    "prettier": "2.x",
+    "prettier": "3.x",
     "pretty-quick": "3.x",
     "react-test-renderer": "18.x",
     "sass": "1.x",
