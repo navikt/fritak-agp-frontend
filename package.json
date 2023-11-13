@@ -95,7 +95,7 @@
     "less": "^4.2.0",
     "lint-staged": "^15.0.2",
     "mockdate": "^3.0.5",
-    "msw": "^2.0.4",
+    "msw": "^2.0.6",
     "prettier": "3.x",
     "react-test-renderer": "18.x",
     "sass": "1.x",
