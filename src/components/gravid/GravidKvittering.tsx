@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import lenker, { buildLenke } from '../../config/lenker';
 import LangKey from '../../locale/LangKey';
 import { GravidKvitteringKeys } from './GravidKvitteringKeys';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import formatTiltakBeskrivelse from '../notifikasjon/gravid/soknad/formatTiltakBeskrivelse';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import formatOmplassering from '../notifikasjon/gravid/soknad/formatOmplassering';
@@ -16,7 +16,6 @@ import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
 import InternLenke from '../felles/InternLenke/InternLenke';
 import Language from '../../locale/Language';
-import { Link } from 'react-router-dom';
 
 const GravidKvittering = () => {
   const { language } = useParams();
@@ -54,7 +53,7 @@ const GravidKvittering = () => {
         <BodyLong className='luft-under'>
           Tilrettelegging av arbeidsdagen {tilrettelegge ? 'er' : 'er ikke'} forsøkt
         </BodyLong>
-        {tilrettelegge && tiltak && (
+        {tilrettelegge && tiltak && tiltak.length > 0 && (
           <BodyLong>
             Tiltak forsøkt for at den ansatte skal kunne jobbe:
             <ul className='dash'>
