@@ -91,7 +91,7 @@
     "eslint-plugin-typescript": "^0.14.0",
     "eslint-plugin-vitest": "^0.3.9",
     "husky": "8.x",
-    "jest-axe": "7.x",
+    "jest-axe": "8.x",
     "less": "^4.2.0",
     "lint-staged": "^15.0.2",
     "mockdate": "^3.0.5",
