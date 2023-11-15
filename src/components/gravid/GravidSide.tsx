@@ -33,7 +33,6 @@ import {
   Checkbox,
   CheckboxGroup,
   Heading,
-  Ingress,
   Panel,
   RadioGroup,
   Radio,
@@ -183,9 +182,9 @@ const GravidSide = (props: GravidSideProps) => {
       {!state.progress && !state.kvittering && (
         <div>
           <Panel>
-            <Ingress>
+            <BodyLong size='large'>
               <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_INGRESS} />
-            </Ingress>
+            </BodyLong>
           </Panel>
 
           <Skillelinje />

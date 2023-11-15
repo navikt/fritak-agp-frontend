@@ -12,7 +12,6 @@ interface ServerFeilAdvarselProps {
 const ServerFeilAdvarsel = (props: ServerFeilAdvarselProps) => {
   const { t } = useTranslation();
 
-  console.log('ServerFeilAdvarsel', props.isOpen);
   return (
     <Modal
       open={props.isOpen}
