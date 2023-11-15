@@ -17,8 +17,8 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          node-version: 20
+          registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
@@ -33,8 +33,8 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          node-version: 20
+          registry-url: 'https://npm.pkg.github.com'
       - run: yarn install --frozen-lockfile
       - run: yarn test
 
@@ -44,8 +44,8 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          registry-url: "https://npm.pkg.github.com"
+          node-version: 20
+          registry-url: 'https://npm.pkg.github.com'
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
