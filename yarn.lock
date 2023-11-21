@@ -2207,9 +2207,9 @@
     axe-core "^3.5.5"
 
 "@types/jest@*", "@types/jest@29.x":
-  version "29.5.2"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-29.5.2.tgz#86b4afc86e3a8f3005b297ed8a72494f89e6395b"
-  integrity sha512-mSoZVJF5YzGVCk+FsDxzDuH7s+SCkzrgKZzf0Z0T2WudhBUPoF6ktoTPC4R0ZoCPCV5xUvuU6ias5NvxcBcMMg==
+  version "29.5.9"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-29.5.9.tgz#eb997ab4a201b7504662ac9ebb84a748e17f95ab"
+  integrity sha512-zJeWhqBwVoPm83sP8h1/SVntwWTu5lZbKQGCvBjxQOyEWnKnsaomt2y7SlV4KfwlrHAHHAn00Sh4IAWaIsGOgQ==
   dependencies:
     expect "^29.0.0"
     pretty-format "^29.0.0"
