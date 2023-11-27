@@ -16,7 +16,7 @@ const VisNotifikasjonPerioder = ({ perioder }: VisNotifikasjonPerioderProps) => 
     <>
       {perioder.length > 1 ? (
         perioder.map((periode) => (
-          <BodyLong key={periode.fom}>
+          <BodyLong key={periode.fom} as='div'>
             {formaterDato(periode.fom)} - {formaterDato(periode.tom)}.
           </BodyLong>
         ))

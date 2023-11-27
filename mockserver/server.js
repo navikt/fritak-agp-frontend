@@ -28,6 +28,10 @@ app.post('/fritak-agp/api/v1/gravid/krav', function (req, res) {
   res.status(200).send('Unauthorized');
 });
 
+app.get('/fritak-agp/api/v1/gravid/krav/:id', function (req, res) {
+  res.sendFile('notifikasjon-gravid-krav.json', options);
+});
+
 app.post('/fritak-agp/api/v1/kronisk/krav', function (req, res) {
   res.status(200).send('Unauthorized');
 });
