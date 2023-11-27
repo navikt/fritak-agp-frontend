@@ -2084,10 +2084,10 @@
     "@testing-library/dom" "^9.0.0"
     "@types/react-dom" "^18.0.0"
 
-"@testing-library/testcafe@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/testcafe/-/testcafe-5.0.0.tgz#3a9ee0ee25beecf62b54f1a6dc64d6cd622737e5"
-  integrity sha512-s3GVxM3m8LJFgqc1HqRsC927w9t7483xE50A/6/6nEXOr1M8sZjIvIGgrLqrom7g27tLSqQT1ZKskiQsT4l8Eg==
+"@testing-library/testcafe@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/testcafe/-/testcafe-5.0.1.tgz#103a266ad0bd3f584df83dafc382f4766b1b16bd"
+  integrity sha512-OQfg0t5K5zvdntzdu6rflCLPrlwy2xlva+j5tXbKDVIADYWuwFq+Dx/bEkUAOsrlqe0hMMcahXN2+RwesUIJTA==
   dependencies:
     "@testing-library/dom" "^8.19.0"
 
