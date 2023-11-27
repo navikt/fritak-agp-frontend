@@ -26,7 +26,7 @@ const EksempelLonningsdager = () => {
           <Accordion.Header>Turnus/rotasjon f.eks offshore med lønn 365 dager i året</Accordion.Header>
 
           <Accordion.Content>
-            <BodyLong>
+            <BodyLong as='div'>
               <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 50 000.</li>
                 <li>Oppgi 365 dager med lønn.</li>
@@ -39,7 +39,7 @@ const EksempelLonningsdager = () => {
         <Accordion.Item>
           <Accordion.Header>20% fast stilling pluss ekstravakter. Har jobbet totalt 80%</Accordion.Header>
           <Accordion.Content>
-            <BodyLong>
+            <BodyLong as='div'>
               <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 40 000.</li>
                 <li>Oppgi 208 dager med lønn (tilsvarer 80% stilling).</li>
@@ -59,7 +59,7 @@ const EksempelLonningsdager = () => {
             Tilkallingsvikar, jobbet 40% siste 3 måneder. Planlagt fulltid 3 uker fram i tid
           </Accordion.Header>
           <Accordion.Content>
-            <BodyLong>
+            <BodyLong as='div'>
               <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 20 000.</li>
                 <li>Det er planlagt vakter mandag-fredag 3 uker fram i tid fra første fraværsdag.</li>
@@ -77,7 +77,7 @@ const EksempelLonningsdager = () => {
         <Accordion.Item>
           <Accordion.Header>Tilkallingsvikar, jobbet 40% siste 3 måneder. Ingen planlagte vakter</Accordion.Header>
           <Accordion.Content>
-            <BodyLong>
+            <BodyLong as='div'>
               <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 20 000.</li>
                 <li>Ingen planlagte vakter i arbeidsgiverperioden.</li>
@@ -96,7 +96,7 @@ const EksempelLonningsdager = () => {
         <Accordion.Item>
           <Accordion.Header>50% stilling, jobber to hele og én halv dag i uken</Accordion.Header>
           <Accordion.Content>
-            <BodyLong>
+            <BodyLong as='div'>
               <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 25 000.</li>
                 <li>Oppgi 130 dager med lønn.</li>
@@ -113,7 +113,7 @@ const EksempelLonningsdager = () => {
         <Accordion.Item>
           <Accordion.Header>50% stilling, jobber 50% hver dag mandag-fredag</Accordion.Header>
           <Accordion.Content>
-            <BodyLong>
+            <BodyLong as='div'>
               <ul className='ekspander-liste'>
                 <li>Beregnet månedslønn, for eksempel kr 25 000.</li>
                 <li>Oppgi 260 dager med lønn.</li>
