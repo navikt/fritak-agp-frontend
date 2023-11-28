@@ -14,8 +14,8 @@ import environment from '../../config/environment';
 import { Alert, Heading, BodyLong, Panel } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
-import InternLenke from '../felles/InternLenke/InternLenke';
 import Language from '../../locale/Language';
+import InternLenke from '../felles/InternLenke/InternLenke';
 
 const GravidKvittering = () => {
   const { language } = useParams();
@@ -95,7 +95,7 @@ const GravidKvittering = () => {
           </Link>
         </div>
         <div>
-          <InternLenke to='/min-side-arbeidsgiver/'>
+          <InternLenke to={environment.minSideArbeidsgiver}>
             <Oversettelse langKey={LangKey.MIN_SIDE_ARBEIDSGIVER} />
           </InternLenke>
         </div>
