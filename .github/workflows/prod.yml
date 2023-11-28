@@ -52,10 +52,17 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and publish Docker image
-        run: |
-          docker build --pull --tag ${{ env.IMAGE }}  .
-          docker push ${{ env.IMAGE }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}
+          secrets: |
+            "NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}"
+          build-args: |
+            "BUILDMODE=production"
 
   Deploy:
     needs: [Docker]
