@@ -6902,9 +6902,9 @@ slice-ansi@^5.0.0:
     is-fullwidth-code-point "^4.0.0"
 
 snyk@1.x:
-  version "1.1248.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1248.0.tgz#094adb4cc436a9663cdd6cf5079110ed5b935a05"
-  integrity sha512-bQ7I1JeKX5RllIGUxPzMOVg1kTzgY7QCbbxSp/4Alkkg0zBCEb6/XCgrVS++PbnfkpiUaE7qzDhrgT0xrEG4aA==
+  version "1.1257.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1257.0.tgz#3c3472d3f7ffb3939543c8239737f2a4f627fd96"
+  integrity sha512-0KUL+Hm2w0jyVZjL+G2rwxCIfgorc3rxRSImJAurt6Pduh2wsRDfAocdI9UlIFDlXK7Jt+mqHhrNUWPUT5Pz6A==
   dependencies:
     "@sentry/node" "^7.36.0"
     global-agent "^3.0.0"
