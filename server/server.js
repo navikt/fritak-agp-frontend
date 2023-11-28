@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const proxy = require('express-http-proxy');
 
+const { injectDecoratorServerSide } = require('@navikt/nav-dekoratoren-moduler/ssr');
+
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../dist';
 const PORT = process.env.PORT || 8080;
@@ -56,7 +58,13 @@ const startServer = () => {
   app.use(express.json({ limit: '50mb' }));
 
   app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, HOME_FOLDER, 'index.html'));
+    injectDecoratorServerSide({
+      env: 'prod',
+      filePath: path.join(__dirname, HOME_FOLDER, 'index.html'),
+      params: { context: 'arbeidsgiver' }
+    }).then((html) => {
+      res.send(html);
+    });
   });
 
   app.use(function (req, res) {

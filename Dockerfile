@@ -5,6 +5,13 @@ WORKDIR /var
 COPY dist/ dist/
 COPY server/ server/
 
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    echo '//npm.pkg.github.com/:_authToken='$(cat /run/secrets/NODE_AUTH_TOKEN) >> .npmrc
+
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    echo '//npm.pkg.github.com/:_authToken='$(cat /run/secrets/NODE_AUTH_TOKEN) >> server/.npmrc
+
+
 WORKDIR /var/server
 RUN npm ci
 
