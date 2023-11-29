@@ -3,6 +3,7 @@ import NotifikasjonType from './NotifikasjonType';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
 import { BodyLong, Heading, Link, Panel } from '@navikt/ds-react';
+import environment from '../../../config/environment';
 
 interface NotifikasjonInnholdProps {
   children: any;
@@ -17,7 +18,7 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
       <div>
         <div>
           <div className={'notifikasjon-innhold__path'}>
-            <Link href='/min-side-arbeidsgiver/'>Ditt NAV / </Link>
+            <Link href={environment.minSideArbeidsgiver}>Ditt NAV / </Link>
             <Link href=''>Beskjeder / </Link>
             <Link href=''>Din arbeidsgiver har søkt om utvidet støtte</Link>
           </div>
