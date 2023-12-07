@@ -76,7 +76,7 @@
     "@types/node": "20.x",
     "@types/react": "^18.2.39",
     "@types/react-collapse": "^5.0.4",
-    "@types/react-dom": "^18.2.15",
+    "@types/react-dom": "^18.2.17",
     "@types/react-modal": "3.x",
     "@types/react-router-dom": "5.x",
     "@types/uuid": "^9.0.7",
