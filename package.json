@@ -104,7 +104,7 @@
     "testcafe": "^3.4.0",
     "testcafe-react-selectors": "^5.0.3",
     "timezone-mock": "1.x",
-    "vite": "^5.0.2",
+    "vite": "^5.0.6",
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "^0.34.6",
     "vitest-sonar-reporter": "^0.5.0"
