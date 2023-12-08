@@ -16,9 +16,12 @@ export default function SlettKravModal(props: SlettKravModalProps) {
       onClose={() => props.onClose(false)}
       className='kroniskkrav-modal'
       aria-label='Sletting av krav'
+      header={{ heading: 'Er du sikker på at du vil annullere kravet?' }}
     >
       <Modal.Body>
-        <span className='kroniskkrav-modal-text'>Er du sikker på at du vil slette kravet?</span>
+        <span className='kroniskkrav-modal-text'>
+          Ved annullering vil dette kravet om fritak fra arbeidsgiverperiode bortfalle.
+        </span>
         <div className='kroniskkrav-modal-buttons'>
           <Button variant='secondary' onClick={() => props.onClose(false)}>
             Nei
