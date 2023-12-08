@@ -375,7 +375,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
               loading={state.progress}
               disabled={state.formDirty}
             >
-              Slett krav
+              Annuller krav
             </Button>
           </>
         )}

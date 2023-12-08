@@ -365,7 +365,7 @@ export const GravidKrav = (props: GravidKravProps) => {
               loading={state.progress}
               disabled={state.formDirty}
             >
-              Slett krav
+              Annuller krav
             </Button>
           </>
         )}
