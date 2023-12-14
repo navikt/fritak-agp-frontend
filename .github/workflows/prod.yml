@@ -75,7 +75,7 @@ jobs:
           node-version: 20
           registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@v2
         env:
           TEAM: helsearbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
