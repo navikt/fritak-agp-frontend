@@ -30,7 +30,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Fieldset, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { BodyLong, Button, Fieldset, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -45,6 +45,7 @@ import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import textify from '../../utils/textify';
+import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -89,6 +90,10 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
   const handleCloseServerFeil = () => {
     dispatch({ type: Actions.HideServerError });
+  };
+
+  const handleCloseDuplicateFeil = () => {
+    dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
 
   const leggTilPeriode = () => {
@@ -227,19 +232,20 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       subtitle={textify(t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE))}
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
+      <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
       <Panel>
-        <Ingress className='textfelt-padding-bottom'>
+        <BodyLong size='large' className='textfelt-padding-bottom'>
           <Oversettelse
             langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
             variables={{
               lenkeKronisk: buildLenke(lenker.Kronisk, language as Language)
             }}
           />
-        </Ingress>
-        <Ingress>
+        </BodyLong>
+        <BodyLong size='large'>
           <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
-        </Ingress>
+        </BodyLong>
       </Panel>
       <Skillelinje />
 

@@ -25,7 +25,7 @@ app.get('/fritak-agp/api/v1/arbeidsgivere', function (req, res) {
 });
 
 app.post('/fritak-agp/api/v1/gravid/krav', function (req, res) {
-  res.status(200).send('Unauthorized');
+  res.status(409).send('Unauthorized');
 });
 
 app.get('/fritak-agp/api/v1/gravid/krav/:id', function (req, res) {

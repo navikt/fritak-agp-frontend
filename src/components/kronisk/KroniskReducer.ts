@@ -51,6 +51,10 @@ const KroniskReducer = (state: KroniskState, action: KroniskAction, translate: i
       nextState.serverError = false;
       return validateKronisk(nextState, translate);
 
+    case Actions.HideDuplicateSubmissionError:
+      nextState.duplicateSubmission = false;
+      return validateKronisk(nextState, translate);
+
     case Actions.Validate: {
       nextState.validated = true;
       const validatedState = validateKronisk(nextState, translate);

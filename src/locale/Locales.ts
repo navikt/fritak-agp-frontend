@@ -31,6 +31,7 @@ import { validateFnrKeys } from '../validation/validateFnr';
 import { validateBeloepKeys } from '../validation/validateBeloep';
 import { validateBekreftKeys } from '../validation/validateBekreft';
 import { PageNotFoundKeys } from '../components/felles/PageNotFound/PageNotFoundKeys';
+import { DuplicateSubmissionAdvarselKeys } from '../components/felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarselKeys';
 
 export interface Locale {
   en: string;
@@ -69,7 +70,8 @@ const Locales: Record<
   | ValidateSykemeldingsgradKeys
   | KravKvitteringSlettetKeys
   | KravEndringKvitteringKeys
-  | ValidateDokumentasjonKeys,
+  | ValidateDokumentasjonKeys
+  | DuplicateSubmissionAdvarselKeys,
   Locale
 > = {
   PAGE_NOT_FOUND_TITLE: {
@@ -806,7 +808,7 @@ const Locales: Record<
     en: 'We were unable to log you in. Please try again later.'
   },
   SERVER_FEIL_ADVARSEL_HEADING: {
-    nb: 'Det har desverre oppstått en teknisk feil hos oss',
+    nb: 'Det har dessverre oppstått en teknisk feil hos oss',
 
     en: 'Unfortunately, a technical error has occurred'
   },
@@ -815,6 +817,19 @@ const Locales: Record<
     en: 'Please try again later and [feel free to contact us if it does not work out.](https://arbeidsgiver.nav.no/kontakt-oss/)'
   },
   SERVER_FEIL_ADVARSEL_HIDE: {
+    nb: 'Skjul denne meldingen.',
+    en: 'Hide this message.'
+  },
+  DUPLICATE_SUBMISSION_ADVARSEL_HEADING: {
+    nb: 'Denne informasjonen er allerede sendt inn',
+
+    en: 'This information has already been submitted'
+  },
+  DUPLICATE_SUBMISSION_ADVARSEL_TEXT: {
+    nb: 'Denne innsendingen er allerede mottatt [kontakt oss gjerne dersom dette ikke stemmer.](https://arbeidsgiver.nav.no/kontakt-oss/)',
+    en: 'This submission has already been received [feel free to contact us if you find this incorrect.](https://arbeidsgiver.nav.no/kontakt-oss/)'
+  },
+  DUPLICATE_SUBMISSION_ADVARSEL_HIDE: {
     nb: 'Skjul denne meldingen.',
     en: 'Hide this message.'
   },

@@ -94,6 +94,10 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       nextState.serverError = false;
       return validateGravid(nextState, translate);
 
+    case Actions.HideDuplicateSubmissionError:
+      nextState.duplicateSubmission = false;
+      return validateGravid(nextState, translate);
+
     case Actions.Validate: {
       nextState.validated = true;
       const validatedState = validateGravid(nextState, translate);

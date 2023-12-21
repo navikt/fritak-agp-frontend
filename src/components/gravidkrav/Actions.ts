@@ -28,7 +28,8 @@ export enum Actions {
   EndringsAarsak,
   ShowSpinner,
   HideSpinner,
-  HideServerError
+  HideServerError,
+  HideDuplicateSubmissionError
 }
 
 export interface Payload {

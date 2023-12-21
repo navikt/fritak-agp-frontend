@@ -15,7 +15,8 @@ export enum Actions {
   NotAuthorized,
   AntallPerioder,
   HideServerError,
-  ToggleUnntak
+  ToggleUnntak,
+  HideDuplicateSubmissionError
 }
 
 export interface FravaerType {

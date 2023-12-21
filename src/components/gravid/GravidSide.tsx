@@ -50,6 +50,7 @@ import Skillelinje from '../felles/Skillelinje';
 import Side from '../felles/Side/Side';
 import Upload from '../felles/Upload/Upload';
 import Language from '../../locale/Language';
+import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
@@ -108,6 +109,9 @@ const GravidSide = (props: GravidSideProps) => {
   };
   const handleCloseNotAuthorized = () => {
     dispatch({ type: Actions.NotAuthorized });
+  };
+  const handleCloseDuplicateFeil = () => {
+    dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
 
   const isCheckboxChecked = (checkbox: Tiltak): boolean => {
@@ -176,6 +180,7 @@ const GravidSide = (props: GravidSideProps) => {
       subtitle={subtitle}
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
+      <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
       {!!state.progress && <GravidProgress />}
 

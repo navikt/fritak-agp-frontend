@@ -7,7 +7,8 @@ describe('map200', () => {
       feilmeldinger: [],
       kvittering: true,
       progress: false,
-      serverError: false
+      serverError: false,
+      duplicateSubmission: false
     };
     expect(map200({ feilmeldinger: [] })).toEqual(expected);
   });

@@ -8,6 +8,7 @@ const map200 = (state: ValidationState): ValidationState => {
   state.progress = false;
   state.serverError = false;
   state.error = false;
+  state.duplicateSubmission = false;
   return state;
 };
 

@@ -204,6 +204,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.serverError = false;
       return nextState;
 
+    case Actions.HideDuplicateSubmissionError:
+      nextState.duplicateSubmission = false;
+      return nextState;
+
     case Actions.SetFormClean:
       nextState.formDirty = false;
       return nextState;
