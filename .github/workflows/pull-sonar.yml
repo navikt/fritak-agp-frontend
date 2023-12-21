@@ -1,0 +1,30 @@
+name: Sjekk kodekvalitet pull request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+jobs:
+  Kodekvalitet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: 'https://npm.pkg.github.com'
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
+      - name: SonarCloud Scan
+        if: ${{ github.actor != 'dependabot[bot]' }}
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
