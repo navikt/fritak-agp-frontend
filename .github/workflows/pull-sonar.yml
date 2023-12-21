@@ -1,9 +1,6 @@
 name: Sjekk kodekvalitet pull request
 
-on:
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 env:
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
