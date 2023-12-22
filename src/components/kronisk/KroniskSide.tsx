@@ -18,7 +18,7 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BodyLong, Button, Checkbox, Fieldset, Heading, Ingress, Panel, TextField } from '@navikt/ds-react';
+import { BodyLong, Button, Checkbox, Fieldset, Heading, Panel, TextField } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';

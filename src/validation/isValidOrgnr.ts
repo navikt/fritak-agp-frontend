@@ -1,4 +1,4 @@
-const onlyNumbersRegExp = /^[0-9]*$/;
+const onlyNumbersRegExp = /^\d*$/;
 
 const er9Tall = (orgnr: string): boolean => {
   return onlyNumbersRegExp.test(orgnr) && orgnr.length === 9;

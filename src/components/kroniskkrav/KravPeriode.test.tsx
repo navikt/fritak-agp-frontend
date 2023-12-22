@@ -9,6 +9,7 @@ import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import Language from '../../locale/Language';
+import { vi } from 'vitest';
 
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
@@ -137,7 +138,6 @@ describe('KravPeriode', () => {
 
   it.skip('call dispatch when dager has been updated', async () => {
     const mockDispatch = vi.fn();
-    // vi.unmock('../datovelger/Datovelger');
 
     render(
       <KravPeriode

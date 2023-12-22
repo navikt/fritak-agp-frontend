@@ -5,7 +5,7 @@ import { LoginProvider } from './LoginContext';
 import { LoginStatus } from './LoginStatus';
 import timezone_mock from 'timezone-mock';
 import MockDate from 'mockdate';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import mockFetch from '../../mock/mockFetch';
 
 timezone_mock.register('Europe/London');
