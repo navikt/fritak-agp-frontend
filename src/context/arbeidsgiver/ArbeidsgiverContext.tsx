@@ -11,7 +11,7 @@ const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeids
     arbeidsgivere,
     firma,
     arbeidsgiverId
-  } as ArbeidsgiverInterface);
+  }) as ArbeidsgiverInterface;
 
 const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));
 
@@ -31,7 +31,6 @@ const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
   const [arbeidsgivere, setArbeidsgivere] = useState<Organisasjon[]>(props.arbeidsgivere || []);
   const [firma, setFirma] = useState<string>(props.firma || '');
   const [arbeidsgiverId, setArbeidsgiverId] = useState<string>(props.arbeidsgiverId || '');
-  const [ready, setReady] = useState<boolean>();
 
   useEffect(() => {
     if (loadingStatus == ArbeidsgiverStatus.NotStarted) {
@@ -39,10 +38,9 @@ const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
       ArbeidsgiverAPI.GetArbeidsgivere(props.baseUrl).then((res) => {
         setLoadingStatus(res.status);
         setArbeidsgivere(res.organisasjoner);
-        setReady(ready);
       });
     }
-  }, [loadingStatus, ready, props.baseUrl]);
+  }, [loadingStatus, props.baseUrl]);
 
   if (loadingStatus === ArbeidsgiverStatus.NotStarted || loadingStatus === ArbeidsgiverStatus.Started) {
     return <Loader size='3xlarge' title='Laster data' className='arbeidsgiver-context-spinner' />;
