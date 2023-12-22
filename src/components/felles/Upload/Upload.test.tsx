@@ -28,7 +28,6 @@ describe('Upload', () => {
     const uploadButton = view.getByLabelText(/Filnavn/);
     userEvent.upload(uploadButton, bigFile);
 
-    // expect(view.queryByText('tooLarge.xlsx')).toBeInTheDocument();
     expect(view.queryByText('tooLarge.xlsx')).not.toBeInTheDocument();
   });
 
@@ -56,7 +55,6 @@ describe('Upload', () => {
     const uploadButton = view.getByLabelText(/Filnavn/);
     userEvent.upload(uploadButton, smallFile);
 
-    // expect(view.queryByText('tooLarge.xlsx')).toBeInTheDocument();
     expect(view.queryByText('tooLarge.xlsx')).not.toBeInTheDocument();
   });
 });

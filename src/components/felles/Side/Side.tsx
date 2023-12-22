@@ -1,8 +1,7 @@
 import React from 'react';
-import Bedriftsmeny from '@navikt/bedriftsmeny';
+import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
-import { Organisasjon } from '@navikt/bedriftsmeny';
 import { useTranslation } from 'react-i18next';
 import { IngenTilgangAdvarsel } from '../login/IngenTilgangAdvarsel';
 import { useArbeidsgiver } from '../../../context/arbeidsgiver/ArbeidsgiverContext';

@@ -17,11 +17,11 @@ export const validateArbeidsdager = (
   maxDager: number = 366
 ): ValidateArbeidsdagerResult | undefined => {
   if (!required) return undefined;
-  var numbers = /^\d+$/;
+  const numbers = /^\d+$/;
   if (dager === undefined) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING };
   if (dager < minDager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_LOW };
   if (maxDager < dager) return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_TOO_HIGH };
-  if (dager?.toString().match(numbers)) {
+  if (dager !== undefined && numbers.exec(dager.toString())) {
     return undefined;
   } else {
     return { key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING };
