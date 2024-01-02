@@ -30,6 +30,7 @@ export enum Actions {
   ShowSpinner,
   HideSpinner,
   HideServerError,
+  HideDuplicateSubmissionError,
   SetFormClean
 }
 

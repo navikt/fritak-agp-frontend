@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny';
 import ArbeidsgiverAPI from '../../api/arbeidsgiver/ArbeidsgiverAPI';
 import ArbeidsgiverStatus from './ArbeidsgiverStatus';
@@ -11,7 +11,7 @@ const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeids
     arbeidsgivere,
     firma,
     arbeidsgiverId
-  } as ArbeidsgiverInterface);
+  }) as ArbeidsgiverInterface;
 
 const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));
 
@@ -31,7 +31,6 @@ const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
   const [arbeidsgivere, setArbeidsgivere] = useState<Organisasjon[]>(props.arbeidsgivere || []);
   const [firma, setFirma] = useState<string>(props.firma || '');
   const [arbeidsgiverId, setArbeidsgiverId] = useState<string>(props.arbeidsgiverId || '');
-  const [ready, setReady] = useState<boolean>();
 
   useEffect(() => {
     if (loadingStatus == ArbeidsgiverStatus.NotStarted) {
@@ -39,29 +38,27 @@ const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
       ArbeidsgiverAPI.GetArbeidsgivere(props.baseUrl).then((res) => {
         setLoadingStatus(res.status);
         setArbeidsgivere(res.organisasjoner);
-        setReady(ready);
       });
     }
-  }, [loadingStatus, ready, props.baseUrl]);
+  }, [loadingStatus, props.baseUrl]);
+
+  const initialValues = useMemo(
+    () => ({
+      arbeidsgivere,
+      setArbeidsgivere,
+      firma,
+      setFirma,
+      arbeidsgiverId,
+      setArbeidsgiverId
+    }),
+    [arbeidsgivere, setArbeidsgivere, firma, setFirma, arbeidsgiverId, setArbeidsgiverId]
+  );
 
   if (loadingStatus === ArbeidsgiverStatus.NotStarted || loadingStatus === ArbeidsgiverStatus.Started) {
     return <Loader size='3xlarge' title='Laster data' className='arbeidsgiver-context-spinner' />;
   }
 
-  return (
-    <ArbeidsgiverContext.Provider
-      value={{
-        arbeidsgivere,
-        setArbeidsgivere,
-        firma,
-        setFirma,
-        arbeidsgiverId,
-        setArbeidsgiverId
-      }}
-    >
-      {props.children}
-    </ArbeidsgiverContext.Provider>
-  );
+  return <ArbeidsgiverContext.Provider value={initialValues}>{props.children}</ArbeidsgiverContext.Provider>;
 };
 
 export { buildArbeidsgiverContext, buildArbeidsgiver, useArbeidsgiver, ArbeidsgiverProvider };

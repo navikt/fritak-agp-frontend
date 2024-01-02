@@ -22,6 +22,7 @@ export enum Actions {
   Kvittering,
   NotAuthorized,
   HideServerError,
+  HideDuplicateSubmissionError,
   Termindato
 }
 

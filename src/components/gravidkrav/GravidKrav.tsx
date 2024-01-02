@@ -30,7 +30,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { Button, Fieldset, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { BodyLong, Button, Fieldset, Heading, HelpText, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -44,6 +44,7 @@ import Language from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
+import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
 export const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -78,13 +79,17 @@ export const GravidKrav = (props: GravidKravProps) => {
     dispatch({ type: Actions.NotAuthorized });
   };
 
-  const handleCancleClicked = (event: React.FormEvent) => {
+  const handleCancelClicked = (event: React.FormEvent) => {
     event.preventDefault();
     navigate(-1);
   };
 
   const handleCloseServerFeil = () => {
     dispatch({ type: Actions.HideServerError });
+  };
+
+  const handleCloseDuplicateFeil = () => {
+    dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
@@ -230,12 +235,13 @@ export const GravidKrav = (props: GravidKravProps) => {
       subtitle={subtitle}
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
+      <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
       <Panel>
-        <Ingress className='textfelt-padding-bottom'>
+        <BodyLong size='large' className='textfelt-padding-bottom'>
           <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
           <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
-        </Ingress>
+        </BodyLong>
       </Panel>
       <Skillelinje />
 
@@ -353,21 +359,13 @@ export const GravidKrav = (props: GravidKravProps) => {
             <>{t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)} </>
           )}
         </Button>
+        <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
+          Avbryt
+        </Button>
         {state.endringskrav && (
-          <>
-            <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
-              Avbryt
-            </Button>
-            <Button
-              variant='danger'
-              onClick={handleDeleteClicked}
-              className='sletteknapp'
-              loading={state.progress}
-              disabled={state.formDirty}
-            >
-              Annuller krav
-            </Button>
-          </>
+          <Button variant='danger' onClick={handleDeleteClicked} className='sletteknapp' loading={state.progress}>
+            Annuller krav
+          </Button>
         )}
       </Panel>
 

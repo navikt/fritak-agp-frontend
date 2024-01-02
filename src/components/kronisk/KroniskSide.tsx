@@ -29,6 +29,7 @@ import Side from '../felles/Side/Side';
 import Language from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
 import Upload from '../felles/Upload/Upload';
+import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
 const buildReducer =
   (Translate: i18n): Reducer<KroniskState, KroniskAction> =>
@@ -71,6 +72,15 @@ const KroniskSide = () => {
   };
   const handleCloseServerFeil = () => {
     dispatch({ type: Actions.HideServerError });
+  };
+
+  const handleCloseDuplicateFeil = () => {
+    dispatch({ type: Actions.HideDuplicateSubmissionError });
+  };
+
+  const handleCancelClicked = (event: React.FormEvent) => {
+    event.preventDefault();
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -118,6 +128,7 @@ const KroniskSide = () => {
   return (
     <Side bedriftsmeny={false} className='kronisk-side' sidetittel={sidetittel} title={title} subtitle={subtitle}>
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
+      <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
       <Panel>
         <BodyLong size='large'>
@@ -276,6 +287,9 @@ const KroniskSide = () => {
       <Panel>
         <Button onClick={handleSubmit} loading={state.progress}>
           {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
+        </Button>
+        <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
+          Avbryt
         </Button>
       </Panel>
 

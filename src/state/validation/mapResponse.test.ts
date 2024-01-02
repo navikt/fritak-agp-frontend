@@ -11,7 +11,8 @@ describe('mapResponse', () => {
       feilmeldinger: [],
       kvittering: true,
       progress: false,
-      serverError: false
+      serverError: false,
+      duplicateSubmission: false
     };
     const result = mapResponse(response, { feilmeldinger: [] }, vi.fn());
     expect(result).toEqual(expected);

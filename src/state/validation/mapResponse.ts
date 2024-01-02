@@ -8,6 +8,7 @@ import map400 from './map400';
 import map401 from './map401';
 import map422 from './map422';
 import map500 from './map500';
+import map409 from './map409';
 
 const mapResponse = <Type>(
   response: ValidationResponse<Type>,
@@ -34,6 +35,8 @@ const mapResponse = <Type>(
       return map500(nextState);
     case HttpStatus.PayloadTooLarge:
       return map400(nextState);
+    case HttpStatus.Conflict:
+      return map409(nextState);
     default:
       return nextState;
   }

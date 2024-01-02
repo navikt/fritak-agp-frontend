@@ -26,7 +26,7 @@ export default function SlettKravModal(props: SlettKravModalProps) {
           <Button variant='secondary' onClick={() => props.onClose(false)}>
             Nei
           </Button>
-          <Button onClick={(event) => props.onOKClicked(event)} loading={props.showSpinner}>
+          <Button variant='danger' onClick={(event) => props.onOKClicked(event)} loading={props.showSpinner}>
             Ja
           </Button>
         </div>

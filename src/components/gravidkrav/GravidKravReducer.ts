@@ -206,6 +206,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.serverError = false;
       return nextState;
 
+    case Actions.HideDuplicateSubmissionError:
+      nextState.duplicateSubmission = false;
+      return nextState;
+
     default:
       throw new Error(`Ugyldig action: ${action.type}`);
   }

@@ -10,7 +10,8 @@ enum HttpStatus {
   Unauthorized = 401,
   NotFound = 404,
   PayloadTooLarge = 413,
-  UnprocessableEntity = 422
+  UnprocessableEntity = 422,
+  Conflict = 409
 }
 
 export default HttpStatus;
