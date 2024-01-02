@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC, ReactNode } from 'react';
+import React, { createContext, useState, FC, ReactNode, useMemo } from 'react';
 import ValidationResponse from '../state/validation/ValidationResponse';
 import GravidSoknadResponse from '../api/gravid/GravidSoknadResponse';
 
@@ -39,16 +39,17 @@ const GravidSoknadKvitteringProvider: FC<GravidSoknadKvitteringProviderProps> = 
     setResponse(undefined);
   };
 
+  const initialValues = useMemo(
+    () => ({
+      response,
+      saveResponse,
+      clearResponse
+    }),
+    [response, saveResponse, clearResponse]
+  );
+
   return (
-    <GravidSoknadKvitteringContext.Provider
-      value={{
-        response,
-        saveResponse,
-        clearResponse
-      }}
-    >
-      {children}
-    </GravidSoknadKvitteringContext.Provider>
+    <GravidSoknadKvitteringContext.Provider value={initialValues}>{children}</GravidSoknadKvitteringContext.Provider>
   );
 };
 

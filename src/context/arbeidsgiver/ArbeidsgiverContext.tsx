@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny';
 import ArbeidsgiverAPI from '../../api/arbeidsgiver/ArbeidsgiverAPI';
 import ArbeidsgiverStatus from './ArbeidsgiverStatus';
@@ -42,24 +42,23 @@ const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
     }
   }, [loadingStatus, props.baseUrl]);
 
+  const initialValues = useMemo(
+    () => ({
+      arbeidsgivere,
+      setArbeidsgivere,
+      firma,
+      setFirma,
+      arbeidsgiverId,
+      setArbeidsgiverId
+    }),
+    [arbeidsgivere, setArbeidsgivere, firma, setFirma, arbeidsgiverId, setArbeidsgiverId]
+  );
+
   if (loadingStatus === ArbeidsgiverStatus.NotStarted || loadingStatus === ArbeidsgiverStatus.Started) {
     return <Loader size='3xlarge' title='Laster data' className='arbeidsgiver-context-spinner' />;
   }
 
-  return (
-    <ArbeidsgiverContext.Provider
-      value={{
-        arbeidsgivere,
-        setArbeidsgivere,
-        firma,
-        setFirma,
-        arbeidsgiverId,
-        setArbeidsgiverId
-      }}
-    >
-      {props.children}
-    </ArbeidsgiverContext.Provider>
-  );
+  return <ArbeidsgiverContext.Provider value={initialValues}>{props.children}</ArbeidsgiverContext.Provider>;
 };
 
 export { buildArbeidsgiverContext, buildArbeidsgiver, useArbeidsgiver, ArbeidsgiverProvider };

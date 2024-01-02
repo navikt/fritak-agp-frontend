@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, useMemo } from 'react';
 import GetLoginExpiry from '../../api/loginexpiry/LoginExpiryAPI';
 import { TilgangsfeilSide } from '../../components/felles/login/TilgangsfeilSide';
 import { LoginStatus } from './LoginStatus';
@@ -36,6 +36,8 @@ export const LoginProvider = ({
     }
   });
 
+  const emptyObject = useMemo(() => ({}), []);
+
   switch (expiry) {
     case LoginStatus.Checking:
       return <LoginChecking />;
@@ -44,6 +46,6 @@ export const LoginProvider = ({
     case LoginStatus.Failed:
       return <TilgangsfeilSide />;
     default:
-      return <LoginContext.Provider value={{}}>{children}</LoginContext.Provider>;
+      return <LoginContext.Provider value={emptyObject}>{children}</LoginContext.Provider>;
   }
 };

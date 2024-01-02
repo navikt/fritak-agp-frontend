@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useMemo } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { onLanguageSelect, setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 import Language from '../../locale/Language';
@@ -53,8 +53,17 @@ const LanguageProvider = (props: LanguageContextProviderProps) => {
     window.history.pushState({}, 'Title', translateUrl(href, language.locale) + window.location.search);
   });
   i18n.changeLanguage(language);
+
+  const initialValues = useMemo(
+    () => ({
+      language,
+      i18n
+    }),
+    [language, i18n]
+  );
+
   return (
-    <LanguageContext.Provider value={{ language, i18n }}>
+    <LanguageContext.Provider value={initialValues}>
       <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
     </LanguageContext.Provider>
   );

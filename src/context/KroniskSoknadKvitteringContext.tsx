@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC, ReactNode } from 'react';
+import React, { createContext, useState, FC, ReactNode, useMemo } from 'react';
 import ValidationResponse from '../state/validation/ValidationResponse';
 import KroniskSoknadResponse from '../api/kronisk/KroniskSoknadResponse';
 
@@ -39,16 +39,17 @@ const KroniskSoknadKvitteringProvider: FC<KroniskSoknadKvitteringProviderProps> 
     setResponse(undefined);
   };
 
+  const initialValues = useMemo(
+    () => ({
+      response,
+      saveResponse,
+      clearResponse
+    }),
+    [response, saveResponse, clearResponse]
+  );
+
   return (
-    <KroniskSoknadKvitteringContext.Provider
-      value={{
-        response,
-        saveResponse,
-        clearResponse
-      }}
-    >
-      {children}
-    </KroniskSoknadKvitteringContext.Provider>
+    <KroniskSoknadKvitteringContext.Provider value={initialValues}>{children}</KroniskSoknadKvitteringContext.Provider>
   );
 };
 
