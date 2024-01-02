@@ -115,7 +115,7 @@ const GravidSide = (props: GravidSideProps) => {
   };
   const handleCancelClicked = (event: React.FormEvent) => {
     event.preventDefault();
-    navigate(-1);
+    window.location.href = environment.minSideArbeidsgiver;
   };
 
   const isCheckboxChecked = (checkbox: Tiltak): boolean => {
