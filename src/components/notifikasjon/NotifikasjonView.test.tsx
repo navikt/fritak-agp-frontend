@@ -102,6 +102,31 @@ describe('NotifikasjonView', () => {
     expect(container.textContent).toContain('02.01.20 - 03.02.20');
     expect(container.textContent).toContain('04.05.20 - 05.06.20');
     expect(container.textContent).toContain('kr 2 468,50');
+    expect(container.textContent).toContain('periodene:');
+  });
+
+  it('should show Gravid Krav med en periode', () => {
+    const state = defaultNotitikasjonState();
+
+    state.status = HttpStatus.Successfully;
+    state.gravidKravResponse = {
+      id: '1',
+      opprettet: '2020-01-01',
+      virksomhetsnummer: '123',
+      virksomhetsnavn: 'Virksomhet',
+      perioder: [
+        {
+          fom: '2020-01-02',
+          tom: '2020-02-03',
+          belop: 1234
+        }
+      ]
+    } as GravidKravResponse;
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav));
+    expect(container.textContent).toContain(INNHOLD);
+    expect(container.textContent).toContain('02.01.20 - 03.02.20');
+    expect(container.textContent).toContain('kr 1 234,00');
+    expect(container.textContent).toContain('dagene');
   });
 
   it('should handle empty Gravid Krav', () => {

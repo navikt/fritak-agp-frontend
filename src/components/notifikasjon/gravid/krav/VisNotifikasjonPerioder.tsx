@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
 import KravPeriode from '../../../../api/gravidkrav/KravPeriode';
-import { BodyLong } from '@navikt/ds-react';
 
 const formaterDato = (dato: string) => {
   return dayjs(dato).format('DD.MM.YY');
