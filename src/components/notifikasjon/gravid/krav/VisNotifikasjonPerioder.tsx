@@ -15,11 +15,13 @@ const VisNotifikasjonPerioder = ({ perioder }: VisNotifikasjonPerioderProps) => 
   return (
     <>
       {perioder.length > 1 ? (
-        perioder.map((periode) => (
-          <BodyLong key={periode.fom} className='notifikasjon-perioder-liste'>
-            {formaterDato(periode.fom)} - {formaterDato(periode.tom)}.
-          </BodyLong>
-        ))
+        <ul>
+          {perioder.map((periode) => (
+            <li key={periode.fom} className='notifikasjon-perioder-liste'>
+              {formaterDato(periode.fom)} - {formaterDato(periode.tom)}
+            </li>
+          ))}
+        </ul>
       ) : (
         <>
           {formaterDato(perioder[0].fom)} - {formaterDato(perioder[0].tom)}.
