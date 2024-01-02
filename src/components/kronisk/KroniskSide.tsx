@@ -78,6 +78,11 @@ const KroniskSide = () => {
     dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
 
+  const handleCancelClicked = (event: React.FormEvent) => {
+    event.preventDefault();
+    navigate(-1);
+  };
+
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
       postKronisk(
@@ -282,6 +287,9 @@ const KroniskSide = () => {
       <Panel>
         <Button onClick={handleSubmit} loading={state.progress}>
           {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
+        </Button>
+        <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
+          Avbryt
         </Button>
       </Panel>
 

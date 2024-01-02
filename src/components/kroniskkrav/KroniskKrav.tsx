@@ -30,7 +30,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { BodyLong, Button, Fieldset, Heading, HelpText, Ingress, Panel } from '@navikt/ds-react';
+import { BodyLong, Button, Fieldset, Heading, HelpText, Panel } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -102,7 +102,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
     });
   };
 
-  const handleCancleClicked = (event: React.FormEvent) => {
+  const handleCancelClicked = (event: React.FormEvent) => {
     event.preventDefault();
     navigate(-1);
   };
@@ -369,21 +369,19 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             <>{t(KroniskKravKeys.KRONISK_KRAV_SUBMIT)}</>
           )}
         </Button>
+        <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
+          Avbryt
+        </Button>
         {state.endringskrav && (
-          <>
-            <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
-              Avbryt
-            </Button>
-            <Button
-              variant='danger'
-              onClick={handleDeleteClicked}
-              className='sletteknapp'
-              loading={state.progress}
-              disabled={state.formDirty}
-            >
-              Annuller krav
-            </Button>
-          </>
+          <Button
+            variant='danger'
+            onClick={handleDeleteClicked}
+            className='sletteknapp'
+            loading={state.progress}
+            disabled={state.formDirty}
+          >
+            Annuller krav
+          </Button>
         )}
       </Panel>
 

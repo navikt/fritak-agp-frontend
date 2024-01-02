@@ -113,6 +113,10 @@ const GravidSide = (props: GravidSideProps) => {
   const handleCloseDuplicateFeil = () => {
     dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
+  const handleCancelClicked = (event: React.FormEvent) => {
+    event.preventDefault();
+    navigate(-1);
+  };
 
   const isCheckboxChecked = (checkbox: Tiltak): boolean => {
     const foundElement = state.tiltak?.find((element) => {
@@ -441,7 +445,12 @@ const GravidSide = (props: GravidSideProps) => {
               <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
               <Panel>
-                <Button onClick={handleSubmitClicked}>{t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}</Button>
+                <Button onClick={handleSubmitClicked} loading={state.progress}>
+                  {t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}
+                </Button>
+                <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
+                  Avbryt
+                </Button>
               </Panel>
             </>
           )}

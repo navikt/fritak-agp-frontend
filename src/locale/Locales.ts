@@ -826,7 +826,7 @@ const Locales: Record<
     en: 'This information has already been submitted'
   },
   DUPLICATE_SUBMISSION_ADVARSEL_TEXT: {
-    nb: 'Denne innsendingen er allerede sendt inn tidligere, [kontakt oss gjerne dersom dette ikke skulle stemmer.](https://arbeidsgiver.nav.no/kontakt-oss/)',
+    nb: 'Denne innsendingen er allerede sendt inn tidligere, [kontakt oss dersom dette ikke stemmer med dine opplysninger.](https://arbeidsgiver.nav.no/kontakt-oss/)',
     en: 'This submission has already been sendt at an earlier time, [feel free to contact us if you find this incorrect.](https://arbeidsgiver.nav.no/kontakt-oss/)'
   },
   DUPLICATE_SUBMISSION_ADVARSEL_HIDE: {

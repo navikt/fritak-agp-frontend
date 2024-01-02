@@ -79,7 +79,7 @@ export const GravidKrav = (props: GravidKravProps) => {
     dispatch({ type: Actions.NotAuthorized });
   };
 
-  const handleCancleClicked = (event: React.FormEvent) => {
+  const handleCancelClicked = (event: React.FormEvent) => {
     event.preventDefault();
     navigate(-1);
   };
@@ -359,15 +359,13 @@ export const GravidKrav = (props: GravidKravProps) => {
             <>{t(GravidKravKeys.GRAVID_KRAV_LONN_SEND)} </>
           )}
         </Button>
+        <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
+          Avbryt
+        </Button>
         {state.endringskrav && (
-          <>
-            <Button variant='secondary' onClick={handleCancleClicked} className='avbrytknapp'>
-              Avbryt
-            </Button>
-            <Button variant='danger' onClick={handleDeleteClicked} className='sletteknapp' loading={state.progress}>
-              Annuller krav
-            </Button>
-          </>
+          <Button variant='danger' onClick={handleDeleteClicked} className='sletteknapp' loading={state.progress}>
+            Annuller krav
+          </Button>
         )}
       </Panel>
 
