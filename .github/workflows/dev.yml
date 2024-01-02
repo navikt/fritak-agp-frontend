@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: fritak-frontend-artifact
           path: ${{ github.workspace }}/dist/**/*
