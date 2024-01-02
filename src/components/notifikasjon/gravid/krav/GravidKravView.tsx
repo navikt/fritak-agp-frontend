@@ -17,7 +17,7 @@ const inTwoWeeks = (dato: string) => {
 
 const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) => {
   const respondByDate = inTwoWeeks(gravidKravVisning.opprettet);
-  const belop = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
+  const kravRefusjon = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
   const perioder = gravidKravVisning.perioder;
 
   return (
@@ -26,11 +26,19 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
       type={NotifikasjonType.GravidKrav}
       dato={gravidKravVisning.opprettet}
     >
-      <BodyLong className='textfelt-padding-bottom'>
-        Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for
-        {perioder.length > 1 ? <> periodene </> : <> dagene </>}
-        <VisNotifikasjonPerioder perioder={perioder} />
+      <BodyLong>
+        Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {kravRefusjon} i sykepenger for
+        {perioder.length > 1 ? (
+          <> periodene:</>
+        ) : (
+          <>
+            {' '}
+            dagene <VisNotifikasjonPerioder perioder={perioder} />
+          </>
+        )}
       </BodyLong>
+      {perioder.length > 1 && <VisNotifikasjonPerioder perioder={perioder} />}
+
       <BodyLong className='textfelt-padding-bottom'>
         Hvis det ikke stemmer at du var borte på grunn av sykdom disse dagene, ber vi deg si fra til NAV innen{' '}
         {respondByDate}. Bruk gjerne <Link href='https://www.nav.no/skrivtiloss'>Skriv til oss</Link> på nav.no. Hører
