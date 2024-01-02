@@ -78,7 +78,6 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         env:
           TEAM: helsearbeidsgiver
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
           RESOURCE: naiserator.yaml
           VARS: nais/prod-gcp.json

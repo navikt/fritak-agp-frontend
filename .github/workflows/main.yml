@@ -51,15 +51,6 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
-  # Snyk:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@master
-  #     - name: Run Snyk to check for vulnerabilities
-  #       uses: snyk/actions/node@master
-  #       env:
-  #         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
   Docker:
     needs: [Kodekvalitet, Eslint, Bygg]
     runs-on: ubuntu-latest
@@ -99,23 +90,8 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         env:
           TEAM: helsearbeidsgiver
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: naiserator.yaml
           VARS: nais/dev-gcp.json
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
-
-  # Versjon:
-  #   needs: [Deploy]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@master
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '14.x'
-  #     - run: |
-  #         git config --local user.email "helsearbeidsgiver@nav.no"
-  #         git config --local user.name "HelseArbeidsgiver"
-  #         npm version patch
-  #         git push
