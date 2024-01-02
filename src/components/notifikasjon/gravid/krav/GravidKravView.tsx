@@ -17,7 +17,7 @@ const inTwoWeeks = (dato: string) => {
 
 const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) => {
   const respondByDate = inTwoWeeks(gravidKravVisning.opprettet);
-  const belop = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
+  const kravRefusjon = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
   const perioder = gravidKravVisning.perioder;
 
   return (
@@ -27,7 +27,7 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
       dato={gravidKravVisning.opprettet}
     >
       <BodyLong className='textfelt-padding-bottom'>
-        Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {belop} i sykepenger for
+        Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {kravRefusjon} i sykepenger for
         {perioder.length > 1 ? <> periodene </> : <> dagene </>}
         <VisNotifikasjonPerioder perioder={perioder} />
       </BodyLong>
