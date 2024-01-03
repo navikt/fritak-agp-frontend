@@ -1,4 +1,4 @@
-name: Sjekk kodekvalitet pull request
+name: Kjører Sonar ved push
 
 on: [push]
 
@@ -9,7 +9,7 @@ env:
   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
 jobs:
-  Kodekvalitet:
+  Sonar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master

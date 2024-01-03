@@ -27,7 +27,7 @@ jobs:
           name: fritak-frontend-artifact
           path: ${{ github.workspace }}/build/**/*
 
-  Kodekvalitet:
+  Unit-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -48,14 +48,3 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - run: yarn install --frozen-lockfile
       - run: yarn lint
-
-  # TestCafe:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@master
-  #     - run: yarn install --frozen-lockfile
-  #     - name: Run tests
-  #       uses: DevExpress/testcafe-action@latest
-  #       with:
-  #         skip-install: true
-  #         args: chrome:headless tests/ --app-init-delay 60000 --app "yarn serve" --cache
