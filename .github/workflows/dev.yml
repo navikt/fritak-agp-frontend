@@ -31,6 +31,7 @@ jobs:
           path: ${{ github.workspace }}/dist/**/*
 
   Unit-test:
+    name: Run unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
