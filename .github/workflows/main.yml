@@ -29,7 +29,7 @@ jobs:
           name: fritak-frontend-artifact
           path: ${{ github.workspace }}/dist/**/*
 
-  Kodekvalitet:
+  Unit-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -52,7 +52,7 @@ jobs:
       - run: yarn lint
 
   Docker:
-    needs: [Kodekvalitet, Eslint, Bygg]
+    needs: [Unit-test, Eslint, Bygg]
     runs-on: ubuntu-latest
     permissions:
       packages: write
