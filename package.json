@@ -66,7 +66,7 @@
   "snyk": true,
   "devDependencies": {
     "@testing-library/dom": "^9.3.3",
-    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/testcafe": "^5.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -77,7 +77,7 @@
     "@types/react-dom": "^18.2.18",
     "@types/react-router-dom": "5.x",
     "@types/uuid": "^9.0.7",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^6.13.1",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.1.1",
