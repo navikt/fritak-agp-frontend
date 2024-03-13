@@ -12,7 +12,7 @@
     "test": "vitest run --coverage",
     "lint": "eslint src/**/*.ts*",
     "lint:fix": "eslint src/**/*.ts* --fix",
-    "prepare": "husky install",
+    "prepare": "husky",
     "postinstall": "cross-os postinstall",
     "test:int": "testcafe firefox --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300",
     "test:watch": "vitest"
