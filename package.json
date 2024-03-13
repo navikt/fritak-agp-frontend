@@ -51,7 +51,7 @@
     "@navikt/nav-dekoratoren-moduler": "^2.1.4",
     "@navikt/textparser": "^2.2.0",
     "@sentry/react": "^7.91.0",
-    "date-fns": "^3.0.6",
+    "date-fns": "^3.4.0",
     "dayjs": "1.11.10",
     "i18next": "^23.10.1",
     "jsdom": "^24.0.0",
