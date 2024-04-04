@@ -63,6 +63,17 @@ jobs:
             "NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}"
           build-args: |
             "BUILDMODE=production"
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
 
   Deploy:
     needs: [Docker]
