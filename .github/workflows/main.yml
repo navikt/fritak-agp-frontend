@@ -87,8 +87,11 @@ jobs:
           image-ref: ${{ env.IMAGE }}
           format: 'sarif'
           output: 'trivy-results.sarif'
+          severity: 'HIGH,CRITICAL'
+          limit-severities-for-sarif: true
 
       - name: Upload Trivy scan results to GitHub Security tab
+        if: inputs.upload-sarif
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
