@@ -17,8 +17,8 @@ FROM node:20-alpine AS runner
 # ENV DEBUG=express-http-proxy
 WORKDIR /var
 
-COPY --from=builder dist/ dist/
-COPY --from=builder server/ server/
+COPY --from=builder /var/dist ./dist
+COPY --from=builder /var/server ./server
 
 WORKDIR /var/server
 
