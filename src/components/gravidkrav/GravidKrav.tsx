@@ -240,6 +240,8 @@ export const GravidKrav = (props: GravidKravProps) => {
       <Panel>
         <BodyLong size='large' className='textfelt-padding-bottom'>
           <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
+        </BodyLong>
+        <BodyLong size='large'>
           <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
         </BodyLong>
       </Panel>
