@@ -11,6 +11,8 @@ RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
 WORKDIR /var/server
 RUN npm ci
 
+RUN rm /var/server/.npmrc
+
 FROM node:20-alpine AS runner
 
 # Uncommet for debugging of express-http-proxy
