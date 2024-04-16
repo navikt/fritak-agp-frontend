@@ -60,9 +60,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].dagerError).toBeUndefined();
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('dager-1');
@@ -74,9 +74,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].dagerError).toBe('Antall dager med refusjon er høyere enn antall dager i perioden');
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('dager-0');
@@ -88,9 +88,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].fomError).toBeUndefined();
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('fra-dato-1');
@@ -102,9 +102,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].fomError).toBe('Fra dato kan ikke være etter til dato');
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('fra-dato-0');
@@ -116,9 +116,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].tomError).toBeUndefined();
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('til-dato-1');
@@ -130,9 +130,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].tomError).toBeUndefined();
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('til-dato-0');
@@ -144,9 +144,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].belopError).toBeUndefined();
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('beloep-1');
@@ -158,9 +158,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].belopError).toBe('Månedsinntekt mangler');
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('beloep-0');
@@ -172,9 +172,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].sykemeldingsgradError).toBeUndefined();
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('sykemeldingsgrad-1');
@@ -186,9 +186,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[0].sykemeldingsgradError).toBe('Sykemeldingsgraden må være mellom 20% og 100%');
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('sykemeldingsgrad-0');
@@ -200,9 +200,9 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter, 'feil'), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.periodeError).toBe('feil');
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('dager');
@@ -214,7 +214,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(0, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.periodeError).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('dager');
@@ -222,7 +222,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
   it('should handle strange data from the backend  - propertyPath contains only .', () => {
     const state = defaultKroniskKravState();
-    // @ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     const feilmeldinger = mapKroniskKravFeilmeldinger({ violations: [{ propertyPath: '.' }], status: 200 }, state);
 
     expect(feilmeldinger.length).toBe(0);
@@ -237,7 +237,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(413, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.periodeError).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('backend-some-uuid');
@@ -253,7 +253,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     const feilmeldinger = mapKroniskKravFeilmeldinger(mockValidationResponse(404, felter), state);
 
     expect(feilmeldinger.length).toBe(1);
-    //@ts-ignore
+    //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.periodeError).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toBe('backend-some-uuid');

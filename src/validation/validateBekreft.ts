@@ -4,7 +4,7 @@ export enum validateBekreftKeys {
   VALIDATE_BEKREFT_NOT_CHECKED = 'VALIDATE_BEKREFT_NOT_CHECKED'
 }
 
-const validateBekreft = (bekreft?: boolean, required: boolean = false): ValidationResult | undefined => {
+const validateBekreft = (bekreft?: boolean, required = false): ValidationResult | undefined => {
   if (required === false) {
     return;
   }

@@ -15,8 +15,8 @@ export const validateAntallPerioder = (
   perioder: number | undefined,
   required: boolean,
   ikkeHistoriskFravaer: boolean,
-  minPerioder: number = 0,
-  maxPerioder: number = 366
+  minPerioder = 0,
+  maxPerioder = 366
 ): ValidateAntallPerioderResult | undefined => {
   if (!required) return undefined;
   if (ikkeHistoriskFravaer) {

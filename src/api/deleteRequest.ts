@@ -1,6 +1,7 @@
 import HttpStatus from './HttpStatus';
 import ValidationResponse from '../state/validation/ValidationResponse';
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export const mapViolations = <Type>(status: number, json: any): ValidationResponse<Type> => {
   if (status === HttpStatus.UnprocessableEntity) {
     return {
@@ -21,7 +22,7 @@ export const mapViolations = <Type>(status: number, json: any): ValidationRespon
   };
 };
 
-const deleteRequest = async <Type>(path: string, timeout: number = 10000): Promise<ValidationResponse<Type>> => {
+const deleteRequest = async <Type>(path: string, timeout = 10000): Promise<ValidationResponse<Type>> => {
   return Promise.race([
     new Promise<ValidationResponse<Type>>((_, reject) => {
       const id = setTimeout(() => {

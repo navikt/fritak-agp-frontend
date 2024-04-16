@@ -37,7 +37,7 @@ export interface GravidKrav extends Krav {
   harVedlegg: boolean;
 }
 
-export interface KroniskKrav extends Krav {}
+export type KroniskKrav = Krav;
 
 export interface EksisterendeKrav {
   gravidKrav: GravidKrav[] | [];
