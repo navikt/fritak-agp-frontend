@@ -8,7 +8,8 @@ import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
 import env from '../../config/environment';
-import { vi } from 'vitest';
+import { expect, vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 
 import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
 import { Dato } from '../../utils/dato/Dato';
@@ -64,6 +65,8 @@ describe('GravidSide', () => {
   const BEKREFT_ERROR = 'GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT';
   const TILTAK_ERROR = 'Du må oppgi minst ett tiltak dere har prøvd';
   const OMPLASSERING_ERROR = 'Velg omplassering';
+
+  const user = userEvent.setup();
 
   it('skal vise progress mens venter på svar', () => {
     const state = defaultGravidState();
@@ -284,15 +287,18 @@ describe('GravidSide', () => {
     );
 
     const jaSjekkboks = screen.getAllByLabelText(/JA/);
-    fireEvent.click(jaSjekkboks[0]);
+    // fireEvent.click(jaSjekkboks[0]);
+    await user.click(jaSjekkboks[0]);
 
     const tilrettelagtRadioUsjekket = screen.getByLabelText(/GRAVID_SIDE_TILTAK_HJEMMEKONTOR/);
     expect(tilrettelagtRadioUsjekket).not.toBeChecked();
-    fireEvent.click(tilrettelagtRadioUsjekket);
+    // fireEvent.click(tilrettelagtRadioUsjekket);
+    await user.click(tilrettelagtRadioUsjekket);
     expect(tilrettelagtRadioUsjekket).toBeChecked();
 
     const submitKnapp = await screen.findByText(/GRAVID_SIDE_SEND_SOKNAD/);
-    submitKnapp.click();
+    await user.click(submitKnapp);
+    // submitKnapp.click();
 
     const tilrettelagtRadio = await screen.findByLabelText(/GRAVID_SIDE_TILTAK_HJEMMEKONTOR/);
     expect(tilrettelagtRadio).toBeChecked();
