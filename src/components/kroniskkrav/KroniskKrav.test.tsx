@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 
@@ -21,15 +21,20 @@ describe('KroniskKrav', () => {
   const user = userEvent.setup();
 
   it('should have no a11y violations', async () => {
-    const { container } = render(
-      <MemoryRouter>
-        <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
-          <ArbeidsgiverProvider baseUrl='/base/url'>
-            <KroniskKrav />
-          </ArbeidsgiverProvider>
-        </LanguageProvider>
-      </MemoryRouter>
+    let container: string | Element;
+    await act(
+      async () =>
+        ({ container } = render(
+          <MemoryRouter>
+            <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
+              <ArbeidsgiverProvider baseUrl='/base/url'>
+                <KroniskKrav />
+              </ArbeidsgiverProvider>
+            </LanguageProvider>
+          </MemoryRouter>
+        ))
     );
+
     const results = await axe(container);
 
     expect(results).toHaveNoViolations();
