@@ -101,7 +101,7 @@ describe('NotifikasjonView', () => {
     expect(container.textContent).toContain(INNHOLD);
     expect(container.textContent).toContain('02.01.20 - 03.02.20');
     expect(container.textContent).toContain('04.05.20 - 05.06.20');
-    expect(container.textContent).toContain('2 468,50');
+    expect(container.textContent).toContain('2 468,50 kr');
     expect(container.textContent).toContain('periodene:');
   });
 
@@ -125,7 +125,7 @@ describe('NotifikasjonView', () => {
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav));
     expect(container.textContent).toContain(INNHOLD);
     expect(container.textContent).toContain('02.01.20 - 03.02.20');
-    expect(container.textContent).toContain('1 234,00');
+    expect(container.textContent).toContain('1 234,00 kr');
     expect(container.textContent).toContain('dagene');
   });
 
