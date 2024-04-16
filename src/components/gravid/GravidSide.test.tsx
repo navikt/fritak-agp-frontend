@@ -287,18 +287,16 @@ describe('GravidSide', () => {
     );
 
     const jaSjekkboks = screen.getAllByLabelText(/JA/);
-    // fireEvent.click(jaSjekkboks[0]);
     await user.click(jaSjekkboks[0]);
 
     const tilrettelagtRadioUsjekket = screen.getByLabelText(/GRAVID_SIDE_TILTAK_HJEMMEKONTOR/);
     expect(tilrettelagtRadioUsjekket).not.toBeChecked();
-    // fireEvent.click(tilrettelagtRadioUsjekket);
+
     await user.click(tilrettelagtRadioUsjekket);
     expect(tilrettelagtRadioUsjekket).toBeChecked();
 
     const submitKnapp = await screen.findByText(/GRAVID_SIDE_SEND_SOKNAD/);
     await user.click(submitKnapp);
-    // submitKnapp.click();
 
     const tilrettelagtRadio = await screen.findByLabelText(/GRAVID_SIDE_TILTAK_HJEMMEKONTOR/);
     expect(tilrettelagtRadio).toBeChecked();
