@@ -2440,12 +2440,12 @@
   dependencies:
     tinyspy "^2.2.0"
 
-"@vitest/ui@^1.2.2":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-1.4.0.tgz#01d34162bcee14c7e45cbf3e9dee4a22b52d778a"
-  integrity sha512-XC6CMhN1gzYcGbpn6/Oanj4Au2EXwQEX6vpcOeLlZv8dy7g11Ukx8zwtYQbwxs9duK2s9j2o5rbQiCP5DPAcmw==
+"@vitest/ui@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-1.5.0.tgz#459e21ce1f8bc0124b129c8926673f08a37d3fc9"
+  integrity sha512-ETcToK2TzICf/Oartvt19IH7yR4oCs8GrQk5hRhZ5oZFaSdDHTh6o3EdzyxOaY24NZ20cXYYNGjj1se/5vHfFg==
   dependencies:
-    "@vitest/utils" "1.4.0"
+    "@vitest/utils" "1.5.0"
     fast-glob "^3.3.2"
     fflate "^0.8.1"
     flatted "^3.2.9"
@@ -2457,6 +2457,16 @@
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-1.4.0.tgz#ea6297e0d329f9ff0a106f4e1f6daf3ff6aad3f0"
   integrity sha512-mx3Yd1/6e2Vt/PUC98DcqTirtfxUyAZ32uK82r8rZzbtBeBo+nqgnjx/LvqQdWsrvNtm14VmurNgcf4nqY5gJg==
+  dependencies:
+    diff-sequences "^29.6.3"
+    estree-walker "^3.0.3"
+    loupe "^2.3.7"
+    pretty-format "^29.7.0"
+
+"@vitest/utils@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-1.5.0.tgz#90c9951f4516f6d595da24876b58e615f6c99863"
+  integrity sha512-BDU0GNL8MWkRkSRdNFvCUCAVOeHaUlVJ9Tx0TYBZyXaaOTmGtUFObzchCivIBrIwKzvZA7A9sCejVhXM2aY98A==
   dependencies:
     diff-sequences "^29.6.3"
     estree-walker "^3.0.3"
