@@ -173,6 +173,13 @@ describe('NotifikasjonView', () => {
     expect(container.textContent).toContain(FEILMELDING);
   });
 
+  it('should handle things going wrong', () => {
+    const state = defaultNotitikasjonState();
+    state.status = HttpStatus.Successfully;
+    const { container } = render(buildNotifikasjonSide(state, 'UkjentSkjema'));
+    expect(container.textContent).toContain(FEILMELDING);
+  });
+
   it('should show Kronisk Søknad', () => {
     const state = defaultNotitikasjonState();
 
