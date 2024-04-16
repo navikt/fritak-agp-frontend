@@ -52,14 +52,14 @@ describe('validateArbeidsdager', () => {
   });
 
   it('should verify that string with numbers and string returns an error when required', () => {
-    // @ts-ignore   Skal ikke være mulig, men sjekker like vel
+    // @ts-expect-error   Skal ikke være mulig, men sjekker like vel
     expect(validateArbeidsdager('0a', true)).toEqual({
       key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING
     });
   });
 
   it('should verify that string with numbers as text returns an error when required', () => {
-    // @ts-ignore   Skal ikke være mulig, men sjekker like vel
+    // @ts-expect-error   Skal ikke være mulig, men sjekker like vel
     expect(validateArbeidsdager('tohundre', true)).toEqual({
       key: ValidateArbeidsdagerKeys.VALIDATE_ARBEIDSDAGER_MISSING
     });

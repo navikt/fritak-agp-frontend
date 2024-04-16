@@ -1,9 +1,11 @@
 import { Locale } from './Locales';
 
-export type Translation = {
+export interface Translation {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   translation: Record<string, any>;
-};
+}
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const buildLanguage = (lang: string, bundle: Record<string, any>) => {
   const values = {};
   const keys = Object.keys(bundle);
@@ -18,6 +20,7 @@ const buildLanguage = (lang: string, bundle: Record<string, any>) => {
  *
  * @param bundle
  */
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const buildResources = (bundle: Record<string, Locale>): Record<string, any> => {
   return {
     en: {

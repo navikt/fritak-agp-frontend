@@ -10,7 +10,7 @@ export interface FnrValidationResult extends ValidationResult {
   key: validateFnrKeys.VALIDATE_FNR_MISSING | validateFnrKeys.VALIDATE_FNR_INVALID;
 }
 
-export const validateFnr = (orgnr?: string, required: boolean = false): FnrValidationResult | undefined => {
+export const validateFnr = (orgnr?: string, required = false): FnrValidationResult | undefined => {
   if (orgnr == undefined || orgnr == '') {
     return required ? { key: validateFnrKeys.VALIDATE_FNR_MISSING } : undefined;
   }

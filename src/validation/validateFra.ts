@@ -15,11 +15,7 @@ export interface ValidateFraResult extends ValidationResult {
     | validateFraKeys.VALIDATE_FRA_FOM_ERROR;
 }
 
-export const validateFra = (
-  fra: Dato | undefined,
-  minDate: Date,
-  required: boolean = false
-): ValidateFraResult | undefined => {
+export const validateFra = (fra: Dato | undefined, minDate: Date, required = false): ValidateFraResult | undefined => {
   if (required && !fra?.value) {
     return { key: validateFraKeys.VALIDATE_FRA_MISSING };
   }

@@ -17,7 +17,7 @@ export interface BeloepValidationResult extends ValidationResult {
 const validateBeloep = (
   beloep: string | undefined,
   max: number,
-  required: boolean = false
+  required = false
 ): BeloepValidationResult | undefined => {
   if (beloep === undefined || beloep.length === 0) {
     return required ? { key: validateBeloepKeys.VALIDATE_BELOEP_AMOUNT_MISSING } : undefined;

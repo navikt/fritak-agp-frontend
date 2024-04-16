@@ -13,8 +13,8 @@ export interface ValidateArbeidsdagerResult extends ValidationResult {
 export const validateArbeidsdager = (
   dager: number | undefined,
   required: boolean,
-  minDager: number = 0,
-  maxDager: number = 366
+  minDager = 0,
+  maxDager = 366
 ): ValidateArbeidsdagerResult | undefined => {
   if (!required) return undefined;
   const numbers = /^\d+$/;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 
@@ -18,16 +18,23 @@ const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 vi.unmock('react-i18next');
 
 describe('KroniskKrav', () => {
+  const user = userEvent.setup();
+
   it('should have no a11y violations', async () => {
-    const { container } = render(
-      <MemoryRouter>
-        <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
-          <ArbeidsgiverProvider baseUrl='/base/url'>
-            <KroniskKrav />
-          </ArbeidsgiverProvider>
-        </LanguageProvider>
-      </MemoryRouter>
+    let container: string | Element;
+    await act(
+      async () =>
+        ({ container } = render(
+          <MemoryRouter>
+            <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
+              <ArbeidsgiverProvider baseUrl='/base/url'>
+                <KroniskKrav />
+              </ArbeidsgiverProvider>
+            </LanguageProvider>
+          </MemoryRouter>
+        ))
     );
+
     const results = await axe(container);
 
     expect(results).toHaveNoViolations();
@@ -63,8 +70,6 @@ describe('KroniskKrav', () => {
   });
 
   it('should show warnings when input is missing, and the warning should dissapear when fixed', async () => {
-    const user = userEvent.setup();
-
     render(
       <MemoryRouter>
         <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
@@ -82,7 +87,7 @@ describe('KroniskKrav', () => {
     const submitButton = screen.getByText(/Send kravet/);
     const fnrInput = screen.getByLabelText(/Fødselsnummer/);
 
-    fireEvent.click(submitButton);
+    await user.click(submitButton);
 
     expect(screen.getAllByText(/Mangler fødselsnummer/).length).toBe(2);
 
@@ -112,8 +117,8 @@ describe('KroniskKrav', () => {
 
     const selectDager = screen.getByLabelText(/Antall dager/, { selector: 'select' });
 
-    fireEvent.click(submitButton);
-    await fireEvent.change(selectDager, { target: { value: 3 } });
+    await user.click(submitButton);
+    await user.selectOptions(selectDager, ['3']);
 
     await waitFor(() => {
       expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
@@ -121,8 +126,6 @@ describe('KroniskKrav', () => {
   });
 
   it('should show warnings when input is missing, and the warning should dissapear when fixed 3', async () => {
-    const user = userEvent.setup();
-
     render(
       <MemoryRouter>
         <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
@@ -141,16 +144,14 @@ describe('KroniskKrav', () => {
 
     const BelopInput = screen.queryAllByLabelText(/Beregnet månedsinntekt/)[1];
 
-    fireEvent.click(submitButton);
+    await user.click(submitButton);
 
     await user.type(BelopInput, '123');
     expect(screen.queryByText(/Mangler beløp/)).not.toBeInTheDocument();
     expect(screen.queryByText(/Beløp må fylles ut/)).not.toBeInTheDocument();
   }, 10000);
 
-  it('should show warnings when input is missing, and the warning should dissapear when fixed 4', async () => {
-    const user = userEvent.setup();
-
+  it('should show warnings when input is missing, and the warning should disappear when fixed 4', async () => {
     render(
       <MemoryRouter>
         <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
@@ -169,7 +170,7 @@ describe('KroniskKrav', () => {
 
     const bekreftCheckbox = screen.getByText(/Jeg bekrefter at/);
 
-    fireEvent.click(submitButton);
+    await user.click(submitButton);
 
     await user.click(bekreftCheckbox);
     expect(screen.queryByText(/Bekreft at opplysningene er korrekt/)).not.toBeInTheDocument();

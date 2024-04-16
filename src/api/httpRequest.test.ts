@@ -4,9 +4,9 @@ import mockFetch from '../mockData/mockFetch';
 import { GravidSoknadResponse } from './gravid/GravidSoknadResponse';
 
 describe('httpRequest', () => {
-  type PostResponse = {
+  interface PostResponse {
     hello: string;
-  };
+  }
 
   it('should respond json when 201', async () => {
     mockFetch(201, { hello: 'World' } as PostResponse);

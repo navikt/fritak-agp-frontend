@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import GravidKrav from './GravidKrav';
@@ -8,12 +8,16 @@ import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverCon
 
 describe('GravidKrav', () => {
   it('should have no a11y violations', async () => {
-    const { container } = render(
-      <MemoryRouter>
-        <ArbeidsgiverProvider baseUrl={''}>
-          <GravidKrav />
-        </ArbeidsgiverProvider>
-      </MemoryRouter>
+    let container: string | Element;
+    await act(
+      async () =>
+        ({ container } = render(
+          <MemoryRouter>
+            <ArbeidsgiverProvider baseUrl={''}>
+              <GravidKrav />
+            </ArbeidsgiverProvider>
+          </MemoryRouter>
+        ))
     );
     const results = await axe(container);
 

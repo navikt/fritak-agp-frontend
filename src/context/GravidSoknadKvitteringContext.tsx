@@ -2,11 +2,11 @@ import React, { createContext, useState, FC, ReactNode, useMemo } from 'react';
 import ValidationResponse from '../state/validation/ValidationResponse';
 import GravidSoknadResponse from '../api/gravid/GravidSoknadResponse';
 
-export type GravidSoknadKvitteringContextState = {
+export interface GravidSoknadKvitteringContextState {
   response: ValidationResponse<GravidSoknadResponse> | undefined;
   saveResponse: (response: ValidationResponse<GravidSoknadResponse>) => void;
   clearResponse: () => void;
-};
+}
 
 const contextDefaultValues: GravidSoknadKvitteringContextState = {
   response: undefined,

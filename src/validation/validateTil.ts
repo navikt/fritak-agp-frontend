@@ -23,7 +23,7 @@ const validateTil = (
   fra: Dato | undefined,
   til: Dato | undefined,
   minDate: Date,
-  required: boolean = false
+  required = false
 ): ValidateTilResult | undefined => {
   if (!til?.value) {
     return required ? { key: validateTilKeys.VALIDATE_TIL_MISSING } : undefined;

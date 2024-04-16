@@ -10,7 +10,7 @@ export interface ValidateOrgNrResult extends ValidationResult {
   key: validateOrgnrKeys.VALIDATE_ORGNR_MISSSING | validateOrgnrKeys.VALIDATE_ORGNR_INVALID;
 }
 
-export const validateOrgnr = (orgnr?: string, required: boolean = false): ValidateOrgNrResult | undefined => {
+export const validateOrgnr = (orgnr?: string, required = false): ValidateOrgNrResult | undefined => {
   if (orgnr == undefined || orgnr == '') {
     return required ? { key: validateOrgnrKeys.VALIDATE_ORGNR_MISSSING } : undefined;
   }
