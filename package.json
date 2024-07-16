@@ -98,7 +98,7 @@
     "prettier": "3.x",
     "sass": "1.x",
     "snyk": "1.x",
-    "testcafe": "^3.4.0",
+    "testcafe": "^3.6.2",
     "testcafe-react-selectors": "^5.0.3",
     "timezone-mock": "1.x",
     "typescript-eslint": "^7.7.0",
