@@ -1,7 +1,6 @@
-import validator from '@navikt/fnrvalidator';
+import { idnr } from '@navikt/fnrvalidator';
 
-const isValidFnr = (fnr: string): boolean => {
-  return validator.fnr(fnr).status === 'valid';
-};
-
-export default isValidFnr;
+export default function isValidFnr(fnr: string) {
+  const status = idnr(fnr);
+  return status.status === 'valid';
+}
