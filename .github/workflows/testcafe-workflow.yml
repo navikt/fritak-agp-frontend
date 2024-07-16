@@ -43,5 +43,6 @@ jobs:
       - name: Run tests
         uses: DevExpress/testcafe-action@latest
         with:
+          version: '3.4.0'
           skip-install: true
           args: chrome:headless tests/ --skip-js-errors --app-init-delay 60000 --app "yarn start:host" --cache
