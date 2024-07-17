@@ -23,7 +23,7 @@
     }
   },
   "engines": {
-    "node": ">=14",
+    "node": ">=20",
     "yarn": ">=1.22"
   },
   "engineStrict": true,
@@ -94,7 +94,7 @@
     "less": "^4.2.0",
     "lint-staged": "^15.1.0",
     "mockdate": "^3.0.5",
-    "msw": "^2.0.11",
+    "msw": "^2.3.1",
     "prettier": "3.x",
     "sass": "1.x",
     "snyk": "1.x",
