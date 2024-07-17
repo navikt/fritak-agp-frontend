@@ -15,6 +15,7 @@
     "prepare": "husky",
     "postinstall": "cross-os postinstall",
     "test:int": "testcafe firefox --hostname localhost tests/ --skip-js-errors --dev --assertion-timeout 300",
+    "test:e2e": "testcafe chrome:headless tests/ --skip-js-errors --app-init-delay 60000 --app \"yarn start:host\" --cache",
     "test:watch": "vitest"
   },
   "cross-os": {
