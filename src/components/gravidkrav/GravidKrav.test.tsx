@@ -1,5 +1,5 @@
-import React from 'react';
-import { render, cleanup, act } from '@testing-library/react';
+import { act } from 'react';
+import { render, cleanup } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import GravidKrav from './GravidKrav';

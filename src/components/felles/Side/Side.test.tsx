@@ -1,13 +1,13 @@
 /**
  * @vi-environment jsdom
  */
-import React from 'react';
+import { act } from 'react';
 import Side, { showChildren } from './Side';
 import { MemoryRouter } from 'react-router-dom';
 import { Organisasjon } from '@navikt/bedriftsmeny';
 import ArbeidsgiverStatus from '../../../context/arbeidsgiver/ArbeidsgiverStatus';
 import { ArbeidsgiverProvider } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 const BARNE_NODER = 'barnenoder';
 const ARBEIDSGIVERE: Array<Organisasjon> = [{ Name: '' } as Organisasjon];
