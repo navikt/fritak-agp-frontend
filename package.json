@@ -65,6 +65,7 @@
   },
   "snyk": true,
   "devDependencies": {
+    "@playwright/test": "^1.45.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.0",
