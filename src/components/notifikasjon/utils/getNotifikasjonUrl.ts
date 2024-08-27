@@ -7,10 +7,12 @@ const getNotifikasjonUrl = (uuid: string, notifikasjonType: NotifikasjonType, ba
     case NotifikasjonType.GravidSoknad:
       return baseurl + Paths.Gravid + '/' + uuid;
     case NotifikasjonType.GravidKrav:
+    case NotifikasjonType.GravidKravSlettet:
       return baseurl + Paths.GravidKrav + '/' + uuid;
     case NotifikasjonType.KroniskSoknad:
       return baseurl + Paths.Kronisk + '/' + uuid;
     case NotifikasjonType.KroniskKrav:
+    case NotifikasjonType.KroniskKravSlettet:
       return baseurl + Paths.KroniskKrav + '/' + uuid;
     default:
       throw new Error('Ikke laget ennå');

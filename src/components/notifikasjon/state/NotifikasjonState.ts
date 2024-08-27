@@ -15,6 +15,6 @@ export interface NotifikasjonState {
   kroniskKravResponse?: KroniskKravResponse;
 }
 
-export const defaultNotitikasjonState = (state?: NotifikasjonState): NotifikasjonState => {
+export const defaultNotifikasjonState = (state?: NotifikasjonState): NotifikasjonState => {
   return Object.assign({}, state || {});
 };

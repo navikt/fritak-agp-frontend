@@ -20,16 +20,16 @@ const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonP
       dato={kroniskSoknadResponse.opprettet}
     >
       <p>
-        Arbeidsgiveren din, {kroniskSoknadResponse.virksomhetsnavn}, har i dag søkt om utvidet støtte fra NAV angående
-        sykepenger til deg. NAV har en egen ordning når sykefraværet blir høyere på grunn av kronisk/langvarig sykdom.
-        Vanligvis skal arbeidsgiveren dekke de første 16 dagene av et sykefravær. Nå søker arbeidsgiveren din om at NAV
-        dekker sykepengene dine fra første dag.
+        Arbeidsgiveren din, {kroniskSoknadResponse.virksomhetsnavn}, har søkt om fritak fra å betale sykepenger for de
+        første 16 dagene av sykefraværet ditt. Dette er en ordning NAV har når sykefraværet blir høyere på grunn av
+        kronisk/langvarig sykdom. Vanligvis betaler arbeidsgiveren sykepenger de første 16 dagene, men nå søker de om at
+        NAV dekker dette fra dag én.
       </p>
       <p>
-        Du trenger ikke å foreta deg noe i forbindelse med dette. Vi tar kontakt med deg igjen hvis det blir behov for
-        det.
+        Du vil fortsatt motta sykepenger som normalt fra arbeidsgiveren i denne perioden, men arbeidsgiveren vil senere
+        få refundert beløpet fra NAV.
       </p>
-      <p>Når vi har behandlet søknaden fra arbeidsgiveren din, vil du få en melding fra oss om resultatet.</p>
+
       <p>
         <Dokumentasjon harVedlegg={kroniskSoknadResponse.harVedlegg} />
       </p>

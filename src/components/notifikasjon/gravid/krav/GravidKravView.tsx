@@ -19,13 +19,10 @@ const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) =>
   const respondByDate = inTwoWeeks(gravidKravVisning.opprettet);
   const kravRefusjon = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
   const perioder = gravidKravVisning.perioder;
+  const tittel = `${gravidKravVisning.virksomhetsnavn} har søkt om at NAV dekker sykepenger fra første dag av eventuelt sykefravær.`;
 
   return (
-    <NotifikasjonInnhold
-      title='Informasjon om sykepenger'
-      type={NotifikasjonType.GravidKrav}
-      dato={gravidKravVisning.opprettet}
-    >
+    <NotifikasjonInnhold title={tittel} type={NotifikasjonType.GravidKrav} dato={gravidKravVisning.opprettet}>
       <BodyLong>
         Arbeidsgiveren din, {gravidKravVisning.virksomhetsnavn}, har søkt om å få igjen {kravRefusjon} i sykepenger for
         {perioder.length > 1 ? (

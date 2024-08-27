@@ -1,4 +1,4 @@
-import { defaultNotitikasjonState, NotifikasjonState } from './NotifikasjonState';
+import { defaultNotifikasjonState, NotifikasjonState } from './NotifikasjonState';
 import { NotifikasjonAction } from './NotifikasjonAction';
 import Actions from './Actions';
 import NotifikasjonType from '../felles/NotifikasjonType';
@@ -19,7 +19,15 @@ const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonActio
         nextState.gravidKravResponse = payload?.json;
       }
 
+      if (nextState.notifikasjonType === NotifikasjonType.GravidKravSlettet) {
+        nextState.gravidKravResponse = payload?.json;
+      }
+
       if (nextState.notifikasjonType === NotifikasjonType.KroniskKrav) {
+        nextState.kroniskKravResponse = payload?.json;
+      }
+
+      if (nextState.notifikasjonType === NotifikasjonType.KroniskKravSlettet) {
         nextState.kroniskKravResponse = payload?.json;
       }
 
@@ -34,7 +42,7 @@ const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonActio
       nextState.notifikasjonType = payload?.notifikasjonsType;
       return nextState;
     case Actions.Reset:
-      return Object.assign({}, defaultNotitikasjonState());
+      return Object.assign({}, defaultNotifikasjonState());
     default:
       return nextState;
   }

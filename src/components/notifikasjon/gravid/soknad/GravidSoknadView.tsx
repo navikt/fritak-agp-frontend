@@ -14,24 +14,20 @@ export interface GravidSoknadNotifikasjonProps {
 }
 
 const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProps) => {
+  const tittel = `${gravidSoknadResponse.virksomhetsnavn} har søkt om at NAV dekker sykepenger fra første dag av eventuelt sykefravær.`;
   return (
-    <NotifikasjonInnhold
-      title='Informasjon om sykepenger'
-      type={NotifikasjonType.GravidSoknad}
-      dato={gravidSoknadResponse.opprettet}
-    >
+    <NotifikasjonInnhold title={tittel} type={NotifikasjonType.GravidSoknad} dato={gravidSoknadResponse.opprettet}>
       <p>
-        Arbeidsgiveren din, {gravidSoknadResponse.virksomhetsnavn}, har i dag søkt om utvidet støtte fra NAV når det
-        gjelder sykepenger til deg. NAV har en egen ordning når sykefraværet blir høyere på grunn av svangerskap.
-        Vanligvis skal arbeidsgiveren betale de første 16 dagene av et sykefravær. Nå søker arbeidsgiveren din om at NAV
-        betaler sykepengene dine fra første dag.
+        Arbeidsgiveren din, {gravidSoknadResponse.virksomhetsnavn}, har søkt om fritak fra å betale sykepenger for de
+        første 16 dagene av sykefraværet ditt. Dette er en ordning NAV har når sykefraværet blir høyere på grunn av
+        svangerskap. Vanligvis betaler arbeidsgiveren sykepenger de første 16 dagene, men nå søker de om at NAV dekker
+        dette fra dag én.
       </p>
 
       <p>
-        Du trenger ikke gjøre noe i forbindelse med dette. Vi tar kontakt med deg igjen hvis det blir behov for det.
+        Du vil fortsatt motta sykepenger som normalt fra arbeidsgiveren i denne perioden, men arbeidsgiveren vil senere
+        få refundert beløpet fra NAV.
       </p>
-
-      <p>Når vi har behandlet søknaden fra arbeidsgiveren din, vil du få en melding fra oss om resultatet.</p>
 
       <h3>Detaljer fra søknaden:</h3>
 
@@ -51,6 +47,10 @@ const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProp
       </p>
       <p>
         <InnsendtAv sendtAv={gravidSoknadResponse.sendtAvNavn} />
+      </p>
+      <p>
+        Du trenger ikke gjøre noe i denne saken. Vi tar kontakt med deg hvis det blir nødvendig. Når vi har behandlet
+        søknaden, vil du få beskjed om resultatet.
       </p>
       <p>
         <GravidSoknadFooter />

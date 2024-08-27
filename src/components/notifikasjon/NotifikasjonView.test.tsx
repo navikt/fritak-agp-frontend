@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import NotifikasjonController from './NotifikasjonController';
-import { defaultNotitikasjonState, NotifikasjonState } from './state/NotifikasjonState';
+import { defaultNotifikasjonState, NotifikasjonState } from './state/NotifikasjonState';
 import NotifikasjonType from './felles/NotifikasjonType';
 import { MemoryRouter } from 'react-router-dom';
 import HttpStatus from '../../api/HttpStatus';
@@ -24,7 +24,7 @@ describe('NotifikasjonView', () => {
   );
 
   it('should handle notfound', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.NotFound;
     state.notifikasjonType = NotifikasjonType.GravidSoknad;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
@@ -32,34 +32,34 @@ describe('NotifikasjonView', () => {
   });
 
   it('should handle Unauthorized', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Unauthorized;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
     expect(container.textContent).toContain(FANT_IKKE);
   });
 
   it('should show spinner', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
     expect(container.textContent).toContain(STATUS_PROGRESS);
   });
 
   it('should handle errors', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Error;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
     expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should handle timeout', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Timeout;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
     expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Gravid Søknad', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Successfully;
     state.gravidSoknadResponse = {
       tiltak: ['']
@@ -69,14 +69,14 @@ describe('NotifikasjonView', () => {
   });
 
   it('should handle empty Gravid Søknad', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Successfully;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
     expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Gravid Krav', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
 
     state.status = HttpStatus.Successfully;
     state.gravidKravResponse = {
@@ -106,7 +106,7 @@ describe('NotifikasjonView', () => {
   });
 
   it('should show Gravid Krav med en periode', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
 
     state.status = HttpStatus.Successfully;
     state.gravidKravResponse = {
@@ -130,14 +130,14 @@ describe('NotifikasjonView', () => {
   });
 
   it('should handle empty Gravid Krav', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Successfully;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidKrav));
     expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Kronisk Krav', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
 
     state.status = HttpStatus.Successfully;
     state.kroniskKravResponse = {
@@ -167,21 +167,21 @@ describe('NotifikasjonView', () => {
   });
 
   it('should handle empty Kronisk Krav', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Successfully;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKrav));
     expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should handle things going wrong', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Successfully;
     const { container } = render(buildNotifikasjonSide(state, 'UkjentSkjema'));
     expect(container.textContent).toContain(FEILMELDING);
   });
 
   it('should show Kronisk Søknad', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
 
     state.status = HttpStatus.Successfully;
     state.kroniskSoknadResponse = {
@@ -213,7 +213,7 @@ describe('NotifikasjonView', () => {
   });
 
   it('should handle empty Kronisk Søknad', () => {
-    const state = defaultNotitikasjonState();
+    const state = defaultNotifikasjonState();
     state.status = HttpStatus.Successfully;
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.KroniskSoknad));
     expect(container.textContent).toContain(FEILMELDING);
