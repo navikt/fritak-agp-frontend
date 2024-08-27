@@ -4,7 +4,7 @@ import Actions from './Actions';
 import NotifikasjonType from '../felles/NotifikasjonType';
 
 const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonAction): NotifikasjonState => {
-  const nextState = Object.assign({}, state);
+  const nextState = { ...state };
   const { payload } = action;
   switch (action.type) {
     case Actions.HandleResponse:

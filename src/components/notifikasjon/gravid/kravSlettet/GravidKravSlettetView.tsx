@@ -11,7 +11,7 @@ export interface GravidSoknadNotifikasjonProps {
 }
 
 const GravidKravSlettetView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) => {
-  const kravRefusjon = formatNumberForCurrency(gravidKravVisning.totalBelop || 0);
+  const kravRefusjon = formatNumberForCurrency(gravidKravVisning.totalBelop ?? 0);
   const perioder = gravidKravVisning.perioder;
 
   const tittel = `${gravidKravVisning.virksomhetsnavn} har slettet et krav.`;

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import GravidKravSlettetView from './GravidKravSlettetView';
-import { GravidSoknadResponse } from '../../../../api/gravid/GravidSoknadResponse';
 import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
 
 describe('GravidSoknadView', () => {
