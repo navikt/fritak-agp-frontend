@@ -15,7 +15,7 @@ describe('NotifikasjonView', () => {
   const STATUS_PROGRESS = 'venter...';
   const FANT_IKKE = 'Fant ikke';
   const FEILMELDING = 'Det oppstod en feil';
-  const INNHOLD = 'Informasjon om sykepenger';
+  const INNHOLD = 'Din arbeidsgiver har søkt om utvidet støtte';
 
   const buildNotifikasjonSide = (state: NotifikasjonState, notifikasjonType: NotifikasjonType) => (
     <MemoryRouter initialEntries={initHistory}>

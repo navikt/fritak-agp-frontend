@@ -24,7 +24,6 @@ const NotifikasjonController = ({
   state.notifikasjonType = notifikasjonType;
   const { uuid } = useParams();
   useEffect(() => {
-    console.log('NotifikasjonController useEffect', state);
     if (state.status === undefined) {
       GetHandler(getNotifikasjonUrl(uuid as string, notifikasjonType))
         .then((response) => {
