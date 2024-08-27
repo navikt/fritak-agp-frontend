@@ -37,8 +37,6 @@ const NotifikasjonView = (state: NotifikasjonState) => {
         }
 
         case NotifikasjonType.GravidKravSlettet: {
-          console.log('GravidKravSlettet', state.gravidKravResponse);
-
           if (!state.gravidKravResponse) {
             return <NotifikasjonFeilmelding />;
           }

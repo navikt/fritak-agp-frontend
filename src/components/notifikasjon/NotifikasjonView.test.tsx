@@ -136,6 +136,30 @@ describe('NotifikasjonView', () => {
     expect(container.textContent).toContain(FEILMELDING);
   });
 
+  it('should show slettet Gravid Krav med en periode', () => {
+    const state = defaultNotifikasjonState();
+
+    state.status = HttpStatus.Successfully;
+    state.gravidKravResponse = {
+      id: '1',
+      opprettet: '2020-01-01',
+      virksomhetsnummer: '123',
+      virksomhetsnavn: 'Virksomhet',
+      perioder: [
+        {
+          fom: '2020-01-02',
+          tom: '2020-02-03',
+          belop: 1234
+        }
+      ]
+    } as GravidKravResponse;
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidKravSlettet));
+    expect(container.textContent).toContain(INNHOLD);
+    expect(container.textContent).toContain('02.01.20 - 03.02.20');
+    expect(container.textContent).toContain('1 234,00 kr');
+    expect(container.textContent).toContain('dagene');
+  });
+
   it('should show Kronisk Krav', () => {
     const state = defaultNotifikasjonState();
 
@@ -164,6 +188,35 @@ describe('NotifikasjonView', () => {
     expect(container.textContent).toContain('04.05.20 - 05.06.20');
     expect(container.textContent).toContain('468,00');
     expect(container.textContent).toContain('innen 15.01.20');
+  });
+
+  it('should show slettet Kronisk Krav', () => {
+    const state = defaultNotifikasjonState();
+
+    state.status = HttpStatus.Successfully;
+    state.kroniskKravResponse = {
+      id: '1',
+      opprettet: '2020-01-01',
+      virksomhetsnummer: '123',
+      virksomhetsnavn: 'Virksomhet',
+      perioder: [
+        {
+          fom: '2020-01-02',
+          tom: '2020-02-03',
+          belop: 1234
+        },
+        {
+          fom: '2020-05-04',
+          tom: '2020-06-05',
+          belop: 1234
+        }
+      ]
+    } as unknown as KroniskKravResponse;
+    const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.KroniskKravSlettet));
+    expect(container.textContent).toContain(INNHOLD);
+    expect(container.textContent).toContain('02.01.20 - 03.02.20');
+    expect(container.textContent).toContain('04.05.20 - 05.06.20');
+    expect(container.textContent).toContain('468,00');
   });
 
   it('should handle empty Kronisk Krav', () => {

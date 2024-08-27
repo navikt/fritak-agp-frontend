@@ -1,7 +1,7 @@
 import React from 'react';
 import NotifikasjonInnhold from '../../felles/NotifikasjonInnhold';
 import NotifikasjonType from '../../felles/NotifikasjonType';
-import formatNumberForCurrency from './FormatNumberForCurrency';
+import formatNumberForCurrency from '../krav/FormatNumberForCurrency';
 import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
 import VisNotifikasjonPerioder from '../krav/VisNotifikasjonPerioder';
 import { BodyLong } from '@navikt/ds-react';
