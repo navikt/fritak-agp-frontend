@@ -73,7 +73,7 @@
     "@types/jest": "29.x",
     "@types/jest-axe": "3.x",
     "@types/node": "20.x",
-    "@types/react": "^18.2.45",
+    "@types/react": "^18.3.5",
     "@types/react-dom": "^18.2.23",
     "@types/react-router-dom": "5.x",
     "@types/uuid": "^9.0.7",
