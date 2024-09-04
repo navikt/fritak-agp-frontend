@@ -11,8 +11,10 @@ import KravKvittering from './components/kravkvittering/KravKvittering';
 import Forside from './components/Forside';
 import { GravidSoknadController } from './components/notifikasjon/gravid/soknad/GravidSoknadController';
 import { GravidKravController } from './components/notifikasjon/gravid/krav/GravidKravController';
+import { GravidKravSlettetController } from './components/notifikasjon/gravid/kravSlettet/GravidKravSlettetController';
 import { KroniskSoknadController } from './components/notifikasjon/kronisk/soknad/KroniskSoknadController';
 import { KroniskKravController } from './components/notifikasjon/kronisk/krav/KroniskKravController';
+import { KroniskKravSlettetController } from './components/notifikasjon/kronisk/kravSlettet/KroniskKravSlettetController';
 import GravidSoknadKvitteringProvider from './context/GravidSoknadKvitteringContext';
 import KroniskSoknadKvitteringProvider from './context/KroniskSoknadKvitteringContext';
 import EksempelLonningsdager from './components/eksempellonnsdager/EksempelLonningsdager';
@@ -54,8 +56,10 @@ export const ApplicationRoutes = () => (
           <Route path={lenker.TokenFornyet} element={<TokenFornyet />} />
           <Route path={lenker.NotifikasjonGravidSoknad} element={<GravidSoknadController />} />
           <Route path={lenker.NotifikasjonGravidKrav} element={<GravidKravController />} />
+          <Route path={lenker.NotifikasjonGravidKravSlettet} element={<GravidKravSlettetController />} />
           <Route path={lenker.NotifikasjonKroniskSoknad} element={<KroniskSoknadController />} />
           <Route path={lenker.NotifikasjonKroniskKrav} element={<KroniskKravController />} />
+          <Route path={lenker.NotifikasjonKroniskKravSlettet} element={<KroniskKravSlettetController />} />
           <Route path={lenker.EksemplerLonnsdager} element={<EksempelLonningsdager />} />
           <Route path={lenker.Home} element={<Forside />} />
         </Routes>
