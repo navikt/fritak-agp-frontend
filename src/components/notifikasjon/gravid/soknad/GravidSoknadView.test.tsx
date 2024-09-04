@@ -17,7 +17,7 @@ describe('GravidSoknadView', () => {
 
   it('should show all fields', () => {
     render(<GravidSoknadView gravidSoknadResponse={notifikasjon} />);
-    expect(screen.getByText(/Kari Normann/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Kari Normann/).length).toBe(2);
     expect(screen.getByText(/Tilrettelegging av arbeidsdagen /)).toBeInTheDocument();
     expect(screen.getByText(/Hjemmekontor/)).toBeInTheDocument();
     expect(screen.getByText(/Tilpassede arbeidsoppgaver/)).toBeInTheDocument();

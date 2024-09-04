@@ -1,4 +1,4 @@
-import { defaultNotitikasjonState } from './NotifikasjonState';
+import { defaultNotifikasjonState } from './NotifikasjonState';
 import NotifikasjonReducer from './NotifikasjonReducer';
 import { NotifikasjonAction } from './NotifikasjonAction';
 import HttpStatus from '../../../api/HttpStatus';
@@ -7,7 +7,7 @@ import Actions from './Actions';
 
 describe('NotikasjonRedudcer', () => {
   it('should handle response', () => {
-    let state = NotifikasjonReducer(defaultNotitikasjonState(), {
+    let state = NotifikasjonReducer(defaultNotifikasjonState(), {
       type: Actions.HandleResponse,
       payload: {
         notifikasjonsType: NotifikasjonType.GravidSoknad,
@@ -20,7 +20,7 @@ describe('NotikasjonRedudcer', () => {
   });
 
   it('should handle error', () => {
-    let state = NotifikasjonReducer(defaultNotitikasjonState(), {
+    let state = NotifikasjonReducer(defaultNotifikasjonState(), {
       type: Actions.HandleError,
       payload: {
         notifikasjonsType: NotifikasjonType.GravidSoknad,
@@ -34,7 +34,7 @@ describe('NotikasjonRedudcer', () => {
   });
 
   it('should handle reset', () => {
-    let state = NotifikasjonReducer(defaultNotitikasjonState(), {
+    let state = NotifikasjonReducer(defaultNotifikasjonState(), {
       type: Actions.Reset,
       payload: {}
     } as NotifikasjonAction);

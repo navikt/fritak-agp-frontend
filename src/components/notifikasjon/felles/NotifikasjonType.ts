@@ -1,8 +1,10 @@
 enum NotifikasjonType {
   Ukjent,
   GravidSoknad,
+  GravidKravSlettet,
   GravidKrav,
   KroniskSoknad,
+  KroniskKravSlettet,
   KroniskKrav
 }
 
