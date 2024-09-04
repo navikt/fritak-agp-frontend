@@ -61,7 +61,7 @@
     "react-i18next": "^15.0.1",
     "react-router-dom": "^6.21.0",
     "typescript": "^5.5.4",
-    "uuid": "9.0.1"
+    "uuid": "10.0.0"
   },
   "snyk": true,
   "devDependencies": {
@@ -76,7 +76,7 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.2.23",
     "@types/react-router-dom": "5.x",
-    "@types/uuid": "^9.0.7",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.2.0",
     "@typescript-eslint/parser": "^8.0.0",
     "@vitejs/plugin-react": "^4.2.1",
