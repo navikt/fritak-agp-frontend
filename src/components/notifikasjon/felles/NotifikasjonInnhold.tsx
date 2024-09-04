@@ -2,7 +2,7 @@ import React from 'react';
 import NotifikasjonType from './NotifikasjonType';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
-import { BodyLong, Heading, Link, Panel } from '@navikt/ds-react';
+import { BodyLong, Box, Heading, Link, Panel } from '@navikt/ds-react';
 import environment from '../../../config/environment';
 
 interface NotifikasjonInnholdProps {
@@ -26,7 +26,7 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
       </div>
       <div>
         <div>
-          <Panel className='notifikasjon-innhold__hvit'>
+          <Box padding='4' borderRadius='small' className='notifikasjon-innhold__hvit'>
             <div>
               <div>
                 <Heading size='large' level='2'>
@@ -39,7 +39,7 @@ const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
             <div>
               <div className='notifikasjon-innhold__children'>{props.children}</div>
             </div>
-          </Panel>
+          </Box>
         </div>
       </div>
     </div>

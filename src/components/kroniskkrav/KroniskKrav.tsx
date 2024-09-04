@@ -30,7 +30,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { BodyLong, Button, Fieldset, Heading, HelpText, Panel } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Fieldset, Heading, HelpText } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -234,7 +234,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <BodyLong size='large' className='textfelt-padding-bottom'>
           <Oversettelse
             langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
@@ -246,12 +246,12 @@ export const KroniskKrav = (props: KroniskKravProps) => {
         <BodyLong size='large'>
           <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
         </BodyLong>
-      </Panel>
+      </Box>
       <Skillelinje />
 
       {state.endringskrav && (
         <>
-          <Panel>
+          <Box padding='4' borderRadius='small'>
             <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
               <div>
                 <div>
@@ -264,12 +264,12 @@ export const KroniskKrav = (props: KroniskKravProps) => {
                 </div>
               </div>
             </Fieldset>
-          </Panel>
+          </Box>
           <Skillelinje />
         </>
       )}
 
-      <Panel id='kroniskkrav-panel-den-ansatte'>
+      <Box id='kroniskkrav-panel-den-ansatte'>
         <Heading size='medium' level='2' className='textfelt-padding-bottom'>
           {t(KroniskKravKeys.KRONISK_KRAV_EMPLOYEE)}
         </Heading>
@@ -305,11 +305,11 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             </div>
           </div>
         </Fieldset>
-      </Panel>
+      </Box>
 
       <Skillelinje />
 
-      <Panel id='kroniskkrav-panel-tapt-arbeidstid'>
+      <Box id='kroniskkrav-panel-tapt-arbeidstid'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
         </Heading>
@@ -345,7 +345,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             )}
           </div>
         </Fieldset>
-      </Panel>
+      </Box>
       <Skillelinje />
 
       <BekreftOpplysningerPanel
@@ -361,7 +361,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
 
       <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <Button onClick={handleSubmitClicked} loading={state.progress}>
           {state.endringskrav ? (
             <>{t(KroniskKravKeys.KRONISK_KRAV_ENDRE)}</>
@@ -383,7 +383,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
             Annuller krav
           </Button>
         )}
-      </Panel>
+      </Box>
 
       {state.notAuthorized && (
         <LoggetUtAdvarsel

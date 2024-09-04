@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Side from '../Side/Side';
 import { TokenFornyetKeys } from './TokenFornyetKeys';
-import { BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { BodyLong, Box, Heading } from '@navikt/ds-react';
 
 export const TokenFornyet = () => {
   const { t } = useTranslation();
@@ -15,12 +15,12 @@ export const TokenFornyet = () => {
     >
       <div className={'side__innhold'}>
         <div>
-          <Panel>
+          <Box padding='4' borderRadius='small'>
             <Heading size='large'>{t(TokenFornyetKeys.TOKEN_FORNYET_TITLE)}</Heading>
-          </Panel>
-          <Panel>
+          </Box>
+          <Box padding='4' borderRadius='small'>
             <BodyLong>{t(TokenFornyetKeys.TOKEN_FORNYET_INFO)}</BodyLong>
-          </Panel>
+          </Box>
         </div>
       </div>
     </Side>

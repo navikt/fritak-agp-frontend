@@ -1,17 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
-import { Heading, Panel } from '@navikt/ds-react';
+import { Box, Heading } from '@navikt/ds-react';
 
 const GravidFeil = () => {
   const { t } = useTranslation();
 
   return (
-    <Panel>
+    <Box padding='4' borderRadius='small'>
       <Heading size='small' level='4'>
         {t(LangKey.DET_OPPSTOD_EN_FEIL)}
       </Heading>
-    </Panel>
+    </Box>
   );
 };
 
