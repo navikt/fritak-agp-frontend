@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FeilmeldingspanelKeys } from './FeilmeldingspanelKeys';
 import { FeiloppsummeringFeil } from '../../../validation/mapKravFeilmeldinger';
-import { Box, ErrorSummary, Panel } from '@navikt/ds-react';
+import { Box, ErrorSummary } from '@navikt/ds-react';
 
 interface FeilmeldingspanelProps {
   feilmeldinger: Array<FeiloppsummeringFeil>;

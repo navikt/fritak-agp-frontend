@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Oversettelse from '../Oversettelse/Oversettelse';
 import { BekreftOpplysningerKeys } from './BekreftOpplysningerKeys';
-import { Box, ConfirmationPanel, Panel } from '@navikt/ds-react';
+import { Box, ConfirmationPanel } from '@navikt/ds-react';
 
 interface BekreftOpplysningerPanelProps {
   checked: boolean;
