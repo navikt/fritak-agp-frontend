@@ -11,7 +11,7 @@ import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import environment from '../../config/environment';
-import { Alert, Heading, BodyLong, Panel } from '@navikt/ds-react';
+import { Alert, Heading, BodyLong, Box } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
 import Language from '../../locale/Language';
@@ -33,19 +33,19 @@ const GravidKvittering = () => {
 
   return (
     <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering' bedriftsmeny={false}>
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <Heading size='xlarge' level='1'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_TITTEL} />
         </Heading>
-      </Panel>
+      </Box>
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <BodyLong>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_INGRESS} />
         </BodyLong>
-      </Panel>
+      </Box>
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <Heading size='small' level='2'>
           Detaljer fra søknaden:
         </Heading>
@@ -71,19 +71,19 @@ const GravidKvittering = () => {
         </BodyLong>
         <SoknadMottatt className='luft-under' mottatt={opprettet} />
         <BodyLong>Innrapportert av: {sendtAvNavn}</BodyLong>
-      </Panel>
-      <Panel className='skjul-fra-print'>
+      </Box>
+      <Box padding='4' borderRadius='small' className='skjul-fra-print'>
         <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_SKRIV_UT} />
-      </Panel>
-      <Panel>
+      </Box>
+      <Box padding='4' borderRadius='small'>
         <Alert variant='info'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
         </Alert>
-      </Panel>
-      <Panel className='skjul-fra-print'>
+      </Box>
+      <Box padding='4' borderRadius='small' className='skjul-fra-print'>
         <PrintKnapp />
-      </Panel>
-      <Panel className='lenker-ut-panel'>
+      </Box>
+      <Box padding='4' borderRadius='small' className='lenker-ut-panel'>
         <div>
           <Link to={buildLenke(lenker.GravidKrav, language as Language)}>
             <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_KRAV} />
@@ -99,7 +99,7 @@ const GravidKvittering = () => {
             <Oversettelse langKey={LangKey.MIN_SIDE_ARBEIDSGIVER} />
           </InternLenke>
         </div>
-      </Panel>
+      </Box>
     </Side>
   );
 };

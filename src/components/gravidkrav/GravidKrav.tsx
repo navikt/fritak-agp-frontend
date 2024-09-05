@@ -30,7 +30,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import ValidationResponse from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { BodyLong, Button, Fieldset, Heading, HelpText, Panel } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Fieldset, Heading, HelpText } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -237,19 +237,19 @@ export const GravidKrav = (props: GravidKravProps) => {
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <BodyLong size='large' className='textfelt-padding-bottom'>
           <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
         </BodyLong>
         <BodyLong size='large'>
           <Oversettelse langKey={LangKey.ALLE_FELT_PAKREVD} />
         </BodyLong>
-      </Panel>
+      </Box>
       <Skillelinje />
 
       {state.endringskrav && (
         <>
-          <Panel>
+          <Box padding='4' borderRadius='small'>
             <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
               <div>
                 <SelectEndring
@@ -260,11 +260,11 @@ export const GravidKrav = (props: GravidKravProps) => {
                 />
               </div>
             </Fieldset>
-          </Panel>
+          </Box>
           <Skillelinje />
         </>
       )}
-      <Panel id='gravidkrav-panel-den-ansatte'>
+      <Box id='gravidkrav-panel-den-ansatte'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(LangKey.DEN_ANSATTE)}
         </Heading>
@@ -296,11 +296,11 @@ export const GravidKrav = (props: GravidKravProps) => {
             {/* </div> */}
           </div>
         </Fieldset>
-      </Panel>
+      </Box>
 
       <Skillelinje />
 
-      <Panel id='gravidkrav-panel-tapt-arbeidstid'>
+      <Box id='gravidkrav-panel-tapt-arbeidstid'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
         </Heading>
@@ -336,7 +336,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             )}
           </div>
         </Fieldset>
-      </Panel>
+      </Box>
 
       <Skillelinje />
 
@@ -353,7 +353,7 @@ export const GravidKrav = (props: GravidKravProps) => {
 
       <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <Button onClick={handleSubmitClicked} loading={state.progress}>
           {state.endringskrav ? (
             <>{t(GravidKravKeys.GRAVID_KRAV_LONN_ENDRE)} </>
@@ -369,7 +369,7 @@ export const GravidKrav = (props: GravidKravProps) => {
             Annuller krav
           </Button>
         )}
-      </Panel>
+      </Box>
 
       {state.notAuthorized && (
         <LoggetUtAdvarsel

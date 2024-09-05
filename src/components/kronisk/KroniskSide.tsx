@@ -18,7 +18,7 @@ import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BodyLong, Button, Checkbox, Fieldset, Heading, Panel, TextField } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Checkbox, Fieldset, Heading, TextField } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -130,14 +130,14 @@ const KroniskSide = () => {
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <BodyLong size='large'>
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_INGRESS} />
         </BodyLong>
-      </Panel>
+      </Box>
       <Skillelinje />
 
-      <Panel id='kroniskside-panel-ansatte'>
+      <Box padding='4' borderRadius='small' id='kroniskside-panel-ansatte'>
         {/* <Fieldset aria-live='polite' errorId={'ansatt'} legend={t(LangKey.DEN_ANSATTE)} hideLegend={true}> */}
         <div className='soknad-ansatte-persondata'>
           <div>
@@ -175,11 +175,11 @@ const KroniskSide = () => {
           </div>
         </div>
         {/* </Fieldset> */}
-      </Panel>
+      </Box>
 
       <Skillelinje />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
         </Heading>
@@ -201,11 +201,11 @@ const KroniskSide = () => {
             onDelete={handleDelete}
           />
         </Fieldset>
-      </Panel>
+      </Box>
 
       <Skillelinje />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
         </Heading>
@@ -235,8 +235,8 @@ const KroniskSide = () => {
             }}
           />
         </Fieldset>
-      </Panel>
-      <Panel>
+      </Box>
+      <Box padding='4' borderRadius='small'>
         <TextField
           label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}
           id='soknad-perioder'
@@ -268,7 +268,7 @@ const KroniskSide = () => {
         >
           {t(KroniskSideKeys.KRONISK_SIDE_PERIODER_UNNTAK)}
         </Checkbox>
-      </Panel>
+      </Box>
       <Skillelinje />
 
       <BekreftOpplysningerPanel
@@ -284,14 +284,14 @@ const KroniskSide = () => {
 
       <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
-      <Panel>
+      <Box padding='4' borderRadius='small'>
         <Button onClick={handleSubmit} loading={state.progress}>
           {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
         </Button>
         <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
           Avbryt
         </Button>
-      </Panel>
+      </Box>
 
       {state.notAuthorized && (
         <LoggetUtAdvarsel

@@ -9,7 +9,7 @@ import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Fravaersdager from '../notifikasjon/kronisk/soknad/Fravaersdager';
 import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
-import { Alert, BodyLong, Heading, Link, Panel } from '@navikt/ds-react';
+import { Alert, BodyLong, Box, Heading, Link } from '@navikt/ds-react';
 import Side from '../felles/Side/Side';
 import InternLenke from '../felles/InternLenke/InternLenke';
 import Language from '../../locale/Language';
@@ -28,22 +28,22 @@ const KroniskKvittering = () => {
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <div>
-        <Panel>
+        <Box padding='4' borderRadius='small'>
           <Heading size='xlarge' level='1'>
             Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom
           </Heading>
-        </Panel>
+        </Box>
 
-        <Panel>
+        <Box padding='4' borderRadius='small'>
           <BodyLong>
             En kopi av kvittering er også sendt til meldingsboksen deres i{' '}
             <Link href='https://www.altinn.no'>Altinn</Link>. Meldingen er kun synlig for for de som har tilgang til å
             sende inntektsmelding i altinn. Den ansatte det gjelder er også varslet om søknaden. Trenger du å kontakte
             oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.
           </BodyLong>
-        </Panel>
+        </Box>
 
-        <Panel>
+        <Box padding='4' borderRadius='small'>
           <Heading size='small' level='2'>
             Detaljer fra søknaden:
           </Heading>
@@ -56,23 +56,23 @@ const KroniskKvittering = () => {
           </BodyLong>
           <SoknadMottatt className='luft-under' mottatt={opprettet} />
           <BodyLong>Innrapportert av: {sendtAvNavn}</BodyLong>
-        </Panel>
-        <Panel className='skjul-fra-print'>
+        </Box>
+        <Box className='skjul-fra-print'>
           <BodyLong>
             Du kan skrive ut eller lagre kvitteringen ved å klikke på knappen &quot;Skriv ut kvittering&quot;.
           </BodyLong>
-        </Panel>
-        <Panel>
+        </Box>
+        <Box padding='4' borderRadius='small'>
           <Alert variant='info'>
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
             dere å oversitte fristen, som er tre måneder.
           </Alert>
-        </Panel>
-        <Panel>
+        </Box>
+        <Box padding='4' borderRadius='small'>
           <PrintKnapp />
-        </Panel>
+        </Box>
 
-        <Panel className='lenker-ut-panel'>
+        <Box className='lenker-ut-panel'>
           <div>
             <InternLenke to={buildLenke(lenker.KroniskKrav, language as Language)}>Send krav om refusjon</InternLenke>
           </div>
@@ -82,7 +82,7 @@ const KroniskKvittering = () => {
           <div>
             <Link href={env.minSideArbeidsgiver}>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Link>
           </div>
-        </Panel>
+        </Box>
       </div>
     </Side>
   );
