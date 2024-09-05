@@ -101,7 +101,7 @@
     "testcafe": "^3.4.0",
     "testcafe-react-selectors": "^5.0.3",
     "timezone-mock": "1.x",
-    "typescript-eslint": "^7.7.0",
+    "typescript-eslint": "^8.4.0",
     "vite": "^5.3.5",
     "vite-tsconfig-paths": "^4.2.3",
     "vitest": "^2.0.5",
