@@ -65,7 +65,7 @@
   },
   "snyk": true,
   "devDependencies": {
-    "@testing-library/dom": "^10.3.1",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.0",
     "@testing-library/testcafe": "^5.0.1",
