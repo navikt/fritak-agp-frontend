@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 interface TextLabelProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium';
-  children?: React.ReactNode;
 }
 
-export default function TextLabel(props: TextLabelProps) {
+export default function TextLabel(props: PropsWithChildren<TextLabelProps>) {
   const size = props.size || 'medium';
   const theClassName = props.className || '';
 

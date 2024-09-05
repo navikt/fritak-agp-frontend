@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useMemo } from 'react';
+import React, { createContext, useEffect, useState, useMemo, PropsWithChildren } from 'react';
 import GetLoginExpiry from '../../api/loginexpiry/LoginExpiryAPI';
 import { TilgangsfeilSide } from '../../components/felles/login/TilgangsfeilSide';
 import { LoginStatus } from './LoginStatus';
@@ -8,7 +8,6 @@ import LoginChecking from './LoginChecking';
 const LoginContext = createContext({});
 
 interface LoginContextProviderProps {
-  children: any;
   baseUrl: string;
   loginServiceUrl: string;
   status?: LoginStatus;
@@ -19,7 +18,7 @@ export const LoginProvider = ({
   children,
   loginServiceUrl,
   status = LoginStatus.Checking
-}: LoginContextProviderProps) => {
+}: PropsWithChildren<LoginContextProviderProps>) => {
   const [expiry, setExpiry] = useState<number>(status);
   useEffect(() => {
     if (expiry === LoginStatus.Checking) {

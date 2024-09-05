@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo, PropsWithChildren } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { onLanguageSelect, setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 import Language from '../../locale/Language';
@@ -21,7 +21,6 @@ const LanguageContext = createContext({
 } as LanguageContextInterface);
 
 interface LanguageContextProviderProps {
-  children: any;
   languages: Array<string>;
   i18n: any;
   bundle: Record<string, Locale>;
@@ -29,7 +28,7 @@ interface LanguageContextProviderProps {
 
 const useLanguage = () => useContext(LanguageContext);
 
-const LanguageProvider = (props: LanguageContextProviderProps) => {
+const LanguageProvider = (props: PropsWithChildren<LanguageContextProviderProps>) => {
   const href = window.location.pathname;
   const i18n = props.i18n;
   const [language] = useState<string>(autodetectLanguage(href));

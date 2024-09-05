@@ -1,22 +1,15 @@
-import React from 'react';
+import React, { PropsWithChildren, MouseEvent, KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
 
 interface InternLenkeProps {
   to?: string;
-  children?: any;
   className?: string;
-  onClick?: any;
-  onKeyDown?: any;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
-export const InternLenke: React.FC<InternLenkeProps> = ({
-  to,
-  children,
-  className,
-  onClick,
-  onKeyDown
-}: InternLenkeProps) => {
+export const InternLenke = ({ to, children, className, onClick, onKeyDown }: PropsWithChildren<InternLenkeProps>) => {
   const classes: string = ('lenke ' + className).trim();
   const linkTo = to || '';
   if (to) {

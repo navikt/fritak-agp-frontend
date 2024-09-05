@@ -1,13 +1,12 @@
 import { Heading } from '@navikt/ds-react';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import './SoknadTittel.sass';
 
 interface SoknadTittelProps {
-  children: any;
   subtitle?: string;
 }
 
-const SoknadTittel = (props: SoknadTittelProps) => {
+const SoknadTittel = (props: PropsWithChildren<SoknadTittelProps>) => {
   return (
     <div className='panel--heading'>
       <Heading size='small'>{props.subtitle ? props.subtitle.toUpperCase() : '&nbsp;'}</Heading>

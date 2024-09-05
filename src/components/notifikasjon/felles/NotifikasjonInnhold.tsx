@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import NotifikasjonType from './NotifikasjonType';
 import dayjs from 'dayjs';
 import './NotifikasjonInnhold.sass';
-import { BodyLong, Box, Heading, Link, Panel } from '@navikt/ds-react';
+import { BodyLong, Box, Heading, Link } from '@navikt/ds-react';
 import environment from '../../../config/environment';
 
 interface NotifikasjonInnholdProps {
-  children: any;
   title: string;
   dato?: string;
   type: NotifikasjonType;
 }
 
-const NotifikasjonInnhold = (props: NotifikasjonInnholdProps) => {
+const NotifikasjonInnhold = (props: PropsWithChildren<NotifikasjonInnholdProps>) => {
   return (
     <div className='notifikasjon-innhold'>
       <div>

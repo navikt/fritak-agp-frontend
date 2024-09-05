@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo, PropsWithChildren } from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny';
 import ArbeidsgiverAPI from '../../api/arbeidsgiver/ArbeidsgiverAPI';
 import ArbeidsgiverStatus from './ArbeidsgiverStatus';
@@ -16,7 +16,6 @@ const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeids
 const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));
 
 interface ArbeidsgiverContextProviderProps {
-  children: any;
   status?: ArbeidsgiverStatus;
   arbeidsgivere?: Organisasjon[];
   firma?: string;
@@ -26,7 +25,7 @@ interface ArbeidsgiverContextProviderProps {
 
 const useArbeidsgiver = () => useContext(ArbeidsgiverContext);
 
-const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
+const ArbeidsgiverProvider = (props: PropsWithChildren<ArbeidsgiverContextProviderProps>) => {
   const [loadingStatus, setLoadingStatus] = useState<number>(props.status || ArbeidsgiverStatus.NotStarted);
   const [arbeidsgivere, setArbeidsgivere] = useState<Organisasjon[]>(props.arbeidsgivere || []);
   const [firma, setFirma] = useState<string>(props.firma || '');
