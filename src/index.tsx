@@ -12,7 +12,7 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
   Sentry.init({
     dsn: 'https://a61578f55fc64d8690aa9b66423ac0c4@sentry.gc.nav.no/46',
     environment: EnvironmentType[env.environmentMode],
-    integrations: [new Sentry.BrowserTracing()],
+    integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 0.5
   });
 }
