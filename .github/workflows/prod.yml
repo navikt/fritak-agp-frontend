@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - uses: actions/download-artifact@v4
@@ -89,7 +89,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://npm.pkg.github.com'
       - uses: actions/checkout@master
       - uses: nais/deploy/actions/deploy@v2
