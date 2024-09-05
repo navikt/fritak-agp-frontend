@@ -33,11 +33,11 @@ import {
   Checkbox,
   CheckboxGroup,
   Heading,
-  Panel,
   RadioGroup,
   Radio,
   Textarea,
-  Fieldset
+  Fieldset,
+  Box
 } from '@navikt/ds-react';
 import '@navikt/ds-css';
 import Fnr from '../felles/Fnr/Fnr';
@@ -190,15 +190,15 @@ const GravidSide = (props: GravidSideProps) => {
 
       {!state.progress && !state.kvittering && (
         <div>
-          <Panel>
+          <Box padding='4' borderRadius='small'>
             <BodyLong size='large'>
               <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_INGRESS} />
             </BodyLong>
-          </Panel>
+          </Box>
 
           <Skillelinje />
 
-          <Panel id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
+          <Box padding='4' borderRadius='small' id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
             <div className='soknad-ansatte-persondata'>
               <div>
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
@@ -252,11 +252,11 @@ const GravidSide = (props: GravidSideProps) => {
                 />
               </div>
             </div>
-          </Panel>
+          </Box>
 
           <Skillelinje />
 
-          <Panel className='gravidside-panel-arbeidssituasjon'>
+          <Box className='gravidside-panel-arbeidssituasjon'>
             <div>
               {/* <div sm='8' xs='12'> */}
               <Heading size='medium' level='3' className='textfelt-padding-bottom'>
@@ -281,10 +281,10 @@ const GravidSide = (props: GravidSideProps) => {
               </RadioGroup>
               {/* </div> */}
             </div>
-          </Panel>
+          </Box>
 
           {state.tilrettelegge === true ? (
-            <Panel className='gravidside-panel-tiltak'>
+            <Box className='gravidside-panel-tiltak'>
               <CheckboxGroup
                 legend={t(GravidSideKeys.GRAVID_SIDE_TILTAK_TITTEL)}
                 error={state.tiltakError}
@@ -371,12 +371,12 @@ const GravidSide = (props: GravidSideProps) => {
                   </RadioGroup>
                 </RadioGroup>
               </div>
-            </Panel>
+            </Box>
           ) : (
             state.tilrettelegge === false && (
               <>
                 <Skillelinje />
-                <Panel className='gravidside-panel-alert-gravid'>
+                <Box padding='4' borderRadius='small' className='gravidside-panel-alert-gravid'>
                   <Alert className='gravidside-alert-gravid' variant='warning'>
                     <BodyLong>
                       <>
@@ -396,7 +396,7 @@ const GravidSide = (props: GravidSideProps) => {
                       </>
                     </BodyLong>
                   </Alert>
-                </Panel>
+                </Box>
               </>
             )
           )}
@@ -405,7 +405,7 @@ const GravidSide = (props: GravidSideProps) => {
             <>
               <Skillelinje />
 
-              <Panel>
+              <Box padding='4' borderRadius='small'>
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                   {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
                 </Heading>
@@ -427,7 +427,7 @@ const GravidSide = (props: GravidSideProps) => {
                     onDelete={handleDelete}
                   />
                 </Fieldset>
-              </Panel>
+              </Box>
 
               <Skillelinje />
 
@@ -444,14 +444,14 @@ const GravidSide = (props: GravidSideProps) => {
 
               <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
-              <Panel>
+              <Box padding='4' borderRadius='small'>
                 <Button onClick={handleSubmitClicked} loading={state.progress}>
                   {t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}
                 </Button>
                 <Button variant='secondary' onClick={handleCancelClicked} className='avbrytknapp'>
                   Avbryt
                 </Button>
-              </Panel>
+              </Box>
             </>
           )}
         </div>
