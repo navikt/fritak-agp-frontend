@@ -693,10 +693,12 @@ const Locales: Record<
   KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST: {
     nb:
       'Denne beregningen tar _ikke_ høyde for andre utbetalinger den ansatte eventuelt får fra NAV, for eksempel graderte ' +
-      'sykepenger. Utbetalinger du allerede får refusjon for, vil derfor bli trukket fra beløpet du nå søker om.',
+      'sykepenger. Utbetalinger du allerede får refusjon for, vil derfor bli trukket fra beløpet du nå søker om.\n' +
+      'Refusjonen dere får vil være begrenset opp til en maksimal årslønn på 6G.',
     en:
       'This calculation does _not_ take into account other payments the employee may receive from NAV, such as graded ' +
-      'sickness benefits. Payments for which you already receive a refund will therefore be deducted from the amount you are now applying for.'
+      'sickness benefits. Payments for which you already receive a refund will therefore be deducted from the amount you are now applying for.\n' +
+      'The refund you receive will be limited to a maximum annual salary of 6G.'
   },
   KONTROLLSPORSMAL_DAGER_LABEL: {
     nb: 'Oppgi antall dager dere utbetaler lønn for i året:',
