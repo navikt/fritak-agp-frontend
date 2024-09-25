@@ -16,14 +16,19 @@ interface LoggetUtAdvarselProps {
 
 const LoggetUtAdvarsel = ({ onClose, loginServiceUrl, tokenFornyet }: LoggetUtAdvarselProps) => {
   const { t } = useTranslation();
-  let { language } = useParams();
+  const { language } = useParams();
   const loginServiceUrlAfterRedirect = injectRedirectPath(loginServiceUrl, tokenFornyet, language as Language);
   const handleCloseModal = () => {
     onClose();
   };
 
   return (
-    <Modal open={true} onClose={() => handleCloseModal()} className={'logget-ut-advarsel'}>
+    <Modal
+      open={true}
+      onClose={() => handleCloseModal()}
+      className={'logget-ut-advarsel'}
+      aria-label={t(LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_LOGGET_UT)}
+    >
       <Modal.Body>
         <Alert variant='error' className='logget-ut-advarsel__innhold'>
           <Heading size='large' level='2'>
