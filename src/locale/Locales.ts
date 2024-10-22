@@ -610,11 +610,11 @@ const Locales: Record<
     nb:
       'For å vurdere retten til fritak fra arbeidsgiverperiode ser vi på arbeidstakerens historiske fravær. Dere kan gå ' +
       'to år tilbake i tid hvis både arbeidsforholdet og helseproblemene har vart så lenge. Angi antall dager med ' +
-      'sykefravær i hver måned.',
+      'sykefravær både innenfor og utenfor arbeidsgiverperioden i hver måned.',
     en:
       "To assess the right to exemption from the employer period, we look at the employee's historical absence. You can " +
-      'go two years back in time if both the employment relationship and the health problems have lasted that long. Enter ' +
-      'the number of days of sick leave in each month.'
+      'go two years back in time if both the employment relationship and the health problems have lasted that long. ' +
+      'Enter the number of days of sick leave both within and outside the employer period in each month.'
   },
   KRONISK_SIDE_PERIODER_LABEL: {
     nb: 'Hvor mange perioder er fraværet fordelt på siste to år?',
