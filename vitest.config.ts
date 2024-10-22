@@ -9,7 +9,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    exclude: [...configDefaults.exclude, './vitest.setup.ts', '**/build/**/*', '**/node_modules/**/*'],
+    exclude: [...configDefaults.exclude, './vitest.setup.ts', '**/build/**/*', '**/node_modules/**/*', './e2e/**/*'],
     setupFiles: './vitest.setup.ts',
     coverage: {
       reporter: ['text', 'lcov', 'html'],

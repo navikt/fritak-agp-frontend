@@ -23,3 +23,7 @@ src/index.css
 /server/node_modules
 .vscode
 .dccache
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
