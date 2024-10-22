@@ -5,7 +5,6 @@ import arbeidsgiverResponse from './arbeidsgiverResponse';
 import kroniskKravResponse from './kroniskKravReponse';
 
 import clickButton from './helpers/clickSubmit';
-import checkRadiobox from './helpers/checkRadiobox';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgivere/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
@@ -19,8 +18,6 @@ const headereJson = {
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
 };
-
-const headereText = { ...headereJson, 'content-type': 'text/html; charset=UTF-8' };
 
 const grunnBeloepVerdier = {
   dato: '2021-05-01',

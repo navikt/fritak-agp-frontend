@@ -5,7 +5,6 @@ import gravidKravResponse from './gravidKravResponse';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 
 import clickButton from './helpers/clickSubmit';
-import checkRadiobox from './helpers/checkRadiobox';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgivere/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
