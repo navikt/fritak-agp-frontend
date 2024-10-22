@@ -5,7 +5,6 @@ import arbeidsgiverResponse from './arbeidsgiverResponse';
 import kroniskKravResponse from './kroniskKravReponse';
 
 import clickButton from './helpers/clickSubmit';
-import checkRadiobox from './helpers/checkRadiobox';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgivere/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
@@ -19,8 +18,6 @@ const headereJson = {
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
 };
-
-const headereText = { ...headereJson, 'content-type': 'text/html; charset=UTF-8' };
 
 const grunnBeloepVerdier = {
   dato: '2021-05-01',
@@ -164,8 +161,31 @@ test.describe('Kronisk - Krav', () => {
 
     await fnr.fill('20125027610');
 
+    const requestPromise = page.waitForRequest(innsendingAPI);
     await clickButton(page, 'Send krav');
-    await expect(page.locator('html')).toContainText('Kravet er mottatt', { timeout: 10000 });
+
+    const request = await requestPromise;
+    expect(request.postDataJSON()).toEqual({
+      antallDager: 260,
+      bekreftet: true,
+      identitetsnummer: '20125027610',
+      perioder: [
+        {
+          antallDagerMedRefusjon: 5,
+          fom: '2021-08-07',
+          gradering: 1,
+          månedsinntekt: 5000,
+          tom: '2021-08-17'
+        }
+      ],
+      virksomhetsnummer: '810007842'
+    });
+
+    await expect(
+      page.getByRole('heading', {
+        name: 'Kravet er mottatt'
+      })
+    ).toBeVisible();
   });
 
   test('Legg til og fjern perioder', async ({ page }) => {

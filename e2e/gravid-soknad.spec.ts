@@ -61,7 +61,7 @@ test.beforeEach(async ({ page }) => {
     route.fulfill({
       status: 200,
       headers: headereJson,
-      body: null
+      body: undefined
     })
   );
 
