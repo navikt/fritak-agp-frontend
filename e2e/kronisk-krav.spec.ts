@@ -15,7 +15,7 @@ const deko = /\/dekoratoren/;
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': 'http://127.0.0.1:3000',
+  'access-control-allow-origin': 'http://localhost:3000',
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
 };
@@ -46,7 +46,7 @@ test.describe('Kronisk - Krav', () => {
 
     await page.clock.setFixedTime(new Date('2021-08-25T10:00:00'));
 
-    await page.goto('http://127.0.0.1:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842');
+    await page.goto('http://localhost:3000/fritak-agp/nb/kronisk/krav?bedrift=810007842');
   });
 
   test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {

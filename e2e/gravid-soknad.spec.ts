@@ -14,7 +14,7 @@ const deko = /\/dekoratoren/;
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
-  'access-control-allow-origin': 'http://127.0.0.1:3000',
+  'access-control-allow-origin': 'http://localhost:3000',
   'access-control-allow-credentials': 'true',
   'strict-transport-security': 'max-age=15724800; includeSubDomains'
 };
@@ -45,7 +45,7 @@ test.beforeEach(async ({ page }) => {
     route.fulfill({
       status: 200,
       headers: headereText,
-      body: "<script>window.location.href='http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842?loggedIn=true';</script>"
+      body: "<script>window.location.href='http://localhost:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842?loggedIn=true';</script>"
     })
   );
 
@@ -89,7 +89,7 @@ test.beforeEach(async ({ page }) => {
     })
   );
 
-  await page.goto('http://127.0.0.1:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842&TestCafe=running');
+  await page.goto('http://localhost:3000/fritak-agp/nb/gravid/soknad?bedrift=810007842');
 });
 
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {
