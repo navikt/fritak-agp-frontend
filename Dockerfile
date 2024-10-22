@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM node:23-alpine AS builder
 
 WORKDIR /var
 
@@ -13,7 +13,7 @@ RUN npm ci
 
 RUN rm /var/server/.npmrc
 
-FROM node:22-alpine AS runner
+FROM node:23-alpine AS runner
 
 # Uncommet for debugging of express-http-proxy
 # ENV DEBUG=express-http-proxy
