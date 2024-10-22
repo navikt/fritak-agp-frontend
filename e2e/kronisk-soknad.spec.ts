@@ -115,16 +115,10 @@ test.describe('Kronisk - Søknad', () => {
       'Mangler fødselsnummer'
     ]);
 
-    // await page.fill('#fim3fiy2020', '5');
     await page.getByLabel('April 2020').fill('5');
     expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Mangler antall fraværsperioder',
       'Fravær må fylles ut.'
-      // 'Påkjenninger om den ansatte må fylles ut',
-      // 'Arbeid om den ansatte må fylles ut',
-      // 'Virksomhetsnummer må fylles ut',
-      // 'Bekreft at opplysningene er korrekte',
-      // 'Mangler fødselsnummer'
     ]);
     await expect(page.locator('.navds-error-summary__list')).not.toContainText([
       'Ugyldig fødselsnummer',
@@ -134,7 +128,7 @@ test.describe('Kronisk - Søknad', () => {
     ]);
 
     await page.getByLabel('Hvor mange perioder er fraværet fordelt på siste to år?').fill('5');
-    // await page.fill('#soknad-perioder', '5');
+
     expect(await page.locator('li > a').allInnerTexts()).toEqual([]);
     await expect(page.locator('.navds-error-summary__list')).not.toContainText([
       'Fravær må fylles ut.',
@@ -144,7 +138,24 @@ test.describe('Kronisk - Søknad', () => {
       'Mangler fødselsnummer'
     ]);
 
+    const requestPromise = page.waitForRequest(innsendingAPI);
     await clickButton(page, 'Send søknad');
+
+    const request = await requestPromise;
+    expect(request.postDataJSON()).toEqual({
+      antallPerioder: 5,
+      bekreftet: true,
+      fravaer: [
+        {
+          antallDagerMedFravaer: 5,
+          yearMonth: '2020-04'
+        }
+      ],
+      identitetsnummer: '20125027610',
+      ikkeHistoriskFravaer: false,
+      virksomhetsnummer: '974652277'
+    });
+
     await expect(page.locator('html')).toContainText(
       'Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom'
     );

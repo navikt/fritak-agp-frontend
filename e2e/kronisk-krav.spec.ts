@@ -161,8 +161,31 @@ test.describe('Kronisk - Krav', () => {
 
     await fnr.fill('20125027610');
 
+    const requestPromise = page.waitForRequest(innsendingAPI);
     await clickButton(page, 'Send krav');
-    await expect(page.locator('html')).toContainText('Kravet er mottatt', { timeout: 10000 });
+
+    const request = await requestPromise;
+    expect(request.postDataJSON()).toEqual({
+      antallDager: 260,
+      bekreftet: true,
+      identitetsnummer: '20125027610',
+      perioder: [
+        {
+          antallDagerMedRefusjon: 5,
+          fom: '2021-08-07',
+          gradering: 1,
+          månedsinntekt: 5000,
+          tom: '2021-08-17'
+        }
+      ],
+      virksomhetsnummer: '810007842'
+    });
+
+    await expect(
+      page.getByRole('heading', {
+        name: 'Kravet er mottatt'
+      })
+    ).toBeVisible();
   });
 
   test('Legg til og fjern perioder', async ({ page }) => {
