@@ -53,7 +53,7 @@
     "@sentry/react": "^8.31.0",
     "date-fns": "^3.6.0",
     "dayjs": "1.11.13",
-    "i18next": "^23.15.1",
+    "i18next": "^23.16.3",
     "jsdom": "^25.0.0",
     "react": "^18.2.0",
     "react-app-polyfill": "3.0.0",
