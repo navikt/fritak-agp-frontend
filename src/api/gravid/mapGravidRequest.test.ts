@@ -52,7 +52,7 @@ describe('mapGravidRequest', () => {
         true,
         undefined
       );
-    }).toThrow('');
+    }).toThrow('Fnr må spesifiseres');
   });
   it('should fail when no orgnr', () => {
     expect(() => {
@@ -68,7 +68,7 @@ describe('mapGravidRequest', () => {
         true,
         undefined
       );
-    }).toThrow('');
+    }).toThrow('Orgnr må spesifiseres');
   });
 
   it('should fail when no tilrettelegge', () => {
@@ -85,7 +85,7 @@ describe('mapGravidRequest', () => {
         true,
         undefined
       );
-    }).toThrow('');
+    }).toThrow('Tilrettelegge må spesifiseres');
   });
 
   it('should fail when no bekreft', () => {
