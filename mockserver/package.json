@@ -7,9 +7,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@sentry/react": "^7.79.0",
+    "@sentry/react": "^8.35.0",
     "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "express-rate-limit": "^6.7.0"
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1"
   }
 }
