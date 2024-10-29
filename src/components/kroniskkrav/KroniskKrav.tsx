@@ -373,13 +373,7 @@ export const KroniskKrav = (props: KroniskKravProps) => {
           Avbryt
         </Button>
         {state.endringskrav && (
-          <Button
-            variant='danger'
-            onClick={handleDeleteClicked}
-            className='sletteknapp'
-            loading={state.progress}
-            disabled={state.formDirty}
-          >
+          <Button variant='danger' onClick={handleDeleteClicked} className='sletteknapp' loading={state.progress}>
             Annuller krav
           </Button>
         )}
