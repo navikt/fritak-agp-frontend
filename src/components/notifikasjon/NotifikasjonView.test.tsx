@@ -12,7 +12,7 @@ import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 
 const initHistory = ['/'];
 describe('NotifikasjonView', () => {
-  const STATUS_PROGRESS = 'venter...';
+  const STATUS_PROGRESS = 'Venter…';
   const FANT_IKKE = 'Kravet er slettet av arbeidsgiver';
   const FEILMELDING = 'Det oppstod en feil';
   const INNHOLD = 'Din arbeidsgiver har søkt om utvidet støtte';

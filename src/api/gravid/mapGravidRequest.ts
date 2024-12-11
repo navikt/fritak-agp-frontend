@@ -6,7 +6,7 @@ import { Dato, datoToString } from '../../utils/dato/Dato';
 
 export const mapGravidRequest = (
   fnr: string | undefined,
-  orgnr: string | undefined,
+  virksomhetsnummer: string | undefined,
   tilrettelegge: boolean | undefined,
   tiltak: Array<Tiltak> | undefined,
   tiltakBeskrivelse: string | undefined,
@@ -19,7 +19,7 @@ export const mapGravidRequest = (
   if (fnr === undefined) {
     throw new Error('Fnr må spesifiseres');
   }
-  if (orgnr === undefined) {
+  if (virksomhetsnummer === undefined) {
     throw new Error('Orgnr må spesifiseres');
   }
   if (tilrettelegge === undefined) {
@@ -30,7 +30,7 @@ export const mapGravidRequest = (
   }
   return {
     identitetsnummer: fnr,
-    virksomhetsnummer: orgnr,
+    virksomhetsnummer: virksomhetsnummer,
     tilrettelegge: tilrettelegge,
     tiltak: tiltak,
     tiltakBeskrivelse: tiltakBeskrivelse,

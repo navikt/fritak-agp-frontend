@@ -1,4 +1,5 @@
 import React from 'react';
+import { vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import { LoginProvider } from './LoginContext';
 
@@ -7,19 +8,32 @@ import timezone_mock from 'timezone-mock';
 import MockDate from 'mockdate';
 import { render, screen, waitFor } from '@testing-library/react';
 import mockFetch from '../../mock/mockFetch';
+import { useTranslation } from 'react-i18next';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn()
+}));
 
 timezone_mock.register('Europe/London');
 const initHistory = ['/'];
 
 describe('LoginContext', () => {
-  let assignMock = vi.fn();
+  const assignMock = vi.fn();
 
   beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
+    const useTranslationSpy = useTranslation;
+    const tSpy = vi.fn((str) => str);
+    useTranslationSpy.mockReturnValue({
+      t: tSpy,
+      i18n: {
+        changeLanguage: () => new Promise(() => {})
+      }
+    });
+
+    // @ts-expect-error - we are mocking window.location
     delete window.location;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
+
+    // @ts-expect-error - we are mocking window.location
     window.location = {
       hostname: 'nav.no',
       href: '/grensekomp',
