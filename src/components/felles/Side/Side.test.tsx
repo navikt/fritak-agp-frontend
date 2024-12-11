@@ -8,6 +8,12 @@ import { Organisasjon } from '@navikt/bedriftsmeny';
 import ArbeidsgiverStatus from '../../../context/arbeidsgiver/ArbeidsgiverStatus';
 import { ArbeidsgiverProvider } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { act, render, screen } from '@testing-library/react';
+import { useTranslation } from 'react-i18next';
+import { vi } from 'vitest';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn()
+}));
 
 const BARNE_NODER = 'barnenoder';
 const ARBEIDSGIVERE: Array<Organisasjon> = [{ Name: '' } as Organisasjon];
@@ -32,6 +38,17 @@ const buildSide = (
 };
 
 describe('Side', () => {
+  beforeEach(() => {
+    const useTranslationSpy = useTranslation;
+    const tSpy = vi.fn((str) => str);
+    useTranslationSpy.mockReturnValue({
+      t: tSpy,
+      i18n: {
+        changeLanguage: () => new Promise(() => {})
+      }
+    });
+  });
+
   it('should show advarsel - required and not arbeidsgivere', () => {
     act(() => {
       render(buildSide(true, UTEN_ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, 'SØKNADSSKJEMA'));

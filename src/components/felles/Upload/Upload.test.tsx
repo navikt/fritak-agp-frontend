@@ -2,8 +2,25 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Upload from './Upload';
+import { vi } from 'vitest';
+import { useTranslation } from 'react-i18next';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn()
+}));
 
 describe('Upload', () => {
+  beforeEach(() => {
+    const useTranslationSpy = useTranslation;
+    const tSpy = vi.fn((str) => str);
+    useTranslationSpy.mockReturnValue({
+      t: tSpy,
+      i18n: {
+        changeLanguage: () => new Promise(() => {})
+      }
+    });
+  });
+
   it('skal nekte for store filer', () => {
     const bigFile = {
       size: 260000,

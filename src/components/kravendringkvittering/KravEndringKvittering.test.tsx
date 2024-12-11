@@ -5,7 +5,25 @@ import KravEndringKvittering from './KravEndringKvittering';
 import { mockApp } from '../../mockData/mockApp';
 import lenker from '../../config/lenker';
 
+import { useTranslation } from 'react-i18next';
+import { vi } from 'vitest';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn()
+}));
+
 describe('KravEndringKvittering', () => {
+  beforeEach(() => {
+    const useTranslationSpy = useTranslation;
+    const tSpy = vi.fn((str) => str);
+    useTranslationSpy.mockReturnValue({
+      t: tSpy,
+      i18n: {
+        changeLanguage: () => new Promise(() => {})
+      }
+    });
+  });
+
   it('skal vise melding om at det kommer noe etterhvert', () => {
     const { container } = render(mockApp(<KravEndringKvittering backTarget={lenker.GravidKrav} />));
     expect(container).toContainHTML('kronisk-kvittering');
