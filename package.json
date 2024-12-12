@@ -95,7 +95,7 @@
     "mockdate": "^3.0.5",
     "msw": "^2.6.0",
     "prettier": "3.x",
-    "sass": "1.x",
+    "sass-embedded": "^1.82.0",
     "snyk": "1.x",
     "timezone-mock": "1.x",
     "typescript-eslint": "^8.4.0",
