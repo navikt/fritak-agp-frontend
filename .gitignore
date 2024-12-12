@@ -27,3 +27,6 @@ src/index.css
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+#Bundle Analyzer
+stats.html

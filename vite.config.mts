@@ -1,11 +1,12 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type PluginOption } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   // depending on your application, base can also be "/"
   base: '/fritak-agp/',
-  plugins: [react(), viteTsconfigPaths()],
+  plugins: [react(), viteTsconfigPaths(), visualizer() as PluginOption],
   server: {
     // this ensures that the browser opens upon server start
     open: true,
@@ -21,11 +22,6 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      less: {
-        math: 'always',
-        relativeUrls: true,
-        javascriptEnabled: true
-      },
       scss: {
         api: 'modern-compiler'
       }

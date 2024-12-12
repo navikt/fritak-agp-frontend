@@ -23,7 +23,7 @@
     }
   },
   "engines": {
-    "node": ">=14",
+    "node": ">=22",
     "yarn": ">=1.22"
   },
   "engineStrict": true,
@@ -31,14 +31,12 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all",
-      "ie 11"
+      "not op_mini all"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version",
-      "ie 11"
+      "last 1 safari version"
     ]
   },
   "dependencies": {
@@ -95,6 +93,7 @@
     "mockdate": "^3.0.5",
     "msw": "^2.6.0",
     "prettier": "3.x",
+    "rollup-plugin-visualizer": "^5.12.0",
     "sass-embedded": "^1.82.0",
     "snyk": "1.x",
     "timezone-mock": "1.x",
