@@ -25,6 +25,9 @@ export default defineConfig({
         math: 'always',
         relativeUrls: true,
         javascriptEnabled: true
+      },
+      scss: {
+        api: 'modern-compiler'
       }
     }
   }

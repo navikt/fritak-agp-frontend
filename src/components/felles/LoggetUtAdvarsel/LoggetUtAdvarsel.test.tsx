@@ -3,10 +3,27 @@ import { render, fireEvent, screen } from '@testing-library/react';
 
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 import { MemoryRouter } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { vi } from 'vitest';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn()
+}));
 
 const initHistory = ['/'];
 
 describe('LoggetUtAdvarsel', () => {
+  beforeEach(() => {
+    const useTranslationSpy = useTranslation;
+    const tSpy = vi.fn((str) => str);
+    useTranslationSpy.mockReturnValue({
+      t: tSpy,
+      i18n: {
+        changeLanguage: () => new Promise(() => {})
+      }
+    });
+  });
+
   it('should display the modal if the token is invalid', () => {
     render(
       <MemoryRouter initialEntries={initHistory}>

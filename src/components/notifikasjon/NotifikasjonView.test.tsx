@@ -9,6 +9,12 @@ import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
+import { useTranslation } from 'react-i18next';
+import { vi } from 'vitest';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn()
+}));
 
 const initHistory = ['/'];
 describe('NotifikasjonView', () => {
@@ -22,6 +28,17 @@ describe('NotifikasjonView', () => {
       <NotifikasjonController notifikasjonType={notifikasjonType} notifikasjonState={state} />
     </MemoryRouter>
   );
+
+  beforeEach(() => {
+    const useTranslationSpy = useTranslation;
+    const tSpy = vi.fn((str) => str);
+    useTranslationSpy.mockReturnValue({
+      t: tSpy,
+      i18n: {
+        changeLanguage: () => new Promise(() => {})
+      }
+    });
+  });
 
   it('should handle notfound', () => {
     const state = defaultNotifikasjonState();

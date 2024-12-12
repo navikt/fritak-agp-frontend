@@ -18,6 +18,7 @@ export default defineConfig({
     reporters: ['vitest-sonar-reporter', 'default'],
     outputFile: 'sonar-report.xml',
     css: {
+      include: [],
       modules: {
         classNameStrategy: 'non-scoped'
       }

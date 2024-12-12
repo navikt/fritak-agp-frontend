@@ -1,4 +1,4 @@
-@import "./src/variabler.sass";
+@use "../../variabler.sass";
 
 .gravid-side {
     .arbeidsmiljo-ingress ul {
@@ -37,7 +37,7 @@
         margin: 0;
         padding-right: 0;
         background: transparent;
-        color: $navBla !important;
+        color: variabler.$navBla !important;
         text-decoration: underline;
     }
 
