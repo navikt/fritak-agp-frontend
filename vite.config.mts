@@ -1,11 +1,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
+const ReactCompilerConfig = {
+  /* ... */
+};
 
 export default defineConfig({
   // depending on your application, base can also be "/"
   base: '/fritak-agp/',
-  plugins: [react(), viteTsconfigPaths()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]]
+      }
+    }),
+    viteTsconfigPaths()
+  ],
   server: {
     // this ensures that the browser opens upon server start
     open: true,

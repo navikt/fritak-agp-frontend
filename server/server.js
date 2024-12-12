@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const path = require('path');
-const proxy = require('express-http-proxy');
+import path from 'path';
+import proxy from 'express-http-proxy';
 
-const { injectDecoratorServerSide } = require('@navikt/nav-dekoratoren-moduler/ssr');
+import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../dist';
