@@ -1,6 +1,7 @@
 import { defineConfig, type PluginOption } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
+
 import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
