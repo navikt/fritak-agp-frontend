@@ -1,8 +1,8 @@
-import express from 'express';
-import path from 'path';
-import proxy from 'express-http-proxy';
-import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
-import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
+const express = require('express');
+const path = require('path');
+const proxy = require('express-http-proxy');
+const { getToken, requestOboToken, validateToken } = require('@navikt/oasis');
+const { injectDecoratorServerSide } = require('@navikt/nav-dekoratoren-moduler/ssr');
 
 const app = express();
 
