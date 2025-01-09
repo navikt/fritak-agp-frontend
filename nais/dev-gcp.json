@@ -5,5 +5,6 @@
   "webproxy-enabled": false,
   "api-url": "https://fritakagp-api.intern.dev.nav.no",
   "api-basepath": "/fritak-agp-api",
-  "outbound-external-host": "fritakagp-api.intern.dev.nav.no"
+  "outbound-external-host": "fritakagp-api.intern.dev.nav.no",
+  "audience": "dev-gcp:helsearbeidsgiver:fritakagp"
 }

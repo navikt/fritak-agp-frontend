@@ -50,3 +50,5 @@ spec:
       value: '{{{api-url}}}'
     - name: API_BASEPATH
       value: '{{{api-basepath}}}'
+    - name: AUDIENCE
+      value: '{{{audience}}}'
