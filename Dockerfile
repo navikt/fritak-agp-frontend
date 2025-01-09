@@ -7,9 +7,9 @@ COPY server/ server/
 
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
     echo '//npm.pkg.github.com/:_authToken='$(cat /run/secrets/NODE_AUTH_TOKEN) >> .npmrc && \
-    export NPM_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
+    export NPM_AUTH_TOKEN=$(cat /run/secrets/NODE_AUTH_TOKEN)
 
-    WORKDIR /var/server
+WORKDIR /var/server
 
 RUN yarn install --immutable
 
