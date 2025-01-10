@@ -22,7 +22,7 @@ const startServer = () => {
     res.sendStatus(200);
   });
 
-  app.use(BASE_PATH + '/api/*', (req, res) => {
+  app.use(BASE_PATH + '/api/*', async (req, res) => {
     const token = getToken(req);
     if (!token) {
       /* håndter manglende token */
@@ -30,38 +30,38 @@ const startServer = () => {
       return res.status(401);
     }
 
-    validateToken(token).then((validation) => {
-      if (!validation.ok) {
-        console.log('Validering feilet: ', validation.error);
-        return res.status(401);
-      }
+    const validation = validateToken(token);
+    if (!validation.ok) {
+      console.log('Validering feilet: ', validation.error);
+      return res.status(401);
+    }
 
-      requestOboToken(token, AUDIENCE).then((obo) => {
-        if (!obo.ok) {
-          /* håndter obo-feil */
-          console.error('OBO-feil: ', obo.error);
-          return res.status(401);
+    const obo = requestOboToken(token, AUDIENCE);
+    if (!obo.ok) {
+      /* håndter obo-feil */
+      console.error('OBO-feil: ', obo.error);
+      return res.status(401);
+    }
+
+    console.log('Proxying request to API');
+
+    return proxy(API_URL, {
+      parseReqBody: false,
+      limit: '50mb',
+      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, API_BASEPATH),
+      proxyReqOptDecorator: (proxyReqOpts) => {
+        proxyReqOpts.headers['cookie'] = '';
+        proxyReqOpts.headers['Authorization'] = `Bearer ${obo.token}`;
+        return proxyReqOpts;
+      },
+      proxyErrorHandler: (err, res, next) => {
+        console.log(`Error in proxy for ${req.host} ${err.message}, ${err.code}`);
+        if (err && err.code === 'ECONNREFUSED') {
+          console.log('proxyErrorHandler: Got ECONNREFUSED');
+          return res.status(503).send({ message: `Could not contact ${req.host}` });
         }
-
-        return proxy(API_URL, {
-          parseReqBody: false,
-          limit: '50mb',
-          proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, API_BASEPATH),
-          proxyReqOptDecorator: (proxyReqOpts) => {
-            proxyReqOpts.headers['cookie'] = '';
-            proxyReqOpts.headers['Authorization'] = `Bearer ${obo.token}`;
-            return proxyReqOpts;
-          },
-          proxyErrorHandler: (err, res, next) => {
-            console.log(`Error in proxy for ${req.host} ${err.message}, ${err.code}`);
-            if (err && err.code === 'ECONNREFUSED') {
-              console.log('proxyErrorHandler: Got ECONNREFUSED');
-              return res.status(503).send({ message: `Could not contact ${req.host}` });
-            }
-            next(err);
-          }
-        });
-      });
+        next(err);
+      }
     });
   });
 
