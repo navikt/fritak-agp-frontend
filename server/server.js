@@ -1,16 +1,26 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+// eslint-disable-next-line no-undef
 const express = require('express');
+// eslint-disable-next-line no-undef
 const path = require('path');
-const proxy = require('express-http-proxy');
+// eslint-disable-next-line no-undef
 const { getToken, requestOboToken, validateToken } = require('@navikt/oasis');
+// eslint-disable-next-line no-undef
 const { injectDecoratorServerSide } = require('@navikt/nav-dekoratoren-moduler/ssr');
 
 const app = express();
 
+app.use(express.json());
+
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../dist';
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 8080;
+// eslint-disable-next-line no-undef
 const API_URL = process.env.API_URL || 'http://localhost:3000';
+// eslint-disable-next-line no-undef
 const API_BASEPATH = process.env.API_BASEPATH || '';
+// eslint-disable-next-line no-undef
 const AUDIENCE = process.env.AUDIENCE || '';
 
 const startServer = () => {
@@ -26,43 +36,44 @@ const startServer = () => {
     const token = getToken(req);
     if (!token) {
       /* håndter manglende token */
+      // eslint-disable-next-line no-console, no-undef
       console.error('Mangler token i header');
-      return res.status(401);
+      res.status(401);
+      res.send('Mangler token i header');
+      return;
     }
 
-    const validation = validateToken(token);
+    const validation = await validateToken(token);
     if (!validation.ok) {
+      // eslint-disable-next-line no-console, no-undef
       console.log('Validering feilet: ', validation.error);
-      return res.status(401);
+      res.status(401);
+      res.send('Validering feilet');
+      return;
     }
 
-    const obo = requestOboToken(token, AUDIENCE);
+    const obo = await requestOboToken(token, AUDIENCE);
     if (!obo.ok) {
       /* håndter obo-feil */
+      // eslint-disable-next-line no-console, no-undef
       console.error('OBO-feil: ', obo.error);
-      return res.status(401);
+      res.status(401);
+      res.send('OBO-feil');
+      return;
     }
 
-    console.log('Proxying request to API');
-
-    return proxy(API_URL, {
-      parseReqBody: false,
-      limit: '50mb',
-      proxyReqPathResolver: (req) => req.originalUrl.replace(BASE_PATH, API_BASEPATH),
-      proxyReqOptDecorator: (proxyReqOpts) => {
-        proxyReqOpts.headers['cookie'] = '';
-        proxyReqOpts.headers['Authorization'] = `Bearer ${obo.token}`;
-        return proxyReqOpts;
+    const data = await fetch(`${API_URL}${req.originalUrl.replace(BASE_PATH, API_BASEPATH)}`, {
+      method: req.method,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${obo.token}`
       },
-      proxyErrorHandler: (err, res, next) => {
-        console.log(`Error in proxy for ${req.host} ${err.message}, ${err.code}`);
-        if (err && err.code === 'ECONNREFUSED') {
-          console.log('proxyErrorHandler: Got ECONNREFUSED');
-          return res.status(503).send({ message: `Could not contact ${req.host}` });
-        }
-        next(err);
-      }
+      body: req.method === 'GET' ? undefined : JSON.stringify(req.body)
     });
+
+    const json = await data.json();
+    res.status(data.status);
+    res.send(json);
   });
 
   app.use(BASE_PATH, express.static(HOME_FOLDER));
@@ -84,6 +95,7 @@ const startServer = () => {
   app.get('/*', function (req, res) {
     injectDecoratorServerSide({
       env: 'prod',
+      // eslint-disable-next-line no-undef
       filePath: path.join(__dirname, HOME_FOLDER, 'index.html'),
       params: { context: 'arbeidsgiver' }
     }).then((html) => {
@@ -92,19 +104,19 @@ const startServer = () => {
   });
 
   app.use(function (req, res) {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console, no-undef
     console.error('Server: Error 404', req.url);
     res.status(404).send('404 not found');
   });
 
   app.use(function (err, req, res) {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console, no-undef
     console.error('Server: Error 500', err);
     res.status(500).send('500 Error');
   });
 
   app.listen(PORT, () => {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console, no-undef
     console.log('Server: listening on port', PORT);
   });
 };
