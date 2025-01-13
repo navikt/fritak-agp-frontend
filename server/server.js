@@ -68,10 +68,10 @@ const startServer = () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${obo.token}`
       },
-      body: req.method === 'GET' ? undefined : JSON.stringify(req.body)
+      body: req.method === 'GET' || req.method === 'DELETE' ? undefined : JSON.stringify(req.body)
     });
 
-    const json = await data.json();
+    const json = req.method === 'DELETE' ? undefined : await data.json();
     res.status(data.status);
     res.send(json);
   });
