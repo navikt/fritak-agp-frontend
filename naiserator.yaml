@@ -38,6 +38,8 @@ spec:
     enabled: true
     sidecar:
       enabled: true
+  tokenx:
+    enabled: true
   accessPolicy:
     outbound:
       external:
@@ -50,3 +52,5 @@ spec:
       value: '{{{api-url}}}'
     - name: API_BASEPATH
       value: '{{{api-basepath}}}'
+    - name: AUDIENCE
+      value: '{{{audience}}}'
