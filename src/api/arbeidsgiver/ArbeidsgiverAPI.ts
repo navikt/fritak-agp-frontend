@@ -1,4 +1,3 @@
-import { mapArbeidsgiver } from './mapArbeidsgiver';
 import ArbeidsgivereResponse from './ArbeidsgivereResponse';
 import HttpStatus from '../HttpStatus';
 
