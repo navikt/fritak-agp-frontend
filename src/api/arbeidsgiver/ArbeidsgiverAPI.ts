@@ -39,7 +39,7 @@ const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
       .then(handleStatus)
       .then((json) => ({
         status: HttpStatus.Successfully,
-        organisasjoner: mapArbeidsgiver(json)
+        organisasjoner: json
       }))
       .catch((status) => ({
         status: status,
