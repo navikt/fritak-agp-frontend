@@ -6,7 +6,7 @@ import kroniskKravResponse from './kroniskKravReponse';
 
 import clickButton from './helpers/clickSubmit';
 
-const arbeidsgiverAPI = /\/api\/v1\/arbeidsgivere/;
+const arbeidsgiverAPI = /\/api\/v1\/arbeidsgiver-tilganger/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
 const grunnBeloep = /\/api\/v1\/grunnbeloep/;
 const innsendingAPI = /\/api\/v1\/kronisk\/krav/;
@@ -178,7 +178,7 @@ test.describe('Kronisk - Krav', () => {
           tom: '2021-08-17'
         }
       ],
-      virksomhetsnummer: '810007842'
+      virksomhetsnummer: '810008032'
     });
 
     await expect(

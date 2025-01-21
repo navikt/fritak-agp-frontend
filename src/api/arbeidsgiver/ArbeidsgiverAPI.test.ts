@@ -1,6 +1,7 @@
 import ArbeidsgiverAPI from './ArbeidsgiverAPI';
 import ArbeidsgiverStatus from '../../context/arbeidsgiver/ArbeidsgiverStatus';
 import testBackendOrganisasjoner from '../../mock/testBackendOrganisasjoner';
+import { vi } from 'vitest';
 
 describe('ArbeidsgiverAPI', () => {
   afterAll(() => {
@@ -14,14 +15,14 @@ describe('ArbeidsgiverAPI', () => {
     } as Response);
     vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
     const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
+
     expect(result.status).toEqual(200);
-    expect(result.organisasjoner.length).toEqual(7);
-    expect(result.organisasjoner[0].Name).toEqual('ANSTENDIG BJØRN KOMMUNE');
-    expect(result.organisasjoner[0].OrganizationForm).toEqual('KOMM');
-    expect(result.organisasjoner[0].OrganizationNumber).toEqual('810007672');
-    expect(result.organisasjoner[0].ParentOrganizationNumber).toEqual('');
-    expect(result.organisasjoner[0].Status).toEqual('Active');
-    expect(result.organisasjoner[0].Type).toEqual('Enterprise');
+    expect(result.organisasjoner.length).toEqual(4);
+    expect(result.organisasjoner[0].navn).toEqual('ANSTENDIG BJØRN KOMMUNE');
+
+    expect(result.organisasjoner[0].orgnr).toEqual('810007672');
+
+    expect(result.organisasjoner[0].underenheter).toEqual([]);
   });
 
   it('skal håndtere 401', async () => {

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, useMemo, PropsWithChildren } from 'react';
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 import ArbeidsgiverAPI from '../../api/arbeidsgiver/ArbeidsgiverAPI';
 import ArbeidsgiverStatus from './ArbeidsgiverStatus';
 import ArbeidsgiverInterface from './ArbeidsgiverInterface';

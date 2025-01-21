@@ -1,16 +1,10 @@
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 
-const buildArbeidsgiver = (
-  Name: string,
-  OrganizationForm: string,
-  OrganizationNumber: string,
-  ParentOrganizationNumber: string
-): Organisasjon => {
+const buildArbeidsgiver = (navn: string, orgnr: string, underenheter: Organisasjon[]): Organisasjon => {
   return {
-    Name,
-    OrganizationForm,
-    OrganizationNumber,
-    ParentOrganizationNumber
+    navn,
+    orgnr,
+    underenheter
   };
 };
 

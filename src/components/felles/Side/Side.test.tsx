@@ -4,7 +4,7 @@
 import React from 'react';
 import Side, { showChildren } from './Side';
 import { MemoryRouter } from 'react-router-dom';
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 import ArbeidsgiverStatus from '../../../context/arbeidsgiver/ArbeidsgiverStatus';
 import { ArbeidsgiverProvider } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { act, render, screen } from '@testing-library/react';
@@ -16,7 +16,13 @@ vi.mock('react-i18next', () => ({
 }));
 
 const BARNE_NODER = 'barnenoder';
-const ARBEIDSGIVERE: Array<Organisasjon> = [{ Name: '' } as Organisasjon];
+const ARBEIDSGIVERE: Array<Organisasjon> = [
+  {
+    navn: 'Test',
+    orgnr: '123456789',
+    underenheter: [{ navn: 'Test', orgnr: '123456789', underenheter: [] }]
+  } as Organisasjon
+];
 const UTEN_ARBEIDSGIVERE: Array<Organisasjon> = [];
 const initHistory = ['/'];
 

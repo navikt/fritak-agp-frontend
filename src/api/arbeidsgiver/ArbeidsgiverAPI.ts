@@ -1,4 +1,3 @@
-import { mapArbeidsgiver } from './mapArbeidsgiver';
 import ArbeidsgivereResponse from './ArbeidsgivereResponse';
 import HttpStatus from '../HttpStatus';
 
@@ -28,7 +27,7 @@ const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
         status: HttpStatus.Timeout,
         organisasjoner: []
       })),
-    fetch(basePath + '/api/v1/arbeidsgivere', {
+    fetch(basePath + '/api/v1/arbeidsgiver-tilganger', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -39,7 +38,7 @@ const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
       .then(handleStatus)
       .then((json) => ({
         status: HttpStatus.Successfully,
-        organisasjoner: mapArbeidsgiver(json)
+        organisasjoner: json
       }))
       .catch((status) => ({
         status: status,
