@@ -1,17 +1,14 @@
 import BackendOrganisasjon from './BackendOrganisasjon';
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 
 export const mapArbeidsgiver = (backendData: BackendOrganisasjon[]): Organisasjon[] =>
   backendData.map(
     (backendOrganisasjon) =>
       ({
-        Name: backendOrganisasjon.name,
-        Type: backendOrganisasjon.type,
-        OrganizationNumber: backendOrganisasjon.organizationNumber,
-        OrganizationForm: backendOrganisasjon.organizationForm,
-        Status: backendOrganisasjon.status,
-        ParentOrganizationNumber: backendOrganisasjon.parentOrganizationNumber || ''
-      } as Organisasjon)
+        navn: backendOrganisasjon.navn,
+        orgnr: backendOrganisasjon.orgnr,
+        underenheter: backendOrganisasjon.underenheter
+      }) as Organisasjon
   );
 
 export default mapArbeidsgiver;

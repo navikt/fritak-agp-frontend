@@ -28,7 +28,7 @@ const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
         status: HttpStatus.Timeout,
         organisasjoner: []
       })),
-    fetch(basePath + '/api/v1/arbeidsgivere', {
+    fetch(basePath + '/api/v1/arbeidsgiver-tilganger', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'

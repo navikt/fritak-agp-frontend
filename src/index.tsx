@@ -3,7 +3,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import App from './App';
-import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
+import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import env, { EnvironmentType } from './config/environment';
 import '@navikt/ds-css';
 

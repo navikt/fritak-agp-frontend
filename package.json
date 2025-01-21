@@ -5,6 +5,7 @@
   "homepage": "/fritak-agp",
   "proxy": "http://localhost:8080",
   "scripts": {
+    "dev": "vite  --host",
     "start": "vite",
     "start:host": "vite --host",
     "build": "tsc && vite build",
@@ -41,13 +42,13 @@
   },
   "dependencies": {
     "@navikt/aksel-icons": "^7.8.0",
-    "@navikt/bedriftsmeny": "^7.0.5",
     "@navikt/ds-css": "^7.8.0",
     "@navikt/ds-icons": "^3.4.3",
     "@navikt/ds-react": "^7.8.0",
     "@navikt/fnrvalidator": "^2.1.2",
     "@navikt/nav-dekoratoren-moduler": "^3.1.0",
     "@navikt/textparser": "^2.4.0",
+    "@navikt/virksomhetsvelger": "^0.0.18",
     "@sentry/react": "^8.35.0",
     "date-fns": "^4.1.0",
     "dayjs": "1.11.13",

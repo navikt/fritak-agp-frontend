@@ -1,65 +1,38 @@
 [
   {
-    "name": "ANSTENDIG BJØRN KOMMUNE",
-    "type": "Enterprise",
-    "parentOrganizationNumber": null,
-    "organizationForm": "KOMM",
-    "organizationNumber": "810007672",
-    "socialSecurityNumber": null,
-    "status": "Active"
+    "navn": "ANSTENDIG BJØRN KOMMUNE",
+    "underenheter": [],
+    "orgnr": "810007672"
   },
   {
-    "name": "ANSTENDIG PIGGSVIN BRANNVESEN",
-    "type": "Business",
-    "parentOrganizationNumber": "810007702",
-    "organizationForm": "BEDR",
-    "organizationNumber": "810008032",
-    "socialSecurityNumber": null,
-    "status": "Active"
+    "navn": "ANSTENDIG PIGGSVIN BYDEL",
+    "orgnr": "810007702",
+    "underenheter": [
+      {
+        "navn": "ANSTENDIG PIGGSVIN BRANNVESEN",
+        "underenheter": [],
+        "orgnr": "810008032"
+      },
+      {
+        "navn": "ANSTENDIG PIGGSVIN BARNEHAGE",
+        "underenheter": [],
+        "orgnr": "810007842"
+      },
+      {
+        "navn": "ANSTENDIG PIGGSVIN SYKEHJEM",
+        "underenheter": [],
+        "orgnr": "810007982"
+      }
+    ]
   },
   {
-    "name": "ANSTENDIG PIGGSVIN BARNEHAGE",
-    "type": "Business",
-    "parentOrganizationNumber": "810007702",
-    "organizationForm": "BEDR",
-    "organizationNumber": "810007842",
-    "socialSecurityNumber": null,
-    "status": "Active"
+    "navn": "SKOPPUM OG SANDØY",
+    "underenheter": [],
+    "orgnr": "911206722"
   },
   {
-    "name": "ANSTENDIG PIGGSVIN BYDEL",
-    "type": "Enterprise",
-    "parentOrganizationNumber": null,
-    "organizationForm": "ORGL",
-    "organizationNumber": "810007702",
-    "socialSecurityNumber": null,
-    "status": "Active"
-  },
-  {
-    "name": "ANSTENDIG PIGGSVIN SYKEHJEM",
-    "type": "Business",
-    "parentOrganizationNumber": "810007702",
-    "organizationForm": "BEDR",
-    "organizationNumber": "810007982",
-    "socialSecurityNumber": null,
-    "status": "Active"
-  },
-  {
-    "name": "SKOPPUM OG SANDØY",
-    "type": "Business",
-    "parentOrganizationNumber": null,
-    "organizationForm": "BEDR",
-    "organizationNumber": "911206722",
-    "socialSecurityNumber": null,
-    "status": "Active"
-  },
-  {
-    "name": "SKJERSTAD OG KJØRSVIKBUGEN",
-    "type": "Enterprise",
-    "parentOrganizationNumber": null,
-    "organizationForm": "AS",
-    "organizationNumber": "911212218",
-    "socialSecurityNumber": null,
-    "status": "Active"
+    "navn": "SKJERSTAD OG KJØRSVIKBUGEN",
+    "underenheter": [],
+    "orgnr": "911212218"
   }
 ]

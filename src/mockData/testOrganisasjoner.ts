@@ -1,9 +1,16 @@
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 
 const testOrganisasjoner = [
   {
-    Name: 'abc',
-    OrganizationNumber: '123456789'
+    navn: 'abc',
+    orgnr: '123456789',
+    underenheter: [
+      {
+        navn: 'ANSTENDIG PIGGSVIN BRANNVESEN',
+        underenheter: [],
+        orgnr: '810008032'
+      }
+    ]
   } as Organisasjon
 ];
 

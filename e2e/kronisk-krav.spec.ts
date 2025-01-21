@@ -178,7 +178,7 @@ test.describe('Kronisk - Krav', () => {
           tom: '2021-08-17'
         }
       ],
-      virksomhetsnummer: '810007842'
+      virksomhetsnummer: '810008032'
     });
 
     await expect(

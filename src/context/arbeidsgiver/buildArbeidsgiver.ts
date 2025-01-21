@@ -1,4 +1,4 @@
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 
 const buildArbeidsgiver = (
   Name: string,

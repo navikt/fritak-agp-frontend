@@ -4,7 +4,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
 import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
 
@@ -13,7 +13,16 @@ vi.mock('react-i18next', () => ({
 }));
 
 describe('ApplicationRoutes', () => {
-  const makeRoute = (path: string, arbeidsgivere: Array<Organisasjon> = [{ Name: '' } as Organisasjon]) => (
+  const makeRoute = (
+    path: string,
+    arbeidsgivere: Array<Organisasjon> = [
+      {
+        navn: 'navn',
+        orgnr: '123456789',
+        underenheter: [{ navn: 'navn', orgnr: '123456789', underenheter: [] }]
+      } as Organisasjon
+    ]
+  ) => (
     <MemoryRouter initialEntries={[path]}>
       <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={ArbeidsgiverStatus.Successfully} baseUrl=''>
         <ApplicationRoutes />

@@ -1,62 +1,41 @@
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 
 const testOrganisasjoner: Organisasjon[] = [
   {
-    Name: 'ANSTENDIG BJØRN KOMMUNE',
-    OrganizationForm: 'KOMM',
-    OrganizationNumber: '810007672',
-    ParentOrganizationNumber: '',
-    Status: 'Active',
-    Type: 'Enterprise'
+    navn: 'ANSTENDIG BJØRN KOMMUNE',
+    underenheter: [],
+    orgnr: '810007672'
   },
   {
-    Name: 'ANSTENDIG PIGGSVIN BRANNVESEN',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '810008032',
-    ParentOrganizationNumber: '810007702',
-    Status: 'Active',
-    Type: 'Business'
+    navn: 'ANSTENDIG PIGGSVIN BYDEL',
+    orgnr: '810007702',
+    underenheter: [
+      {
+        navn: 'ANSTENDIG PIGGSVIN BRANNVESEN',
+        underenheter: [],
+        orgnr: '810008032'
+      },
+      {
+        navn: 'ANSTENDIG PIGGSVIN BARNEHAGE',
+        underenheter: [],
+        orgnr: '810007842'
+      },
+      {
+        navn: 'ANSTENDIG PIGGSVIN SYKEHJEM',
+        underenheter: [],
+        orgnr: '810007982'
+      }
+    ]
   },
   {
-    Name: 'ANSTENDIG PIGGSVIN BARNEHAGE',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '810007842',
-    ParentOrganizationNumber: '810007702',
-    Status: 'Active',
-    Type: 'Business'
+    navn: 'SKOPPUM OG SANDØY',
+    underenheter: [],
+    orgnr: '911206722'
   },
   {
-    Name: 'ANSTENDIG PIGGSVIN BYDEL',
-    OrganizationForm: 'ORGL',
-    OrganizationNumber: '810007702',
-    ParentOrganizationNumber: '',
-    Status: 'Active',
-    Type: 'Enterprise'
-  },
-  {
-    Name: 'ANSTENDIG PIGGSVIN SYKEHJEM',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '810007982',
-    ParentOrganizationNumber: '810007702',
-    Status: 'Active',
-    Type: 'Business'
-  },
-  {
-    Name: 'SKOPPUM OG SANDØY',
-    OrganizationForm: 'BEDR',
-    OrganizationNumber: '911206722',
-    ParentOrganizationNumber: '',
-    Status: 'Active',
-    Type: 'Business'
-  },
-  {
-    Name: 'SKJERSTAD OG KJØRSVIKBUGEN',
-    OrganizationForm: 'AS',
-    OrganizationNumber: '911212218',
-    ParentOrganizationNumber: '',
-    Status: 'Active',
-    Type: 'Enterprise'
+    navn: 'SKJERSTAD OG KJØRSVIKBUGEN',
+    underenheter: [],
+    orgnr: '911212218'
   }
 ];
-
 export default testOrganisasjoner;

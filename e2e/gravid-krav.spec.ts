@@ -46,7 +46,7 @@ test.describe('Gravid - Krav', () => {
 
     await page.clock.setFixedTime(new Date('2021-08-25T10:00:00'));
 
-    await page.goto('http://localhost:3000/fritak-agp/nb/gravid/krav?bedrift=810007842');
+    await page.goto('http://localhost:3000/fritak-agp/nb/gravid/krav?bedrift=810008032');
   });
 
   test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {
@@ -187,7 +187,7 @@ test.describe('Gravid - Krav', () => {
           tom: '2021-08-17'
         }
       ],
-      virksomhetsnummer: '810007842'
+      virksomhetsnummer: '810008032'
     });
 
     await expect(

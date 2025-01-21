@@ -1,5 +1,5 @@
 import React from 'react';
-import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
+import { Banner, Virksomhetsvelger, Organisasjon } from '@navikt/virksomhetsvelger';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
 import { useTranslation } from 'react-i18next';
@@ -24,16 +24,20 @@ interface SideProps {
 const Side = (props: SideProps) => {
   const { t } = useTranslation();
   const { arbeidsgivere, setArbeidsgiverId, setFirma } = useArbeidsgiver();
+
   return (
     <div className={'side ' + (props.className ? props.className : '')}>
-      <Bedriftsmeny
-        onOrganisasjonChange={(org: Organisasjon) => {
-          setArbeidsgiverId(org.OrganizationNumber);
-          setFirma(org.Name);
-        }}
-        sidetittel={props.sidetittel}
-        organisasjoner={props.bedriftsmeny ? arbeidsgivere : []}
-      />
+      <Banner tittel={props.sidetittel}>
+        {props.bedriftsmeny && arbeidsgivere?.length > 0 && (
+          <Virksomhetsvelger
+            onChange={(org: Organisasjon) => {
+              setArbeidsgiverId(org.orgnr);
+              setFirma(org.navn);
+            }}
+            organisasjoner={props.bedriftsmeny ? arbeidsgivere : []}
+          />
+        )}
+      </Banner>
 
       <main className={'side ' + props.className}>
         {!props.skjulTilbakeLenke && (

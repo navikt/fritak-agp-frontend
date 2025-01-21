@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
 import { MemoryRouter } from 'react-router-dom';
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
 import i18next from 'i18next';
@@ -69,7 +69,7 @@ describe('KroniskKrav', () => {
     expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
   });
 
-  it('should show warnings when input is missing, and the warning should dissapear when fixed', async () => {
+  it('should show warnings when input is missing, and the warning should disappear when fixed', async () => {
     render(
       <MemoryRouter>
         <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
