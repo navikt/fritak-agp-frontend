@@ -89,7 +89,7 @@
     "eslint-plugin-vitest": "^0.5.3",
     "husky": "9.x",
     "jest-axe": "9.x",
-    "less": "^4.2.0",
+    "less": "^4.2.2",
     "lint-staged": "^15.4.1",
     "mockdate": "^3.0.5",
     "msw": "^2.6.0",
