@@ -23,6 +23,20 @@ const API_BASEPATH = process.env.API_BASEPATH || '';
 // eslint-disable-next-line no-undef
 const AUDIENCE = process.env.AUDIENCE || '';
 
+async function safelyParseJSON(possibleJsonData) {
+  let parsed;
+
+  try {
+    parsed = await possibleJsonData.json();
+  } catch (e) {
+    // eslint-disable-next-line no-undef
+    console.log('Failed to parse JSON', e);
+    parsed = {};
+  }
+
+  return parsed; // Could be undefined!
+}
+
 const startServer = () => {
   app.get('/health/is-alive', (req, res) => {
     res.sendStatus(200);
@@ -71,7 +85,8 @@ const startServer = () => {
       body: req.method === 'GET' || req.method === 'DELETE' ? undefined : JSON.stringify(req.body)
     });
 
-    const json = req.method === 'DELETE' ? undefined : await data.json();
+    const json = req.method === 'DELETE' ? undefined : await safelyParseJSON(data);
+
     res.status(data.status);
     res.send(json);
   });
