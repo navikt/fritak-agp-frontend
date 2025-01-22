@@ -17,12 +17,31 @@ describe('ArbeidsgiverAPI', () => {
     const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
 
     expect(result.status).toEqual(200);
-    expect(result.organisasjoner.length).toEqual(4);
-    expect(result.organisasjoner[0].navn).toEqual('ANSTENDIG BJØRN KOMMUNE');
+    expect(result.organisasjoner.length).toEqual(1);
+    expect(result.organisasjoner[0].navn).toEqual('ANSTENDIG PIGGSVIN BYDEL');
 
-    expect(result.organisasjoner[0].orgnr).toEqual('810007672');
+    expect(result.organisasjoner[0].orgnr).toEqual('810007702');
 
-    expect(result.organisasjoner[0].underenheter).toEqual([]);
+    expect(result.organisasjoner[0].underenheter).toEqual(testBackendOrganisasjoner[1].underenheter);
+  });
+
+  it('skal returnere tom liste om det bare er en arbeidsgiver uten underenhet i lista', async () => {
+    const mockArbeidsgivere = Promise.resolve({
+      status: 200,
+      json: () =>
+        Promise.resolve([
+          {
+            navn: 'ANSTENDIG BJØRN KOMMUNE',
+            underenheter: [],
+            orgnr: '810007672'
+          }
+        ])
+    } as Response);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
+    const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
+
+    expect(result.status).toEqual(200);
+    expect(result.organisasjoner.length).toEqual(0);
   });
 
   it('skal håndtere 401', async () => {
@@ -91,5 +110,17 @@ describe('ArbeidsgiverAPI', () => {
       status: ArbeidsgiverStatus.Timeout,
       organisasjoner: []
     });
+  });
+
+  it('skal håndtere tom liste', async () => {
+    const mockArbeidsgivere = Promise.resolve({
+      status: 200,
+      json: () => Promise.resolve([])
+    } as Response);
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
+    const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
+
+    expect(result.status).toEqual(200);
+    expect(result.organisasjoner.length).toEqual(0);
   });
 });

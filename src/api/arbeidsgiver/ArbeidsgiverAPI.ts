@@ -1,5 +1,6 @@
 import ArbeidsgivereResponse from './ArbeidsgivereResponse';
 import HttpStatus from '../HttpStatus';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 
 const handleStatus = (response: Response) => {
   switch (response.status) {
@@ -36,10 +37,15 @@ const GetArbeidsgivere = (basePath: string): Promise<ArbeidsgivereResponse> => {
       method: 'GET'
     })
       .then(handleStatus)
-      .then((json) => ({
-        status: HttpStatus.Successfully,
-        organisasjoner: json
-      }))
+      .then((json) => {
+        const virksomheterMedUnderenheter = json.filter(
+          (virksomhet: Organisasjon) => virksomhet.underenheter.length > 0
+        );
+        return {
+          status: HttpStatus.Successfully,
+          organisasjoner: virksomheterMedUnderenheter
+        };
+      })
       .catch((status) => ({
         status: status,
         organisasjoner: []
