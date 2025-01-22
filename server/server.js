@@ -29,6 +29,8 @@ function safelyParseJSON(json) {
   try {
     parsed = JSON.parse(json);
   } catch (e) {
+    // eslint-disable-next-line no-undef
+    console.error('Failed to parse JSON', e);
     parsed = {};
   }
 
