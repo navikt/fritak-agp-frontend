@@ -10,7 +10,7 @@ const { injectDecoratorServerSide } = require('@navikt/nav-dekoratoren-moduler/s
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../dist';
@@ -89,8 +89,6 @@ const startServer = () => {
   app.get('/', (req, res) => {
     res.redirect('/fritak-agp/');
   });
-
-  app.use(express.json({ limit: '50mb' }));
 
   app.get('/*', function (req, res) {
     injectDecoratorServerSide({
