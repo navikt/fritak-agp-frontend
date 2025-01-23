@@ -19,4 +19,8 @@ describe('isValidOrgnr', () => {
       expect(isValidOrgnr(invalidOrgnr[key])).toBeFalsy();
     });
   });
+
+  it('should return true for another valid orgnummer', () => {
+    expect(isValidOrgnr('315587336')).toBeTruthy();
+  });
 });
