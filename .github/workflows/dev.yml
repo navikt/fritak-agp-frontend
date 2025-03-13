@@ -82,8 +82,6 @@ jobs:
           team: helsearbeidsgiver
           build_secrets: |
             NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}
-          build_args: |
-            BUILDMODE=development
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
