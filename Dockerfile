@@ -25,4 +25,4 @@ COPY --from=builder /var/server ./server
 WORKDIR /var/server
 
 EXPOSE 8080
-ENTRYPOINT ["node", "server.js"]
+ENTRYPOINT ["server.js"]
