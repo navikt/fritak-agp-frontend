@@ -1,10 +1,11 @@
-name: Bygg og deploy dev
+name: Bygg og deploy til testmiljøet
 
 on:
   push:
     branches:
       - dev
       - 'preprod/**'
+      - main
 
 env:
   APP: fritak-agp-frontend
