@@ -13,7 +13,7 @@ RUN npm ci
 
 RUN rm /var/server/.npmrc
 
-FROM node:22-alpine AS runner
+FROM gcr.io/distroless/nodejs22-debian12@sha256:ba670ace564d2ff780881509904d3ee4c8fbf3e587bed6a395377b7e56bfcf4a AS runner
 
 # Uncommet for debugging of express-http-proxy
 # ENV DEBUG=express-http-proxy
@@ -25,4 +25,4 @@ COPY --from=builder /var/server ./server
 WORKDIR /var/server
 
 EXPOSE 8080
-ENTRYPOINT ["node", "server.js"]
+CMD [ "server.js"]
