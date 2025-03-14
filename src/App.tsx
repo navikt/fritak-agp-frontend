@@ -25,13 +25,15 @@ export const Application = ({
 }: ApplicationProps) => (
   <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
     <Routes>
-      <Route path=':language/*' element={<ApplicationRoutes />}></Route>
+      <Route path=':language'>
+        <Route path='*' element={<ApplicationRoutes />} />
+      </Route>
     </Routes>
   </ArbeidsgiverProvider>
 );
 
 const App = () => (
-  <BrowserRouter basename='fritak-agp'>
+  <BrowserRouter basename='fritak-agp' future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
     <LanguageProvider languages={['nb', 'en']} i18n={i18next} bundle={Locales}>
       <Application />
     </LanguageProvider>
