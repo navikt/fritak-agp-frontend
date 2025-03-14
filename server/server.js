@@ -1,12 +1,7 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-// eslint-disable-next-line no-undef
-const express = require('express');
-// eslint-disable-next-line no-undef
-const path = require('path');
-// eslint-disable-next-line no-undef
-const { getToken, requestOboToken, validateToken } = require('@navikt/oasis');
-// eslint-disable-next-line no-undef
-const { injectDecoratorServerSide } = require('@navikt/nav-dekoratoren-moduler/ssr');
+import express from 'express';
+import path from 'path';
+import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
+import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js';
 
 const app = express();
 
