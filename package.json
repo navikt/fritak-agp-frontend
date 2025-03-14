@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "/fritak-agp",
   "proxy": "http://localhost:8080",
+  "type": "module",
   "scripts": {
     "dev": "vite  --host",
     "start": "vite",
