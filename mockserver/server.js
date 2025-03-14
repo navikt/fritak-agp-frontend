@@ -20,6 +20,10 @@ app.use(limiter);
 
 app.use(cors());
 
+app.get('/fritak-agp/api/v1/arbeidsgiver-tilganger', function (req, res) {
+  res.sendFile('arbeidsgiver-response.json', options);
+});
+
 app.get('/fritak-agp/api/v1/arbeidsgivere', function (req, res) {
   res.sendFile('arbeidsgivere.json', options);
 });
@@ -44,4 +48,7 @@ app.post('/fritak-agp/api/v1/kronisk/soeknad', function (req, res) {
   res.status(200).send('Unauthorized');
 });
 
-app.listen(8080);
+app.listen(8080, () => {
+  // eslint-disable-next-line no-console, no-undef
+  console.log('Server: listening on port', 8080);
+});
