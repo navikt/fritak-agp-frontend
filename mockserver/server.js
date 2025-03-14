@@ -1,9 +1,13 @@
-const express = require('express');
-const path = require('path');
-const rateLimit = require('express-rate-limit');
+import express from 'express';
+import path from 'path';
+import rateLimit from 'express-rate-limit';
 
 const app = express();
-const cors = require('cors');
+import cors from 'cors';
+
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const options = {
   root: path.join(__dirname)
@@ -37,15 +41,15 @@ app.get('/fritak-agp/api/v1/gravid/krav/:id', function (req, res) {
 });
 
 app.post('/fritak-agp/api/v1/kronisk/krav', function (req, res) {
-  res.status(200).send('Unauthorized');
+  res.status(200).send('OK');
 });
 
 app.post('/fritak-agp/api/v1/gravid/soeknad', function (req, res) {
-  res.status(200).send('Unauthorized');
+  res.status(200).send('OK');
 });
 
 app.post('/fritak-agp/api/v1/kronisk/soeknad', function (req, res) {
-  res.status(200).send('Unauthorized');
+  res.status(200).send('OK');
 });
 
 app.listen(8080, () => {
