@@ -54,7 +54,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "1.11.13",
     "i18next": "^24.2.1",
-    "jsdom": "^25.0.0",
+    "jsdom": "^26.0.0",
     "react": "^19.0.0",
     "react-app-polyfill": "3.0.0",
     "react-dom": "^19.0.0",
