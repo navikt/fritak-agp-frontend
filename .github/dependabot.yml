@@ -8,6 +8,8 @@ updates:
 # Maintain dependencies for Yarn
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
+    registries:
+      - npm-github
     schedule:
       interval: "daily"
     groups:
