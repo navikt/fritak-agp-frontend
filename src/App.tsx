@@ -33,7 +33,7 @@ export const Application = ({
 );
 
 const App = () => (
-  <BrowserRouter basename='fritak-agp' future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+  <BrowserRouter basename='fritak-agp'>
     <LanguageProvider languages={['nb', 'en']} i18n={i18next} bundle={Locales}>
       <Application />
     </LanguageProvider>
