@@ -43,7 +43,7 @@ const startServer = () => {
     res.sendStatus(200);
   });
 
-  app.use(BASE_PATH + '/api/*', async (req, res) => {
+  app.use(BASE_PATH + '/api/{*splat}', async (req, res) => {
     const token = getToken(req);
     if (!token) {
       /* håndter manglende token */
