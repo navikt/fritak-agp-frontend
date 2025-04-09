@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import process from 'node:process';
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
 import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js';
 
@@ -13,13 +14,10 @@ const __dirname = path.dirname(__filename);
 
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../dist';
-// eslint-disable-next-line no-undef
+
 const PORT = process.env.PORT || 8080;
-// eslint-disable-next-line no-undef
 const API_URL = process.env.API_URL || 'http://localhost:3000';
-// eslint-disable-next-line no-undef
 const API_BASEPATH = process.env.API_BASEPATH || '';
-// eslint-disable-next-line no-undef
 const AUDIENCE = process.env.AUDIENCE || '';
 
 async function safelyParseJSON(possibleJsonData) {
@@ -33,7 +31,7 @@ async function safelyParseJSON(possibleJsonData) {
     parsed = {};
   }
 
-  return parsed; // Could be undefined!
+  return parsed;
 }
 
 const startServer = () => {
@@ -45,11 +43,11 @@ const startServer = () => {
     res.sendStatus(200);
   });
 
-  app.use(BASE_PATH + '/api/*', async (req, res) => {
+  app.use(BASE_PATH + '/api/{*splat}', async (req, res) => {
     const token = getToken(req);
     if (!token) {
       /* håndter manglende token */
-      // eslint-disable-next-line no-console, no-undef
+      // eslint-disable-next-line no-undef
       console.error('Mangler token i header');
       res.status(401);
       res.send('Mangler token i header');
@@ -58,7 +56,7 @@ const startServer = () => {
 
     const validation = await validateToken(token);
     if (!validation.ok) {
-      // eslint-disable-next-line no-console, no-undef
+      // eslint-disable-next-line no-undef
       console.log('Validering feilet: ', validation.error);
       res.status(401);
       res.send('Validering feilet');
@@ -68,13 +66,14 @@ const startServer = () => {
     const obo = await requestOboToken(token, AUDIENCE);
     if (!obo.ok) {
       /* håndter obo-feil */
-      // eslint-disable-next-line no-console, no-undef
+      // eslint-disable-next-line no-undef
       console.error('OBO-feil: ', obo.error);
       res.status(401);
       res.send('OBO-feil');
       return;
     }
 
+    // eslint-disable-next-line no-undef
     const data = await fetch(`${API_URL}${req.originalUrl.replace(BASE_PATH, API_BASEPATH)}`, {
       method: req.method,
       headers: {
@@ -92,7 +91,7 @@ const startServer = () => {
 
   app.use(BASE_PATH, express.static(HOME_FOLDER));
 
-  app.use('/*', (req, res, next) => {
+  app.use('/{*splat}', (req, res, next) => {
     if (!req.headers['authorization']) {
       res.redirect(`${BASE_PATH}/oauth2/login?redirect=${req.originalUrl}`);
     } else {
@@ -104,10 +103,9 @@ const startServer = () => {
     res.redirect('/fritak-agp/');
   });
 
-  app.get('/*', function (req, res) {
+  app.get('/{*splat}', function (req, res) {
     injectDecoratorServerSide({
       env: 'prod',
-      // eslint-disable-next-line no-undef
       filePath: path.join(__dirname, HOME_FOLDER, 'index.html'),
       params: { context: 'arbeidsgiver' }
     }).then((html) => {
@@ -116,19 +114,19 @@ const startServer = () => {
   });
 
   app.use(function (req, res) {
-    // eslint-disable-next-line no-console, no-undef
+    // eslint-disable-next-line no-undef
     console.error('Server: Error 404', req.url);
     res.status(404).send('404 not found');
   });
 
   app.use(function (err, req, res) {
-    // eslint-disable-next-line no-console, no-undef
+    // eslint-disable-next-line no-undef
     console.error('Server: Error 500', err);
     res.status(500).send('500 Error');
   });
 
   app.listen(PORT, () => {
-    // eslint-disable-next-line no-console, no-undef
+    // eslint-disable-next-line no-undef
     console.log('Server: listening on port', PORT);
   });
 };
