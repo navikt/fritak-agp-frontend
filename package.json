@@ -59,7 +59,7 @@
     "react-app-polyfill": "3.0.0",
     "react-dom": "^19.1.0",
     "react-i18next": "^15.4.0",
-    "react-router-dom": "^6.27.0",
+    "react-router-dom": "^7.5.0",
     "typescript": "^5.8.3",
     "uuid": "11.1.0"
   },
