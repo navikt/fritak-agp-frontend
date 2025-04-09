@@ -25,6 +25,22 @@ updates:
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
+      typescript:
+        patterns:
+          - 'typescript'
+          - '@types/*'
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@typescript-eslint/*'
+          - '@eslint/*'
+          - 'eslint-plugin-*'
+      oversettelse:
+        patterns:
+          - 'i18next'
+          - 'react-i18next'
+      
+
 
 # Maintain dependencies for Docker
   - package-ecosystem: "docker" # See documentation for possible values
