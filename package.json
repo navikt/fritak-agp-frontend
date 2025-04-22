@@ -92,7 +92,7 @@
     "jest-axe": "10.x",
     "lint-staged": "^15.4.1",
     "mockdate": "^3.0.5",
-    "msw": "^2.6.0",
+    "msw": "^2.7.5",
     "prettier": "3.x",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass-embedded": "^1.86.3",
