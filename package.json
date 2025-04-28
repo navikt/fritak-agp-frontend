@@ -90,7 +90,7 @@
     "eslint-plugin-vitest": "^0.5.3",
     "husky": "9.x",
     "jest-axe": "10.x",
-    "lint-staged": "^15.4.1",
+    "lint-staged": "^15.5.1",
     "mockdate": "^3.0.5",
     "msw": "^2.7.5",
     "prettier": "3.x",
