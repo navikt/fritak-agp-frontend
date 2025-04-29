@@ -98,7 +98,7 @@
     "sass-embedded": "^1.87.0",
     "snyk": "1.x",
     "timezone-mock": "1.x",
-    "typescript-eslint": "^8.31.0",
+    "typescript-eslint": "^8.31.1",
     "vite": "^6",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^3.1.2",
