@@ -7,6 +7,10 @@ on:
       - 'preprod/**'
       - main
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   APP: fritak-agp-frontend
   IMAGE: ghcr.io/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
