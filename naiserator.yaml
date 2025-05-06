@@ -25,15 +25,14 @@ spec:
     periodSeconds: 3
     failureThreshold: 10
   replicas:
-    max: 1
-    min: 1
+    max: 2
+    min: 2
   resources:
     limits:
-      cpu: 400m
-      memory: 512Mi
+      memory: 150Mi
     requests:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 50m
+      memory: 150Mi
   idporten:
     enabled: true
     sidecar:
