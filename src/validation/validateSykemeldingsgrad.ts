@@ -1,38 +1,38 @@
 import ValidationResult from '../utils/ValidationResult';
 
-export enum ValidateSykemeldingsgradKeys {
+export enum validateSykemeldingGradKeys {
   VALIDATE_SYKEMELDINGSGRAD_LOW = 'VALIDATE_SYKEMELDINGSGRAD_LOW',
   VALIDATE_SYKEMELDINGSGRAD_HIGH = 'VALIDATE_SYKEMELDINGSGRAD_HIGH'
 }
 
-export interface ValidatesykemeldingsgradResult extends ValidationResult {
+export interface validateSykemeldingGradResult extends ValidationResult {
   key:
-    | ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW
-    | ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH;
+    | validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW
+    | validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH;
 }
 
-const validateSykemeldingsgrad = (
-  sykemeldingsgrad: string | undefined,
+const validateSykemeldingGrad = (
+  sykemeldingGrad: string | undefined,
   required: boolean
-): ValidatesykemeldingsgradResult | undefined => {
-  const numericSykemeldingsgrad = getNumericPart(sykemeldingsgrad);
-  if (!numericSykemeldingsgrad) return;
+): validateSykemeldingGradResult | undefined => {
+  const numericSykemeldingGrad = getNumericPart(sykemeldingGrad);
+  if (!numericSykemeldingGrad) return;
 
-  if (numericSykemeldingsgrad < 20 && required) {
-    return { key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW };
+  if (numericSykemeldingGrad < 20 && required) {
+    return { key: validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW };
   }
-  if (numericSykemeldingsgrad > 100 && required) {
-    return { key: ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH };
+  if (numericSykemeldingGrad > 100 && required) {
+    return { key: validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH };
   }
   return undefined;
 };
 
-export default validateSykemeldingsgrad;
+export default validateSykemeldingGrad;
 
-export const getNumericPart = (smgrad: string | undefined): number | undefined => {
-  const inputLength = smgrad?.match(/\d+/)?.length;
-  if (inputLength && inputLength > 0 && smgrad && smgrad.match(/\d+/)) {
-    const numbersArray = smgrad?.match(/\d+/);
+export const getNumericPart = (sykmeldingGrad: string | undefined): number | undefined => {
+  const inputLength = sykmeldingGrad?.match(/\d+/)?.length;
+  if (inputLength && inputLength > 0 && sykmeldingGrad && sykmeldingGrad.match(/\d+/)) {
+    const numbersArray = sykmeldingGrad?.match(/\d+/);
     const numbers = numbersArray && numbersArray[0];
     return Number(numbers);
   }

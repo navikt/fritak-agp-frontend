@@ -3,7 +3,6 @@ import { Organisasjon } from '@navikt/virksomhetsvelger';
 import ArbeidsgiverAPI from '../../api/arbeidsgiver/ArbeidsgiverAPI';
 import ArbeidsgiverStatus from './ArbeidsgiverStatus';
 import ArbeidsgiverInterface from './ArbeidsgiverInterface';
-import buildArbeidsgiver from './buildArbeidsgiver';
 import { Loader } from '@navikt/ds-react';
 
 const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeidsgivere: Organisasjon[]) =>

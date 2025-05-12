@@ -5,7 +5,7 @@ import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_KRONISK_DATO } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
 import dayjs from 'dayjs';
-import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
+import validateSykemeldingGrad from '../../validation/validateSykemeldingsgrad';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import validateFra from '../../validation/validateFra';
@@ -43,7 +43,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
 
     aktuellPeriode.sykemeldingsgradError = formatValidation(
-      validateSykemeldingsgrad(aktuellPeriode.sykemeldingsgrad, !!state.validated),
+      validateSykemeldingGrad(aktuellPeriode.sykemeldingsgrad, !!state.validated),
       translate
     );
 

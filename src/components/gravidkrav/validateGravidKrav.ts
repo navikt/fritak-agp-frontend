@@ -5,7 +5,7 @@ import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_GRAVID_DATO } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
-import validateSykemeldingsgrad from '../../validation/validateSykemeldingsgrad';
+import validateSykemeldingGrad from '../../validation/validateSykemeldingsgrad';
 import dayjs from 'dayjs';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
@@ -70,7 +70,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     periode.belopError = formatValidation(validateBeloep('' + periode.belop, MAX, !!nextState.validated), translate);
 
     periode.sykemeldingsgradError = formatValidation(
-      validateSykemeldingsgrad(periode.sykemeldingsgrad, !!state.validated),
+      validateSykemeldingGrad(periode.sykemeldingsgrad, !!state.validated),
       translate
     );
 
