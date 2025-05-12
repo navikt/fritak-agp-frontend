@@ -8,7 +8,7 @@ import mapResponse from '../../state/validation/mapResponse';
 import mapGravidFeilmeldinger from './mapGravidFeilmeldinger';
 import { i18n } from 'i18next';
 
-export const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState, translate: i18n) => {
+const validateTiltak = (tiltak: Tiltak, state: GravidState, nextState: GravidState, translate: i18n) => {
   if (!nextState.tiltak) {
     nextState.tiltak = [];
   }

@@ -11,10 +11,10 @@ const mockValidationResponse = <Type>(status: number, felter: string[], message?
   } as ValidationResponse<Type>;
 };
 
-export const mockViolations = (felter: string[], message?: string) =>
+const mockViolations = (felter: string[], message?: string) =>
   felter.map((felt) => mockValidationProblemDetail(felt, message));
 
-export const mockValidationProblemDetail = (path: string, message?: string) => {
+const mockValidationProblemDetail = (path: string, message?: string) => {
   return {
     validationType: '',
     message: message,

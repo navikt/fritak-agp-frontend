@@ -4,14 +4,14 @@ const er9Tall = (orgnr: string): boolean => {
   return onlyNumbersRegExp.test(orgnr) && orgnr.length === 9;
 };
 
-export const isValidOrgnr = (orgnr: string): boolean => {
+const isValidOrgnr = (orgnr: string): boolean => {
   if (!orgnr || er9Tall(orgnr) === false) {
     return false;
   }
   return getMod11(orgnr) === parseInt(orgnr.charAt(8), 10);
 };
 
-export const getMod11 = (strValue: string): number => {
+const getMod11 = (strValue: string): number => {
   let checkNbr = 2;
   let mod = 0;
 

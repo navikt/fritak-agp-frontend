@@ -9,7 +9,7 @@ interface InternLenkeProps {
   onKeyDown?: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
-export const InternLenke = ({ to, children, className, onClick, onKeyDown }: PropsWithChildren<InternLenkeProps>) => {
+const InternLenke = ({ to, children, className, onClick, onKeyDown }: PropsWithChildren<InternLenkeProps>) => {
   const classes: string = ('lenke ' + className).trim();
   const linkTo = to || '';
   if (to) {

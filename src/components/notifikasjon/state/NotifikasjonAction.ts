@@ -5,5 +5,3 @@ export interface NotifikasjonAction {
   type: Actions;
   payload?: NotifikasjonPayload;
 }
-
-export default NotifikasjonAction;

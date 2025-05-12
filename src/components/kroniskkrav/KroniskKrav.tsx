@@ -52,11 +52,11 @@ const buildReducer =
   (bulkState: KroniskKravState, action: KroniskKravAction) =>
     KroniskKravReducer(bulkState, action, Translate);
 
-export const KroniskKrav = (props: KroniskKravProps) => {
+const KroniskKrav = (props: KroniskKravProps) => {
   const { t, i18n } = useTranslation();
   const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
   const { arbeidsgiverId } = useArbeidsgiver();
-  let { language, idKrav } = useParams();
+  const { language, idKrav } = useParams();
 
   const navigate = useNavigate();
 

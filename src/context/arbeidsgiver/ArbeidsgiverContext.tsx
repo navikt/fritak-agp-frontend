@@ -60,4 +60,4 @@ const ArbeidsgiverProvider = (props: PropsWithChildren<ArbeidsgiverContextProvid
   return <ArbeidsgiverContext.Provider value={initialValues}>{props.children}</ArbeidsgiverContext.Provider>;
 };
 
-export { buildArbeidsgiverContext, buildArbeidsgiver, useArbeidsgiver, ArbeidsgiverProvider };
+export { useArbeidsgiver, ArbeidsgiverProvider };
