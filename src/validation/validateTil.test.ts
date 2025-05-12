@@ -1,5 +1,5 @@
 import { parseDato } from '../utils/dato/Dato';
-import validateTil from './validateTil';
+import { validateTil } from './validateTil';
 
 describe('validateTil', () => {
   const minDate = new Date(2021, 0, 29);

@@ -11,8 +11,8 @@ import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import validateFnr from '../../validation/validateFnr';
 import validateOrgnr from '../../validation/validateOrgnr';
-import validateFra from '../../validation/validateFra';
-import validateTil from '../../validation/validateTil';
+import { validateFra } from '../../validation/validateFra';
+import { validateTil } from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
 

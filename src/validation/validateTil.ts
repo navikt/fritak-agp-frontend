@@ -19,7 +19,7 @@ export interface ValidateTilResult extends ValidationResult {
     | validateTilKeys.VALIDATE_TIL_TOO_EARLY;
 }
 
-const validateTil = (
+export const validateTil = (
   fra: Dato | undefined,
   til: Dato | undefined,
   minDate: Date,
@@ -54,5 +54,3 @@ const validateTil = (
   }
   return undefined;
 };
-
-export default validateTil;
