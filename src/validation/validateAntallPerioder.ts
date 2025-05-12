@@ -11,7 +11,7 @@ export interface ValidateAntallPerioderResult extends ValidationResult {
   key: ValidateAntallPerioderKeys;
 }
 
-export const validateAntallPerioder = (
+const validateAntallPerioder = (
   perioder: number | undefined,
   required: boolean,
   ikkeHistoriskFravaer: boolean,

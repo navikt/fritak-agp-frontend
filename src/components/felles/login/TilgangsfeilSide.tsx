@@ -4,7 +4,7 @@ import Side from '../Side/Side';
 import { TilgangsfeilSideKeys } from './TilgangsfeilSideKeys';
 import { Alert } from '@navikt/ds-react';
 
-export const TilgangsfeilSide = () => {
+const TilgangsfeilSide = () => {
   const { t } = useTranslation();
   return (
     <Side

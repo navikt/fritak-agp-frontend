@@ -11,7 +11,7 @@ export interface ValidatesykemeldingsgradResult extends ValidationResult {
     | ValidateSykemeldingsgradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH;
 }
 
-export const validateSykemeldingsgrad = (
+const validateSykemeldingsgrad = (
   sykemeldingsgrad: string | undefined,
   required: boolean
 ): ValidatesykemeldingsgradResult | undefined => {

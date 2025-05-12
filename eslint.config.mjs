@@ -2,10 +2,22 @@
 
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import react from 'eslint-plugin-react';
+import vitest from 'eslint-plugin-vitest';
+import eslintPlugin from '@typescript-eslint/eslint-plugin'
 
 export default tseslint.config(
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+  tseslint.configs.recommended,
+  jsxA11y.flatConfigs.recommended,
+  vitest.configs.recommended,
+  {
+    plugins: {
+      react: react,
+      eslint: eslintPlugin
+    },
+  }
 );
 
 // export default [{

@@ -30,7 +30,6 @@ import { validateFraKeys } from '../validation/validateFra';
 import { validateFnrKeys } from '../validation/validateFnr';
 import { validateBeloepKeys } from '../validation/validateBeloep';
 import { validateBekreftKeys } from '../validation/validateBekreft';
-import { PageNotFoundKeys } from '../components/felles/PageNotFound/PageNotFoundKeys';
 import { DuplicateSubmissionAdvarselKeys } from '../components/felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarselKeys';
 
 export interface Locale {
@@ -50,7 +49,6 @@ const Locales: Record<
   | LoggetUtAdvarselKeys
   | KravKvitteringKeys
   | SideKeys
-  | PageNotFoundKeys
   | GravidKravKeys
   | GravidSideKeys
   | GravidKvitteringKeys
@@ -74,14 +72,6 @@ const Locales: Record<
   | DuplicateSubmissionAdvarselKeys,
   Locale
 > = {
-  PAGE_NOT_FOUND_TITLE: {
-    nb: 'Siden finnes ikke',
-    en: 'Page not found'
-  },
-  PAGE_NOT_FOUND_DESCRIPTION: {
-    nb: 'Siden finnes ikke.',
-    en: 'Page not found.'
-  },
   BEKREFTOPPLYSNINGER_BEKREFT_LABEL: {
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
@@ -763,11 +753,9 @@ const Locales: Record<
   INGEN_TILGANG_ADVARSEL: {
     nb:
       'Du har ikke rettigheter til å søke om refusjon for noen bedrifter\n' +
-      'Tildeling av roller foregår i Altinn\n' +
       '[Les mer om roller og tilganger](https://arbeidsgiver.nav.no/min-side-arbeidsgiver/informasjon-om-tilgangsstyring)',
     en:
       'You do not have the rights to apply for reimbursement for any companies\n' +
-      'Assignment of roles takes place in Altinn\n' +
       '[Read more about roles and accesses](https://arbeidsgiver.nav.no/min-side-arbeidsgiver/informasjon-om-tilgangsstyring)'
   },
   LOGGET_UT_ADVARSEL_LOGGET_UT: {

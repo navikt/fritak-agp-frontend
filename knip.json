@@ -1,0 +1,3 @@
+{
+  "ignore": ["src/setupTests.ts", "__mocks__/**", "server/**", "mockserver/**", "typings/**", "src/mock/**"]
+}

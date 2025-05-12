@@ -15,7 +15,7 @@ const handleStatus = (response: Response) => {
   }
 };
 
-export const getGrunnbeloep = (isoDato?: string): Promise<GrunnbeloepResponse> => {
+const getGrunnbeloep = (isoDato?: string): Promise<GrunnbeloepResponse> => {
   const grunnbeloepUrl = isoDato ? `${environment.grunnbeloepUrl}?dato=${isoDato}` : environment.grunnbeloepUrl;
 
   return Promise.race([

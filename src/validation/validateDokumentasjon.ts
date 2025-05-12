@@ -11,7 +11,7 @@ export interface ValidateDokumentasjonResult extends ValidationResult {
     | ValidateDokumentasjonKeys.VALIDATE_DOKUMENTASJON_MAXIMUM_SIZE;
 }
 
-export const validateDokumentasjon = (dokumentasjon: string | undefined): ValidateDokumentasjonResult | undefined => {
+const validateDokumentasjon = (dokumentasjon: string | undefined): ValidateDokumentasjonResult | undefined => {
   if (dokumentasjon && dokumentasjon.length < 500) {
     return { key: ValidateDokumentasjonKeys.VALIDATE_DOKUMENTASJON_MINIMUM_SIZE };
   }

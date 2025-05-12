@@ -9,7 +9,7 @@ export interface ValidateDagerResult extends ValidationResult {
   key: ValidateDagerKeys.VALIDATE_DAGER_MISSING | ValidateDagerKeys.VALIDATE_DAGER_REQUIRED;
 }
 
-export const validateDager = (dager: number | undefined, required: boolean): ValidateDagerResult | undefined => {
+const validateDager = (dager: number | undefined, required: boolean): ValidateDagerResult | undefined => {
   if (!dager) {
     return required ? { key: ValidateDagerKeys.VALIDATE_DAGER_MISSING } : undefined;
   }

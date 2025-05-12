@@ -46,7 +46,7 @@ import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
-export const GravidKrav = (props: GravidKravProps) => {
+const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
 
   const GravidKravReducerSettOpp =

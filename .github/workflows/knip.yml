@@ -1,0 +1,37 @@
+name: Sjekk etter ubrukte filer og avhengigheter
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+jobs:
+  Knip:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      checks: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.9'
+          cache: 'yarn'
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install dependencies
+        run: yarn install --immutable
+      - uses: codex-/knip-reporter@v2

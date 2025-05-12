@@ -4,7 +4,7 @@ import Side from '../Side/Side';
 import { TokenFornyetKeys } from './TokenFornyetKeys';
 import { BodyLong, Box, Heading } from '@navikt/ds-react';
 
-export const TokenFornyet = () => {
+const TokenFornyet = () => {
   const { t } = useTranslation();
   return (
     <Side

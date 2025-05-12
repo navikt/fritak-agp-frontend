@@ -10,7 +10,7 @@ export interface ValidateArbeidsdagerResult extends ValidationResult {
   key: ValidateArbeidsdagerKeys;
 }
 
-export const validateArbeidsdager = (
+const validateArbeidsdager = (
   dager: number | undefined,
   required: boolean,
   minDager = 0,
