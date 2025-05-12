@@ -1,5 +1,5 @@
 import React, { createContext, useState, FC, ReactNode, useMemo } from 'react';
-import ValidationResponse from '../state/validation/ValidationResponse';
+import { ValidationResponse } from '../state/validation/ValidationResponse';
 import KroniskSoknadResponse from '../api/kronisk/KroniskSoknadResponse';
 
 export interface KroniskSoknadKvitteringContextState {

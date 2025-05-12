@@ -28,7 +28,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
 import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
 import { BodyLong, Box, Button, Fieldset, Heading, HelpText } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';

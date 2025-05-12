@@ -1,4 +1,4 @@
-import ValidationResponse from './ValidationResponse';
+import { ValidationResponse } from './ValidationResponse';
 import HttpStatus from '../../api/HttpStatus';
 import { ValidationState } from './ValidationState';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';

@@ -1,4 +1,4 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import GravidState from './GravidState';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import { v4 as uuid } from 'uuid';

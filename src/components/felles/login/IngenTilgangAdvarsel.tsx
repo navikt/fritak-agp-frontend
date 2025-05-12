@@ -10,5 +10,3 @@ export const IngenTilgangAdvarsel = () => {
     </Alert>
   );
 };
-
-export default IngenTilgangAdvarsel;

@@ -1,7 +1,7 @@
 import KroniskKravReducer from './KroniskKravReducer';
 import { Actions } from './Actions';
 import { defaultKroniskKravState } from './KroniskKravState';
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';

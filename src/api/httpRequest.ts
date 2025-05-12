@@ -1,5 +1,5 @@
 import HttpStatus from './HttpStatus';
-import ValidationResponse from '../state/validation/ValidationResponse';
+import { ValidationResponse } from '../state/validation/ValidationResponse';
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const mapViolations = <Type>(status: number, json: any): ValidationResponse<Type> => {

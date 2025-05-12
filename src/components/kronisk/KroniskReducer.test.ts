@@ -1,7 +1,7 @@
 import KroniskReducer from './KroniskReducer';
 import { Actions, KroniskAction } from './Actions';
 import { defaultKroniskState } from './KroniskState';
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import { languageInit } from '../../locale/languageInit';

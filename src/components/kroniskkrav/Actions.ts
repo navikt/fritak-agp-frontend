@@ -1,4 +1,4 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { KroniskKrav } from '../../context/krav';
 import IEndringsAarsak from '../gravidkrav/EndringsAarsak';
