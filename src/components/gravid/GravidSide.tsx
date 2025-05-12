@@ -48,7 +48,7 @@ import Datovelger from '../datovelger/Datovelger';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import Skillelinje from '../felles/Skillelinje';
 import Side from '../felles/Side/Side';
-import Upload from '../felles/Upload/Upload';
+import Upload from '../felles/Upload';
 import Language from '../../locale/Language';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
