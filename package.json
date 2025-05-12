@@ -17,7 +17,8 @@
     "prepare": "husky",
     "postinstall": "cross-os postinstall",
     "test:int": "playwright test",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "knip": "knip --no-exit-code --reporter json"
   },
   "cross-os": {
     "postinstall": {
@@ -90,6 +91,7 @@
     "eslint-plugin-vitest": "^0.5.3",
     "husky": "9.x",
     "jest-axe": "10.x",
+    "knip": "^5.55.1",
     "lint-staged": "^15.5.1",
     "mockdate": "^3.0.5",
     "msw": "^2.7.6",
