@@ -3,7 +3,7 @@ import Forside from './Forside';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { MemoryRouter } from 'react-router-dom';
-import { Organisasjon } from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/virksomhetsvelger';
 import { ArbeidsgiverProvider } from '../context/arbeidsgiver/ArbeidsgiverContext';
 import ArbeidsgiverStatus from '../context/arbeidsgiver/ArbeidsgiverStatus';
 import { useTranslation } from 'react-i18next';
