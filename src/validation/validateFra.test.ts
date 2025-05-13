@@ -1,5 +1,5 @@
 import { parseDato } from '../utils/dato/Dato';
-import validateFra from './validateFra';
+import { validateFra } from './validateFra';
 
 describe('validateFra', () => {
   const minDate = new Date(2021, 0, 29);

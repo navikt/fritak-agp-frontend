@@ -2,7 +2,7 @@ import GravidReducer from './GravidReducer';
 import { Actions } from './Actions';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import timezone_mock from 'timezone-mock';

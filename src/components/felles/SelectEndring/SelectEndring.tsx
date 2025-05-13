@@ -1,5 +1,5 @@
 import React from 'react';
-import EndringsAarsak from '../../gravidkrav/EndringsAarsak';
+import { EndringsAarsak } from '../../gravidkrav/EndringsAarsak';
 import { Heading, Select } from '@navikt/ds-react';
 
 interface SelectEndringProps {

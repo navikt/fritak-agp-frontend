@@ -1,4 +1,4 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import httpRequest from '../httpRequest';
 import { KroniskRequest } from './KroniskRequest';
 import { Paths } from '../../config/Paths';

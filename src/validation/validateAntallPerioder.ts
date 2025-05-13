@@ -7,7 +7,7 @@ export enum ValidateAntallPerioderKeys {
   VALIDATE_ANTALL_PERIODER_UTEN_DATA = 'VALIDATE_ANTALL_PERIODER_UTEN_DATA'
 }
 
-export interface ValidateAntallPerioderResult extends ValidationResult {
+interface ValidateAntallPerioderResult extends ValidationResult {
   key: ValidateAntallPerioderKeys;
 }
 

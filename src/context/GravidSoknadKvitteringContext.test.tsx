@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { render, screen } from '@testing-library/react';
 import GravidSoknadKvitteringProvider, { GravidSoknadKvitteringContext } from './GravidSoknadKvitteringContext';
-import ValidationResponse from '../state/validation/ValidationResponse';
+import { ValidationResponse } from '../state/validation/ValidationResponse';
 import GravidSoknadResponse from '../api/gravid/GravidSoknadResponse';
 
 describe('GravidSoknadKvitteringContext', () => {

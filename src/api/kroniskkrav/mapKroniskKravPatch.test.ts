@@ -1,4 +1,4 @@
-import EndringsAarsak from '../../components/gravidkrav/EndringsAarsak';
+import { EndringsAarsak } from '../../components/gravidkrav/EndringsAarsak';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
 import { Dato, parseDato } from '../../utils/dato/Dato';
 import { mapKroniskKravPatch } from './mapKroniskKravPatch';

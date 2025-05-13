@@ -1,7 +1,7 @@
 import { GravidKravRequest } from './GravidKravRequest';
 import { Periode } from '../../components/gravidkrav/GravidKravState';
 import { mapGravidKravRequest } from './mapGravidKravRequest';
-import EndringsAarsak from '../../components/gravidkrav/EndringsAarsak';
+import { EndringsAarsak } from '../../components/gravidkrav/EndringsAarsak';
 
 export interface GravidKravPatch extends GravidKravRequest {
   aarsakEndring: EndringsAarsak;

@@ -14,5 +14,3 @@ export interface ValidationProblemDetail {
   propertyPath: string;
   invalidValue?: any;
 }
-
-export default ValidationResponse;

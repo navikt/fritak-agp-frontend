@@ -8,14 +8,14 @@ export enum validateFraKeys {
   VALIDATE_FRA_FOM_ERROR = 'VALIDATE_FRA_FOM_ERROR'
 }
 
-export interface ValidateFraResult extends ValidationResult {
+interface ValidateFraResult extends ValidationResult {
   key:
     | validateFraKeys.VALIDATE_FRA_MISSING
     | validateFraKeys.VALIDATE_FRA_FOM_INVALID
     | validateFraKeys.VALIDATE_FRA_FOM_ERROR;
 }
 
-const validateFra = (fra: Dato | undefined, minDate: Date, required = false): ValidateFraResult | undefined => {
+export const validateFra = (fra: Dato | undefined, minDate: Date, required = false): ValidateFraResult | undefined => {
   if (required && !fra?.value) {
     return { key: validateFraKeys.VALIDATE_FRA_MISSING };
   }
@@ -32,5 +32,3 @@ const validateFra = (fra: Dato | undefined, minDate: Date, required = false): Va
   }
   return undefined;
 };
-
-export default validateFra;

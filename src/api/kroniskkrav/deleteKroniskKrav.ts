@@ -1,4 +1,4 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import deleteRequest from '../deleteRequest';
 import { Paths } from '../../config/Paths';
 import KroniskKravResponse from '../gravidkrav/KroniskKravResponse';

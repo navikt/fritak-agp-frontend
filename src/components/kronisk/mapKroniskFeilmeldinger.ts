@@ -1,4 +1,4 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import KroniskState from './KroniskState';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 import { v4 as uuid } from 'uuid';

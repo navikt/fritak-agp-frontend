@@ -1,8 +1,8 @@
 import React, { createContext, useState, FC, ReactNode, useMemo } from 'react';
-import ValidationResponse from '../state/validation/ValidationResponse';
+import { ValidationResponse } from '../state/validation/ValidationResponse';
 import KroniskSoknadResponse from '../api/kronisk/KroniskSoknadResponse';
 
-export interface KroniskSoknadKvitteringContextState {
+interface KroniskSoknadKvitteringContextState {
   response: ValidationResponse<KroniskSoknadResponse> | undefined;
   saveResponse: (response: ValidationResponse<KroniskSoknadResponse>) => void;
   clearResponse: () => void;

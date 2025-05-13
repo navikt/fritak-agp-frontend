@@ -11,7 +11,7 @@ import { FravaerTabellKeys } from '../components/kronisk/FravaerTabellKeys';
 import { ValidateArbeidsdagerKeys } from '../validation/validateArbeidsdager';
 import { ValidateAntallPerioderKeys } from '../validation/validateAntallPerioder';
 import { KontrollSporsmaalKeys } from '../components/felles/KontrollSporsmaal/KontrollSporsmaal';
-import { ValidateSykemeldingsgradKeys } from '../validation/validateSykemeldingsgrad';
+import { validateSykemeldingGradKeys } from '../validation/validateSykemeldingsgrad';
 import { KravKvitteringSlettetKeys } from '../components/kravkvitteringslettet/KravKvitteringSlettetKeys';
 import { KravEndringKvitteringKeys } from '../components/kravendringkvittering/KravEndringKvitteringKeys';
 import { ValidateDokumentasjonKeys } from '../validation/validateDokumentasjon';
@@ -65,7 +65,7 @@ const Locales: Record<
   | KontrollSporsmaalKeys
   | ValidateAntallPerioderKeys
   | ValidateArbeidsdagerKeys
-  | ValidateSykemeldingsgradKeys
+  | validateSykemeldingGradKeys
   | KravKvitteringSlettetKeys
   | KravEndringKvitteringKeys
   | ValidateDokumentasjonKeys

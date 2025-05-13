@@ -1,7 +1,7 @@
-import ValidationResponse from '../../state/validation/ValidationResponse';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import { GravidKrav } from '../../context/krav';
-import IEndringsAarsak from './EndringsAarsak';
+import { EndringsAarsak as IEndringsAarsak } from './EndringsAarsak';
 
 export enum Actions {
   Reset,
