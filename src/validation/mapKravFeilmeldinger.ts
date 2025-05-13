@@ -1,4 +1,4 @@
-import ValidationResponse, { ValidationProblemDetail } from '../state/validation/ValidationResponse';
+import { ValidationProblemDetail, ValidationResponse } from '../state/validation/ValidationResponse';
 import KroniskKravState from '../components/kroniskkrav/KroniskKravState';
 import GravidKravState from '../components/gravidkrav/GravidKravState';
 import { v4 as uuid } from 'uuid';
