@@ -23,7 +23,7 @@ import SelectEndring from '../felles/SelectEndring/SelectEndring';
 import deleteKroniskKrav from '../../api/kroniskkrav/deleteKroniskKrav';
 import patchKroniskKrav from '../../api/kroniskkrav/patchKroniskKrav';
 import { mapKroniskKravPatch } from '../../api/kroniskkrav/mapKroniskKravPatch';
-import EndringsAarsak from '../gravidkrav/EndringsAarsak';
+import { EndringsAarsak } from '../gravidkrav/EndringsAarsak';
 import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';
 import GetHandler from '../../api/fetch/GetHandler';

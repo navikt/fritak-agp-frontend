@@ -6,7 +6,7 @@ export enum validateFnrKeys {
   VALIDATE_FNR_INVALID = 'VALIDATE_FNR_INVALID'
 }
 
-export interface FnrValidationResult extends ValidationResult {
+interface FnrValidationResult extends ValidationResult {
   key: validateFnrKeys.VALIDATE_FNR_MISSING | validateFnrKeys.VALIDATE_FNR_INVALID;
 }
 

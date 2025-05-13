@@ -22,7 +22,7 @@ import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
 import deleteGravidKrav from '../../api/gravidkrav/deleteGravidKrav';
 import patchGravidKrav from '../../api/kroniskkrav/patchGravidKrav';
-import EndringsAarsak from './EndringsAarsak';
+import { EndringsAarsak } from './EndringsAarsak';
 import { mapGravidKravPatch } from '../../api/gravidkrav/mapGravidKravPatch';
 import GetHandler from '../../api/fetch/GetHandler';
 import getNotifikasjonUrl from '../notifikasjon/utils/getNotifikasjonUrl';

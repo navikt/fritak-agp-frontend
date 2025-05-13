@@ -5,7 +5,7 @@ export enum ValidateDagerKeys {
   VALIDATE_DAGER_REQUIRED = 'VALIDATE_DAGER_REQUIRED'
 }
 
-export interface ValidateDagerResult extends ValidationResult {
+interface ValidateDagerResult extends ValidationResult {
   key: ValidateDagerKeys.VALIDATE_DAGER_MISSING | ValidateDagerKeys.VALIDATE_DAGER_REQUIRED;
 }
 

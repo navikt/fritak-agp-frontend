@@ -6,7 +6,7 @@ export enum ValidateArbeidsdagerKeys {
   VALIDATE_ARBEIDSDAGER_TOO_HIGH = 'VALIDATE_ARBEIDSDAGER_TOO_HIGH'
 }
 
-export interface ValidateArbeidsdagerResult extends ValidationResult {
+interface ValidateArbeidsdagerResult extends ValidationResult {
   key: ValidateArbeidsdagerKeys;
 }
 

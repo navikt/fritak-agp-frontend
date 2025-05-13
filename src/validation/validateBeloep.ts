@@ -7,7 +7,7 @@ export enum validateBeloepKeys {
   VALIDATE_BELOEP_AMOUNT_TOO_HIGH = 'VALIDATE_BELOEP_AMOUNT_TOO_HIGH'
 }
 
-export interface BeloepValidationResult extends ValidationResult {
+interface BeloepValidationResult extends ValidationResult {
   key:
     | validateBeloepKeys.VALIDATE_BELOEP_AMOUNT_MISSING
     | validateBeloepKeys.VALIDATE_BELOEP_AMOUNT_NOT_NUMERIC

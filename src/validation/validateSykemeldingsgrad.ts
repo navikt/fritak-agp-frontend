@@ -5,7 +5,7 @@ export enum validateSykemeldingGradKeys {
   VALIDATE_SYKEMELDINGSGRAD_HIGH = 'VALIDATE_SYKEMELDINGSGRAD_HIGH'
 }
 
-export interface validateSykemeldingGradResult extends ValidationResult {
+interface validateSykemeldingGradResult extends ValidationResult {
   key:
     | validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW
     | validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH;

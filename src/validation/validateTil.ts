@@ -10,7 +10,7 @@ export enum validateTilKeys {
   VALIDATE_TIL_TOO_EARLY = 'VALIDATE_TIL_TOO_EARLY'
 }
 
-export interface ValidateTilResult extends ValidationResult {
+interface ValidateTilResult extends ValidationResult {
   key:
     | validateTilKeys.VALIDATE_TIL_MISSING
     | validateTilKeys.VALIDATE_TIL_INVALID

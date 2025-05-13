@@ -6,7 +6,7 @@ export enum validateOrgnrKeys {
   VALIDATE_ORGNR_INVALID = 'VALIDATE_ORGNR_INVALID'
 }
 
-export interface ValidateOrgNrResult extends ValidationResult {
+interface ValidateOrgNrResult extends ValidationResult {
   key: validateOrgnrKeys.VALIDATE_ORGNR_MISSSING | validateOrgnrKeys.VALIDATE_ORGNR_INVALID;
 }
 

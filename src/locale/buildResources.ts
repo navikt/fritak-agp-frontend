@@ -1,10 +1,5 @@
 import { Locale } from './Locales';
 
-export interface Translation {
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  translation: Record<string, any>;
-}
-
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const buildLanguage = (lang: string, bundle: Record<string, any>) => {
   const values = {};

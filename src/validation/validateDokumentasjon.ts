@@ -5,7 +5,7 @@ export enum ValidateDokumentasjonKeys {
   VALIDATE_DOKUMENTASJON_MAXIMUM_SIZE = 'VALIDATE_DOKUMENTASJON_MAXIMUM_SIZE'
 }
 
-export interface ValidateDokumentasjonResult extends ValidationResult {
+interface ValidateDokumentasjonResult extends ValidationResult {
   key:
     | ValidateDokumentasjonKeys.VALIDATE_DOKUMENTASJON_MINIMUM_SIZE
     | ValidateDokumentasjonKeys.VALIDATE_DOKUMENTASJON_MAXIMUM_SIZE;

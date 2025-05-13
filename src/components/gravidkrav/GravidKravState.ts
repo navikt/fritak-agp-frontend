@@ -1,7 +1,7 @@
 import { ValidationState } from '../../state/validation/ValidationState';
 import { Dato } from '../../utils/dato/Dato';
 import { v4 as uuid } from 'uuid';
-import EndringsAarsak from './EndringsAarsak';
+import { EndringsAarsak } from './EndringsAarsak';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 export const defaultGravidKravState = (state?: GravidKravState): GravidKravState => {
