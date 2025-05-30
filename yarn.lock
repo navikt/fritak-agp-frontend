@@ -780,10 +780,10 @@
   resolved "https://npm.pkg.github.com/download/@navikt/textparser/2.5.0/42c12bc8b98309f3700bb620acebf035505ed369#42c12bc8b98309f3700bb620acebf035505ed369"
   integrity sha512-OUL3apcxTsEIVFtherKlNyZyOYoKBHOajMpiqZZz6u1zB69wnpuQLkped1FQ7KmPxK+AhUiErBDkKZZohq4FLQ==
 
-"@navikt/virksomhetsvelger@^1.0.1":
-  version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/1.0.1/2d88a99cb5d77e9b9bc7ee425506093f3a40c27a#2d88a99cb5d77e9b9bc7ee425506093f3a40c27a"
-  integrity sha512-+nOdx2xdgVwFZ88H8OCwIZgucV6E7gPSU7MF7NNWLfu52DDlqTCgsm8rG8QPN28TixPIzERhpr2fJNt7f50o4g==
+"@navikt/virksomhetsvelger@^1.0.3":
+  version "1.0.3"
+  resolved "https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/1.0.3/6d9ba7817b02f22e30919aebbae4db80ffb840d5#6d9ba7817b02f22e30919aebbae4db80ffb840d5"
+  integrity sha512-kL11oVgDIUGH+08dDkxvFe15PfXV52KlXvEiP9IX2RLNgwa/eiCs9/ZHqCr5tZTZmLPiAxAe71U3U9wux+VnLA==
   dependencies:
     focus-trap-react "11.0.3"
 
