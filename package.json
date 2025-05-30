@@ -50,7 +50,7 @@
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "@navikt/textparser": "^2.4.0",
     "@navikt/virksomhetsvelger": "^1.0.3",
-    "@sentry/react": "^9.21.0",
+    "@sentry/react": "^9.24.0",
     "date-fns": "^4.1.0",
     "dayjs": "1.11.13",
     "i18next": "^25.2.1",
