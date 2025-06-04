@@ -93,7 +93,7 @@
     "mockdate": "^3.0.5",
     "msw": "^2.8.6",
     "prettier": "3.x",
-    "rollup-plugin-visualizer": "^5.12.0",
+    "rollup-plugin-visualizer": "^6.0.1",
     "sass-embedded": "^1.89.0",
     "timezone-mock": "1.x",
     "typescript-eslint": "^8.33.1",
