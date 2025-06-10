@@ -1,7 +1,7 @@
 import React from 'react';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import KravEndringKvitteringKeys from './KravEndringKvitteringKeys';
+import { KravEndringKvitteringKeys } from './KravEndringKvitteringKeys';
 import { Link, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import { BodyLong, Box, Heading, Link as NLink } from '@navikt/ds-react';

@@ -3,7 +3,7 @@ import { getFravaerByMonth } from './getFravaerByMonth';
 import { validerFravaerMaaned } from './validerFravaerMaaned';
 import { FravaerType } from './Actions';
 import React, { useState } from 'react';
-import MONTHS from '../../utils/months';
+import { MONTHS } from '../../utils/months';
 import { TextField } from '@navikt/ds-react';
 
 interface FravaerInputProps {

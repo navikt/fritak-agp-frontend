@@ -6,7 +6,7 @@ import { MAX_FRAVAERSPERIODER, MIN_FRAVAERSPERIODER } from '../../config/konstan
 import formatValidation from '../../utils/formatValidation';
 import validateDokumentasjon from '../../validation/validateDokumentasjon';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
-import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import { validateFnr } from '../../validation/validateFnr';
 import isValidOrgnr from '../../validation/isValidOrgnr';
 import { validateOrgnr } from '../../validation/validateOrgnr';
