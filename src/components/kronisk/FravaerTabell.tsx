@@ -3,7 +3,7 @@ import './FravaerTabell.sass';
 import { lastThreeYears } from '../../utils/lastThreeYears';
 import { MONTHS } from '../../utils/months';
 import { Aarsfravaer } from './Aarsfravaer';
-import { FravaerRow } from './FravaerRow';
+import FravaerRow from './FravaerRow';
 import { useTranslation } from 'react-i18next';
 import { FravaerTabellKeys } from './FravaerTabellKeys';
 

@@ -4,7 +4,7 @@ import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 import { v4 as uuid } from 'uuid';
 import HttpStatus from '../../api/HttpStatus';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
-import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
+import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 
 const mapKroniskFeilmeldinger = (response: ValidationResponse<KroniskSoknadResponse>, state: KroniskState) => {
   const feilmeldinger = new Array<FeiloppsummeringFeil>();

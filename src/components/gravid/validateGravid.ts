@@ -4,7 +4,7 @@ import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 
 import { Omplassering } from './Omplassering';
 import { i18n } from 'i18next';
-import validateTermindato from '../../validation/validateTermindato';
+import { validateTermindato } from '../../validation/validateTermindato';
 import { GravidSideKeys } from './GravidSideKeys';
 import formatValidation from '../../utils/formatValidation';
 import validateDokumentasjon from '../../validation/validateDokumentasjon';
