@@ -727,18 +727,6 @@
     strict-event-emitter "^0.5.1"
 
 "@napi-rs/wasm-runtime@^0.2.10":
-<<<<<<< HEAD
-  version "0.2.11"
-  resolved "https://registry.yarnpkg.com/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.11.tgz#192c1610e1625048089ab4e35bc0649ce478500e"
-  integrity sha512-9DPkXtvHydrcOsopiYpUgPHpmj0HWZKMUnL2dZqpvC42lsratuBG06V5ipyno0fUek5VlFsNQ+AcFATSrJXgMA==
-  dependencies:
-    "@emnapi/core" "^1.4.3"
-    "@emnapi/runtime" "^1.4.3"
-    "@tybys/wasm-util" "^0.9.0"
-
-"@napi-rs/wasm-runtime@^0.2.9":
-=======
->>>>>>> main
   version "0.2.10"
   resolved "https://registry.yarnpkg.com/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.10.tgz#f3b7109419c6670000b2401e0c778b98afc25f84"
   integrity sha512-bCsCyeZEwVErsGmyPNSzwfwFn4OdxBj0mmv6hOFucB/k81Ojdu68RbZdxYsRQUPc9l6SU5F/cG+bXgWs3oUgsQ==
@@ -838,7 +826,6 @@
   resolved "https://registry.yarnpkg.com/@open-draft/until/-/until-2.1.0.tgz#0acf32f470af2ceaf47f095cdecd40d68666efda"
   integrity sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==
 
-<<<<<<< HEAD
 "@oxc-project/runtime@0.72.2", "@oxc-project/runtime@=0.72.2":
   version "0.72.2"
   resolved "https://registry.yarnpkg.com/@oxc-project/runtime/-/runtime-0.72.2.tgz#c7d4677aa1ce9dfd081c32b35c1abd67d467890e"
@@ -849,16 +836,10 @@
   resolved "https://registry.yarnpkg.com/@oxc-project/types/-/types-0.72.2.tgz#8b03e1e09a4abedcbeb6bc188c8175fcb2347c79"
   integrity sha512-il5RF8AP85XC0CMjHF4cnVT9nT/v/ocm6qlZQpSiAR9qBbQMGkFKloBZwm7PcnOdiUX97yHgsKM7uDCCWCu3tg==
 
-"@oxc-resolver/binding-darwin-arm64@9.0.2":
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/@oxc-resolver/binding-darwin-arm64/-/binding-darwin-arm64-9.0.2.tgz#345ff11258dbec11d333bf088a79b864f5f03ec5"
-  integrity sha512-MVyRgP2gzJJtAowjG/cHN3VQXwNLWnY+FpOEsyvDepJki1SdAX/8XDijM1yN6ESD1kr9uhBKjGelC6h3qtT+rA==
-=======
 "@oxc-resolver/binding-darwin-arm64@11.1.0":
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/@oxc-resolver/binding-darwin-arm64/-/binding-darwin-arm64-11.1.0.tgz#6a9523af95ec24f133867d46d4ddba935f43a1ed"
   integrity sha512-n9y3Lb1+BwsOtm3BmXSUPu3iDtTq7Sf0gX4e+izFTfNrj+u6uTKqbmlq8ggV8CRdg1zGUaCvKNvg/9q3C/19gg==
->>>>>>> main
 
 "@oxc-resolver/binding-darwin-x64@11.1.0":
   version "11.1.0"
@@ -939,7 +920,6 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.28.tgz#d45e01c4a56f143ee69c54dd6b12eade9e270a73"
   integrity sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==
 
-<<<<<<< HEAD
 "@rolldown/binding-darwin-arm64@1.0.0-beta.11-commit.0a985f3":
   version "1.0.0-beta.11-commit.0a985f3"
   resolved "https://registry.yarnpkg.com/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.0.0-beta.11-commit.0a985f3.tgz#2006e4ef132bb63c71c300e9fcd02a59f140d077"
@@ -1006,12 +986,11 @@
   version "1.0.0-beta.11-commit.0a985f3"
   resolved "https://registry.yarnpkg.com/@rolldown/pluginutils/-/pluginutils-1.0.0-beta.11-commit.0a985f3.tgz#6cb1aa3699a29e3becc9315c4afd9f778d1f38ab"
   integrity sha512-BzOULtKKG5aXllquK5TQKwonut+cN7KtWSt9UUAwlipWyNPKViJs+vFVTBwdvgSsHrWefNVjHkC9rO1eeYKkDA==
-=======
+
 "@rolldown/pluginutils@1.0.0-beta.9":
   version "1.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@rolldown/pluginutils/-/pluginutils-1.0.0-beta.9.tgz#68ef9fff5a9791a642cea0dc4380ce6cb487a84a"
   integrity sha512-e9MeMtVWo186sgvFFJOPGy7/d2j2mZhLJIdVW0C/xDluuOvymEATqz6zKsP0ZmXGzQtqlyjz5sC1sYQUoJG98w==
->>>>>>> main
 
 "@rollup/rollup-android-arm-eabi@4.40.0":
   version "4.40.0"
@@ -4463,7 +4442,6 @@ rfdc@^1.4.1:
   resolved "https://registry.yarnpkg.com/rfdc/-/rfdc-1.4.1.tgz#778f76c4fb731d93414e8f925fbecf64cce7f6ca"
   integrity sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==
 
-<<<<<<< HEAD
 rolldown@1.0.0-beta.11-commit.0a985f3:
   version "1.0.0-beta.11-commit.0a985f3"
   resolved "https://registry.yarnpkg.com/rolldown/-/rolldown-1.0.0-beta.11-commit.0a985f3.tgz#8f0d606280d8162a21473b925d503d0e35eac89b"
@@ -4487,16 +4465,10 @@ rolldown@1.0.0-beta.11-commit.0a985f3:
     "@rolldown/binding-win32-ia32-msvc" "1.0.0-beta.11-commit.0a985f3"
     "@rolldown/binding-win32-x64-msvc" "1.0.0-beta.11-commit.0a985f3"
 
-rollup-plugin-visualizer@^5.12.0:
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-visualizer/-/rollup-plugin-visualizer-5.14.0.tgz#be82d43fb3c644e396e2d50ac8a53d354022d57c"
-  integrity sha512-VlDXneTDaKsHIw8yzJAFWtrzguoJ/LnQ+lMpoVfYJ3jJF4Ihe5oYLAqLklIK/35lgUY+1yEzCkHyZ1j4A5w5fA==
-=======
 rollup-plugin-visualizer@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/rollup-plugin-visualizer/-/rollup-plugin-visualizer-6.0.3.tgz#d05bd17e358a6d04bf593cf73556219c9c6d8dad"
   integrity sha512-ZU41GwrkDcCpVoffviuM9Clwjy5fcUxlz0oMoTXTYsK+tcIFzbdacnrr2n8TXcHxbGKKXtOdjxM2HUS4HjkwIw==
->>>>>>> main
   dependencies:
     open "^8.0.0"
     picomatch "^4.0.2"
@@ -5377,11 +5349,7 @@ vite-tsconfig-paths@^5.0.1:
     globrex "^0.1.2"
     tsconfck "^3.0.3"
 
-<<<<<<< HEAD
-"vite@^5.0.0 || ^6.0.0":
-=======
-"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0", vite@^6:
->>>>>>> main
+"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0":
   version "6.3.5"
   resolved "https://registry.yarnpkg.com/vite/-/vite-6.3.5.tgz#fec73879013c9c0128c8d284504c6d19410d12a3"
   integrity sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==
