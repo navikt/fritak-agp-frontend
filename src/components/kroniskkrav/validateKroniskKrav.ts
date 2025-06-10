@@ -12,8 +12,8 @@ import { validateFra } from '../../validation/validateFra';
 import { validateTil } from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
-import validateOrgnr from '../../validation/validateOrgnr';
-import validateFnr from '../../validation/validateFnr';
+import { validateOrgnr } from '../../validation/validateOrgnr';
+import { validateFnr } from '../../validation/validateFnr';
 import textify from '../../utils/textify';
 
 const MAX = 10000000;

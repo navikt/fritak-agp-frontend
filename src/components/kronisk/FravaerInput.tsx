@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import MONTHS from '../../utils/months';
 import { TextField } from '@navikt/ds-react';
 
-export interface FravaerInputProps {
+interface FravaerInputProps {
   month: number;
   year: number;
   onChange: any;

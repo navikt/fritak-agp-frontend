@@ -7,9 +7,9 @@ import formatValidation from '../../utils/formatValidation';
 import validateDokumentasjon from '../../validation/validateDokumentasjon';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
-import validateFnr from '../../validation/validateFnr';
+import { validateFnr } from '../../validation/validateFnr';
 import isValidOrgnr from '../../validation/isValidOrgnr';
-import validateOrgnr from '../../validation/validateOrgnr';
+import { validateOrgnr } from '../../validation/validateOrgnr';
 
 /* eslint complexity: ["off"] */
 export const validateKronisk = (state: KroniskState, translate: i18n): KroniskState => {

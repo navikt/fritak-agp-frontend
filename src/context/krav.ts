@@ -1,11 +1,3 @@
-export interface KravRad {
-  kravId: string;
-  opprettet: Date;
-  fnr: string;
-  navn: string;
-  kravtype: string;
-}
-
 interface Periode {
   fom: string;
   tom: string;
@@ -38,8 +30,3 @@ export interface GravidKrav extends Krav {
 }
 
 export type KroniskKrav = Krav;
-
-export interface EksisterendeKrav {
-  gravidKrav: GravidKrav[] | [];
-  kroniskKrav: KroniskKrav[] | [];
-}

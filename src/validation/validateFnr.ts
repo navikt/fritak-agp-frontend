@@ -19,5 +19,3 @@ export const validateFnr = (orgnr?: string, required = false): FnrValidationResu
   }
   return undefined;
 };
-
-export default validateFnr;

@@ -8,7 +8,7 @@ import Fravaersdager from './Fravaersdager';
 import InnsendtAv from '../../gravid/soknad/InnsendtAv';
 import Dokumentasjon from '../../gravid/soknad/Dokumentasjon';
 
-export interface KroniskSoknadNotifikasjonProps {
+interface KroniskSoknadNotifikasjonProps {
   kroniskSoknadResponse: KroniskSoknadResponse;
 }
 

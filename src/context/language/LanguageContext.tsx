@@ -7,10 +7,6 @@ import { Locale } from '../../locale/Locales';
 import { autodetectLanguage } from '../../locale/autodetectLanguage';
 import { translateUrl } from '../../locale/translateUrl';
 
-export interface LanguageParams {
-  language: Language;
-}
-
 interface LanguageContextInterface {
   language: string;
   i18n: any;
