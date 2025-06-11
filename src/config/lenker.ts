@@ -16,7 +16,7 @@ enum lenker {
   GravidKrav = 'gravid/krav',
   GravidKravKvittering = 'gravid/krav/kvittering',
   GravidKravSlettetKvittering = 'gravid/krav/slettet/kvittering',
-  GravidKravEndringKvittering = 'gravid/krav/endring/kvittering',
+  // GravidKravEndringKvittering = 'gravid/krav/endring/kvittering',
   KroniskKrav = 'kronisk/krav',
   KroniskKravKvittering = 'kronisk/krav/kvittering',
   KroniskKravSlettetKvittering = 'kronisk/krav/slettet/kvittering',
