@@ -26,7 +26,7 @@ import BekreftOpplysningerPanel from '../felles/BekreftOpplysningerPanel/Bekreft
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import Skillelinje from '../felles/Skillelinje';
 import Side from '../felles/Side/Side';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
 import Upload from '../felles/Upload/Upload';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useMemo, PropsWithChildren } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { onLanguageSelect, setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import buildResources from '../../locale/buildResources';
 import { Locale } from '../../locale/Locales';
 import { autodetectLanguage } from '../../locale/autodetectLanguage';

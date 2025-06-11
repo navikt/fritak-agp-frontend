@@ -7,7 +7,7 @@ import lenker, { buildLenke } from '../../config/lenker';
 import { BodyLong, Box, Heading, Link as NLink } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import environment from '../../config/environment';
 
 interface KravEndringKvitteringProps {

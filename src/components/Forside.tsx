@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import lenker, { buildLenke } from '../config/lenker';
-import Language from '../locale/Language';
+import { Language } from '../locale/Language';
 
 import { BodyLong, Heading } from '@navikt/ds-react';
 import Side from './felles/Side/Side';
