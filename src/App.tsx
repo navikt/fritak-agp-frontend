@@ -6,20 +6,20 @@ import environment from './config/environment';
 import Locales from './locale/Locales';
 import i18next from 'i18next';
 import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
-import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
 import { LanguageProvider } from './context/language/LanguageContext';
 import { LoginStatus } from './context/login/LoginStatus';
+import HttpStatus from './api/HttpStatus';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;
-  arbeidsgiverStatus?: ArbeidsgiverStatus;
+  arbeidsgiverStatus?: HttpStatus;
   arbeidsgivere?: Array<Organisasjon>;
   basePath?: string;
   loginServiceUrl?: string;
 }
 
 export const Application = ({
-  arbeidsgiverStatus = ArbeidsgiverStatus.NotStarted,
+  arbeidsgiverStatus = HttpStatus.NotStarted,
   arbeidsgivere,
   basePath = environment.baseUrl
 }: ApplicationProps) => (
