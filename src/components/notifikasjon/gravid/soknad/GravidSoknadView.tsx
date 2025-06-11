@@ -9,7 +9,7 @@ import GravidSoknadFooter from './GravidSoknadFooter';
 import InnsendtAv from './InnsendtAv';
 import Dokumentasjon from './Dokumentasjon';
 
-export interface GravidSoknadNotifikasjonProps {
+interface GravidSoknadNotifikasjonProps {
   gravidSoknadResponse: GravidSoknadResponse;
 }
 

@@ -1,4 +1,4 @@
-import ParseExpiryDate from './ParseExpiryDate';
+import { ParseExpiryDate } from './ParseExpiryDate';
 import timezone_mock from 'timezone-mock';
 
 timezone_mock.register('Europe/London');

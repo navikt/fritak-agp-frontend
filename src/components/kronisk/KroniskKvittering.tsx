@@ -12,7 +12,7 @@ import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
 import { Alert, BodyLong, Box, Heading, Link } from '@navikt/ds-react';
 import Side from '../felles/Side/Side';
 import InternLenke from '../felles/InternLenke/InternLenke';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import env from '../../config/environment';
 const KroniskKvittering = () => {
   const { t } = useTranslation();

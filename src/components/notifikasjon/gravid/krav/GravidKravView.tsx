@@ -7,7 +7,7 @@ import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
 import VisNotifikasjonPerioder from './VisNotifikasjonPerioder';
 import { BodyLong, Link } from '@navikt/ds-react';
 
-export interface GravidSoknadNotifikasjonProps {
+interface GravidSoknadNotifikasjonProps {
   gravidKravVisning: GravidKravVisning;
 }
 

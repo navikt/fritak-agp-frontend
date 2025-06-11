@@ -5,9 +5,9 @@ import { axe } from 'jest-axe';
 import { MemoryRouter } from 'react-router-dom';
 import { Organisasjon } from '@navikt/virksomhetsvelger';
 import { ArbeidsgiverProvider } from '../context/arbeidsgiver/ArbeidsgiverContext';
-import ArbeidsgiverStatus from '../context/arbeidsgiver/ArbeidsgiverStatus';
 import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
+import HttpStatus from '../api/HttpStatus';
 
 vi.mock('react-i18next', () => ({
   useTranslation: vi.fn()
@@ -32,7 +32,7 @@ describe('Forside', () => {
   it('should have no a11y violations', async () => {
     const rendered = render(
       <MemoryRouter initialEntries={initHistory}>
-        <ArbeidsgiverProvider arbeidsgivere={ARBEIDSGIVERE} status={ArbeidsgiverStatus.Successfully} baseUrl={''}>
+        <ArbeidsgiverProvider arbeidsgivere={ARBEIDSGIVERE} status={HttpStatus.Successfully} baseUrl={''}>
           <Forside />
         </ArbeidsgiverProvider>
       </MemoryRouter>

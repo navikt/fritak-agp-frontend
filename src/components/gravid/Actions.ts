@@ -26,7 +26,7 @@ export enum Actions {
   Termindato
 }
 
-export type Payload = {
+type Payload = {
   fnr?: string;
   orgnr?: string;
   tilrettelegge?: boolean;

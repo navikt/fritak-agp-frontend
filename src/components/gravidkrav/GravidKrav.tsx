@@ -40,7 +40,7 @@ import Skillelinje from '../felles/Skillelinje';
 import Side from '../felles/Side/Side';
 import { useArbeidsgiver } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import HttpStatus from '../../api/HttpStatus';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';

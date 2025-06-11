@@ -44,5 +44,3 @@ export const GetLoginExpiry = (basePath: string): Promise<LoginExpiryResponse> =
       }))
   ]);
 };
-
-export default GetLoginExpiry;

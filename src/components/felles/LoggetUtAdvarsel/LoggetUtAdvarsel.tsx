@@ -5,7 +5,7 @@ import Oversettelse from '../Oversettelse/Oversettelse';
 import InternLenke from '../InternLenke/InternLenke';
 import injectRedirectPath from '../../../utils/injectRedirectPath';
 import { LoggetUtAdvarselKeys } from './LoggetUtAdvarselKeys';
-import Language from '../../../locale/Language';
+import { Language } from '../../../locale/Language';
 import { Alert, Heading, Modal } from '@navikt/ds-react';
 
 interface LoggetUtAdvarselProps {

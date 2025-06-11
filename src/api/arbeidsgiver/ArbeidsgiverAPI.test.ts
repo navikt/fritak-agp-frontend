@@ -1,7 +1,7 @@
 import ArbeidsgiverAPI from './ArbeidsgiverAPI';
-import ArbeidsgiverStatus from '../../context/arbeidsgiver/ArbeidsgiverStatus';
 import testBackendOrganisasjoner from '../../mock/testBackendOrganisasjoner';
 import { vi } from 'vitest';
+import HttpStatus from '../HttpStatus';
 
 describe('ArbeidsgiverAPI', () => {
   afterAll(() => {
@@ -16,7 +16,7 @@ describe('ArbeidsgiverAPI', () => {
     vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
     const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(HttpStatus.Successfully);
     expect(result.organisasjoner.length).toEqual(1);
     expect(result.organisasjoner[0].navn).toEqual('ANSTENDIG PIGGSVIN BYDEL');
 
@@ -40,7 +40,7 @@ describe('ArbeidsgiverAPI', () => {
     vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
     const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(HttpStatus.Successfully);
     expect(result.organisasjoner.length).toEqual(0);
   });
 
@@ -107,7 +107,7 @@ describe('ArbeidsgiverAPI', () => {
     const verdi = ArbeidsgiverAPI.GetArbeidsgivere('');
     vi.advanceTimersByTime(15000);
     expect(await verdi).toStrictEqual({
-      status: ArbeidsgiverStatus.Timeout,
+      status: HttpStatus.Timeout,
       organisasjoner: []
     });
   });
@@ -120,7 +120,7 @@ describe('ArbeidsgiverAPI', () => {
     vi.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
     const result = await ArbeidsgiverAPI.GetArbeidsgivere('dummy');
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(HttpStatus.Successfully);
     expect(result.organisasjoner.length).toEqual(0);
   });
 });

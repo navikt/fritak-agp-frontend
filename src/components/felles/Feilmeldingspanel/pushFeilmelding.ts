@@ -10,5 +10,3 @@ export const pushFeilmelding = (
     feilmelding: feilmelding
   });
 };
-
-export default pushFeilmelding;

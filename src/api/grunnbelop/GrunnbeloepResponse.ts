@@ -3,7 +3,7 @@ export interface GrunnbeloepResponse {
   grunnbeloep?: Grunnbeloep;
 }
 
-export interface Grunnbeloep {
+interface Grunnbeloep {
   dato: string;
   grunnbeloep: number;
   grunnbeloepPerMaaned: number;

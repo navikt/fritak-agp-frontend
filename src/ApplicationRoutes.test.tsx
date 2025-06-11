@@ -3,10 +3,10 @@ import { ApplicationRoutes } from './ApplicationRoutes';
 import React from 'react';
 import { render } from '@testing-library/react';
 import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
-import ArbeidsgiverStatus from './context/arbeidsgiver/ArbeidsgiverStatus';
 import { Organisasjon } from '@navikt/virksomhetsvelger';
 import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
+import HttpStatus from './api/HttpStatus';
 
 vi.mock('react-i18next', () => ({
   useTranslation: vi.fn()
@@ -24,7 +24,7 @@ describe('ApplicationRoutes', () => {
     ]
   ) => (
     <MemoryRouter initialEntries={[path]}>
-      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={ArbeidsgiverStatus.Successfully} baseUrl=''>
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={HttpStatus.Successfully} baseUrl=''>
         <ApplicationRoutes />
       </ArbeidsgiverProvider>
     </MemoryRouter>

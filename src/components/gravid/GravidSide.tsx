@@ -49,7 +49,7 @@ import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import Skillelinje from '../felles/Skillelinje';
 import Side from '../felles/Side/Side';
 import Upload from '../felles/Upload';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;

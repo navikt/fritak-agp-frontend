@@ -32,7 +32,7 @@ export enum Actions {
   HideDuplicateSubmissionError
 }
 
-export interface Payload {
+interface Payload {
   fnr?: string;
   orgnr?: string;
   fra?: Date;

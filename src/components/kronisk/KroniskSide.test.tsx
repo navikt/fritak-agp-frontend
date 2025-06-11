@@ -6,8 +6,8 @@ import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';
 import { render } from '@testing-library/react';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
-import ArbeidsgiverStatus from '../../context/arbeidsgiver/ArbeidsgiverStatus';
 import env from '../../config/environment';
+import HttpStatus from '../../api/HttpStatus';
 
 const initHistory = ['/'];
 
@@ -31,7 +31,7 @@ describe('KroniskSide', () => {
   it('should have no a11y violations', async () => {
     const { container } = render(
       <MemoryRouter initialEntries={initHistory}>
-        <ArbeidsgiverProvider arbeidsgivere={testOrganisasjoner} status={ArbeidsgiverStatus.Successfully} baseUrl={''}>
+        <ArbeidsgiverProvider arbeidsgivere={testOrganisasjoner} status={HttpStatus.Successfully} baseUrl={''}>
           <h1>h1</h1>
           <h2>h2</h2>
           <KroniskSide />

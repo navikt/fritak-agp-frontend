@@ -1,5 +1,5 @@
 import environment from '../config/environment';
-import Language from '../locale/Language';
+import { Language } from '../locale/Language';
 
 function injectRedirectPath(loginServiceUrl: string, injectedPath: string, lang: Language): string {
   const host = window.location.origin;

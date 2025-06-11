@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, useMemo, PropsWithChildren } from 'react';
-import GetLoginExpiry from '../../api/loginexpiry/LoginExpiryAPI';
+import { GetLoginExpiry } from '../../api/loginexpiry/GetLoginExpiry';
 import TilgangsfeilSide from '../../components/felles/login/TilgangsfeilSide';
 import { LoginStatus } from './LoginStatus';
 import LoginRedirect from './LoginRedirect';

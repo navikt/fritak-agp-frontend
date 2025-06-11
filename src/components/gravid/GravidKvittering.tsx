@@ -14,7 +14,7 @@ import environment from '../../config/environment';
 import { Alert, Heading, BodyLong, Box } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import InternLenke from '../felles/InternLenke/InternLenke';
 
 const GravidKvittering = () => {

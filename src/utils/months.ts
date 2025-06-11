@@ -12,5 +12,3 @@ export const MONTHS: string[] = [
   'November',
   'Desember'
 ];
-
-export default MONTHS;

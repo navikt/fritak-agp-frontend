@@ -5,11 +5,11 @@ import React from 'react';
 import Side, { showChildren } from './Side';
 import { MemoryRouter } from 'react-router-dom';
 import { Organisasjon } from '@navikt/virksomhetsvelger';
-import ArbeidsgiverStatus from '../../../context/arbeidsgiver/ArbeidsgiverStatus';
 import { ArbeidsgiverProvider } from '../../../context/arbeidsgiver/ArbeidsgiverContext';
 import { act, render, screen } from '@testing-library/react';
 import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
+import HttpStatus from '../../../api/HttpStatus';
 
 vi.mock('react-i18next', () => ({
   useTranslation: vi.fn()
@@ -26,12 +26,7 @@ const ARBEIDSGIVERE: Array<Organisasjon> = [
 const UTEN_ARBEIDSGIVERE: Array<Organisasjon> = [];
 const initHistory = ['/'];
 
-const buildSide = (
-  required: boolean,
-  arbeidsgivere: Array<Organisasjon>,
-  status: ArbeidsgiverStatus,
-  title: string
-) => {
+const buildSide = (required: boolean, arbeidsgivere: Array<Organisasjon>, status: HttpStatus, title: string) => {
   return (
     <MemoryRouter initialEntries={initHistory}>
       <ArbeidsgiverProvider baseUrl='' arbeidsgivere={arbeidsgivere} status={status}>
@@ -57,7 +52,7 @@ describe('Side', () => {
 
   it('should show advarsel - required and not arbeidsgivere', () => {
     act(() => {
-      render(buildSide(true, UTEN_ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, 'SØKNADSSKJEMA'));
+      render(buildSide(true, UTEN_ARBEIDSGIVERE, HttpStatus.Successfully, 'SØKNADSSKJEMA'));
     });
     expect(screen.queryByText(BARNE_NODER)).not.toBeInTheDocument();
     expect(screen.getByText(/INGEN/)).toBeInTheDocument();
@@ -65,7 +60,7 @@ describe('Side', () => {
 
   it('should show children - required and arbeidsgivere', () => {
     act(() => {
-      render(buildSide(true, ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, 'SØKNADSSKJEMA'));
+      render(buildSide(true, ARBEIDSGIVERE, HttpStatus.Successfully, 'SØKNADSSKJEMA'));
     });
     expect(screen.queryByText(/INGEN/)).not.toBeInTheDocument();
     expect(screen.getByText(BARNE_NODER)).toBeInTheDocument();
@@ -73,7 +68,7 @@ describe('Side', () => {
 
   it('should show children - not required and empty arbeidsgivere', () => {
     act(() => {
-      render(buildSide(false, UTEN_ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, 'SØKNADSSKJEMA'));
+      render(buildSide(false, UTEN_ARBEIDSGIVERE, HttpStatus.Successfully, 'SØKNADSSKJEMA'));
     });
 
     expect(screen.queryByText(/IKKE_RETTIGHETER/)).not.toBeInTheDocument();
@@ -82,7 +77,7 @@ describe('Side', () => {
 
   it('should show children - not required and arbeidsgivere', () => {
     act(() => {
-      render(buildSide(false, ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, 'SØKNADSSKJEMA'));
+      render(buildSide(false, ARBEIDSGIVERE, HttpStatus.Successfully, 'SØKNADSSKJEMA'));
     });
 
     expect(screen.queryByText(/IKKE_RETTIGHETER/)).not.toBeInTheDocument();
@@ -91,7 +86,7 @@ describe('Side', () => {
 
   it('should not show SoknadTittel', () => {
     act(() => {
-      render(buildSide(false, ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, ''));
+      render(buildSide(false, ARBEIDSGIVERE, HttpStatus.Successfully, ''));
     });
 
     expect(screen.queryByText(/SOKNAD_TITTEL/)).not.toBeInTheDocument();
@@ -101,7 +96,7 @@ describe('Side', () => {
 
   it('should show SoknadTittel', () => {
     act(() => {
-      render(buildSide(false, ARBEIDSGIVERE, ArbeidsgiverStatus.Successfully, 'TITTELEN'));
+      render(buildSide(false, ARBEIDSGIVERE, HttpStatus.Successfully, 'TITTELEN'));
     });
 
     expect(screen.queryByText(/IKKE_RETTIGHETER/)).not.toBeInTheDocument();

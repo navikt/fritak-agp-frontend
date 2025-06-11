@@ -6,7 +6,7 @@ import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
-import pushFeilmelding from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 
 const checkItemId = (itemId?: string) => {
   if (itemId === undefined) {

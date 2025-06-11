@@ -13,5 +13,3 @@ export const validateTermindato = (
     return required ? termindato.error : undefined;
   }
 };
-
-export default validateTermindato;

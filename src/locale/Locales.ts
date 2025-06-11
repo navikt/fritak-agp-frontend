@@ -903,25 +903,9 @@ const Locales: Record<
       'We will send a message to the employee notifying them about your reimbursement claim.\n' +
       'All fields are mandatory.'
   },
-  FRA_DATO: {
-    nb: 'Fra dato',
-    en: 'From date'
-  },
-  TIL_DATO: {
-    nb: 'Til dato',
-    en: 'To date'
-  },
-  BELOP: {
-    nb: 'Beløp',
-    en: 'Amount'
-  },
   KRONER: {
     nb: 'Kr:',
     en: 'Kr:'
-  },
-  SLETT_LABEL: {
-    nb: 'Slett',
-    en: 'Delete'
   },
   VALIDATE_FNR_MISSING: {
     nb: 'Mangler fødselsnummer',
@@ -1026,10 +1010,6 @@ const Locales: Record<
   SIDE_MIN_SIDE_ARBEIDSGIVER: {
     en: 'My page',
     nb: 'Min side arbeidsgiver'
-  },
-  KRONISK_KRAV_PERIODE_FORMAT: {
-    nb: 'dd.mm.åååå',
-    en: 'dd.mm.yyyy'
   },
   KRONISK_KRAV_INFO: {
     nb:

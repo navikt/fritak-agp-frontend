@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-
-import FravaerRow from './FravaerRow';
+import { expect, vi } from 'vitest';
+import { FravaerRow } from './FravaerRow';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {

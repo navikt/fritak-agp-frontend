@@ -11,7 +11,6 @@ export enum Actions {
   Til,
   Dager,
   Beloep,
-  Dokumentasjon,
   Bekreft,
   Validate,
   Progress,
@@ -34,7 +33,7 @@ export enum Actions {
   SetFormClean
 }
 
-export interface Payload {
+interface Payload {
   fnr?: string;
   orgnr?: string;
   fra?: Date;

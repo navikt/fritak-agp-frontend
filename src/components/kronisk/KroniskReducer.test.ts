@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import { languageInit } from '../../locale/languageInit';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 
 describe('KroniskReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);

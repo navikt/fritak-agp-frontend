@@ -25,7 +25,7 @@ export interface FravaerType {
   dager: string;
 }
 
-export interface Payload {
+interface Payload {
   fnr?: string;
   orgnr?: string;
   bekreft?: boolean;
