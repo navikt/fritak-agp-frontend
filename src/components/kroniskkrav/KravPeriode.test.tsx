@@ -8,7 +8,7 @@ import { Actions } from './Actions';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import { vi, expect } from 'vitest';
 
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };

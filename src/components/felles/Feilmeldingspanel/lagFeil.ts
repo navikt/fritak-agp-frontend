@@ -6,5 +6,3 @@ export const lagFeil = (felt: string, melding: string): FeiloppsummeringFeil => 
     feilmelding: melding
   };
 };
-
-export default lagFeil;

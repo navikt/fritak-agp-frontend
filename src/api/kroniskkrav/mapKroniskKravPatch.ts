@@ -3,7 +3,7 @@ import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravStat
 import { EndringsAarsak } from '../../components/gravidkrav/EndringsAarsak';
 import { mapKroniskKravRequest } from './mapKroniskKravRequest';
 
-export interface KroniskKravPatch extends KroniskKravRequest {
+interface KroniskKravPatch extends KroniskKravRequest {
   aarsakEndring: EndringsAarsak;
 }
 

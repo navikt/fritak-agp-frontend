@@ -11,7 +11,7 @@ import env from '../../config/environment';
 import { expect, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
-import lagFeil from '../felles/Feilmeldingspanel/lagFeil';
+import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 import { Dato } from '../../utils/dato/Dato';
 import { http, HttpResponse } from 'msw';
 

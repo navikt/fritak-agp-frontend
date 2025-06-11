@@ -4,7 +4,7 @@ import { parseDato } from '../../utils/dato/Dato';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 
 describe('validateKroniskKrav', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);

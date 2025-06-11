@@ -1,4 +1,4 @@
-import { GetLoginExpiry } from './LoginExpiryAPI';
+import { GetLoginExpiry } from './GetLoginExpiry';
 import { ParseExpiryDate } from './ParseExpiryDate';
 import timezone_mock from 'timezone-mock';
 

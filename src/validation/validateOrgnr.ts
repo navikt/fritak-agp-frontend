@@ -19,5 +19,3 @@ export const validateOrgnr = (orgnr?: string, required = false): ValidateOrgNrRe
   }
   return undefined;
 };
-
-export default validateOrgnr;

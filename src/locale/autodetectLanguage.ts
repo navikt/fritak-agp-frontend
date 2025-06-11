@@ -1,5 +1,5 @@
-import { Languages } from './Languages';
+import { Language } from './Language';
 
-export const autodetectLanguage = (url: string): Languages => {
-  return url.indexOf('/' + Languages.En + '/') > -1 ? Languages.En : Languages.Nb;
+export const autodetectLanguage = (url: string): Language => {
+  return url.indexOf('/' + Language.en + '/') > -1 ? Language.en : Language.nb;
 };

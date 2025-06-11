@@ -1,13 +1,13 @@
 import React from 'react';
 import LangKey from '../../locale/LangKey';
 import { useTranslation } from 'react-i18next';
-import KravKvitteringSlettetKeys from './KravKvitteringSlettetKeys';
+import { KravKvitteringSlettetKeys } from './KravKvitteringSlettetKeys';
 import { Link, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import { BodyLong, Heading, Link as NLink, Box } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Side from '../felles/Side/Side';
-import Language from '../../locale/Language';
+import { Language } from '../../locale/Language';
 import environment from '../../config/environment';
 
 interface KravKvitteringSlettetProps {

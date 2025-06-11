@@ -3,7 +3,7 @@ import KroniskKravState from '../components/kroniskkrav/KroniskKravState';
 import GravidKravState from '../components/gravidkrav/GravidKravState';
 import { v4 as uuid } from 'uuid';
 import HttpStatus from '../api/HttpStatus';
-import lagFeil from '../components/felles/Feilmeldingspanel/lagFeil';
+import { lagFeil } from '../components/felles/Feilmeldingspanel/lagFeil';
 import stringishToNumber from '../utils/stringishToNumber';
 
 export interface FeiloppsummeringFeil {

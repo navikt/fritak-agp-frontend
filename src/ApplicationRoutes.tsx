@@ -47,10 +47,6 @@ export const ApplicationRoutes = () => (
             path={lenker.KroniskKravSlettetKvittering}
             element={<KroniskKvitteringSlettet backTarget={lenker.KroniskKrav} />}
           />
-          <Route
-            path={lenker.KroniskKravEndringKvittering}
-            element={<KravEndringKvittering backTarget={lenker.KroniskKrav} />}
-          />
           <Route path={lenker.KroniskKrav} element={<KroniskKrav />} />
           <Route path={lenker.KroniskKrav + '/:idKrav'} element={<KroniskKrav />} />
           <Route path={lenker.TokenFornyet} element={<TokenFornyet />} />
