@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import process from 'node:process';
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
-import { buildCspHeader, injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
+import { buildCspHeader, injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js';
 
 const app = express();
 
