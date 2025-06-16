@@ -27,5 +27,11 @@ export default defineConfig({
         api: 'modern-compiler'
       }
     }
+  },
+  build: {
+    manifest: true,
+    rollupOptions: {
+      external: ['./nais.js']
+    }
   }
 });
