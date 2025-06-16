@@ -8,7 +8,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: '50M'
 spec:
-  image: {{ image }}
+  image: { { image } }
   port: 8080
   ingresses:
     - '{{{ingress}}}'
@@ -56,3 +56,6 @@ spec:
       value: '{{{api-basepath}}}'
     - name: AUDIENCE
       value: '{{{audience}}}'
+  frontend:
+    generatedConfig:
+      mountPath: /var/dist/nais.js
