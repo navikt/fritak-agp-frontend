@@ -5,13 +5,15 @@ import App from './App';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import env, { EnvironmentType } from './config/environment';
 import '@navikt/ds-css';
-import { initializeFaro } from '@grafana/faro-web-sdk';
+import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
 import nais from './nais.js';
+import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 if (env.environmentMode !== EnvironmentType.LOCAL) {
   initializeFaro({
     url: nais.telemetryCollectorURL,
-    app: nais.app
+    app: nais.app,
+    instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()]
   });
 }
 
