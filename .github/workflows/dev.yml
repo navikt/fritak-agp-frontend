@@ -10,6 +10,8 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  id-token: write
+  actions: read
 
 env:
   APP: fritak-agp-frontend
@@ -27,7 +29,9 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - uses: actions/upload-artifact@v4
@@ -39,7 +43,9 @@ jobs:
     name: Run unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -50,7 +56,9 @@ jobs:
   Eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -72,14 +80,23 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/download-artifact@v4
         with:
           name: fritak-frontend-artifact
           path: dist
 
+      - name: Determine what to do
+        id: changed-files
+        uses: 'nais/what-changed@main'
+        with:
+          files: naiserator.yaml #, topic.yaml, statefulset.yaml, etc.
+
       # - uses: actions/checkout@v4
       - name: Build and push image and SBOM to OCI registry
+        if: steps.changed-files.outputs.changed != 'only-inputs'
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
@@ -106,6 +123,6 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: naiserator.yaml #, topic.yaml, statefulset.yaml, etc.
-          VAR: image=${{ steps.docker-build-push.outputs.image }}
+          WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
           TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
           VARS: nais/dev-gcp.json
