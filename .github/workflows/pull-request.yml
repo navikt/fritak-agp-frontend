@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
       - name: Cache node modules
         id: cache-npm
