@@ -10,6 +10,8 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  id-token: write
+  actions: read
 
 env:
   APP: fritak-agp-frontend
@@ -26,6 +28,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
+          cache: 'yarn'
       - uses: actions/checkout@v4
       - run: yarn install --frozen-lockfile
       - run: yarn build
@@ -48,6 +51,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
+          cache: 'yarn'
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:

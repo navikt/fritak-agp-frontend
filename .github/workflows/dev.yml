@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
+          cache: 'yarn'
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -49,6 +50,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
+          cache: 'yarn'
       - run: yarn install --frozen-lockfile
       - run: yarn test
 
@@ -62,6 +64,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
+          cache: 'yarn'
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
@@ -79,6 +82,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
+          cache: 'yarn'
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
