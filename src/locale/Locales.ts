@@ -94,13 +94,13 @@ const Locales: Record<
     nb:
       'NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet. Dette gjelder bare hvis tilrettelegging' +
       ' eller omplassering ikke er mulig. Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
-      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\n' +
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_4-4-2#%C2%A78-20).\n\n' +
       'Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
       '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
     en:
       'NAV can cover sickness benefits during the employer period if the absence is due to health problems during pregnancy. This only applies ' +
       'if facilitation or relocation is not possible. We use information we already have about sick leave, in addition to the answers you give below.' +
-      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).\n\n' +
+      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_4-4-2#%C2%A78-20).\n\n' +
       'We will send a message to the employee notifying them that you have sent the application' +
       '\n\nAll fields must be filled out unless otherwise stated'
   },
@@ -493,7 +493,7 @@ const Locales: Record<
       ' dag som denne søknad er mottatt av NAV.  Fristen for å kreve refusjon er 3 måneder. Derfor bør dere [sende sende' +
       ' inn kravskjemaet for refusjon](/nb/kronisk/krav) fortløpende og ikke vente til søknaden er ferdig behandlet.\n\n' +
       ' Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
-      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_4-4-2#%C2%A78-20).' +
       ' Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
       '\n\nAlle felter må fylles ut om ikke annet er oppgitt.',
     en:
@@ -502,7 +502,7 @@ const Locales: Record<
       ' from the day this application is received by NAV. The deadline for claiming a refund is 3 months. Therefore, you should' +
       ' [submit the claim form for reimbursement](/en/kronisk/krav) continuously and do not wait until the application has been processed.\n\n' +
       ' We use information we already have about sick leave, in addition to the answers you give below.' +
-      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_5-4-2#§8-20).' +
+      ' The scheme is described in [section 8-20 of the National Insurance Act](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_4-4-2#%C2%A78-20).' +
       ' We will send a message to the employee notifying them that you have sent the application' +
       '\n\nAll fields must be filled out unless otherwise stated.'
   },
