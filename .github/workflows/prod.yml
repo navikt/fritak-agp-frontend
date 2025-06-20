@@ -10,11 +10,10 @@ on:
 permissions:
   contents: read
   pull-requests: write
-  id-token: write
-  actions: read
 
 env:
   APP: fritak-agp-frontend
+  IMAGE: ghcr.io/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
@@ -28,8 +27,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-          cache: 'yarn'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@master
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - uses: actions/upload-artifact@v4
@@ -51,8 +49,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-          cache: 'yarn'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@master
       - uses: actions/download-artifact@v4
         with:
           name: fritak-frontend-artifact
@@ -86,6 +83,6 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: naiserator.yaml #, topic.yaml, statefulset.yaml, etc.
-          WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
+          VAR: image=${{ steps.docker-build-push.outputs.image }}
           TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
           VARS: nais/prod-gcp.json

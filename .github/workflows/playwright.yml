@@ -11,6 +11,7 @@ permissions:
 
 env:
   APP: fritak-agp-frontend
+  IMAGE: ghcr.io/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}

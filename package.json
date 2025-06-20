@@ -43,8 +43,6 @@
     ]
   },
   "dependencies": {
-    "@grafana/faro-web-sdk": "^1.18.2",
-    "@grafana/faro-web-tracing": "^1.18.2",
     "@navikt/aksel-icons": "^7.23.1",
     "@navikt/ds-css": "^7.23.1",
     "@navikt/ds-react": "^7.23.1",
@@ -52,6 +50,7 @@
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "@navikt/textparser": "^2.4.0",
     "@navikt/virksomhetsvelger": "^1.0.3",
+    "@sentry/react": "^9.29.0",
     "date-fns": "^4.1.0",
     "dayjs": "1.11.13",
     "i18next": "^25.2.1",
