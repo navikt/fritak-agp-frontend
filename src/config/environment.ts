@@ -54,6 +54,15 @@ class Environment {
         return 'https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver/sak-restore-session';
     }
   }
+
+  get faroCollector() {
+    switch (this.environmentMode) {
+      case EnvironmentType.PROD:
+        return 'https://telemetry.nav.no/collect';
+      default:
+        return 'https://telemetry.ekstern.dev.nav.no/collect';
+    }
+  }
 }
 
 const env = new Environment();
