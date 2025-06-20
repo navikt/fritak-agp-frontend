@@ -1,19 +1,18 @@
 import 'react-app-polyfill/stable';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import * as Sentry from '@sentry/react';
 import App from './App';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import env, { EnvironmentType } from './config/environment';
 import '@navikt/ds-css';
-import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
-import nais from './nais.js';
-import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 if (env.environmentMode !== EnvironmentType.LOCAL) {
-  initializeFaro({
-    url: nais.telemetryCollectorURL,
-    app: nais.app,
-    instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()]
+  Sentry.init({
+    dsn: 'https://a61578f55fc64d8690aa9b66423ac0c4@sentry.gc.nav.no/46',
+    environment: EnvironmentType[env.environmentMode],
+    integrations: [Sentry.browserTracingIntegration()],
+    tracesSampleRate: 0.5
   });
 }
 
