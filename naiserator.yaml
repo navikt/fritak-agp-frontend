@@ -1,12 +1,12 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
 metadata:
   name: fritak-agp-frontend
   namespace: '{{{namespace}}}'
   labels:
     team: helsearbeidsgiver
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "50M"
+    nginx.ingress.kubernetes.io/proxy-body-size: '50M'
 spec:
   image: {{ image }}
   port: 8080
@@ -46,6 +46,9 @@ spec:
       rules:
         - application: nav-dekoratoren
           namespace: personbruker
+  frontend:
+    generatedConfig:
+      mountPath: /var/dist/src/nais.js
   env:
     - name: API_URL
       value: '{{{api-url}}}'
