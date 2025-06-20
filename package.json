@@ -1,6 +1,6 @@
 {
   "name": "fritak-agp-frontend",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "private": true,
   "homepage": "/fritak-agp",
   "proxy": "http://localhost:8080",
