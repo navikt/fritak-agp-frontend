@@ -48,7 +48,7 @@ spec:
           namespace: personbruker
   frontend:
     generatedConfig:
-      mountPath: /var/dist/nais.js
+      mountPath: /var/dist/src/nais.js
   env:
     - name: API_URL
       value: '{{{api-url}}}'
