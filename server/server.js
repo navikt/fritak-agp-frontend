@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import process from 'node:process';
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
-import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js';
+import { buildCspHeader, injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js';
 
 const app = express();
 
@@ -19,6 +19,16 @@ const PORT = process.env.PORT || 8080;
 const API_URL = process.env.API_URL || 'http://localhost:3000';
 const API_BASEPATH = process.env.API_BASEPATH || '';
 const AUDIENCE = process.env.AUDIENCE || '';
+
+const cspDirectives = {
+  'default-src': [
+    'https://telemetry.prod-gcp.nav.cloud.nais.io/collect',
+    'https://telemetry.dev-gcp.nav.cloud.nais.io/collect'
+  ],
+  'connect-src': ['https://sr-client-cfg.amplitude.com/config']
+};
+
+const csp = await buildCspHeader(cspDirectives, { env: 'prod' });
 
 async function safelyParseJSON(possibleJsonData) {
   let parsed;
@@ -109,6 +119,7 @@ const startServer = () => {
       filePath: path.join(__dirname, HOME_FOLDER, 'index.html'),
       params: { context: 'arbeidsgiver' }
     }).then((html) => {
+      res.setHeader('Content-Security-Policy', csp);
       res.send(html);
     });
   });
