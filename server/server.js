@@ -24,7 +24,7 @@ const cspDirectives = {
   'default-src': [
     'https://telemetry.prod-gcp.nav.cloud.nais.io/collect',
     'https://telemetry.dev-gcp.nav.cloud.nais.io/collect',
-    'https://sr-client-cfg.amplitude.com'
+    'sr-client-cfg.amplitude.com'
   ]
 };
 
