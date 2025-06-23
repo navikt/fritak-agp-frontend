@@ -23,9 +23,9 @@ const AUDIENCE = process.env.AUDIENCE || '';
 const cspDirectives = {
   'default-src': [
     'https://telemetry.prod-gcp.nav.cloud.nais.io/collect',
-    'https://telemetry.dev-gcp.nav.cloud.nais.io/collect',
-    'sr-client-cfg.amplitude.com'
-  ]
+    'https://telemetry.dev-gcp.nav.cloud.nais.io/collect'
+  ],
+  'connect-src': ['https://sr-client-cfg.amplitude.com/config']
 };
 
 const csp = await buildCspHeader(cspDirectives, { env: 'prod' });
