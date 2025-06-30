@@ -5,13 +5,13 @@
 
 version: 2
 updates:
-# Maintain dependencies for Yarn
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  # Maintain dependencies for Yarn
+  - package-ecosystem: 'npm' # See documentation for possible values
+    directory: '/' # Location of package manifests
     registries:
       - npm-github
     schedule:
-      interval: "daily"
+      interval: 'daily'
     groups:
       aksel:
         patterns:
@@ -37,38 +37,37 @@ updates:
           - '@typescript-eslint/*'
           - '@eslint/*'
           - 'eslint-plugin-*'
+          - 'typescript-eslint'
       oversettelse:
         patterns:
           - 'i18next'
           - 'react-i18next'
-      
 
-
-# Maintain dependencies for Docker
-  - package-ecosystem: "docker" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  # Maintain dependencies for Docker
+  - package-ecosystem: 'docker' # See documentation for possible values
+    directory: '/' # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
 
-# Maintain dependencies for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/server" # Location of package manifests
+  - package-ecosystem: 'npm' # See documentation for possible values
+    directory: '/server' # Location of package manifests
     registries:
       - npm-github
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/mockserver" # Location of package manifests
+  - package-ecosystem: 'npm' # See documentation for possible values
+    directory: '/mockserver' # Location of package manifests
     registries:
       - npm-github
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
 registries:
   npm-github:
