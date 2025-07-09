@@ -13,7 +13,7 @@ RUN npm ci
 
 RUN rm /var/server/.npmrc
 
-FROM gcr.io/distroless/nodejs24-debian12@sha256:fc48627d4510f6e5fcda973a495f82a9f11a9b3a08dca42b8656e0d3b2ad05ab AS runner
+FROM gcr.io/distroless/nodejs24-debian12@sha256:946cfa4efad7213f4182235d2942a10109849627c3d80c889d810469aca8ec32 AS runner
 
 # Uncommet for debugging of express-http-proxy
 # ENV DEBUG=express-http-proxy
