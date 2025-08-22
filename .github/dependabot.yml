@@ -8,7 +8,8 @@ updates:
   # Maintain dependencies for Yarn
   - package-ecosystem: 'npm' # See documentation for possible values
     directory: '/' # Location of package manifests
-    registries: '*'
+    registries:
+      - npm-github
     schedule:
       interval: 'daily'
     groups:
@@ -73,4 +74,3 @@ registries:
     type: npm-registry
     url: https://npm.pkg.github.com
     token: ${{ secrets.READER_TOKEN }}
-    replaces-base: true
