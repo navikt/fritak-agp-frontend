@@ -3088,10 +3088,10 @@ husky@9.x:
   resolved "https://registry.yarnpkg.com/husky/-/husky-9.1.7.tgz#d46a38035d101b46a70456a850ff4201344c0b2d"
   integrity sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==
 
-i18next@^25.3.4:
-  version "25.3.4"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.3.4.tgz#402ba1e72c1675679df962e47cff2cb1966a835c"
-  integrity sha512-AHklEYFLiRRxW1Cb6zE9lfnEtYvsydRC8nRS3RSKGX3zCqZ8nLZwMaUsrb80YuccPNv2RNokDL8LkTNnp+6mDw==
+i18next@^25.4.0:
+  version "25.4.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.4.0.tgz#8c6f10bb365260c882aa532aec5e97b65cbdc997"
+  integrity sha512-UH5aiamXsO3cfrZFurCHiB6YSs3C+s+XY9UaJllMMSbmaoXILxFgqDEZu4NbfzJFjmUo3BNMa++Rjkr3ofjfLw==
   dependencies:
     "@babel/runtime" "^7.27.6"
 
@@ -4291,10 +4291,10 @@ react-dom@^19.1.1:
   dependencies:
     scheduler "^0.26.0"
 
-react-i18next@^15.6.1:
-  version "15.6.1"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-15.6.1.tgz#a2747bed7768faef28fa28de32ff3811b2459c20"
-  integrity sha512-uGrzSsOUUe2sDBG/+FJq2J1MM+Y4368/QW8OLEKSFvnDflHBbZhSd1u3UkW0Z06rMhZmnB/AQrhCpYfE5/5XNg==
+react-i18next@^15.7.1:
+  version "15.7.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-15.7.1.tgz#f3b573f41b3d57fc217dfa35be93352dc2eb0afc"
+  integrity sha512-o4VsKh30fy7p0z5ACHuyWqB6xu9WpQIQy2/ZcbCqopNnrnTVOPn/nAv9uYP4xYAWg99QMpvZ9Bu/si3eGurzGw==
   dependencies:
     "@babel/runtime" "^7.27.6"
     html-parse-stringify "^3.0.1"
