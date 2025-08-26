@@ -21,10 +21,34 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const updateType = '${{ steps.meta.outputs.update-type }}';
+            const { owner, repo } = context.repo;
+            const updateType = '${{ steps.meta.outputs.update-type }}'; // e.g. version-update:semver-minor
+            const ensureLabel = async (name, color = '0E8A16', description = '') => {
+              try {
+                await github.rest.issues.getLabel({ owner, repo, name });
+              } catch (e) {
+                if (e.status === 404) {
+                  await github.rest.issues.createLabel({ owner, repo, name, color, description });
+                } else {
+                  throw e;
+                }
+              }
+            };
+
+            // Ensure the automerge label exists
+            await ensureLabel('automerge:delayed', '0E8A16', 'Auto-merge Dependabot after delay');
+
+            // Only include updateType if that label already exists (no auto-create)
+            let labels = ['automerge:delayed'];
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name: updateType });
+              labels.push(updateType);
+            } catch (e) {
+              if (e.status !== 404) throw e;
+            }
+
             await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner, repo,
               issue_number: context.issue.number,
-              labels: ['automerge:delayed', updateType].filter(Boolean)
+              labels
             });
