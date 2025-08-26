@@ -9,73 +9,12 @@ permissions:
   contents: read
   pull-requests: write
 
-env:
-  APP: fritak-agp-frontend
-  IMAGE: ghcr.io/${{ github.repository }}/fritak-agp-frontend:${{ github.sha }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
 jobs:
-  playwright-tests:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        shardIndex: [1, 2, 3, 4]
-        shardTotal: [4]
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-          registry-url: 'https://npm.pkg.github.com'
-      - name: Install dependencies
-        run: npm install -g yarn && yarn
-      - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
-      - name: Run Playwright tests
-        run: yarn playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-      - name: Upload blob report to GitHub Actions Artifacts
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: blob-report-${{ matrix.shardIndex }}
-          path: blob-report
-          retention-days: 1
-
-  merge-reports:
-    # Merge reports after playwright-tests, even if some shards have failed
-    if: ${{ !cancelled() }}
-    needs: [playwright-tests]
-
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-          registry-url: 'https://npm.pkg.github.com'
-      - name: Install dependencies
-        run: npm install -g yarn && yarn
-
-      - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v5
-        with:
-          path: all-blob-reports
-          pattern: blob-report-*
-          merge-multiple: true
-
-      - name: Merge into HTML Report
-        run: yarn playwright merge-reports --reporter html ./all-blob-reports
-
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v4
-        with:
-          name: html-report--attempt-${{ github.run_attempt }}
-          path: playwright-report
-          retention-days: 14
+  e2e:
+    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/playwright-reusable.yml@main
+    with:
+      playwright-version: v1.55.0-jammy
+      node-version: lts/*
+      matrix: '{"shardIndex":[1,2,3,4],"shardTotal":[4]}'
+    secrets:
+      npm_reader_token: ${{ secrets.READER_TOKEN }}
