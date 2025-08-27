@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   label:
-    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/dependabot-label-reusable.yml@v1
+    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/dependabot-label-reusable.yml@main
     with:
       only-dependabot: true
       label-name: automerge:delayed

@@ -1,4 +1,4 @@
-name: Merge Dependabot PRs after 5 days
+name: Merge Dependabot PRs after delay
 on:
   schedule:
     - cron: '0 6 * * 1-5' # weekdays 06:00 UTC
@@ -10,35 +10,14 @@ permissions:
 
 jobs:
   merge:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Merge eligible PRs
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const label = 'automerge:delayed';
-            const cutoffMs = 5 * 24 * 60 * 60 * 1000;
-            const now = Date.now();
-
-            const prs = await github.paginate(github.rest.pulls.list, { owner, repo, state: 'open', per_page: 100 });
-            for (const pr of prs) {
-              if (pr.user?.login !== 'dependabot[bot]') continue;
-              if (!pr.labels?.some(l => l.name === label)) continue;
-              if (pr.draft) continue;
-              if (now - new Date(pr.created_at).getTime() < cutoffMs) continue;
-
-              // Refresh mergeability
-              const { data: full } = await github.rest.pulls.get({ owner, repo, pull_number: pr.number });
-              if (full.mergeable_state !== 'clean') continue; // checks/reviews not satisfied
-
-              try {
-                await github.rest.pulls.merge({
-                  owner, repo, pull_number: pr.number,
-                  merge_method: 'squash'
-                });
-                core.info(`Merged #${pr.number}`);
-              } catch (e) {
-                core.warning(`Could not merge #${pr.number}: ${e.message}`);
-              }
-            }
+    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/dependabot-delayed-merge-reusable.yml@main
+    with:
+      only-actor: dependabot[bot]
+      label-name: automerge:delayed
+      days-delay: 5
+      merge-method: squash
+      allow-draft: false
+      require-clean-mergeable-state: true
+      dry-run: false
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
