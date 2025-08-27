@@ -41,12 +41,12 @@ jobs:
             **/.yarn/build-state.yml
             **/.yarn/install-state.gz
             **/yarn.lock
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - uses: actions/upload-artifact@v4
@@ -68,7 +68,7 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v5
         with:
           name: fritak-frontend-artifact
