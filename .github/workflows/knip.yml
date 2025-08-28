@@ -30,25 +30,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24.0'
-          cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
-      - name: Cache node modules
-        id: cache-npm
+      - name: Enable Corepack (Yarn 4)
+        run: corepack enable
+      - name: Cache Yarn (Berry) artifacts
+        id: cache-yarn
         uses: actions/cache@v4
-        env:
-          cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
           path: |
-            **/node_modules
             **/.yarn/cache
             **/.yarn/unplugged
             **/.yarn/build-state.yml
             **/.yarn/install-state.gz
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install dependencies
         run: yarn install --immutable
