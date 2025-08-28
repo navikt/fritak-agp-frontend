@@ -7,7 +7,7 @@ import Actions from './Actions';
 
 describe('NotikasjonRedudcer', () => {
   it('should handle response', () => {
-    let state = NotifikasjonReducer(defaultNotifikasjonState(), {
+    const state = NotifikasjonReducer(defaultNotifikasjonState(), {
       type: Actions.HandleResponse,
       payload: {
         notifikasjonsType: NotifikasjonType.GravidSoknad,
@@ -20,7 +20,7 @@ describe('NotikasjonRedudcer', () => {
   });
 
   it('should handle error', () => {
-    let state = NotifikasjonReducer(defaultNotifikasjonState(), {
+    const state = NotifikasjonReducer(defaultNotifikasjonState(), {
       type: Actions.HandleError,
       payload: {
         notifikasjonsType: NotifikasjonType.GravidSoknad,
@@ -34,7 +34,7 @@ describe('NotikasjonRedudcer', () => {
   });
 
   it('should handle reset', () => {
-    let state = NotifikasjonReducer(defaultNotifikasjonState(), {
+    const state = NotifikasjonReducer(defaultNotifikasjonState(), {
       type: Actions.Reset,
       payload: {}
     } as NotifikasjonAction);

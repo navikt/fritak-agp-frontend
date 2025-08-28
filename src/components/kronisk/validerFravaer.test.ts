@@ -53,12 +53,12 @@ describe('validerFravaer', () => {
   });
 
   it('should set value', () => {
-    let fravaer = {
+    const fravaer = {
       year: 2020,
       month: 3,
       dager: '12'
     } as FravaerType;
-    let nextState = validerFravaer(fravaer, {} as KroniskState);
+    const nextState = validerFravaer(fravaer, {} as KroniskState);
     expect(nextState.fravaer?.length).toEqual(1);
     if (!nextState.fravaer) nextState.fravaer = [{ year: 1 }];
     expect(nextState.fravaer[0].year).toEqual(2020);
@@ -66,23 +66,23 @@ describe('validerFravaer', () => {
   });
 
   it('should update existing value', () => {
-    let f1 = {
+    const f1 = {
       year: 2020,
       month: 3,
       dager: '12'
     } as FravaerType;
-    let state2 = validerFravaer(f1, {} as KroniskState);
+    const state2 = validerFravaer(f1, {} as KroniskState);
     expect(state2.fravaer?.length).toEqual(1);
     if (!state2.fravaer) state2.fravaer = [{ year: 1 }];
     expect(state2.fravaer[0].year).toEqual(2020);
     expect(state2.fravaer[0].apr).toEqual(12);
 
-    let f2 = {
+    const f2 = {
       year: 2020,
       month: 3,
       dager: '5'
     } as FravaerType;
-    let state3 = validerFravaer(f2, state2);
+    const state3 = validerFravaer(f2, state2);
     expect(state3.fravaer?.length).toEqual(1);
     if (!state3.fravaer) state3.fravaer = [{ year: 1 }];
     expect(state3.fravaer[0].year).toEqual(2020);
@@ -90,20 +90,20 @@ describe('validerFravaer', () => {
   });
 
   it('should remove empty years', () => {
-    let state = {} as KroniskState;
-    let f1 = {
+    const state = {} as KroniskState;
+    const f1 = {
       year: 2020,
       month: 0,
       dager: '5'
     } as FravaerType;
-    let state2 = validerFravaer(f1, state);
+    const state2 = validerFravaer(f1, state);
     expect(state2.fravaer?.length).toEqual(1);
-    let f2 = {
+    const f2 = {
       year: 2020,
       month: 0,
       dager: ''
     } as FravaerType;
-    let state3 = validerFravaer(f2, state2);
+    const state3 = validerFravaer(f2, state2);
     expect(state3.fravaer?.length).toEqual(0);
   });
 });

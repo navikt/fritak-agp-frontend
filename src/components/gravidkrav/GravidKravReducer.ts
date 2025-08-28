@@ -141,7 +141,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.DeletePeriode:
       checkItemId(payload?.itemId);
-      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
+      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!.itemId);
       return validateGravidKrav(nextState, translate);
 
     case Actions.NotAuthorized:

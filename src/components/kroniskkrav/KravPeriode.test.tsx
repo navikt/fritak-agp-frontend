@@ -13,7 +13,6 @@ import { vi, expect } from 'vitest';
 
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
-// eslint-disable-next-line react/display-name
 vi.doMock('../datovelger/Datovelger', () => () => {
   return <div>Datovelger</div>;
 });

@@ -3,12 +3,13 @@ import { parse, build, AST, LinebreakRule, BoldRule, HighlightRule } from '@navi
 import { ListeRule } from './ListeRule';
 import { UListeRule } from './UListeRule';
 import { LenkeRule } from './LenkeRule';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-interface OversettelseProps {
+type Primitive = string | number | boolean | null | undefined;
+
+interface OversettelseProps extends React.HTMLAttributes<HTMLSpanElement> {
   langKey: string;
-  variables?: any;
-  className?: any;
+  variables?: Record<string, Primitive>;
 }
 
 /*
@@ -26,7 +27,7 @@ const Oversettelse = ({ className, langKey, variables }: OversettelseProps) => {
 
   const ast: AST = parse(text, rules);
 
-  const reactOutput: React.ReactElement<{}> = build(ast, rules);
+  const reactOutput: ReactNode = build(ast, rules);
 
   return <span className={className}>{reactOutput}</span>;
 };

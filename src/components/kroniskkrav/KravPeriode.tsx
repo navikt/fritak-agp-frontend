@@ -94,7 +94,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
       });
     }
-  }, []); // eslint-disable-line
+  }, []);
 
   return (
     <div className='krav-kort' data-testid='krav-periode-wrapper'>

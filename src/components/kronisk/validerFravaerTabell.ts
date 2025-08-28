@@ -18,7 +18,7 @@ export const validerFravaerTabell = (
       if (dager != undefined) {
         isEmpty = false;
       }
-      let feilmelding = validerFravaerMaaned(l.year, index, dager);
+      const feilmelding = validerFravaerMaaned(l.year, index, dager);
       if (feilmelding) {
         if (feilmeldinger) feilmeldinger.push(feilmelding);
         else feilmeldinger = [feilmelding];
