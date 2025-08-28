@@ -6,10 +6,11 @@ import { Aarsfravaer } from './Aarsfravaer';
 import { FravaerRow } from './FravaerRow';
 import { useTranslation } from 'react-i18next';
 import { FravaerTabellKeys } from './FravaerTabellKeys';
+import { FravaerType } from './Actions';
 
 interface DagerTabellProps {
   years?: number[];
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onChange: (event: FravaerType) => void;
   validated: boolean;
   fravaer?: Array<Aarsfravaer>;
 }

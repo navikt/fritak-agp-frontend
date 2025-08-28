@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { FravaerTabellKeys } from './FravaerTabellKeys';
+import { FravaerType } from './Actions';
 
 interface FravaerRowProps {
   month: number;
@@ -12,7 +13,7 @@ interface FravaerRowProps {
   thisMonth: number;
   thisYear: number;
   fravaer?: Array<Aarsfravaer>;
-  onChange: () => void;
+  onChange: (props: FravaerType) => void;
 }
 const inThePast = (year: number, month: number, thisYear: number, thisMonth: number): boolean => {
   if (year === thisYear - 2 && month < thisMonth) return true;
