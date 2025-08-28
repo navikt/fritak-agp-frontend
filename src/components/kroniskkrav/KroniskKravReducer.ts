@@ -37,16 +37,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
     case Actions.Fra: {
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      const item = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
-      if (item) {
-        item.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
-      } else {
-        nextState.perioder.push({
-          fom: payload?.fra ? parseDateTilDato(payload.fra) : undefined,
-          tom: undefined,
-          uniqueKey: payload!.itemId!
-        });
-      }
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
+        ? parseDateTilDato(payload.fra)
+        : undefined;
 
       return validateKroniskKrav(nextState, translate);
     }

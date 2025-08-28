@@ -134,11 +134,14 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should clear fra when empty payload', () => {
+    const defaultKrav = defaultKroniskKravState();
+    // @ts-expect-error Bare for test
+    const itemId = defaultKrav.perioder[0].uniqueKey;
     const state = KroniskKravReducer(
-      defaultKroniskKravState(),
+      defaultKrav,
       {
         type: Actions.Fra,
-        payload: { fra: undefined, itemId: '0' }
+        payload: { fra: undefined, itemId: itemId }
       },
       i18n
     );
