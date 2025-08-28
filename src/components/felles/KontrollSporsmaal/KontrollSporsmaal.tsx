@@ -13,7 +13,7 @@ export enum KontrollSporsmaalKeys {
 }
 
 interface KontrollSporsmaalProps {
-  onChange: () => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   id?: string;
   feil?: string;
   defaultValue?: number;

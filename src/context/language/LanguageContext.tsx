@@ -6,7 +6,7 @@ import buildResources from '../../locale/buildResources';
 import { Locale } from '../../locale/Locales';
 import { autodetectLanguage } from '../../locale/autodetectLanguage';
 import { translateUrl } from '../../locale/translateUrl';
-import { i18n } from 'i18next';
+import type { i18n } from 'i18next';
 
 interface LanguageContextInterface {
   language: string;
@@ -31,7 +31,7 @@ const LanguageProvider = (props: PropsWithChildren<LanguageContextProviderProps>
     resources: buildResources(props.bundle),
     lng: 'nb',
     react: {
-      wait: true
+      useSuspense: false
     }
   });
   setAvailableLanguages(
