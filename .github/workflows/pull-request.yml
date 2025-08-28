@@ -39,7 +39,6 @@ jobs:
             **/.yarn/unplugged
             **/.yarn/build-state.yml
             **/.yarn/install-state.gz
-            **/yarn.lock
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
