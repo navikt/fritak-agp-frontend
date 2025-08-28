@@ -20,12 +20,11 @@ jobs:
     name: Bygger uten å laste opp for å sjekke at det bygger
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-      - uses: actions/checkout@v5
-
       - name: Enable Corepack (Yarn 4)
         run: corepack enable
       - name: Cache Yarn (Berry) artifacts
