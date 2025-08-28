@@ -13,7 +13,7 @@ export enum KontrollSporsmaalKeys {
 }
 
 interface KontrollSporsmaalProps {
-  onChange: any;
+  onChange: () => void;
   id?: string;
   feil?: string;
   defaultValue?: number;

@@ -9,7 +9,7 @@ import { FravaerTabellKeys } from './FravaerTabellKeys';
 
 interface DagerTabellProps {
   years?: number[];
-  onChange: any;
+  onChange: () => void;
   validated: boolean;
   fravaer?: Array<Aarsfravaer>;
 }

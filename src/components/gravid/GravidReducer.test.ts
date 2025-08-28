@@ -54,7 +54,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the fnr', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Fnr,
@@ -66,7 +66,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the fnr to empty', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Fnr,
@@ -78,7 +78,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the orgnr', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Orgnr,
@@ -90,7 +90,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the orgnr to undefined', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Orgnr,
@@ -102,7 +102,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the orgnr to empty string', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Orgnr,
@@ -114,7 +114,7 @@ describe('GravidReducer', () => {
   });
 
   it('ToggleTiltak - should set the arbeid state', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.ToggleTiltak,
@@ -124,7 +124,7 @@ describe('GravidReducer', () => {
     );
     expect(state.tiltak).toEqual([Tiltak.HJEMMEKONTOR]);
 
-    let state2 = GravidReducer(
+    const state2 = GravidReducer(
       state,
       {
         type: Actions.ToggleTiltak,
@@ -136,7 +136,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the kvittering', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Kvittering,
@@ -148,7 +148,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the progress', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Progress,
@@ -160,7 +160,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set videre', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Videre,
@@ -172,7 +172,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the bekreft to undefined', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Bekreft,
@@ -184,7 +184,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the bekreft to true', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Bekreft,
@@ -196,7 +196,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the bekreft to false', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Bekreft,
@@ -208,7 +208,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the progress to false', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Progress,
@@ -220,7 +220,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set the progress to true', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Progress,
@@ -232,7 +232,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set dokumentasjon', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Dokumentasjon,
@@ -244,7 +244,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set dokumentasjon to be empty', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Dokumentasjon,
@@ -257,7 +257,7 @@ describe('GravidReducer', () => {
 
   it('should set termindato', () => {
     timezone_mock.register('Europe/London');
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Termindato,
@@ -275,7 +275,7 @@ describe('GravidReducer', () => {
   });
 
   it('should set termindato to be empty', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Termindato,
@@ -299,7 +299,7 @@ describe('GravidReducer', () => {
   });
 
   it('should handle response', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.HandleResponse,
@@ -312,7 +312,7 @@ describe('GravidReducer', () => {
     expect(state.validated).toBe(false);
   });
   it('should set omplassering', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.OmplasseringForsoek,
@@ -323,7 +323,7 @@ describe('GravidReducer', () => {
     expect(state.omplassering).toEqual(Omplassering.JA);
   });
   it('should set omplasseringAarsak', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.OmplasseringAarsak,
@@ -334,7 +334,7 @@ describe('GravidReducer', () => {
     expect(state.omplasseringAarsak).toEqual(Aarsak.MOTSETTER);
   });
   it('should set tilrettelegge', () => {
-    let state = GravidReducer(
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.Tilrettelegge,
@@ -344,8 +344,8 @@ describe('GravidReducer', () => {
     );
     expect(state.tilrettelegge).toEqual(true);
   });
-  it('should set tilrettelegge', () => {
-    let state = GravidReducer(
+  it('should set tilrettelegge to a string', () => {
+    const state = GravidReducer(
       defaultGravidState(),
       {
         type: Actions.TiltakBeskrivelse,
@@ -357,7 +357,7 @@ describe('GravidReducer', () => {
   });
 
   it('should reset to defaults', () => {
-    let state = GravidReducer(defaultGravidState(), { type: Actions.Reset }, translationMock as unknown as i18n);
+    const state = GravidReducer(defaultGravidState(), { type: Actions.Reset }, translationMock as unknown as i18n);
     expect(state).toEqual(defaultGravidState());
     expect(state.fnr).toEqual('');
     expect(state.orgnr).toEqual('');

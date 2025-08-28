@@ -14,7 +14,7 @@ describe('mapFravaerData', () => {
       mar: 3,
       des: 12
     } as Aarsfravaer);
-    let data = mapFravaerData(fravaer);
+    const data = mapFravaerData(fravaer);
     expect(data[0].antallDagerMedFravaer).toEqual(1);
     expect(data[0].yearMonth).toEqual('2020-01');
     expect(data[1].antallDagerMedFravaer).toEqual(3);
@@ -35,7 +35,7 @@ describe('mapFravaerData', () => {
       year: 2021,
       apr: undefined
     } as Aarsfravaer);
-    let data = mapFravaerData(fravaer);
+    const data = mapFravaerData(fravaer);
     expect(data.length).toEqual(4);
     expect(data[0].antallDagerMedFravaer).toEqual(1);
     expect(data[0].yearMonth).toEqual('2020-01');

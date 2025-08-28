@@ -149,7 +149,7 @@ const GravidSide = (props: GravidSideProps) => {
           payload: { response: response }
         });
       });
-    } // eslint-disable-next-line
+    }
   }, [
     state.validated,
     state.progress,

@@ -51,11 +51,11 @@ const KroniskSide = () => {
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
-      getBase64file(file).then((base64encoded: any) => {
+      getBase64file(file).then((base64encoded) => {
         dispatch({
           type: Actions.Dokumentasjon,
           payload: {
-            dokumentasjon: base64encoded
+            dokumentasjon: base64encoded as string
           }
         });
       });
@@ -103,7 +103,7 @@ const KroniskSide = () => {
           payload: { response: response }
         });
       });
-    } // eslint-disable-next-line
+    }
   }, [
     state.validated,
     state.progress,

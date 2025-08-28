@@ -59,7 +59,7 @@ describe('mapGravidFeilmeldinger', () => {
     const feilmeldinger = mapGravidFeilmeldinger(mockValidationResponse(413, felter), state);
 
     expect(feilmeldinger.length).toEqual(1);
-    //@ts-ignore
+    // @ts-expect-error Dette er en test
     expect(state.periodeError).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toEqual('backend-some-uuid');
@@ -75,7 +75,7 @@ describe('mapGravidFeilmeldinger', () => {
     const feilmeldinger = mapGravidFeilmeldinger(mockValidationResponse(404, felter), state);
 
     expect(feilmeldinger.length).toEqual(1);
-    //@ts-ignore
+    // @ts-expect-error Dette er en test
     expect(state.periodeError).toBeUndefined();
 
     expect(feilmeldinger[0].skjemaelementId).toEqual('backend-some-uuid');

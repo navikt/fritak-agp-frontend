@@ -9,7 +9,7 @@ import { TextField } from '@navikt/ds-react';
 interface FravaerInputProps {
   month: number;
   year: number;
-  onChange: any;
+  onChange: (props: FravaerType) => void;
   fravaer?: Array<Aarsfravaer>;
 }
 

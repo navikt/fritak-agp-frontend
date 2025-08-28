@@ -12,7 +12,7 @@ interface FravaerRowProps {
   thisMonth: number;
   thisYear: number;
   fravaer?: Array<Aarsfravaer>;
-  onChange: any;
+  onChange: () => void;
 }
 const inThePast = (year: number, month: number, thisYear: number, thisMonth: number): boolean => {
   if (year === thisYear - 2 && month < thisMonth) return true;

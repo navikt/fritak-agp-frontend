@@ -6,10 +6,11 @@ import buildResources from '../../locale/buildResources';
 import { Locale } from '../../locale/Locales';
 import { autodetectLanguage } from '../../locale/autodetectLanguage';
 import { translateUrl } from '../../locale/translateUrl';
+import { i18n } from 'i18next';
 
 interface LanguageContextInterface {
   language: string;
-  i18n: any;
+  i18n: i18n;
 }
 
 const LanguageContext = createContext({
@@ -18,7 +19,7 @@ const LanguageContext = createContext({
 
 interface LanguageContextProviderProps {
   languages: Array<string>;
-  i18n: any;
+  i18n: i18n;
   bundle: Record<string, Locale>;
 }
 

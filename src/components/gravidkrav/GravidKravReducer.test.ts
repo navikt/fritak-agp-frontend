@@ -22,7 +22,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the fnr', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Fnr,
@@ -34,7 +34,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the fnr to empty', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Fnr,
@@ -46,7 +46,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the orgnr', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Orgnr,
@@ -58,7 +58,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the orgnr to undefined', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Orgnr,
@@ -70,7 +70,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the orgnr to empty string', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Orgnr,
@@ -85,7 +85,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Fra,
@@ -94,7 +94,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    // @ts-ignore
+    // @ts-expect-error Dette er en test
     expect(state.perioder[0].fom.value).toEqual('05.06.2020');
   });
 
@@ -115,7 +115,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Fra,
@@ -131,7 +131,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Til,
@@ -147,7 +147,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Til,
@@ -176,7 +176,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Dager,
@@ -184,7 +184,7 @@ describe('GravidKravReducer', () => {
       },
       translationMock as unknown as i18n
     );
-    // @ts-ignore
+    // @ts-expect-error Dette er en test
     expect(state.perioder[0].dager).toEqual(3);
   });
 
@@ -193,7 +193,7 @@ describe('GravidKravReducer', () => {
       GravidKravReducer(
         defaultGravidKravState(),
         {
-          // @ts-ignore ts2339
+          // @ts-expect-error Dette er en test ts2339
           type: Actions.Dager,
           payload: { dager: 3 }
         },
@@ -206,7 +206,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Beloep,
@@ -219,7 +219,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the kvittering', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Kvittering,
@@ -231,7 +231,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the progress', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Progress,
@@ -243,7 +243,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the bekreft to undefined', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Bekreft,
@@ -255,7 +255,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the bekreft to true', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Bekreft,
@@ -267,7 +267,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the bekreft to false', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Bekreft,
@@ -279,7 +279,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the progress to false', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Progress,
@@ -291,7 +291,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set the progress to true', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.Progress,
@@ -315,11 +315,11 @@ describe('GravidKravReducer', () => {
   });
 
   it('should handle response', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.HandleResponse,
-        // @ts-ignore
+        // @ts-expect-error Dette er en test
         payload: { response: {} as ValidationResponse<GravidSoknadResponse> }
       },
       translationMock as unknown as i18n
@@ -333,7 +333,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Grunnbeloep,
@@ -349,7 +349,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Grunnbeloep,
@@ -365,7 +365,7 @@ describe('GravidKravReducer', () => {
     const defaultState = defaultGravidKravState();
     const itemId = 'banan';
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultState,
       {
         type: Actions.Grunnbeloep,
@@ -377,7 +377,7 @@ describe('GravidKravReducer', () => {
     expect(state).toEqual(defaultState);
   });
   it('should set antallDager to 345 when grunnbeloep is 14950 and action is antallDager', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.antallDager,
@@ -389,7 +389,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should set antallDager to 0 when 0 is given as param and action is antallDager', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.antallDager,
@@ -402,11 +402,11 @@ describe('GravidKravReducer', () => {
 
   it('should reset to defaults', () => {
     const defaultState = defaultGravidKravState();
-    let state = GravidKravReducer(defaultState, { type: Actions.Reset }, translationMock as unknown as i18n);
+    const state = GravidKravReducer(defaultState, { type: Actions.Reset }, translationMock as unknown as i18n);
     const tmpState = Object.assign({}, state);
-    // @ts-ignore
+    // @ts-expect-error Dette er en test
     delete state.perioder[0].uniqueKey;
-    // @ts-ignore
+    // @ts-expect-error Dette er en test
     delete defaultState.perioder[0].uniqueKey;
     expect(tmpState).toEqual(defaultState);
     expect(state.fnr).toEqual('');
@@ -426,7 +426,7 @@ describe('GravidKravReducer', () => {
       GravidKravReducer(
         defaultGravidKravState(),
         {
-          // @ts-ignore ts2339
+          // @ts-expect-error Dette er en test ts2339
           type: Actions.ThisIsNotAnAction
         },
         translationMock as unknown as i18n
@@ -435,7 +435,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should add a periode', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.AddPeriode,
@@ -447,7 +447,7 @@ describe('GravidKravReducer', () => {
   });
 
   it('should show and hide spinner', () => {
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.ShowSpinner
@@ -456,7 +456,7 @@ describe('GravidKravReducer', () => {
     );
     expect(state.showSpinner).toBe(true);
 
-    let newState = GravidKravReducer(
+    const newState = GravidKravReducer(
       state,
       {
         type: Actions.HideSpinner
@@ -468,10 +468,10 @@ describe('GravidKravReducer', () => {
 
   it('should add a periode and remove a periode', () => {
     const initialState = defaultGravidKravState();
-    // @ts-ignore
+    // @ts-expect-error Dette er en test
     const initialPeriodeId = initialState.perioder[0].uniqueKey;
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.AddPeriode,
@@ -482,7 +482,7 @@ describe('GravidKravReducer', () => {
 
     expect(state.perioder?.length).toBe(2);
 
-    let newState = GravidKravReducer(
+    const newState = GravidKravReducer(
       defaultGravidKravState(),
       {
         type: Actions.DeletePeriode,
@@ -499,7 +499,7 @@ describe('GravidKravReducer', () => {
 
     expect(defaultKrav.feilmeldinger?.length).toBe(0);
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultKrav,
       {
         type: Actions.AddBackendError,
@@ -512,7 +512,7 @@ describe('GravidKravReducer', () => {
     expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
     expect(state.feilmeldinger.length).toBe(1);
 
-    let newState = GravidKravReducer(
+    const newState = GravidKravReducer(
       state,
       {
         type: Actions.AddBackendError,
@@ -531,7 +531,7 @@ describe('GravidKravReducer', () => {
 
     expect(defaultKrav.feilmeldinger?.length).toBe(0);
 
-    let state = GravidKravReducer(
+    const state = GravidKravReducer(
       defaultKrav,
       {
         type: Actions.AddBackendError,
@@ -544,7 +544,7 @@ describe('GravidKravReducer', () => {
     expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
     expect(state.feilmeldinger?.length).toBe(1);
 
-    let state2 = GravidKravReducer(
+    const state2 = GravidKravReducer(
       defaultKrav,
       {
         type: Actions.AddBackendError,
@@ -557,7 +557,7 @@ describe('GravidKravReducer', () => {
     expect(state2.feilmeldinger[1].feilmelding).toBe('Feilmelding2');
     expect(state2.feilmeldinger?.length).toBe(2);
 
-    let state3 = GravidKravReducer(
+    const state3 = GravidKravReducer(
       defaultKrav,
       {
         type: Actions.RemoveBackendError

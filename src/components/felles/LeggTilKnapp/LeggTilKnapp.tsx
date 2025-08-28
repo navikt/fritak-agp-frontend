@@ -2,7 +2,7 @@ import React from 'react';
 import './LeggTilKnapp.sass';
 import { Button, ButtonProps } from '@navikt/ds-react';
 
-interface LeggTilProps extends ButtonProps {}
+type LeggTilProps = Omit<ButtonProps, 'variant'>;
 
 const LeggTilKnapp = (props: LeggTilProps) => (
   <Button

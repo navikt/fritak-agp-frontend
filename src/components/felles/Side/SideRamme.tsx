@@ -1,8 +1,10 @@
-import React, { PropsWithChildren } from 'react';
+import React, { ReactNode } from 'react';
 
-interface SideRammeProps {}
+interface SideRammeProps {
+  children?: ReactNode;
+}
 
-const SideRamme = (props: PropsWithChildren<SideRammeProps>) => {
+const SideRamme = (props: SideRammeProps) => {
   return (
     <main className='side-ramme'>
       <div>

@@ -273,7 +273,7 @@ describe('GravidSide', () => {
     state.bekreft = true;
     state.termindato = termindato;
 
-    // @ts-ignore
+    // @ts-expect-error Dette er en test
     window.location = new URL('https://www.dev.nav.no');
 
     http.post('https://fritakagp.dev.nav.no/api/v1/gravid/soeknad', () => {

@@ -24,7 +24,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the fnr', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Fnr,
@@ -37,7 +37,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the fnr to empty', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Fnr,
@@ -49,7 +49,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the orgnr and set for dirty at second run', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Orgnr,
@@ -60,7 +60,7 @@ describe('KroniskKravReducer', () => {
     expect(state.orgnr).toEqual('456');
     expect(state.formDirty).toBe(false);
 
-    let newState = KroniskKravReducer(
+    const newState = KroniskKravReducer(
       state,
       {
         type: Actions.Orgnr,
@@ -73,7 +73,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the orgnr to undefined', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Orgnr,
@@ -85,7 +85,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the orgnr to empty string', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Orgnr,
@@ -98,10 +98,10 @@ describe('KroniskKravReducer', () => {
 
   it('should set the fra', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Fra,
@@ -119,10 +119,10 @@ describe('KroniskKravReducer', () => {
 
   it('should set the fra when fom is undefined', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Fra,
@@ -134,26 +134,24 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should clear fra when empty payload', () => {
-    expect(() => {
-      const state = KroniskKravReducer(
-        defaultKroniskKravState(),
-        {
-          type: Actions.Fra,
-          payload: { fra: undefined, itemId: '0' }
-        },
-        i18n
-      );
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.Fra,
+        payload: { fra: undefined, itemId: '0' }
+      },
+      i18n
+    );
 
-      expect(state.perioder && state.perioder[0].fom).toBeUndefined();
-    });
+    expect(state.perioder && state.perioder[0].fom).toBeUndefined();
   });
 
   it('should set the til', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Til,
@@ -170,7 +168,7 @@ describe('KroniskKravReducer', () => {
 
   it('should clear til when empty payload', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
 
     const state = KroniskKravReducer(
@@ -186,10 +184,10 @@ describe('KroniskKravReducer', () => {
 
   it('should set the dager', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Dager,
@@ -203,10 +201,10 @@ describe('KroniskKravReducer', () => {
 
   it('should set the beløp', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Beloep,
@@ -219,7 +217,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the kvittering', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Kvittering,
@@ -232,7 +230,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the progress', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Progress,
@@ -244,7 +242,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the bekreft to undefined', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Bekreft,
@@ -256,7 +254,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the bekreft to true', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Bekreft,
@@ -268,7 +266,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the bekreft to false', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Bekreft,
@@ -280,7 +278,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the progress to false', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Progress,
@@ -292,7 +290,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set the progress to true', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Progress,
@@ -316,7 +314,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should handle response', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.HandleResponse,
@@ -331,9 +329,9 @@ describe('KroniskKravReducer', () => {
 
   it('should set Grunnbeloep to 14950 when grunnbeloep is 14950', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Grunnbeloep,
@@ -346,9 +344,9 @@ describe('KroniskKravReducer', () => {
 
   it('should set Grunnbeloep to undefined when 0 is given as param', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Grunnbeloep,
@@ -363,7 +361,7 @@ describe('KroniskKravReducer', () => {
     const defaultState = defaultKroniskKravState();
     const itemId = 'banan';
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultState,
       {
         type: Actions.Grunnbeloep,
@@ -376,7 +374,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set antallDager to 345 when grunnbeloep is 14950 and action is antallDager', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.antallDager,
@@ -388,7 +386,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should set antallDager to 0 when 0 is given as param and action is antallDager', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.antallDager,
@@ -401,15 +399,15 @@ describe('KroniskKravReducer', () => {
 
   it('should reset to defaults', () => {
     const defaultState = defaultKroniskKravState();
-    let state = KroniskKravReducer(defaultState, { type: Actions.Reset }, i18n);
+    const state = KroniskKravReducer(defaultState, { type: Actions.Reset }, i18n);
     expect(state.perioder).not.toBeUndefined();
     expect(defaultState.perioder).not.toBeUndefined();
 
     expect(state.perioder ? state.perioder[0].uniqueKey : undefined).not.toBeUndefined();
     expect(defaultState.perioder ? defaultState.perioder[0].uniqueKey : undefined).not.toBeUndefined();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     if (state.perioder) delete state.perioder[0].uniqueKey;
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     if (defaultState.perioder) delete defaultState.perioder[0].uniqueKey;
     expect(state).toEqual(defaultState);
     expect(state.fnr).toEqual('');
@@ -429,7 +427,7 @@ describe('KroniskKravReducer', () => {
       KroniskKravReducer(
         defaultKroniskKravState(),
         {
-          // @ts-ignore ts2339
+          // @ts-expect-error Bare for test ts2339
           type: Actions.ThisIsNotAnAction
         },
         i18n
@@ -439,10 +437,10 @@ describe('KroniskKravReducer', () => {
 
   it('should set sykemeldingsgrad to 12 when 12 is given as param and action is Sykemeldingsgrad', () => {
     const defaultKrav = defaultKroniskKravState();
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.Sykemeldingsgrad,
@@ -458,7 +456,7 @@ describe('KroniskKravReducer', () => {
       KroniskKravReducer(
         defaultKroniskKravState(),
         {
-          // @ts-ignore ts2339
+          // @ts-expect-error Bare for test ts2339
           type: Actions.Sykemeldingsgrad
         },
         i18n
@@ -469,7 +467,7 @@ describe('KroniskKravReducer', () => {
   it('should set notAuthorized to false when action is NotAuthorized', () => {
     const defaultKrav = defaultKroniskKravState();
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.NotAuthorized
@@ -484,7 +482,7 @@ describe('KroniskKravReducer', () => {
 
     expect(defaultKrav.perioder?.length).toBe(1);
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.AddPeriod
@@ -499,7 +497,7 @@ describe('KroniskKravReducer', () => {
 
     expect(defaultKrav.perioder?.length).toBe(1);
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.AddPeriod
@@ -508,10 +506,10 @@ describe('KroniskKravReducer', () => {
     );
     expect(state.perioder?.length).toBe(2);
 
-    // @ts-ignore
+    // @ts-expect-error Bare for test
     const itemId = state.perioder[1].uniqueKey;
 
-    let state2 = KroniskKravReducer(
+    const state2 = KroniskKravReducer(
       state,
       {
         type: Actions.DeletePeriode,
@@ -577,7 +575,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should show and hide spinner', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.ShowSpinner
@@ -586,7 +584,7 @@ describe('KroniskKravReducer', () => {
     );
     expect(state.showSpinner).toBe(true);
 
-    let newState = KroniskKravReducer(
+    const newState = KroniskKravReducer(
       state,
       {
         type: Actions.HideSpinner
@@ -601,7 +599,7 @@ describe('KroniskKravReducer', () => {
 
     expect(defaultKrav.feilmeldinger?.length).toBe(0);
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.AddBackendError,
@@ -613,7 +611,7 @@ describe('KroniskKravReducer', () => {
     );
     expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
 
-    let newState = KroniskKravReducer(
+    const newState = KroniskKravReducer(
       state,
       {
         type: Actions.AddBackendError,
@@ -631,7 +629,7 @@ describe('KroniskKravReducer', () => {
 
     expect(defaultKrav.feilmeldinger?.length).toBe(0);
 
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.AddBackendError,
@@ -644,7 +642,7 @@ describe('KroniskKravReducer', () => {
     expect(state.feilmeldinger[0].feilmelding).toBe('Feilmelding');
     expect(state.feilmeldinger?.length).toBe(1);
 
-    let state2 = KroniskKravReducer(
+    const state2 = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.AddBackendError,
@@ -657,7 +655,7 @@ describe('KroniskKravReducer', () => {
     expect(state2.feilmeldinger[1].feilmelding).toBe('Feilmelding2');
     expect(state2.feilmeldinger?.length).toBe(2);
 
-    let state3 = KroniskKravReducer(
+    const state3 = KroniskKravReducer(
       defaultKrav,
       {
         type: Actions.RemoveBackendError

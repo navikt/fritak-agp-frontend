@@ -17,6 +17,10 @@ export default tseslint.config(
       react: react,
       eslint: eslintPlugin
     },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn'
+    }
   }
 );
 

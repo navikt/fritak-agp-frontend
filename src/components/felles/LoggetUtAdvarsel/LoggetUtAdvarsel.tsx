@@ -9,7 +9,7 @@ import { Language } from '../../../locale/Language';
 import { Alert, Heading, Modal } from '@navikt/ds-react';
 
 interface LoggetUtAdvarselProps {
-  onClose: Function;
+  onClose: () => void;
   loginServiceUrl: string;
   tokenFornyet: string;
 }
