@@ -46,7 +46,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - uses: actions/upload-artifact@v4
@@ -68,13 +68,13 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/download-artifact@v5
         with:
           name: fritak-frontend-artifact
           path: dist
 
-      # - uses: actions/checkout@v4
+      # - uses: actions/checkout@v5
       - name: Build and push image and SBOM to OCI registry
         uses: nais/docker-build-push@v0
         id: docker-build-push
