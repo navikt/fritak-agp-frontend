@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Select, SelectProps } from '@navikt/ds-react';
 
-interface SelectDagerProps extends Omit<SelectProps, 'children'> {}
+type SelectDagerProps = Omit<SelectProps, 'children'>;
 
 const SelectDager = (props: SelectDagerProps) => {
   const keyUuid = uuidv4();
