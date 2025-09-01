@@ -58,6 +58,7 @@
     "react": "^19.1.1",
     "react-app-polyfill": "3.0.0",
     "react-dom": "^19.1.1",
+    "react-helmet-async": "^2.0.5",
     "react-i18next": "^15.7.1",
     "react-router-dom": "^7.6.3",
     "typescript": "^5.9.2",

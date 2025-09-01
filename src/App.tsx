@@ -9,6 +9,7 @@ import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext
 import { LanguageProvider } from './context/language/LanguageContext';
 import { LoginStatus } from './context/login/LoginStatus';
 import HttpStatus from './api/HttpStatus';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 interface ApplicationProps {
   loginStatus?: LoginStatus;
@@ -23,13 +24,24 @@ export const Application = ({
   arbeidsgivere,
   basePath = environment.baseUrl
 }: ApplicationProps) => (
-  <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
-    <Routes>
-      <Route path=':language'>
-        <Route path='*' element={<ApplicationRoutes />} />
-      </Route>
-    </Routes>
-  </ArbeidsgiverProvider>
+  <HelmetProvider>
+    <ArbeidsgiverProvider baseUrl={basePath} status={arbeidsgiverStatus} arbeidsgivere={arbeidsgivere}>
+      <Helmet>
+        <script
+          defer
+          src='https://cdn.nav.no/team-researchops/sporing/sporing.js'
+          data-host-url='https://umami.nav.no'
+          data-website-id={environment.umamiWebsiteId}
+          data-domains={environment.umamiDataDomains}
+        ></script>
+      </Helmet>
+      <Routes>
+        <Route path=':language'>
+          <Route path='*' element={<ApplicationRoutes />} />
+        </Route>
+      </Routes>
+    </ArbeidsgiverProvider>
+  </HelmetProvider>
 );
 
 const App = () => (
