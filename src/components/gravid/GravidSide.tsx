@@ -83,7 +83,7 @@ const GravidSide = (props: GravidSideProps) => {
 
   const handleUploadChanged = (file?: File) => {
     if (file) {
-      getBase64file(file).then((base64encoded: any) => {
+      getBase64file(file).then((base64encoded) => {
         dispatch({
           type: Actions.Dokumentasjon,
           payload: {
@@ -270,7 +270,7 @@ const GravidSide = (props: GravidSideProps) => {
               <RadioGroup
                 legend={t(GravidSideKeys.GRAVID_SIDE_TILRETTELEGGING)}
                 className='gravidside-radiogruppe-tilrettelegging'
-                onChange={(val: any) => handleTilretteleggingChange(val)}
+                onChange={handleTilretteleggingChange}
               >
                 <Radio name='sitteplass' value='ja' defaultChecked={state.tilrettelegge === true}>
                   {t(LangKey.JA)}
