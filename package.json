@@ -103,7 +103,7 @@
     "vite": "^7",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^3.2.4",
-    "vitest-sonar-reporter": "^2.0.1"
+    "vitest-sonar-reporter": "^2.0.4"
   },
   "packageManager": "yarn@4.9.4"
 }
