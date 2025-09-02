@@ -46,7 +46,7 @@ const Upload = (props: UploadProps) => {
           id='fileUploader'
           accept={props.extensions}
           onChange={handleUpload}
-          onClick={(e: React.MouseEvent<HTMLInputElement>) => (e.currentTarget.value = '')}
+          onClick={(e: React.MouseEvent<HTMLInputElement>) => (e.currentTarget.value = null)}
         />
         {props.label}
       </label>
