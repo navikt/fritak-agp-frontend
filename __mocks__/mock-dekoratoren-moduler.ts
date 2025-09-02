@@ -19,7 +19,8 @@ vi.mock('@navikt/nav-dekoratoren-moduler', () => ({
   trackEvent: vi.fn(),
   withNavContext: (component: any) => component,
   setBreadcrumbs: vi.fn(),
-  setAvailableLanguages: vi.fn()
+  setAvailableLanguages: vi.fn(),
+  onLanguageSelect: vi.fn()
 }));
 
 // Optional: mock next/head to avoid DOM access
