@@ -260,8 +260,8 @@ const Locales: Record<
     en: 'Please wait...'
   },
   GRAVID_VALIDERING_MANGLER_BEKREFT: {
-    nb: 'Mangler bekreft',
-    en: 'Confirmation missing'
+    nb: 'Mangler bekreftelse',
+    en: 'Missing confirmation'
   },
   GRAVID_VALIDERING_UGYLDIG_ORGNR: {
     nb: 'Ugyldig virksomhetsnummer',
@@ -438,8 +438,8 @@ const Locales: Record<
     en: 'Upload documentation (optional)'
   },
   GRAVID_KRAV_VALIDERING_BEKREFT_MANGLER: {
-    nb: 'Mangler bekreft',
-    en: 'Missing confirm'
+    nb: 'Mangler bekreftelse',
+    en: 'Missing confirmation'
   },
   GRAVID_KRAV_VALIDERING_FNR_UGYLDIG: {
     nb: 'Ugyldig fødselsnummer',

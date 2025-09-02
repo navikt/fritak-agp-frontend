@@ -42,7 +42,7 @@ const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonActio
       nextState.notifikasjonType = payload?.notifikasjonsType;
       return nextState;
     case Actions.Reset:
-      return Object.assign({}, defaultNotifikasjonState());
+      return { ...defaultNotifikasjonState() };
     default:
       return nextState;
   }
