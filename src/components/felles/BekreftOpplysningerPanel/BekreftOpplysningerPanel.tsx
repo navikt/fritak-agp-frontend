@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Oversettelse from '../Oversettelse/Oversettelse';
 import { BekreftOpplysningerKeys } from './BekreftOpplysningerKeys';
-import { Box, ConfirmationPanel } from '@navikt/ds-react';
+import { Box, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 
 interface BekreftOpplysningerPanelProps {
   checked: boolean;
@@ -23,15 +23,18 @@ const BekreftOpplysningerPanel = ({
 
   return (
     <Box padding='4' borderRadius='small' className='bekreft-opplysninger-panel'>
-      <ConfirmationPanel
-        label={t(labelKey)}
-        checked={checked}
-        error={feil}
-        onChange={onChange}
-        id='bekreftFeilmeldingId'
-      >
-        <Oversettelse langKey={textKey} />
-      </ConfirmationPanel>
+      <Oversettelse langKey={textKey} />
+      <CheckboxGroup legend={t(labelKey)} error={feil} hideLegend>
+        <Checkbox
+          value='bekreftFeilmeldingId'
+          id='bekreftFeilmeldingId'
+          checked={checked}
+          onChange={onChange}
+          error={!!feil}
+        >
+          {t(labelKey)}
+        </Checkbox>
+      </CheckboxGroup>
     </Box>
   );
 };

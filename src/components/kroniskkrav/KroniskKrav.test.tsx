@@ -168,7 +168,7 @@ describe('KroniskKrav', () => {
     );
     const submitButton = screen.getByText(/Send kravet/);
 
-    const bekreftCheckbox = screen.getByText(/Jeg bekrefter at/);
+    const bekreftCheckbox = screen.getByRole('checkbox', { name: /Jeg bekrefter at/ });
 
     await user.click(submitButton);
 

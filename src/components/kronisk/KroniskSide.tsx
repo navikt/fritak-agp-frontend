@@ -55,7 +55,7 @@ const KroniskSide = () => {
         dispatch({
           type: Actions.Dokumentasjon,
           payload: {
-            dokumentasjon: base64encoded as string
+            dokumentasjon: base64encoded
           }
         });
       });
