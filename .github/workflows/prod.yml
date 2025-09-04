@@ -23,7 +23,7 @@ jobs:
   Bygg:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
@@ -59,7 +59,7 @@ jobs:
       id-token: write
       security-events: 'write'
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
