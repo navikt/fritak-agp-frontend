@@ -10,6 +10,7 @@ interface BekreftOpplysningerPanelProps {
   feil?: string;
   labelKey?: string;
   textKey?: string;
+  textOverskriftKey?: string;
 }
 
 const BekreftOpplysningerPanel = ({
@@ -17,14 +18,15 @@ const BekreftOpplysningerPanel = ({
   onChange,
   feil,
   labelKey = BekreftOpplysningerKeys.LABEL,
-  textKey = BekreftOpplysningerKeys.OPPLYSNINGER
+  textKey = BekreftOpplysningerKeys.OPPLYSNINGER,
+  textOverskriftKey = BekreftOpplysningerKeys.OPPLYSNINGER_OVERSKRIFT
 }: BekreftOpplysningerPanelProps) => {
   const { t } = useTranslation();
 
   return (
     <Box padding='4' borderRadius='small' className='bekreft-opplysninger-panel'>
       <Oversettelse langKey={textKey} />
-      <CheckboxGroup legend={t(labelKey)} error={feil} hideLegend>
+      <CheckboxGroup legend={t(textOverskriftKey)} error={feil} hideLegend>
         <Checkbox
           value='bekreftFeilmeldingId'
           id='bekreftFeilmeldingId'
