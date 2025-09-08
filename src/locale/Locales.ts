@@ -76,6 +76,10 @@ const Locales: Record<
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
   },
+  BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER_OVERSKRIFT: {
+    nb: 'Vennligst bekrefter at opplysningene gitt er riktige og fullstendige.',
+    en: 'Please confirm that the information provided is correct and complete.'
+  },
   BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER: {
     nb: 'Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis opplysningene ikke er riktige eller fullstendige.',
     en:
