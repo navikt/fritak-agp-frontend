@@ -13,7 +13,7 @@ jobs:
   e2e:
     uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/playwright-reusable.yml@main
     with:
-      playwright-version: v1.53.1-jammy
+      playwright-version: v1.55.0-jammy
       node-version: lts/*
       matrix: '{"shardIndex":[1,2,3,4],"shardTotal":[4]}'
     secrets:
