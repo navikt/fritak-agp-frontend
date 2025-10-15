@@ -52,7 +52,7 @@
     "@navikt/virksomhetsvelger": "^1.0.4",
     "date-fns": "^4.1.0",
     "dayjs": "1.11.18",
-    "html-react-parser": "^5.2.6",
+    "html-react-parser": "^5.2.7",
     "i18next": "^25.5.3",
     "jsdom": "^27.0.0",
     "react": "^19.2.0",
