@@ -4466,7 +4466,7 @@ __metadata:
     react-app-polyfill: "npm:3.0.0"
     react-dom: "npm:^19.2.0"
     react-helmet-async: "npm:^2.0.5"
-    react-i18next: "npm:^16.1.0"
+    react-i18next: "npm:^16.1.4"
     react-router-dom: "npm:^7.8.2"
     rollup-plugin-visualizer: "npm:^6.0.3"
     sass-embedded: "npm:^1.93.2"
@@ -6750,9 +6750,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^16.1.0":
-  version: 16.1.0
-  resolution: "react-i18next@npm:16.1.0"
+"react-i18next@npm:^16.1.4":
+  version: 16.1.4
+  resolution: "react-i18next@npm:16.1.4"
   dependencies:
     "@babel/runtime": "npm:^7.27.6"
     html-parse-stringify: "npm:^3.0.1"
@@ -6767,7 +6767,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10c0/fa64c933705651ef96e80a520ee0c96e946a78af6415f5a79c98938e551c6b4728a726c9d6632472689d6377c89e5b9f877d51088cc79ee2730f031e0743141c
+  checksum: 10c0/89aa593a239a113e7fc1858cdfad58054d154494f052da9a0f7758a1c19b5435d47f7b9dc8d90078b9358ec62fb9e12d7ed52d9057e7d28cad3c1f2071d434ca
   languageName: node
   linkType: hard
 
