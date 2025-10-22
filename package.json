@@ -94,7 +94,7 @@
     "knip": "^5.66.2",
     "lint-staged": "^16.1.2",
     "mockdate": "^3.0.5",
-    "msw": "^2.11.3",
+    "msw": "^2.11.6",
     "prettier": "3.x",
     "rollup-plugin-visualizer": "^6.0.3",
     "sass-embedded": "^1.93.2",
