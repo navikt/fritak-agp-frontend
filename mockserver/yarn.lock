@@ -180,14 +180,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-rate-limit@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "express-rate-limit@npm:8.1.0"
+"express-rate-limit@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "express-rate-limit@npm:8.2.0"
   dependencies:
     ip-address: "npm:10.0.1"
   peerDependencies:
     express: ">= 4.11"
-  checksum: 10c0/3bb7aa646f9b79ce4e8e0a683d1c200b5d393fed60c3ecda13748fc351a9ee822436e9eeb2cbb2f5da4aae2f94fe4aafad9b679468861a8cc2bb9cd812bc102b
+  checksum: 10c0/101c540a167b9d3205aae7e62f8510c04849c691ec6c57f63f3cd521d44ddc7a0eee355bc71ac08f61795b3e48f741dd2a249b84a899b3119dd12d510ea71d7a
   languageName: node
   linkType: hard
 
@@ -405,7 +405,7 @@ __metadata:
   dependencies:
     cors: "npm:^2.8.5"
     express: "npm:^5.1.0"
-    express-rate-limit: "npm:^8.1.0"
+    express-rate-limit: "npm:^8.2.0"
   languageName: unknown
   linkType: soft
 
