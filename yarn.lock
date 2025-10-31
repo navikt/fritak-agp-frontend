@@ -4406,7 +4406,7 @@ __metadata:
     react-app-polyfill: "npm:3.0.0"
     react-dom: "npm:^19.2.0"
     react-helmet-async: "npm:^2.0.5"
-    react-i18next: "npm:^16.1.5"
+    react-i18next: "npm:^16.2.3"
     react-router-dom: "npm:^7.8.2"
     rollup-plugin-visualizer: "npm:^6.0.3"
     sass-embedded: "npm:^1.93.2"
@@ -6647,12 +6647,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^16.1.5":
-  version: 16.1.5
-  resolution: "react-i18next@npm:16.1.5"
+"react-i18next@npm:^16.2.3":
+  version: 16.2.3
+  resolution: "react-i18next@npm:16.2.3"
   dependencies:
     "@babel/runtime": "npm:^7.27.6"
     html-parse-stringify: "npm:^3.0.1"
+    use-sync-external-store: "npm:^1.6.0"
   peerDependencies:
     i18next: ">= 25.5.2"
     react: ">= 16.8.0"
@@ -6664,7 +6665,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10c0/9a90c8d19297e3c5cd82efbd5f06ededdfa51ee3f42695e6224fc0dd138c00b6be44958b204b19bbc538f2bdea7ceef57ac0607a0df88825ec6fe311f4a9801e
+  checksum: 10c0/510766f924fb93f348d0acdfe980d9bf2088f44161abc4756647204257285ff0fa0e1fab32438ff271c6d0d84f45ba47cfe684e1dcfe53bf8937d89a1fa99fa0
   languageName: node
   linkType: hard
 
@@ -8182,6 +8183,15 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 10c0/4ef57b45aa820d7ac6496e9208559986c665e49447cb072744c13b66925a362d96dd5a46c4530a6b8e203e5db5fe849369444440cb22ecfc26c679359e5dfa3c
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "use-sync-external-store@npm:1.6.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/35e1179f872a53227bdf8a827f7911da4c37c0f4091c29b76b1e32473d1670ebe7bcd880b808b7549ba9a5605c233350f800ffab963ee4a4ee346ee983b6019b
   languageName: node
   linkType: hard
 
