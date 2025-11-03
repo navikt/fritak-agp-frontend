@@ -18,13 +18,32 @@ import stringishToNumber from '../../utils/stringishToNumber';
 import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
 
+type KroniskKravAction =
+  | { type: 'DeletePeriode'; payload: { itemId: string } }
+  | { type: 'Grunnbeloep'; payload: { grunnbeloep: number; itemId: string } }
+  | { type: 'Fra'; payload: { fra: Date | undefined; itemId: string } }
+  | { type: 'Til'; payload: { til: Date | undefined; itemId: string } }
+  | { type: 'Dager'; payload: { dager: number | undefined; itemId: string } }
+  | { type: 'Beloep'; payload: { belop: number | undefined; itemId: string } }
+  | { type: 'Sykemeldingsgrad'; payload: { sykemeldingsgrad: string; itemId: string } };
+
+interface KroniskKravActions {
+  DeletePeriode: 'DeletePeriode';
+  Grunnbeloep: 'Grunnbeloep';
+  Fra: 'Fra';
+  Til: 'Til';
+  Dager: 'Dager';
+  Beloep: 'Beloep';
+  Sykemeldingsgrad: 'Sykemeldingsgrad';
+}
+
 interface KravPeriodeProps {
-  dispatch: any;
+  dispatch: React.Dispatch<KroniskKravAction>;
   enkeltPeriode: KroniskKravPeriode;
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
-  Actions: any;
+  Actions: KroniskKravActions;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {

@@ -59,11 +59,11 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
 
     const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
-    const fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
+    const fomError = valideringFraStatus ? translate.t(valideringFraStatus.key, { value: minDato }) : undefined;
     periode.fomError = fomError;
 
     const valideringTilStatus = validateTil(periode.fom, periode.tom, MIN_DATE, !!state.validated);
-    const tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
+    const tomError = valideringTilStatus ? translate.t(valideringTilStatus.key, { value: minDato }) : undefined;
     periode.tomError = tomError;
 
     periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
