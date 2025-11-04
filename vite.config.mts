@@ -31,12 +31,7 @@ export default defineConfig({
   build: {
     manifest: true,
     rollupOptions: {
-      external: ['./nais.js'],
-      output: {
-        advancedChunks: {
-          groups: [{ name: 'vendor', test: /\/react(?:-dom)?/ }]
-        }
-      }
+      external: ['./nais.js']
     }
   }
 });
