@@ -3,7 +3,7 @@ import httpRequest from '../httpRequest';
 import { Paths } from '../../config/Paths';
 import KroniskKravResponse from '../gravidkrav/KroniskKravResponse';
 
-export type PatchKroniskKravPayload = Partial<KroniskKravResponse>;
+type PatchKroniskKravPayload = Partial<KroniskKravResponse>;
 
 const patchKroniskKrav = (
   basePath: string,
