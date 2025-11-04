@@ -86,15 +86,15 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
 
 function validateEndringsAarsak(nextState: KroniskKravState, feilmeldinger: FeiloppsummeringFeil[]) {
   if (nextState.endringskrav) {
-    if (nextState.endringsAarsak) {
-      delete nextState.endringsAarsakError;
+    if (nextState.aarsakEndring) {
+      delete nextState.aarsakEndringError;
     } else {
-      nextState.endringsAarsakError = 'Angi årsaken til endringen';
+      nextState.aarsakEndringError = 'Angi årsaken til endringen';
     }
   }
 
-  if (nextState.endringsAarsakError) {
-    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
+  if (nextState.aarsakEndringError) {
+    pushFeilmelding('select-endring-dropdown', nextState.aarsakEndringError, feilmeldinger);
   }
 }
 

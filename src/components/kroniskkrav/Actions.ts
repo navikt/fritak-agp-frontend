@@ -53,7 +53,7 @@ interface Payload {
   sykemeldingsgrad?: string;
   krav?: KroniskKrav;
   error?: string;
-  endringsAarsak?: IEndringsAarsak;
+  aarsakEndring?: IEndringsAarsak;
 }
 
 export interface KroniskKravAction {

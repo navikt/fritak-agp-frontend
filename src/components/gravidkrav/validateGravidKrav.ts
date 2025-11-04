@@ -44,15 +44,15 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   }
 
   if (nextState.endringskrav) {
-    if (nextState.endringsAarsak) {
-      delete nextState.endringsAarsakError;
+    if (nextState.aarsakEndring) {
+      delete nextState.aarsakEndringError;
     } else {
-      nextState.endringsAarsakError = 'Angi årsaken til endringen';
+      nextState.aarsakEndringError = 'Angi årsaken til endringen';
     }
   }
 
-  if (nextState.endringsAarsakError) {
-    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
+  if (nextState.aarsakEndringError) {
+    pushFeilmelding('select-endring-dropdown', nextState.aarsakEndringError, feilmeldinger);
   }
 
   state.perioder?.forEach((periode, index) => {

@@ -1,11 +1,11 @@
-import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
+import { KroniskKravRequest } from './KroniskKravRequest';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
 import mapPeriodeData from './mapPeriodeData';
 
 export const mapKroniskKravRequest = (
   fnr: string | undefined,
   orgnr: string | undefined,
-  perioder: Array<KroniskKravPeriode> | undefined,
+  perioder: KroniskKravPeriode[] | undefined,
   bekreft: boolean | undefined,
   antallDager: number | undefined
 ): KroniskKravRequest => {
@@ -44,7 +44,7 @@ export const mapKroniskKravRequest = (
   return {
     identitetsnummer: fnr,
     virksomhetsnummer: orgnr,
-    perioder: periodeData as [Arbeidsgiverperiode],
+    perioder: periodeData,
     bekreftet: bekreft,
     antallDager: antallDager
   };

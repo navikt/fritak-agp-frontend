@@ -2,6 +2,10 @@ import { defaultNotifikasjonState, NotifikasjonState } from './NotifikasjonState
 import { NotifikasjonAction } from './NotifikasjonAction';
 import Actions from './Actions';
 import NotifikasjonType from '../felles/NotifikasjonType';
+import GravidSoknadResponse from '../../../api/gravid/GravidSoknadResponse';
+import GravidKravResponse from '../../../api/gravidkrav/GravidKravResponse';
+import KroniskKravResponse from '../../../api/gravidkrav/KroniskKravResponse';
+import KroniskSoknadResponse from '../../../api/kronisk/KroniskSoknadResponse';
 
 const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonAction): NotifikasjonState => {
   const nextState = { ...state };
@@ -12,27 +16,27 @@ const NotifikasjonReducer = (state: NotifikasjonState, action: NotifikasjonActio
       nextState.uuid = payload?.uuid;
       nextState.notifikasjonType = payload?.notifikasjonsType;
       if (nextState.notifikasjonType === NotifikasjonType.GravidSoknad) {
-        nextState.gravidSoknadResponse = payload?.json;
+        nextState.gravidSoknadResponse = payload?.json as unknown as GravidSoknadResponse;
       }
 
       if (nextState.notifikasjonType === NotifikasjonType.GravidKrav) {
-        nextState.gravidKravResponse = payload?.json;
+        nextState.gravidKravResponse = payload?.json as unknown as GravidKravResponse;
       }
 
       if (nextState.notifikasjonType === NotifikasjonType.GravidKravSlettet) {
-        nextState.gravidKravResponse = payload?.json;
+        nextState.gravidKravResponse = payload?.json as unknown as GravidKravResponse;
       }
 
       if (nextState.notifikasjonType === NotifikasjonType.KroniskKrav) {
-        nextState.kroniskKravResponse = payload?.json;
+        nextState.kroniskKravResponse = payload?.json as unknown as KroniskKravResponse;
       }
 
       if (nextState.notifikasjonType === NotifikasjonType.KroniskKravSlettet) {
-        nextState.kroniskKravResponse = payload?.json;
+        nextState.kroniskKravResponse = payload?.json as unknown as KroniskKravResponse;
       }
 
       if (nextState.notifikasjonType === NotifikasjonType.KroniskSoknad) {
-        nextState.kroniskSoknadResponse = payload?.json;
+        nextState.kroniskSoknadResponse = payload?.json as unknown as KroniskSoknadResponse;
       }
 
       return nextState;

@@ -186,10 +186,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
 
     case Actions.EndringsAarsak: {
-      if (payload?.endringsAarsak) {
-        nextState.endringsAarsak = payload.endringsAarsak;
+      if (payload?.aarsakEndring) {
+        nextState.aarsakEndring = payload.aarsakEndring;
       } else {
-        nextState.endringsAarsak = undefined;
+        nextState.aarsakEndring = undefined;
       }
       return nextState;
     }
