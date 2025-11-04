@@ -16,12 +16,12 @@ describe('KroniskReducer', () => {
   };
 
   it('should set the fnr', () => {
-    let state = runAction({ type: Actions.Fnr, payload: { fnr: '123' } });
+    const state = runAction({ type: Actions.Fnr, payload: { fnr: '123' } });
     expect(state.fnr).toBe('123');
   });
 
   it('should set the fnr to empty', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Fnr,
@@ -33,7 +33,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the orgnr', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Orgnr,
@@ -45,7 +45,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the orgnr to undefined', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Orgnr
@@ -56,7 +56,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the orgnr to empty string', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Orgnr,
@@ -68,7 +68,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the antallPerioder to undefined', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.AntallPerioder
@@ -79,7 +79,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the antallPerioder to 5', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.AntallPerioder,
@@ -91,7 +91,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the bekreft to undefined', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Bekreft
@@ -102,7 +102,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the bekreft to true', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Bekreft,
@@ -114,7 +114,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the bekreft to false', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Bekreft,
@@ -126,7 +126,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the progress to false', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Progress,
@@ -138,7 +138,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set the progress to true', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Progress,
@@ -150,7 +150,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set, update and remove fravær', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Fravaer,
@@ -158,12 +158,12 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    let { fravaer } = state;
+    const { fravaer } = state;
     expect(fravaer?.length).toBe(1);
-    let Aarsfravaer = fravaer!![0];
+    const Aarsfravaer = fravaer![0];
     expect(Aarsfravaer.year).toBe(2018);
     expect(Aarsfravaer.okt).toBe(2);
-    let state2 = KroniskReducer(
+    const state2 = KroniskReducer(
       state,
       {
         type: Actions.Fravaer,
@@ -172,7 +172,7 @@ describe('KroniskReducer', () => {
       i18n
     );
     expect(state2.fravaer![0].okt).toBe(3);
-    let state3 = KroniskReducer(
+    const state3 = KroniskReducer(
       state,
       {
         type: Actions.Fravaer,
@@ -184,9 +184,9 @@ describe('KroniskReducer', () => {
   });
 
   it('Fravaer - should handle empty state', () => {
-    let state = defaultKroniskState();
+    const state = defaultKroniskState();
     state.fravaer = undefined;
-    let state2 = KroniskReducer(
+    const state2 = KroniskReducer(
       state,
       {
         type: Actions.Fravaer,
@@ -234,7 +234,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set dokumentasjon', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Dokumentasjon,
@@ -246,7 +246,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set dokumentasjon to be empty', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Dokumentasjon,
@@ -258,7 +258,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set progress', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Progress,
@@ -269,7 +269,7 @@ describe('KroniskReducer', () => {
     expect(state.progress).toBeTruthy();
   });
 
-  it('should set progress', () => {
+  it('should throw on missing progress', () => {
     expect(() => {
       KroniskReducer(
         defaultKroniskState(),
@@ -283,7 +283,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should set kvittering', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Kvittering,
@@ -295,7 +295,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should toggle periodeUnntak', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.ToggleUnntak
@@ -304,7 +304,7 @@ describe('KroniskReducer', () => {
     );
     expect(state.ikkeHistoriskFravaer).toBeTruthy();
 
-    let state2 = KroniskReducer(
+    const state2 = KroniskReducer(
       state,
       {
         type: Actions.ToggleUnntak
@@ -316,9 +316,9 @@ describe('KroniskReducer', () => {
   });
 
   it('should set notAuthorized to false', () => {
-    let defaultState = defaultKroniskState();
+    const defaultState = defaultKroniskState();
     defaultState.notAuthorized = true;
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultState,
       {
         type: Actions.NotAuthorized
@@ -329,9 +329,9 @@ describe('KroniskReducer', () => {
   });
 
   it('should set serverError to false', () => {
-    let defaultState = defaultKroniskState();
+    const defaultState = defaultKroniskState();
     defaultState.serverError = true;
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultState,
       {
         type: Actions.HideServerError
@@ -342,7 +342,7 @@ describe('KroniskReducer', () => {
   });
 
   it('should handle response', () => {
-    let state = KroniskReducer(
+    const state = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.HandleResponse,
@@ -391,7 +391,7 @@ describe('KroniskReducer', () => {
         skjemaelementId: '#fravaer'
       }
     ];
-    let state1 = KroniskReducer(
+    const state1 = KroniskReducer(
       defaultKroniskState(),
       {
         type: Actions.Fnr,
@@ -399,13 +399,13 @@ describe('KroniskReducer', () => {
       },
       i18n
     );
-    let state2 = KroniskReducer(state1, { type: Actions.Validate }, i18n);
+    const state2 = KroniskReducer(state1, { type: Actions.Validate }, i18n);
     expect(state2.feilmeldinger.length).toBe(5);
     expect(state2.feilmeldinger).toEqual(expectedFeilmeldinger);
   });
 
   it('should reset to defaults', () => {
-    let state = KroniskReducer(defaultKroniskState(), { type: Actions.Reset }, i18n);
+    const state = KroniskReducer(defaultKroniskState(), { type: Actions.Reset }, i18n);
     expect(state).toEqual(defaultKroniskState());
     expect(state.fnr).toBeUndefined();
     expect(state.orgnr).toBeUndefined();

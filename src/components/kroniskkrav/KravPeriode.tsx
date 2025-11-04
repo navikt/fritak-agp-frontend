@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
-import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
@@ -17,21 +16,49 @@ import TextLabel from '../TextLabel';
 import stringishToNumber from '../../utils/stringishToNumber';
 import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
+import { Actions, KroniskKravAction } from './Actions';
+import { KroniskKravPeriode } from './KroniskKravState';
+import { GravidKravAction } from '../gravidkrav/Actions';
+
+// type KravPeriodeAction =
+//   | (React.ActionDispatch<[action: GravidKravAction]> &
+//       React.ActionDispatch<[action: KroniskKravAction]> & { type: Actions.DeletePeriode; payload: { itemId: string } })
+//   | { type: Actions.Grunnbeloep; payload: { grunnbeloep: number; itemId: string } }
+//   | { type: Actions.Fra; payload: { fra: Date | undefined; itemId: string } }
+//   | { type: Actions.Til; payload: { til: Date | undefined; itemId: string } }
+//   | { type: Actions.Dager; payload: { dager: number; itemId: string } }
+//   | { type: Actions.Beloep; payload: { belop: number; itemId: string } }
+//   | { type: Actions.Sykemeldingsgrad; payload: { sykemeldingsgrad: string | number; itemId: string } };
+export type KravPeriodeAction = GravidKravAction | KroniskKravAction;
+
+interface EnkeltPeriode {
+  uniqueKey: string;
+  fom?: { year?: number } | undefined;
+  tom?: { year?: number } | undefined;
+  fomError?: string;
+  tomError?: string;
+  dager?: number;
+  dagerError?: string;
+  belop?: number;
+  belopError?: string;
+  sykemeldingsgrad?: string | number;
+  sykemeldingsgradError?: string;
+}
 
 interface KravPeriodeProps {
-  dispatch: any;
-  enkeltPeriode: KroniskKravPeriode;
+  dispatch: React.Dispatch<KravPeriodeAction>;
+  enkeltPeriode: EnkeltPeriode;
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
-  Actions: any;
+  // Actions: Actions;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
   const dispatch = props.dispatch;
 
-  const Actions = props.Actions;
+  // const Actions = props.Actions;
   const fjernPeriode = (itemId: string): void => {
     dispatch({
       type: Actions.DeletePeriode,
@@ -64,7 +91,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
     });
   };
 
-  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
+  const beregnetRefusjon = beregnRefusjon(
+    props.enkeltPeriode as KroniskKravPeriode,
+    props.lonnspliktDager
+  ).toLocaleString('nb-NO');
 
   const today = new Date();
 
@@ -94,7 +124,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
       });
     }
-  }, []); // eslint-disable-line
+  }, []);
 
   return (
     <div className='krav-kort' data-testid='krav-periode-wrapper'>
@@ -146,7 +176,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           dispatch({
             type: Actions.Dager,
             payload: {
-              dager: stringishToNumber(event.currentTarget.value),
+              dager: stringishToNumber(event.currentTarget.value)!,
               itemId: props.enkeltPeriode.uniqueKey
             }
           })
@@ -177,7 +207,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           dispatch({
             type: Actions.Beloep,
             payload: {
-              belop: stringishToNumber(event.currentTarget.value),
+              belop: stringishToNumber(event.currentTarget.value)!,
               itemId: props.enkeltPeriode.uniqueKey
             }
           })

@@ -10,7 +10,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     exclude: [...configDefaults.exclude, './vitest.setup.ts', '**/build/**/*', '**/node_modules/**/*', './e2e/**/*'],
-    setupFiles: './vitest.setup.ts',
+    setupFiles: ['./vitest.setup.ts', './__mocks__/mock-dekoratoren-moduler.ts'],
     coverage: {
       reporter: ['text', 'lcov', 'html'],
       provider: 'v8'

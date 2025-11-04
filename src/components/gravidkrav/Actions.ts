@@ -50,7 +50,7 @@ interface Payload {
   sykemeldingsgrad?: string;
   krav?: GravidKrav;
   error?: string;
-  endringsAarsak?: IEndringsAarsak;
+  aarsakEndring?: IEndringsAarsak;
 }
 
 export interface GravidKravAction {

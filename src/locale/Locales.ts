@@ -76,6 +76,10 @@ const Locales: Record<
     nb: 'Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.',
     en: 'I confirm that the information I have provided is correct and complete.'
   },
+  BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER_OVERSKRIFT: {
+    nb: 'Vennligst bekrefter at opplysningene gitt er riktige og fullstendige.',
+    en: 'Please confirm that the information provided is correct and complete.'
+  },
   BEKREFTOPPLYSNINGER_BEKREFT_OPPLYSNINGER: {
     nb: 'Jeg vet at NAV kan trekke tilbake retten til å få dekket sykepengene i arbeidsgiverperioden hvis opplysningene ikke er riktige eller fullstendige.',
     en:
@@ -260,8 +264,8 @@ const Locales: Record<
     en: 'Please wait...'
   },
   GRAVID_VALIDERING_MANGLER_BEKREFT: {
-    nb: 'Mangler bekreft',
-    en: 'Confirmation missing'
+    nb: 'Mangler bekreftelse',
+    en: 'Missing confirmation'
   },
   GRAVID_VALIDERING_UGYLDIG_ORGNR: {
     nb: 'Ugyldig virksomhetsnummer',
@@ -438,8 +442,8 @@ const Locales: Record<
     en: 'Upload documentation (optional)'
   },
   GRAVID_KRAV_VALIDERING_BEKREFT_MANGLER: {
-    nb: 'Mangler bekreft',
-    en: 'Missing confirm'
+    nb: 'Mangler bekreftelse',
+    en: 'Missing confirmation'
   },
   GRAVID_KRAV_VALIDERING_FNR_UGYLDIG: {
     nb: 'Ugyldig fødselsnummer',

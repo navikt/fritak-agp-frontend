@@ -12,5 +12,5 @@ export interface ValidationProblemDetail {
   validationType: string;
   message: string;
   propertyPath: string;
-  invalidValue?: any;
+  invalidValue?: string | number;
 }

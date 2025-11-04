@@ -34,7 +34,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.orgnr = payload?.orgnr;
       return validateKroniskKrav(nextState, translate);
 
-    case Actions.Fra:
+    case Actions.Fra: {
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
       nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.fom = payload?.fra
@@ -42,6 +42,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
         : undefined;
 
       return validateKroniskKrav(nextState, translate);
+    }
 
     case Actions.Til:
       checkItemId(payload?.itemId);
@@ -165,7 +166,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.DeletePeriode:
       checkItemId(payload?.itemId);
-      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
+      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!.itemId);
       return validateKroniskKrav(nextState, translate);
 
     case Actions.Reset:
@@ -184,10 +185,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
 
     case Actions.EndringsAarsak: {
-      if (payload?.endringsAarsak) {
-        nextState.endringsAarsak = payload.endringsAarsak;
+      if (payload?.aarsakEndring) {
+        nextState.aarsakEndring = payload.aarsakEndring;
       } else {
-        nextState.endringsAarsak = undefined;
+        nextState.aarsakEndring = undefined;
       }
       return validateKroniskKrav(nextState, translate);
     }

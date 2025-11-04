@@ -55,8 +55,8 @@ export default interface GravidKravState extends ValidationState {
   antallDagerError?: string;
   kravId?: string;
   formDirty?: boolean;
-  endringsAarsak?: EndringsAarsak;
-  endringsAarsakError?: string;
+  aarsakEndring?: EndringsAarsak;
+  aarsakEndringError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
 }

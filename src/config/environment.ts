@@ -54,6 +54,28 @@ class Environment {
         return 'https://arbeidsgiver.intern.dev.nav.no/min-side-arbeidsgiver/sak-restore-session';
     }
   }
+
+  get umamiWebsiteId() {
+    switch (this.environmentMode) {
+      case EnvironmentType.PROD:
+        return 'a201252d-99a0-4497-a7d0-44e677f7dac1';
+      case EnvironmentType.PREPROD_DEV:
+        return '914d6072-cc35-4d1c-b55e-0d875dbde5de';
+      default:
+        return '914d6072-cc35-4d1c-b55e-0d875dbde5de';
+    }
+  }
+
+  get umamiDataDomains() {
+    switch (this.environmentMode) {
+      case EnvironmentType.PROD:
+        return 'arbeidsgiver.nav.no';
+      case EnvironmentType.PREPROD_DEV:
+        return 'arbeidsgiver.intern.dev.nav.no';
+      default:
+        return 'arbeidsgiver.intern.dev.nav.no';
+    }
+  }
 }
 
 const env = new Environment();

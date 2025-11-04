@@ -11,6 +11,7 @@ import React from 'react';
 import mapKravState from './utils/mapKravState';
 import KroniskSoknadView from './kronisk/soknad/KroniskSoknadView';
 import GravidKravVisning from '../../api/gravidkrav/GravidKravVisning';
+import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 
 const NotifikasjonView = (state: NotifikasjonState) => {
   switch (state.status) {
@@ -32,7 +33,9 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           if (!state.gravidKravResponse) {
             return <NotifikasjonFeilmelding />;
           }
-          const gravidKravState: GravidKravVisning = mapKravState(state.gravidKravResponse);
+          const gravidKravState: GravidKravVisning = mapKravState(
+            state.gravidKravResponse as unknown as KroniskKravResponse
+          );
           return <GravidKravView gravidKravVisning={gravidKravState} />;
         }
 
@@ -40,7 +43,9 @@ const NotifikasjonView = (state: NotifikasjonState) => {
           if (!state.gravidKravResponse) {
             return <NotifikasjonFeilmelding />;
           }
-          const gravidKravState: GravidKravVisning = mapKravState(state.gravidKravResponse);
+          const gravidKravState: GravidKravVisning = mapKravState(
+            state.gravidKravResponse as unknown as KroniskKravResponse
+          );
           return <GravidKravSlettetView gravidKravVisning={gravidKravState} />;
         }
 

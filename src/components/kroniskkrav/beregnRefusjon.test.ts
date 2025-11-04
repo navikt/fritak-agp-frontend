@@ -89,7 +89,7 @@ describe('beregnRefusjon', () => {
     expect(beregnRefusjon(mockPeriode, 123)).toBe(5473.17);
   });
 
-  it('should return an other nicely formated number when sykemeldingsgrad = 100 and belop = 600000 ', () => {
+  it('should return an other nicely formated number when sykemeldingsgrad = 100 and belop = 600000', () => {
     const mockPeriode: KroniskKravPeriode = {
       uniqueKey: 'unik',
       belop: 600000,
@@ -100,7 +100,7 @@ describe('beregnRefusjon', () => {
     expect(beregnRefusjon(mockPeriode, 123)).toBe(88233.32);
   });
 
-  it('should return an other nicely formated number when sykemeldingsgrad = 50 and belop = 600000 ', () => {
+  it('should return an other nicely formated number when sykemeldingsgrad = 50 and belop = 600000', () => {
     const mockPeriode: KroniskKravPeriode = {
       uniqueKey: 'unik',
       belop: 600000,

@@ -1,4 +1,4 @@
-export interface FetchResponse {
+export interface FetchResponse<T = unknown> {
   status: number;
-  json: any;
+  json: T;
 }

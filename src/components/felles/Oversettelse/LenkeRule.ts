@@ -6,13 +6,13 @@ export const LenkeRule: Rule = {
   name: 'Lenke',
   scope: RuleScope.INLINE,
   regex: /(\[(.*)\])\((.*)\)/,
-  parse(match: RegexMatch): any {
+  parse(match: RegexMatch): { name: string; content: string[] } {
     return {
       name: this.name,
-      content: [...match.capture]
+      content: [...match.capture] as string[]
     };
   },
-  react(node: any): ReactElementDescription {
+  react(node: { name: string; content: string[] }): ReactElementDescription {
     const description = node.content[1];
     const href = node.content[2];
 
@@ -20,14 +20,14 @@ export const LenkeRule: Rule = {
       return {
         type: NLink,
         props: { href, target: '_blank', rel: 'noopener', className: 'lenke' },
-        children: description
+        children: [description]
       };
     }
 
     return {
       type: Link,
       props: { to: href, className: 'lenke' },
-      children: description
+      children: [description]
     };
   }
 };

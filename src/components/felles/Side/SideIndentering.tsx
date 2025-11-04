@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react';
+import React, { ReactNode } from 'react';
 
 import './SideIndentering.sass';
 
-interface SideIndenteringProps {}
+interface SideIndenteringProps {
+  children?: ReactNode;
+}
 
-const SideIndentering = (props: PropsWithChildren<SideIndenteringProps>) => (
-  <div className='sideindentering'>{props.children}</div>
-);
+const SideIndentering = (props: SideIndenteringProps) => <div className='sideindentering'>{props.children}</div>;
 
 export default SideIndentering;

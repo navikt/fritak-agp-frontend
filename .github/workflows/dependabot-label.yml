@@ -1,0 +1,21 @@
+name: Label Dependabot PRs (minor/patch)
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/dependabot-label-reusable.yml@main
+    with:
+      only-dependabot: true
+      label-name: automerge:delayed
+      label-color: FFFF00
+      label-description: Auto-merge Dependabot after delay
+      include-update-types: version-update:semver-minor,version-update:semver-patch
+      also-add-update-type-label: true
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

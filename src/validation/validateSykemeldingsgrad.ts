@@ -5,7 +5,7 @@ export enum validateSykemeldingGradKeys {
   VALIDATE_SYKEMELDINGSGRAD_HIGH = 'VALIDATE_SYKEMELDINGSGRAD_HIGH'
 }
 
-interface validateSykemeldingGradResult extends ValidationResult {
+interface ValidateSykemeldingGradResult extends ValidationResult {
   key:
     | validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_LOW
     | validateSykemeldingGradKeys.VALIDATE_SYKEMELDINGSGRAD_HIGH;
@@ -14,7 +14,7 @@ interface validateSykemeldingGradResult extends ValidationResult {
 const validateSykemeldingGrad = (
   sykemeldingGrad: string | undefined,
   required: boolean
-): validateSykemeldingGradResult | undefined => {
+): ValidateSykemeldingGradResult | undefined => {
   const numericSykemeldingGrad = getNumericPart(sykemeldingGrad);
   if (!numericSykemeldingGrad) return;
 

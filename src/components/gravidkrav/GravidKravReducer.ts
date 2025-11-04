@@ -141,7 +141,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.DeletePeriode:
       checkItemId(payload?.itemId);
-      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!!.itemId);
+      nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!.itemId);
       return validateGravidKrav(nextState, translate);
 
     case Actions.NotAuthorized:
@@ -186,10 +186,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
 
     case Actions.EndringsAarsak: {
-      if (payload?.endringsAarsak) {
-        nextState.endringsAarsak = payload.endringsAarsak;
+      if (payload?.aarsakEndring) {
+        nextState.aarsakEndring = payload.aarsakEndring;
       } else {
-        nextState.endringsAarsak = undefined;
+        nextState.aarsakEndring = undefined;
       }
       return nextState;
     }

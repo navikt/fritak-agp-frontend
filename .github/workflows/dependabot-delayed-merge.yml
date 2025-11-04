@@ -1,0 +1,23 @@
+name: Merge Dependabot PRs after delay
+on:
+  schedule:
+    - cron: '0 6 * * 1-5' # weekdays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/dependabot-delayed-merge-reusable.yml@main
+    with:
+      only-actor: dependabot[bot]
+      label-name: automerge:delayed
+      days-delay: 5
+      merge-method: squash
+      allow-draft: false
+      require-clean-mergeable-state: true
+      dry-run: false
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

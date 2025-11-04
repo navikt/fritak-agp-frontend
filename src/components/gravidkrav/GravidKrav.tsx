@@ -16,7 +16,7 @@ import { i18n as Ii18n } from 'i18next';
 
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
-import KravPeriode from '../kroniskkrav/KravPeriode';
+import KravPeriode, { KravPeriodeAction } from '../kroniskkrav/KravPeriode';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';
@@ -45,6 +45,7 @@ import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
+import { GravidKrav as GravidKravType } from '../../context/krav';
 
 const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -100,7 +101,7 @@ const GravidKrav = (props: GravidKravProps) => {
     dispatch({
       type: Actions.EndringsAarsak,
       payload: {
-        endringsAarsak: aarsak
+        aarsakEndring: aarsak
       }
     });
   };
@@ -168,7 +169,7 @@ const GravidKrav = (props: GravidKravProps) => {
             state.perioder,
             state.bekreft,
             state.antallDager,
-            state.endringsAarsak!
+            state.aarsakEndring!
           )
         ).then((response) => {
           dispatchResponse(response);
@@ -193,7 +194,7 @@ const GravidKrav = (props: GravidKravProps) => {
     state.orgnr,
     state.antallDager,
     state.kravId,
-    state.endringsAarsak,
+    state.aarsakEndring,
     state.endringskrav
   ]);
 
@@ -204,7 +205,7 @@ const GravidKrav = (props: GravidKravProps) => {
           dispatch({
             type: Actions.KravEndring,
             payload: {
-              krav: response.json
+              krav: response.json as unknown as GravidKravType
             }
           });
         })
@@ -256,7 +257,7 @@ const GravidKrav = (props: GravidKravProps) => {
                   onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                     setEndringsAarsak(event.target.value as EndringsAarsak)
                   }
-                  feil={state.endringsAarsakError}
+                  feil={state.aarsakEndringError}
                 />
               </div>
             </Fieldset>
@@ -321,13 +322,13 @@ const GravidKrav = (props: GravidKravProps) => {
         >
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
-              dispatch={dispatch}
+              dispatch={dispatch as React.Dispatch<KravPeriodeAction>}
               enkeltPeriode={enkeltPeriode}
               index={index}
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
               slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-              Actions={Actions}
+              // Actions={Actions}
             />
           ))}
           <div>

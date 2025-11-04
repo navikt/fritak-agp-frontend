@@ -44,26 +44,26 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   }
 
   if (nextState.endringskrav) {
-    if (nextState.endringsAarsak) {
-      delete nextState.endringsAarsakError;
+    if (nextState.aarsakEndring) {
+      delete nextState.aarsakEndringError;
     } else {
-      nextState.endringsAarsakError = 'Angi årsaken til endringen';
+      nextState.aarsakEndringError = 'Angi årsaken til endringen';
     }
   }
 
-  if (nextState.endringsAarsakError) {
-    pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
+  if (nextState.aarsakEndringError) {
+    pushFeilmelding('select-endring-dropdown', nextState.aarsakEndringError, feilmeldinger);
   }
 
   state.perioder?.forEach((periode, index) => {
     const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
 
     const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
-    const fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });
+    const fomError = valideringFraStatus ? translate.t(valideringFraStatus.key, { value: minDato }) : undefined;
     periode.fomError = fomError;
 
     const valideringTilStatus = validateTil(periode.fom, periode.tom, MIN_DATE, !!state.validated);
-    const tomError = translate.t(valideringTilStatus?.key as any, { value: minDato });
+    const tomError = valideringTilStatus ? translate.t(valideringTilStatus.key, { value: minDato }) : undefined;
     periode.tomError = tomError;
 
     periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);

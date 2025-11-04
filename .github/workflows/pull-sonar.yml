@@ -16,16 +16,30 @@ jobs:
   Sonar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
+      - name: Enable Corepack (Yarn 4)
+        run: corepack enable
+      - name: Cache Yarn (Berry) artifacts
+        id: cache-yarn
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/.yarn/cache
+            **/.yarn/unplugged
+            **/.yarn/build-state.yml
+            **/.yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-
       - run: yarn install --frozen-lockfile
       - run: yarn test
       - name: SonarCloud Scan
         if: ${{ github.actor != 'dependabot[bot]' }}
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
