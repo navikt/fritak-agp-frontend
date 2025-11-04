@@ -2,35 +2,36 @@ import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import { GravidKrav } from '../../context/krav';
 import { EndringsAarsak as IEndringsAarsak } from './EndringsAarsak';
+import { Actions } from '../../context/kravPeriodeActions';
 
-export enum Actions {
-  Reset,
-  Fnr,
-  Orgnr,
-  Fra,
-  Til,
-  Dager,
-  Beloep,
-  Bekreft,
-  Validate,
-  Progress,
-  HandleResponse,
-  Kvittering,
-  NotAuthorized,
-  Grunnbeloep,
-  antallDager,
-  AddPeriode,
-  Sykemeldingsgrad,
-  DeletePeriode,
-  KravEndring,
-  AddBackendError,
-  RemoveBackendError,
-  EndringsAarsak,
-  ShowSpinner,
-  HideSpinner,
-  HideServerError,
-  HideDuplicateSubmissionError
-}
+// export enum Actions {
+//   Reset,
+//   Fnr,
+//   Orgnr,
+//   Fra,
+//   Til,
+//   Dager,
+//   Beloep,
+//   Bekreft,
+//   Validate,
+//   Progress,
+//   HandleResponse,
+//   Kvittering,
+//   NotAuthorized,
+//   Grunnbeloep,
+//   antallDager,
+//   AddPeriode,
+//   Sykemeldingsgrad,
+//   DeletePeriode,
+//   KravEndring,
+//   AddBackendError,
+//   RemoveBackendError,
+//   EndringsAarsak,
+//   ShowSpinner,
+//   HideSpinner,
+//   HideServerError,
+//   HideDuplicateSubmissionError
+// }
 
 interface Payload {
   fnr?: string;
@@ -50,7 +51,7 @@ interface Payload {
   sykemeldingsgrad?: string;
   krav?: GravidKrav;
   error?: string;
-  endringsAarsak?: IEndringsAarsak;
+  aarsakEndring?: IEndringsAarsak;
 }
 
 export interface GravidKravAction {

@@ -4,25 +4,25 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import react from 'eslint-plugin-react';
-import vitest from 'eslint-plugin-vitest';
+import vitest from '@vitest/eslint-plugin';
 import eslintPlugin from '@typescript-eslint/eslint-plugin'
 
-export default tseslint.config(
+export default [
   eslint.configs.recommended,
-  tseslint.configs.recommended,
+  ...tseslint.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   vitest.configs.recommended,
   {
     plugins: {
-      react: react,
-      eslint: eslintPlugin
+      react,
+      '@typescript-eslint': eslintPlugin
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn'
     }
   }
-);
+];
 
 // export default [{
 //   "env": {

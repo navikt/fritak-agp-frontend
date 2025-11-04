@@ -1,12 +1,13 @@
 import { Organisasjon } from '@navikt/virksomhetsvelger';
+import type { Dispatch, SetStateAction } from 'react';
 
 type ArbeidsgiverInterface = {
   arbeidsgivere: Array<Organisasjon>;
-  setArbeidsgivere: any;
+  setArbeidsgivere: Dispatch<SetStateAction<Organisasjon[]>>;
   firma: string;
-  setFirma: any;
+  setFirma: Dispatch<SetStateAction<string>>;
   arbeidsgiverId: string;
-  setArbeidsgiverId: any;
+  setArbeidsgiverId: Dispatch<SetStateAction<string>>;
 };
 
 export default ArbeidsgiverInterface;

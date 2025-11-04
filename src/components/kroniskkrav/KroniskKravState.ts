@@ -44,8 +44,8 @@ export default interface KroniskKravState extends ValidationState {
   antallDagerError?: string;
   kravId?: string;
   formDirty?: boolean;
-  endringsAarsak?: EndringsAarsak;
-  endringsAarsakError?: string;
+  aarsakEndring?: EndringsAarsak;
+  aarsakEndringError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
 }

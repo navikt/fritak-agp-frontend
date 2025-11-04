@@ -488,7 +488,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.AddPeriod
+        type: Actions.AddPeriode
       },
       i18n
     );
@@ -503,7 +503,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.AddPeriod
+        type: Actions.AddPeriode
       },
       i18n
     );

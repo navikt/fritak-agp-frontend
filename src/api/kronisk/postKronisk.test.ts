@@ -1,8 +1,9 @@
 import postKronisk from './postKronisk';
 import { KroniskRequest } from './KroniskRequest';
+import { vi } from 'vitest';
 
 describe('postKronisk', () => {
-  const mockFetch = (status: number, json: any) => {
+  const mockFetch = (status: number, json: unknown) => {
     vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
         status: status,
