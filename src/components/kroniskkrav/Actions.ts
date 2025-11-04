@@ -4,36 +4,6 @@ import { KroniskKrav } from '../../context/krav';
 import { EndringsAarsak as IEndringsAarsak } from '../gravidkrav/EndringsAarsak';
 import { Actions } from '../../context/kravPeriodeActions';
 
-// export enum Actions {
-//   Reset,
-//   Fnr,
-//   Orgnr,
-//   Fra,
-//   Til,
-//   Dager,
-//   Beloep,
-//   Bekreft,
-//   Validate,
-//   Progress,
-//   HandleResponse,
-//   Kvittering,
-//   NotAuthorized,
-//   Grunnbeloep,
-//   antallDager,
-//   AddPeriod,
-//   DeletePeriode,
-//   Sykemeldingsgrad,
-//   KravEndring,
-//   AddBackendError,
-//   RemoveBackendError,
-//   EndringsAarsak,
-//   ShowSpinner,
-//   HideSpinner,
-//   HideServerError,
-//   HideDuplicateSubmissionError,
-//   SetFormClean
-// }
-
 interface Payload {
   fnr?: string;
   orgnr?: string;
