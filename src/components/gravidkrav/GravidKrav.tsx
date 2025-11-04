@@ -7,7 +7,7 @@ import '../felles/FellesStyling.scss';
 import GravidKravProps from './GravidKravProps';
 import GravidKravReducer, { MAX_PERIODER } from './GravidKravReducer';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import { Actions, GravidKravAction } from './Actions';
+import { GravidKravAction } from './Actions';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
@@ -46,6 +46,7 @@ import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 import { GravidKrav as GravidKravType } from '../../context/krav';
+import { Actions } from '../../context/kravPeriodeActions';
 
 const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -328,7 +329,6 @@ const GravidKrav = (props: GravidKravProps) => {
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
               slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-              // Actions={Actions}
             />
           ))}
           <div>

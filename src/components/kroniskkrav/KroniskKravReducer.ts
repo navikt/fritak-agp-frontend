@@ -1,4 +1,4 @@
-import { Actions, KroniskKravAction } from './Actions';
+import { KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
 import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
@@ -7,6 +7,7 @@ import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { Actions } from '../../context/kravPeriodeActions';
 
 const checkItemId = (itemId?: string) => {
   if (itemId === undefined) {
@@ -135,7 +136,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.antallDager = payload?.antallDager;
       return validateKroniskKrav(nextState, translate);
 
-    case Actions.AddPeriod: {
+    case Actions.AddPeriode: {
       nextState.perioder = nextState.perioder
         ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
         : [{ fom: {}, tom: {}, uniqueKey: uuid() }];

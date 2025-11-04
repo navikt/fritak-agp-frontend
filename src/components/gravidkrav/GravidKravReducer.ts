@@ -1,4 +1,4 @@
-import { Actions, GravidKravAction } from './Actions';
+import { GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
@@ -7,6 +7,7 @@ import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { Actions } from '../../context/kravPeriodeActions';
 
 export const MAX_PERIODER = 50;
 
@@ -140,8 +141,17 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     }
 
     case Actions.DeletePeriode:
+      console.log('Reducer mottatt DeletePeriode action');
       checkItemId(payload?.itemId);
+      console.log(
+        'Reducer fjerner periode med id: ' +
+          payload!.itemId +
+          ' med ' +
+          nextState.perioder?.length +
+          ' perioder før sletting.'
+      );
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!.itemId);
+      console.log('Gjenstående perioder: ' + nextState.perioder?.length);
       return validateGravidKrav(nextState, translate);
 
     case Actions.NotAuthorized:

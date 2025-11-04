@@ -16,19 +16,11 @@ import TextLabel from '../TextLabel';
 import stringishToNumber from '../../utils/stringishToNumber';
 import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
-import { Actions, KroniskKravAction } from './Actions';
+import { KroniskKravAction } from './Actions';
 import { KroniskKravPeriode } from './KroniskKravState';
 import { GravidKravAction } from '../gravidkrav/Actions';
+import { Actions } from '../../context/kravPeriodeActions';
 
-// type KravPeriodeAction =
-//   | (React.ActionDispatch<[action: GravidKravAction]> &
-//       React.ActionDispatch<[action: KroniskKravAction]> & { type: Actions.DeletePeriode; payload: { itemId: string } })
-//   | { type: Actions.Grunnbeloep; payload: { grunnbeloep: number; itemId: string } }
-//   | { type: Actions.Fra; payload: { fra: Date | undefined; itemId: string } }
-//   | { type: Actions.Til; payload: { til: Date | undefined; itemId: string } }
-//   | { type: Actions.Dager; payload: { dager: number; itemId: string } }
-//   | { type: Actions.Beloep; payload: { belop: number; itemId: string } }
-//   | { type: Actions.Sykemeldingsgrad; payload: { sykemeldingsgrad: string | number; itemId: string } };
 export type KravPeriodeAction = GravidKravAction | KroniskKravAction;
 
 interface EnkeltPeriode {
@@ -51,15 +43,14 @@ interface KravPeriodeProps {
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
-  // Actions: Actions;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
   const dispatch = props.dispatch;
 
-  // const Actions = props.Actions;
   const fjernPeriode = (itemId: string): void => {
+    console.log('Fjerner periode med id: ' + itemId);
     dispatch({
       type: Actions.DeletePeriode,
       payload: {

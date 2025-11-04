@@ -7,7 +7,7 @@ import '../felles/FellesStyling.scss';
 import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
-import { Actions, KroniskKravAction } from './Actions';
+import { KroniskKravAction } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
@@ -47,6 +47,7 @@ import TextLabel from '../TextLabel';
 import textify from '../../utils/textify';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 import { KroniskKrav as KroniskKravType } from '../../context/krav';
+import { Actions } from '../../context/kravPeriodeActions';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -99,7 +100,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
 
   const leggTilPeriode = () => {
     dispatch({
-      type: Actions.AddPeriod
+      type: Actions.AddPeriode
     });
   };
 
