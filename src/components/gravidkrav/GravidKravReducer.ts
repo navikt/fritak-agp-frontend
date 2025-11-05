@@ -141,17 +141,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
     }
 
     case Actions.DeletePeriode:
-      console.log('Reducer mottatt DeletePeriode action');
       checkItemId(payload?.itemId);
-      console.log(
-        'Reducer fjerner periode med id: ' +
-          payload!.itemId +
-          ' med ' +
-          nextState.perioder?.length +
-          ' perioder før sletting.'
-      );
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload!.itemId);
-      console.log('Gjenstående perioder: ' + nextState.perioder?.length);
       return validateGravidKrav(nextState, translate);
 
     case Actions.NotAuthorized:

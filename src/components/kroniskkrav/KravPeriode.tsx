@@ -50,7 +50,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
   const dispatch = props.dispatch;
 
   const fjernPeriode = (itemId: string): void => {
-    console.log('Fjerner periode med id: ' + itemId);
     dispatch({
       type: Actions.DeletePeriode,
       payload: {
@@ -167,7 +166,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           dispatch({
             type: Actions.Dager,
             payload: {
-              dager: stringishToNumber(event.currentTarget.value)!,
+              dager: stringishToNumber(event.currentTarget.value),
               itemId: props.enkeltPeriode.uniqueKey
             }
           })
@@ -198,7 +197,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           dispatch({
             type: Actions.Beloep,
             payload: {
-              belop: stringishToNumber(event.currentTarget.value)!,
+              belop: stringishToNumber(event.currentTarget.value),
               itemId: props.enkeltPeriode.uniqueKey
             }
           })
