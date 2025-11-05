@@ -61,7 +61,7 @@ export interface KroniskKravPeriode {
   belopError?: string;
   grunnbeloep?: number;
   uniqueKey: string;
-  sykemeldingsgrad?: string;
-  sykemeldingsgradError?: string;
+  sykmeldingsgrad?: string;
+  sykmeldingsgradError?: string;
   gradering?: number;
 }

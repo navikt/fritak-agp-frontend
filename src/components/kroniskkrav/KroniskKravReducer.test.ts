@@ -438,7 +438,7 @@ describe('KroniskKravReducer', () => {
     }).toThrow();
   });
 
-  it('should set sykemeldingsgrad to 12 when 12 is given as param and action is Sykemeldingsgrad', () => {
+  it('should set sykmeldingsgrad to 12 when 12 is given as param and action is Sykemeldingsgrad', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
@@ -446,12 +446,12 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.Sykemeldingsgrad,
-        payload: { sykemeldingsgrad: '12', itemId }
+        type: Actions.Sykmeldingsgrad,
+        payload: { sykmeldingsgrad: '12', itemId }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].sykemeldingsgrad).toEqual('12');
+    expect(state.perioder && state.perioder[0].sykmeldingsgrad).toEqual('12');
   });
 
   it('should throw on undefined itemId for Sykemeldingsgrad', () => {
@@ -460,7 +460,7 @@ describe('KroniskKravReducer', () => {
         defaultKroniskKravState(),
         {
           // @ts-expect-error Bare for test ts2339
-          type: Actions.Sykemeldingsgrad
+          type: Actions.Sykmeldingsgrad
         },
         i18n
       );

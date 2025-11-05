@@ -42,8 +42,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
 
     const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
 
-    aktuellPeriode.sykemeldingsgradError = formatValidation(
-      validateSykemeldingGrad(aktuellPeriode.sykemeldingsgrad, !!state.validated),
+    aktuellPeriode.sykmeldingsgradError = formatValidation(
+      validateSykemeldingGrad(aktuellPeriode.sykmeldingsgrad, !!state.validated),
       translate
     );
 
@@ -73,8 +73,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       pushFeilmelding(`belop-${index}`, aktuellPeriode.belopError, feilmeldinger);
     }
 
-    if (aktuellPeriode.sykemeldingsgradError) {
-      pushFeilmelding(`sykemeldingsgrad-${index}`, aktuellPeriode.sykemeldingsgradError, feilmeldinger);
+    if (aktuellPeriode.sykmeldingsgradError) {
+      pushFeilmelding(`sykmeldingsgrad-${index}`, aktuellPeriode.sykmeldingsgradError, feilmeldinger);
     }
   });
 

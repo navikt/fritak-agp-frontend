@@ -69,11 +69,11 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
       return validateGravidKrav(nextState, translate);
 
-    case Actions.Sykemeldingsgrad:
+    case Actions.Sykmeldingsgrad:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
-        payload?.sykemeldingsgrad;
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykmeldingsgrad =
+        payload?.sykmeldingsgrad;
 
       return validateGravidKrav(nextState, translate);
 
@@ -108,6 +108,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.progress = false;
       nextState.submitting = false;
       nextState.showSpinner = false;
+      console.log('Mapping response in GravidKravReducer');
+      console.log('Response:', payload.response);
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as GravidKravState;
 
     case Actions.Grunnbeloep: {
@@ -150,6 +152,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
 
     case Actions.KravEndring: {
+      console.log('Mapping krav endring in GravidKravReducer');
+      console.log(payload?.krav);
       if (payload?.krav) {
         const krav = payload.krav;
         nextState.fnr = krav.identitetsnummer;
@@ -160,8 +164,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
           fom: parseISO(periode.fom),
           tom: parseISO(periode.tom),
           dager: Number(periode.antallDagerMedRefusjon),
-          belop: Number(periode.månedsinntekt),
-          sykemeldingsgrad: (periode.gradering * 100).toString()
+          belop: Number(periode.månedsinntekt ?? periode.belop),
+          sykmeldingsgrad: ((periode.gradering ?? 1) * 100).toString()
         }));
         nextState.kravId = krav.id;
         nextState.endringskrav = true;

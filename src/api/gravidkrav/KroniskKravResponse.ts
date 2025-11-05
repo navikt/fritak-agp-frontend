@@ -1,5 +1,4 @@
 import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
-// import KravPeriode from './KravPeriode';
 
 interface KroniskKravResponse {
   id: string;

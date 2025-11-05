@@ -9,13 +9,19 @@
       "fom": "2020-01-01",
       "tom": "2020-01-31",
       "antallDagerMedRefusjon": 4,
-      "belop": 1000
+      "belop": 1000,
+      "månedsinntekt": 30000,
+      "gradering": 1,
+      "dagsats": 1000
     },
     {
       "fom": "2020-02-01",
-      "tom": "2020-02-31",
+      "tom": "2020-02-28",
       "antallDagerMedRefusjon": 4,
-      "belop": 1000
+      "belop": 1000,
+      "månedsinntekt": 30000,
+      "gradering": 1,
+      "dagsats": 1000
     }
   ],
   "harVedlegg": false,

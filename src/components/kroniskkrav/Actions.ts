@@ -21,7 +21,7 @@ interface Payload {
   antallDager?: number;
   periode?: number;
   itemId?: string;
-  sykemeldingsgrad?: string;
+  sykmeldingsgrad?: string;
   krav?: KroniskKrav;
   error?: string;
   aarsakEndring?: IEndringsAarsak;

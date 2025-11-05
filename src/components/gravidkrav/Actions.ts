@@ -19,7 +19,7 @@ interface Payload {
   grunnbeloep?: number;
   antallDager?: number;
   itemId?: string;
-  sykemeldingsgrad?: string;
+  sykmeldingsgrad?: string;
   krav?: GravidKrav;
   error?: string;
   aarsakEndring?: IEndringsAarsak;

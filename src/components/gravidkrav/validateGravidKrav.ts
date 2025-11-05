@@ -69,8 +69,8 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
     periode.belopError = formatValidation(validateBeloep('' + periode.belop, MAX, !!nextState.validated), translate);
 
-    periode.sykemeldingsgradError = formatValidation(
-      validateSykemeldingGrad(periode.sykemeldingsgrad, !!state.validated),
+    periode.sykmeldingsgradError = formatValidation(
+      validateSykemeldingGrad(periode.sykmeldingsgrad, !!state.validated),
       translate
     );
 
@@ -104,7 +104,7 @@ const fyllPeriodeFeilmeldingsboks = (periode: Periode, index: number, feilmeldin
     pushFeilmelding(`belop-${index}`, periode.belopError, feilmeldinger);
   }
 
-  if (periode.sykemeldingsgradError) {
-    pushFeilmelding(`sykemeldingsgrad-${index}`, periode.sykemeldingsgradError, feilmeldinger);
+  if (periode.sykmeldingsgradError) {
+    pushFeilmelding(`sykmeldingsgrad-${index}`, periode.sykmeldingsgradError, feilmeldinger);
   }
 };

@@ -115,10 +115,10 @@ const mapPeriodeFeilmeldinger = (
 
     case 'gradering':
       if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
-        state.perioder[pathIndex].sykemeldingsgradError = v.message || 'Sykemeldingsgraden må være mellom 20% og 100%';
+        state.perioder[pathIndex].sykmeldingsgradError = v.message || 'Sykmeldingsgraden må være mellom 20% og 100%';
       }
       feilmeldinger.push(
-        lagFeil(`sykemeldingsgrad-${pathIndex}`, v.message || 'Sykemeldingsgraden må være mellom 20% og 100%')
+        lagFeil(`sykmeldingsgrad-${pathIndex}`, v.message || 'Sykmeldingsgraden må være mellom 20% og 100%')
       );
       break;
 

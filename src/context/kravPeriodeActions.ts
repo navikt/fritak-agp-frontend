@@ -15,7 +15,7 @@ export enum Actions {
   Grunnbeloep,
   antallDager,
   AddPeriode,
-  Sykemeldingsgrad,
+  Sykmeldingsgrad,
   DeletePeriode,
   KravEndring,
   AddBackendError,

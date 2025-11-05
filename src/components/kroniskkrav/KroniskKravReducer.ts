@@ -73,13 +73,13 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
       return validateKroniskKrav(nextState, translate);
 
-    case Actions.Sykemeldingsgrad:
+    case Actions.Sykmeldingsgrad:
       checkItemId(payload?.itemId);
 
       nextState.formDirty = true;
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
-        payload?.sykemeldingsgrad;
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykmeldingsgrad =
+        payload?.sykmeldingsgrad;
 
       return validateKroniskKrav(nextState, translate);
 
@@ -155,7 +155,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
           tom: parseISO(periode.tom),
           dager: Number(periode.antallDagerMedRefusjon),
           belop: Number(periode.månedsinntekt),
-          sykemeldingsgrad: (periode.gradering * 100).toString()
+          sykmeldingsgrad: (periode.gradering * 100).toString()
         }));
         nextState.kravId = krav.id;
         nextState.endringskrav = true;

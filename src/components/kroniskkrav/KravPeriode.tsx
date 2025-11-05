@@ -33,8 +33,8 @@ interface EnkeltPeriode {
   dagerError?: string;
   belop?: number;
   belopError?: string;
-  sykemeldingsgrad?: string | number;
-  sykemeldingsgradError?: string;
+  sykmeldingsgrad?: string | number;
+  sykmeldingsgradError?: string;
 }
 
 interface KravPeriodeProps {
@@ -96,8 +96,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
     props.enkeltPeriode.tom && props.enkeltPeriode.tom.year
       ? dayjs(datoToString(props.enkeltPeriode.tom)).toDate()
       : undefined;
-  const defaultSykemeldingsgrad = props.enkeltPeriode.sykemeldingsgrad
-    ? stringishToNumber(props.enkeltPeriode.sykemeldingsgrad)
+  const defaultSykmeldingsgrad = props.enkeltPeriode.sykmeldingsgrad
+    ? stringishToNumber(props.enkeltPeriode.sykmeldingsgrad)
     : '';
 
   useEffect(() => {
@@ -206,10 +206,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
       />
 
       <TextField
-        id={`sykemeldingsgrad-${props.index}`}
+        id={`sykmeldingsgrad-${props.index}`}
         label={
           <div className='label-med-hjelp'>
-            Sykemeldingsgrad
+            Sykmeldingsgrad
             <HelpText className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
               <TextLabel>Gradert sykmelding</TextLabel>
               Sykmeldingsgrad, minimum 20%
@@ -219,17 +219,17 @@ const KravPeriode = (props: KravPeriodeProps) => {
         inputMode='numeric'
         pattern='[0-9]*'
         placeholder='100%'
-        defaultValue={defaultSykemeldingsgrad}
+        defaultValue={defaultSykmeldingsgrad}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           dispatch({
-            type: Actions.Sykemeldingsgrad,
+            type: Actions.Sykmeldingsgrad,
             payload: {
-              sykemeldingsgrad: event.currentTarget.value,
+              sykmeldingsgrad: event.currentTarget.value,
               itemId: props.enkeltPeriode.uniqueKey
             }
           })
         }
-        error={props.enkeltPeriode.sykemeldingsgradError}
+        error={props.enkeltPeriode.sykmeldingsgradError}
       />
 
       <div>
