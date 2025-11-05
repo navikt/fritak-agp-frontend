@@ -108,8 +108,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.progress = false;
       nextState.submitting = false;
       nextState.showSpinner = false;
-      console.log('Mapping response in GravidKravReducer');
-      console.log('Response:', payload.response);
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as GravidKravState;
 
     case Actions.Grunnbeloep: {
@@ -152,8 +150,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
 
     case Actions.KravEndring: {
-      console.log('Mapping krav endring in GravidKravReducer');
-      console.log(payload?.krav);
       if (payload?.krav) {
         const krav = payload.krav;
         nextState.fnr = krav.identitetsnummer;
