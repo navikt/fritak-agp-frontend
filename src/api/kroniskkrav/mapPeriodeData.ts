@@ -3,11 +3,11 @@ import { datoToString } from '../../utils/dato/Dato';
 import { getNumericPart } from '../../validation/validateSykemeldingsgrad';
 import { Arbeidsgiverperiode } from './KroniskKravRequest';
 
-export const beregnSykemeldingGradering = (sykemeldingsgrad: string | undefined): number => {
-  if (!sykemeldingsgrad) {
+export const beregnSykemeldingGradering = (sykmeldingsgrad: string | undefined): number => {
+  if (!sykmeldingsgrad) {
     return 1;
   }
-  const grad = getNumericPart(sykemeldingsgrad);
+  const grad = getNumericPart(sykmeldingsgrad);
   if (grad) {
     return grad / 100;
   }
@@ -20,7 +20,7 @@ const mapPeriodeData = (perioder: KroniskKravPeriode[]): Array<Arbeidsgiverperio
     tom: datoToString(enkeltPeriode.tom),
     antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
     månedsinntekt: enkeltPeriode.belop ?? 0,
-    gradering: beregnSykemeldingGradering(enkeltPeriode.sykemeldingsgrad)
+    gradering: beregnSykemeldingGradering(enkeltPeriode.sykmeldingsgrad)
   }));
 };
 

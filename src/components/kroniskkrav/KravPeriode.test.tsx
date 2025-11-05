@@ -4,12 +4,12 @@ import { axe } from 'jest-axe';
 
 import KravPeriode from './KravPeriode';
 import { KroniskKravPeriode } from './KroniskKravState';
-import { Actions } from './Actions';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import { Language } from '../../locale/Language';
 import { vi, expect } from 'vitest';
+import { Actions } from '../../context/kravPeriodeActions';
 
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
@@ -34,7 +34,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={false}
-        Actions={Actions}
       />
     );
 
@@ -55,7 +54,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
-        Actions={Actions}
       />
     );
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
@@ -76,7 +74,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
-        Actions={Actions}
       />
     );
 
@@ -97,7 +94,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
-        Actions={Actions}
       />
     );
 
@@ -124,7 +120,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
-        Actions={Actions}
       />
     );
 
@@ -145,7 +140,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
-        Actions={Actions}
       />
     );
 
@@ -166,7 +160,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={false}
-        Actions={Actions}
       />
     );
     const results = await axe(container);
@@ -186,7 +179,6 @@ describe('KravPeriode', () => {
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
-        Actions={Actions}
       />
     );
     const results = await axe(container);

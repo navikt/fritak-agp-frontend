@@ -1,4 +1,4 @@
-import { Actions, KroniskKravAction } from './Actions';
+import { KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
 import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
@@ -7,6 +7,7 @@ import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { Actions } from '../../context/kravPeriodeActions';
 
 const checkItemId = (itemId?: string) => {
   if (itemId === undefined) {
@@ -72,13 +73,13 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
       return validateKroniskKrav(nextState, translate);
 
-    case Actions.Sykemeldingsgrad:
+    case Actions.Sykmeldingsgrad:
       checkItemId(payload?.itemId);
 
       nextState.formDirty = true;
 
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
-        payload?.sykemeldingsgrad;
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykmeldingsgrad =
+        payload?.sykmeldingsgrad;
 
       return validateKroniskKrav(nextState, translate);
 
@@ -135,7 +136,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.antallDager = payload?.antallDager;
       return validateKroniskKrav(nextState, translate);
 
-    case Actions.AddPeriod: {
+    case Actions.AddPeriode: {
       nextState.perioder = nextState.perioder
         ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
         : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
@@ -154,7 +155,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
           tom: parseISO(periode.tom),
           dager: Number(periode.antallDagerMedRefusjon),
           belop: Number(periode.månedsinntekt),
-          sykemeldingsgrad: (periode.gradering * 100).toString()
+          sykmeldingsgrad: (periode.gradering * 100).toString()
         }));
         nextState.kravId = krav.id;
         nextState.endringskrav = true;
@@ -185,10 +186,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
 
     case Actions.EndringsAarsak: {
-      if (payload?.endringsAarsak) {
-        nextState.endringsAarsak = payload.endringsAarsak;
+      if (payload?.aarsakEndring) {
+        nextState.aarsakEndring = payload.aarsakEndring;
       } else {
-        nextState.endringsAarsak = undefined;
+        nextState.aarsakEndring = undefined;
       }
       return validateKroniskKrav(nextState, translate);
     }

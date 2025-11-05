@@ -7,11 +7,11 @@ import '../felles/FellesStyling.scss';
 import KroniskKravProps from './KroniskKravProps';
 import KroniskKravReducer from './KroniskKravReducer';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
-import { Actions, KroniskKravAction } from './Actions';
+import { KroniskKravAction } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
-import KravPeriode from './KravPeriode';
+import KravPeriode, { KravPeriodeAction } from './KravPeriode';
 import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import { i18n as Ii18n } from 'i18next';
@@ -46,6 +46,8 @@ import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import textify from '../../utils/textify';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
+import { KroniskKrav as KroniskKravType } from '../../context/krav';
+import { Actions } from '../../context/kravPeriodeActions';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -61,11 +63,6 @@ const KroniskKrav = (props: KroniskKravProps) => {
   const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    document.title =
-      'Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no';
-  }, []);
 
   const dispatchResponse = (response: ValidationResponse<KroniskKravResponse>) => {
     dispatch({
@@ -98,7 +95,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
 
   const leggTilPeriode = () => {
     dispatch({
-      type: Actions.AddPeriod
+      type: Actions.AddPeriode
     });
   };
 
@@ -119,7 +116,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
     dispatch({
       type: Actions.EndringsAarsak,
       payload: {
-        endringsAarsak: aarsak
+        aarsakEndring: aarsak
       }
     });
   };
@@ -169,7 +166,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
             state.perioder,
             state.bekreft,
             state.antallDager,
-            state.endringsAarsak!
+            state.aarsakEndring!
           )
         ).then((response) => {
           dispatchResponse(response);
@@ -194,7 +191,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
     state.orgnr,
     state.antallDager,
     state.kravId,
-    state.endringsAarsak,
+    state.aarsakEndring,
     state.endringskrav
   ]);
 
@@ -205,7 +202,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
           dispatch({
             type: Actions.KravEndring,
             payload: {
-              krav: response.json
+              krav: response.json as unknown as KroniskKravType
             }
           });
         })
@@ -231,6 +228,9 @@ const KroniskKrav = (props: KroniskKravProps) => {
       title={textify(t(KroniskKravKeys.KRONISK_KRAV_TITLE))}
       subtitle={textify(t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE))}
     >
+      <title>
+        Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no
+      </title>
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
@@ -259,7 +259,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
                     onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                       setEndringsAarsak(event.target.value as EndringsAarsak)
                     }
-                    feil={state.endringsAarsakError}
+                    feil={state.aarsakEndringError}
                   />
                 </div>
               </div>
@@ -330,13 +330,12 @@ const KroniskKrav = (props: KroniskKravProps) => {
         >
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
-              dispatch={dispatch}
+              dispatch={dispatch as React.Dispatch<KravPeriodeAction>}
               enkeltPeriode={enkeltPeriode}
               index={index}
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
               slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-              Actions={Actions}
             />
           ))}
           <div>

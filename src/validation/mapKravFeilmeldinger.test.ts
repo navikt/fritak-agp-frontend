@@ -44,7 +44,7 @@ describe('mapKroniskKravFeilmeldinger', () => {
     expect(feilmeldinger[3].skjemaelementId).toBe('til-dato-0');
     expect(feilmeldinger[4].skjemaelementId).toBe('dager-0');
     expect(feilmeldinger[5].skjemaelementId).toBe('beloep-0');
-    expect(feilmeldinger[6].skjemaelementId).toBe('sykemeldingsgrad-0');
+    expect(feilmeldinger[6].skjemaelementId).toBe('sykmeldingsgrad-0');
     expect(feilmeldinger[7].skjemaelementId).toBe('bekreft');
     expect(feilmeldinger[8].skjemaelementId).toBe('dager');
     expect(feilmeldinger[9].skjemaelementId).toBe('kontrollsporsmaal-lonn-arbeidsdager');
@@ -173,11 +173,11 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
     expect(feilmeldinger.length).toBe(1);
     //@ts-expect-error  Skal ikke være mulig men tester like vel
-    expect(state.perioder[0].sykemeldingsgradError).toBeUndefined();
+    expect(state.perioder[0].sykmeldingsgradError).toBeUndefined();
     //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
-    expect(feilmeldinger[0].skjemaelementId).toBe('sykemeldingsgrad-1');
+    expect(feilmeldinger[0].skjemaelementId).toBe('sykmeldingsgrad-1');
   });
 
   it('should handle missing message from the backend  - gradering', () => {
@@ -187,11 +187,11 @@ describe('mapKroniskKravFeilmeldinger', () => {
 
     expect(feilmeldinger.length).toBe(1);
     //@ts-expect-error  Skal ikke være mulig men tester like vel
-    expect(state.perioder[0].sykemeldingsgradError).toBe('Sykemeldingsgraden må være mellom 20% og 100%');
+    expect(state.perioder[0].sykmeldingsgradError).toBe('Sykmeldingsgraden må være mellom 20% og 100%');
     //@ts-expect-error  Skal ikke være mulig men tester like vel
     expect(state.perioder[1]).toBeUndefined();
 
-    expect(feilmeldinger[0].skjemaelementId).toBe('sykemeldingsgrad-0');
+    expect(feilmeldinger[0].skjemaelementId).toBe('sykmeldingsgrad-0');
   });
 
   it('should handle strange stuff from the backend - perioder', () => {

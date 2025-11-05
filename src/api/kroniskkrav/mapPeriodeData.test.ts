@@ -19,7 +19,7 @@ describe('mapPeriodeData', () => {
         fom: parseDato('23.02.2020'),
         tom: parseDato('24.04.2025'),
         dager: 7,
-        sykemeldingsgrad: '50',
+        sykmeldingsgrad: '50',
         belop: 3500,
         uniqueKey: '77-778'
       }

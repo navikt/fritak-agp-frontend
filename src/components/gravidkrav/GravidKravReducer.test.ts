@@ -1,11 +1,11 @@
 import GravidKravReducer from './GravidKravReducer';
-import { Actions } from './Actions';
 import { defaultGravidKravState } from './GravidKravState';
 import { i18n } from 'i18next';
 import GravidSoknadResponse from '../../api/gravid/GravidSoknadResponse';
+import { Actions } from '../../context/kravPeriodeActions';
 
 const translationMock = {
-  t: (param: any) => param
+  t: (param: string) => param
 };
 
 describe('GravidKravReducer', () => {

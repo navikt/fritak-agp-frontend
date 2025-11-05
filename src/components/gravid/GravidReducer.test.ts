@@ -10,7 +10,7 @@ import { i18n } from 'i18next';
 import GravidSoknadResponse from '../../api/gravid/GravidSoknadResponse';
 
 const translationMock = {
-  t: (param: any) => param
+  t: (param: string) => param
 };
 
 describe('GravidReducer', () => {

@@ -3,8 +3,8 @@ import { defaultGravidKravState } from './GravidKravState';
 import { parseDato } from '../../utils/dato/Dato';
 import { i18n } from 'i18next';
 
-const translationMock = {
-  t: (param: any) => param
+const translationMock: Pick<i18n, 't'> = {
+  t: ((param: string) => param) as unknown as i18n['t']
 };
 
 describe('validateGravidKrav', () => {

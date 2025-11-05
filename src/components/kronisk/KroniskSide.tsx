@@ -43,11 +43,6 @@ const KroniskSide = () => {
   const { language } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.title =
-      'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden ved kronisk eller langvarig sykdom - nav.no';
-  }, []);
-
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
   const handleUploadChanged = (file?: File) => {
     if (file) {
@@ -127,6 +122,9 @@ const KroniskSide = () => {
   const subtitle = t(KroniskSideKeys.KRONISK_SIDE_SUBTITLE);
   return (
     <Side bedriftsmeny={false} className='kronisk-side' sidetittel={sidetittel} title={title} subtitle={subtitle}>
+      <title>
+        Søknad om at NAV dekker sykepenger i arbeidsgiverperioden ved kronisk eller langvarig sykdom - nav.no
+      </title>
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 

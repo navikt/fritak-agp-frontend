@@ -45,7 +45,7 @@ export const mapGravidKravRequest = (
     tom: datoToString(periode.tom),
     antallDagerMedRefusjon: periode.dager || 0,
     månedsinntekt: Number(periode.belop || 0),
-    gradering: beregnSykemeldingGradering(periode.sykemeldingsgrad)
+    gradering: beregnSykemeldingGradering(periode.sykmeldingsgrad)
   }));
 
   return {

@@ -1,4 +1,4 @@
-import { Actions, GravidKravAction } from './Actions';
+import { GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
@@ -7,6 +7,7 @@ import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
 import { i18n } from 'i18next';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
+import { Actions } from '../../context/kravPeriodeActions';
 
 export const MAX_PERIODER = 50;
 
@@ -68,11 +69,11 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
       return validateGravidKrav(nextState, translate);
 
-    case Actions.Sykemeldingsgrad:
+    case Actions.Sykmeldingsgrad:
       checkItemId(payload?.itemId);
       nextState.formDirty = true;
-      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykemeldingsgrad =
-        payload?.sykemeldingsgrad;
+      nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId)!.sykmeldingsgrad =
+        payload?.sykmeldingsgrad;
 
       return validateGravidKrav(nextState, translate);
 
@@ -159,8 +160,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
           fom: parseISO(periode.fom),
           tom: parseISO(periode.tom),
           dager: Number(periode.antallDagerMedRefusjon),
-          belop: Number(periode.månedsinntekt),
-          sykemeldingsgrad: (periode.gradering * 100).toString()
+          belop: Number(periode.månedsinntekt ?? periode.belop),
+          sykmeldingsgrad: ((periode.gradering ?? 1) * 100).toString()
         }));
         nextState.kravId = krav.id;
         nextState.endringskrav = true;
@@ -186,10 +187,10 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
 
     case Actions.EndringsAarsak: {
-      if (payload?.endringsAarsak) {
-        nextState.endringsAarsak = payload.endringsAarsak;
+      if (payload?.aarsakEndring) {
+        nextState.aarsakEndring = payload.aarsakEndring;
       } else {
-        nextState.endringsAarsak = undefined;
+        nextState.aarsakEndring = undefined;
       }
       return nextState;
     }

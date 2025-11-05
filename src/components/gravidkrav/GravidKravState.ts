@@ -30,8 +30,8 @@ export interface Periode {
   belop?: number;
   belopError?: string;
   grunnbeloep?: number;
-  sykemeldingsgrad?: string;
-  sykemeldingsgradError?: string;
+  sykmeldingsgrad?: string;
+  sykmeldingsgradError?: string;
 }
 
 export default interface GravidKravState extends ValidationState {
@@ -55,8 +55,8 @@ export default interface GravidKravState extends ValidationState {
   antallDagerError?: string;
   kravId?: string;
   formDirty?: boolean;
-  endringsAarsak?: EndringsAarsak;
-  endringsAarsakError?: string;
+  aarsakEndring?: EndringsAarsak;
+  aarsakEndringError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
 }

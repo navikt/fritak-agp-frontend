@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import FravaerTabell from './FravaerTabell';
 import '../../mockData/mockWindowLocation';
+import { vi } from 'vitest';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {

@@ -1,13 +1,14 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, type SpyInstance } from 'vitest';
 import env from './environment';
 
 /* @vitest-environment jsdom */
 
 describe('umamiDataDomains', () => {
-  let locationSpy: ReturnType<typeof vi.spyOn> | undefined;
+  let locationSpy: SpyInstance<[], Location> | undefined;
 
   const stubHostname = (hostname: string) => {
-    locationSpy = vi.spyOn(window, 'location', 'get').mockReturnValue({ hostname } as any);
+    // Cast via unknown to avoid using 'any' while fulfilling the expected Location type
+    locationSpy = vi.spyOn(window, 'location', 'get').mockReturnValue({ hostname } as unknown as Location);
   };
 
   afterEach(() => {

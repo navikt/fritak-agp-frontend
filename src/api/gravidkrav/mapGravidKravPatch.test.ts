@@ -13,7 +13,7 @@ describe('mapGravidKravPatch', () => {
       belop: 125,
       grunnbeloep: 678,
       uniqueKey: 'random-string',
-      sykemeldingsgrad: '50',
+      sykmeldingsgrad: '50',
       gradering: 0.5
     }
   ];

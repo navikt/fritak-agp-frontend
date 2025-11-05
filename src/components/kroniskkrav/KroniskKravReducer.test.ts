@@ -1,12 +1,12 @@
 import KroniskKravReducer from './KroniskKravReducer';
-import { Actions } from './Actions';
-import { defaultKroniskKravState } from './KroniskKravState';
+import { defaultKroniskKravState, EndringsAarsak } from './KroniskKravState';
 import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { Language } from '../../locale/Language';
+import { Actions } from '../../context/kravPeriodeActions';
 
 describe('KroniskKravReducer', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
@@ -438,7 +438,7 @@ describe('KroniskKravReducer', () => {
     }).toThrow();
   });
 
-  it('should set sykemeldingsgrad to 12 when 12 is given as param and action is Sykemeldingsgrad', () => {
+  it('should set sykmeldingsgrad to 12 when 12 is given as param and action is Sykemeldingsgrad', () => {
     const defaultKrav = defaultKroniskKravState();
     // @ts-expect-error Bare for test
     const itemId = defaultKrav.perioder[0].uniqueKey;
@@ -446,12 +446,12 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.Sykemeldingsgrad,
-        payload: { sykemeldingsgrad: '12', itemId }
+        type: Actions.Sykmeldingsgrad,
+        payload: { sykmeldingsgrad: '12', itemId }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].sykemeldingsgrad).toEqual('12');
+    expect(state.perioder && state.perioder[0].sykmeldingsgrad).toEqual('12');
   });
 
   it('should throw on undefined itemId for Sykemeldingsgrad', () => {
@@ -460,7 +460,7 @@ describe('KroniskKravReducer', () => {
         defaultKroniskKravState(),
         {
           // @ts-expect-error Bare for test ts2339
-          type: Actions.Sykemeldingsgrad
+          type: Actions.Sykmeldingsgrad
         },
         i18n
       );
@@ -488,7 +488,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.AddPeriod
+        type: Actions.AddPeriode
       },
       i18n
     );
@@ -503,7 +503,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.AddPeriod
+        type: Actions.AddPeriode
       },
       i18n
     );
@@ -707,5 +707,70 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.feilmeldinger.length).toBe(0);
+  });
+
+  it('should set aarsakEndring', () => {
+    const defaultKrav = defaultKroniskKravState();
+    defaultKrav.aarsakEndring = undefined;
+
+    const state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.EndringsAarsak,
+        payload: {
+          aarsakEndring: 'Ny informasjon' as EndringsAarsak
+        }
+      },
+      i18n
+    );
+    expect(state.aarsakEndring).toBe('Ny informasjon');
+  });
+
+  it('should remove the serverError flag', () => {
+    const defaultKrav = defaultKroniskKravState();
+    defaultKrav.serverError = true;
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    const state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.HideServerError
+      },
+      i18n
+    );
+    expect(state.serverError).toBe(false);
+  });
+
+  it('should remove the duplicateSubmission flag', () => {
+    const defaultKrav = defaultKroniskKravState();
+    defaultKrav.duplicateSubmission = true;
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    const state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.HideDuplicateSubmissionError
+      },
+      i18n
+    );
+    expect(state.duplicateSubmission).toBe(false);
+  });
+
+  it('should remove the formDirty flag', () => {
+    const defaultKrav = defaultKroniskKravState();
+    defaultKrav.formDirty = true;
+
+    expect(defaultKrav.feilmeldinger?.length).toBe(0);
+
+    const state = KroniskKravReducer(
+      defaultKrav,
+      {
+        type: Actions.SetFormClean
+      },
+      i18n
+    );
+    expect(state.formDirty).toBe(false);
   });
 });

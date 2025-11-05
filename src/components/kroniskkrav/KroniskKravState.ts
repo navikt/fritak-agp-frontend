@@ -44,8 +44,8 @@ export default interface KroniskKravState extends ValidationState {
   antallDagerError?: string;
   kravId?: string;
   formDirty?: boolean;
-  endringsAarsak?: EndringsAarsak;
-  endringsAarsakError?: string;
+  aarsakEndring?: EndringsAarsak;
+  aarsakEndringError?: string;
   showSpinner?: boolean;
   endringskrav?: boolean;
 }
@@ -61,7 +61,7 @@ export interface KroniskKravPeriode {
   belopError?: string;
   grunnbeloep?: number;
   uniqueKey: string;
-  sykemeldingsgrad?: string;
-  sykemeldingsgradError?: string;
+  sykmeldingsgrad?: string;
+  sykmeldingsgradError?: string;
   gradering?: number;
 }

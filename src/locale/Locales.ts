@@ -1108,7 +1108,7 @@ const Locales: Record<
     en: 'Can not have periods at the same time as you have ticked that there are no earlier periods'
   },
   VALIDATE_SYKEMELDINGSGRAD_LOW: {
-    nb: 'Sykemeldingsgraden må være 20% eller høyere',
+    nb: 'Sykmeldingsgraden må være 20% eller høyere',
     en: 'The degree of sick leave must be 20% or higher'
   },
   VALIDATE_SYKEMELDINGSGRAD_HIGH: {

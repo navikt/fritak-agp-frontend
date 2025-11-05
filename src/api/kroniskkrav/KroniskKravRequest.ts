@@ -1,7 +1,7 @@
 export interface KroniskKravRequest {
   identitetsnummer: string;
   virksomhetsnummer: string;
-  perioder: [Arbeidsgiverperiode];
+  perioder: Arbeidsgiverperiode[];
   bekreftet: boolean;
   dokumentasjon?: string;
   antallDager?: number;
@@ -13,6 +13,7 @@ export interface Arbeidsgiverperiode {
   antallDagerMedRefusjon: number;
   månedsinntekt: number;
   gradering: number;
+  belop: number;
 }
 
 export default KroniskKravRequest;

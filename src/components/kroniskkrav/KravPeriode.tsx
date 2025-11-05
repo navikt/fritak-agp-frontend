@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
-import { KroniskKravPeriode } from './KroniskKravState';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
@@ -17,21 +16,39 @@ import TextLabel from '../TextLabel';
 import stringishToNumber from '../../utils/stringishToNumber';
 import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
+import { KroniskKravAction } from './Actions';
+import { KroniskKravPeriode } from './KroniskKravState';
+import { GravidKravAction } from '../gravidkrav/Actions';
+import { Actions } from '../../context/kravPeriodeActions';
+
+export type KravPeriodeAction = GravidKravAction | KroniskKravAction;
+
+interface EnkeltPeriode {
+  uniqueKey: string;
+  fom?: { year?: number } | undefined;
+  tom?: { year?: number } | undefined;
+  fomError?: string;
+  tomError?: string;
+  dager?: number;
+  dagerError?: string;
+  belop?: number;
+  belopError?: string;
+  sykmeldingsgrad?: string | number;
+  sykmeldingsgradError?: string;
+}
 
 interface KravPeriodeProps {
-  dispatch: any;
-  enkeltPeriode: KroniskKravPeriode;
+  dispatch: React.Dispatch<KravPeriodeAction>;
+  enkeltPeriode: EnkeltPeriode;
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
-  Actions: any;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
   const dispatch = props.dispatch;
 
-  const Actions = props.Actions;
   const fjernPeriode = (itemId: string): void => {
     dispatch({
       type: Actions.DeletePeriode,
@@ -64,7 +81,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
     });
   };
 
-  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
+  const beregnetRefusjon = beregnRefusjon(
+    props.enkeltPeriode as KroniskKravPeriode,
+    props.lonnspliktDager
+  ).toLocaleString('nb-NO');
 
   const today = new Date();
 
@@ -76,8 +96,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
     props.enkeltPeriode.tom && props.enkeltPeriode.tom.year
       ? dayjs(datoToString(props.enkeltPeriode.tom)).toDate()
       : undefined;
-  const defaultSykemeldingsgrad = props.enkeltPeriode.sykemeldingsgrad
-    ? stringishToNumber(props.enkeltPeriode.sykemeldingsgrad)
+  const defaultSykmeldingsgrad = props.enkeltPeriode.sykmeldingsgrad
+    ? stringishToNumber(props.enkeltPeriode.sykmeldingsgrad)
     : '';
 
   useEffect(() => {
@@ -186,10 +206,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
       />
 
       <TextField
-        id={`sykemeldingsgrad-${props.index}`}
+        id={`sykmeldingsgrad-${props.index}`}
         label={
           <div className='label-med-hjelp'>
-            Sykemeldingsgrad
+            Sykmeldingsgrad
             <HelpText className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
               <TextLabel>Gradert sykmelding</TextLabel>
               Sykmeldingsgrad, minimum 20%
@@ -199,17 +219,17 @@ const KravPeriode = (props: KravPeriodeProps) => {
         inputMode='numeric'
         pattern='[0-9]*'
         placeholder='100%'
-        defaultValue={defaultSykemeldingsgrad}
+        defaultValue={defaultSykmeldingsgrad}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           dispatch({
-            type: Actions.Sykemeldingsgrad,
+            type: Actions.Sykmeldingsgrad,
             payload: {
-              sykemeldingsgrad: event.currentTarget.value,
+              sykmeldingsgrad: event.currentTarget.value,
               itemId: props.enkeltPeriode.uniqueKey
             }
           })
         }
-        error={props.enkeltPeriode.sykemeldingsgradError}
+        error={props.enkeltPeriode.sykmeldingsgradError}
       />
 
       <div>
