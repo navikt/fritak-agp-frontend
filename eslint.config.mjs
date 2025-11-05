@@ -13,6 +13,11 @@ export default [
   jsxA11y.flatConfigs.recommended,
   vitest.configs.recommended,
   {
+    settings: {
+      react: {
+        version: 'detect'
+      }
+    },
     plugins: {
       react,
       '@typescript-eslint': eslintPlugin
