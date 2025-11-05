@@ -62,10 +62,6 @@ const GravidKrav = (props: GravidKravProps) => {
   const { arbeidsgiverId } = useArbeidsgiver();
   const { language, idKrav } = useParams();
 
-  useEffect(() => {
-    document.title = 'Krav om refusjon av sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
-  }, []);
-
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -236,6 +232,7 @@ const GravidKrav = (props: GravidKravProps) => {
       title={title}
       subtitle={subtitle}
     >
+      <title>Krav om refusjon av sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no</title>
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 

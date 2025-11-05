@@ -64,11 +64,6 @@ const KroniskKrav = (props: KroniskKravProps) => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    document.title =
-      'Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no';
-  }, []);
-
   const dispatchResponse = (response: ValidationResponse<KroniskKravResponse>) => {
     dispatch({
       type: Actions.HandleResponse,
@@ -233,6 +228,9 @@ const KroniskKrav = (props: KroniskKravProps) => {
       title={textify(t(KroniskKravKeys.KRONISK_KRAV_TITLE))}
       subtitle={textify(t(KroniskKravKeys.KRONISK_KRAV_SUBTITLE))}
     >
+      <title>
+        Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no
+      </title>
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
 
