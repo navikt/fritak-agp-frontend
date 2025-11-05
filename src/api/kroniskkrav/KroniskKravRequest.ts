@@ -13,6 +13,7 @@ export interface Arbeidsgiverperiode {
   antallDagerMedRefusjon: number;
   månedsinntekt: number;
   gradering: number;
+  belop: number;
 }
 
 export default KroniskKravRequest;
