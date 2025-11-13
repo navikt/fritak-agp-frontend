@@ -91,7 +91,7 @@
     "eslint-plugin-vitest": "^0.5.3",
     "husky": "9.x",
     "jest-axe": "10.x",
-    "knip": "^5.67.1",
+    "knip": "^5.69.1",
     "lint-staged": "^16.2.6",
     "mockdate": "^3.0.5",
     "msw": "^2.11.6",

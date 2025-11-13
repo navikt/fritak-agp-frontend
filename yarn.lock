@@ -4415,7 +4415,7 @@ __metadata:
     i18next: "npm:^25.6.2"
     jest-axe: "npm:10.x"
     jsdom: "npm:^27.0.0"
-    knip: "npm:^5.67.1"
+    knip: "npm:^5.69.1"
     lint-staged: "npm:^16.2.6"
     mockdate: "npm:^3.0.5"
     msw: "npm:^2.11.6"
@@ -5591,9 +5591,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^5.67.1":
-  version: 5.67.1
-  resolution: "knip@npm:5.67.1"
+"knip@npm:^5.69.1":
+  version: 5.69.1
+  resolution: "knip@npm:5.69.1"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -5613,7 +5613,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10c0/aed10030c0771cf4fd75f5a38b6c82564535e9ac02117728077065cc99ee235c752f7a5e9da26f99fd41c363a9896fef96d8848e7213fc8bff0a0591f61b151d
+  checksum: 10c0/7d0bf99ac1617a7d3482053ef454b79a14b4b9f40f9d4f4451b3b20dccd08641838e3d51cf0224e81a515137223071ef5eabdb1d84b708a010005ee4a5d02361
   languageName: node
   linkType: hard
 
