@@ -39,3 +39,13 @@ stats.html
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+#Yarn mockserver
+/mockserver/node_modules
+/mockserver/.yarn/*
+!/mockserver/.yarn/cache
+!/mockserver/.yarn/patches
+!/mockserver/.yarn/plugins
+!/mockserver/.yarn/releases
+!/mockserver/.yarn/sdks
+!/mockserver/.yarn/versions
