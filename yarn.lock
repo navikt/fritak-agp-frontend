@@ -3339,6 +3339,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csp-header@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "csp-header@npm:6.2.0"
+  checksum: 10c0/589568394a94946c6c600d74bfa1f1a8ea20daeeaa8994a99fa458dae0144e1329c9ff126e7ead89e23ea96f5600e6eda14c9a362e99facf79157df775cb2708
+  languageName: node
+  linkType: hard
+
 "css-tree@npm:^3.1.0":
   version: 3.1.0
   resolution: "css-tree@npm:3.1.0"
@@ -4396,6 +4403,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^4.0.8"
     "@vitest/ui": "npm:^4.0.8"
     cross-os: "npm:1.5.0"
+    csp-header: "npm:^6.2.0"
     date-fns: "npm:^4.1.0"
     dayjs: "npm:1.11.19"
     eslint: "npm:^9.39.1"
