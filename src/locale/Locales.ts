@@ -97,7 +97,9 @@ const Locales: Record<
   GRAVID_SIDE_INGRESS: {
     nb:
       'NAV kan dekke sykepenger i arbeidsgiverperioden hvis fraværet skyldes helseplager i svangerskapet. Dette gjelder bare hvis tilrettelegging' +
-      ' eller omplassering ikke er mulig. Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
+      ' eller omplassering ikke er mulig.\n\nFristen for å kreve refusjon er 3 måneder. Derfor bør dere [sende sende' +
+      ' inn kravskjemaet for refusjon](/nb/gravid/krav) fortløpende og ikke vente til søknaden er ferdig behandlet.\n\n' +
+      ' Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
       ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_4-4-2#%C2%A78-20).\n\n' +
       'Vi sender en melding til den ansatte med informasjon om at du har sendt søknaden.' +
       '\n\nAlle felter må fylles ut om ikke annet er oppgitt',
@@ -494,7 +496,7 @@ const Locales: Record<
     nb:
       'NAV kan refundere sykepenger i arbeidsgiverperioden for arbeidstakere med en kronisk eller langvarig sykdom.' +
       ' Hvis NAV innvilger søknaden, kan du som arbeidsgiver kreve å få refundert sykepenger for alt sykefravær, fra den' +
-      ' dag som denne søknad er mottatt av NAV.  Fristen for å kreve refusjon er 3 måneder. Derfor bør dere [sende sende' +
+      ' dag som denne søknad er mottatt av NAV.\n\nFristen for å kreve refusjon er 3 måneder. Derfor bør dere [sende sende' +
       ' inn kravskjemaet for refusjon](/nb/kronisk/krav) fortløpende og ikke vente til søknaden er ferdig behandlet.\n\n' +
       ' Vi bruker opplysninger vi allerede har om sykefraværet, i tillegg til svarene du gir nedenfor. Ordningen' +
       ' er beskrevet i [folketrygdlovens § 8-20](https://lovdata.no/dokument/NL/lov/1997-02-28-19/KAPITTEL_4-4-2#%C2%A78-20).' +
