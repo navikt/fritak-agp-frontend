@@ -4427,7 +4427,7 @@ __metadata:
     vite: "npm:^7"
     vite-tsconfig-paths: "npm:^5.0.1"
     vitest: "npm:^4.0.8"
-    vitest-sonar-reporter: "npm:^2.0.4"
+    vitest-sonar-reporter: "npm:^3.0.0"
   languageName: unknown
   linkType: soft
 
@@ -8292,12 +8292,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest-sonar-reporter@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "vitest-sonar-reporter@npm:2.0.4"
+"vitest-sonar-reporter@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "vitest-sonar-reporter@npm:3.0.0"
   peerDependencies:
-    vitest: ">=1"
-  checksum: 10c0/ce995e51aebda35411f525dd2164357f7c04b45601ec5c48170ca440912884abbbc9cbfe2016d154b1340c20800dd92a04d55baaeb5f1e6344b206f98a1a9d2c
+    vitest: ">=3"
+  checksum: 10c0/1640314207c89b1154e5ffdb7cb23382bc13c849f734bdf3dbbcf741c5d779d09e50a05a50315cbe66c3c71af16bf90c86cbb0e98cb6b1002a281d5b6caa9d31
   languageName: node
   linkType: hard
 
