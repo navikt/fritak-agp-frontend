@@ -20,7 +20,7 @@ jobs:
     name: Bygger uten å laste opp for å sjekke at det bygger
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: 24
