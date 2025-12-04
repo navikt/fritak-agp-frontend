@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
+import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
   // depending on your application, base can also be "/"
@@ -9,6 +10,7 @@ export default defineConfig({
   plugins: [
     react(),
     viteTsconfigPaths(),
+    viteCompression({ algorithm: 'brotliCompress' }),
     visualizer({
       filename: 'dist/stats.html',
       open: process.env.ANALYZE === 'true',
