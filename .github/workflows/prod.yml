@@ -41,7 +41,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - uses: actions/upload-artifact@v5
@@ -63,13 +63,13 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://npm.pkg.github.com'
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/download-artifact@v6
         with:
           name: fritak-frontend-artifact
           path: dist
 
-      # - uses: actions/checkout@v5
+      # - uses: actions/checkout@v6
       - name: Build and push image and SBOM to OCI registry
         uses: nais/docker-build-push@v0
         id: docker-build-push
