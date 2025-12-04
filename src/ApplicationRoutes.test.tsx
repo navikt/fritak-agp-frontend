@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
 import { Organisasjon } from '@navikt/virksomhetsvelger';
 import { useTranslation } from 'react-i18next';
