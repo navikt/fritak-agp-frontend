@@ -1,0 +1,266 @@
+name: Bundle Analysis
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: bundle-${{ github.event.pull_request.head.repo.full_name }}-${{ github.event.pull_request.head.ref }}
+  cancel-in-progress: true
+
+env:
+  NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Enable corepack (Yarn 2+)
+        run: corepack enable
+
+      - name: Cache Yarn 2 files
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn2-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn2-
+
+      - run: yarn install --immutable --inline-builds
+
+      - name: Build with stats
+        run: yarn build
+        env:
+          ANALYZE: true
+
+      - name: Generate bundle stats JSON
+        run: |
+          mkdir -p dist/analyze
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const stats = { assets: [], timestamp: Date.now() };
+
+          function collectFiles(dir, extensions, assets) {
+            if (!fs.existsSync(dir)) return;
+            const files = fs.readdirSync(dir, { withFileTypes: true });
+            for (const file of files) {
+              const fullPath = path.join(dir, file.name);
+              if (file.isDirectory()) {
+                collectFiles(fullPath, extensions, assets);
+              } else if (extensions.some(ext => file.name.endsWith(ext))) {
+                const stat = fs.statSync(fullPath);
+                assets.push({
+                  name: path.relative('dist', fullPath),
+                  size: stat.size
+                });
+              }
+            }
+          }
+
+          // Collect JS and CSS files from dist/assets
+          collectFiles('dist/assets', ['.js', '.css'], stats.assets);
+
+          // Sort by size descending
+          stats.assets.sort((a, b) => b.size - a.size);
+
+          // Calculate totals
+          stats.totalSize = stats.assets.reduce((sum, a) => sum + a.size, 0);
+          stats.jsSize = stats.assets.filter(a => a.name.endsWith('.js')).reduce((sum, a) => sum + a.size, 0);
+          stats.cssSize = stats.assets.filter(a => a.name.endsWith('.css')).reduce((sum, a) => sum + a.size, 0);
+
+          fs.writeFileSync('dist/analyze/bundle-stats.json', JSON.stringify(stats, null, 2));
+          console.log(`Generated stats for ${stats.assets.length} assets`);
+          console.log(`  JS:  ${(stats.jsSize / 1024).toFixed(2)} KB`);
+          console.log(`  CSS: ${(stats.cssSize / 1024).toFixed(2)} KB`);
+          console.log(`  Total: ${(stats.totalSize / 1024).toFixed(2)} KB`);
+          EOF
+
+      - name: Upload bundle stats
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-stats
+          path: dist/analyze/bundle-stats.json
+
+      - name: Download base bundle stats
+        uses: dawidd6/action-download-artifact@v6
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        with:
+          workflow: bundle-analysis.yml
+          branch: main
+          name: bundle-stats
+          path: dist/analyze-base/
+
+      - name: Compare bundle sizes
+        if: github.event_name == 'pull_request'
+        id: compare
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+
+          function readStats(filePath) {
+            if (!fs.existsSync(filePath)) return null;
+            return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+          }
+
+          function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB'];
+            const i = Math.floor(Math.log(Math.abs(bytes)) / Math.log(k));
+            const prefix = bytes > 0 ? '+' : '';
+            return `${prefix}${(bytes / Math.pow(k, i)).toFixed(2)} ${sizes[i]}`;
+          }
+
+          function formatSize(bytes) {
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB'];
+            const i = Math.floor(Math.log(Math.abs(bytes)) / Math.log(k));
+            return `${(bytes / Math.pow(k, i)).toFixed(2)} ${sizes[i]}`;
+          }
+
+          const current = readStats('dist/analyze/bundle-stats.json');
+          const base = readStats('dist/analyze-base/bundle-stats.json');
+
+          if (!current) {
+            console.log('No current stats found');
+            process.exit(0);
+          }
+
+          const currentSizes = current.assets.reduce((acc, a) => { acc[a.name] = a.size; return acc; }, {});
+          const baseSizes = base ? base.assets.reduce((acc, a) => { acc[a.name] = a.size; return acc; }, {}) : {};
+
+          let report = '## 📦 Bundle Size Report (Vite)\n\n';
+
+          if (base) {
+            const diff = current.totalSize - base.totalSize;
+            const jsDiff = current.jsSize - (base.jsSize || 0);
+            const cssDiff = current.cssSize - (base.cssSize || 0);
+            const pctChange = base.totalSize > 0 ? ((diff / base.totalSize) * 100).toFixed(1) : '∞';
+            const emoji = diff > 0 ? '📈' : diff < 0 ? '📉' : '➡️';
+
+            report += `| Metric | Base | Current | Change |\n`;
+            report += `|--------|------|---------|--------|\n`;
+            report += `| **Total** | ${formatSize(base.totalSize)} | ${formatSize(current.totalSize)} | ${emoji} ${formatBytes(diff)} (${pctChange}%) |\n`;
+            report += `| JS | ${formatSize(base.jsSize || 0)} | ${formatSize(current.jsSize)} | ${formatBytes(jsDiff)} |\n`;
+            report += `| CSS | ${formatSize(base.cssSize || 0)} | ${formatSize(current.cssSize)} | ${formatBytes(cssDiff)} |\n\n`;
+
+            // Find changes
+            const allChunks = new Set([...Object.keys(currentSizes), ...Object.keys(baseSizes)]);
+            const changes = [];
+
+            for (const chunk of allChunks) {
+              const currSize = currentSizes[chunk] || 0;
+              const baseSize = baseSizes[chunk] || 0;
+              const chunkDiff = currSize - baseSize;
+
+              if (chunkDiff !== 0) {
+                changes.push({ chunk, currSize, baseSize, diff: chunkDiff });
+              }
+            }
+
+            changes.sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
+
+            if (changes.length > 0) {
+              report += `### Biggest Changes\n\n`;
+              report += `| Chunk | Base | Current | Change |\n`;
+              report += `|-------|------|---------|--------|\n`;
+
+              for (const { chunk, currSize, baseSize, diff } of changes.slice(0, 10)) {
+                const chunkEmoji = diff > 0 ? '📈' : '📉';
+                const shortName = chunk.length > 50 ? '...' + chunk.slice(-47) : chunk;
+                const baseStr = baseSize > 0 ? formatSize(baseSize) : '_new_';
+                const currStr = currSize > 0 ? formatSize(currSize) : '_removed_';
+
+                report += `| \`${shortName}\` | ${baseStr} | ${currStr} | ${chunkEmoji} ${formatBytes(diff)} |\n`;
+              }
+            } else {
+              report += `> ✅ No changes in bundle sizes\n`;
+            }
+
+            if (diff > 50 * 1024) {
+              report += `\n> ⚠️ **Warning:** Bundle size increased by more than 50KB\n`;
+            }
+          } else {
+            report += `| Metric | Size |\n`;
+            report += `|--------|------|\n`;
+            report += `| **Total** | ${formatSize(current.totalSize)} |\n`;
+            report += `| JS | ${formatSize(current.jsSize)} |\n`;
+            report += `| CSS | ${formatSize(current.cssSize)} |\n\n`;
+
+            report += `### Largest Chunks\n\n`;
+            report += `| Chunk | Size |\n`;
+            report += `|-------|------|\n`;
+
+            for (const asset of current.assets.slice(0, 10)) {
+              const shortName = asset.name.length > 50 ? '...' + asset.name.slice(-47) : asset.name;
+              report += `| \`${shortName}\` | ${formatSize(asset.size)} |\n`;
+            }
+
+            report += `\n> ℹ️ No baseline found for comparison (first run on main branch)\n`;
+          }
+
+          fs.writeFileSync('bundle-report.md', report);
+          console.log(report);
+          EOF
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const reportPath = 'bundle-report.md';
+
+            if (!fs.existsSync(reportPath)) {
+              console.log('No report found');
+              return;
+            }
+
+            const report = fs.readFileSync(reportPath, 'utf-8');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Bundle Size Report')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: report
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: report
+              });
+            }
