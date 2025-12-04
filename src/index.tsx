@@ -15,7 +15,9 @@ if (env.environmentMode !== EnvironmentType.LOCAL) {
         instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()]
       });
     }
-  );
+  ).catch((error) => {
+    console.error('Failed to initialize Faro telemetry:', error);
+  });
 }
 
 const container = document.getElementById('root');
