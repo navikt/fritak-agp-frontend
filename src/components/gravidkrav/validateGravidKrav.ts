@@ -6,7 +6,7 @@ import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_GRAVID_DATO } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
 import validateSykemeldingGrad from '../../validation/validateSykemeldingsgrad';
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
 import { validateFnr } from '../../validation/validateFnr';
@@ -56,7 +56,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   }
 
   state.perioder?.forEach((periode, index) => {
-    const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
+    const minDato = format(MIN_DATE, 'dd.MM.yyyy');
 
     const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
     const fomError = translate.t(valideringFraStatus?.key as any, { value: minDato });

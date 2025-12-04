@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 
 const NORWAY_REGEX = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
 const ISO_REGEX = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
@@ -27,7 +27,7 @@ export const datoToString = (dato: Dato | undefined): string => {
 
 export const parseDateTilDato = (date: Date): Dato => {
   return {
-    value: dayjs(date).format('DD.MM.YYYY'),
+    value: format(date, 'dd.MM.yyyy'),
     day: date.getDate(),
     month: date.getMonth() + 1,
     year: date.getFullYear(),

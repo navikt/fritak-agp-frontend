@@ -24,8 +24,7 @@ import { GravidSideKeys } from './GravidSideKeys';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
-import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { parse } from 'date-fns';
 import {
   Alert,
   BodyLong,
@@ -75,7 +74,6 @@ const GravidSide = (props: GravidSideProps) => {
     });
   };
   const [state, dispatch] = useReducer(GravidReducerI18n, props.state, defaultGravidState);
-  dayjs.extend(customParseFormat);
 
   useEffect(() => {
     document.title = 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
@@ -175,6 +173,12 @@ const GravidSide = (props: GravidSideProps) => {
   const title = t(GravidSideKeys.GRAVID_SIDE_TITTEL);
   const subtitle = t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL);
 
+  const parseTermindato = (value: string | undefined): Date | undefined => {
+    if (!value) return undefined;
+    const parsed = parse(value, 'dd.MM.yyyy', new Date());
+    return isNaN(parsed.getTime()) ? undefined : parsed;
+  };
+
   return (
     <Side
       bedriftsmeny={false}
@@ -223,7 +227,7 @@ const GravidSide = (props: GravidSideProps) => {
                     id='termindato'
                     label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
                     error={state.termindatoError}
-                    defaultSelected={dayjs(state.termindato?.value, 'DD.MM.YYYY').toDate()}
+                    defaultSelected={parseTermindato(state.termindato?.value)}
                     onDateChange={(termindato: Date | undefined) => {
                       dispatch({
                         type: Actions.Termindato,

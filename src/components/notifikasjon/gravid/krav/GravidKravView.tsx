@@ -1,7 +1,7 @@
 import React from 'react';
 import NotifikasjonInnhold from '../../felles/NotifikasjonInnhold';
 import NotifikasjonType from '../../felles/NotifikasjonType';
-import dayjs from 'dayjs';
+import { addDays, format, parseISO } from 'date-fns';
 import formatNumberForCurrency from './FormatNumberForCurrency';
 import GravidKravVisning from '../../../../api/gravidkrav/GravidKravVisning';
 import VisNotifikasjonPerioder from './VisNotifikasjonPerioder';
@@ -12,7 +12,7 @@ interface GravidSoknadNotifikasjonProps {
 }
 
 const inTwoWeeks = (dato: string) => {
-  return dayjs(dato).add(14, 'days').format('DD.MM.YY');
+  return format(addDays(parseISO(dato), 14), 'dd.MM.yy');
 };
 
 const GravidKravView = ({ gravidKravVisning }: GravidSoknadNotifikasjonProps) => {

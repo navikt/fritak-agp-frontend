@@ -1,9 +1,9 @@
-import dayjs from 'dayjs';
+import { format, parseISO } from 'date-fns';
 import React from 'react';
 import KravPeriode from '../../../../api/gravidkrav/KravPeriode';
 
 const formaterDato = (dato: string) => {
-  return dayjs(dato).format('DD.MM.YY');
+  return format(parseISO(dato), 'dd.MM.yy');
 };
 
 interface VisNotifikasjonPerioderProps {

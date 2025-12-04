@@ -44,6 +44,7 @@ export default defineConfig({
         manualChunks: {
           'vendor-react': ['react', 'react-dom'],
           'vendor-nav': ['@navikt/ds-react', '@navikt/aksel-icons'],
+          'vendor-nav-dekorator': ['@navikt/nav-dekoratoren-moduler'],
           'vendor-i18n': ['i18next', 'react-i18next']
         }
       }
