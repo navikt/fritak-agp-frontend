@@ -105,5 +105,5 @@
     "vitest": "^4.0.15",
     "vitest-sonar-reporter": "^3.0.0"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.12.0"
 }
