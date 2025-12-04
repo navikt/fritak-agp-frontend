@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import NotifikasjonType from './NotifikasjonType';
-import dayjs from 'dayjs';
+import { format, parseISO } from 'date-fns';
 import './NotifikasjonInnhold.sass';
 import { BodyLong, Box, Heading, Link } from '@navikt/ds-react';
 import environment from '../../../config/environment';
@@ -31,7 +31,7 @@ const NotifikasjonInnhold = (props: PropsWithChildren<NotifikasjonInnholdProps>)
                 <Heading size='large' level='2'>
                   {props.title}
                 </Heading>
-                <BodyLong>{dayjs(props.dato).format('DD.MM.YYYY')}</BodyLong>
+                <BodyLong>{props.dato ? format(parseISO(props.dato), 'dd.MM.yyyy') : ''}</BodyLong>
               </div>
             </div>
 

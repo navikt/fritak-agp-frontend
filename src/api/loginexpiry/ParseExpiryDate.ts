@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
+import { parseISO } from 'date-fns';
 
 export const ParseExpiryDate = (value: string): Date => {
-  return dayjs(value).toDate();
+  return parseISO(value);
 };

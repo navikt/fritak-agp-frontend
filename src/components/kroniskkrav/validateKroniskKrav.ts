@@ -4,7 +4,7 @@ import { i18n } from 'i18next';
 import validateArbeidsdager from '../../validation/validateArbeidsdager';
 import { MAX_ARBEIDSDAGER, MIN_ARBEIDSDAGER, MIN_KRONISK_DATO } from '../../config/konstanter';
 import formatValidation from '../../utils/formatValidation';
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 import validateSykemeldingGrad from '../../validation/validateSykemeldingsgrad';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 import { pushFeilmelding } from '../felles/Feilmeldingspanel/pushFeilmelding';
@@ -35,7 +35,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   validateEndringsAarsak(nextState, feilmeldinger);
 
   nextState.perioder?.forEach((aktuellPeriode) => {
-    const minDato = dayjs(MIN_DATE).format('DD.MM.YYYY');
+    const minDato = format(MIN_DATE, 'dd.MM.yyyy');
     const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
 
     aktuellPeriode.fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));

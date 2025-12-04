@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { format, parseISO } from 'date-fns';
 
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
@@ -43,7 +43,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const fraDatoValgt = (fraDato: Date | undefined, itemId: string) => {
     if (fraDato) {
-      getGrunnbeloep(dayjs(fraDato).format('YYYY-MM-DD')).then((grunnbelopRespons) => {
+      getGrunnbeloep(format(fraDato, 'yyyy-MM-dd')).then((grunnbelopRespons) => {
         if (grunnbelopRespons.grunnbeloep) {
           dispatch({
             type: Actions.Grunnbeloep,
@@ -70,11 +70,11 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const defaultFom =
     props.enkeltPeriode.fom && props.enkeltPeriode.fom.year
-      ? dayjs(datoToString(props.enkeltPeriode.fom)).toDate()
+      ? parseISO(datoToString(props.enkeltPeriode.fom))
       : undefined;
   const defaultTom =
     props.enkeltPeriode.tom && props.enkeltPeriode.tom.year
-      ? dayjs(datoToString(props.enkeltPeriode.tom)).toDate()
+      ? parseISO(datoToString(props.enkeltPeriode.tom))
       : undefined;
   const defaultSykemeldingsgrad = props.enkeltPeriode.sykemeldingsgrad
     ? stringishToNumber(props.enkeltPeriode.sykemeldingsgrad)
