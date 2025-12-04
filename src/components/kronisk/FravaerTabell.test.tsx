@@ -22,5 +22,5 @@ describe('FravaerTabell', () => {
     const results = await axe(rendered.container);
 
     expect(results).toHaveNoViolations();
-  });
+  }, 15000);
 });

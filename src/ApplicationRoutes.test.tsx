@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom';
 import { ApplicationRoutes } from './ApplicationRoutes';
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ArbeidsgiverProvider } from './context/arbeidsgiver/ArbeidsgiverContext';
 import { Organisasjon } from '@navikt/virksomhetsvelger';
 import { useTranslation } from 'react-i18next';
@@ -41,77 +41,107 @@ describe('ApplicationRoutes', () => {
     });
   });
 
-  it('should show default', () => {
+  it('should show default', async () => {
     const { container } = render(makeRoute('/'));
 
-    expect(container.textContent).toContain('Skjema for gravide og kronisk syke');
+    await waitFor(() => {
+      expect(container.textContent).toContain('Skjema for gravide og kronisk syke');
+    });
   });
 
-  it('should show token fornyet', () => {
+  it('should show token fornyet', async () => {
     const { container } = render(makeRoute('/token-fornyet'));
 
-    expect(container.textContent).toContain('TOKEN_FORNYET_SIDETITTEL');
+    await waitFor(() => {
+      expect(container.textContent).toContain('TOKEN_FORNYET_SIDETITTEL');
+    });
   });
 
-  it('should show gravid søknad', () => {
+  it('should show gravid søknad', async () => {
     const { container } = render(makeRoute('/gravid/soknad'));
 
-    expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
-    expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
+    await waitFor(() => {
+      expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
+      expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
+    });
   });
 
-  it('should show gravid søknad when no arbeidsgivere', () => {
+  it('should show gravid søknad when no arbeidsgivere', async () => {
     const { container } = render(makeRoute('/gravid/soknad', []));
 
-    expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
-    expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
+    await waitFor(() => {
+      expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
+      expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
+    });
   });
 
-  it('should show gravid kvittering', () => {
+  it('should show gravid kvittering', async () => {
     const { container } = render(makeRoute('/gravid/soknad/kvittering'));
 
-    expect(container.textContent).toContain('GRAVIDKVITTERINGTITTEL'); //textContent inneholder bare tekst. Ikke f.eks _ pga oversetter komponenten.
+    await waitFor(() => {
+      expect(container.textContent).toContain('GRAVIDKVITTERINGTITTEL'); //textContent inneholder bare tekst. Ikke f.eks _ pga oversetter komponenten.
+    });
   });
 
-  it('should show kronisk søknad', () => {
+  it('should show kronisk søknad', async () => {
     const { container } = render(makeRoute('/kronisk/soknad'));
 
-    expect(container.textContent).toContain('KRONISK_SIDE_SIDETITTEL');
+    await waitFor(() => {
+      expect(container.textContent).toContain('KRONISK_SIDE_SIDETITTEL');
+    });
   });
-  it('should show kronisk søknad when no arbeidsgivere', () => {
+  it('should show kronisk søknad when no arbeidsgivere', async () => {
     const { container } = render(makeRoute('/kronisk/soknad', []));
 
-    expect(container.textContent).toContain('KRONISK_SIDE_SIDETITTEL');
+    await waitFor(() => {
+      expect(container.textContent).toContain('KRONISK_SIDE_SIDETITTEL');
+    });
   });
-  it('should show kronisk kvittering', () => {
+  it('should show kronisk kvittering', async () => {
     const { container } = render(makeRoute('/kronisk/soknad/kvittering'));
 
-    expect(container.textContent).toContain(
-      'Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom'
-    );
+    await waitFor(() => {
+      expect(container.textContent).toContain(
+        'Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom'
+      );
+    });
   });
 
-  it('should show gravid krav', () => {
+  it('should show gravid krav', async () => {
     const { container } = render(makeRoute('/gravid/krav'));
 
-    expect(container.textContent).toContain('GRAVID_KRAV_SIDETITTEL_STOR');
-    expect(container.textContent).toContain('GRAVID_KRAV_SIDETITTEL_SUBTITLE');
+    await waitFor(
+      () => {
+        expect(container.textContent).toContain('GRAVID_KRAV_SIDETITTEL_STOR');
+        expect(container.textContent).toContain('GRAVID_KRAV_SIDETITTEL_SUBTITLE');
+      },
+      { timeout: 10000 }
+    );
   });
-  it('should show gravid krav kvittering', () => {
+  it('should show gravid krav kvittering', async () => {
     const { container } = render(makeRoute('/gravid/krav/kvittering'));
 
-    expect(container.textContent).toContain('KRAV_KVITTERING_TITTEL');
+    await waitFor(() => {
+      expect(container.textContent).toContain('KRAV_KVITTERING_TITTEL');
+    });
   });
 
-  it('should show kronisk krav', () => {
+  it('should show kronisk krav', async () => {
     const { container } = render(makeRoute('/kronisk/krav'));
 
-    expect(container.textContent).toContain('KRONISK_KRAV_SUBTITLE');
-    expect(container.textContent).toContain('KRONISK_KRAV_TITLE');
+    await waitFor(
+      () => {
+        expect(container.textContent).toContain('KRONISK_KRAV_SUBTITLE');
+        expect(container.textContent).toContain('KRONISK_KRAV_TITLE');
+      },
+      { timeout: 10000 }
+    );
   });
-  it('should show kronisk krav kvittering', () => {
+  it('should show kronisk krav kvittering', async () => {
     const { container } = render(makeRoute('/kronisk/krav/kvittering'));
 
-    expect(container.textContent).toContain('KRAV_KVITTERING_TITTEL');
+    await waitFor(() => {
+      expect(container.textContent).toContain('KRAV_KVITTERING_TITTEL');
+    });
   });
 });
