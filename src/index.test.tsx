@@ -137,4 +137,29 @@ describe('index.tsx', () => {
     expect(mockGetWebInstrumentations).toHaveBeenCalled();
     expect(mockTracingInstrumentation).toHaveBeenCalled();
   });
+
+  it('should log error when Faro initialization fails', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const mockError = new Error('Failed to load Faro');
+
+    // Mock faro-web-sdk to reject when imported
+    vi.doMock('@grafana/faro-web-sdk', () => {
+      return Promise.reject(mockError);
+    });
+
+    mockEnv = { environmentMode: EnvironmentType.PROD };
+    vi.doMock('./config/environment', () => ({
+      default: mockEnv,
+      EnvironmentType
+    }));
+
+    await import('./index');
+
+    // Wait for the promise rejection to be caught
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to initialize Faro telemetry:', expect.any(Error));
+
+    consoleErrorSpy.mockRestore();
+  });
 });
