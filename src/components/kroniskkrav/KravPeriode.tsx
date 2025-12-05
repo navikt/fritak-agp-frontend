@@ -10,7 +10,6 @@ import LangKey from '../../locale/LangKey';
 import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../config/konstanter';
 import { Button, HelpText, TextField } from '@navikt/ds-react';
-import '@navikt/ds-css';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
 import Datovelger from '../datovelger/Datovelger';
 import TextLabel from '../TextLabel';

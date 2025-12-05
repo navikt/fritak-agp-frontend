@@ -1,6 +1,5 @@
 import { Button, Modal } from '@navikt/ds-react';
 import React from 'react';
-import '@navikt/ds-css';
 
 interface SlettKravModalProps {
   onOKClicked: (event: React.FormEvent) => void;

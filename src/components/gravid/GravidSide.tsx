@@ -38,7 +38,6 @@ import {
   Fieldset,
   Box
 } from '@navikt/ds-react';
-import '@navikt/ds-css';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';

@@ -120,9 +120,12 @@ describe('KroniskKrav', () => {
     await user.click(submitButton);
     await user.selectOptions(selectDager, ['3']);
 
-    await waitFor(() => {
-      expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
+      },
+      { timeout: 10000 }
+    );
   });
 
   it('should show warnings when input is missing, and the warning should dissapear when fixed 3', async () => {

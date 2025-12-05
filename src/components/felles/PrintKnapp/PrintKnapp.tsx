@@ -1,6 +1,5 @@
 import { Button } from '@navikt/ds-react';
 import React from 'react';
-import '@navikt/ds-css';
 
 const PrintKnapp = () => {
   const skrivUt = () => window.print();
