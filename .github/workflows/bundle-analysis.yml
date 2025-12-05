@@ -102,7 +102,7 @@ jobs:
           path: dist/analyze/bundle-stats.json
 
       - name: Download base bundle stats
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@v11
         if: github.event_name == 'pull_request'
         continue-on-error: true
         with:
