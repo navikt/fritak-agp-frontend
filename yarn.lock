@@ -1036,9 +1036,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/virksomhetsvelger@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@navikt/virksomhetsvelger@npm:1.0.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fvirksomhetsvelger%2F1.0.4%2F7ec5804b1a87160aafcdd6b0d7f63aed3234960d"
+"@navikt/virksomhetsvelger@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@navikt/virksomhetsvelger@npm:1.0.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fvirksomhetsvelger%2F1.0.5%2F54a979cf300c60c805f41e98e57487cf0974776f"
   dependencies:
     focus-trap-react: "npm:11.0.3"
   peerDependencies:
@@ -1046,7 +1046,7 @@ __metadata:
     "@navikt/ds-react": ">=6"
     react: 18 || 19
     react-dom: 18 || 19
-  checksum: 10c0/914808a1e46b945484e457a024283968607cafa16abfa4b1486940bdf6086e12741e50f9257e0c29d331a6280e77534f946554ed76e68c3eabe1a0a4ab190222
+  checksum: 10c0/313a00acf128c869d4f333082d4186597f41b2edaf36d0fd026da17a5372f08c58f9c89fe96aded7e43ff9cac6063348aa176ccbf7c6cc6fcf83b56bfb421d19
   languageName: node
   linkType: hard
 
@@ -4035,7 +4035,7 @@ __metadata:
     "@navikt/fnrvalidator": "npm:^2.2.1"
     "@navikt/nav-dekoratoren-moduler": "npm:^3.6.1"
     "@navikt/textparser": "npm:^2.4.0"
-    "@navikt/virksomhetsvelger": "npm:^1.0.4"
+    "@navikt/virksomhetsvelger": "npm:^1.0.5"
     "@playwright/test": "npm:^1.57.0"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.9.1"
