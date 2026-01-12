@@ -991,28 +991,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:^7.37.0":
-  version: 7.37.0
-  resolution: "@navikt/aksel-icons@npm:7.37.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F7.37.0%2F69470b7e21c152f7705df217fd5e3566237c8bc4"
-  checksum: 10c0/6c74b57389dd0e129cbf666da4222a40055f70dfb1ce5e34bc55e3420ed4398a9f7b3a19e9faf196ff28bc11bd2a101d70b12f43eb0c6c1742596b09d84c774d
+"@navikt/aksel-icons@npm:^7.39.0":
+  version: 7.39.0
+  resolution: "@navikt/aksel-icons@npm:7.39.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F7.39.0%2Fa085e7e78b32ffa64bd7319ab6ac697a59941067"
+  checksum: 10c0/2d4b9e6aa67b81e4cbc6d3d368280707a875f57288d0bf9353b8857168cd535359e4b99dae5a3992ffc8ab25f79b569c19885cb8dec7a3409f0ac32215825e8a
   languageName: node
   linkType: hard
 
-"@navikt/ds-css@npm:^7.37.0":
-  version: 7.37.0
-  resolution: "@navikt/ds-css@npm:7.37.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F7.37.0%2Fb0752aaf6a6ea970fedd2f6cdc0da93aa7b0c9fa"
-  checksum: 10c0/cd2d7e93c4e5a35f323bfe0ade7b0044ca04364a9c6daf6422fbaaffff88c93ab4c88a8e3c3dd5b695a7117c8681e75a4816f85d82e1f529c26b934b8b10d32a
+"@navikt/ds-css@npm:^7.39.0":
+  version: 7.39.0
+  resolution: "@navikt/ds-css@npm:7.39.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F7.39.0%2Fcffa34e23426bc9f15f8f9f8f02ca30f2ddfdb2b"
+  checksum: 10c0/f535f2eee8e27b365553186b669421f321365a10217341380b1e7dd7696a867b5994f2dce1dad3b6c39a4ce0554cccd59b13f0e55025df4a9e1e203ee6ec705a
   languageName: node
   linkType: hard
 
-"@navikt/ds-react@npm:^7.37.0":
-  version: 7.37.0
-  resolution: "@navikt/ds-react@npm:7.37.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F7.37.0%2Fda57447763c409e4a99673de00cf52d33e3aa693"
+"@navikt/ds-react@npm:^7.39.0":
+  version: 7.39.0
+  resolution: "@navikt/ds-react@npm:7.39.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F7.39.0%2F6ae2986f89fc61890e37016b9c683bf74a309adf"
   dependencies:
     "@floating-ui/react": "npm:0.27.8"
     "@floating-ui/react-dom": "npm:^2.1.6"
-    "@navikt/aksel-icons": "npm:^7.37.0"
-    "@navikt/ds-tokens": "npm:^7.37.0"
+    "@navikt/aksel-icons": "npm:^7.39.0"
+    "@navikt/ds-tokens": "npm:^7.39.0"
     clsx: "npm:^2.1.0"
     date-fns: "npm:^4.0.0"
     react-day-picker: "npm:9.7.0"
@@ -1020,14 +1020,14 @@ __metadata:
     "@types/react": ^17.0.30 || ^18 || ^19
     react: ^17 || ^18 || ^19
     react-dom: ^17 || ^18 || ^19
-  checksum: 10c0/2aa63956fb392b7380343ad90f38ae064a4066bd152cd75ac9874dc8d7dffdab774ef4498037a63b7790922487a0dd5a3c00cde5f76c24ed026daa18c2ac5521
+  checksum: 10c0/e992819e2bde31b0f4bf80505ad9c9944d7d0d66897e7820c51ced281f5c7f682ed41fd609e5d379c82aeb9e972cc9ac29e24fcca4bbb90f05966b38170256ba
   languageName: node
   linkType: hard
 
-"@navikt/ds-tokens@npm:^7.37.0":
-  version: 7.37.0
-  resolution: "@navikt/ds-tokens@npm:7.37.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F7.37.0%2Ffaec0475b4703e1ad10265855d1bca1393f1224b"
-  checksum: 10c0/cf94a04b7707786c7af4a2b9c53df6064eb00ed7388b9b696a83cd3b8a17043e23b866adf7c4898b634c92a31bee2987bbafbb6d56b8a9490ce9d098ca09599b
+"@navikt/ds-tokens@npm:^7.39.0":
+  version: 7.39.0
+  resolution: "@navikt/ds-tokens@npm:7.39.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F7.39.0%2F1ae77ff83ab4e63b49d2538e57f4f577f1765092"
+  checksum: 10c0/9a0a500504f6581905f07b6c638e56afeb4a308820c481b064ce3b5daf9fbbf11b2b70ee5d2056339f0a62e7e52c5289fd388de6ec1e067ac098423265ff073c
   languageName: node
   linkType: hard
 
@@ -4060,9 +4060,9 @@ __metadata:
     "@eslint/js": "npm:^9.39.2"
     "@grafana/faro-web-sdk": "npm:^1.18.2"
     "@grafana/faro-web-tracing": "npm:^1.19.0"
-    "@navikt/aksel-icons": "npm:^7.37.0"
-    "@navikt/ds-css": "npm:^7.37.0"
-    "@navikt/ds-react": "npm:^7.37.0"
+    "@navikt/aksel-icons": "npm:^7.39.0"
+    "@navikt/ds-css": "npm:^7.39.0"
+    "@navikt/ds-react": "npm:^7.39.0"
     "@navikt/fnrvalidator": "npm:^2.2.1"
     "@navikt/nav-dekoratoren-moduler": "npm:^3.6.1"
     "@navikt/textparser": "npm:^2.4.0"
