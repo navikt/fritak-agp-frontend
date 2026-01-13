@@ -19,7 +19,7 @@ export default function SlettKravModal(props: SlettKravModalProps) {
     >
       <Modal.Body>
         <span className='kroniskkrav-modal-text'>
-          Ved annullering vil dette kravet om fritak fra arbeidsgiverperiode bortfalle.
+          Ved annullering vil kravet om refusjon for denne perioden bortfalle
         </span>
         <div className='kroniskkrav-modal-buttons'>
           <Button variant='secondary' onClick={() => props.onClose(false)}>
