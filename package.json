@@ -88,7 +88,7 @@
     "eslint-plugin-vitest": "^0.5.3",
     "husky": "9.x",
     "jest-axe": "10.x",
-    "knip": "^5.76.3",
+    "knip": "^5.81.0",
     "lint-staged": "^16.2.7",
     "mockdate": "^3.0.5",
     "msw": "^2.12.7",
