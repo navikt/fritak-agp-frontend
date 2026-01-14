@@ -42,6 +42,9 @@ updates:
         patterns:
           - 'i18next'
           - 'react-i18next'
+      grafana:
+        patterns:
+          - '@grafana/*'
 
   # Maintain dependencies for Docker
   - package-ecosystem: 'docker' # See documentation for possible values
