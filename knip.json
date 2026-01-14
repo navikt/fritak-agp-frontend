@@ -6,11 +6,6 @@
     "mockserver/**",
     "typings/**",
     "src/mock/**",
-    "src/nais.js",
-    "src/components/felles/BekreftOpplysningerPanel/BekreftOpplysningerPanel.scss",
-    "src/components/felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel.sass",
-    "src/components/felles/InternLenke/InternLenke.scss",
-    "src/components/felles/LoggetUtAdvarsel/LoggetUtAdvarsel.scss",
-    "src/components/felles/ServerFeilAdvarsel/ServerFeilAdvarsel.sass"
+    "src/nais.js"
   ]
 }
