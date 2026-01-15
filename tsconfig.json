@@ -18,6 +18,5 @@
     "noFallthroughCasesInSwitch": true,
     "typeRoots": ["./typings", "vite/client", "./node_modules/@types"]
   },
-  "include": ["src", "./vitest.setup.ts"],
-  "exclude": ["**/*.test.ts*", "src/mock/**/*", "src/mockData/**/*"]
+  "include": ["src", "./vitest.setup.ts"]
 }
