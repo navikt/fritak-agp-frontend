@@ -9,7 +9,7 @@ import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import { Language } from '../../locale/Language';
-import { vi, expect } from 'vitest';
+import { vi, expect, it } from 'vitest';
 
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
@@ -135,7 +135,7 @@ describe('KravPeriode', () => {
     expect(mockDispatch).toHaveBeenCalledWith({ payload: { belop: 20000, itemId: 'mocked' }, type: Actions.Beloep });
   });
 
-  it.skip('call dispatch when dager has been updated', async () => {
+  it.todo('call dispatch when dager has been updated', async () => {
     const mockDispatch = vi.fn();
 
     render(
@@ -156,7 +156,7 @@ describe('KravPeriode', () => {
     expect(mockDispatch).toHaveBeenCalledWith({ payload: { dager: 12, itemId: 'mocked' }, type: Actions.Dager });
   });
 
-  it.skip('should have no a11y violations for 1 row', async () => {
+  it.todo('should have no a11y violations for 1 row', async () => {
     const mockDispatch = vi.fn();
 
     const { container } = render(
@@ -176,7 +176,7 @@ describe('KravPeriode', () => {
     cleanup();
   });
 
-  it.skip('should have no a11y violations for more rows - when Datovelger behaves', async () => {
+  it.todo('should have no a11y violations for more rows - when Datovelger behaves', async () => {
     const mockDispatch = vi.fn();
 
     const { container } = render(

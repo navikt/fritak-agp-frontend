@@ -1,5 +1,6 @@
 import postKronisk from './postKronisk';
 import { KroniskRequest } from './KroniskRequest';
+import { vi } from 'vitest';
 
 describe('postKronisk', () => {
   const mockFetch = (status: number, json: any) => {

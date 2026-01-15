@@ -4,7 +4,7 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import react from 'eslint-plugin-react';
-import vitest from 'eslint-plugin-vitest';
+import vitest from '@vitest/eslint-plugin';
 import eslintPlugin from '@typescript-eslint/eslint-plugin'
 
 export default tseslint.config(
@@ -18,6 +18,7 @@ export default tseslint.config(
       eslint: eslintPlugin
     },
     rules: {
+      ...vitest.configs.recommended.rules,
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn'
     }
