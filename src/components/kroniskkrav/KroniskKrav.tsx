@@ -46,6 +46,7 @@ import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import textify from '../../utils/textify';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
+import { KroniskKrav as KroniskKravType } from '../../context/krav';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -205,7 +206,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
           dispatch({
             type: Actions.KravEndring,
             payload: {
-              krav: response.json
+              krav: response.json as KroniskKravType | undefined
             }
           });
         })

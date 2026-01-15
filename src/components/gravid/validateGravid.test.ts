@@ -8,7 +8,7 @@ import { i18n } from 'i18next';
 import { parseDato } from '../../utils/dato/Dato';
 
 const translationMock = {
-  t: (param: any) => param
+  t: (param: never) => param
 };
 
 describe('validateGravid', () => {

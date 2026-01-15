@@ -45,6 +45,7 @@ import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
+import { GravidKrav as GravidKravType } from '../../context/krav';
 
 const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -204,7 +205,7 @@ const GravidKrav = (props: GravidKravProps) => {
           dispatch({
             type: Actions.KravEndring,
             payload: {
-              krav: response.json
+              krav: response.json as GravidKravType | undefined
             }
           });
         })
