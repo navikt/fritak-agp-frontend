@@ -17,6 +17,7 @@ export default defineConfig(
   },
   {
     files: ['src/**/*.{ts,tsx}'],
+    ignores: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', 'src/mock/**', 'src/mockData/**'],
     languageOptions: {
       parserOptions: {
         projectService: true,

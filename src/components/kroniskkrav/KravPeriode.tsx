@@ -17,13 +17,19 @@ import stringishToNumber from '../../utils/stringishToNumber';
 import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyDispatch = (action: any) => void;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyActions = any;
+
 interface KravPeriodeProps {
-  dispatch: (action: { type: string; payload: Record<string, unknown> }) => void;
+  dispatch: AnyDispatch;
   enkeltPeriode: KroniskKravPeriode;
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
-  Actions: Record<string, string>;
+  Actions: AnyActions;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
