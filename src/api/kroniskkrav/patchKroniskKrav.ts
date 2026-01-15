@@ -6,7 +6,7 @@ import KroniskKravResponse from '../gravidkrav/KroniskKravResponse';
 const patchKroniskKrav = (
   basePath: string,
   kravId: string,
-  payload: any
+  payload: Record<string, unknown>
 ): Promise<ValidationResponse<KroniskKravResponse>> => {
   return httpRequest(basePath + Paths.KroniskKravSlett + kravId, payload, 'PATCH');
 };

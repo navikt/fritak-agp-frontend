@@ -18,12 +18,12 @@ import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
 
 interface KravPeriodeProps {
-  dispatch: any;
+  dispatch: (action: { type: string; payload: Record<string, unknown> }) => void;
   enkeltPeriode: KroniskKravPeriode;
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
-  Actions: any;
+  Actions: Record<string, string>;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
@@ -67,20 +67,14 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const today = new Date();
 
-  const defaultFom =
-    props.enkeltPeriode.fom && props.enkeltPeriode.fom.year
-      ? parseISO(datoToString(props.enkeltPeriode.fom))
-      : undefined;
-  const defaultTom =
-    props.enkeltPeriode.tom && props.enkeltPeriode.tom.year
-      ? parseISO(datoToString(props.enkeltPeriode.tom))
-      : undefined;
+  const defaultFom = props.enkeltPeriode.fom?.year ? parseISO(datoToString(props.enkeltPeriode.fom)) : undefined;
+  const defaultTom = props.enkeltPeriode.tom?.year ? parseISO(datoToString(props.enkeltPeriode.tom)) : undefined;
   const defaultSykemeldingsgrad = props.enkeltPeriode.sykemeldingsgrad
     ? stringishToNumber(props.enkeltPeriode.sykemeldingsgrad)
     : '';
 
   useEffect(() => {
-    if (props.enkeltPeriode.fom && props.enkeltPeriode.fom.year) {
+    if (props.enkeltPeriode.fom?.year) {
       getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbelopRespons) => {
         if (grunnbelopRespons.grunnbeloep) {
           dispatch({

@@ -3,7 +3,7 @@ import NotifikasjonType from '../felles/NotifikasjonType';
 interface NotifikasjonPayload {
   status: number;
   uuid?: string;
-  json?: any;
+  json?: unknown;
   notifikasjonsType: NotifikasjonType;
 }
 

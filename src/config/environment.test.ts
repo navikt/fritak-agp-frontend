@@ -7,7 +7,7 @@ describe('umamiDataDomains', () => {
   let locationSpy: ReturnType<typeof vi.spyOn> | undefined;
 
   const stubHostname = (hostname: string) => {
-    locationSpy = vi.spyOn(window, 'location', 'get').mockReturnValue({ hostname } as any);
+    locationSpy = vi.spyOn(window, 'location', 'get').mockReturnValue({ hostname } as string & Location);
   };
 
   afterEach(() => {

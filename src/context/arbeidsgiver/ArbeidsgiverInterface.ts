@@ -2,11 +2,11 @@ import { Organisasjon } from '@navikt/virksomhetsvelger';
 
 type ArbeidsgiverInterface = {
   arbeidsgivere: Array<Organisasjon>;
-  setArbeidsgivere: any;
+  setArbeidsgivere: (arbeidsgivere: Array<Organisasjon>) => void;
   firma: string;
-  setFirma: any;
+  setFirma: (firma: string) => void;
   arbeidsgiverId: string;
-  setArbeidsgiverId: any;
+  setArbeidsgiverId: (arbeidsgiverId: string) => void;
 };
 
 export default ArbeidsgiverInterface;

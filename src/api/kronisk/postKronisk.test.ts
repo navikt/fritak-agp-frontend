@@ -3,7 +3,7 @@ import { KroniskRequest } from './KroniskRequest';
 import { vi } from 'vitest';
 
 describe('postKronisk', () => {
-  const mockFetch = (status: number, json: any) => {
+  const mockFetch = (status: number, json: { status: number; violations: unknown[] }) => {
     vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
         status: status,

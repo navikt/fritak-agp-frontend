@@ -4,7 +4,7 @@ import { parseDato } from '../../utils/dato/Dato';
 import { i18n } from 'i18next';
 
 const translationMock = {
-  t: (param: any) => param
+  t: (param: never) => param
 };
 
 describe('validateGravidKrav', () => {
