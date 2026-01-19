@@ -86,7 +86,7 @@
     "eslint-plugin-react": "^7.37.5",
     "husky": "9.x",
     "jest-axe": "10.x",
-    "knip": "^5.81.0",
+    "knip": "^5.82.1",
     "lint-staged": "^16.2.7",
     "mockdate": "^3.0.5",
     "msw": "^2.12.7",
