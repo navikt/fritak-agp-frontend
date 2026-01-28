@@ -1010,43 +1010,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:^7.39.1":
-  version: 7.39.1
-  resolution: "@navikt/aksel-icons@npm:7.39.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F7.39.1%2F07c4f141221b98e918a1b033cfd6448042ec619c"
-  checksum: 10c0/864431e36f714cf9e8e0e161ab96b62a70cd5bc44b91b222a43d5d4e3ff6e7c7980fdaad2575ddfcb1c82d910823a30c1e5f74904b5dea42953465e0fe7af05e
+"@navikt/aksel-icons@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@navikt/aksel-icons@npm:8.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F8.1.0%2Fd1796650b2b1e3d19a18b45670833fdc6fef3ca3"
+  checksum: 10c0/9715c82aa3dfbabfd2f6cea71b5ba7ebe53296a2422a7672121132a10767ad37936bc147d093d394b57d96b1477fdca123297b22b4827c0f3f56afd1994a4e06
   languageName: node
   linkType: hard
 
-"@navikt/ds-css@npm:^7.39.1":
-  version: 7.39.1
-  resolution: "@navikt/ds-css@npm:7.39.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F7.39.1%2F637a0fb74298b72c584a890cf60c01183616a106"
-  checksum: 10c0/6f9dad07e3456209804d115fd598fd01f827933f44d8c176d86b3a8218edf55664c73ad29ff2f5951a9ab9ca9995eb64a561d3753e0657f18c1cfe02b96ec791
+"@navikt/ds-css@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@navikt/ds-css@npm:8.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F8.1.0%2Fd7a3f7b5e1a04e2f589982b9cd511d592534032b"
+  checksum: 10c0/bd610575d36fe0d9f3e6934bded3e39e5d1637dbb1101f2e2201e3a94781805d083e552a8b1d70a7b7ec64eb6026d6280b41cde106592a4ef3f61282d93726b3
   languageName: node
   linkType: hard
 
-"@navikt/ds-react@npm:^7.39.1":
-  version: 7.39.1
-  resolution: "@navikt/ds-react@npm:7.39.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F7.39.1%2F6e1c8a690a2a5530f95e3ff206c0fcba6ef58ceb"
+"@navikt/ds-react@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@navikt/ds-react@npm:8.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F8.1.0%2F8220b7849b5aa78b7528e2a481a53ae47ffb7cd5"
   dependencies:
     "@floating-ui/react": "npm:0.27.8"
     "@floating-ui/react-dom": "npm:^2.1.6"
-    "@navikt/aksel-icons": "npm:^7.39.1"
-    "@navikt/ds-tokens": "npm:^7.39.1"
-    clsx: "npm:^2.1.0"
+    "@navikt/aksel-icons": "npm:^8.1.0"
+    "@navikt/ds-tokens": "npm:^8.1.0"
     date-fns: "npm:^4.0.0"
     react-day-picker: "npm:9.7.0"
   peerDependencies:
     "@types/react": ^17.0.30 || ^18 || ^19
     react: ^17 || ^18 || ^19
     react-dom: ^17 || ^18 || ^19
-  checksum: 10c0/baef2ebff31c12724537a2b96dcb80b0b224f76d4287110e6501b8fc381647d8ef1a68e24b1f8ec391a1bb41df2162d275d0a9e39544c08edbde2075b2662a24
+  checksum: 10c0/e8dc7c1032b990cb61b4f2b039af03b9fd628aeb0bbbd99c9720526edd2afdead337bf521025fd1b2ffe0e61b772901dcd913948e9c2fab1f552ea3780fbc8cd
   languageName: node
   linkType: hard
 
-"@navikt/ds-tokens@npm:^7.39.1":
-  version: 7.39.1
-  resolution: "@navikt/ds-tokens@npm:7.39.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F7.39.1%2F70c7db2e145503aa257d2dbe55ebbb6802b79871"
-  checksum: 10c0/b85e9e4b0e584a2e6e2870c86607ca95b2c347468020e3fc42f0f134dfa500ca1cdb759654c90259ed0c58445edadfb4956092f59f3e42c62d492fc9b30b92ed
+"@navikt/ds-tokens@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@navikt/ds-tokens@npm:8.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F8.1.0%2F6097c928c89dde3088214799bcf6a6751852b963"
+  checksum: 10c0/e5106fd6f0fa7e03a98cb3a4b890e7de1ec63add01542a475abddf4133dd2b192c6e5d908fba0d05132a31738958c71bce4d4b94bace6e28c389090adb801c72
   languageName: node
   linkType: hard
 
@@ -3061,13 +3060,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.1.0":
-  version: 2.1.1
-  resolution: "clsx@npm:2.1.1"
-  checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
-  languageName: node
-  linkType: hard
-
 "color-convert@npm:^2.0.1":
   version: 2.0.1
   resolution: "color-convert@npm:2.0.1"
@@ -4138,9 +4130,9 @@ __metadata:
     "@eslint/js": "npm:^9.39.2"
     "@grafana/faro-web-sdk": "npm:^2.1.0"
     "@grafana/faro-web-tracing": "npm:^2.1.0"
-    "@navikt/aksel-icons": "npm:^7.39.1"
-    "@navikt/ds-css": "npm:^7.39.1"
-    "@navikt/ds-react": "npm:^7.39.1"
+    "@navikt/aksel-icons": "npm:^8.1.0"
+    "@navikt/ds-css": "npm:^8.1.0"
+    "@navikt/ds-react": "npm:^8.1.0"
     "@navikt/fnrvalidator": "npm:^2.2.1"
     "@navikt/nav-dekoratoren-moduler": "npm:^3.6.1"
     "@navikt/textparser": "npm:^2.4.0"
