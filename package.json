@@ -77,9 +77,9 @@
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.1.2",
-    "@vitest/coverage-v8": "^4.0.17",
+    "@vitest/coverage-v8": "^4.0.18",
     "@vitest/eslint-plugin": "^1.6.6",
-    "@vitest/ui": "^4.0.17",
+    "@vitest/ui": "^4.0.18",
     "cross-os": "1.5.0",
     "eslint": "^9.39.2",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -99,7 +99,7 @@
     "vite": "^7",
     "vite-plugin-compression": "^0.5.1",
     "vite-tsconfig-paths": "^6.0.4",
-    "vitest": "^4.0.17",
+    "vitest": "^4.0.18",
     "vitest-sonar-reporter": "^3.0.0"
   },
   "packageManager": "yarn@4.12.0"
