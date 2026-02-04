@@ -54,7 +54,7 @@
     "@navikt/virksomhetsvelger": "^1.0.6",
     "csp-header": "^6.3.0",
     "date-fns": "^4.1.0",
-    "html-react-parser": "^5.2.11",
+    "html-react-parser": "^5.2.16",
     "i18next": "^25.8.0",
     "jsdom": "^27.4.0",
     "react": "^19.2.4",
