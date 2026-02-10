@@ -719,32 +719,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grafana/faro-core@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "@grafana/faro-core@npm:2.2.2"
+"@grafana/faro-core@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "@grafana/faro-core@npm:2.2.3"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/otlp-transformer": "npm:^0.211.0"
-  checksum: 10c0/0a15fe28a5e4e8374d35175b3385a7d666e0b5fe968be2c0ca713935ce0bb1591bc759930aa7549a798353e6840e2a381587854afe4aae3a24550a7461cc3385
+  checksum: 10c0/546b3a922372415060cd44d0fe643d04d1777cd4b85c00990b38cc0721b80c6143516ea98abe08a2fe3d4d21eb132565576c6e1923ca10d47dcc9c30c15d58fe
   languageName: node
   linkType: hard
 
-"@grafana/faro-web-sdk@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "@grafana/faro-web-sdk@npm:2.2.2"
+"@grafana/faro-web-sdk@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "@grafana/faro-web-sdk@npm:2.2.3"
   dependencies:
-    "@grafana/faro-core": "npm:^2.2.2"
+    "@grafana/faro-core": "npm:^2.2.3"
     ua-parser-js: "npm:1.0.41"
     web-vitals: "npm:^5.1.0"
-  checksum: 10c0/af43012a9261c4d6024885f5c1417539c242732281fc1918ff65fb403bd50d2c49939bb7931c3bb09e6c537524ab10e225d5a9b7db90dceda18068861b6d9d40
+  checksum: 10c0/307bffe4a2fb4aee5aac5e118ff2ec3d93da51ba92e66bcfe274e610fa88ffd9d5ec1780a2ab441e258bb7609b9010c0f1e6e00438e34029a25dde70d757ac1c
   languageName: node
   linkType: hard
 
-"@grafana/faro-web-tracing@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "@grafana/faro-web-tracing@npm:2.2.2"
+"@grafana/faro-web-tracing@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "@grafana/faro-web-tracing@npm:2.2.3"
   dependencies:
-    "@grafana/faro-web-sdk": "npm:^2.2.2"
+    "@grafana/faro-web-sdk": "npm:^2.2.3"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/core": "npm:^2.0.0"
     "@opentelemetry/exporter-trace-otlp-http": "npm:^0.211.0"
@@ -755,7 +755,7 @@ __metadata:
     "@opentelemetry/resources": "npm:^2.0.0"
     "@opentelemetry/sdk-trace-web": "npm:^2.0.0"
     "@opentelemetry/semantic-conventions": "npm:^1.32.0"
-  checksum: 10c0/bdc5f67a7dc0e5f7dec382e7ef74aa0fea6ce5ad538788b69e09be733d8e802719853e1cf4e352ba6ef86984be267035d030ee951ea0baf1f6aa98e2969369b7
+  checksum: 10c0/508e7778e7735ca2774137d521746ed09e00b4ea0a5ff903f91a0a3cb51d4266b3e6f83701552a02ad86c87499a375571474afd22acde4715c66ca29bb8fbf25
   languageName: node
   linkType: hard
 
@@ -4136,8 +4136,8 @@ __metadata:
   resolution: "fritak-agp-frontend@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.39.2"
-    "@grafana/faro-web-sdk": "npm:^2.2.2"
-    "@grafana/faro-web-tracing": "npm:^2.2.2"
+    "@grafana/faro-web-sdk": "npm:^2.2.3"
+    "@grafana/faro-web-tracing": "npm:^2.2.3"
     "@navikt/aksel-icons": "npm:^7.39.1"
     "@navikt/ds-css": "npm:^7.39.1"
     "@navikt/ds-react": "npm:^7.39.1"
