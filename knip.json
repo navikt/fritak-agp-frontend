@@ -7,5 +7,6 @@
     "typings/**",
     "src/mock/**",
     "src/nais.js"
-  ]
+  ],
+  "ignoreDependencies": ["@navikt/aksel"]
 }
