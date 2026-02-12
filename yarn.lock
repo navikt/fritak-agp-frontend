@@ -4086,7 +4086,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.37.5"
     html-react-parser: "npm:^5.2.11"
     husky: "npm:9.x"
-    i18next: "npm:^25.8.4"
+    i18next: "npm:^25.8.6"
     jest-axe: "npm:10.x"
     jsdom: "npm:^27.4.0"
     knip: "npm:^5.82.1"
@@ -4496,9 +4496,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^25.8.4":
-  version: 25.8.4
-  resolution: "i18next@npm:25.8.4"
+"i18next@npm:^25.8.6":
+  version: 25.8.6
+  resolution: "i18next@npm:25.8.6"
   dependencies:
     "@babel/runtime": "npm:^7.28.4"
   peerDependencies:
@@ -4506,7 +4506,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/c2582bd97893b4417c06c5b5f8f3bb37cdf77fc5918d00ff3a0e79c856b94bf8bb52377754bb5d62ade88b457f8ac541471987d359c1adc67bcaeea18121a2b5
+  checksum: 10c0/0f68bc048f1de644b226c3141de76cd5dfb43ba39c63bf9b73b51aa8b04f1ae532463dfc6cc83fb7ce7fce91efe3545095ca97d864a6e641e58bcfd24ab68272
   languageName: node
   linkType: hard
 
