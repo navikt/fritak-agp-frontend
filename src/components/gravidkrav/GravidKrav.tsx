@@ -358,7 +358,13 @@ const GravidKrav = (props: GravidKravProps) => {
           Avbryt
         </Button>
         {state.endringskrav && (
-          <Button variant='danger' onClick={handleDeleteClicked} className='sletteknapp' loading={state.progress}>
+          <Button
+            data-color='danger'
+            variant='primary'
+            onClick={handleDeleteClicked}
+            className='sletteknapp'
+            loading={state.progress}
+          >
             Annuller krav
           </Button>
         )}
