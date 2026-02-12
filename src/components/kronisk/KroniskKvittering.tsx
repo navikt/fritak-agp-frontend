@@ -28,13 +28,13 @@ const KroniskKvittering = () => {
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <div>
-        <Box padding='4' borderRadius='small'>
+        <Box padding='4' borderRadius='2'>
           <Heading size='xlarge' level='1'>
             Kvittering for søknad om fritak fra arbeidsgiverperioden knyttet til kronisk eller langvarig sykdom
           </Heading>
         </Box>
 
-        <Box padding='4' borderRadius='small'>
+        <Box padding='4' borderRadius='2'>
           <BodyLong>
             En kopi av kvittering er også sendt til meldingsboksen deres i{' '}
             <Link href='https://www.altinn.no'>Altinn</Link>. Meldingen er kun synlig for for de som har tilgang til å
@@ -43,7 +43,7 @@ const KroniskKvittering = () => {
           </BodyLong>
         </Box>
 
-        <Box padding='4' borderRadius='small'>
+        <Box padding='4' borderRadius='2'>
           <Heading size='small' level='2'>
             Detaljer fra søknaden:
           </Heading>
@@ -62,13 +62,13 @@ const KroniskKvittering = () => {
             Du kan skrive ut eller lagre kvitteringen ved å klikke på knappen &quot;Skriv ut kvittering&quot;.
           </BodyLong>
         </Box>
-        <Box padding='4' borderRadius='small'>
+        <Box padding='4' borderRadius='2'>
           <Alert variant='info'>
             Vi anbefaler at bedriften sender selve refusjonskravet før denne søknaden er ferdig behandlet. Da unngår
             dere å oversitte fristen, som er tre måneder.
           </Alert>
         </Box>
-        <Box padding='4' borderRadius='small'>
+        <Box padding='4' borderRadius='2'>
           <PrintKnapp />
         </Box>
 

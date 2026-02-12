@@ -237,8 +237,7 @@ const GravidKrav = (props: GravidKravProps) => {
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
-
-      <Box padding='4' borderRadius='small'>
+      <Box padding='4' borderRadius='2'>
         <BodyLong size='large' className='textfelt-padding-bottom'>
           <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_SIDETITTEL_INGRESS} variables={{ lenkeGravid }} />
         </BodyLong>
@@ -247,10 +246,9 @@ const GravidKrav = (props: GravidKravProps) => {
         </BodyLong>
       </Box>
       <Skillelinje />
-
       {state.endringskrav && (
         <>
-          <Box padding='4' borderRadius='small'>
+          <Box padding='4' borderRadius='2'>
             <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
               <div>
                 <SelectEndring
@@ -298,9 +296,7 @@ const GravidKrav = (props: GravidKravProps) => {
           </div>
         </Fieldset>
       </Box>
-
       <Skillelinje />
-
       <Box id='gravidkrav-panel-tapt-arbeidstid'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
@@ -338,9 +334,7 @@ const GravidKrav = (props: GravidKravProps) => {
           </div>
         </Fieldset>
       </Box>
-
       <Skillelinje />
-
       <BekreftOpplysningerPanel
         checked={!!state.bekreft}
         feil={state.bekreftError}
@@ -351,10 +345,8 @@ const GravidKrav = (props: GravidKravProps) => {
           })
         }
       />
-
       <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
-
-      <Box padding='4' borderRadius='small'>
+      <Box padding='4' borderRadius='2'>
         <Button onClick={handleSubmitClicked} loading={state.progress}>
           {state.endringskrav ? (
             <>{t(GravidKravKeys.GRAVID_KRAV_LONN_ENDRE)} </>
@@ -371,7 +363,6 @@ const GravidKrav = (props: GravidKravProps) => {
           </Button>
         )}
       </Box>
-
       {state.notAuthorized && (
         <LoggetUtAdvarsel
           onClose={handleCloseNotAuthorized}
@@ -379,7 +370,6 @@ const GravidKrav = (props: GravidKravProps) => {
           loginServiceUrl={environment.loginServiceUrl}
         />
       )}
-
       <SlettKravModal
         onOKClicked={onOKClicked}
         showSpinner={!!state.showSpinner}
