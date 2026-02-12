@@ -108,7 +108,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
         fromDate={MIN_KRONISK_DATO}
         defaultSelected={defaultFom}
       />
-
       <Datovelger
         id={`til-dato-${props.index}`}
         label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_TIL)}</div>}
@@ -125,7 +124,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
         toDate={today}
         defaultSelected={defaultTom}
       />
-
       <SelectDager
         label={
           <div className='label-med-hjelp'>
@@ -152,7 +150,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
         error={props.enkeltPeriode.dagerError}
       />
-
       <TextField
         label={
           <div className='label-med-hjelp'>
@@ -183,7 +180,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
         error={props.enkeltPeriode.belopError}
       />
-
       <TextField
         id={`sykemeldingsgrad-${props.index}`}
         label={
@@ -210,7 +206,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
         error={props.enkeltPeriode.sykemeldingsgradError}
       />
-
       <div>
         <TextLabel>
           <div className='label-med-hjelp'>
@@ -230,7 +225,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
       {props.slettbar && (
         <div className='slett-periode-wrapper'>
           <Button
-            variant='danger'
+            data-color='danger'
+            variant='primary'
             onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)}
             className='slett-periode'
           >

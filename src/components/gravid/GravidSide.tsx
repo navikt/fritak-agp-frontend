@@ -188,12 +188,10 @@ const GravidSide = (props: GravidSideProps) => {
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
-
       {!!state.progress && <GravidProgress />}
-
       {!state.progress && !state.kvittering && (
         <div>
-          <Box padding='4' borderRadius='small'>
+          <Box padding='4' borderRadius='2'>
             <BodyLong size='large'>
               <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_INGRESS} />
             </BodyLong>
@@ -201,7 +199,7 @@ const GravidSide = (props: GravidSideProps) => {
 
           <Skillelinje />
 
-          <Box padding='4' borderRadius='small' id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
+          <Box padding='4' borderRadius='2' id='gravidside-panel-ansatte' className='gravidside-panel-ansatte'>
             <div className='soknad-ansatte-persondata'>
               <div>
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
@@ -379,7 +377,7 @@ const GravidSide = (props: GravidSideProps) => {
             state.tilrettelegge === false && (
               <>
                 <Skillelinje />
-                <Box padding='4' borderRadius='small' className='gravidside-panel-alert-gravid'>
+                <Box padding='4' borderRadius='2' className='gravidside-panel-alert-gravid'>
                   <Alert className='gravidside-alert-gravid' variant='warning'>
                     <BodyLong>
                       <>
@@ -408,7 +406,7 @@ const GravidSide = (props: GravidSideProps) => {
             <>
               <Skillelinje />
 
-              <Box padding='4' borderRadius='small'>
+              <Box padding='4' borderRadius='2'>
                 <Heading size='medium' level='3' className='textfelt-padding-bottom'>
                   {t(GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_TITTEL)}
                 </Heading>
@@ -447,7 +445,7 @@ const GravidSide = (props: GravidSideProps) => {
 
               <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
 
-              <Box padding='4' borderRadius='small'>
+              <Box padding='4' borderRadius='2'>
                 <Button onClick={handleSubmitClicked} loading={state.progress}>
                   {t(GravidSideKeys.GRAVID_SIDE_SEND_SOKNAD)}
                 </Button>
@@ -459,7 +457,6 @@ const GravidSide = (props: GravidSideProps) => {
           )}
         </div>
       )}
-
       {state.notAuthorized && (
         <LoggetUtAdvarsel
           onClose={handleCloseNotAuthorized}
