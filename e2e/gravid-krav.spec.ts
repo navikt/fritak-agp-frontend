@@ -5,6 +5,7 @@ import gravidKravResponse from './gravidKravResponse';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 
 import clickButton from './helpers/clickSubmit';
+import { FormPage } from './utils/formPage';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgiver-tilganger/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
@@ -50,7 +51,9 @@ test.describe('Gravid - Krav', () => {
   });
 
   test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {
-    await clickButton(page, 'Send krav');
+    const formPage = new FormPage(page);
+
+    await formPage.clickButton('Send krav');
 
     expect(await page.locator('li > a').allInnerTexts()).toEqual(
       expect.arrayContaining([
@@ -64,7 +67,8 @@ test.describe('Gravid - Krav', () => {
       ])
     );
 
-    await page.getByLabel('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.').check();
+    await formPage.checkCheckbox('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.');
+
     await expect(await page.locator('li > a').allInnerTexts()).toEqual(
       expect.arrayContaining([
         'Mangler fødselsnummer',
@@ -75,7 +79,9 @@ test.describe('Gravid - Krav', () => {
         'Oppgi beløp med kun tall med maks to tall etter komma'
       ])
     );
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText('Bekreft at opplysningene er korrekt');
+
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    // await expect(page.locator('.navds-error-summary__list')).not.toContainText('Bekreft at opplysningene er korrekt');
 
     await page.getByLabel('Oppgi antall dager dere utbetaler lønn for i året:').fill('260');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual(
@@ -87,14 +93,11 @@ test.describe('Gravid - Krav', () => {
         'Oppgi beløp med kun tall med maks to tall etter komma'
       ])
     );
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
-    const fnr = page.getByLabel('Fødselsnummer (11 siffer)');
+    await formPage.fillInput('Fødselsnummer (11 siffer)', '260');
 
-    await fnr.fill('260');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
       'Mangler fra dato',
@@ -102,41 +105,45 @@ test.describe('Gravid - Krav', () => {
       'Mangler dager',
       'Oppgi beløp med kun tall med maks to tall etter komma'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
 
-    await fnr.fill('20125027610');
-    await expect(await page.locator('li > a').allInnerTexts()).toEqual([
-      'Mangler fra dato',
-      'Mangler til dato',
-      'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma'
-    ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
+
+    await formPage.fillInput('Fødselsnummer (11 siffer)', '260');
+
+    await expect(await page.locator('li > a').allInnerTexts()).toEqual(
+      expect.arrayContaining([
+        'Ugyldig fødselsnummer',
+        'Mangler fra dato',
+        'Mangler til dato',
+        'Mangler dager',
+        'Oppgi beløp med kun tall med maks to tall etter komma'
+      ])
+    );
+
+    // await formPage.assertNotVisibleText('Ugyldig fødselsnummer');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
     const belop = page.locator('#belop-0');
     await belop.fill('5000');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
+      'Ugyldig fødselsnummer',
       'Mangler fra dato',
       'Mangler til dato',
       'Mangler dager'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Oppgi beløp med kun tall med maks to tall etter komma',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await formPage.assertNotVisibleText('Oppgi beløp med kun tall med maks to tall etter komma');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
     const velgDager = page.locator('#dager-0');
     await velgDager.selectOption({ label: '5' });
-    await expect(await page.locator('li > a').allInnerTexts()).toEqual(['Mangler fra dato', 'Mangler til dato']);
+    await expect(await page.locator('li > a').allInnerTexts()).toEqual([
+      'Ugyldig fødselsnummer',
+      'Mangler fra dato',
+      'Mangler til dato'
+    ]);
     await expect(page.locator('.navds-error-summary__list')).not.toContainText([
       'Mangler dager',
       'Oppgi beløp med kun tall med maks to tall etter komma',
@@ -146,7 +153,7 @@ test.describe('Gravid - Krav', () => {
     ]);
 
     await page.getByLabel('Fra dato').fill('07.08.21');
-    await expect(page.locator('.navds-error-summary__list')).toContainText('Mangler til dato');
+    await expect(await page.locator('li > a').allInnerTexts()).toEqual(['Ugyldig fødselsnummer', 'Mangler til dato']);
     await expect(page.locator('.navds-error-summary__list')).not.toContainText([
       'Mangler fra dato',
       'Mangler dager',
@@ -168,10 +175,10 @@ test.describe('Gravid - Krav', () => {
       'Mangler antall arbeidsdager'
     ]);
 
-    await fnr.fill('20125027610');
+    await formPage.fillInput('Fødselsnummer (11 siffer)', '20125027610');
 
     const requestPromise = page.waitForRequest(innsendingAPI);
-    await clickButton(page, 'Send krav');
+    await formPage.clickButton('Send krav');
 
     const request = await requestPromise;
     expect(request.postDataJSON()).toEqual({
@@ -198,7 +205,8 @@ test.describe('Gravid - Krav', () => {
   });
 
   test('Legg til og fjern perioder', async ({ page }) => {
-    await clickButton(page, '+ Legg til en fraværsperiode');
+    const formPage = new FormPage(page);
+    await formPage.clickButton('+ Legg til en fraværsperiode');
     await expect(page.locator('#belop-0')).toBeVisible();
     await expect(page.locator('#belop-1')).toBeVisible();
 

@@ -12,7 +12,7 @@ const Feilmeldingspanel = (props: FeilmeldingspanelProps) => {
   const { t } = useTranslation();
   if (props.feilmeldinger && props.feilmeldinger.length > 0) {
     return (
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <ErrorSummary heading={t(FeilmeldingspanelKeys.FEILMELDINGSPANEL)}>
           {props.feilmeldinger.map((melding) => (
             <ErrorSummary.Item href={melding.skjemaelementId} key={melding.skjemaelementId}>

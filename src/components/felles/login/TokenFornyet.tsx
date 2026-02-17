@@ -15,10 +15,10 @@ const TokenFornyet = () => {
     >
       <div className={'side__innhold'}>
         <div>
-          <Box padding='4' borderRadius='2'>
+          <Box padding='space-4' borderRadius='2'>
             <Heading size='large'>{t(TokenFornyetKeys.TOKEN_FORNYET_TITLE)}</Heading>
           </Box>
-          <Box padding='4' borderRadius='2'>
+          <Box padding='space-4' borderRadius='2'>
             <BodyLong>{t(TokenFornyetKeys.TOKEN_FORNYET_INFO)}</BodyLong>
           </Box>
         </div>

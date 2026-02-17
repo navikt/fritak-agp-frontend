@@ -129,13 +129,13 @@ const KroniskSide = () => {
     <Side bedriftsmeny={false} className='kronisk-side' sidetittel={sidetittel} title={title} subtitle={subtitle}>
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <BodyLong size='large'>
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_INGRESS} />
         </BodyLong>
       </Box>
       <Skillelinje />
-      <Box padding='4' borderRadius='2' id='kroniskside-panel-ansatte'>
+      <Box padding='space-4' borderRadius='2' id='kroniskside-panel-ansatte'>
         {/* <Fieldset aria-live='polite' errorId={'ansatt'} legend={t(LangKey.DEN_ANSATTE)} hideLegend={true}> */}
         <div className='soknad-ansatte-persondata'>
           <div>
@@ -175,7 +175,7 @@ const KroniskSide = () => {
         {/* </Fieldset> */}
       </Box>
       <Skillelinje />
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskSideKeys.KRONISK_SIDE_IF_DOCUMENTATION)}
         </Heading>
@@ -199,7 +199,7 @@ const KroniskSide = () => {
         </Fieldset>
       </Box>
       <Skillelinje />
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskSideKeys.KRONISK_SIDE_FRAVAER)}
         </Heading>
@@ -230,7 +230,7 @@ const KroniskSide = () => {
           />
         </Fieldset>
       </Box>
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <TextField
           label={t(KroniskSideKeys.KRONISK_SIDE_PERIODER_LABEL)}
           id='soknad-perioder'
@@ -275,7 +275,7 @@ const KroniskSide = () => {
         }
       />
       <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <Button onClick={handleSubmit} loading={state.progress}>
           {t(KroniskSideKeys.KRONISK_SIDE_SUBMIT)}
         </Button>

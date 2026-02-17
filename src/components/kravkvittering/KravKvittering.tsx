@@ -22,17 +22,17 @@ const KravKvittering = (props: KravKvitteringProps) => {
   return (
     <Side sidetittel='Søknadsskjema' className='kronisk-kvittering' bedriftsmeny={false}>
       <div>
-        <Box padding='4' borderRadius='2'>
+        <Box padding='space-4' borderRadius='2'>
           <Heading size='xlarge' level='1'>
             {t(KravKvitteringKeys.KRAV_KVITTERING_TITTEL)}
           </Heading>
         </Box>
 
-        <Box padding='4' borderRadius='2'>
+        <Box padding='space-4' borderRadius='2'>
           <Oversettelse langKey={KravKvitteringKeys.KRAV_KVITTERING_INGRESS} />
         </Box>
 
-        <Box padding='4' borderRadius='2'>
+        <Box padding='space-4' borderRadius='2'>
           <BodyLong>
             <Link to={backTarget}>{t(KravKvitteringKeys.KRAV_KVITTERING_OPPRETT_NYTT_KRAV)}</Link>
           </BodyLong>

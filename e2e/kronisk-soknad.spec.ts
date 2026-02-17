@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 import kroniskSoknadResponse from './kroniskSoknadResponse';
-import clickButton from './helpers/clickSubmit';
+import { FormPage } from './utils/formPage';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgivere/;
 const cookiePlease = /\/local\/cookie-please/;
@@ -59,7 +59,8 @@ test.describe('Kronisk - Søknad', () => {
   });
 
   test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {
-    await clickButton(page, 'Send søknad');
+    const formPage = new FormPage(page);
+    await formPage.clickButton('Send søknad');
     expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Mangler fødselsnummer',
       'Virksomhetsnummer må fylles ut',
@@ -68,78 +69,70 @@ test.describe('Kronisk - Søknad', () => {
       'Fravær må fylles ut.'
     ]);
 
-    await page.getByLabel('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.').check();
+    await formPage.checkCheckbox('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Mangler fødselsnummer',
       'Virksomhetsnummer må fylles ut',
       'Mangler antall fraværsperioder',
       'Fravær må fylles ut.'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText('Bekreft at opplysningene er korrekte');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekte');
 
-    const fnr = page.locator('label:text("Fødselsnummer (11 siffer)")');
-    await fnr.fill('260');
+    await formPage.fillInput('Fødselsnummer (11 siffer)', '260');
+
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
       'Virksomhetsnummer må fylles ut',
       'Mangler antall fraværsperioder',
       'Fravær må fylles ut.'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText('Bekreft at opplysningene er korrekte');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekte');
 
-    await fnr.fill('20125027610');
+    await formPage.fillInput('Fødselsnummer (11 siffer)', '20125027610');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Virksomhetsnummer må fylles ut',
       'Mangler antall fraværsperioder',
       'Fravær må fylles ut.'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekte'
-    ]);
+    await formPage.assertNotVisibleText('Ugyldig fødselsnummer');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekte');
 
     const virksomhetsnummer = page.getByRole('textbox', { name: 'Virksomhetsnummer' });
     await virksomhetsnummer.fill('260');
-    await expect(page.locator('.navds-error-summary__list')).toContainText('Fravær må fylles ut.');
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Ugyldig fødselsnummer',
-      'Virksomhetsnummer må fylles ut',
-      'Mangler fødselsnummer'
-    ]);
+
+    await formPage.assertVisibleText('Ugyldig virksomhetsnummer');
+    await formPage.assertVisibleTextAtLeastOnce('Fravær må fylles ut.');
+    await formPage.assertNotVisibleText('Ugyldig fødselsnummer');
+    await formPage.assertVisibleText('Virksomhetsnummer må fylles ut');
+    await formPage.assertNotVisibleText('Mangler fødselsnummer');
 
     await virksomhetsnummer.fill('974652277');
-    await expect(page.locator('.navds-error-summary__list')).toContainText('Fravær må fylles ut.');
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Virksomhetsnummer må fylles ut',
-      'Bekreft at opplysningene er korrekte',
-      'Mangler fødselsnummer'
-    ]);
+    await formPage.assertVisibleTextAtLeastOnce('Fravær må fylles ut.');
+    await formPage.assertNotVisibleText('Virksomhetsnummer må fylles ut');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekte');
+    await formPage.assertNotVisibleText('Mangler fødselsnummer');
 
     await page.getByLabel('April 2020').fill('5');
     expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Mangler antall fraværsperioder',
       'Fravær må fylles ut.'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Ugyldig fødselsnummer',
-      'Virksomhetsnummer må fylles ut',
-      'Bekreft at opplysningene er korrekte',
-      'Mangler fødselsnummer'
-    ]);
+    await formPage.assertNotVisibleText('Ugyldig fødselsnummer');
+    await formPage.assertNotVisibleText('Virksomhetsnummer må fylles ut');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekte');
+    await formPage.assertNotVisibleText('Mangler fødselsnummer');
 
     await page.getByLabel('Hvor mange perioder er fraværet fordelt på siste to år?').fill('5');
 
     expect(await page.locator('li > a').allInnerTexts()).toEqual([]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Fravær må fylles ut.',
-      'Ugyldig fødselsnummer',
-      'Virksomhetsnummer må fylles ut',
-      'Bekreft at opplysningene er korrekte',
-      'Mangler fødselsnummer'
-    ]);
+    await formPage.assertNotVisibleText('Fravær må fylles ut.');
+    await formPage.assertNotVisibleText('Ugyldig fødselsnummer');
+    await formPage.assertNotVisibleText('Virksomhetsnummer må fylles ut');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekte');
+    await formPage.assertNotVisibleText('Mangler fødselsnummer');
 
     const requestPromise = page.waitForRequest(innsendingAPI);
-    await clickButton(page, 'Send søknad');
+    await formPage.clickButton('Send søknad');
 
     const request = await requestPromise;
     expect(request.postDataJSON()).toEqual({

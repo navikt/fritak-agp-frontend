@@ -234,7 +234,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
     >
       <ServerFeilAdvarsel isOpen={state.serverError} onClose={handleCloseServerFeil} />
       <DuplicateSubmissionAdvarsel isOpen={state.duplicateSubmission} onClose={handleCloseDuplicateFeil} />
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <BodyLong size='large' className='textfelt-padding-bottom'>
           <Oversettelse
             langKey={KroniskKravKeys.KRONISK_KRAV_INFO}
@@ -250,7 +250,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
       <Skillelinje />
       {state.endringskrav && (
         <>
-          <Box padding='4' borderRadius='2'>
+          <Box padding='space-4' borderRadius='2'>
             <Fieldset aria-live='polite' errorId={'endring'} legend='Endringsårsak' hideLegend={true}>
               <div>
                 <div>
@@ -354,7 +354,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
         }
       />
       <Feilmeldingspanel feilmeldinger={state.feilmeldinger} />
-      <Box padding='4' borderRadius='2'>
+      <Box padding='space-4' borderRadius='2'>
         <Button onClick={handleSubmitClicked} loading={state.progress}>
           {state.endringskrav ? (
             <>{t(KroniskKravKeys.KRONISK_KRAV_ENDRE)}</>

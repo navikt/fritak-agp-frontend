@@ -24,7 +24,7 @@ const BekreftOpplysningerPanel = ({
   const { t } = useTranslation();
 
   return (
-    <Box padding='4' borderRadius='2' className='bekreft-opplysninger-panel'>
+    <Box padding='space-4' borderRadius='2' className='bekreft-opplysninger-panel'>
       <Oversettelse langKey={textKey} />
       <CheckboxGroup legend={t(textOverskriftKey)} error={feil} hideLegend>
         <Checkbox

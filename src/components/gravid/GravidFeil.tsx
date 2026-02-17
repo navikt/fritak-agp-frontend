@@ -7,7 +7,7 @@ const GravidFeil = () => {
   const { t } = useTranslation();
 
   return (
-    <Box padding='4' borderRadius='2'>
+    <Box padding='space-4' borderRadius='2'>
       <Heading size='small' level='4'>
         {t(LangKey.DET_OPPSTOD_EN_FEIL)}
       </Heading>

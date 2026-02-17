@@ -25,7 +25,7 @@ const NotifikasjonInnhold = (props: PropsWithChildren<NotifikasjonInnholdProps>)
       </div>
       <div>
         <div>
-          <Box padding='4' borderRadius='2' className='notifikasjon-innhold__hvit'>
+          <Box padding='space-4' borderRadius='2' className='notifikasjon-innhold__hvit'>
             <div>
               <div>
                 <Heading size='large' level='2'>
