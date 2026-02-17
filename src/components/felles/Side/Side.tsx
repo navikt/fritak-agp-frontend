@@ -1,5 +1,6 @@
 import React from 'react';
 import { Banner, Virksomhetsvelger, Organisasjon } from '@navikt/virksomhetsvelger';
+import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import SoknadTittel from './SoknadTittel';
 import SideIndentering from './SideIndentering';
 import { useTranslation } from 'react-i18next';

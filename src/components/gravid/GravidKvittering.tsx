@@ -33,19 +33,17 @@ const GravidKvittering = () => {
 
   return (
     <Side sidetittel='Søknadsskjema' className='gravid-soknad-kvittering' bedriftsmeny={false}>
-      <Box padding='4' borderRadius='small'>
+      <Box padding='space-4' borderRadius='2'>
         <Heading size='xlarge' level='1'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_TITTEL} />
         </Heading>
       </Box>
-
-      <Box padding='4' borderRadius='small'>
+      <Box padding='space-4' borderRadius='2'>
         <BodyLong>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_INGRESS} />
         </BodyLong>
       </Box>
-
-      <Box padding='4' borderRadius='small'>
+      <Box padding='space-4' borderRadius='2'>
         <Heading size='small' level='2'>
           Detaljer fra søknaden:
         </Heading>
@@ -72,18 +70,18 @@ const GravidKvittering = () => {
         <SoknadMottatt className='luft-under' mottatt={opprettet} />
         <BodyLong>Innrapportert av: {sendtAvNavn}</BodyLong>
       </Box>
-      <Box padding='4' borderRadius='small' className='skjul-fra-print'>
+      <Box padding='space-4' borderRadius='2' className='skjul-fra-print'>
         <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_SKRIV_UT} />
       </Box>
-      <Box padding='4' borderRadius='small'>
+      <Box padding='space-4' borderRadius='2'>
         <Alert variant='info'>
           <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_ADVARSEL} />
         </Alert>
       </Box>
-      <Box padding='4' borderRadius='small' className='skjul-fra-print'>
+      <Box padding='space-4' borderRadius='2' className='skjul-fra-print'>
         <PrintKnapp />
       </Box>
-      <Box padding='4' borderRadius='small' className='lenker-ut-panel'>
+      <Box padding='space-4' borderRadius='2' className='lenker-ut-panel'>
         <div>
           <Link to={buildLenke(lenker.GravidKrav, language as Language)}>
             <Oversettelse langKey={GravidKvitteringKeys.GRAVID_KVITTERING_KRAV} />

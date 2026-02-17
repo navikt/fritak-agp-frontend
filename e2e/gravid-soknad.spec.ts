@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 import gravidSoknadResponse from './gravidSoknadResponse';
-import checkRadiobox from './helpers/checkRadiobox';
-import clickButton from './helpers/clickSubmit';
+
+import { FormPage } from './utils/formPage';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgivere/;
 const cookiePlease = /\/local\/cookie-please/;
@@ -93,17 +93,16 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {
-  await checkRadiobox(
-    page,
+  const formPage = new FormPage(page);
+
+  await formPage.checkRadioButton(
     'Har dere prøvd å tilrettelegge arbeidsdagen slik at den gravide kan jobbe til tross for helseplagene?',
     'Ja'
   );
 
-  await expect(page.locator('html')).toContainText(
-    'Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe?'
-  );
+  await formPage.assertVisibleText('Hvilke tiltak har dere forsøkt eller vurdert for at den ansatte kan jobbe?');
 
-  await clickButton(page, 'Send søknad');
+  await formPage.clickButton('Send søknad');
 
   await expect(await page.locator('li > a').allInnerTexts()).toEqual([
     'Fødselsnummer må fylles ut',
@@ -114,7 +113,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     'Bekreft at opplysningene er korrekt'
   ]);
 
-  await page.getByLabel('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.').check();
+  await formPage.checkCheckbox('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.');
 
   await expect(await page.locator('li > a').allInnerTexts()).toEqual([
     'Fødselsnummer må fylles ut',
@@ -128,8 +127,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     page.locator('.navds-error-summary__list:has-text("Bekreft at opplysningene er korrekt")')
   ).not.toBeVisible();
 
-  const fnr = page.getByLabel('Fødselsnummer (11 siffer)');
-  await fnr.fill('260');
+  await formPage.fillInput('Fødselsnummer (11 siffer)', '260');
   await expect(await page.locator('li > a').allInnerTexts()).toEqual([
     'Fødselsnummer må fylles ut',
     'Virksomhetsnummer må fylles ut',
@@ -141,7 +139,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     page.locator('.navds-error-summary__list:has-text("Bekreft at opplysningene er korrekt")')
   ).not.toBeVisible();
 
-  await fnr.fill('20125027610');
+  await formPage.fillInput('Fødselsnummer (11 siffer)', '20125027610');
   await expect(await page.locator('li > a').allInnerTexts()).toEqual([
     'Virksomhetsnummer må fylles ut',
     'Termindato må fylles ut',
@@ -150,9 +148,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   ]);
   await expect(page.locator('.navds-error-summary__list:has-text("Fødselsnummer må fylles ut")')).not.toBeVisible();
 
-  const orgnr = page.getByRole('textbox', { name: 'Virksomhetsnummer' });
-
-  await orgnr.fill('260');
+  await formPage.fillInput('Virksomhetsnummer', '260');
   await expect(await page.locator('li > a').allInnerTexts()).toEqual([
     'Virksomhetsnummer må fylles ut',
     'Termindato må fylles ut',
@@ -161,7 +157,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   ]);
   await expect(page.locator('.navds-error-summary__list:has-text("Fødselsnummer må fylles ut")')).not.toBeVisible();
 
-  await orgnr.fill('974652277');
+  await formPage.fillInput('Virksomhetsnummer', '974652277');
   await expect(await page.locator('li > a').allInnerTexts()).toEqual([
     'Termindato må fylles ut',
     'Spesifiser hvilke tiltak som er forsøkt',
@@ -177,26 +173,24 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   ]);
   await expect(page.locator('.navds-error-summary__list:has-text("Termindato må fylles ut")')).not.toBeVisible();
 
-  await page.getByLabel('Hjemmekontor').check();
+  await formPage.checkCheckbox('Hjemmekontor');
 
-  await expect(page.locator('.navds-error-summary__list:has-text("Velg omplassering")')).toBeVisible();
-  await expect(await page.locator('li > a').allInnerTexts()).toEqual(['Velg omplassering']);
-  await expect(page.locator('.navds-error-summary__list:has-text("Termindato må fylles ut")')).not.toBeVisible();
+  await formPage.assertVisibleTextAtLeastOnce('Velg omplassering');
 
-  // await page.click('label:has-text("Omplassering er ikke mulig")');
-  await checkRadiobox(page, 'Har dere forsøkt omplassering til en annen jobb?', 'Omplassering er ikke mulig');
+  await formPage.assertNotVisibleText('Termindato må fylles ut');
 
-  await expect(
-    page.locator('.navds-error-summary__list:has-text("Velg årsak til at omplassering ikke er mulig")')
-  ).toBeVisible();
-  await page.click('label:has-text("Vi får ikke kontakt med den ansatte")');
+  await formPage.checkRadioButton('Har dere forsøkt omplassering til en annen jobb?', 'Omplassering er ikke mulig');
+
+  await formPage.assertVisibleTextAtLeastOnce('Velg årsak til at omplassering ikke er mulig');
+  await formPage.checkCheckbox('Vi får ikke kontakt med den ansatte');
+
   await expect(await page.locator('li > a').allInnerTexts()).toEqual([]);
   await expect(
     page.locator('.navds-error-summary__list:has-text("Bekreft at opplysningene er korrekt")')
   ).not.toBeVisible();
 
   const requestPromise = page.waitForRequest(innsendingAPI);
-  await clickButton(page, 'Send søknad');
+  await formPage.clickButton('Send søknad');
 
   const request = await requestPromise;
   expect(request.postDataJSON()).toEqual({

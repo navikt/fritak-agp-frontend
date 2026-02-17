@@ -5,6 +5,7 @@ import arbeidsgiverResponse from './arbeidsgiverResponse';
 import kroniskKravResponse from './kroniskKravReponse';
 
 import clickButton from './helpers/clickSubmit';
+import { FormPage } from './utils/formPage';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgiver-tilganger/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
@@ -47,7 +48,9 @@ test.describe('Kronisk - Krav', () => {
   });
 
   test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {
-    await clickButton(page, 'Send krav');
+    const formPage = new FormPage(page);
+
+    await formPage.clickButton('Send krav');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual(
       expect.arrayContaining([
         'Mangler fødselsnummer',
@@ -60,7 +63,7 @@ test.describe('Kronisk - Krav', () => {
       ])
     );
 
-    await page.getByLabel('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.').check();
+    await formPage.checkCheckbox('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Mangler fødselsnummer',
       'Mangler antall arbeidsdager',
@@ -69,7 +72,7 @@ test.describe('Kronisk - Krav', () => {
       'Mangler dager',
       'Mangler beløp'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
 
     await page.getByLabel('Oppgi antall dager dere utbetaler lønn for i året:').fill('260');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
@@ -79,10 +82,8 @@ test.describe('Kronisk - Krav', () => {
       'Mangler dager',
       'Mangler beløp'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
     const fnr = page.locator('label:text("Fødselsnummer (11 siffer)")');
     await fnr.fill('260');
@@ -93,10 +94,8 @@ test.describe('Kronisk - Krav', () => {
       'Mangler dager',
       'Mangler beløp'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
     await fnr.fill('20125027610');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
@@ -105,11 +104,9 @@ test.describe('Kronisk - Krav', () => {
       'Mangler dager',
       'Mangler beløp'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await formPage.assertNotVisibleText('Ugyldig fødselsnummer');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
     const belop = page.locator('#belop-0');
     await belop.fill('5000');
@@ -118,12 +115,10 @@ test.describe('Kronisk - Krav', () => {
       'Mangler til dato',
       'Mangler dager'
     ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Mangler beløp',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await formPage.assertNotVisibleText('Mangler beløp');
+    await formPage.assertNotVisibleText('Ugyldig fødselsnummer');
+    await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
+    await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
     const velgDager = page.locator('#dager-0');
     await velgDager.selectOption({ label: '5' });
@@ -138,7 +133,8 @@ test.describe('Kronisk - Krav', () => {
 
     await page.getByLabel('Fra dato').fill('07.08.21');
 
-    await expect(page.locator('.navds-error-summary__list')).toContainText('Mangler til dato');
+    await formPage.assertVisibleTextAtLeastOnce('Mangler til dato');
+
     await expect(page.locator('.navds-error-summary__list')).not.toContainText([
       'Mangler fra dato',
       'Mangler dager',

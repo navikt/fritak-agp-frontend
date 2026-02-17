@@ -7,7 +7,7 @@ const GravidProgress = () => {
   const { t } = useTranslation();
 
   return (
-    <Box padding='4' borderRadius='small'>
+    <Box padding='space-4' borderRadius='2'>
       <Heading size='small' level='4'>
         {t(GravidKvitteringKeys.GRAVID_KVITTERING_SENDER_INN)}
       </Heading>
