@@ -6,7 +6,8 @@
     "mockserver/**",
     "typings/**",
     "src/mock/**",
-    "src/nais.js"
+    "src/nais.js",
+    ".yarn/**"
   ],
   "ignoreDependencies": ["@navikt/aksel"]
 }
