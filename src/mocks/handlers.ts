@@ -46,7 +46,7 @@ const notifikasjonGravidKrav = {
     },
     {
       fom: '2020-02-01',
-      tom: '2020-02-31',
+      tom: '2020-02-28',
       antallDagerMedRefusjon: 4,
       belop: 1000
     }

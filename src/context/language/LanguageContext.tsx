@@ -56,7 +56,7 @@ const LanguageProvider = (props: PropsWithChildren<LanguageContextProviderProps>
 
     return () => {
       if (typeof unsubscribe === 'function') {
-        unsubscribe();
+        (unsubscribe as () => void)();
       }
     };
   }, [i18n, props.languages]);
