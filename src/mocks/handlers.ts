@@ -67,9 +67,9 @@ export const handlers = [
     return HttpResponse.json(arbeidsgiverResponse);
   }),
 
-  http.post('/fritak-agp/api/v1/gravid/krav', () => {
-    return HttpResponse.text('Unauthorized', { status: 409 });
-  }),
+  // http.post('/fritak-agp/api/v1/gravid/krav', () => {
+  //   return HttpResponse.text('Unauthorized', { status: 409 });
+  // }),
 
   http.get('/fritak-agp/api/v1/gravid/krav/:id', () => {
     return HttpResponse.json(notifikasjonGravidKrav);
@@ -80,6 +80,14 @@ export const handlers = [
   }),
 
   http.post('/fritak-agp/api/v1/gravid/soeknad', () => {
+    return HttpResponse.text('OK', { status: 200 });
+  }),
+
+  http.post('/fritak-agp/api/v1/gravid/krav', () => {
+    return HttpResponse.text('OK', { status: 200 });
+  }),
+
+  http.post('/fritak-agp/api/v1/kronisk/soeknad', () => {
     return HttpResponse.text('OK', { status: 200 });
   })
 ];
