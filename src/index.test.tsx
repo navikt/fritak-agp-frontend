@@ -18,6 +18,13 @@ vi.mock('./App', () => ({
 vi.mock('@navikt/virksomhetsvelger/dist/assets/style.css', () => ({}));
 vi.mock('@navikt/ds-css', () => ({}));
 
+// Mock MSW browser
+vi.mock('./mocks/browser', () => ({
+  worker: {
+    start: vi.fn().mockResolvedValue(undefined)
+  }
+}));
+
 // Mock Faro
 const mockInitializeFaro = vi.fn();
 const mockGetWebInstrumentations = vi.fn(() => []);
@@ -68,6 +75,9 @@ describe('index.tsx', () => {
 
     // Import index to trigger rendering
     await import('./index');
+
+    // Wait for the bootApp to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     expect(mockCreateRoot).toHaveBeenCalledWith(document.getElementById('root'));
     expect(mockRender).toHaveBeenCalled();

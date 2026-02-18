@@ -6,7 +6,9 @@ import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
   // depending on your application, base can also be "/"
-  base: '/fritak-agp/',
+  // In development, the app runs at root /
+  // In production, it runs at /fritak-agp/
+  base: process.env.NODE_ENV === 'production' ? '/fritak-agp/' : '/',
   plugins: [
     react(),
     viteTsconfigPaths(),
@@ -22,14 +24,7 @@ export default defineConfig({
     // this ensures that the browser opens upon server start
     open: true,
     // this sets a default port to 3000
-    port: 3000,
-    proxy: {
-      '/fritak-agp/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true
-        // rewrite: (path) => path.replace(/^\/api/, ''),
-      }
-    }
+    port: 3000
   },
   css: {
     preprocessorOptions: {

@@ -67,7 +67,18 @@ describe('deleteRequest', () => {
 
   it('should reject with status Timeout if the backend does not respond', async () => {
     vi.useFakeTimers();
-    mockFetch(-33, []);
+    vi.spyOn(window, 'fetch').mockImplementationOnce((_, init) => {
+      const signal = (init as RequestInit | undefined)?.signal;
+      return new Promise((_, reject) => {
+        if (signal) {
+          if (signal.aborted) {
+            reject(new DOMException('Aborted', 'AbortError'));
+            return;
+          }
+          signal.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')));
+        }
+      }) as Promise<Response>;
+    });
     const resultat = deleteRequest('/Path');
     vi.advanceTimersByTime(15000);
     expect(await resultat).toEqual({

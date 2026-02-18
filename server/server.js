@@ -103,7 +103,7 @@ const startServer = () => {
 
   app.use('/{*splat}', (req, res, next) => {
     if (!req.headers['authorization']) {
-      res.redirect(`${BASE_PATH}/oauth2/login?redirect=${req.originalUrl}`);
+      res.redirect(`${BASE_PATH}/oauth2/login?redirect=${encodeURIComponent(req.originalUrl)}`);
     } else {
       next();
     }
