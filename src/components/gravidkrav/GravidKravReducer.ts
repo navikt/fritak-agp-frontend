@@ -17,9 +17,9 @@ const checkItemId = (itemId?: string) => {
 };
 
 const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, translate: i18n): GravidKravState => {
-  const nextState = Object.assign({}, state);
+  const nextState = { ...state };
   const { payload } = action;
-  nextState.perioder = nextState.perioder ? nextState.perioder : [{ uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder ?? [{ uniqueKey: uuid() }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -146,7 +146,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return validateGravidKrav(nextState, translate);
 
     case Actions.Reset:
-      return Object.assign({}, defaultGravidKravState());
+      return { ...defaultGravidKravState() };
 
     case Actions.AddPeriode: {
       if (nextState.perioder.length >= MAX_PERIODER) {
