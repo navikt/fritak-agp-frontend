@@ -15,9 +15,9 @@ const checkItemId = (itemId?: string) => {
 };
 
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, translate: i18n): KroniskKravState => {
-  const nextState = Object.assign({}, state);
+  const nextState = { ...state };
   const { payload } = action;
-  nextState.perioder = nextState.perioder ? nextState.perioder : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder ?? [{ fom: {}, tom: {}, uniqueKey: uuid() }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -46,7 +46,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return validateKroniskKrav(nextState, translate);
     }
 
-    case Actions.Til:
+    case Actions.Til: {
       checkItemId(payload?.itemId);
       const tilPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!tilPeriode) {
@@ -56,8 +56,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       tilPeriode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
 
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.Dager:
+    case Actions.Dager: {
       checkItemId(payload?.itemId);
       const dagerPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!dagerPeriode) {
@@ -67,8 +68,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       dagerPeriode.dager = payload?.dager;
 
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.Beloep:
+    case Actions.Beloep: {
       checkItemId(payload?.itemId);
       const belopPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!belopPeriode) {
@@ -78,8 +80,9 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       belopPeriode.belop = payload?.belop;
 
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.Sykemeldingsgrad:
+    case Actions.Sykemeldingsgrad: {
       checkItemId(payload?.itemId);
       const gradPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!gradPeriode) {
@@ -89,25 +92,30 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       gradPeriode.sykemeldingsgrad = payload?.sykemeldingsgrad;
 
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.Bekreft:
+    case Actions.Bekreft: {
       if (!nextState.formDirty) {
         nextState.formDirty = nextState.bekreft !== payload?.bekreft;
       }
       nextState.bekreft = payload?.bekreft;
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.Progress:
+    case Actions.Progress: {
       nextState.progress = payload?.progress;
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.Kvittering:
+    case Actions.Kvittering: {
       nextState.kvittering = payload?.kvittering;
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.NotAuthorized:
+    case Actions.NotAuthorized: {
       nextState.notAuthorized = false;
       return nextState;
+    }
 
     case Actions.Validate: {
       nextState.validated = true;
@@ -117,7 +125,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return validatedState;
     }
 
-    case Actions.HandleResponse:
+    case Actions.HandleResponse: {
       if (payload?.response == undefined) {
         throw new Error('Du må spesifisere response');
       }
@@ -126,6 +134,7 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       nextState.submitting = false;
       nextState.showSpinner = false;
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as KroniskKravState;
+    }
 
     case Actions.Grunnbeloep: {
       checkItemId(payload?.itemId);
@@ -139,9 +148,10 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
     }
 
-    case Actions.antallDager:
+    case Actions.antallDager: {
       nextState.antallDager = payload?.antallDager;
       return validateKroniskKrav(nextState, translate);
+    }
 
     case Actions.AddPeriod: {
       nextState.perioder = nextState.perioder
@@ -172,25 +182,29 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return nextState;
     }
 
-    case Actions.DeletePeriode:
+    case Actions.DeletePeriode: {
       checkItemId(payload?.itemId);
       nextState.perioder = state.perioder?.filter((i) => i.uniqueKey !== payload?.itemId);
       return validateKroniskKrav(nextState, translate);
+    }
 
-    case Actions.Reset:
+    case Actions.Reset: {
       return Object.assign({}, defaultKroniskKravState());
+    }
 
-    case Actions.AddBackendError:
+    case Actions.AddBackendError: {
       if (payload?.error) {
         pushFeilmelding('backend-' + uuid(), payload.error, nextState.feilmeldinger);
       }
       return nextState;
+    }
 
-    case Actions.RemoveBackendError:
+    case Actions.RemoveBackendError: {
       nextState.feilmeldinger = nextState.feilmeldinger.filter(
         (feilmelding) => !feilmelding.skjemaelementId.startsWith('#backend')
       );
       return nextState;
+    }
 
     case Actions.EndringsAarsak: {
       if (payload?.endringsAarsak) {
@@ -201,25 +215,30 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       return validateKroniskKrav(nextState, translate);
     }
 
-    case Actions.ShowSpinner:
+    case Actions.ShowSpinner: {
       nextState.showSpinner = true;
       return nextState;
+    }
 
-    case Actions.HideSpinner:
+    case Actions.HideSpinner: {
       nextState.showSpinner = false;
       return nextState;
+    }
 
-    case Actions.HideServerError:
+    case Actions.HideServerError: {
       nextState.serverError = false;
       return nextState;
+    }
 
-    case Actions.HideDuplicateSubmissionError:
+    case Actions.HideDuplicateSubmissionError: {
       nextState.duplicateSubmission = false;
       return nextState;
+    }
 
-    case Actions.SetFormClean:
+    case Actions.SetFormClean: {
       nextState.formDirty = false;
       return nextState;
+    }
 
     default:
       throw new Error(`Ugyldig action: ${action.type}`);

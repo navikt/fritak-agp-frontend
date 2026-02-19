@@ -36,7 +36,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       nextState.orgnr = payload?.orgnr;
       return validateGravidKrav(nextState, translate);
 
-    case Actions.Fra:
+    case Actions.Fra: {
       checkItemId(payload?.itemId);
       const fraPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!fraPeriode) {
@@ -46,8 +46,9 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       fraPeriode.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
 
       return validateGravidKrav(nextState, translate);
+    }
 
-    case Actions.Til:
+    case Actions.Til: {
       checkItemId(payload?.itemId);
       const tilPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!tilPeriode) {
@@ -57,8 +58,9 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       tilPeriode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
 
       return validateGravidKrav(nextState, translate);
+    }
 
-    case Actions.Dager:
+    case Actions.Dager: {
       checkItemId(payload?.itemId);
       const dagerPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!dagerPeriode) {
@@ -68,8 +70,9 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       dagerPeriode.dager = payload?.dager;
 
       return validateGravidKrav(nextState, translate);
+    }
 
-    case Actions.Beloep:
+    case Actions.Beloep: {
       checkItemId(payload?.itemId);
       const belopPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!belopPeriode) {
@@ -79,8 +82,9 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       belopPeriode.belop = payload?.belop;
 
       return validateGravidKrav(nextState, translate);
+    }
 
-    case Actions.Sykemeldingsgrad:
+    case Actions.Sykemeldingsgrad: {
       checkItemId(payload?.itemId);
       const gradPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
       if (!gradPeriode) {
@@ -90,6 +94,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       gradPeriode.sykemeldingsgrad = payload?.sykemeldingsgrad;
 
       return validateGravidKrav(nextState, translate);
+    }
 
     case Actions.Bekreft:
       if (!nextState.formDirty) {
