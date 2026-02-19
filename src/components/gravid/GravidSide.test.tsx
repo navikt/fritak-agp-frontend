@@ -8,7 +8,7 @@ import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
 import env from '../../config/environment';
-import { expect, vi } from 'vitest';
+import { expect, vi, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
@@ -258,7 +258,7 @@ describe('GravidSide', () => {
     expect(screen.getAllByText(/GRAVID_VALIDERING_MANGLER_OMPLASSERING_BEKREFT/).length).toBe(2);
   });
 
-  it.skip('skal beholde feltverdier ved valideringsfeil fra backend', async () => {
+  it.todo('skal beholde feltverdier ved valideringsfeil fra backend', async () => {
     // This test needs to be revisited - it's testing a 401 response but the form behavior
     // with 401 responses needs to be clarified. The kvittering state might redirect in some cases.
     const state = defaultGravidState();

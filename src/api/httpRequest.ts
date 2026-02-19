@@ -44,7 +44,7 @@ const httpRequest = async <Type>(
       signal: controller.signal
     });
 
-    let json: any = {};
+    let json: unknown = {};
     if (response.status === HttpStatus.UnprocessableEntity || response.status === HttpStatus.Created) {
       try {
         json = await response.json();

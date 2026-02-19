@@ -966,7 +966,7 @@ describe('KroniskKravReducer', () => {
   });
 
   it('should validate correctly (submitting=false when feilmeldinger exist)', () => {
-    let state = KroniskKravReducer(
+    const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
         type: Actions.Validate
