@@ -65,13 +65,6 @@ updates:
     schedule:
       interval: 'daily'
 
-  - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/mockserver' # Location of package manifests
-    registries:
-      - npm-github
-    schedule:
-      interval: 'daily'
-
 registries:
   npm-github:
     type: npm-registry

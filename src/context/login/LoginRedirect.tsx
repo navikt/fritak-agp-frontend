@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { redirectUrl } from './redirectUrl';
 
 interface LoginRedirectProps {
@@ -6,7 +6,9 @@ interface LoginRedirectProps {
 }
 
 const LoginRedirect = (props: LoginRedirectProps) => {
-  window.location.href = redirectUrl(props.loginServiceUrl, window.location.href);
+  useEffect(() => {
+    window.location.href = redirectUrl(props.loginServiceUrl, window.location.href);
+  }, [props.loginServiceUrl]);
   return <div className='login-redirect'>login-redirect</div>;
 };
 

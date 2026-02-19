@@ -29,40 +29,42 @@ const httpRequest = async <Type>(
   method: 'POST' | 'DELETE' | 'PATCH',
   timeout = 10000
 ): Promise<ValidationResponse<Type>> => {
-  return Promise.race([
-    new Promise<ValidationResponse<Type>>((_, reject) => {
-      const id = setTimeout(() => {
-        clearTimeout(id);
-        reject({ status: HttpStatus.Timeout, violations: [] });
-      }, timeout);
-    }).catch(() => ({
-      status: HttpStatus.Timeout,
-      violations: []
-    })),
-    fetch(path, {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(path, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       credentials: 'include',
       method: method,
-      body: JSON.stringify(payload)
-    })
-      .then(async (response) =>
-        mapViolations<Type>(
-          response.status,
-          response.status === HttpStatus.UnprocessableEntity || response.status === HttpStatus.Created
-            ? await response.json()
-            : {}
-        )
-      )
-      .catch(() => {
-        return {
-          status: HttpStatus.Error,
-          violations: []
-        };
-      })
-  ]);
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+
+    return mapViolations<Type>(
+      response.status,
+      response.status === HttpStatus.UnprocessableEntity || response.status === HttpStatus.Created
+        ? await response.json()
+        : {}
+    );
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      return {
+        status: HttpStatus.Timeout,
+        violations: []
+      };
+    }
+
+    return {
+      status: HttpStatus.Error,
+      violations: []
+    };
+  } finally {
+    clearTimeout(timeoutId);
+  }
 };
 
 export default httpRequest;

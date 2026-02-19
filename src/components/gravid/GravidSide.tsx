@@ -164,10 +164,11 @@ const GravidSide = (props: GravidSideProps) => {
     state.termindato
   ]);
 
-  if (state.kvittering) {
-    navigate(buildLenke(lenker.GravidKvittering, language as Language), { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    if (state.kvittering) {
+      navigate(buildLenke(lenker.GravidKvittering, language as Language), { replace: true });
+    }
+  }, [state.kvittering, language, navigate]);
 
   const title = t(GravidSideKeys.GRAVID_SIDE_TITTEL);
   const subtitle = t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL);

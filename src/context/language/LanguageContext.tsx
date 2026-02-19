@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo, PropsWithChildren } from 'react';
+import React, { createContext, useState, useMemo, PropsWithChildren, useEffect } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { onLanguageSelect, setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 import { Language } from '../../locale/Language';
@@ -27,26 +27,43 @@ const LanguageProvider = (props: PropsWithChildren<LanguageContextProviderProps>
   const href = window.location.pathname;
   const i18n = props.i18n;
   const [language] = useState<string>(autodetectLanguage(href));
-  i18n.use(initReactI18next).init({
-    resources: buildResources(props.bundle),
-    lng: 'nb',
-    react: {
-      useSuspense: false
-    }
-  });
-  setAvailableLanguages(
-    props.languages.map((l) => ({
-      locale: Language[l],
-      url: '/' + l + '/',
-      handleInApp: true
-    }))
-  );
-  onLanguageSelect((language) => {
-    i18n.changeLanguage(language.locale);
-    const href = window.location.pathname;
-    window.history.pushState({}, 'Title', translateUrl(href, language.locale) + window.location.search);
-  });
-  i18n.changeLanguage(language);
+  const resources = useMemo(() => buildResources(props.bundle), [props.bundle]);
+
+  useEffect(() => {
+    i18n.use(initReactI18next).init({
+      resources,
+      lng: 'nb',
+      react: {
+        useSuspense: false
+      }
+    });
+  }, [i18n, resources]);
+
+  useEffect(() => {
+    setAvailableLanguages(
+      props.languages.map((l) => ({
+        locale: Language[l],
+        url: '/' + l + '/',
+        handleInApp: true
+      }))
+    );
+
+    const unsubscribe = onLanguageSelect((language) => {
+      i18n.changeLanguage(language.locale);
+      const href = window.location.pathname;
+      window.history.pushState({}, 'Title', translateUrl(href, language.locale) + window.location.search);
+    });
+
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        (unsubscribe as () => void)();
+      }
+    };
+  }, [i18n, props.languages]);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [i18n, language]);
 
   const initialValues = useMemo(
     () => ({

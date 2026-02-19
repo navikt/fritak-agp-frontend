@@ -18,6 +18,14 @@ vi.mock('./App', () => ({
 vi.mock('@navikt/virksomhetsvelger/dist/assets/style.css', () => ({}));
 vi.mock('@navikt/ds-css', () => ({}));
 
+// Mock MSW browser
+const mockWorkerStart = vi.fn().mockResolvedValue(undefined);
+vi.mock('./mocks/browser', () => ({
+  worker: {
+    start: mockWorkerStart
+  }
+}));
+
 // Mock Faro
 const mockInitializeFaro = vi.fn();
 const mockGetWebInstrumentations = vi.fn(() => []);
@@ -46,6 +54,7 @@ describe('index.tsx', () => {
     vi.resetModules();
     mockRender.mockClear();
     mockCreateRoot.mockClear();
+    mockWorkerStart.mockClear();
     mockInitializeFaro.mockClear();
     mockGetWebInstrumentations.mockClear();
     mockTracingInstrumentation.mockClear();
@@ -65,9 +74,15 @@ describe('index.tsx', () => {
       default: mockEnv,
       EnvironmentType
     }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => false
+    }));
 
     // Import index to trigger rendering
     await import('./index');
+
+    // Wait for the bootApp to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     expect(mockCreateRoot).toHaveBeenCalledWith(document.getElementById('root'));
     expect(mockRender).toHaveBeenCalled();
@@ -78,6 +93,9 @@ describe('index.tsx', () => {
     vi.doMock('./config/environment', () => ({
       default: mockEnv,
       EnvironmentType
+    }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => false
     }));
 
     await import('./index');
@@ -93,6 +111,9 @@ describe('index.tsx', () => {
     vi.doMock('./config/environment', () => ({
       default: mockEnv,
       EnvironmentType
+    }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => false
     }));
 
     await import('./index');
@@ -113,6 +134,9 @@ describe('index.tsx', () => {
       default: mockEnv,
       EnvironmentType
     }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => false
+    }));
 
     await import('./index');
 
@@ -127,6 +151,9 @@ describe('index.tsx', () => {
     vi.doMock('./config/environment', () => ({
       default: mockEnv,
       EnvironmentType
+    }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => false
     }));
 
     await import('./index');
@@ -144,13 +171,16 @@ describe('index.tsx', () => {
 
     // Mock faro-web-sdk to reject when imported
     vi.doMock('@grafana/faro-web-sdk', () => {
-      return Promise.reject(mockError);
+      throw mockError;
     });
 
     mockEnv = { environmentMode: EnvironmentType.PROD };
     vi.doMock('./config/environment', () => ({
       default: mockEnv,
       EnvironmentType
+    }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => false
     }));
 
     await import('./index');
@@ -159,6 +189,74 @@ describe('index.tsx', () => {
     await new Promise((resolve) => setTimeout(resolve, 150));
 
     expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to initialize Faro telemetry:', expect.any(Error));
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('should start MSW in development', async () => {
+    mockEnv = { environmentMode: EnvironmentType.LOCAL };
+    vi.doMock('./config/environment', () => ({
+      default: mockEnv,
+      EnvironmentType
+    }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => true
+    }));
+
+    await import('./index');
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    expect(mockWorkerStart).toHaveBeenCalledWith({
+      onUnhandledRequest: 'bypass'
+    });
+  });
+
+  it('should log warning when MSW fails to start', async () => {
+    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const mockError = new Error('MSW failed');
+    mockWorkerStart.mockRejectedValueOnce(mockError);
+
+    mockEnv = { environmentMode: EnvironmentType.LOCAL };
+    vi.doMock('./config/environment', () => ({
+      default: mockEnv,
+      EnvironmentType
+    }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => true
+    }));
+
+    await import('./index');
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    expect(consoleWarnSpy).toHaveBeenCalledWith('MSW failed to start:', mockError);
+
+    consoleWarnSpy.mockRestore();
+  });
+
+  it('should log error when bootApp fails', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const mockError = new Error('Root failed');
+
+    mockCreateRoot.mockImplementationOnce(() => {
+      throw mockError;
+    });
+
+    mockEnv = { environmentMode: EnvironmentType.LOCAL };
+    vi.doMock('./config/environment', () => ({
+      default: mockEnv,
+      EnvironmentType
+    }));
+    vi.doMock('./config/isDev', () => ({
+      default: () => false
+    }));
+
+    await import('./index');
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to boot app:', mockError);
 
     consoleErrorSpy.mockRestore();
   });
