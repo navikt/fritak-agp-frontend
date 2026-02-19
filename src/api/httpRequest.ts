@@ -44,12 +44,17 @@ const httpRequest = async <Type>(
       signal: controller.signal
     });
 
-    return mapViolations<Type>(
-      response.status,
-      response.status === HttpStatus.UnprocessableEntity || response.status === HttpStatus.Created
-        ? await response.json()
-        : {}
-    );
+    let json: unknown = {};
+    if (response.status === HttpStatus.UnprocessableEntity || response.status === HttpStatus.Created) {
+      try {
+        json = await response.json();
+      } catch (parseError) {
+        console.error('Failed to parse JSON response:', parseError);
+        // Continue with empty json object, status is still valid
+      }
+    }
+
+    return mapViolations<Type>(response.status, json);
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') {
       return {
@@ -58,6 +63,8 @@ const httpRequest = async <Type>(
       };
     }
 
+    // Network error or other fetch failure
+    console.error('HTTP request failed:', error);
     return {
       status: HttpStatus.Error,
       violations: []

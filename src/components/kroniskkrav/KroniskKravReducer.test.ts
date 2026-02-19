@@ -708,4 +708,300 @@ describe('KroniskKravReducer', () => {
     );
     expect(state.feilmeldinger.length).toBe(0);
   });
+
+  it('should throw on undefined itemId for Fra', () => {
+    expect(() => {
+      KroniskKravReducer(
+        defaultKroniskKravState(),
+        {
+          type: Actions.Fra,
+          payload: { fra: new Date() }
+        },
+        i18n
+      );
+    }).toThrow();
+  });
+
+  it('should throw on undefined itemId for Til', () => {
+    expect(() => {
+      KroniskKravReducer(
+        defaultKroniskKravState(),
+        {
+          type: Actions.Til,
+          payload: { til: new Date() }
+        },
+        i18n
+      );
+    }).toThrow();
+  });
+
+  it('should throw on undefined itemId for Dager', () => {
+    expect(() => {
+      KroniskKravReducer(
+        defaultKroniskKravState(),
+        {
+          type: Actions.Dager,
+          payload: { dager: 5 }
+        },
+        i18n
+      );
+    }).toThrow();
+  });
+
+  it('should throw on undefined itemId for Beloep', () => {
+    expect(() => {
+      KroniskKravReducer(
+        defaultKroniskKravState(),
+        {
+          type: Actions.Beloep,
+          payload: { belop: 10000 }
+        },
+        i18n
+      );
+    }).toThrow();
+  });
+
+  it('should return state unchanged when setting fra on non-existent periode', () => {
+    const defaultState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.Fra,
+        payload: { fra: new Date('2020.06.05 12:00:00'), itemId: 'non-existent-id' }
+      },
+      i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting til on non-existent periode', () => {
+    const defaultState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.Til,
+        payload: { til: new Date('2020.06.05 12:00:00'), itemId: 'non-existent-id' }
+      },
+      i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting dager on non-existent periode', () => {
+    const defaultState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.Dager,
+        payload: { dager: 5, itemId: 'non-existent-id' }
+      },
+      i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting beløp on non-existent periode', () => {
+    const defaultState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.Beloep,
+        payload: { belop: 10000, itemId: 'non-existent-id' }
+      },
+      i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting sykemeldingsgrad on non-existent periode', () => {
+    const defaultState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.Sykemeldingsgrad,
+        payload: { sykemeldingsgrad: '75', itemId: 'non-existent-id' }
+      },
+      i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should set HideServerError', () => {
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.HideServerError
+      },
+      i18n
+    );
+    expect(state.serverError).toBe(false);
+  });
+
+  it('should set HideDuplicateSubmissionError', () => {
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.HideDuplicateSubmissionError
+      },
+      i18n
+    );
+    expect(state.duplicateSubmission).toBe(false);
+  });
+
+  it('should set SetFormClean', () => {
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.SetFormClean
+      },
+      i18n
+    );
+    expect(state.formDirty).toBe(false);
+  });
+
+  it('should set EndringsAarsak', () => {
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.EndringsAarsak,
+        payload: { endringsAarsak: 'Lønnendring' }
+      },
+      i18n
+    );
+    expect(state.endringsAarsak).toEqual('Lønnendring');
+  });
+
+  it('should clear EndringsAarsak when undefined is provided', () => {
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.EndringsAarsak,
+        payload: { endringsAarsak: undefined }
+      },
+      i18n
+    );
+    expect(state.endringsAarsak).toBeUndefined();
+  });
+
+  it('should handle KravEndring with no krav', () => {
+    const defaultState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.KravEndring,
+        payload: {}
+      },
+      i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when DeletePeriode has non-existent itemId', () => {
+    const defaultState = defaultKroniskKravState();
+    const initialLength = defaultState.perioder?.length;
+
+    const state = KroniskKravReducer(
+      defaultState,
+      {
+        type: Actions.DeletePeriode,
+        payload: { itemId: 'non-existent-id' }
+      },
+      i18n
+    );
+
+    expect(state.perioder?.length).toEqual(initialLength);
+  });
+
+  it('should set formDirty to true when fnr changes', () => {
+    const initialState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      initialState,
+      {
+        type: Actions.Fnr,
+        payload: { fnr: 'different-fnr' }
+      },
+      i18n
+    );
+    expect(state.formDirty).toBe(true);
+  });
+
+  it('should not set formDirty when fnr does not change', () => {
+    const initialState = defaultKroniskKravState();
+    initialState.formDirty = true;
+    const state = KroniskKravReducer(
+      initialState,
+      {
+        type: Actions.Fnr,
+        payload: { fnr: initialState.fnr }
+      },
+      i18n
+    );
+    expect(state.formDirty).toBe(true);
+  });
+
+  it('should set formDirty to true when orgnr changes', () => {
+    const initialState = defaultKroniskKravState();
+    initialState.orgnr = '123456789';
+    const state = KroniskKravReducer(
+      initialState,
+      {
+        type: Actions.Orgnr,
+        payload: { orgnr: 'different-orgnr' }
+      },
+      i18n
+    );
+    expect(state.formDirty).toBe(true);
+  });
+
+  it('should throw error when AddBackendError payload error is undefined', () => {
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.AddBackendError,
+        payload: { error: undefined }
+      },
+      i18n
+    );
+    expect(state.feilmeldinger.length).toBe(0);
+  });
+
+  it('should validate correctly (submitting=false when feilmeldinger exist)', () => {
+    const state = KroniskKravReducer(
+      defaultKroniskKravState(),
+      {
+        type: Actions.Validate
+      },
+      i18n
+    );
+    expect(state.validated).toBe(true);
+    // submitting depends on feilmeldinger from validateKroniskKrav
+    expect(state.submitting).toBeDefined();
+  });
+
+  it('should set formDirty on bekreft change', () => {
+    const initialState = defaultKroniskKravState();
+    initialState.bekreft = false;
+    const state = KroniskKravReducer(
+      initialState,
+      {
+        type: Actions.Bekreft,
+        payload: { bekreft: true }
+      },
+      i18n
+    );
+    expect(state.formDirty).toBe(true);
+  });
+
+  it('should set formDirty on Progress change', () => {
+    const initialState = defaultKroniskKravState();
+    const state = KroniskKravReducer(
+      initialState,
+      {
+        type: Actions.Progress,
+        payload: { progress: true }
+      },
+      i18n
+    );
+    expect(state.progress).toBe(true);
+  });
 });

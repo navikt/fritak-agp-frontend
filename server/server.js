@@ -54,49 +54,55 @@ const startServer = () => {
   });
 
   app.use(BASE_PATH + '/api/{*splat}', async (req, res) => {
-    const token = getToken(req);
-    if (!token) {
-      /* håndter manglende token */
+    try {
+      const token = getToken(req);
+      if (!token) {
+        /* håndter manglende token */
+        // eslint-disable-next-line no-undef
+        console.error('Mangler token i header');
+        res.status(401);
+        res.send('Mangler token i header');
+        return;
+      }
+
+      const validation = await validateToken(token);
+      if (!validation.ok) {
+        // eslint-disable-next-line no-undef
+        console.log('Validering feilet: ', validation.error);
+        res.status(401);
+        res.send('Validering feilet');
+        return;
+      }
+
+      const obo = await requestOboToken(token, AUDIENCE);
+      if (!obo.ok) {
+        /* håndter obo-feil */
+        // eslint-disable-next-line no-undef
+        console.error('OBO-feil: ', obo.error);
+        res.status(401);
+        res.send('OBO-feil');
+        return;
+      }
+
       // eslint-disable-next-line no-undef
-      console.error('Mangler token i header');
-      res.status(401);
-      res.send('Mangler token i header');
-      return;
-    }
+      const data = await fetch(`${API_URL}${req.originalUrl.replace(BASE_PATH, API_BASEPATH)}`, {
+        method: req.method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${obo.token}`
+        },
+        body: req.method === 'GET' || req.method === 'DELETE' ? undefined : JSON.stringify(req.body)
+      });
 
-    const validation = await validateToken(token);
-    if (!validation.ok) {
+      const json = req.method === 'DELETE' ? undefined : await safelyParseJSON(data);
+
+      res.status(data.status);
+      res.send(json);
+    } catch (error) {
       // eslint-disable-next-line no-undef
-      console.log('Validering feilet: ', validation.error);
-      res.status(401);
-      res.send('Validering feilet');
-      return;
+      console.error('Server: API proxy error', error);
+      res.status(500).send('500 Error');
     }
-
-    const obo = await requestOboToken(token, AUDIENCE);
-    if (!obo.ok) {
-      /* håndter obo-feil */
-      // eslint-disable-next-line no-undef
-      console.error('OBO-feil: ', obo.error);
-      res.status(401);
-      res.send('OBO-feil');
-      return;
-    }
-
-    // eslint-disable-next-line no-undef
-    const data = await fetch(`${API_URL}${req.originalUrl.replace(BASE_PATH, API_BASEPATH)}`, {
-      method: req.method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${obo.token}`
-      },
-      body: req.method === 'GET' || req.method === 'DELETE' ? undefined : JSON.stringify(req.body)
-    });
-
-    const json = req.method === 'DELETE' ? undefined : await safelyParseJSON(data);
-
-    res.status(data.status);
-    res.send(json);
   });
 
   app.use(BASE_PATH, express.static(HOME_FOLDER));
@@ -118,10 +124,16 @@ const startServer = () => {
       env: 'prod',
       filePath: path.join(__dirname, HOME_FOLDER, 'index.html'),
       params: { context: 'arbeidsgiver' }
-    }).then((html) => {
-      res.setHeader('Content-Security-Policy', csp);
-      res.send(html);
-    });
+    })
+      .then((html) => {
+        res.setHeader('Content-Security-Policy', csp);
+        res.send(html);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-undef
+        console.error('Server: SSR error', error);
+        res.status(500).send('500 Error');
+      });
   });
 
   app.use(function (req, res) {

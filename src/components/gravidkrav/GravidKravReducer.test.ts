@@ -607,4 +607,290 @@ describe('GravidKravReducer', () => {
     );
     expect(state.feilmeldinger.length).toBe(0);
   });
+
+  it('should set the sykemeldingsgrad', () => {
+    const defaultState = defaultGravidKravState();
+    const itemId = defaultState.perioder ? defaultState.perioder[0].uniqueKey : 'feil';
+
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.Sykemeldingsgrad,
+        payload: { sykemeldingsgrad: '50', itemId }
+      },
+      translationMock as unknown as i18n
+    );
+
+    expect(state.perioder && state.perioder[0].sykemeldingsgrad).toEqual('50');
+  });
+
+  it('should throw on sykemeldingsgrad when itemId is missing', () => {
+    expect(() => {
+      GravidKravReducer(
+        defaultGravidKravState(),
+        {
+          type: Actions.Sykemeldingsgrad,
+          payload: { sykemeldingsgrad: '50' }
+        },
+        translationMock as unknown as i18n
+      );
+    }).toThrow();
+  });
+
+  it('should return state unchanged when setting fra on non-existent periode', () => {
+    const defaultState = defaultGravidKravState();
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.Fra,
+        payload: { fra: new Date('2020.06.05 12:00:00'), itemId: 'non-existent-id' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting til on non-existent periode', () => {
+    const defaultState = defaultGravidKravState();
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.Til,
+        payload: { til: new Date('2020.06.05 12:00:00'), itemId: 'non-existent-id' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting dager on non-existent periode', () => {
+    const defaultState = defaultGravidKravState();
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.Dager,
+        payload: { dager: 5, itemId: 'non-existent-id' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting beløp on non-existent periode', () => {
+    const defaultState = defaultGravidKravState();
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.Beloep,
+        payload: { belop: 10000, itemId: 'non-existent-id' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should return state unchanged when setting sykemeldingsgrad on non-existent periode', () => {
+    const defaultState = defaultGravidKravState();
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.Sykemeldingsgrad,
+        payload: { sykemeldingsgrad: '75', itemId: 'non-existent-id' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should set NotAuthorized to false', () => {
+    const state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.NotAuthorized
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.notAuthorized).toBe(false);
+  });
+
+  it('should handle KravEndring with krav data', () => {
+    const kravData = {
+      id: '123',
+      identitetsnummer: '11122233344',
+      virksomhetsnummer: '987654321',
+      antallDager: 30,
+      perioder: [
+        {
+          fom: '2020-01-01',
+          tom: '2020-03-01',
+          antallDagerMedRefusjon: 10,
+          månedsinntekt: 25000,
+          gradering: 0.5
+        }
+      ]
+    };
+
+    const state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.KravEndring,
+        // @ts-expect-error Dette er en test
+        payload: { krav: kravData }
+      },
+      translationMock as unknown as i18n
+    );
+
+    expect(state.fnr).toEqual('11122233344');
+    expect(state.orgnr).toEqual('987654321');
+    expect(state.antallDager).toEqual(30);
+    expect(state.kravId).toEqual('123');
+    expect(state.endringskrav).toBe(true);
+    expect(state.perioder?.length).toBeGreaterThan(0);
+  });
+
+  it('should return state unchanged when KravEndring has no krav', () => {
+    const defaultState = defaultGravidKravState();
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.KravEndring,
+        payload: {}
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state).toEqual(defaultState);
+  });
+
+  it('should set EndringsAarsak', () => {
+    const state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.EndringsAarsak,
+        payload: { endringsAarsak: 'Lønnendring' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.endringsAarsak).toEqual('Lønnendring');
+  });
+
+  it('should clear EndringsAarsak when undefined is provided', () => {
+    const state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.EndringsAarsak,
+        payload: { endringsAarsak: undefined }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.endringsAarsak).toBeUndefined();
+  });
+
+  it('should set HideServerError', () => {
+    const state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.HideServerError
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.serverError).toBe(false);
+  });
+
+  it('should set HideDuplicateSubmissionError', () => {
+    const state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.HideDuplicateSubmissionError
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.duplicateSubmission).toBe(false);
+  });
+
+  it('should return state unchanged when DeletePeriode has non-existent itemId', () => {
+    const defaultState = defaultGravidKravState();
+    const initialLength = defaultState.perioder?.length;
+
+    const state = GravidKravReducer(
+      defaultState,
+      {
+        type: Actions.DeletePeriode,
+        payload: { itemId: 'non-existent-id' }
+      },
+      translationMock as unknown as i18n
+    );
+
+    expect(state.perioder?.length).toEqual(initialLength);
+  });
+
+  it('should set formDirty to true when fnr changes', () => {
+    const initialState = defaultGravidKravState();
+    const state = GravidKravReducer(
+      initialState,
+      {
+        type: Actions.Fnr,
+        payload: { fnr: 'different-fnr' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.formDirty).toBe(true);
+  });
+
+  it('should not set formDirty when fnr does not change', () => {
+    const initialState = defaultGravidKravState();
+    initialState.formDirty = true;
+    const state = GravidKravReducer(
+      initialState,
+      {
+        type: Actions.Fnr,
+        payload: { fnr: initialState.fnr }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.formDirty).toBe(true);
+  });
+
+  it('should set formDirty to true when orgnr changes', () => {
+    const initialState = defaultGravidKravState();
+    initialState.orgnr = '123456789';
+    const state = GravidKravReducer(
+      initialState,
+      {
+        type: Actions.Orgnr,
+        payload: { orgnr: 'different-orgnr' }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.formDirty).toBe(true);
+  });
+
+  it('should throw error when AddBackendError payload error is undefined', () => {
+    const state = GravidKravReducer(
+      defaultGravidKravState(),
+      {
+        type: Actions.AddBackendError,
+        payload: { error: undefined }
+      },
+      translationMock as unknown as i18n
+    );
+    expect(state.feilmeldinger.length).toBe(0);
+  });
+
+  it('should prevent adding more than MAX_PERIODER periods', () => {
+    let state = defaultGravidKravState();
+    const MAX_ATTEMPTS = 100;
+
+    for (let i = 0; i < MAX_ATTEMPTS; i++) {
+      state = GravidKravReducer(
+        state,
+        {
+          type: Actions.AddPeriode,
+          payload: {}
+        },
+        translationMock as unknown as i18n
+      );
+    }
+
+    expect(state.perioder.length).toBeLessThanOrEqual(50);
+  });
 });
