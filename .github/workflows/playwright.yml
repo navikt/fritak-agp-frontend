@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   e2e:
-    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/playwright-reusable.yml@main
+    uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/playwright-reusable-pnpm.yml@main
     with:
       playwright-version: v1.58.2-jammy
       node-version: lts/*
