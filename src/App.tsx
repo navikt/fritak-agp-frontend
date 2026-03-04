@@ -36,9 +36,7 @@ export const Application = ({
         ></script>
       </Helmet>
       <Routes>
-        <Route path=':language'>
-          <Route path='*' element={<ApplicationRoutes />} />
-        </Route>
+        <Route path=':language/*' element={<ApplicationRoutes />} />
       </Routes>
     </ArbeidsgiverProvider>
   </HelmetProvider>
