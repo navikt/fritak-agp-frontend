@@ -4,7 +4,9 @@ import { axe } from 'jest-axe';
 import KravKvitteringSlettet from './KravKvitteringSlettet';
 import { mockApp } from '../../mockData/mockApp';
 import lenker from '../../config/lenker';
+import { expect, vi } from 'vitest';
 
+vi.mock('react-i18next');
 describe('KravKvitteringSlettet', () => {
   it('skal vise melding om at det kommer noe etterhvert', () => {
     const { container } = render(mockApp(<KravKvitteringSlettet backTarget={lenker.GravidKrav} />));
