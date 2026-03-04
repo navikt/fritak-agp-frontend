@@ -3,6 +3,9 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import KroniskKvittering from './KroniskKvittering';
 import { mockApp } from '../../mockData/mockApp';
+import { expect, vi } from 'vitest';
+
+vi.mock('react-i18next');
 
 describe('KroniskKvittering', () => {
   it('skal vise melding om at det kommer noe etterhvert', () => {

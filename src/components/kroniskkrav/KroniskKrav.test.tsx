@@ -9,7 +9,9 @@ import { Organisasjon } from '@navikt/virksomhetsvelger';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
 import i18next from 'i18next';
+import { initReactI18next } from 'react-i18next';
 import Locales from '../../locale/Locales';
+import buildResources from '../../locale/buildResources';
 import { LanguageProvider } from '../../context/language/LanguageContext';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import { vi } from 'vitest';
@@ -18,6 +20,15 @@ const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 vi.unmock('react-i18next');
 
 describe('KroniskKrav', () => {
+  beforeAll(async () => {
+    if (!i18next.isInitialized) {
+      await i18next.use(initReactI18next).init({
+        resources: buildResources(Locales),
+        lng: 'nb',
+        react: { useSuspense: false }
+      });
+    }
+  });
   const user = userEvent.setup();
 
   it('should have no a11y violations', async () => {
@@ -27,7 +38,7 @@ describe('KroniskKrav', () => {
         ({ container } = render(
           <MemoryRouter>
             <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
-              <ArbeidsgiverProvider baseUrl='/base/url'>
+              <ArbeidsgiverProvider baseUrl='/base/url' status={200} arbeidsgivere={arbeidsgivere}>
                 <KroniskKrav />
               </ArbeidsgiverProvider>
             </LanguageProvider>
@@ -42,7 +53,7 @@ describe('KroniskKrav', () => {
     cleanup();
   });
 
-  it('should show warnings when input is missing', () => {
+  it('should show warnings when input is missing', async () => {
     render(
       <MemoryRouter>
         <LanguageProvider languages={['nb']} i18n={i18next} bundle={Locales}>
@@ -57,7 +68,7 @@ describe('KroniskKrav', () => {
         </LanguageProvider>
       </MemoryRouter>
     );
-    const submitButton = screen.getByText(/Send kravet/);
+    const submitButton = await screen.findByText(/Send kravet/);
 
     fireEvent.click(submitButton);
 
@@ -84,7 +95,7 @@ describe('KroniskKrav', () => {
         </LanguageProvider>
       </MemoryRouter>
     );
-    const submitButton = screen.getByText(/Send kravet/);
+    const submitButton = await screen.findByText(/Send kravet/);
     const fnrInput = screen.getByLabelText(/Fødselsnummer/);
 
     await user.click(submitButton);
@@ -113,7 +124,7 @@ describe('KroniskKrav', () => {
         </LanguageProvider>
       </MemoryRouter>
     );
-    const submitButton = screen.getByText(/Send kravet/);
+    const submitButton = await screen.findByText(/Send kravet/);
 
     const selectDager = screen.getByLabelText(/Antall dager/, { selector: 'select' });
 
@@ -143,7 +154,7 @@ describe('KroniskKrav', () => {
         </LanguageProvider>
       </MemoryRouter>
     );
-    const submitButton = screen.getByText(/Send kravet/);
+    const submitButton = await screen.findByText(/Send kravet/);
 
     const BelopInput = screen.queryAllByLabelText(/Beregnet månedsinntekt/)[1];
 
@@ -169,7 +180,7 @@ describe('KroniskKrav', () => {
         </LanguageProvider>
       </MemoryRouter>
     );
-    const submitButton = screen.getByText(/Send kravet/);
+    const submitButton = await screen.findByText(/Send kravet/);
 
     const bekreftCheckbox = screen.getByRole('checkbox', { name: /Jeg bekrefter at/ });
 
