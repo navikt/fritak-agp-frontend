@@ -72,7 +72,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'yarn start',
+    command: 'pnpm start',
     // url: 'http://localhost:3000',
     port: 3000,
     timeout: 120000,

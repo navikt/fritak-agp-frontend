@@ -31,11 +31,5 @@ src/index.css
 #Bundle Analyzer
 stats.html
 
-#Yarn2
-.yarn/*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+#pnpm
+.pnpm-store
