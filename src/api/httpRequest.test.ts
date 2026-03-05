@@ -161,7 +161,8 @@ describe('httpRequest', () => {
     );
     expect(await httpRequest('/Path', {}, 'POST')).toEqual({
       status: 201,
-      violations: []
+      violations: [],
+      response: {}
     });
   });
 
