@@ -5,6 +5,8 @@ import KravKvittering from './KravKvittering';
 import { mockApp } from '../../mockData/mockApp';
 import lenker from '../../config/lenker';
 
+vi.mock('react-i18next');
+
 describe('KravKvittering', () => {
   it('skal vise melding om at det kommer noe etterhvert', () => {
     const { container } = render(mockApp(<KravKvittering backTarget={lenker.GravidKrav} />));

@@ -64,7 +64,9 @@ const httpRequest = async <Type>(
     }
 
     // Network error or other fetch failure
-    console.error('HTTP request failed:', error);
+    if (error !== undefined) {
+      console.error('HTTP request failed:', error);
+    }
     return {
       status: HttpStatus.Error,
       violations: []

@@ -26,28 +26,19 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
+
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
           registry-url: "https://npm.pkg.github.com"
+          cache: "pnpm"
 
-      - name: Enable corepack (Yarn 2+)
-        run: corepack enable
-
-      - name: Cache Yarn 2 files
-        uses: actions/cache@v5
-        with:
-          path: |
-            .yarn/cache
-            .yarn/install-state.gz
-          key: ${{ runner.os }}-yarn2-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn2-
-
-      - run: yarn install --immutable --inline-builds
+      - run: pnpm install --frozen-lockfile
 
       - name: Build with stats
-        run: yarn build
+        run: pnpm build
         env:
           ANALYZE: true
 

@@ -2,6 +2,7 @@ import httpRequest from './httpRequest';
 import HttpStatus from './HttpStatus';
 import mockFetch from '../mockData/mockFetch';
 import { GravidSoknadResponse } from './gravid/GravidSoknadResponse';
+import { vi } from 'vitest';
 
 describe('httpRequest', () => {
   interface PostResponse {
@@ -68,7 +69,7 @@ describe('httpRequest', () => {
   it('should reject with status Timeout if the backend does not respond', async () => {
     vi.useFakeTimers();
     vi.spyOn(window, 'fetch').mockImplementationOnce((_, init) => {
-      const signal = (init as RequestInit | undefined)?.signal;
+      const signal = init?.signal;
       return new Promise((_, reject) => {
         if (signal) {
           if (signal.aborted) {
@@ -77,7 +78,7 @@ describe('httpRequest', () => {
           }
           signal.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')));
         }
-      }) as Promise<Response>;
+      });
     });
     const resultat = httpRequest('/Path', {}, 'POST');
     vi.advanceTimersByTime(15000);
@@ -128,5 +129,88 @@ describe('httpRequest', () => {
       status: 422,
       violations: expected
     });
+  });
+
+  it('should return empty violations when 422 response has no violations field', async () => {
+    mockFetch(422, { title: 'no violations here' });
+    expect(await httpRequest('/Path', {}, 'POST')).toEqual({
+      status: 422,
+      violations: []
+    });
+  });
+
+  it('should return 422 with empty violations when json parsing fails', async () => {
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 422,
+        json: () => Promise.reject(new SyntaxError('bad json'))
+      } as unknown as Response)
+    );
+    expect(await httpRequest('/Path', {}, 'POST')).toEqual({
+      status: 422,
+      violations: []
+    });
+  });
+
+  it('should return 201 with empty response when json parsing fails for Created', async () => {
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 201,
+        json: () => Promise.reject(new SyntaxError('bad json'))
+      } as unknown as Response)
+    );
+    expect(await httpRequest('/Path', {}, 'POST')).toEqual({
+      status: 201,
+      violations: [],
+      response: {}
+    });
+  });
+
+  it('should return Error status when fetch rejects with an Error object', async () => {
+    vi.spyOn(window, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('Network failure')));
+    expect(await httpRequest('/Path', {}, 'POST')).toEqual({
+      status: HttpStatus.Error,
+      violations: []
+    });
+  });
+
+  it('should work with DELETE method', async () => {
+    mockFetch(200, {});
+    expect(await httpRequest('/Path', {}, 'DELETE')).toEqual({
+      status: 200,
+      violations: []
+    });
+  });
+
+  it('should work with PATCH method and return 201 response', async () => {
+    mockFetch(201, { hello: 'World' } as PostResponse);
+    expect(await httpRequest<PostResponse>('/Path', { hello: 'World' }, 'PATCH')).toEqual({
+      status: 201,
+      response: { hello: 'World' },
+      violations: []
+    });
+  });
+
+  it('should use custom timeout', async () => {
+    vi.useFakeTimers();
+    vi.spyOn(window, 'fetch').mockImplementationOnce((_, init) => {
+      const signal = init?.signal;
+      return new Promise((_, reject) => {
+        if (signal) {
+          if (signal.aborted) {
+            reject(new DOMException('Aborted', 'AbortError'));
+            return;
+          }
+          signal.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')));
+        }
+      });
+    });
+    const resultat = httpRequest('/Path', {}, 'POST', 2000);
+    vi.advanceTimersByTime(3000);
+    expect(await resultat).toEqual({
+      status: HttpStatus.Timeout,
+      violations: []
+    });
+    vi.useRealTimers();
   });
 });

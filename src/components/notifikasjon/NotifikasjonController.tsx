@@ -46,7 +46,7 @@ const NotifikasjonController = ({
           } as NotifikasjonAction);
         });
     }
-  });
+  }, []);
   return <SideRamme>{NotifikasjonView(state)}</SideRamme>;
 };
 

@@ -7,36 +7,22 @@ permissions:
   pull-requests: write
 
 env:
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
 jobs:
   Sonar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Setup pnpm
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238
         with:
           node-version: 24
-          registry-url: 'https://npm.pkg.github.com'
-      - name: Enable Corepack (Yarn 4)
-        run: corepack enable
-      - name: Cache Yarn (Berry) artifacts
-        id: cache-yarn
-        uses: actions/cache@v5
-        with:
-          path: |
-            **/.yarn/cache
-            **/.yarn/unplugged
-            **/.yarn/build-state.yml
-            **/.yarn/install-state.gz
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
+          registry-url: "https://npm.pkg.github.com"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm test
       - name: SonarCloud Scan
         if: ${{ github.actor != 'dependabot[bot]' }}
         uses: SonarSource/sonarqube-scan-action@v7.0.0

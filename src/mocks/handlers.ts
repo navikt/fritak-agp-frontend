@@ -75,6 +75,10 @@ export const handlers = [
     return HttpResponse.json(notifikasjonGravidKrav);
   }),
 
+  http.get('/fritak-agp/api/v1/gravid/soeknad/:id', () => {
+    return HttpResponse.json({});
+  }),
+
   http.post('/fritak-agp/api/v1/kronisk/krav', () => {
     return HttpResponse.text('OK', { status: 200 });
   }),

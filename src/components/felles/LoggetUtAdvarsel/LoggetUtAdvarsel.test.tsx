@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, act } from '@testing-library/react';
 
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 import { MemoryRouter } from 'react-router-dom';
@@ -24,22 +24,26 @@ describe('LoggetUtAdvarsel', () => {
     });
   });
 
-  it('should display the modal if the token is invalid', () => {
-    render(
-      <MemoryRouter initialEntries={initHistory}>
-        <LoggetUtAdvarsel onClose={vi.fn()} loginServiceUrl={''} tokenFornyet={''} />
-      </MemoryRouter>
-    );
+  it('should display the modal if the token is invalid', async () => {
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={initHistory}>
+          <LoggetUtAdvarsel onClose={vi.fn()} loginServiceUrl={''} tokenFornyet={''} />
+        </MemoryRouter>
+      );
+    });
     expect(screen.getByText('LOGGET_UT_ADVARSEL_LOGGET_UT')).toBeInTheDocument();
   });
 
-  it('should display the modal if the token is invalid and close it when close is clicked', () => {
+  it('should display the modal if the token is invalid and close it when close is clicked', async () => {
     const mockCallback = vi.fn();
-    render(
-      <MemoryRouter initialEntries={initHistory}>
-        <LoggetUtAdvarsel onClose={mockCallback} loginServiceUrl={''} tokenFornyet={''} />
-      </MemoryRouter>
-    );
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={initHistory}>
+          <LoggetUtAdvarsel onClose={mockCallback} loginServiceUrl={''} tokenFornyet={''} />
+        </MemoryRouter>
+      );
+    });
     const closeLink = screen.getByText('LOGGET_UT_ADVARSEL_LOGIN');
     expect(screen.getByText('LOGGET_UT_ADVARSEL_LOGGET_UT')).toBeInTheDocument();
     fireEvent.click(closeLink);

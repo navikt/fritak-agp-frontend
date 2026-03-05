@@ -5,7 +5,7 @@ on:
     types: [released]
   push:
     branches:
-      - 'prod/**'
+      - "prod/**"
 
 permissions:
   contents: read
@@ -23,27 +23,16 @@ jobs:
   Bygg:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+      - name: Setup pnpm
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: 'https://npm.pkg.github.com'
-      - name: Enable Corepack (Yarn 4)
-        run: corepack enable
-      - name: Cache Yarn (Berry) artifacts
-        id: cache-yarn
-        uses: actions/cache@v5
-        with:
-          path: |
-            **/.yarn/cache
-            **/.yarn/unplugged
-            **/.yarn/build-state.yml
-            **/.yarn/install-state.gz
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-
-      - uses: actions/checkout@v6
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+          registry-url: "https://npm.pkg.github.com"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
       - uses: actions/upload-artifact@v7
         with:
           name: fritak-frontend-artifact
@@ -57,12 +46,12 @@ jobs:
       packages: write
       contents: read
       id-token: write
-      security-events: 'write'
+      security-events: "write"
     steps:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: "https://npm.pkg.github.com"
       - uses: actions/checkout@v6
       - uses: actions/download-artifact@v8
         with:
@@ -82,15 +71,15 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ steps.docker-build-push.outputs.image }}
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'HIGH,CRITICAL'
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "HIGH,CRITICAL"
           limit-severities-for-sarif: true
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: "trivy-results.sarif"
 
       - name: Deploy to Nais
         uses: nais/deploy/actions/deploy@v2

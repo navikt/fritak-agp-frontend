@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  # Maintain dependencies for Yarn
+  # Maintain dependencies for pnpm
   - package-ecosystem: 'npm' # See documentation for possible values
     directory: '/' # Location of package manifests
     registries:
