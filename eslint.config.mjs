@@ -4,8 +4,8 @@ import { defineConfig } from 'eslint/config';
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
-import react from 'eslint-plugin-react';
 import vitest from '@vitest/eslint-plugin';
+import eslintReact from '@eslint-react/eslint-plugin';
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -13,6 +13,7 @@ export default defineConfig(
   jsxA11y.flatConfigs.recommended,
   {
     files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    ...eslintReact.configs["recommended-typescript"],
     ...vitest.configs.recommended,
   },
   {
@@ -24,7 +25,7 @@ export default defineConfig(
       },
     },
     plugins: {
-      react: react,
+      react: eslintReact,
     },
   },
   {
