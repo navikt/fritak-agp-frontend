@@ -1,0 +1,63 @@
+name: Versjonsbump
+
+on:
+    workflow_dispatch:
+        inputs:
+            bump:
+                description: "Hvilken versjon skal bumpes?"
+                required: true
+                default: patch
+                type: choice
+                options:
+                    - patch
+                    - minor
+                    - major
+
+jobs:
+    bump-version:
+        name: Bump versjon og åpne PR
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+        steps:
+            - uses: actions/checkout@v6
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
+
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24
+                  registry-url: "https://npm.pkg.github.com"
+                  cache: "pnpm"
+
+            - name: Bump versjon i package.json
+              id: version
+              run: |
+                  NEW_VERSION=$(npm version ${{ inputs.bump }} --no-git-tag-version)
+                  echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+                  echo "Ny versjon: ${NEW_VERSION}"
+
+            - name: Opprett branch og push
+              run: |
+                  BRANCH="versjonsbump/${{ steps.version.outputs.new_version }}"
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git checkout -b "$BRANCH"
+                  git add package.json
+                  git commit -m "chore: bump versjon til ${{ steps.version.outputs.new_version }}"
+                  git push origin "$BRANCH"
+                  echo "branch=${BRANCH}" >> $GITHUB_ENV
+
+            - name: Åpne pull request
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh pr create \
+                    --title "chore: bump versjon til ${{ steps.version.outputs.new_version }}" \
+                    --body "Automatisk versjonsbump (${{ inputs.bump }}) til ${{ steps.version.outputs.new_version }}. Trigget av @${{ github.actor }}." \
+                    --base main \
+                    --head "${{ env.branch }}"
