@@ -5,13 +5,14 @@ WORKDIR /var
 COPY dist/ dist/
 COPY server/ server/
 
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    echo '//npm.pkg.github.com/:_authToken='$(cat /run/secrets/NODE_AUTH_TOKEN) >> server/.npmrc
+RUN npm install -g --force --ignore-scripts corepack && corepack enable
+
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN sh -c \
+    'npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)'
+RUN npm config set @navikt:registry=https://npm.pkg.github.com
 
 WORKDIR /var/server
-RUN npm ci
-
-RUN rm /var/server/.npmrc
+RUN pnpm install --frozen-lockfile  --ignore-scripts
 
 FROM gcr.io/distroless/nodejs24-debian12@sha256:61f4f4341db81820c24ce771b83d202eb6452076f58628cd536cc7d94a10978b AS runner
 
