@@ -1,14 +1,14 @@
 import express from 'express';
-import path from 'path';
+import path from 'node:path';
 import process from 'node:process';
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
 import { buildCspHeader, injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js';
+import { fileURLToPath } from 'node:url';
 
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
 
-import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -105,13 +105,20 @@ const startServer = () => {
     }
   });
 
-  app.use(BASE_PATH, express.static(HOME_FOLDER));
+  app.use(
+    BASE_PATH,
+    (req, res, next) => {
+      res.setHeader('Content-Security-Policy', csp);
+      next();
+    },
+    express.static(HOME_FOLDER)
+  );
 
   app.use('/{*splat}', (req, res, next) => {
-    if (!req.headers['authorization']) {
-      res.redirect(`${BASE_PATH}/oauth2/login?redirect=${encodeURIComponent(req.originalUrl)}`);
-    } else {
+    if (req.headers['authorization']) {
       next();
+    } else {
+      res.redirect(`${BASE_PATH}/oauth2/login?redirect=${encodeURIComponent(req.originalUrl)}`);
     }
   });
 
@@ -142,7 +149,8 @@ const startServer = () => {
     res.status(404).send('404 not found');
   });
 
-  app.use(function (err, req, res) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  app.use(function (err, req, res, _next) {
     // eslint-disable-next-line no-undef
     console.error('Server: Error 500', err);
     res.status(500).send('500 Error');
