@@ -87,13 +87,13 @@ jobs:
           EOF
 
       - name: Upload bundle stats
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           name: bundle-stats
           path: dist/analyze/bundle-stats.json
 
       - name: Download base bundle stats
-        uses: dawidd6/action-download-artifact@v17
+        uses: dawidd6/action-download-artifact@1f8785ff7a5130826f848e7f72725c85d241860f
         if: github.event_name == 'pull_request'
         continue-on-error: true
         with:
@@ -217,7 +217,7 @@ jobs:
 
       - name: Comment on PR
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
         with:
           script: |
             const fs = require('fs');
