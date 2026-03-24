@@ -100,7 +100,11 @@ const startServer = () => {
       const json = req.method === 'DELETE' ? undefined : await safelyParseJSON(data);
 
       res.status(data.status);
-      res.send(json);
+      if (json !== undefined) {
+        res.send(json);
+      } else {
+        res.end();
+      }
     } catch (error) {
       // eslint-disable-next-line no-undef
       console.error('Server: API proxy error', error);
