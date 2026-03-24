@@ -1,5 +1,5 @@
 import express from 'express';
-import path from 'path';
+import path from 'node:path';
 import process from 'node:process';
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
 import { buildCspHeader, injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr/index.js';
@@ -83,6 +83,9 @@ const startServer = () => {
         res.send('OBO-feil');
         return;
       }
+
+      // eslint-disable-next-line no-undef
+      console.log('Proxying request to API:', req.method, req.originalUrl);
 
       // eslint-disable-next-line no-undef
       const data = await fetch(`${API_URL}${req.originalUrl.replace(BASE_PATH, API_BASEPATH)}`, {
