@@ -54,9 +54,6 @@ const startServer = () => {
   });
 
   app.use(BASE_PATH + '/api/{*splat}', async (req, res) => {
-    // eslint-disable-next-line no-undef
-    console.log('Proxying request to API:', req.method, req.originalUrl);
-
     try {
       const token = getToken(req);
       if (!token) {
