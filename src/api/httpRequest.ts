@@ -40,7 +40,7 @@ const httpRequest = async <Type>(
       },
       credentials: 'include',
       method: method,
-      body: JSON.stringify(payload),
+      body: method === 'DELETE' ? undefined : JSON.stringify(payload),
       signal: controller.signal
     });
 
