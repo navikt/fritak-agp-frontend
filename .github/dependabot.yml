@@ -12,6 +12,8 @@ updates:
       - npm-github
     schedule:
       interval: 'daily'
+    allow:
+      - dependency-type: direct
     cooldown:
       default-days: 3
       exclude:
@@ -68,9 +70,12 @@ updates:
       - npm-github
     schedule:
       interval: 'daily'
+    allow:
+      - dependency-type: direct
 
 registries:
   npm-github:
     type: npm-registry
     url: https://npm.pkg.github.com
     token: ${{ secrets.READER_TOKEN }}
+    replaces-base: false
