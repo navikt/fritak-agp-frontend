@@ -103,12 +103,12 @@ const KroniskKrav = (props: KroniskKravProps) => {
     });
   };
 
-  const handleCancelClicked = (event: React.FormEvent) => {
+  const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     window.location.href = environment.minSideArbeidsgiver;
   };
 
-  const handleDeleteClicked = async (event: React.FormEvent) => {
+  const handleDeleteClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatch({
       type: Actions.RemoveBackendError
@@ -125,7 +125,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
     });
   };
 
-  const onOKClicked = async (event: React.FormEvent) => {
+  const onOKClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (state.kravId) {
       dispatch({

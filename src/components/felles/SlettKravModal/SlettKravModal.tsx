@@ -2,7 +2,7 @@ import { Button, Modal } from '@navikt/ds-react';
 import React from 'react';
 
 interface SlettKravModalProps {
-  onOKClicked: (event: React.FormEvent) => void;
+  onOKClicked: (event: React.MouseEvent<HTMLButtonElement>) => void;
   showSpinner: boolean;
   modalOpen: boolean;
   onClose: (state: boolean) => void;

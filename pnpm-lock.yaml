@@ -15,14 +15,14 @@ importers:
         specifier: ^2.2.4
         version: 2.2.4
       '@navikt/aksel-icons':
-        specifier: ^8.6.0
-        version: 8.6.0
+        specifier: ^8.9.0
+        version: 8.9.0
       '@navikt/ds-css':
-        specifier: ^8.6.0
-        version: 8.6.0
+        specifier: ^8.9.0
+        version: 8.9.0
       '@navikt/ds-react':
-        specifier: ^8.6.0
-        version: 8.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^8.9.0
+        version: 8.9.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/fnrvalidator':
         specifier: ^2.2.1
         version: 2.2.1
@@ -34,7 +34,7 @@ importers:
         version: 2.5.0(react@19.2.4)
       '@navikt/virksomhetsvelger':
         specifier: ^1.0.7
-        version: 1.0.9(@navikt/ds-css@8.6.0)(@navikt/ds-react@8.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 1.0.9(@navikt/ds-css@8.9.0)(@navikt/ds-react@8.9.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       csp-header:
         specifier: ^6.3.0
         version: 6.3.0
@@ -76,8 +76,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.0.2(jiti@2.6.1))
       '@navikt/aksel':
-        specifier: ^8.6.0
-        version: 8.6.0
+        specifier: ^8.9.0
+        version: 8.9.0
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
@@ -163,7 +163,7 @@ importers:
         specifier: ^8.56.1
         version: 8.56.1(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       vite:
-        specifier: ^7
+        specifier: ^7.3.1
         version: 7.3.1(@types/node@24.11.0)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(yaml@2.8.2)
       vite-plugin-compression:
         specifier: ^0.5.1
@@ -818,19 +818,19 @@ packages:
   '@napi-rs/wasm-runtime@1.1.1':
     resolution: {integrity: sha512-p64ah1M1ld8xjWv3qbvFwHiFVWrq1yFvV4f7w+mzaqiR4IlSgkqhcRdHwsGgomwzBH51sRY4NEowLxnaBjcW/A==}
 
-  '@navikt/aksel-icons@8.6.0':
-    resolution: {integrity: sha512-e+evlFA6eq7vW1pZDg1Fc9V7L7h/Mp1Luubv7kTJUp4IrWQN7Is+nfVj65TLcrQqMm9fjkmc1eI5PcmuY9ibvQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.6.0/ff360cbe68f878b6e8deb59c19a23aa30eacab9e}
+  '@navikt/aksel-icons@8.9.0':
+    resolution: {integrity: sha512-AaHoHwSlULrQxNPLV1tmWNdx4RL6QTdzhkM7NcKrnaq0hUPvcUbHyVLiecubiDmjEiAAPVQQboo6/QRuw2UvXg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.9.0/6aa76719a9783fd0de5c01291adc8b920d2cf065}
 
-  '@navikt/aksel@8.6.0':
-    resolution: {integrity: sha512-2c6Zqtb+TENWMRpsyI6eRSEIDW9XA0Mj9m1BhRbRHQTuvwUXPAU1Io8JwibyMU1QQWPhnTU7A7rQurTqBe3MhQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel/8.6.0/150d1cbf8e8f8c267c96ddbec6afce93d2ad463e}
+  '@navikt/aksel@8.9.0':
+    resolution: {integrity: sha512-ypjJgwJER7AlvPyaSllKr34A/+uJOHaaVbc7B/CqFz6SzQ9ZmQwA7+N8u+pAmoOiQ4kIhDMJSH6vC8vjRcrbuQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel/8.9.0/9138b7a941272cb770005d5b3b272bdc63b5035f}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  '@navikt/ds-css@8.6.0':
-    resolution: {integrity: sha512-Rv39j5USosDDcOlcfNUG9uVOJ+ZgMjEvVRQdAN0QTVY3rBpceNlMbrBQEo1YzDlA6WpD9d8DyiGuDYYVpakoLw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.6.0/4c763d8f5f64587336bba5cba74b8a16ab379619}
+  '@navikt/ds-css@8.9.0':
+    resolution: {integrity: sha512-CmUcpiogi1O63nlbufpjt+CbkflPvxGiWqv3VSwRA0IiSCu/lagnU/z23+qraAu0LXOxmAcCsaZzRde2OC042A==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.9.0/c2c6e77cb08c9433f12b9bb2b610ee74320a0495}
 
-  '@navikt/ds-react@8.6.0':
-    resolution: {integrity: sha512-yAZAZT+Ii9exJFbxqVy1ONjJvb1k+iKH8KoIFgroPHS6k+QhiBnB52aas1LSoWR7eqHpgUNV6QMUsQt24kmT3A==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.6.0/484ac00ed4dbee8147f6a6cde76720bd7874b93b}
+  '@navikt/ds-react@8.9.0':
+    resolution: {integrity: sha512-FJd+LvVQbdWWocIdc6POWuXRAeBCOmEQY4kAiKT+sZl1TX48YF6DP9aqg65U+EAio2ZA8T9q64VBOoGWe3CjXQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.9.0/702b26c818eee38d01777e541e5e419c314a0d60}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18 || ^19
       react: ^17 || ^18 || ^19
@@ -839,8 +839,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@navikt/ds-tokens@8.6.0':
-    resolution: {integrity: sha512-MdnPFvi7wPF0N5ms6psNqW0IevlHhoswUCOYFQl7hFwL+uRcqFna6rT8fm/co04z/HDUKKfadbrW0yodzDxj1w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.6.0/acac1517c2bc4c4eda259f1bc591db24656f102f}
+  '@navikt/ds-tokens@8.9.0':
+    resolution: {integrity: sha512-dIdV405Nxa5YsIOG51DjAhU5kDM3HE00VitV59RlujEJk92I4hSMpA9ysdetLEBEWlmpjXFgue9Tgg8bIorttA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.9.0/c7f62f91df5fb35b063add5aad4636a7cfc4b802}
 
   '@navikt/fnrvalidator@2.2.1':
     resolution: {integrity: sha512-R6x3MBFC0E/B7oTs+P2jAP+ym7+d6cwSpDsLeMja9IwPpJq3HV/OClFBVWm9fJZPmXfumKRMGy6gqsQPj90ftg==, tarball: https://npm.pkg.github.com/download/@navikt/fnrvalidator/2.2.1/37ed0feb23a7525139ad5512684ff6b0977112c6}
@@ -1845,10 +1845,6 @@ packages:
   colorjs.io@0.5.2:
     resolution: {integrity: sha512-twmVoizEW7ylZSN32OgKdXRmo1qg+wT5/6C3xu5b9QsWzSFAhHLn2xd8ro0diCsKfCj1RdaTP/nrcW+vAoQPIw==}
 
-  commander@14.0.2:
-    resolution: {integrity: sha512-TywoWNNRbhoD0BXs1P3ZEScW8W5iKrnbithIl0YH+uCmBd0QpPOA8yc82DS3BIE5Ma6FnBVUsJ7wVUDz4dvOWQ==}
-    engines: {node: '>=20'}
-
   commander@14.0.3:
     resolution: {integrity: sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==}
     engines: {node: '>=20'}
@@ -2222,9 +2218,9 @@ packages:
   fflate@0.8.2:
     resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
 
-  figlet@1.8.0:
-    resolution: {integrity: sha512-chzvGjd+Sp7KUvPHZv6EXV5Ir3Q7kYNpCr4aHrRW79qFtTefmQZNny+W1pW9kf5zeE6dikku2W50W/wAH2xWgw==}
-    engines: {node: '>= 0.4.0'}
+  figlet@1.10.0:
+    resolution: {integrity: sha512-aktIwEZZ6Gp9AWdMXW4YCi0J2Ahuxo67fNJRUIWD81w8pQ0t9TS8FFpbl27ChlTLF06VkwjDesZSzEVzN75rzA==}
+    engines: {node: '>= 17.0.0'}
     hasBin: true
 
   figures@6.1.0:
@@ -2452,8 +2448,8 @@ packages:
     resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
     engines: {node: '>= 4'}
 
-  immutable@5.1.4:
-    resolution: {integrity: sha512-p6u1bG3YSnINT5RQmx/yRZBpenIl30kVxkTLDyHLIMk0gict704Q9n+thfDI7lTRm9vXdDYutVzXhzcThxTnXA==}
+  immutable@5.1.5:
+    resolution: {integrity: sha512-t7xcm2siw+hlUM68I+UEOK+z84RzmN59as9DZ7P1l0994DKUWV7UXBMQZVxaoMSRQ+PBZbHCOoBt7a2wxOMt+A==}
 
   import-in-the-middle@2.0.6:
     resolution: {integrity: sha512-3vZV3jX0XRFW3EJDTwzWoZa+RH1b8eTTx6YOCjglrLyPuepwoBti1k3L2dKwdCUrnVEfc5CuRuGstaC/uQJJaw==}
@@ -3063,12 +3059,12 @@ packages:
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
-  picomatch@2.3.1:
-    resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
+  picomatch@2.3.2:
+    resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
     engines: {node: '>=8.6'}
 
-  picomatch@4.0.3:
-    resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
+  picomatch@4.0.4:
+    resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
 
   pify@4.0.1:
@@ -4698,19 +4694,19 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@navikt/aksel-icons@8.6.0': {}
+  '@navikt/aksel-icons@8.9.0': {}
 
-  '@navikt/aksel@8.6.0':
+  '@navikt/aksel@8.9.0':
     dependencies:
-      '@navikt/ds-css': 8.6.0
-      '@navikt/ds-tokens': 8.6.0
+      '@navikt/ds-css': 8.9.0
+      '@navikt/ds-tokens': 8.9.0
       chalk: 5.6.2
       cli-progress: 3.12.0
       clipboardy: 5.0.1
-      commander: 14.0.2
+      commander: 14.0.3
       enquirer: 2.4.1
       fast-glob: 3.3.3
-      figlet: 1.8.0
+      figlet: 1.10.0
       is-git-clean: 1.1.0
       jscodeshift: 17.3.0
       jscodeshift-add-imports: 1.0.11(jscodeshift@17.3.0)
@@ -4719,14 +4715,14 @@ snapshots:
       - '@babel/preset-env'
       - supports-color
 
-  '@navikt/ds-css@8.6.0': {}
+  '@navikt/ds-css@8.9.0': {}
 
-  '@navikt/ds-react@8.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@navikt/ds-react@8.9.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@floating-ui/react-dom': 2.1.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@navikt/aksel-icons': 8.6.0
-      '@navikt/ds-tokens': 8.6.0
+      '@navikt/aksel-icons': 8.9.0
+      '@navikt/ds-tokens': 8.9.0
       date-fns: 4.1.0
       react: 19.2.4
       react-day-picker: 9.7.0(react@19.2.4)
@@ -4734,7 +4730,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.14
 
-  '@navikt/ds-tokens@8.6.0': {}
+  '@navikt/ds-tokens@8.9.0': {}
 
   '@navikt/fnrvalidator@2.2.1': {}
 
@@ -4751,10 +4747,10 @@ snapshots:
     dependencies:
       react: 19.2.4
 
-  '@navikt/virksomhetsvelger@1.0.9(@navikt/ds-css@8.6.0)(@navikt/ds-react@8.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@navikt/virksomhetsvelger@1.0.9(@navikt/ds-css@8.9.0)(@navikt/ds-react@8.9.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@navikt/ds-css': 8.6.0
-      '@navikt/ds-react': 8.6.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@navikt/ds-css': 8.9.0
+      '@navikt/ds-react': 8.9.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       focus-trap-react: 11.0.4(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
@@ -4989,7 +4985,7 @@ snapshots:
       detect-libc: 2.1.2
       is-glob: 4.0.3
       node-addon-api: 7.1.1
-      picomatch: 4.0.3
+      picomatch: 4.0.4
     optionalDependencies:
       '@parcel/watcher-android-arm64': 2.5.6
       '@parcel/watcher-darwin-arm64': 2.5.6
@@ -5667,8 +5663,6 @@ snapshots:
 
   colorjs.io@0.5.2: {}
 
-  commander@14.0.2: {}
-
   commander@14.0.3: {}
 
   commondir@1.0.1: {}
@@ -6200,13 +6194,15 @@ snapshots:
     dependencies:
       walk-up-path: 4.0.0
 
-  fdir@6.5.0(picomatch@4.0.3):
+  fdir@6.5.0(picomatch@4.0.4):
     optionalDependencies:
-      picomatch: 4.0.3
+      picomatch: 4.0.4
 
   fflate@0.8.2: {}
 
-  figlet@1.8.0: {}
+  figlet@1.10.0:
+    dependencies:
+      commander: 14.0.3
 
   figures@6.1.0:
     dependencies:
@@ -6434,7 +6430,7 @@ snapshots:
 
   ignore@7.0.5: {}
 
-  immutable@5.1.4: {}
+  immutable@5.1.5: {}
 
   import-in-the-middle@2.0.6:
     dependencies:
@@ -6704,7 +6700,7 @@ snapshots:
       chalk: 4.1.2
       ci-info: 4.4.0
       graceful-fs: 4.2.11
-      picomatch: 4.0.3
+      picomatch: 4.0.4
 
   jiti@2.6.1: {}
 
@@ -6820,7 +6816,7 @@ snapshots:
       minimist: 1.2.8
       oxc-resolver: 11.19.1
       picocolors: 1.1.1
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       smol-toml: 1.6.0
       strip-json-comments: 5.0.3
       typescript: 5.9.3
@@ -6923,7 +6919,7 @@ snapshots:
   micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
-      picomatch: 2.3.1
+      picomatch: 2.3.2
 
   mimic-function@5.0.1: {}
 
@@ -7125,9 +7121,9 @@ snapshots:
 
   picocolors@1.1.1: {}
 
-  picomatch@2.3.1: {}
+  picomatch@2.3.2: {}
 
-  picomatch@4.0.3: {}
+  picomatch@4.0.4: {}
 
   pify@4.0.1: {}
 
@@ -7319,7 +7315,7 @@ snapshots:
   rollup-plugin-visualizer@7.0.1(rollup@4.59.0):
     dependencies:
       open: 11.0.0
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       source-map: 0.7.6
       yargs: 18.0.0
     optionalDependencies:
@@ -7447,7 +7443,7 @@ snapshots:
     dependencies:
       '@bufbuild/protobuf': 2.11.0
       colorjs.io: 0.5.2
-      immutable: 5.1.4
+      immutable: 5.1.5
       rxjs: 7.8.2
       supports-color: 8.1.1
       sync-child-process: 1.0.2
@@ -7475,7 +7471,7 @@ snapshots:
   sass@1.97.3:
     dependencies:
       chokidar: 4.0.3
-      immutable: 5.1.4
+      immutable: 5.1.5
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.6
@@ -7717,8 +7713,8 @@ snapshots:
 
   tinyglobby@0.2.15:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
 
   tinyrainbow@3.0.3: {}
 
@@ -7750,7 +7746,7 @@ snapshots:
 
   ts-declaration-location@1.0.7(typescript@5.9.3):
     dependencies:
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       typescript: 5.9.3
 
   ts-pattern@5.9.0: {}
@@ -7874,8 +7870,8 @@ snapshots:
   vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(yaml@2.8.2):
     dependencies:
       esbuild: 0.27.3
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
       postcss: 8.5.8
       rollup: 4.59.0
       tinyglobby: 0.2.15
@@ -7905,7 +7901,7 @@ snapshots:
       magic-string: 0.30.21
       obug: 2.1.1
       pathe: 2.0.3
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       std-env: 3.10.0
       tinybench: 2.9.0
       tinyexec: 1.0.2

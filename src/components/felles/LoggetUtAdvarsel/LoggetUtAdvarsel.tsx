@@ -37,7 +37,7 @@ const LoggetUtAdvarsel = ({ onClose, loginServiceUrl, tokenFornyet }: LoggetUtAd
 
           <Oversettelse
             langKey={LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_INFO}
-            variables={{ innloggingUrl: loginServiceUrlAfterRedirect }}
+            variables={{ loginServiceUrlAfterRedirect }}
           />
           <InternLenke onClick={() => handleCloseModal()}>
             {t(LoggetUtAdvarselKeys.LOGGET_UT_ADVARSEL_LOGIN)}
