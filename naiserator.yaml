@@ -11,7 +11,11 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - '{{{ingress}}}'
+    {{#if ingress}}
+      {{#each ingress as |i| }}
+        - '{{{i}}}'
+      {{/each}}
+    {{/if}}
   liveness:
     path: /health/is-alive
     initialDelay: 15

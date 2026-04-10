@@ -1,5 +1,8 @@
 {
-  "ingress": "https://arbeidsgiver.intern.dev.nav.no/fritak-agp",
+  "ingress": [
+    "https://arbeidsgiver.intern.dev.nav.no/fritak-agp",
+    "https://arbeidsgiver.ekstern.dev.nav.no/fritak-agp"
+  ],
   "namespace": "helsearbeidsgiver",
   "vault-enabled": false,
   "webproxy-enabled": false,
