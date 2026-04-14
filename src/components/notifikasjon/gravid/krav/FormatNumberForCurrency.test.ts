@@ -24,7 +24,7 @@ describe('formatNumberForCurrency', () => {
   it('should format a negative number', () => {
     const result = formatNumberForCurrency(-500);
     expect(result).toContain('500');
-    expect(result).toContain('-');
+    expect(result.replace(/\s/g, '')).toMatch(/[−\-]500/);
   });
 
   it('should format a large number with grouping separators', () => {
