@@ -1,9 +1,9 @@
 name: Playwright Tests
 on:
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   pull_request:
-    branches: [main, master]
+    branches: [ main, master ]
 
 permissions:
   contents: read
@@ -13,8 +13,8 @@ jobs:
   e2e:
     uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/playwright-reusable-pnpm.yml@main
     with:
-      playwright-version: v1.58.2-jammy
+      playwright-version: v1.59.1-jammy
       node-version: lts/*
-      matrix: '{"shardIndex":[1,2,3,4],"shardTotal":[4]}'
+      matrix: "{\"shardIndex\":[1,2,3,4],\"shardTotal\":[4]}"
     secrets:
       npm_reader_token: ${{ secrets.READER_TOKEN }}

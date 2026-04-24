@@ -5,15 +5,15 @@
 
 version: 2
 updates:
-  # Maintain dependencies for pnpm
-  - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  # Maintain @navikt dependencies for pnpm (GitHub Package Registry)
+  - package-ecosystem: 'npm'
+    directory: '/'
     registries:
       - npm-github
     schedule:
       interval: 'daily'
     allow:
-      - dependency-type: direct
+      - dependency-name: '@navikt/*'
     cooldown:
       default-days: 3
       exclude:
@@ -23,6 +23,17 @@ updates:
         patterns:
           - '@navikt/ds*'
           - '@navikt/aksel*'
+
+  # Maintain other dependencies for pnpm (public npm)
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    ignore:
+      - dependency-name: '@navikt/*'
+    allow:
+      - dependency-type: direct
+    groups:
       vitest:
         patterns:
           - 'vitest'
@@ -64,12 +75,23 @@ updates:
     schedule:
       interval: 'daily'
 
-  - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/server' # Location of package manifests
+  # Maintain @navikt dependencies for server (GitHub Package Registry)
+  - package-ecosystem: 'npm'
+    directory: '/server'
     registries:
       - npm-github
     schedule:
       interval: 'daily'
+    allow:
+      - dependency-name: '@navikt/*'
+
+  # Maintain other dependencies for server (public npm)
+  - package-ecosystem: 'npm'
+    directory: '/server'
+    schedule:
+      interval: 'daily'
+    ignore:
+      - dependency-name: '@navikt/*'
     allow:
       - dependency-type: direct
 

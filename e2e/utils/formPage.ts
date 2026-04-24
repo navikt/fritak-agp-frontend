@@ -8,7 +8,7 @@ export class FormPage {
   }
 
   async getRadioButton(groupName: string | RegExp, optionLabel: string | RegExp): Promise<Locator> {
-    return this.page.getByRole('group', { name: groupName }).getByLabel(optionLabel);
+    return this.page.getByRole('radiogroup', { name: groupName }).getByLabel(optionLabel);
   }
 
   async checkRadioButton(groupName: string | RegExp, optionLabel: string | RegExp): Promise<void> {
