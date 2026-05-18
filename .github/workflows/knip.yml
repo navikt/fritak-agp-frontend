@@ -33,4 +33,4 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
-      - uses: codex-/knip-reporter@398e656c485dd1649f06631a4cd2e602c6ccc4f1
+      - uses: codex-/knip-reporter@438819707021437618b2527e668b0d1e491db05e
