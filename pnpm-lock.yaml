@@ -35,9 +35,6 @@ importers:
       '@navikt/virksomhetsvelger':
         specifier: ^1.0.12
         version: 1.0.12(@navikt/ds-css@8.10.5)(@navikt/ds-react@8.10.5(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      csp-header:
-        specifier: ^6.3.1
-        version: 6.3.1
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -851,6 +848,9 @@ packages:
       '@types/react': ^17.0.30 || ^18 || ^19
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@navikt/ds-tokens@8.10.5':
     resolution: {integrity: sha512-U+2zbkjcQrES9i8g+fgeo2XcWkAc/8ss9MB9aePKGqDjBzf16TcQbxzATPJdN+/GBXnG6xxi1bQsxt+w1AqkfQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.10.5/619c59293f85ac18dce41261316160a2bedd676f}
@@ -864,6 +864,9 @@ packages:
     peerDependencies:
       html-react-parser: '>=5.x'
       react: '>=17.x'
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@navikt/textparser@2.5.0':
     resolution: {integrity: sha512-OUL3apcxTsEIVFtherKlNyZyOYoKBHOajMpiqZZz6u1zB69wnpuQLkped1FQ7KmPxK+AhUiErBDkKZZohq4FLQ==, tarball: https://npm.pkg.github.com/download/@navikt/textparser/2.5.0/42c12bc8b98309f3700bb620acebf035505ed369}
@@ -4767,11 +4770,12 @@ snapshots:
       '@floating-ui/react-dom': 2.1.8(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@navikt/aksel-icons': 8.10.5
       '@navikt/ds-tokens': 8.10.5
-      '@types/react': 19.2.14
       date-fns: 4.1.0
       react: 19.2.6
       react-day-picker: 9.14.0(react@19.2.6)
       react-dom: 19.2.6(react@19.2.6)
+    optionalDependencies:
+      '@types/react': 19.2.14
 
   '@navikt/ds-tokens@8.10.5': {}
 
@@ -4782,6 +4786,7 @@ snapshots:
       csp-header: 6.3.1
       html-react-parser: 5.2.17(@types/react@19.2.14)(react@19.2.6)
       js-cookie: 3.0.5
+    optionalDependencies:
       react: 19.2.6
 
   '@navikt/textparser@2.5.0(react@19.2.6)':
