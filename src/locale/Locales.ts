@@ -725,7 +725,7 @@ const Locales: Record<
       "If you need to contact us, it is sufficient to provide the employee's national id-number."
   },
   KRAV_KVITTERING_SLETTET_TITTEL: {
-    nb: 'Kravet er slettet',
+    nb: 'Kravet er annullert',
     en: 'The claim has been deleted'
   },
   KRAV_KVITTERING_SLETTET_INGRESS: {
@@ -741,7 +741,7 @@ const Locales: Record<
     en: 'Create new claim'
   },
   KRAV_ENDRING_KVITTERING_TITTEL: {
-    nb: 'Kravet er slettet',
+    nb: 'Kravet er annullert',
     en: 'The claim has been deleted'
   },
   KRAV_ENDRING_KVITTERING_INGRESS: {
