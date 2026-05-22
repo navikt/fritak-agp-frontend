@@ -50,6 +50,7 @@ jobs:
             const maxCommentLength = 60000;
             const maxPreviewLines = 200;
             const lines = auditOutput.split('\n');
+            const hasOutput = lines.some(line => line.trim());
             const summaryLines = [];
             for (const line of lines) {
               if (!line.trim()) {
@@ -63,9 +64,10 @@ jobs:
             const previewLines = lines.slice(0, maxPreviewLines).join('\n');
             const header = '## pnpm audit\n';
             const artifactNote = '\n\nFull output is available in the `audit-output` workflow artifact (`audit-output.txt`).';
+            const summary = summaryLines.join('\n');
             let content = previewLines;
-            if (summaryLines.length > 0 && summaryLines.join('\n') !== previewLines) {
-              content = `${summaryLines.join('\n')}\n\n${previewLines}`;
+            if (summaryLines.length > 0 && !previewLines.startsWith(summary)) {
+              content = `${summary}\n\n${previewLines}`;
             }
             let body = `${header}\`\`\`\n${content}\n\`\`\`${artifactNote}`;
             if (body.length > maxCommentLength) {
@@ -81,6 +83,16 @@ jobs:
               issue_number: context.issue.number,
             });
             const existing = comments.find(c => c.body.startsWith('## pnpm audit'));
+            if (!hasOutput) {
+              if (existing) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existing.id,
+                });
+              }
+              return;
+            }
             if (existing) {
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
