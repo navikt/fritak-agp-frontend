@@ -19,7 +19,7 @@ vi.mock('react-i18next', () => ({
 const initHistory = ['/'];
 describe('NotifikasjonView', () => {
   const STATUS_PROGRESS = 'Venter…';
-  const FANT_IKKE = 'Kravet er slettet av arbeidsgiver';
+  const FANT_IKKE = 'Kravet er annullert av arbeidsgiver';
   const FEILMELDING = 'Det oppstod en feil';
   const INNHOLD = 'Din arbeidsgiver har søkt om utvidet støtte';
 
