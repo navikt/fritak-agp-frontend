@@ -3,3 +3,5 @@ allowBuilds:
   esbuild: true
   msw: true
   protobufjs: true
+overrides:
+  js-cookie: 3.0.7
