@@ -17,7 +17,7 @@ updates:
     cooldown:
       default-days: 3
       exclude:
-        - '@navikt*'
+        - '@navikt/*'
     groups:
       aksel:
         patterns:

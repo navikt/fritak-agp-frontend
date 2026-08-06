@@ -4,4 +4,4 @@ allowBuilds:
   msw: true
   protobufjs: true
 overrides:
-  js-cookie: 3.0.7
+  js-cookie@<=3.0.5: '>=3.0.7'

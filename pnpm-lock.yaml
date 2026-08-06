@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  js-cookie: 3.0.7
+  js-cookie@<=3.0.5: '>=3.0.7'
 
 importers:
 
