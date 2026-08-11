@@ -12,6 +12,8 @@ updates:
       - npm-github
     schedule:
       interval: 'daily'
+    commit-message:
+      prefix: 'deps(frontend)'
     allow:
       - dependency-type: direct
     cooldown:
@@ -70,8 +72,14 @@ updates:
       - npm-github
     schedule:
       interval: 'daily'
+    commit-message:
+      prefix: 'deps(server)'
     allow:
       - dependency-type: direct
+    cooldown:
+      default-days: 3
+      exclude:
+        - '@navikt/*'
 
 registries:
   npm-github:
