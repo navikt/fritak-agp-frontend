@@ -5,3 +5,4 @@ allowBuilds:
   protobufjs: true
 overrides:
   js-cookie: 3.0.7
+  postcss: '>=8.5.23'
