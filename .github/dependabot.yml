@@ -10,6 +10,7 @@ updates:
     directory: '/' # Location of package manifests
     registries:
       - npm-github
+    open-pull-requests-limit: 20
     schedule:
       interval: 'daily'
     commit-message:
