@@ -63,7 +63,7 @@
     "uuid": "14.0.1"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "^2.13.0",
+    "@eslint-react/eslint-plugin": "^5.18.3",
     "@eslint/js": "^10.0.1",
     "@navikt/aksel": "^8.16.1",
     "@playwright/test": "^1.62.1",
