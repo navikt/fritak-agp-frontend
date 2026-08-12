@@ -1,4 +1,4 @@
-import Aarsfravaer from '../../components/kronisk/Aarsfravaer';
+import { Aarsfravaer } from '../../components/kronisk/Aarsfravaer';
 import { FravaerData } from './KroniskRequest';
 
 const shortMonthName = Object.freeze([

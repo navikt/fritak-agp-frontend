@@ -14,5 +14,3 @@ export interface Arbeidsgiverperiode {
   månedsinntekt: number;
   gradering: number;
 }
-
-export default KroniskKravRequest;

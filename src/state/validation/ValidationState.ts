@@ -11,5 +11,3 @@ export interface ValidationState {
   feilmeldinger: Array<FeiloppsummeringFeil>;
   duplicateSubmission?: boolean; // Duplikat innsending
 }
-
-export default ValidationState;

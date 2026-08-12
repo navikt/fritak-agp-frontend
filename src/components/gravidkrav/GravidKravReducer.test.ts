@@ -2,7 +2,7 @@ import GravidKravReducer from './GravidKravReducer';
 import { Actions } from './Actions';
 import { defaultGravidKravState } from './GravidKravState';
 import { i18n } from 'i18next';
-import GravidSoknadResponse from '../../api/gravid/GravidSoknadResponse';
+import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 
 const translationMock = {
   t: (param: never) => param

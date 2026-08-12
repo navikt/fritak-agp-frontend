@@ -7,7 +7,7 @@ import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import timezone_mock from 'timezone-mock';
 import { i18n } from 'i18next';
-import GravidSoknadResponse from '../../api/gravid/GravidSoknadResponse';
+import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 
 const translationMock = {
   t: (param: never) => param

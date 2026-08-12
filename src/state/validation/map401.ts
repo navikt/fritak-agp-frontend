@@ -1,4 +1,4 @@
-import ValidationState from './ValidationState';
+import { ValidationState } from './ValidationState';
 
 /**
  * Not authorized

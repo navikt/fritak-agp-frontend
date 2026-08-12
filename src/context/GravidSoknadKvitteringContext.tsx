@@ -1,6 +1,6 @@
 import React, { createContext, useState, FC, ReactNode, useMemo } from 'react';
 import { ValidationResponse } from '../state/validation/ValidationResponse';
-import GravidSoknadResponse from '../api/gravid/GravidSoknadResponse';
+import { GravidSoknadResponse } from '../api/gravid/GravidSoknadResponse';
 
 interface GravidSoknadKvitteringContextState {
   response: ValidationResponse<GravidSoknadResponse> | undefined;
