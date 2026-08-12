@@ -77,9 +77,6 @@ const KroniskKvittering = () => {
             <InternLenke to={buildLenke(lenker.KroniskKrav, language as Language)}>Send krav om refusjon</InternLenke>
           </div>
           <div>
-            <Link href='https://loginservice.nav.no/slo'>Logg ut</Link>
-          </div>
-          <div>
             <Link href={env.minSideArbeidsgiver}>{t(LangKey.MIN_SIDE_ARBEIDSGIVER)}</Link>
           </div>
         </Box>
