@@ -1,4 +1,4 @@
-import Aarsfravaer from './Aarsfravaer';
+import { Aarsfravaer } from './Aarsfravaer';
 import { getFravaerByMonth } from './getFravaerByMonth';
 
 describe('getFravaerByMonth', () => {

@@ -17,5 +17,3 @@ export interface GravidSoknadResponse {
   oppgaveId: string;
   navn: string;
 }
-
-export default GravidSoknadResponse;

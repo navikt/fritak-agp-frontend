@@ -1,6 +1,6 @@
 import postKroniskKrav from './postKroniskKrav';
 
-import KroniskKravRequest from './KroniskKravRequest';
+import { KroniskKravRequest } from './KroniskKravRequest';
 
 vi.mock('../httpRequest');
 
