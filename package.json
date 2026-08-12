@@ -22,7 +22,9 @@
   },
   "cross-os": {
     "postinstall": {
-      "darwin": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index"
+      "darwin": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index",
+      "linux": "echo 'No postinstall script for Linux'",
+      "win32": "echo 'No postinstall script for Windows'"
     }
   },
   "engines": {
@@ -79,7 +81,7 @@
     "@vitest/coverage-v8": "^4.1.10",
     "@vitest/eslint-plugin": "^1.6.27",
     "@vitest/ui": "^4.1.10",
-    "cross-os": "1.5.0",
+    "cross-os": "1.6.0",
     "eslint": "^10.8.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "husky": "~9.1.7",
