@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
-import gravidSoknadResponse from './gravidSoknadResponse';
+import { gravidSoknadResponse } from './gravidSoknadResponse';
 
 import { FormPage } from './utils/formPage';
 

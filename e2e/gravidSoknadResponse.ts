@@ -1,4 +1,4 @@
-const gravidSoknadResponse = {
+export const gravidSoknadResponse = {
   id: '6e651824-aed9-435c-8062-e73be7d8e57a',
   opprettet: '2021-09-17T10:50:43.672634',
   virksomhetsnummer: '810007842',
@@ -16,5 +16,3 @@ const gravidSoknadResponse = {
   oppgaveId: null,
   sendtAvNavn: 'ARTIG HEST'
 };
-
-export default gravidSoknadResponse;

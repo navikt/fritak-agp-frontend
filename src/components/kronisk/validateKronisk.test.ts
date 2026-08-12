@@ -1,6 +1,6 @@
 import { validateKronisk } from './validateKronisk';
 import { defaultKroniskState } from './KroniskState';
-import Aarsfravaer from './Aarsfravaer';
+import { Aarsfravaer } from './Aarsfravaer';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { languageInit } from '../../locale/languageInit';

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import GravidSoknadKvitteringProvider, { GravidSoknadKvitteringContext } from './GravidSoknadKvitteringContext';
 import { ValidationResponse } from '../state/validation/ValidationResponse';
-import GravidSoknadResponse from '../api/gravid/GravidSoknadResponse';
+import { GravidSoknadResponse } from '../api/gravid/GravidSoknadResponse';
 
 describe('GravidSoknadKvitteringContext', () => {
   it('should set the response', async () => {
