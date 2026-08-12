@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 import viteCompression from 'vite-plugin-compression';
 
@@ -9,9 +8,11 @@ export default defineConfig({
   // In development, the app runs at root /
   // In production, it runs at /fritak-agp/
   base: process.env.NODE_ENV === 'production' ? '/fritak-agp/' : '/',
+  resolve: {
+    tsconfigPaths: true
+  },
   plugins: [
     react(),
-    viteTsconfigPaths(),
     viteCompression({ algorithm: 'brotliCompress' }),
     visualizer({
       filename: 'dist/stats.html',
@@ -36,11 +37,13 @@ export default defineConfig({
     rollupOptions: {
       external: ['./nais.js'],
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-nav': ['@navikt/ds-react', '@navikt/aksel-icons'],
-          'vendor-nav-dekorator': ['@navikt/nav-dekoratoren-moduler'],
-          'vendor-i18n': ['i18next', 'react-i18next']
+        codeSplitting: {
+          groups: [
+            { name: 'vendor-react', test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/ },
+            { name: 'vendor-nav', test: /[\\/]node_modules[\\/]@navikt[\\/](ds-react|aksel-icons)[\\/]/ },
+            { name: 'vendor-nav-dekorator', test: /[\\/]node_modules[\\/]@navikt[\\/]nav-dekoratoren-moduler[\\/]/ },
+            { name: 'vendor-i18n', test: /[\\/]node_modules[\\/](i18next|react-i18next)[\\/]/ }
+          ]
         }
       }
     }
