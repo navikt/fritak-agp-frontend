@@ -897,10 +897,6 @@ const Locales: Record<
     nb: 'Det oppstod en feil',
     en: 'An error has occurred'
   },
-  LOGG_UT: {
-    nb: 'Logg ut',
-    en: 'Log out'
-  },
   ALLE_FELT_PAKREVD: {
     nb:
       'Vi sender en melding til den ansatte med informasjon om at du har sendt refusjonskravet.\n\n' +

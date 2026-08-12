@@ -88,11 +88,6 @@ const GravidKvittering = () => {
           </Link>
         </div>
         <div>
-          <Link to={environment.logoutServiceUrl} className='lenke'>
-            <Oversettelse langKey={LangKey.LOGG_UT} />
-          </Link>
-        </div>
-        <div>
           <InternLenke to={environment.minSideArbeidsgiver}>
             <Oversettelse langKey={LangKey.MIN_SIDE_ARBEIDSGIVER} />
           </InternLenke>
