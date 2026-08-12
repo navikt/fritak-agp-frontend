@@ -4,11 +4,11 @@ import App from './App';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import env, { EnvironmentType } from './config/environment';
 import '@navikt/ds-css';
-import isDev from './config/isDev';
 
 async function bootApp() {
-  // Initialize MSW for development
-  if (isDev()) {
+  // Initialize MSW for development.
+  // Use the compile-time constant directly so the dynamic import is tree-shaken out of production builds.
+  if (import.meta.env.DEV) {
     try {
       const { worker } = await import('./mocks/browser');
       await worker.start({
