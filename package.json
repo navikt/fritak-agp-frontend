@@ -22,7 +22,9 @@
   },
   "cross-os": {
     "postinstall": {
-      "darwin": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index"
+      "darwin": "mkdir -p ./node_modules && touch ./node_modules/.metadata_never_index",
+      "linux": "echo 'No postinstall script for Linux'",
+      "win32": "echo 'No postinstall script for Windows'"
     }
   },
   "engines": {
