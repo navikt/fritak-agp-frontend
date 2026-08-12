@@ -16,5 +16,3 @@ const gravidSoknadResponse = {
   oppgaveId: null,
   sendtAvNavn: 'ARTIG HEST'
 };
-
-export default gravidSoknadResponse;
