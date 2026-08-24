@@ -92,7 +92,7 @@
     "msw": "^2.15.0",
     "prettier": "~3.9.6",
     "rollup-plugin-visualizer": "^7.0.1",
-    "sass-embedded": "^1.100.0",
+    "sass-embedded": "^1.102.0",
     "timezone-mock": "~1.4.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.67.0",
