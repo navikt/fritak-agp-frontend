@@ -1,5 +1,15 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.test.*", "./vitest.setup.ts"],
+  "compilerOptions": {
+    "typeRoots": ["./typings", "./node_modules/@types", "./node_modules"],
+    "types": ["vite/client", "node"]
+  },
+  "include": [
+    "src/**/*.test.*",
+    "./vitest.setup.ts",
+    "src/setupTests.ts",
+    "typings/jest-axe.d.ts",
+    "node_modules/vitest/globals.d.ts"
+  ],
   "exclude": ["src/mock/**/*", "src/mockData/**/*"]
 }
