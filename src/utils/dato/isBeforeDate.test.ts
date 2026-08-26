@@ -26,7 +26,7 @@ describe('isBeforeDate', () => {
     expect(isBeforeDate(dato, minDate)).toBe(true);
   });
 
-  it('should handle missing month (defaults to 0)', () => {
+  it('should handle missing month (defaults to January)', () => {
     const dato: Dato = { year: 2020, day: 1 };
     const minDate = new Date(2021, 0, 1);
     expect(isBeforeDate(dato, minDate)).toBe(true);
