@@ -1,9 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "typeRoots": ["./typings", "./node_modules/@types", "./node_modules"],
-    "types": ["vitest/globals", "vite/client", "node"]
-  },
   "include": ["src/**/*.test.*", "./vitest.setup.ts"],
   "exclude": ["src/mock/**/*", "src/mockData/**/*"]
 }
