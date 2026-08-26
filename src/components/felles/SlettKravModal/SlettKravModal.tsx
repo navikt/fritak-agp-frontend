@@ -8,7 +8,7 @@ interface SlettKravModalProps {
   onClose: (state: boolean) => void;
 }
 
-export default function SlettKravModal(props: SlettKravModalProps) {
+export default function SlettKravModal(props: Readonly<SlettKravModalProps>) {
   return (
     <Modal
       open={props.modalOpen}

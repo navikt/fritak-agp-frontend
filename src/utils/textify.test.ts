@@ -10,7 +10,7 @@ describe('textify', () => {
   });
 
   it('should return a number as-is', () => {
-    expect(textify(42)).toBe(42);
+    expect(textify(42) as unknown as number).toBe(42);
   });
 
   it('should return undefined as-is', () => {
@@ -23,11 +23,11 @@ describe('textify', () => {
 
   it('should return an object as-is', () => {
     const obj = { key: 'value' };
-    expect(textify(obj)).toBe(obj);
+    expect(textify(obj) as unknown as typeof obj).toBe(obj);
   });
 
   it('should return an array as-is', () => {
     const arr = [1, 2, 3];
-    expect(textify(arr)).toBe(arr);
+    expect(textify(arr) as unknown as typeof arr).toBe(arr);
   });
 });
