@@ -22,7 +22,7 @@ describe('autodetectLanguage', () => {
     expect(autodetectLanguage(url)).toBe(Language.nb);
   });
 
-  it('should return Language.en when /en/ appears in query string path', () => {
+  it('should return Language.en when URL contains /en/ and has query params', () => {
     const url = 'http://localhost:3000/fritak-agp/en/innsending?bedrift=123';
     expect(autodetectLanguage(url)).toBe(Language.en);
   });
