@@ -18,6 +18,6 @@
     "noFallthroughCasesInSwitch": true,
     "typeRoots": ["./typings", "vite/client", "./node_modules/@types"]
   },
-  "include": ["src", "./vitest.setup.ts", "typings/jest-axe.d.ts"],
+  "include": ["src", "./vitest.setup.ts", "typings/jest-axe.d.ts", "typings/vitest.d.ts"],
   "exclude": ["**/*.test.ts*", "src/setupTests.ts", "src/mock/**/*", "src/mockData/**/*"]
 }

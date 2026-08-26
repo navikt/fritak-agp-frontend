@@ -25,12 +25,3 @@ declare module 'jest-axe' {
     toHaveNoViolations: (results?: Partial<AxeResults>) => AssertionsResult;
   };
 }
-
-declare module 'vitest' {
-  interface Assertion<T = unknown> {
-    toHaveNoViolations(): T;
-  }
-  interface AsymmetricMatchersContaining {
-    toHaveNoViolations(): void;
-  }
-}
