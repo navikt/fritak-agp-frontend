@@ -1,7 +1,7 @@
 import React from 'react';
 import GravidProgress from './GravidProgress';
 import { render } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {

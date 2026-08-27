@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 
 import TokenFornyet from './TokenFornyet';
 import { MemoryRouter } from 'react-router-dom';

@@ -1,15 +1,15 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "composite": true,
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./node_modules/.cache/tsconfig-test",
+    "tsBuildInfoFile": "./node_modules/.cache/tsconfig-test/tsconfig.test.tsbuildinfo",
     "typeRoots": ["./typings", "./node_modules/@types", "./node_modules"],
     "types": ["vitest/globals", "vite/client", "node"]
   },
-  "include": [
-    "src/**/*.test.*",
-    "./vitest.setup.ts",
-    "src/setupTests.ts",
-    "typings/jest-axe.d.ts",
-    "typings/vitest.d.ts"
-  ],
-  "exclude": ["src/mock/**/*", "src/mockData/**/*"]
+  "include": ["src", "__mocks__", "typings", "./vitest.setup.ts"],
+  "exclude": []
 }

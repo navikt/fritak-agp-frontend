@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';

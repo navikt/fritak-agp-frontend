@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import KravEndringKvittering from './KravEndringKvittering';
 import { mockApp } from '../../mockData/mockApp';
 import lenker from '../../config/lenker';

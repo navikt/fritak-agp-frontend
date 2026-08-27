@@ -1,14 +1,17 @@
 /// <reference types="@testing-library/jest-dom" />
 import '@testing-library/jest-dom/vitest';
-import * as matchers from '@testing-library/jest-dom/matchers';
+import * as jestDomMatchers from '@testing-library/jest-dom/matchers';
 import { expect, afterAll, afterEach, beforeAll } from 'vitest';
+import * as axeMatchers from 'vitest-axe/matchers';
+import 'vitest-axe/extend-expect'; // Automatically extends Vitest's 'expect' types
 
-expect.extend(matchers);
+expect.extend(jestDomMatchers);
+expect.extend(axeMatchers);
 
-import { toHaveNoViolations } from 'jest-axe';
+// import { toHaveNoViolations } from 'vitest-axe/matchers';
 
 // Extend the functionality to support axe
-expect.extend(toHaveNoViolations);
+// expect.extend(toHaveNoViolations);
 
 // Setup MSW for tests
 import { server } from './src/mocks/server';

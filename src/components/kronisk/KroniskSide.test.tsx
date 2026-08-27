@@ -1,6 +1,6 @@
 import React from 'react';
 import KroniskSide from './KroniskSide';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { MemoryRouter } from 'react-router-dom';
 import testOrganisasjoner from '../../mockData/testOrganisasjoner';
 import '../../mockData/mockWindowLocation';

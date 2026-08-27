@@ -1,7 +1,7 @@
 import React from 'react';
 import Feilmeldingspanel from './Feilmeldingspanel';
 import { render } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
 
