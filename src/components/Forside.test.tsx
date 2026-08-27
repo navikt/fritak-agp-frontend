@@ -1,7 +1,7 @@
 import React from 'react';
 import Forside from './Forside';
 import { render } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { MemoryRouter } from 'react-router-dom';
 import { Organisasjon } from '@navikt/virksomhetsvelger';
 import { ArbeidsgiverProvider } from '../context/arbeidsgiver/ArbeidsgiverContext';

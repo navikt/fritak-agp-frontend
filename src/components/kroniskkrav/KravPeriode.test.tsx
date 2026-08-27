@@ -1,6 +1,6 @@
 import React from 'react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 
 import KravPeriode from './KravPeriode';
 import { KroniskKravPeriode } from './KroniskKravState';

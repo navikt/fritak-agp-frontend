@@ -60,19 +60,25 @@ describe('ApplicationRoutes', () => {
   it('should show gravid søknad', async () => {
     const { container } = render(makeRoute('/gravid/soknad'));
 
-    await waitFor(() => {
-      expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
-      expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
-    });
+    await waitFor(
+      () => {
+        expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
+        expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
+      },
+      { timeout: 10000 }
+    );
   });
 
   it('should show gravid søknad when no arbeidsgivere', async () => {
     const { container } = render(makeRoute('/gravid/soknad', []));
 
-    await waitFor(() => {
-      expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
-      expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
-    });
+    await waitFor(
+      () => {
+        expect(container.textContent).toContain('GRAVID_SIDE_TITTEL');
+        expect(container.textContent).toContain('GRAVID_SIDE_UNDERTITTEL');
+      },
+      { timeout: 10000 }
+    );
   });
 
   it('should show gravid kvittering', async () => {

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import KontrollSporsmaal from './KontrollSporsmaal';
 
 vi.mock('react-i18next', () => ({

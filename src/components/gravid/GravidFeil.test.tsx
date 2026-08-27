@@ -1,7 +1,7 @@
 import React from 'react';
 import GravidFeil from './GravidFeil';
 import { render, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import LangKey from '../../locale/LangKey';
 
 vi.mock('react-i18next', () => ({

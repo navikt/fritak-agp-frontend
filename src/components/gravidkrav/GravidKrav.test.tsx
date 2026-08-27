@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup, act } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 
 import GravidKrav from './GravidKrav';
 import { MemoryRouter } from 'react-router-dom';

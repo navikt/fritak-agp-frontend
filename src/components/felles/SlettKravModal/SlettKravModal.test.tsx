@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup, screen, fireEvent, act } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 
 import SlettKravModal from './SlettKravModal';
 

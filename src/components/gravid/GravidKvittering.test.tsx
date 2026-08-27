@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import GravidKvittering from './GravidKvittering';
 import { MemoryRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { Application } from './App';
 import { MemoryRouter } from 'react-router-dom';
 import HttpStatus from './api/HttpStatus';
