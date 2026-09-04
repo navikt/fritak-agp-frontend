@@ -37,8 +37,8 @@ importers:
         specifier: ^2.5.0
         version: 2.5.0(react@19.2.8)
       '@navikt/virksomhetsvelger':
-        specifier: ^2.0.5
-        version: 2.0.5(@navikt/ds-css@8.16.1)(@navikt/ds-react@8.16.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^2.0.6
+        version: 2.0.6(@navikt/ds-css@8.16.1)(@navikt/ds-react@8.16.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -841,8 +841,8 @@ packages:
     peerDependencies:
       react: ^15.4.2 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
-  '@navikt/virksomhetsvelger@2.0.5':
-    resolution: {integrity: sha512-6WFed6wMn6z67RFTVlSo0fyUJSqRcgoBsOQVFEhlyi/akRBtNn55ycK83YaJIaQHYMnK6yLRZRpng1exboMYDQ==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.0.5/bd5a47246395d9f3ffb10abbade378efd2273f85}
+  '@navikt/virksomhetsvelger@2.0.6':
+    resolution: {integrity: sha512-ogtSWyvIKs6sZAOfQkz7UY3xzcJWXap611DMsinawUQ2E+XM0JViNQl5/OIUHmSp64qg1/Lw4IayFWZr3WLxxg==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.0.6/59f1daf59acf1cf51d5771a7166e72dfe4445782}
     peerDependencies:
       '@navikt/ds-css': '>=7'
       '@navikt/ds-react': '>=7'
@@ -5073,7 +5073,7 @@ snapshots:
     dependencies:
       react: 19.2.8
 
-  '@navikt/virksomhetsvelger@2.0.5(@navikt/ds-css@8.16.1)(@navikt/ds-react@8.16.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@navikt/virksomhetsvelger@2.0.6(@navikt/ds-css@8.16.1)(@navikt/ds-react@8.16.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@navikt/ds-css': 8.16.1
       '@navikt/ds-react': 8.16.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
