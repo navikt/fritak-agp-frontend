@@ -39,16 +39,18 @@ const Upload = (props: UploadProps) => {
   };
   return (
     <div className={'upload ' + props.className}>
-      <label className='navds-button navds-button--secondary upload-filknapp'>
-        <input
-          className='upload-fileinput'
-          type='file'
-          id='fileUploader'
-          accept={props.extensions}
-          onChange={handleUpload}
-          onClick={(e: React.MouseEvent<HTMLInputElement>) => (e.currentTarget.value = '')}
-        />
-        {props.label}
+      <label className='aksel-button aksel-button--medium upload-filknapp' data-variant='secondary'>
+        <span className='aksel-label'>
+          <input
+            className='upload-fileinput'
+            type='file'
+            id='fileUploader'
+            accept={props.extensions}
+            onChange={handleUpload}
+            onClick={(e: React.MouseEvent<HTMLInputElement>) => (e.currentTarget.value = '')}
+          />
+          {props.label}
+        </span>
       </label>
       {filnavn !== props.label && (
         <div className='upload-deletewrapper'>
