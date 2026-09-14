@@ -20,7 +20,7 @@ importers:
         version: 4.2.2
       csp-header:
         specifier: ^6.3.1
-        version: 6.3.1
+        version: 6.4.0
       express:
         specifier: ^5.2.1
         version: 5.2.1
@@ -102,6 +102,10 @@ packages:
 
   csp-header@6.3.1:
     resolution: {integrity: sha512-ykcqGMOGP/uU7RLXDD83k2Ge5Stgc/N3qgKgSN+dATDlNgLHnIoI1IdZBjOskD5Ev1RSKTabLdIETJ6VzXTmvA==}
+    engines: {node: '>=18'}
+
+  csp-header@6.4.0:
+    resolution: {integrity: sha512-9YEpW20tPtKzVouyAxNtXqSE4EGaTd4ZiT1n/FbUQ5xhmFkPCjC3Db/gHDbesryQoO/TigBAUCqgKypOHviRgQ==}
     engines: {node: '>=18'}
 
   debug@3.2.7:
@@ -478,6 +482,8 @@ snapshots:
   cookie@0.7.2: {}
 
   csp-header@6.3.1: {}
+
+  csp-header@6.4.0: {}
 
   debug@3.2.7:
     dependencies:
