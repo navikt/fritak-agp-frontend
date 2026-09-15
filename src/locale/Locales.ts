@@ -22,7 +22,6 @@ import { IngenTilgangAdvarselKeys } from '../components/felles/login/IngenTilgan
 import { LoggetUtAdvarselKeys } from '../components/felles/LoggetUtAdvarsel/LoggetUtAdvarselKeys';
 import { TokenFornyetKeys } from '../components/felles/login/TokenFornyetKeys';
 import { TilgangsfeilSideKeys } from '../components/felles/login/TilgangsfeilSideKeys';
-import { UploadKeys } from '../components/felles/Upload/UploadKeys';
 import { SideKeys } from '../components/felles/Side/SideKeys';
 import { validateTilKeys } from '../validation/validateTil';
 import { validateOrgnrKeys } from '../validation/validateOrgnr';
@@ -39,7 +38,6 @@ export interface Locale {
 
 const Locales: Record<
   | LangKey
-  | UploadKeys
   | BekreftOpplysningerKeys
   | FeilmeldingspanelKeys
   | KroniskKravKeys
@@ -997,18 +995,6 @@ const Locales: Record<
     en: 'File size too big'
   },
 
-  UPLOAD_TOO_BIG: {
-    nb: 'Filen er for stor',
-    en: 'File size too big'
-  },
-  UPLOAD_DELETE: {
-    nb: 'Slett',
-    en: 'Delete'
-  },
-  UPLOAD_FILENAME: {
-    nb: 'Lastet opp:',
-    en: 'Filename:'
-  },
   SIDE_MIN_SIDE_ARBEIDSGIVER: {
     en: 'My page',
     nb: 'Min side arbeidsgiver'

@@ -2,7 +2,7 @@ import React from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
 import '../../mockData/mockWindowLocation';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
@@ -15,6 +15,12 @@ import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 import { Dato } from '../../utils/dato/Dato';
 import { http, HttpResponse } from 'msw';
 import { server } from '../../mocks/server';
+import postGravid from '../../api/gravid/postGravid';
+import HttpStatus from '../../api/HttpStatus';
+
+vi.mock('../../api/gravid/postGravid', () => ({
+  default: vi.fn()
+}));
 
 vi.mock('nav-frontend-tekstomrade', () => {
   return {
@@ -68,6 +74,11 @@ describe('GravidSide', () => {
   const OMPLASSERING_ERROR = 'Velg omplassering';
 
   const user = userEvent.setup();
+
+  beforeEach(() => {
+    vi.mocked(postGravid).mockReset();
+    vi.mocked(postGravid).mockResolvedValue({ status: HttpStatus.Error } as Awaited<ReturnType<typeof postGravid>>);
+  });
 
   it('skal vise progress mens venter på svar', () => {
     const state = defaultGravidState();
@@ -198,6 +209,42 @@ describe('GravidSide', () => {
     expect(screen.getByText(SEND_KNAPP)).toBeInTheDocument();
 
     expect(screen.queryByText(FEILMELDINGER)).not.toBeInTheDocument();
+  });
+
+  it('uses the selected PDF for submission and allows deleting it', async () => {
+    const state = defaultGravidState({
+      fnr: testFnr.GyldigeFraDolly.TestPerson1,
+      orgnr: testOrgnr.GyldigeOrgnr.TestOrg1,
+      tilrettelegge: false,
+      videre: true,
+      bekreft: true,
+      termindato: { day: 1, month: 10, year: 2026, value: '01.10.2026' }
+    });
+    const fileContent = `%PDF-1.4\n${'content'.repeat(100)}`;
+    const file = new File([fileContent], 'dokumentasjon.pdf', { type: 'application/pdf' });
+
+    render(
+      <MemoryRouter>
+        <GravidSide state={state} />
+      </MemoryRouter>
+    );
+
+    await user.upload(screen.getByLabelText('GRAVID_SIDE_OPPLASTINGSKNAPP'), file);
+    expect(await screen.findByText('dokumentasjon.pdf')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'GRAVID_SIDE_SEND_SOKNAD' }));
+
+    await waitFor(() =>
+      expect(postGravid).toHaveBeenCalledWith(
+        env.baseUrl,
+        expect.objectContaining({
+          dokumentasjon: `data:application/pdf;base64,${btoa(fileContent)}`
+        })
+      )
+    );
+
+    await user.click(await screen.findByRole('button', { name: /slett fil/i }));
+    expect(screen.queryByText('dokumentasjon.pdf')).not.toBeInTheDocument();
   });
 
   it('skal vise valideringfeil for tilrettelagt', () => {
