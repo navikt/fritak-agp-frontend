@@ -1,4 +1,4 @@
-import React, { Reducer, useContext, useEffect, useReducer } from 'react';
+import React, { Reducer, useContext, useEffect, useReducer, useState } from 'react';
 import './GravidSide.scss';
 import '../felles/FellesStyling.scss';
 import GravidProgress from './GravidProgress';
@@ -36,7 +36,10 @@ import {
   Radio,
   Textarea,
   Fieldset,
-  Box
+  Box,
+  VStack,
+  FileUpload,
+  FileObject
 } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
@@ -46,7 +49,6 @@ import Datovelger from '../datovelger/Datovelger';
 import Feilmeldingspanel from '../felles/Feilmeldingspanel/Feilmeldingspanel';
 import Skillelinje from '../felles/Skillelinje';
 import Side from '../felles/Side/Side';
-import Upload from '../felles/Upload';
 import { Language } from '../../locale/Language';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
@@ -78,9 +80,10 @@ const GravidSide = (props: GravidSideProps) => {
     document.title = 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
   }, []);
 
-  const handleUploadChanged = (file?: File) => {
+  const handleUploadChanged = (file: FileObject[]) => {
+    setFiles(file);
     if (file) {
-      getBase64file(file).then((base64encoded) => {
+      getBase64file(file[0].file).then((base64encoded) => {
         dispatch({
           type: Actions.Dokumentasjon,
           payload: {
@@ -91,6 +94,7 @@ const GravidSide = (props: GravidSideProps) => {
     }
   };
   const handleDelete = () => {
+    setFiles([]);
     dispatch({
       type: Actions.Dokumentasjon,
       payload: {
@@ -110,7 +114,7 @@ const GravidSide = (props: GravidSideProps) => {
   const handleCloseDuplicateFeil = () => {
     dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
-  const handleCancelClicked = (event: React.FormEvent) => {
+  const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     window.location.href = environment.minSideArbeidsgiver;
   };
@@ -178,6 +182,8 @@ const GravidSide = (props: GravidSideProps) => {
     const parsed = parse(value, 'dd.MM.yyyy', new Date());
     return isNaN(parsed.getTime()) ? undefined : parsed;
   };
+
+  const [files, setFiles] = useState<FileObject[]>([]);
 
   return (
     <Side
@@ -419,15 +425,26 @@ const GravidSide = (props: GravidSideProps) => {
                   hideLegend={true}
                 >
                   <Oversettelse langKey={GravidSideKeys.GRAVID_SIDE_DOKUMENTASJON_INGRESS} />
-                  <Upload
-                    id='upload'
-                    fileSize={5000000}
-                    className='knapp-innsending-top'
-                    label={t(GravidSideKeys.GRAVID_SIDE_OPPLASTINGSKNAPP)}
-                    extensions='.pdf'
-                    onChange={handleUploadChanged}
-                    onDelete={handleDelete}
-                  />
+                  <VStack gap='space-24'>
+                    <FileUpload.Dropzone
+                      label={t(GravidSideKeys.GRAVID_SIDE_OPPLASTINGSKNAPP)}
+                      fileLimit={{ max: 1, current: files.length }}
+                      multiple={false}
+                      onSelect={handleUploadChanged}
+                      accept='.pdf'
+                      maxSizeInBytes={5000000}
+                    />
+                    {files.map((file) => (
+                      <FileUpload.Item
+                        key={file.file.name}
+                        file={file.file}
+                        button={{
+                          action: 'delete',
+                          onClick: () => handleDelete()
+                        }}
+                      />
+                    ))}
+                  </VStack>
                 </Fieldset>
               </Box>
 

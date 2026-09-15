@@ -1,4 +1,4 @@
-import React, { Reducer, useContext, useEffect, useReducer } from 'react';
+import React, { Reducer, useContext, useEffect, useReducer, useState } from 'react';
 import './KroniskSide.scss';
 import '../felles/FellesStyling.scss';
 import Orgnr from '../felles/Orgnr/Orgnr';
@@ -12,13 +12,24 @@ import environment from '../../config/environment';
 import { mapKroniskRequest } from '../../api/kronisk/mapKroniskRequest';
 import LangKey from '../../locale/LangKey';
 import lenker, { buildLenke } from '../../config/lenker';
-import { i18n } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { i18n } from 'i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BodyLong, Box, Button, Checkbox, Fieldset, Heading, TextField } from '@navikt/ds-react';
+import {
+  BodyLong,
+  Box,
+  Button,
+  Checkbox,
+  Fieldset,
+  FileObject,
+  FileUpload,
+  Heading,
+  TextField,
+  VStack
+} from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -28,7 +39,6 @@ import Skillelinje from '../felles/Skillelinje';
 import Side from '../felles/Side/Side';
 import { Language } from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
-import Upload from '../felles/Upload/Upload';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 
 const buildReducer =
@@ -37,7 +47,7 @@ const buildReducer =
     KroniskReducer(bulkState, action, Translate);
 
 const KroniskSide = () => {
-  const { i18n, t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { saveResponse } = useContext(KroniskSoknadKvitteringContext);
 
   const { language } = useParams();
@@ -49,9 +59,10 @@ const KroniskSide = () => {
   }, []);
 
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
-  const handleUploadChanged = (file?: File) => {
+  const handleUploadChanged = (file: FileObject[]) => {
+    setFiles(file);
     if (file) {
-      getBase64file(file).then((base64encoded) => {
+      getBase64file(file[0].file).then((base64encoded) => {
         dispatch({
           type: Actions.Dokumentasjon,
           payload: {
@@ -62,6 +73,7 @@ const KroniskSide = () => {
     }
   };
   const handleDelete = () => {
+    setFiles([]);
     dispatch({ type: Actions.Dokumentasjon, payload: undefined });
   };
   const handleCloseNotAuthorized = () => {
@@ -78,7 +90,7 @@ const KroniskSide = () => {
     dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
 
-  const handleCancelClicked = (event: React.FormEvent) => {
+  const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     window.location.href = environment.minSideArbeidsgiver;
   };
@@ -121,6 +133,8 @@ const KroniskSide = () => {
     navigate(buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb), { replace: true });
     return null;
   }
+
+  const [files, setFiles] = useState<FileObject[]>([]);
 
   const sidetittel = t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL);
   const title = t(KroniskSideKeys.KRONISK_SIDE_TITLE);
@@ -187,15 +201,27 @@ const KroniskSide = () => {
           hideLegend={true}
         >
           <Oversettelse langKey={KroniskSideKeys.KRONISK_SIDE_DOCUMENTATION_TEXT} />
-          <Upload
-            className='knapp-innsending-top'
-            id='upload'
-            label={t(KroniskSideKeys.KRONISK_SIDE_UPLOAD)}
-            extensions='.pdf'
-            onChange={handleUploadChanged}
-            fileSize={5000000}
-            onDelete={handleDelete}
-          />
+
+          <VStack gap='space-24'>
+            <FileUpload.Dropzone
+              label={t(KroniskSideKeys.KRONISK_SIDE_UPLOAD)}
+              fileLimit={{ max: 1, current: files.length }}
+              multiple={false}
+              onSelect={handleUploadChanged}
+              accept='.pdf'
+              maxSizeInBytes={5000000}
+            />
+            {files.map((file) => (
+              <FileUpload.Item
+                key={file.file.name}
+                file={file.file}
+                button={{
+                  action: 'delete',
+                  onClick: () => handleDelete()
+                }}
+              />
+            ))}
+          </VStack>
         </Fieldset>
       </Box>
       <Skillelinje />
