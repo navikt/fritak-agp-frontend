@@ -129,12 +129,12 @@ const KroniskSide = () => {
     state.antallPerioder
   ]);
 
+  const [files, setFiles] = useState<FileObject[]>([]);
+
   if (state.kvittering === true) {
     navigate(buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb), { replace: true });
     return null;
   }
-
-  const [files, setFiles] = useState<FileObject[]>([]);
 
   const sidetittel = t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL);
   const title = t(KroniskSideKeys.KRONISK_SIDE_TITLE);

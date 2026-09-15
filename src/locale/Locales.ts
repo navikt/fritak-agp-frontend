@@ -995,18 +995,6 @@ const Locales: Record<
     en: 'File size too big'
   },
 
-  UPLOAD_TOO_BIG: {
-    nb: 'Filen er for stor',
-    en: 'File size too big'
-  },
-  UPLOAD_DELETE: {
-    nb: 'Slett',
-    en: 'Delete'
-  },
-  UPLOAD_FILENAME: {
-    nb: 'Lastet opp:',
-    en: 'Filename:'
-  },
   SIDE_MIN_SIDE_ARBEIDSGIVER: {
     en: 'My page',
     nb: 'Min side arbeidsgiver'
