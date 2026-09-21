@@ -54,7 +54,7 @@
     "@navikt/textparser": "^2.5.0",
     "@navikt/virksomhetsvelger": "^2.0.6",
     "date-fns": "^4.4.0",
-    "html-react-parser": "^6.1.7",
+    "html-react-parser": "^6.1.8",
     "i18next": "^26.4.2",
     "jsdom": "^30.0.1",
     "react": "^19.3.0",
