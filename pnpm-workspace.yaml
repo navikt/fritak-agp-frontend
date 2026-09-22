@@ -3,6 +3,8 @@ allowBuilds:
   esbuild: true
   msw: true
   protobufjs: true
+minimumReleaseAgeExclude:
+  - '@navikt/*'
 overrides:
   js-cookie: 3.0.7
   postcss: '>=8.5.23'
