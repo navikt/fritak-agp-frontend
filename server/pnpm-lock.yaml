@@ -14,7 +14,7 @@ importers:
     dependencies:
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^4.3.0
-        version: 4.3.0(html-react-parser@5.2.17(react@19.2.4))(react@19.2.4)
+        version: 4.5.0(html-react-parser@5.2.17(react@19.2.4))(react@19.2.4)
       '@navikt/oasis':
         specifier: ^4.1.4
         version: 4.2.2
@@ -34,8 +34,8 @@ packages:
     resolution: {integrity: sha512-bopCvqEogyFcmrJiBxK/Mr25d6yPKF7GR36MGrJqiHCPJYf1rDu6lK4cpooTG4Q//D/1xTkHRom8ZH5BI6dTew==, tarball: https://npm.pkg.github.com/download/@navikt/analytics-types/0.0.9/5919241a6dbb782eb101fff3234ce5c36d16e942}
     engines: {node: '>=20.0.0', npm: '>=9.0.0'}
 
-  '@navikt/nav-dekoratoren-moduler@4.3.0':
-    resolution: {integrity: sha512-DpUW0J1pIAncsEh698x6mSt7UsILEIbrYFzKTDuXem0y2bYjG+ki78NV2lhN/nPYXcoVYizsC1eetH72VMEoEw==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.3.0/d2d64c4afd0201f3a1e8ec8fba9651c05fdfb736}
+  '@navikt/nav-dekoratoren-moduler@4.5.0':
+    resolution: {integrity: sha512-0eTtpgk+kOGjxncAA5PT2+yLPIobPdvIMVJzWDVdlZmuKUGG1NMoom8DYtnCPkro3Mw+dZeoFJ0TVY+4F57J5Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.5.0/e3c7d8e6e3f2efd2fb46952564e6c9c47ca200ad}
     engines: {node: 24.x}
     peerDependencies:
       html-react-parser: '>=5.x'
@@ -99,10 +99,6 @@ packages:
   cookie@0.7.2:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
-
-  csp-header@6.3.1:
-    resolution: {integrity: sha512-ykcqGMOGP/uU7RLXDD83k2Ge5Stgc/N3qgKgSN+dATDlNgLHnIoI1IdZBjOskD5Ev1RSKTabLdIETJ6VzXTmvA==}
-    engines: {node: '>=18'}
 
   csp-header@6.4.0:
     resolution: {integrity: sha512-9YEpW20tPtKzVouyAxNtXqSE4EGaTd4ZiT1n/FbUQ5xhmFkPCjC3Db/gHDbesryQoO/TigBAUCqgKypOHviRgQ==}
@@ -414,10 +410,10 @@ snapshots:
 
   '@navikt/analytics-types@0.0.9': {}
 
-  '@navikt/nav-dekoratoren-moduler@4.3.0(html-react-parser@5.2.17(react@19.2.4))(react@19.2.4)':
+  '@navikt/nav-dekoratoren-moduler@4.5.0(html-react-parser@5.2.17(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@navikt/analytics-types': 0.0.9
-      csp-header: 6.3.1
+      csp-header: 6.4.0
       html-react-parser: 5.2.17(react@19.2.4)
       js-cookie: 3.0.8
       react: 19.2.4
@@ -480,8 +476,6 @@ snapshots:
   cookie-signature@1.2.2: {}
 
   cookie@0.7.2: {}
-
-  csp-header@6.3.1: {}
 
   csp-header@6.4.0: {}
 
