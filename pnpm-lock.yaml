@@ -19,14 +19,14 @@ importers:
         specifier: ^2.12.1
         version: 2.12.1(supports-color@8.1.1)
       '@navikt/aksel-icons':
-        specifier: ^8.16.2
-        version: 8.16.2
+        specifier: ^8.17.2
+        version: 8.17.2
       '@navikt/ds-css':
-        specifier: ^8.16.2
-        version: 8.16.2
+        specifier: ^8.17.2
+        version: 8.17.2
       '@navikt/ds-react':
-        specifier: ^8.16.2
-        version: 8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^8.17.2
+        version: 8.17.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@navikt/fnrvalidator':
         specifier: ^2.2.1
         version: 2.2.1
@@ -38,7 +38,7 @@ importers:
         version: 2.5.0(react@19.3.0)
       '@navikt/virksomhetsvelger':
         specifier: ^2.1.0
-        version: 2.1.0(@navikt/ds-css@8.16.2)(@navikt/ds-react@8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 2.1.0(@navikt/ds-css@8.17.2)(@navikt/ds-react@8.17.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -77,8 +77,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.11.0(jiti@2.7.0)(supports-color@8.1.1))
       '@navikt/aksel':
-        specifier: ^8.16.2
-        version: 8.16.2(supports-color@8.1.1)
+        specifier: ^8.17.2
+        version: 8.17.2(supports-color@8.1.1)
       '@playwright/test':
         specifier: ^1.63.0
         version: 1.63.0
@@ -271,11 +271,6 @@ packages:
     resolution: {integrity: sha512-1k2lAGRMfHTcwuNYcCNUmaUffmQv8KWMfh2iJUUeRlwlwH4FdNG7mfPI10NPfLHJFThE4Tyr4mv7kTNZOiPuBg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.29.8':
-    resolution: {integrity: sha512-E8lTAYNB1KW+FH+VGJuZM1ioAx2E6oVlvQFRrf5P8ZZmsiJXYAD9vTFV7yyEURNzgh1dFqMZuO6tUwcARbqFCA==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
   '@babel/parser@7.29.9':
     resolution: {integrity: sha512-CjXrNHTnvqBVqHgdBysY3vk2T8tpJHb5/RMeHJBTyVa9xgugCB0CJTx/3oO8RV2QRQP391RWpB7D6hLjm8V9uA==}
     engines: {node: '>=6.0.0'}
@@ -335,8 +330,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-transform-typescript@7.29.7':
-    resolution: {integrity: sha512-jK52h8LaLc7JarhQV2ofeFMts4H7vnOXnqZNA6fYglBTZewRBE51KWt3BUltW1P+KoPsYkHoJeXePuz4zo2LMw==}
+  '@babel/plugin-transform-typescript@7.29.9':
+    resolution: {integrity: sha512-FFwIwzU+7SCOuxxV4YtJql6T9981ZVTm+FHO5GhVsRqCTdy0WwrEZh3l42ARpXruJUDGOptdduHW6Zr7pNPLNg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -821,11 +816,11 @@ packages:
       '@emnapi/core': ^1.7.1 || ^2.0.0-alpha.4
       '@emnapi/runtime': ^1.7.1 || ^2.0.0-alpha.4
 
-  '@navikt/aksel-icons@8.16.2':
-    resolution: {integrity: sha512-d2GWooeIEJYq8NYJIJJhMo84Vac6SyCvLJDFWG6RSj8vcgFanQMnKAram1zd48UO/rjuuZZk99p4UZt4jsD0RA==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.16.2/8873ba72cb6d59c80e864fb04cf43ca0731dbfa5}
+  '@navikt/aksel-icons@8.17.2':
+    resolution: {integrity: sha512-P4N/SrXu1BFaanvp83AWb58hP2qutfmL5u+wBpoxtcSP5uSXDmNdT0qtsE8E7kvdY+cCPKfetHLlGX5O7xRD5g==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.17.2/e10ec442fa1f25b24704b55cc77c02a5d908a0f6}
 
-  '@navikt/aksel@8.16.2':
-    resolution: {integrity: sha512-xJdTWZXG6pWXYFe/4F0Bct24s4ODqvzTl/2y7nHByqSxpFXDOv1epZyVuO2Qz4ps12TdqM0vQo2MUvsr4iwNEQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel/8.16.2/7c8ea024799a5c86be278954185e045e4451e230}
+  '@navikt/aksel@8.17.2':
+    resolution: {integrity: sha512-i3pRNagXFwui/4jaSx/krFBuCrmsJSSjKGk/kQviPDxywodLAFnvVGOu1WzIWwvokJf6yncqwSZle/YX6uzWuw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel/8.17.2/d47e6fd2ef6087b56b1b0bd443dae97528c10dc9}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -833,18 +828,18 @@ packages:
     resolution: {integrity: sha512-bopCvqEogyFcmrJiBxK/Mr25d6yPKF7GR36MGrJqiHCPJYf1rDu6lK4cpooTG4Q//D/1xTkHRom8ZH5BI6dTew==, tarball: https://npm.pkg.github.com/download/@navikt/analytics-types/0.0.9/5919241a6dbb782eb101fff3234ce5c36d16e942}
     engines: {node: '>=20.0.0', npm: '>=9.0.0'}
 
-  '@navikt/ds-css@8.16.2':
-    resolution: {integrity: sha512-RMKKQ1OTXGPwSGPsWEvOXpRTxA+QhnHc4oGG0ePg7AeeGQvYE/VjtySL2ddOYwAR8BygyvuB/sDrjm5AkQQ0cw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.16.2/a132ee47c528af289b89dd5d806ac1abfc937e44}
+  '@navikt/ds-css@8.17.2':
+    resolution: {integrity: sha512-k+xkEVF5ZBSM5UoLjqDsRAn/mBrlLXL3S8JLQj3syW1i4HIu6N6FaIGMveZeobZef5rIBWwhLGsIJ8doWtgyOQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.17.2/b0294b41e7004be0e010c409ae4d42c6167c8538}
 
-  '@navikt/ds-react@8.16.2':
-    resolution: {integrity: sha512-pJGVltBJT5hNwo+fZee5qaM+Kc+hZZgPU7WoXbUbZxUtTbhHM+5uFo4J5ceMU2KBUhamtqtRGso2dXdztyEiHQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.16.2/212af8009cab85a672faa15f0a039eaabec9cbc7}
+  '@navikt/ds-react@8.17.2':
+    resolution: {integrity: sha512-gVCKqF0rwlclmwpd3U3vAO1db49RhOpzVw+lCBz05RGCxH4ynmeTakuy2xI7MUsnIbiTB3LeBvnOsA23ynh1Dw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.17.2/aff1f3f872620b72f91f14126b3169e34821408e}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18 || ^19
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
 
-  '@navikt/ds-tokens@8.16.2':
-    resolution: {integrity: sha512-WXtLRb034uUN1SUBEg+AYUrAu0zm+P0xuUheIWABEDpWnVGmfXDng7lIW5JDFbut3rQIa1xfzvUfeL3ghc4eng==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.16.2/a22ed996203e7730664ed43d7025c68609c937a8}
+  '@navikt/ds-tokens@8.17.2':
+    resolution: {integrity: sha512-oDKFZxlgt/L2zNPCma03fo1sls5E9bUTybMh8/ELh7btS3Kurv7fvwlF7CMW8mWTa+/yh1oqLXY/ONp4+/mPTg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.17.2/6d44d329afac5ae8d729cdf2f1c83d009dfd2c80}
 
   '@navikt/fnrvalidator@2.2.1':
     resolution: {integrity: sha512-R6x3MBFC0E/B7oTs+P2jAP+ym7+d6cwSpDsLeMja9IwPpJq3HV/OClFBVWm9fJZPmXfumKRMGy6gqsQPj90ftg==, tarball: https://npm.pkg.github.com/download/@navikt/fnrvalidator/2.2.1/37ed0feb23a7525139ad5512684ff6b0977112c6}
@@ -2082,8 +2077,8 @@ packages:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
 
-  baseline-browser-mapping@2.11.21:
-    resolution: {integrity: sha512-uh8vpY/1/YyFkunIDFH/12p7/7VdPKA1hejMVEbdkEaWnUz0Hesvx5EbiU6XxjyHZIOju+ZMbQJkRh+es3/spQ==}
+  baseline-browser-mapping@2.11.26:
+    resolution: {integrity: sha512-GLQdD3y6UF8iVuMJl5fHgE4jdn/ua7n+toKfLgNlg3BqQtOZjpy68T8Tup8/wGWZCDlm7KMg7tPb4MPn7oN0TQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2104,8 +2099,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  browserslist@4.28.8:
-    resolution: {integrity: sha512-V2NpofLblG64mfOtSgDhOJESZEGogzDMBv/q+W6oc4LXWP/q75eOXoOaaOu1EOadB9U4Bwx/e0yzbvwKH8zalA==}
+  browserslist@4.29.3:
+    resolution: {integrity: sha512-1R4kiYKXGViqEN0CnoDrXc1StD9niAwu+j2dukWzrD4bJgsD4lDmEp0CRbc6E/vYJIfTHwPmwyaKtVSudICdPA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
@@ -2131,8 +2126,8 @@ packages:
     resolution: {integrity: sha512-+ys997U96po4Kx/ABpBCqhA9EuxJaQWDQg7295H4hBphv3IZg0boBKuwYpt4YXp6MZ5AmZQnU/tyMTlRpaSejg==}
     engines: {node: '>= 0.4'}
 
-  caniuse-lite@1.0.30001810:
-    resolution: {integrity: sha512-TITQPUkaz+aVk5GL6NhOdwk1aEaNTSDPsGFWrTuhKGtjTF70jL/Oht2W4c6rXUe5fu7Ie19VIahAXHIIiWWNeg==}
+  caniuse-lite@1.0.30001813:
+    resolution: {integrity: sha512-zfjJo4rM0+fUomGDBW/xcDjhIwz/210DGvip2MAMDZ8KHcRPnOHmEgHPZP0UHlZoxr8fYKVJOqcORhYQcG4FKQ==}
 
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
@@ -2337,8 +2332,8 @@ packages:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
 
-  electron-to-chromium@1.5.420:
-    resolution: {integrity: sha512-2yD6XreGusOfNV+dUcvipJEXc3n/n7fgr7996aszTG+YY5E4mqM4tOq/3uhP129cazL9YHbVWSpc79ePotWtPA==}
+  electron-to-chromium@1.5.442:
+    resolution: {integrity: sha512-najZYZ3+ZpjN1z3VOsrBiv5ej18vQgfV2lvEmxWzfmKrk4bdm3Owseyud4yGU6DfFn9pyunoAHDDyM4KmP78Ew==}
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -2600,12 +2595,12 @@ packages:
   flatted@3.4.4:
     resolution: {integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==}
 
-  flow-estree@0.330.0:
-    resolution: {integrity: sha512-IIEGATLNfih3R7AfKYI1ZstiV+RFjRuX1GhrB9gZBifhovHcyTag9IlvkFiSP2hM7G6i1HfAwjn6i3s+EN6SZQ==}
+  flow-estree@0.333.0:
+    resolution: {integrity: sha512-jyHzdWcuegTEO1fGakW+hZ91PS49xdMSBjCReBu+Xv05vX+ueVdf1ZtFIfqrdJOL9Uows7RMsHXOH6h6RDW/ZA==}
     engines: {node: '>=18'}
 
-  flow-parser@0.330.0:
-    resolution: {integrity: sha512-ytk/NqSxCVNJ6cwlp/rHLot0bE4KGt0LAIcOU0F9QXwp9zdUI0EdDzKETLHVRVkmZj3bROT9v0YZVdD6yJC6gg==}
+  flow-parser@0.333.0:
+    resolution: {integrity: sha512-bSL/1CALDbKlG0nKDD1/09XmNNbhnIMKuqzpe+Mv4NBHoKET23cYacaQmh41dq2RJ17TaQc5HQ3hFaj5OHR7ZA==}
     engines: {node: '>=0.4.0'}
 
   focus-trap-react@11.0.4:
@@ -3286,8 +3281,8 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
-  node-releases@2.0.54:
-    resolution: {integrity: sha512-YHs7BmmcsdAI5Ozuf8JZo6PT0mv2GIWC9vMfvUC3dp65M8hn7Ux8CPL+2oBI7juNuj9d0ndhTcznq2ODBps9cQ==}
+  node-releases@2.0.57:
+    resolution: {integrity: sha512-kQK9LGGFiHtrWiNhZtA7Qbw17AQz+dmsEKODRIVTXA9+e5MS/2gZEBhYJt13GrAz5/IOZKddH/0Z3TP/Zgo+yw==}
     engines: {node: '>=18'}
 
   npm-run-path@1.0.0:
@@ -4146,8 +4141,8 @@ packages:
   until-async@3.0.2:
     resolution: {integrity: sha512-IiSk4HlzAMqTUseHHe3VhIGyuFmN90zMTpD3Z3y8jeQbzLIq500MVM7Jq2vUAnTKAFPJrqwkzr6PoTcPhGcOiw==}
 
-  update-browserslist-db@1.3.2:
-    resolution: {integrity: sha512-UQ+MSxlhRm1bzjhU+DcuXfjFO1FzNtqhK5+9Yvlp90ItDLk5vT932A0rFu619nf7RVS+Y/VeaUW1jaRDqZ8VJw==}
+  update-browserslist-db@1.3.3:
+    resolution: {integrity: sha512-pJ2sYawQS0R/WI928Gj5GlPhTGzbMelq0+4INtSYNDV9ErKJcX6xjGWkoG/VnB3dpUm00zALaqkrUD77pO5TDQ==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
@@ -4430,7 +4425,7 @@ snapshots:
       '@babel/helper-compilation-targets': 7.29.7
       '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/helpers': 7.29.7
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/template': 7.29.7
       '@babel/traverse': 7.29.8(supports-color@8.1.1)
       '@babel/types': 7.29.8
@@ -4445,7 +4440,7 @@ snapshots:
 
   '@babel/generator@7.29.8':
     dependencies:
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
@@ -4459,7 +4454,7 @@ snapshots:
     dependencies:
       '@babel/compat-data': 7.29.7
       '@babel/helper-validator-option': 7.29.7
-      browserslist: 4.28.8
+      browserslist: 4.29.3
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -4534,10 +4529,6 @@ snapshots:
       '@babel/template': 7.29.7
       '@babel/types': 7.29.8
 
-  '@babel/parser@7.29.8':
-    dependencies:
-      '@babel/types': 7.29.8
-
   '@babel/parser@7.29.9':
     dependencies:
       '@babel/types': 7.29.8
@@ -4600,7 +4591,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-typescript@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
+  '@babel/plugin-transform-typescript@7.29.9(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-annotate-as-pure': 7.29.7
@@ -4625,7 +4616,7 @@ snapshots:
       '@babel/helper-validator-option': 7.29.7
       '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/plugin-transform-modules-commonjs': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
-      '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
+      '@babel/plugin-transform-typescript': 7.29.9(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4643,7 +4634,7 @@ snapshots:
   '@babel/template@7.29.7':
     dependencies:
       '@babel/code-frame': 7.29.7
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
 
   '@babel/traverse@7.29.8(supports-color@8.1.1)':
@@ -4651,7 +4642,7 @@ snapshots:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.8
       '@babel/helper-globals': 7.29.7
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/template': 7.29.7
       '@babel/types': 7.29.8
       debug: 4.4.3(supports-color@8.1.1)
@@ -5066,9 +5057,9 @@ snapshots:
       '@tybys/wasm-util': 0.10.4
     optional: true
 
-  '@navikt/aksel-icons@8.16.2': {}
+  '@navikt/aksel-icons@8.17.2': {}
 
-  '@navikt/aksel@8.16.2(supports-color@8.1.1)':
+  '@navikt/aksel@8.17.2(supports-color@8.1.1)':
     dependencies:
       chalk: 5.6.2
       cli-progress: 3.12.0
@@ -5086,21 +5077,21 @@ snapshots:
 
   '@navikt/analytics-types@0.0.9': {}
 
-  '@navikt/ds-css@8.16.2': {}
+  '@navikt/ds-css@8.17.2': {}
 
-  '@navikt/ds-react@8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@navikt/ds-react@8.17.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@floating-ui/react': 0.27.20(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@floating-ui/react-dom': 2.1.9(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@navikt/aksel-icons': 8.16.2
-      '@navikt/ds-tokens': 8.16.2
+      '@navikt/aksel-icons': 8.17.2
+      '@navikt/ds-tokens': 8.17.2
       '@types/react': 19.3.0
       date-fns: 4.4.0
       react: 19.3.0
       react-day-picker: 10.0.1(@types/react@19.3.0)(react@19.3.0)
       react-dom: 19.3.0(react@19.3.0)
 
-  '@navikt/ds-tokens@8.16.2': {}
+  '@navikt/ds-tokens@8.17.2': {}
 
   '@navikt/fnrvalidator@2.2.1': {}
 
@@ -5116,10 +5107,10 @@ snapshots:
     dependencies:
       react: 19.3.0
 
-  '@navikt/virksomhetsvelger@2.1.0(@navikt/ds-css@8.16.2)(@navikt/ds-react@8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@navikt/virksomhetsvelger@2.1.0(@navikt/ds-css@8.17.2)(@navikt/ds-react@8.17.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@navikt/ds-css': 8.16.2
-      '@navikt/ds-react': 8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@navikt/ds-css': 8.17.2
+      '@navikt/ds-react': 8.17.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       focus-trap-react: 11.0.4(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
@@ -6093,7 +6084,7 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
-  baseline-browser-mapping@2.11.21: {}
+  baseline-browser-mapping@2.11.26: {}
 
   bidi-js@1.1.0:
     dependencies:
@@ -6114,13 +6105,13 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  browserslist@4.28.8:
+  browserslist@4.29.3:
     dependencies:
-      baseline-browser-mapping: 2.11.21
-      caniuse-lite: 1.0.30001810
-      electron-to-chromium: 1.5.420
-      node-releases: 2.0.54
-      update-browserslist-db: 1.3.2(browserslist@4.28.8)
+      baseline-browser-mapping: 2.11.26
+      caniuse-lite: 1.0.30001813
+      electron-to-chromium: 1.5.442
+      node-releases: 2.0.57
+      update-browserslist-db: 1.3.3(browserslist@4.29.3)
 
   buffer-from@1.1.2: {}
 
@@ -6153,7 +6144,7 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.3.0
 
-  caniuse-lite@1.0.30001810: {}
+  caniuse-lite@1.0.30001813: {}
 
   chai@6.2.2: {}
 
@@ -6350,7 +6341,7 @@ snapshots:
       es-errors: 1.3.0
       gopd: 1.2.0
 
-  electron-to-chromium@1.5.420: {}
+  electron-to-chromium@1.5.442: {}
 
   emoji-regex@10.6.0: {}
 
@@ -6798,11 +6789,11 @@ snapshots:
 
   flatted@3.4.4: {}
 
-  flow-estree@0.330.0: {}
+  flow-estree@0.333.0: {}
 
-  flow-parser@0.330.0:
+  flow-parser@0.333.0:
     dependencies:
-      flow-estree: 0.330.0
+      flow-estree: 0.333.0
 
   focus-trap-react@11.0.4(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
@@ -7187,7 +7178,7 @@ snapshots:
   jscodeshift@17.4.0(supports-color@8.1.1):
     dependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/parser': 7.29.8
+      '@babel/parser': 7.29.9
       '@babel/plugin-transform-class-properties': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/plugin-transform-modules-commonjs': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/plugin-transform-nullish-coalescing-operator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
@@ -7196,7 +7187,7 @@ snapshots:
       '@babel/preset-flow': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/preset-typescript': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/register': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      flow-parser: 0.330.0
+      flow-parser: 0.333.0
       graceful-fs: 4.2.11
       neo-async: 2.6.2
       picocolors: 1.1.1
@@ -7468,7 +7459,7 @@ snapshots:
   node-addon-api@7.1.1:
     optional: true
 
-  node-releases@2.0.54: {}
+  node-releases@2.0.57: {}
 
   npm-run-path@1.0.0:
     dependencies:
@@ -8366,9 +8357,9 @@ snapshots:
 
   until-async@3.0.2: {}
 
-  update-browserslist-db@1.3.2(browserslist@4.28.8):
+  update-browserslist-db@1.3.3(browserslist@4.29.3):
     dependencies:
-      browserslist: 4.28.8
+      browserslist: 4.29.3
       escalade: 3.2.0
       picocolors: 1.1.1
 
