@@ -16,7 +16,7 @@ RUN npm config set @navikt:registry=https://npm.pkg.github.com
 WORKDIR /var/server
 RUN pnpm install --frozen-lockfile  --ignore-scripts
 
-FROM cgr.dev/chainguard/wolfi-base:latest AS runner
+FROM cgr.dev/chainguard/node:latest AS runner
 
 # Uncommet for debugging of express-http-proxy
 # ENV DEBUG=express-http-proxy
@@ -27,7 +27,7 @@ COPY --from=builder /var/server ./server
 
 WORKDIR /var/server
 
-USER nonroot
+USER node
 EXPOSE 8080
 CMD [ "server.js"]
 
