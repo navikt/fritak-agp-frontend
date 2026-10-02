@@ -5,7 +5,9 @@ WORKDIR /var
 COPY dist/ dist/
 COPY server/ server/
 
+USER root
 RUN npm install -g --force --ignore-scripts corepack && corepack enable
+USER node
 
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN sh -c \
     'npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)'
