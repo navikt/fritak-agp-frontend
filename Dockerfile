@@ -1,20 +1,22 @@
-FROM node:26-bookworm-slim@sha256:582460f614631b59b824ac6020533b9bf339c7fdf3a6d7db31abb6b4065f0212 AS builder
+FROM cgr.dev/chainguard/node:latest-dev AS builder
 
 WORKDIR /var
 
 COPY dist/ dist/
-COPY server/ server/
+COPY --chown=node:node server/ server/
 
+USER root
 RUN npm install -g --force --ignore-scripts corepack && corepack enable
+USER node
 
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN sh -c \
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN,uid=65532 sh -c \
     'npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)'
 RUN npm config set @navikt:registry=https://npm.pkg.github.com
 
 WORKDIR /var/server
 RUN pnpm install --frozen-lockfile  --ignore-scripts
 
-FROM gcr.io/distroless/nodejs24-debian12@sha256:61f4f4341db81820c24ce771b83d202eb6452076f58628cd536cc7d94a10978b AS runner
+FROM cgr.dev/chainguard/node:latest AS runner
 
 # Uncommet for debugging of express-http-proxy
 # ENV DEBUG=express-http-proxy
@@ -25,5 +27,7 @@ COPY --from=builder /var/server ./server
 
 WORKDIR /var/server
 
+USER node
 EXPOSE 8080
 CMD [ "server.js"]
+
