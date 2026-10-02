@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/wolfi-base:20250223 AS builder
+FROM cgr.dev/chainguard/wolfi-base:latest AS builder
 
 WORKDIR /var
 
@@ -14,7 +14,7 @@ RUN npm config set @navikt:registry=https://npm.pkg.github.com
 WORKDIR /var/server
 RUN pnpm install --frozen-lockfile  --ignore-scripts
 
-FROM cgr.dev/chainguard/wolfi-base:20250223 AS runner
+FROM cgr.dev/chainguard/wolfi-base:latest AS runner
 
 # Uncommet for debugging of express-http-proxy
 # ENV DEBUG=express-http-proxy
