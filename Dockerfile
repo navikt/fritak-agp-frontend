@@ -9,7 +9,7 @@ USER root
 RUN npm install -g --force --ignore-scripts corepack && corepack enable
 USER node
 
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN sh -c \
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN,uid=65532 sh -c \
     'npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)'
 RUN npm config set @navikt:registry=https://npm.pkg.github.com
 
