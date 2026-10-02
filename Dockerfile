@@ -3,7 +3,7 @@ FROM cgr.dev/chainguard/node:latest-dev AS builder
 WORKDIR /var
 
 COPY dist/ dist/
-COPY server/ server/
+COPY --chown=node:node server/ server/
 
 USER root
 RUN npm install -g --force --ignore-scripts corepack && corepack enable
