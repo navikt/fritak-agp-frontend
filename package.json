@@ -52,7 +52,7 @@
     "@navikt/fnrvalidator": "^2.2.1",
     "@navikt/nav-dekoratoren-moduler": "^4.5.0",
     "@navikt/textparser": "^2.5.0",
-    "@navikt/virksomhetsvelger": "^2.1.0",
+    "@navikt/virksomhetsvelger": "^2.1.1",
     "date-fns": "^4.4.0",
     "html-react-parser": "^6.1.8",
     "i18next": "^26.4.2",
