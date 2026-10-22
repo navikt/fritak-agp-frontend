@@ -13,7 +13,7 @@ import userEvent from '@testing-library/user-event';
 
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
 import { Dato } from '../../utils/dato/Dato';
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse } from 'msw/http';
 import { server } from '../../mocks/server';
 import postGravid from '../../api/gravid/postGravid';
 import HttpStatus from '../../api/HttpStatus';

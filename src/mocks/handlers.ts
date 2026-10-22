@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse } from 'msw/http';
 
 const arbeidsgiverResponse = [
   { navn: 'ANSTENDIG BJØRN KOMMUNE', underenheter: [], orgnr: '810007672' },

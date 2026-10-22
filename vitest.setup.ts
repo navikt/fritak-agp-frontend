@@ -16,6 +16,6 @@ expect.extend(axeMatchers);
 // Setup MSW for tests
 import { server } from './src/mocks/server';
 
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+beforeAll(() => server.listen({ onUnhandledFrame: 'error' }));
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());

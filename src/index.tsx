@@ -12,7 +12,7 @@ async function bootApp() {
     try {
       const { worker } = await import('./mocks/browser');
       await worker.start({
-        onUnhandledRequest: 'bypass'
+        onUnhandledFrame: 'bypass'
       });
     } catch (error) {
       console.warn('MSW failed to start:', error);
