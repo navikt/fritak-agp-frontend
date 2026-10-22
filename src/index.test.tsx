@@ -208,7 +208,7 @@ describe('index.tsx', () => {
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     expect(mockWorkerStart).toHaveBeenCalledWith({
-      onUnhandledRequest: 'bypass'
+      onUnhandledFrame: 'bypass'
     });
   });
 
