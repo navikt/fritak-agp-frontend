@@ -1,7 +1,7 @@
 name: Merge Dependabot PRs after delay
 on:
   schedule:
-    - cron: '0 6 * * 1-5' # weekdays 06:00 UTC
+    - cron: "0 6 * * 1-5" # weekdays 06:00 UTC
   workflow_dispatch:
 
 permissions:
@@ -14,7 +14,7 @@ jobs:
     with:
       only-actor: dependabot[bot]
       label-name: automerge:delayed
-      days-delay: 5
+      days-delay: 3
       merge-method: squash
       allow-draft: false
       require-clean-mergeable-state: true
