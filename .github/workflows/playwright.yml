@@ -7,13 +7,40 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
+  playwright-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      image-tag: ${{ steps.version.outputs.image-tag }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Read locked Playwright version
+        id: version
+        shell: bash
+        run: |
+          version=$(awk "
+            /^      '@playwright\/test':$/ { found = 1; next }
+            found && /^        version:/ { print \$2; exit }
+          " pnpm-lock.yaml)
+
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Could not read a stable @playwright/test version from pnpm-lock.yaml"
+            exit 1
+          fi
+
+          echo "image-tag=v${version}-jammy" >> "$GITHUB_OUTPUT"
+
   e2e:
+    needs: playwright-version
+    permissions:
+      contents: read
+      pull-requests: write
     uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/playwright-reusable-pnpm.yml@main
     with:
-      playwright-version: v1.63.0-jammy
+      playwright-version: ${{ needs.playwright-version.outputs.image-tag }}
       node-version: lts/*
       matrix: '{"shardIndex":[1,2,3,4],"shardTotal":[4]}'
     secrets:
