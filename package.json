@@ -46,9 +46,9 @@
   "dependencies": {
     "@grafana/faro-web-sdk": "^2.13.0",
     "@grafana/faro-web-tracing": "^2.13.0",
-    "@navikt/aksel-icons": "^8.20.0",
-    "@navikt/ds-css": "^8.20.0",
-    "@navikt/ds-react": "^8.20.0",
+    "@navikt/aksel-icons": "^8.20.1",
+    "@navikt/ds-css": "^8.20.1",
+    "@navikt/ds-react": "^8.20.1",
     "@navikt/fnrvalidator": "^2.2.1",
     "@navikt/nav-dekoratoren-moduler": "^4.5.2",
     "@navikt/textparser": "^2.5.0",
@@ -67,7 +67,7 @@
   "devDependencies": {
     "@eslint-react/eslint-plugin": "^5.28.6",
     "@eslint/js": "^10.0.1",
-    "@navikt/aksel": "^8.20.0",
+    "@navikt/aksel": "^8.20.1",
     "@playwright/test": "^1.64.1",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.0",
