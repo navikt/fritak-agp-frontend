@@ -37,8 +37,8 @@ importers:
         specifier: ^2.5.0
         version: 2.5.0(react@19.3.1)
       '@navikt/virksomhetsvelger':
-        specifier: ^2.1.1
-        version: 2.1.1(@navikt/ds-css@8.20.0)(@navikt/ds-react@8.20.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: ^2.1.2
+        version: 2.1.2(@navikt/ds-css@8.20.0)(@navikt/ds-react@8.20.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -884,8 +884,8 @@ packages:
     peerDependencies:
       react: ^15.4.2 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
-  '@navikt/virksomhetsvelger@2.1.1':
-    resolution: {integrity: sha512-UIH7ajD/3xU5Hq1Quh8gFnhxViQRhxbtGgVxJbQRpoi/wZGkVCGeG6RD+2MycDw3XF3tHR6+otmmi5wPM0lnPQ==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.1.1/fd80d19beb42dd16df3a8cd77d919ad16e7ffed2}
+  '@navikt/virksomhetsvelger@2.1.2':
+    resolution: {integrity: sha512-CVOY2smG9zVgOTQBqreicdczsmC9s8n/bNQ3pDQbCEnK0sz0JaJODCcBeI+FRrxlyaMVTmRsHNy2YSejKeXpSQ==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.1.2/7eed757d6ea97da96046044f7d8eef96ebb3979f}
     peerDependencies:
       '@navikt/ds-css': '>=7'
       '@navikt/ds-react': '>=7'
@@ -2567,8 +2567,8 @@ packages:
     resolution: {integrity: sha512-jGsqT5qJ6J/7gD870pKgL7K8x8l6IzUvtBlRX+OdLP4EGrpDF+3sUqF8HpyR/YcAJs2mVMVhW2GZsxmtXc+aIw==}
     engines: {node: '>=0.4.0'}
 
-  focus-trap-react@11.0.4:
-    resolution: {integrity: sha512-tC7jC/yqeAqhe4irNIzdyDf9XCtGSeECHiBSYJBO/vIN0asizbKZCt8TarB6/XqIceu42ajQ/U4lQJ9pZlWjrg==}
+  focus-trap-react@11.0.6:
+    resolution: {integrity: sha512-8YbWR8kDf2pQ8G9LT11p39VY4T7eWVrj00Fhp1HUSdv5uW9q6+WK8OMAdy9Ui7vGb1zNouFDzwBIqJwt82rIYQ==}
     peerDependencies:
       '@types/react': ^18.0.0 || ^19.0.0
       '@types/react-dom': ^18.0.0 || ^19.0.0
@@ -3939,6 +3939,9 @@ packages:
   tabbable@6.5.0:
     resolution: {integrity: sha512-wieBHXygIm7OyQOu5hQlkk62/WyCFYGlWg7L6/ZCUZwx0o398Zkn4pVmMyfYhfMG8kGrj/Krt8eIk6UKC6VzwA==}
 
+  tabbable@6.5.1:
+    resolution: {integrity: sha512-dMCuwDUY6Noz3zVKLefBC4wq+aJV20yc7vWmM7uTNGwtQSFF5kX7OUIUsxuVajz/bdt5Xqdah3/0NLjth+cM5A==}
+
   tagged-tag@1.0.0:
     resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
     engines: {node: '>=20'}
@@ -5049,11 +5052,11 @@ snapshots:
     dependencies:
       react: 19.3.1
 
-  '@navikt/virksomhetsvelger@2.1.1(@navikt/ds-css@8.20.0)(@navikt/ds-react@8.20.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@navikt/virksomhetsvelger@2.1.2(@navikt/ds-css@8.20.0)(@navikt/ds-react@8.20.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@navikt/ds-css': 8.20.0
       '@navikt/ds-react': 8.20.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      focus-trap-react: 11.0.4(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      focus-trap-react: 11.0.6(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
     transitivePeerDependencies:
@@ -6624,18 +6627,18 @@ snapshots:
     dependencies:
       flow-estree: 0.337.0
 
-  focus-trap-react@11.0.4(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  focus-trap-react@11.0.6(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       '@types/react': 19.3.0
       '@types/react-dom': 19.3.0(@types/react@19.3.0)
       focus-trap: 7.8.0
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
-      tabbable: 6.5.0
+      tabbable: 6.5.1
 
   focus-trap@7.8.0:
     dependencies:
-      tabbable: 6.5.0
+      tabbable: 6.5.1
 
   for-each@0.3.5:
     dependencies:
@@ -8015,6 +8018,8 @@ snapshots:
   system-architecture@0.1.0: {}
 
   tabbable@6.5.0: {}
+
+  tabbable@6.5.1: {}
 
   tagged-tag@1.0.0: {}
 
