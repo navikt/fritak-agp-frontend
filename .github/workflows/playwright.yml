@@ -41,7 +41,7 @@ jobs:
     uses: navikt/helsearbeidsgiver-frontend-workflows/.github/workflows/playwright-reusable-pnpm.yml@main
     with:
       playwright-version: ${{ needs.playwright-version.outputs.image-tag }}
-      node-version: lts/*
+      node-version: 24
       matrix: '{"shardIndex":[1,2,3,4],"shardTotal":[4]}'
     secrets:
       npm_reader_token: ${{ secrets.READER_TOKEN }}
