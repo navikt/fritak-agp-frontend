@@ -48,51 +48,26 @@ import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/D
 import { GravidKrav as GravidKravType } from '../../context/krav';
 import { validateGravidKrav } from './validateGravidKrav';
 
+const buildReducer =
+  (Translate: Ii18n): Reducer<GravidKravState, GravidKravAction> =>
+  (bulkState: GravidKravState, action: GravidKravAction) =>
+    GravidKravReducer(bulkState, action, Translate);
+
 const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
-
-  const GravidKravReducerSettOpp =
-    (Translate: Ii18n): Reducer<GravidKravState, GravidKravAction> =>
-    (bulkState: GravidKravState, action: GravidKravAction) =>
-      GravidKravReducer(bulkState, action, Translate);
-
-  const GravidKravReducerI18n: Reducer<GravidKravState, GravidKravAction> = GravidKravReducerSettOpp(i18n);
-
-  const [state, dispatch] = useReducer(GravidKravReducerI18n, props.state, defaultGravidKravState);
-  const { arbeidsgiverId } = useArbeidsgiver();
   const { language, idKrav } = useParams();
+  const navigate = useNavigate();
+  const { arbeidsgiverId } = useArbeidsgiver();
 
-  useEffect(() => {
-    document.title = 'Krav om refusjon av sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
-  }, []);
-
+  const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultGravidKravState);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const submissionInFlight = useRef(false);
-
-  const navigate = useNavigate();
 
   const dispatchResponse = (response: ValidationResponse<GravidKravResponse>) => {
     dispatch({
       type: Actions.HandleResponse,
       payload: { response: response }
     });
-  };
-
-  const handleCloseNotAuthorized = () => {
-    dispatch({ type: Actions.NotAuthorized });
-  };
-
-  const handleCancelClicked = (event: React.FormEvent) => {
-    event.preventDefault();
-    window.location.href = environment.minSideArbeidsgiver;
-  };
-
-  const handleCloseServerFeil = () => {
-    dispatch({ type: Actions.HideServerError });
-  };
-
-  const handleCloseDuplicateFeil = () => {
-    dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
@@ -105,6 +80,12 @@ const GravidKrav = (props: GravidKravProps) => {
       payload: {
         endringsAarsak: aarsak
       }
+    });
+  };
+
+  const leggTilPeriode = () => {
+    dispatch({
+      type: Actions.AddPeriode
     });
   };
 
@@ -139,6 +120,11 @@ const GravidKrav = (props: GravidKravProps) => {
     }
   };
 
+  const handleCancelClicked = (event: React.FormEvent) => {
+    event.preventDefault();
+    window.location.href = environment.minSideArbeidsgiver;
+  };
+
   const handleDeleteClicked = async (event: React.FormEvent) => {
     event.preventDefault();
     dispatch({
@@ -171,11 +157,21 @@ const GravidKrav = (props: GravidKravProps) => {
     }
   };
 
-  const leggTilPeriode = () => {
-    dispatch({
-      type: Actions.AddPeriode
-    });
+  const handleCloseNotAuthorized = () => {
+    dispatch({ type: Actions.NotAuthorized });
   };
+
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
+  };
+
+  const handleCloseDuplicateFeil = () => {
+    dispatch({ type: Actions.HideDuplicateSubmissionError });
+  };
+
+  useEffect(() => {
+    document.title = 'Krav om refusjon av sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
+  }, []);
 
   useEffect(() => {
     dispatch({

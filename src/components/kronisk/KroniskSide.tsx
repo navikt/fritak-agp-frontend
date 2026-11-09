@@ -48,16 +48,12 @@ const buildReducer =
 
 const KroniskSide = () => {
   const { t, i18n } = useTranslation();
+  const { language } = useParams();
   const { saveResponse } = useContext(KroniskSoknadKvitteringContext);
 
-  const { language } = useParams();
-
-  useEffect(() => {
-    document.title =
-      'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden ved kronisk eller langvarig sykdom - nav.no';
-  }, []);
-
   const [state, dispatch] = useReducer(buildReducer(i18n), {}, defaultKroniskState);
+  const [files, setFiles] = useState<FileObject[]>([]);
+
   const handleUploadChanged = (file: FileObject[]) => {
     setFiles(file);
     if (file) {
@@ -75,11 +71,15 @@ const KroniskSide = () => {
     setFiles([]);
     dispatch({ type: Actions.Dokumentasjon, payload: undefined });
   };
-  const handleCloseNotAuthorized = () => {
-    dispatch({ type: Actions.NotAuthorized });
-  };
   const handleSubmit = () => {
     dispatch({ type: Actions.Validate });
+  };
+  const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    window.location.href = environment.minSideArbeidsgiver;
+  };
+  const handleCloseNotAuthorized = () => {
+    dispatch({ type: Actions.NotAuthorized });
   };
   const handleCloseServerFeil = () => {
     dispatch({ type: Actions.HideServerError });
@@ -89,10 +89,10 @@ const KroniskSide = () => {
     dispatch({ type: Actions.HideDuplicateSubmissionError });
   };
 
-  const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    window.location.href = environment.minSideArbeidsgiver;
-  };
+  useEffect(() => {
+    document.title =
+      'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden ved kronisk eller langvarig sykdom - nav.no';
+  }, []);
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
@@ -127,8 +127,6 @@ const KroniskSide = () => {
     state.orgnr,
     state.antallPerioder
   ]);
-
-  const [files, setFiles] = useState<FileObject[]>([]);
 
   if (state.kvittering === true) {
     return <Navigate to={buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb)} replace />;
