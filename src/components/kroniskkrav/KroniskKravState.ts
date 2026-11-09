@@ -1,5 +1,5 @@
 import { ValidationState } from '../../state/validation/ValidationState';
-import { Dato } from '../../utils/dato/Dato';
+import type { KravPeriodeData } from '../../state/KravPeriodeData';
 import { v4 as uuid } from 'uuid';
 import { EndringsAarsak } from '../gravidkrav/EndringsAarsak';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
@@ -50,18 +50,6 @@ export default interface KroniskKravState extends ValidationState {
   endringskrav?: boolean;
 }
 
-export interface KroniskKravPeriode {
-  fom?: Dato;
-  fomError?: string;
-  tom?: Dato;
-  tomError?: string;
-  dager?: number;
-  dagerError?: string;
-  belop?: number;
-  belopError?: string;
-  grunnbeloep?: number;
-  uniqueKey: string;
-  sykemeldingsgrad?: string;
-  sykemeldingsgradError?: string;
+export interface KroniskKravPeriode extends KravPeriodeData {
   gradering?: number;
 }

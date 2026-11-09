@@ -3,7 +3,7 @@ import { format, parseISO } from 'date-fns';
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../felles/SelectDager/SelectDager';
-import { KroniskKravPeriode } from './KroniskKravState';
+import type { KravPeriodeData } from '../../state/KravPeriodeData';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../locale/LangKey';
@@ -18,7 +18,7 @@ import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
 
 interface KravPeriodeProps {
-  enkeltPeriode: KroniskKravPeriode;
+  enkeltPeriode: KravPeriodeData;
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
