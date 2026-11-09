@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, Reducer, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
 import '../felles/FellesStyling.scss';
@@ -219,8 +219,7 @@ const GravidKrav = (props: GravidKravProps) => {
   }, [idKrav]);
 
   if (state.kvittering) {
-    navigate(buildLenke(lenker.GravidKravKvittering, (language as Language) || Language.nb), { replace: true });
-    return null;
+    return <Navigate to={buildLenke(lenker.GravidKravKvittering, (language as Language) || Language.nb)} replace />;
   }
   const lenkeGravid = buildLenke(lenker.Gravid, (language as Language) || Language.nb);
   const title = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR);

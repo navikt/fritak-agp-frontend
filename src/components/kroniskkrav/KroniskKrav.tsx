@@ -1,6 +1,6 @@
 import React, { Reducer, useEffect, useReducer, useState } from 'react';
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './KroniskKrav.scss';
 import '../felles/FellesStyling.scss';
@@ -220,8 +220,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
   }, [idKrav]);
 
   if (state.kvittering) {
-    navigate(buildLenke(lenker.KroniskKravKvittering, (language as Language) || Language.nb), { replace: true });
-    return null;
+    return <Navigate to={buildLenke(lenker.KroniskKravKvittering, (language as Language) || Language.nb)} replace />;
   }
 
   return (
