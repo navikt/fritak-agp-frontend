@@ -1,9 +1,9 @@
 import beregnRefusjon from './beregnRefusjon';
-import { KroniskKravPeriode } from './KroniskKravState';
+import type { KravPeriodeData } from '../../../state/KravPeriodeData';
 
 describe('beregnRefusjon', () => {
   it('should return a nicely formated number', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 123,
       dager: 4,
@@ -14,7 +14,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 3456789,
       dager: 12,
@@ -24,7 +24,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 33', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 3456789,
       dager: 12,
@@ -35,7 +35,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 33 and belop = 6789', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 6789,
       dager: 12,
@@ -46,7 +46,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 77 and belop = 36789', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 36789,
       dager: 12,
@@ -57,7 +57,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 77 and belop = 14000', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 14000,
       dager: 12,
@@ -68,7 +68,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 89 and belop = 14000,5', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 14000.5,
       dager: 17,
@@ -79,7 +79,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 33 and belop = 10000', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 10000,
       dager: 17,
@@ -90,7 +90,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 100 and belop = 600000', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 600000,
       dager: 17,
@@ -101,7 +101,7 @@ describe('beregnRefusjon', () => {
   });
 
   it('should return an other nicely formated number when sykemeldingsgrad = 50 and belop = 600000', () => {
-    const mockPeriode: KroniskKravPeriode = {
+    const mockPeriode: KravPeriodeData = {
       uniqueKey: 'unik',
       belop: 600000,
       dager: 17,
