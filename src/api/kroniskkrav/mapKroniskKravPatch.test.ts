@@ -10,7 +10,7 @@ describe('mapKroniskKravPatch', () => {
       fom: enDato,
       tom: enDato,
       dager: 5,
-      belop: 125,
+      beloep: 125,
       grunnbeloep: 678,
       uniqueKey: 'random-string',
       sykemeldingsgrad: '50',

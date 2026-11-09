@@ -19,7 +19,7 @@ const mapPeriodeData = (perioder: KroniskKravPeriode[]): Array<Arbeidsgiverperio
     fom: datoToString(enkeltPeriode.fom),
     tom: datoToString(enkeltPeriode.tom),
     antallDagerMedRefusjon: enkeltPeriode.dager ?? 0,
-    månedsinntekt: enkeltPeriode.belop ?? 0,
+    månedsinntekt: enkeltPeriode.beloep ?? 0,
     gradering: beregnSykemeldingGradering(enkeltPeriode.sykemeldingsgrad)
   }));
 };

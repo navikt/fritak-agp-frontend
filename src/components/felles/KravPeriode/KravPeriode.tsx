@@ -25,9 +25,9 @@ interface KravPeriodeProps {
   onFraChange: (fra: Date | undefined) => void;
   onTilChange: (til: Date | undefined) => void;
   onDagerChange: (dager: number | undefined) => void;
-  onBelopChange: (belop: number | undefined) => void;
+  onBeloepChange: (beloep: number | undefined) => void;
   onSykemeldingsgradChange: (sykemeldingsgrad: string) => void;
-  onGrunnbelopChange: (grunnbelop: number) => void;
+  onGrunnbeloepChange: (grunnbeloep: number) => void;
   onDelete: () => void;
 }
 
@@ -36,9 +36,9 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const fraDatoValgt = (fraDato: Date | undefined) => {
     if (fraDato) {
-      getGrunnbeloep(format(fraDato, 'yyyy-MM-dd')).then((grunnbelopRespons) => {
-        if (grunnbelopRespons.grunnbeloep) {
-          props.onGrunnbelopChange(grunnbelopRespons.grunnbeloep.grunnbeloep);
+      getGrunnbeloep(format(fraDato, 'yyyy-MM-dd')).then((grunnbeloepRespons) => {
+        if (grunnbeloepRespons.grunnbeloep) {
+          props.onGrunnbeloepChange(grunnbeloepRespons.grunnbeloep.grunnbeloep);
         }
       });
     }
@@ -57,9 +57,9 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   useEffect(() => {
     if (props.enkeltPeriode.fom?.year) {
-      getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbelopRespons) => {
-        if (grunnbelopRespons.grunnbeloep) {
-          props.onGrunnbelopChange(grunnbelopRespons.grunnbeloep.grunnbeloep);
+      getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbeloepRespons) => {
+        if (grunnbeloepRespons.grunnbeloep) {
+          props.onGrunnbeloepChange(grunnbeloepRespons.grunnbeloep.grunnbeloep);
         }
       });
     }
@@ -122,11 +122,11 @@ const KravPeriode = (props: KravPeriodeProps) => {
         inputMode='numeric'
         pattern='[0-9]*'
         placeholder='Kr:'
-        defaultValue={props.enkeltPeriode.belop}
+        defaultValue={props.enkeltPeriode.beloep}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          props.onBelopChange(stringishToNumber(event.currentTarget.value))
+          props.onBeloepChange(stringishToNumber(event.currentTarget.value))
         }
-        error={props.enkeltPeriode.belopError}
+        error={props.enkeltPeriode.beloepError}
       />
       <TextField
         id={`sykemeldingsgrad-${props.index}`}

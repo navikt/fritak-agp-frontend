@@ -8,8 +8,8 @@ export interface KravPeriodeData {
   tomError?: string;
   dager?: number;
   dagerError?: string;
-  belop?: number;
-  belopError?: string;
+  beloep?: number;
+  beloepError?: string;
   grunnbeloep?: number;
   sykemeldingsgrad?: string;
   sykemeldingsgradError?: string;

@@ -53,7 +53,7 @@ describe('KroniskKrav', () => {
         antallDager: 260,
         bekreft: true,
         perioder: [
-          { uniqueKey: 'periode', fom: parseDato('02.08.2021'), tom: parseDato('06.08.2021'), dager: 5, belop: 35000 }
+          { uniqueKey: 'periode', fom: parseDato('02.08.2021'), tom: parseDato('06.08.2021'), dager: 5, beloep: 35000 }
         ],
         ...overrides
       });
@@ -132,17 +132,17 @@ describe('KroniskKrav', () => {
       router.dispose();
     });
 
-    it('sends only once during rapid clicks, field edits and a grunnbelop update', async () => {
+    it('sends only once during rapid clicks, field edits and a grunnbeloep update', async () => {
       let finishRequest!: (response: ValidationResponse<KroniskKravResponse>) => void;
       vi.mocked(postKroniskKrav).mockReturnValue(
         new Promise((resolve) => {
           finishRequest = resolve;
         })
       );
-      let finishGrunnbelop!: (response: Awaited<ReturnType<typeof getGrunnbeloep>>) => void;
+      let finishGrunnbeloep!: (response: Awaited<ReturnType<typeof getGrunnbeloep>>) => void;
       vi.mocked(getGrunnbeloep).mockReturnValue(
         new Promise((resolve) => {
-          finishGrunnbelop = resolve;
+          finishGrunnbeloep = resolve;
         })
       );
       const router = renderForm(validState());
@@ -155,7 +155,7 @@ describe('KroniskKrav', () => {
         target: { value: '40000' }
       });
       await act(async () => {
-        finishGrunnbelop({
+        finishGrunnbeloep({
           status: HttpStatus.Successfully,
           grunnbeloep: {
             dato: '2021-05-01',
@@ -404,11 +404,11 @@ describe('KroniskKrav', () => {
     );
     const submitButton = await screen.findByText(/Send kravet/);
 
-    const BelopInput = screen.queryAllByLabelText(/Beregnet månedsinntekt/)[1];
+    const beloepInput = screen.queryAllByLabelText(/Beregnet månedsinntekt/)[1];
 
     await user.click(submitButton);
 
-    await user.type(BelopInput, '123');
+    await user.type(beloepInput, '123');
     expect(screen.queryByText(/Mangler beløp/)).not.toBeInTheDocument();
     expect(screen.queryByText(/Beløp må fylles ut/)).not.toBeInTheDocument();
   }, 10000);
