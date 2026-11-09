@@ -113,10 +113,14 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Validate: {
       nextState.validated = true;
-      const validatedState = validateGravidKrav(nextState, translate);
-      validatedState.submitting = validatedState.feilmeldinger?.length === 0;
-      validatedState.progress = validatedState.submitting;
-      return validatedState;
+      return validateGravidKrav(nextState, translate);
+    }
+
+    case Actions.SubmitValidation: {
+      if (!payload?.validationResult) {
+        throw new Error('Valideringsresultat må spesifiseres');
+      }
+      return { ...payload.validationResult, progress: payload.validationResult.feilmeldinger.length === 0 };
     }
 
     case Actions.HandleResponse:
@@ -125,7 +129,6 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       }
       nextState.validated = false;
       nextState.progress = false;
-      nextState.submitting = false;
       nextState.showSpinner = false;
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as GravidKravState;
 

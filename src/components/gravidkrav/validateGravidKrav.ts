@@ -23,7 +23,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   if (!state.validated) {
     return state;
   }
-  const nextState = Object.assign({}, state);
+  const nextState = { ...state, perioder: state.perioder?.map((periode) => ({ ...periode })) };
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   if (nextState.fnrError) {
@@ -55,7 +55,7 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
   }
 
-  state.perioder?.forEach((periode, index) => {
+  nextState.perioder?.forEach((periode, index) => {
     const minDato = format(MIN_DATE, 'dd.MM.yyyy');
 
     const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);

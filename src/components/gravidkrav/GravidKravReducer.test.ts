@@ -312,7 +312,23 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
     expect(state.validated).toBe(true);
+    expect(state.progress).not.toBe(true);
   });
+
+  it.each([{ feilmeldinger: [] }, { feilmeldinger: [{ skjemaelementId: 'fnr', feilmelding: 'Invalid' }] }])(
+    'applies the submission validation result $feilmeldinger',
+    ({ feilmeldinger }) => {
+      const validationResult = defaultGravidKravState({ validated: true, feilmeldinger });
+      const state = GravidKravReducer(
+        defaultGravidKravState(),
+        { type: Actions.SubmitValidation, payload: { validationResult } },
+        translationMock as unknown as i18n
+      );
+      expect(state.validated).toBe(true);
+      expect(state.feilmeldinger).toEqual(feilmeldinger);
+      expect(state.progress).toBe(feilmeldinger.length === 0);
+    }
+  );
 
   it('should handle response', () => {
     const state = GravidKravReducer(
@@ -324,7 +340,6 @@ describe('GravidKravReducer', () => {
       },
       translationMock as unknown as i18n
     );
-    expect(state.submitting).toBe(false);
     expect(state.progress).toBe(false);
     expect(state.validated).toBe(false);
   });

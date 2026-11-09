@@ -2,6 +2,7 @@ import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import { GravidKrav } from '../../context/krav';
 import { EndringsAarsak as IEndringsAarsak } from './EndringsAarsak';
+import type GravidKravState from './GravidKravState';
 
 export enum Actions {
   Reset,
@@ -29,10 +30,12 @@ export enum Actions {
   ShowSpinner,
   HideSpinner,
   HideServerError,
-  HideDuplicateSubmissionError
+  HideDuplicateSubmissionError,
+  SubmitValidation
 }
 
 interface Payload {
+  validationResult?: GravidKravState;
   fnr?: string;
   orgnr?: string;
   fra?: Date;
