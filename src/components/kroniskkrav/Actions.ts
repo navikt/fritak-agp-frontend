@@ -2,6 +2,7 @@ import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { KroniskKrav } from '../../context/krav';
 import { EndringsAarsak as IEndringsAarsak } from '../gravidkrav/EndringsAarsak';
+import type KroniskKravState from './KroniskKravState';
 
 export enum Actions {
   Reset,
@@ -30,10 +31,12 @@ export enum Actions {
   HideSpinner,
   HideServerError,
   HideDuplicateSubmissionError,
-  SetFormClean
+  SetFormClean,
+  SubmitValidation
 }
 
 interface Payload {
+  validationResult?: KroniskKravState;
   fnr?: string;
   orgnr?: string;
   fra?: Date;

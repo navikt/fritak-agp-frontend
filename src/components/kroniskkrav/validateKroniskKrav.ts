@@ -23,7 +23,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   if (!state.validated) {
     return state;
   }
-  const nextState = Object.assign({}, state);
+  const nextState = { ...state, perioder: state.perioder?.map((periode) => ({ ...periode })) };
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
 
   validateFodselsnummer(nextState, state, translate, feilmeldinger);

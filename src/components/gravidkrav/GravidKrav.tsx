@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, Reducer, useState } from 'react';
+import React, { useEffect, useReducer, Reducer, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
 import './GravidKrav.scss';
@@ -46,6 +46,7 @@ import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
 import TextLabel from '../TextLabel';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 import { GravidKrav as GravidKravType } from '../../context/krav';
+import { validateGravidKrav } from './validateGravidKrav';
 
 const GravidKrav = (props: GravidKravProps) => {
   const { t, i18n } = useTranslation();
@@ -66,6 +67,7 @@ const GravidKrav = (props: GravidKravProps) => {
   }, []);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const submissionInFlight = useRef(false);
 
   const navigate = useNavigate();
 
@@ -107,9 +109,34 @@ const GravidKrav = (props: GravidKravProps) => {
   };
 
   const handleSubmitClicked = async () => {
-    dispatch({
-      type: Actions.Validate
-    });
+    if (submissionInFlight.current || state.progress) return;
+
+    const validatedState = validateGravidKrav({ ...state, validated: true }, i18n);
+    dispatch({ type: Actions.SubmitValidation, payload: { validationResult: validatedState } });
+    if (validatedState.feilmeldinger.length > 0) return;
+
+    submissionInFlight.current = true;
+    try {
+      const { fnr, orgnr, perioder, bekreft, antallDager, endringskrav, kravId, endringsAarsak } = validatedState;
+      if (endringskrav) {
+        if (!kravId || !endringsAarsak) throw new Error('Endringskrav mangler kravId eller endringsårsak');
+        dispatchResponse(
+          await patchGravidKrav(
+            environment.baseUrl,
+            kravId,
+            mapGravidKravPatch(fnr, orgnr, perioder, bekreft, antallDager, endringsAarsak)
+          )
+        );
+      } else {
+        dispatchResponse(
+          await postGravidKrav(environment.baseUrl, mapGravidKravRequest(fnr, orgnr, perioder, bekreft, antallDager))
+        );
+      }
+    } catch {
+      dispatchResponse({ status: HttpStatus.Error, violations: [] });
+    } finally {
+      submissionInFlight.current = false;
+    }
   };
 
   const handleDeleteClicked = async (event: React.FormEvent) => {
@@ -156,47 +183,6 @@ const GravidKrav = (props: GravidKravProps) => {
       payload: { orgnr: arbeidsgiverId }
     });
   }, [arbeidsgiverId]);
-
-  useEffect(() => {
-    if (state.validated === true && state.progress === true && state.submitting === true) {
-      if (state.endringskrav) {
-        patchGravidKrav(
-          environment.baseUrl,
-          state.kravId!,
-          mapGravidKravPatch(
-            state.fnr,
-            state.orgnr,
-            state.perioder,
-            state.bekreft,
-            state.antallDager,
-            state.endringsAarsak!
-          )
-        ).then((response) => {
-          dispatchResponse(response);
-        });
-      } else {
-        postGravidKrav(
-          environment.baseUrl,
-          mapGravidKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
-        ).then((response) => {
-          dispatchResponse(response);
-        });
-      }
-    }
-  }, [
-    state.validated,
-    state.progress,
-    state.feilmeldinger,
-    state.submitting,
-    state.perioder,
-    state.fnr,
-    state.bekreft,
-    state.orgnr,
-    state.antallDager,
-    state.kravId,
-    state.endringsAarsak,
-    state.endringskrav
-  ]);
 
   useEffect(() => {
     if (idKrav) {

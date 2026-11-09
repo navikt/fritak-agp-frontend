@@ -325,7 +325,6 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.submitting).toBe(false);
     expect(state.progress).toBe(false);
     expect(state.validated).toBe(false);
   });
@@ -965,7 +964,7 @@ describe('KroniskKravReducer', () => {
     expect(state.feilmeldinger.length).toBe(0);
   });
 
-  it('should validate correctly (submitting=false when feilmeldinger exist)', () => {
+  it('validates without starting submission', () => {
     const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
@@ -974,9 +973,24 @@ describe('KroniskKravReducer', () => {
       i18n
     );
     expect(state.validated).toBe(true);
-    // submitting depends on feilmeldinger from validateKroniskKrav
-    expect(state.submitting).toBeDefined();
+    expect(state.feilmeldinger.length).toBeGreaterThan(0);
+    expect(state.progress).not.toBe(true);
   });
+
+  it.each([{ feilmeldinger: [] }, { feilmeldinger: [{ skjemaelementId: 'fnr', feilmelding: 'Invalid' }] }])(
+    'applies the submission validation result $feilmeldinger',
+    ({ feilmeldinger }) => {
+      const validationResult = defaultKroniskKravState({ validated: true, feilmeldinger });
+      const state = KroniskKravReducer(
+        defaultKroniskKravState(),
+        { type: Actions.SubmitValidation, payload: { validationResult } },
+        i18n
+      );
+      expect(state.validated).toBe(true);
+      expect(state.feilmeldinger).toEqual(feilmeldinger);
+      expect(state.progress).toBe(feilmeldinger.length === 0);
+    }
+  );
 
   it('should set formDirty on bekreft change', () => {
     const initialState = defaultKroniskKravState();

@@ -1,4 +1,4 @@
-import React, { Reducer, useEffect, useReducer, useState } from 'react';
+import React, { Reducer, useEffect, useReducer, useRef, useState } from 'react';
 
 import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import lenker, { buildLenke } from '../../config/lenker';
@@ -47,6 +47,7 @@ import TextLabel from '../TextLabel';
 import textify from '../../utils/textify';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 import { KroniskKrav as KroniskKravType } from '../../context/krav';
+import { validateKroniskKrav } from './validateKroniskKrav';
 
 const buildReducer =
   (Translate: Ii18n): Reducer<KroniskKravState, KroniskKravAction> =>
@@ -62,6 +63,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
   const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const submissionInFlight = useRef(false);
 
   useEffect(() => {
     document.title =
@@ -84,9 +86,34 @@ const KroniskKrav = (props: KroniskKravProps) => {
   };
 
   const handleSubmitClicked = async () => {
-    dispatch({
-      type: Actions.Validate
-    });
+    if (submissionInFlight.current || state.progress) return;
+
+    const validatedState = validateKroniskKrav({ ...state, validated: true }, i18n);
+    dispatch({ type: Actions.SubmitValidation, payload: { validationResult: validatedState } });
+    if (validatedState.feilmeldinger.length > 0) return;
+
+    submissionInFlight.current = true;
+    try {
+      const { fnr, orgnr, perioder, bekreft, antallDager, endringskrav, kravId, endringsAarsak } = validatedState;
+      if (endringskrav) {
+        if (!kravId || !endringsAarsak) throw new Error('Endringskrav mangler kravId eller endringsårsak');
+        dispatchResponse(
+          await patchKroniskKrav(
+            environment.baseUrl,
+            kravId,
+            mapKroniskKravPatch(fnr, orgnr, perioder, bekreft, antallDager, endringsAarsak)
+          )
+        );
+      } else {
+        dispatchResponse(
+          await postKroniskKrav(environment.baseUrl, mapKroniskKravRequest(fnr, orgnr, perioder, bekreft, antallDager))
+        );
+      }
+    } catch {
+      dispatchResponse({ status: HttpStatus.Error, violations: [] });
+    } finally {
+      submissionInFlight.current = false;
+    }
   };
 
   const handleCloseServerFeil = () => {
@@ -157,47 +184,6 @@ const KroniskKrav = (props: KroniskKravProps) => {
       });
     }
   }, [arbeidsgiverId]);
-
-  useEffect(() => {
-    if (state.validated === true && state.progress === true && state.submitting === true) {
-      if (state.endringskrav) {
-        patchKroniskKrav(
-          environment.baseUrl,
-          state.kravId!,
-          mapKroniskKravPatch(
-            state.fnr,
-            state.orgnr,
-            state.perioder,
-            state.bekreft,
-            state.antallDager,
-            state.endringsAarsak!
-          )
-        ).then((response) => {
-          dispatchResponse(response);
-        });
-      } else {
-        postKroniskKrav(
-          environment.baseUrl,
-          mapKroniskKravRequest(state.fnr, state.orgnr, state.perioder, state.bekreft, state.antallDager)
-        ).then((response) => {
-          dispatchResponse(response);
-        });
-      }
-    }
-  }, [
-    state.validated,
-    state.progress,
-    state.feilmeldinger,
-    state.submitting,
-    state.perioder,
-    state.fnr,
-    state.bekreft,
-    state.orgnr,
-    state.antallDager,
-    state.kravId,
-    state.endringsAarsak,
-    state.endringskrav
-  ]);
 
   useEffect(() => {
     if (idKrav) {

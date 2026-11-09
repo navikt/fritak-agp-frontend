@@ -15,7 +15,19 @@ import buildResources from '../../locale/buildResources';
 import { LanguageProvider } from '../../context/language/LanguageContext';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import { vi } from 'vitest';
-import { defaultKroniskKravState } from './KroniskKravState';
+import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
+import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
+import patchKroniskKrav from '../../api/kroniskkrav/patchKroniskKrav';
+import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
+import { parseDato } from '../../utils/dato/Dato';
+import { EndringsAarsak } from '../gravidkrav/EndringsAarsak';
+import HttpStatus from '../../api/HttpStatus';
+import { ValidationResponse } from '../../state/validation/ValidationResponse';
+import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
+
+vi.mock('../../api/kroniskkrav/postKroniskKrav');
+vi.mock('../../api/kroniskkrav/patchKroniskKrav');
+vi.mock('../../api/grunnbelop/getGrunnbeloep', () => ({ default: vi.fn(async () => ({ status: 200 })) }));
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 vi.unmock('react-i18next');
@@ -31,6 +43,180 @@ describe('KroniskKrav', () => {
     }
   });
   const user = userEvent.setup();
+
+  describe('submission', () => {
+    const validState = (overrides: Partial<KroniskKravState> = {}) =>
+      defaultKroniskKravState({
+        feilmeldinger: [],
+        fnr: testFnr.GyldigeFraDolly.TestPerson1,
+        orgnr: '810008032',
+        antallDager: 260,
+        bekreft: true,
+        perioder: [
+          { uniqueKey: 'periode', fom: parseDato('02.08.2021'), tom: parseDato('06.08.2021'), dager: 5, belop: 35000 }
+        ],
+        ...overrides
+      });
+
+    const renderForm = (state: KroniskKravState) => {
+      const router = createMemoryRouter(
+        [
+          {
+            path: '/nb/kronisk/krav',
+            element: (
+              <ArbeidsgiverProvider
+                arbeidsgivere={arbeidsgivere}
+                status={200}
+                arbeidsgiverId='810007842'
+                baseUrl='/base/url'
+              >
+                <KroniskKrav state={state} />
+              </ArbeidsgiverProvider>
+            )
+          },
+          { path: '/nb/kronisk/krav/kvittering', element: <div>Receipt</div> }
+        ],
+        { initialEntries: ['/nb/kronisk/krav'] }
+      );
+      render(<RouterProvider router={router} />);
+      return router;
+    };
+
+    beforeEach(() => {
+      vi.mocked(postKroniskKrav).mockReset();
+      vi.mocked(patchKroniskKrav).mockReset();
+      vi.mocked(getGrunnbeloep).mockResolvedValue({ status: HttpStatus.Successfully });
+    });
+
+    it.each([false, true])('sends the validated request with endringskrav=%s', async (endringskrav) => {
+      const api = endringskrav ? vi.mocked(patchKroniskKrav) : vi.mocked(postKroniskKrav);
+      api.mockResolvedValue({ status: HttpStatus.Created, violations: [] });
+      const router = renderForm(validState({ endringskrav, kravId: 'krav-id', endringsAarsak: EndringsAarsak.ANNET }));
+
+      fireEvent.click(screen.getByRole('button', { name: endringskrav ? /Send inn endring/ : /Send kravet/ }));
+
+      await waitFor(() => expect(router.state.location.pathname).toBe('/nb/kronisk/krav/kvittering'));
+      expect(api).toHaveBeenCalledTimes(1);
+      const expectedRequest = {
+        identitetsnummer: testFnr.GyldigeFraDolly.TestPerson1,
+        virksomhetsnummer: '810008032',
+        antallDager: 260,
+        bekreftet: true,
+        perioder: [
+          { fom: '2021-08-02', tom: '2021-08-06', antallDagerMedRefusjon: 5, månedsinntekt: 35000, gradering: 1 }
+        ],
+        ...(endringskrav ? { aarsakEndring: EndringsAarsak.ANNET } : {})
+      };
+      expect(api.mock.calls[0].at(-1)).toEqual(expectedRequest);
+      if (endringskrav) expect(vi.mocked(patchKroniskKrav).mock.calls[0][1]).toBe('krav-id');
+      expect(endringskrav ? postKroniskKrav : patchKroniskKrav).not.toHaveBeenCalled();
+      router.dispose();
+    });
+
+    it('does not send an invalid form and revalidates corrected fields', async () => {
+      const router = renderForm(validState({ fnr: '123' }));
+      fireEvent.click(screen.getByRole('button', { name: /Send kravet/ }));
+      expect(postKroniskKrav).not.toHaveBeenCalled();
+      expect(screen.getAllByText(/Ugyldig fødselsnummer/).length).toBeGreaterThan(0);
+      fireEvent.change(screen.getByLabelText(/Fødselsnummer/), {
+        target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
+      });
+      expect(screen.queryByText(/Ugyldig fødselsnummer/)).not.toBeInTheDocument();
+      router.dispose();
+    });
+
+    it('does not start a request from submission flags alone', async () => {
+      const router = renderForm(validState({ validated: true, progress: true }));
+      await act(async () => {});
+      expect(postKroniskKrav).not.toHaveBeenCalled();
+      router.dispose();
+    });
+
+    it('sends only once during rapid clicks, field edits and a grunnbelop update', async () => {
+      let finishRequest!: (response: ValidationResponse<KroniskKravResponse>) => void;
+      vi.mocked(postKroniskKrav).mockReturnValue(
+        new Promise((resolve) => {
+          finishRequest = resolve;
+        })
+      );
+      let finishGrunnbelop!: (response: Awaited<ReturnType<typeof getGrunnbeloep>>) => void;
+      vi.mocked(getGrunnbeloep).mockReturnValue(
+        new Promise((resolve) => {
+          finishGrunnbelop = resolve;
+        })
+      );
+      const router = renderForm(validState());
+      const submit = screen.getByRole('button', { name: /Send kravet/ });
+      act(() => {
+        fireEvent.click(submit);
+        fireEvent.click(submit);
+      });
+      fireEvent.change(screen.getByLabelText(/Beregnet månedsinntekt/, { selector: 'input' }), {
+        target: { value: '40000' }
+      });
+      await act(async () => {
+        finishGrunnbelop({
+          status: HttpStatus.Successfully,
+          grunnbeloep: {
+            dato: '2021-05-01',
+            grunnbeloep: 106399,
+            grunnbeloepPerMaaned: 8867,
+            gjennomsnittPerAar: 104716,
+            omregningsfaktor: 1.049807
+          }
+        });
+      });
+      expect(postKroniskKrav).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(postKroniskKrav).mock.calls[0][1].perioder[0].månedsinntekt).toBe(35000);
+      await act(async () => {
+        finishRequest({ status: HttpStatus.Created, violations: [] });
+      });
+      router.dispose();
+    });
+
+    it('releases the submission guard after an unexpected rejection', async () => {
+      vi.mocked(postKroniskKrav)
+        .mockRejectedValueOnce(new Error('Unexpected failure'))
+        .mockResolvedValueOnce({ status: HttpStatus.Created, violations: [] });
+      const router = renderForm(validState());
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: /Send kravet/ }));
+      });
+      screen.getAllByText('Skjul denne meldingen.').forEach((link) => fireEvent.click(link));
+      fireEvent.click(screen.getByRole('button', { name: /Send kravet/ }));
+      await waitFor(() => expect(router.state.location.pathname).toBe('/nb/kronisk/krav/kvittering'));
+      expect(postKroniskKrav).toHaveBeenCalledTimes(2);
+      router.dispose();
+    });
+
+    it.each([HttpStatus.Error, HttpStatus.Timeout, HttpStatus.UnprocessableEntity])(
+      'allows a new attempt after status %s',
+      async (status) => {
+        vi.mocked(postKroniskKrav)
+          .mockResolvedValueOnce({
+            status,
+            violations:
+              status === HttpStatus.UnprocessableEntity
+                ? [{ propertyPath: 'identitetsnummer', message: 'Backend validation error', validationType: 'Invalid' }]
+                : []
+          })
+          .mockResolvedValueOnce({ status: HttpStatus.Created, violations: [] });
+        const router = renderForm(validState());
+        await act(async () => {
+          fireEvent.click(screen.getByRole('button', { name: /Send kravet/ }));
+        });
+        expect(router.state.location.pathname).toBe('/nb/kronisk/krav');
+        if (status === HttpStatus.Error)
+          screen.getAllByText('Skjul denne meldingen.').forEach((link) => fireEvent.click(link));
+        if (status === HttpStatus.UnprocessableEntity)
+          expect(screen.getAllByText('Backend validation error').length).toBeGreaterThan(0);
+        fireEvent.click(screen.getByRole('button', { name: /Send kravet/ }));
+        await waitFor(() => expect(router.state.location.pathname).toBe('/nb/kronisk/krav/kvittering'));
+        expect(postKroniskKrav).toHaveBeenCalledTimes(2);
+        router.dispose();
+      }
+    );
+  });
 
   it.each([
     { path: '/nb/kronisk/krav', route: '/:language/kronisk/krav', receipt: '/nb/kronisk/krav/kvittering' },

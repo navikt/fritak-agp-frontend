@@ -9,6 +9,17 @@ import { Language } from '../../locale/Language';
 describe('validateKroniskKrav', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
 
+  it('does not mutate the periods being validated', () => {
+    const state = defaultKroniskKravState({ validated: true, feilmeldinger: [] });
+    const original = structuredClone(state);
+
+    const result = validateKroniskKrav(state, i18n);
+
+    expect(state).toEqual(original);
+    expect(result.perioder).not.toBe(state.perioder);
+    expect(result.feilmeldinger.length).toBeGreaterThan(0);
+  });
+
   it('should show fnr error when invalid', () => {
     const state = defaultKroniskKravState();
     state.validated = true;

@@ -119,10 +119,14 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.Validate: {
       nextState.validated = true;
-      const validatedState = validateKroniskKrav(nextState, translate);
-      validatedState.submitting = validatedState.feilmeldinger?.length === 0;
-      validatedState.progress = validatedState.submitting;
-      return validatedState;
+      return validateKroniskKrav(nextState, translate);
+    }
+
+    case Actions.SubmitValidation: {
+      if (!payload?.validationResult) {
+        throw new Error('Valideringsresultat må spesifiseres');
+      }
+      return { ...payload.validationResult, progress: payload.validationResult.feilmeldinger.length === 0 };
     }
 
     case Actions.HandleResponse: {
@@ -131,7 +135,6 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
       }
       nextState.validated = false;
       nextState.progress = false;
-      nextState.submitting = false;
       nextState.showSpinner = false;
       return mapResponse(payload.response, nextState, mapKravFeilmeldinger) as KroniskKravState;
     }

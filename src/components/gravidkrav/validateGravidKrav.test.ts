@@ -8,6 +8,17 @@ const translationMock = {
 };
 
 describe('validateGravidKrav', () => {
+  it('does not mutate the periods being validated', () => {
+    const state = defaultGravidKravState({ validated: true, feilmeldinger: [] });
+    const original = structuredClone(state);
+
+    const result = validateGravidKrav(state, translationMock as unknown as i18n);
+
+    expect(state).toEqual(original);
+    expect(result.perioder).not.toBe(state.perioder);
+    expect(result.feilmeldinger.length).toBeGreaterThan(0);
+  });
+
   it('should show fnr error when invalid', () => {
     const state = defaultGravidKravState();
     state.validated = true;
