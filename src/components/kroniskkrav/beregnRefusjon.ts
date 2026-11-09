@@ -1,5 +1,5 @@
-import { beregnSykemeldingGradering } from '../../api/kroniskkrav/mapPeriodeData';
-import type { KravPeriodeData } from '../../state/KravPeriodeData';
+import { beregnSykemeldingGradering } from '../../../api/kroniskkrav/mapPeriodeData';
+import type { KravPeriodeData } from '../../../state/KravPeriodeData';
 
 const beregnRefusjon = (enkeltPeriode: KravPeriodeData, lonnspliktDager: number | undefined): number => {
   if (!enkeltPeriode.belop || !enkeltPeriode.dager || !enkeltPeriode.grunnbeloep || !lonnspliktDager) {

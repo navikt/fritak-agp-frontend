@@ -2,21 +2,21 @@ import React, { ComponentProps } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import KravPeriode from './KravPeriode';
-import { KroniskKravPeriode } from './KroniskKravState';
-import Datovelger from '../datovelger/Datovelger';
-import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import HttpStatus from '../../api/HttpStatus';
-import { languageInit } from '../../locale/languageInit';
+import type { KravPeriodeData } from '../../../state/KravPeriodeData';
+import Datovelger from '../../datovelger/Datovelger';
+import getGrunnbeloep from '../../../api/grunnbelop/getGrunnbeloep';
+import HttpStatus from '../../../api/HttpStatus';
+import { languageInit } from '../../../locale/languageInit';
 import i18next from 'i18next';
-import Locales from '../../locale/Locales';
-import { Language } from '../../locale/Language';
+import Locales from '../../../locale/Locales';
+import { Language } from '../../../locale/Language';
 import { vi, expect, it } from 'vitest';
 
-const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
+const enkeltPeriode: KravPeriodeData = { uniqueKey: 'mocked' };
 
-vi.mock('../../api/grunnbelop/getGrunnbeloep');
+vi.mock('../../../api/grunnbelop/getGrunnbeloep');
 
-vi.mock('../datovelger/Datovelger', () => ({
+vi.mock('../../datovelger/Datovelger', () => ({
   default: ({ id, label, onDateChange }: ComponentProps<typeof Datovelger>) => (
     <label htmlFor={id}>
       {label}

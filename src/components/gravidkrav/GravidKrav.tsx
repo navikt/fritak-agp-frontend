@@ -16,7 +16,7 @@ import { i18n as Ii18n } from 'i18next';
 
 import { GravidKravKeys } from './GravidKravKeys';
 import LangKey from '../../locale/LangKey';
-import KravPeriode from '../kroniskkrav/KravPeriode';
+import KravPeriode from '../felles/KravPeriode/KravPeriode';
 import KontrollSporsmaal from '../felles/KontrollSporsmaal/KontrollSporsmaal';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import SelectEndring from '../felles/SelectEndring/SelectEndring';

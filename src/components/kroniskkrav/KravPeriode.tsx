@@ -1,21 +1,21 @@
 import { format, parseISO } from 'date-fns';
 
 import React, { useEffect } from 'react';
-import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import SelectDager from '../felles/SelectDager/SelectDager';
-import type { KravPeriodeData } from '../../state/KravPeriodeData';
+import getGrunnbeloep from '../../../api/grunnbelop/getGrunnbeloep';
+import SelectDager from '../SelectDager/SelectDager';
+import type { KravPeriodeData } from '../../../state/KravPeriodeData';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
-import LangKey from '../../locale/LangKey';
+import LangKey from '../../../locale/LangKey';
 import beregnRefusjon from './beregnRefusjon';
-import { MIN_KRONISK_DATO } from '../../config/konstanter';
+import { MIN_KRONISK_DATO } from '../../../config/konstanter';
 import { Button, HelpText, TextField } from '@navikt/ds-react';
-import Oversettelse from '../felles/Oversettelse/Oversettelse';
-import Datovelger from '../datovelger/Datovelger';
-import TextLabel from '../TextLabel';
-import stringishToNumber from '../../utils/stringishToNumber';
-import { datoToString } from '../../utils/dato/Dato';
-import textify from '../../utils/textify';
+import Oversettelse from '../Oversettelse/Oversettelse';
+import Datovelger from '../../datovelger/Datovelger';
+import TextLabel from '../../TextLabel';
+import stringishToNumber from '../../../utils/stringishToNumber';
+import { datoToString } from '../../../utils/dato/Dato';
+import textify from '../../../utils/textify';
 
 interface KravPeriodeProps {
   enkeltPeriode: KravPeriodeData;

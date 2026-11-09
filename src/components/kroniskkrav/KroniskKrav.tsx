@@ -11,7 +11,7 @@ import { Actions, KroniskKravAction } from './Actions';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import environment from '../../config/environment';
 import { mapKroniskKravRequest } from '../../api/kroniskkrav/mapKroniskKravRequest';
-import KravPeriode from './KravPeriode';
+import KravPeriode from '../felles/KravPeriode/KravPeriode';
 import { useTranslation } from 'react-i18next';
 import { MAX_PERIODER } from '../gravidkrav/GravidKravReducer';
 import { i18n as Ii18n } from 'i18next';
