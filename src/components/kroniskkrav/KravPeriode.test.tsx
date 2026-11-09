@@ -1,10 +1,11 @@
-import React from 'react';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { axe } from 'vitest-axe';
+import React, { ComponentProps } from 'react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import KravPeriode from './KravPeriode';
 import { KroniskKravPeriode } from './KroniskKravState';
-import { Actions } from './Actions';
+import Datovelger from '../datovelger/Datovelger';
+import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
+import HttpStatus from '../../api/HttpStatus';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
@@ -13,8 +14,31 @@ import { vi, expect, it } from 'vitest';
 
 const enkeltPeriode: KroniskKravPeriode = { uniqueKey: 'mocked' };
 
-vi.doMock('../datovelger/Datovelger', () => () => {
-  return <div>Datovelger</div>;
+vi.mock('../../api/grunnbelop/getGrunnbeloep');
+
+vi.mock('../datovelger/Datovelger', () => ({
+  default: ({ id, label, onDateChange }: ComponentProps<typeof Datovelger>) => (
+    <label htmlFor={id}>
+      {label}
+      <input
+        id={id}
+        type='date'
+        onChange={(event) =>
+          onDateChange?.(event.currentTarget.value ? new Date(`${event.currentTarget.value}T00:00:00`) : undefined)
+        }
+      />
+    </label>
+  )
+}));
+
+const createCallbacks = () => ({
+  onFraChange: vi.fn(),
+  onTilChange: vi.fn(),
+  onDagerChange: vi.fn(),
+  onBelopChange: vi.fn(),
+  onSykemeldingsgradChange: vi.fn(),
+  onGrunnbelopChange: vi.fn(),
+  onDelete: vi.fn()
 });
 
 describe('KravPeriode', () => {
@@ -22,20 +46,14 @@ describe('KravPeriode', () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
+    vi.mocked(getGrunnbeloep).mockResolvedValue({ status: HttpStatus.Error });
   });
 
   it('should show first row', async () => {
-    const mockDispatch = vi.fn();
+    const callbacks = createCallbacks();
 
     render(
-      <KravPeriode
-        dispatch={mockDispatch}
-        index={0}
-        enkeltPeriode={enkeltPeriode}
-        lonnspliktDager={260}
-        slettbar={false}
-        Actions={Actions}
-      />
+      <KravPeriode {...callbacks} index={0} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={false} />
     );
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
@@ -46,17 +64,10 @@ describe('KravPeriode', () => {
   });
 
   it('should show second row', async () => {
-    const mockDispatch = vi.fn();
+    const callbacks = createCallbacks();
 
     render(
-      <KravPeriode
-        dispatch={mockDispatch}
-        index={1}
-        enkeltPeriode={enkeltPeriode}
-        lonnspliktDager={260}
-        slettbar={true}
-        Actions={Actions}
-      />
+      <KravPeriode {...callbacks} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={true} />
     );
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
@@ -66,17 +77,16 @@ describe('KravPeriode', () => {
   });
 
   it('should show a random row', async () => {
-    const mockDispatch = vi.fn();
+    const callbacks = createCallbacks();
     const randomRow = 667;
 
     render(
       <KravPeriode
-        dispatch={mockDispatch}
+        {...callbacks}
         index={randomRow}
         enkeltPeriode={enkeltPeriode}
         lonnspliktDager={260}
         slettbar={true}
-        Actions={Actions}
       />
     );
 
@@ -88,17 +98,10 @@ describe('KravPeriode', () => {
   });
 
   it('should show and delete the second row when clicked second row', async () => {
-    const mockDispatch = vi.fn();
+    const callbacks = createCallbacks();
 
     render(
-      <KravPeriode
-        dispatch={mockDispatch}
-        index={1}
-        enkeltPeriode={enkeltPeriode}
-        lonnspliktDager={260}
-        slettbar={true}
-        Actions={Actions}
-      />
+      <KravPeriode {...callbacks} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={true} />
     );
 
     const slettButton = screen.queryByText(/Slett/);
@@ -111,88 +114,105 @@ describe('KravPeriode', () => {
 
     slettButton?.click();
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { itemId: 'mocked' }, type: Actions.DeletePeriode });
+    expect(callbacks.onDelete).toHaveBeenCalledExactlyOnceWith();
   });
 
-  it('call dispatch when beløp has been updated', async () => {
-    const mockDispatch = vi.fn();
+  it('calls onBelopChange with a number when beløp has been updated', async () => {
+    const callbacks = createCallbacks();
 
     render(
-      <KravPeriode
-        dispatch={mockDispatch}
-        index={1}
-        enkeltPeriode={enkeltPeriode}
-        lonnspliktDager={260}
-        slettbar={true}
-        Actions={Actions}
-      />
+      <KravPeriode {...callbacks} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={true} />
     );
 
     const inputBelop = screen.getByPlaceholderText('Kr:');
 
     fireEvent.change(inputBelop, { target: { value: '20000' } });
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { belop: 20000, itemId: 'mocked' }, type: Actions.Beloep });
+    expect(callbacks.onBelopChange).toHaveBeenCalledExactlyOnceWith(20000);
+
+    fireEvent.change(inputBelop, { target: { value: '' } });
+
+    expect(callbacks.onBelopChange).toHaveBeenLastCalledWith(undefined);
   });
 
-  it.todo('call dispatch when dager has been updated', async () => {
-    const mockDispatch = vi.fn();
+  it('calls onDagerChange with a number when dager has been updated', async () => {
+    const callbacks = createCallbacks();
 
     render(
-      <KravPeriode
-        dispatch={mockDispatch}
-        index={1}
-        enkeltPeriode={enkeltPeriode}
-        lonnspliktDager={260}
-        slettbar={true}
-        Actions={Actions}
-      />
+      <KravPeriode {...callbacks} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={true} />
     );
 
     const selectDager = screen.getByDisplayValue('-');
 
     fireEvent.change(selectDager, { target: { value: 12 } });
 
-    expect(mockDispatch).toHaveBeenCalledWith({ payload: { dager: 12, itemId: 'mocked' }, type: Actions.Dager });
+    expect(callbacks.onDagerChange).toHaveBeenCalledExactlyOnceWith(12);
   });
 
-  it.todo('should have no a11y violations for 1 row', async () => {
-    const mockDispatch = vi.fn();
+  it('calls onSykemeldingsgradChange with the entered string', () => {
+    const callbacks = createCallbacks();
+    render(
+      <KravPeriode {...callbacks} index={0} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={false} />
+    );
 
-    const { container } = render(
+    fireEvent.change(screen.getByPlaceholderText('100%'), { target: { value: '50' } });
+
+    expect(callbacks.onSykemeldingsgradChange).toHaveBeenCalledExactlyOnceWith('50');
+
+    fireEvent.change(screen.getByPlaceholderText('100%'), { target: { value: '' } });
+
+    expect(callbacks.onSykemeldingsgradChange).toHaveBeenLastCalledWith('');
+  });
+
+  it.each([
+    { label: /Fra dato/, callback: 'onFraChange' as const, grunnbelopCalls: [['2025-01-15']] },
+    { label: /Til dato/, callback: 'onTilChange' as const, grunnbelopCalls: [] }
+  ])('calls $callback with the selected date and undefined when cleared', ({ label, callback, grunnbelopCalls }) => {
+    const callbacks = createCallbacks();
+    render(
+      <KravPeriode {...callbacks} index={0} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={false} />
+    );
+
+    fireEvent.change(screen.getByLabelText(label), { target: { value: '2025-01-15' } });
+
+    expect(callbacks[callback]).toHaveBeenCalledExactlyOnceWith(new Date(2025, 0, 15));
+
+    fireEvent.change(screen.getByLabelText(label), { target: { value: '' } });
+
+    expect(callbacks[callback]).toHaveBeenLastCalledWith(undefined);
+    expect(vi.mocked(getGrunnbeloep).mock.calls).toEqual(grunnbelopCalls);
+  });
+
+  it.each([false, true])('calls onGrunnbelopChange for an existing from-date: %s', async (existingDate) => {
+    const callbacks = createCallbacks();
+    vi.mocked(getGrunnbeloep).mockResolvedValue({
+      status: HttpStatus.Successfully,
+      grunnbeloep: {
+        dato: '2025-01-15',
+        grunnbeloep: 130160,
+        grunnbeloepPerMaaned: 10846,
+        gjennomsnittPerAar: 128116,
+        omregningsfaktor: 1
+      }
+    });
+    render(
       <KravPeriode
-        dispatch={mockDispatch}
+        {...callbacks}
         index={0}
-        enkeltPeriode={enkeltPeriode}
+        enkeltPeriode={existingDate ? { ...enkeltPeriode, fom: { year: 2025, month: 1, day: 15 } } : enkeltPeriode}
         lonnspliktDager={260}
         slettbar={false}
-        Actions={Actions}
       />
     );
-    const results = await axe(container);
 
-    expect(results).toHaveNoViolations();
+    if (!existingDate) {
+      fireEvent.change(screen.getByLabelText(/Fra dato/), { target: { value: '2025-01-15' } });
+    }
 
-    cleanup();
+    await waitFor(() => expect(callbacks.onGrunnbelopChange).toHaveBeenCalledExactlyOnceWith(130160));
+    expect(getGrunnbeloep).toHaveBeenCalledExactlyOnceWith('2025-01-15');
   });
 
-  it.todo('should have no a11y violations for more rows - when Datovelger behaves', async () => {
-    const mockDispatch = vi.fn();
-
-    const { container } = render(
-      <KravPeriode
-        dispatch={mockDispatch}
-        index={1}
-        enkeltPeriode={enkeltPeriode}
-        lonnspliktDager={260}
-        slettbar={true}
-        Actions={Actions}
-      />
-    );
-    const results = await axe(container);
-
-    expect(results).toHaveNoViolations();
-
-    cleanup();
-  });
+  it.todo('should have no a11y violations for 1 row');
+  it.todo('should have no a11y violations for more rows - when Datovelger behaves');
 });

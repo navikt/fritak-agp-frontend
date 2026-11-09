@@ -17,56 +17,32 @@ import stringishToNumber from '../../utils/stringishToNumber';
 import { datoToString } from '../../utils/dato/Dato';
 import textify from '../../utils/textify';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyDispatch = (action: any) => void;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyActions = any;
-
 interface KravPeriodeProps {
-  dispatch: AnyDispatch;
   enkeltPeriode: KroniskKravPeriode;
   index: number;
   lonnspliktDager: number | undefined;
   slettbar: boolean;
-  Actions: AnyActions;
+  onFraChange: (fra: Date | undefined) => void;
+  onTilChange: (til: Date | undefined) => void;
+  onDagerChange: (dager: number | undefined) => void;
+  onBelopChange: (belop: number | undefined) => void;
+  onSykemeldingsgradChange: (sykemeldingsgrad: string) => void;
+  onGrunnbelopChange: (grunnbelop: number) => void;
+  onDelete: () => void;
 }
 
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
-  const dispatch = props.dispatch;
 
-  const Actions = props.Actions;
-  const fjernPeriode = (itemId: string): void => {
-    dispatch({
-      type: Actions.DeletePeriode,
-      payload: {
-        itemId
-      }
-    });
-  };
-
-  const fraDatoValgt = (fraDato: Date | undefined, itemId: string) => {
+  const fraDatoValgt = (fraDato: Date | undefined) => {
     if (fraDato) {
       getGrunnbeloep(format(fraDato, 'yyyy-MM-dd')).then((grunnbelopRespons) => {
         if (grunnbelopRespons.grunnbeloep) {
-          dispatch({
-            type: Actions.Grunnbeloep,
-            payload: {
-              grunnbeloep: grunnbelopRespons.grunnbeloep.grunnbeloep,
-              itemId: itemId
-            }
-          });
+          props.onGrunnbelopChange(grunnbelopRespons.grunnbeloep.grunnbeloep);
         }
       });
     }
-    dispatch({
-      type: Actions.Fra,
-      payload: {
-        fra: fraDato,
-        itemId: itemId
-      }
-    });
+    props.onFraChange(fraDato);
   };
 
   const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
@@ -83,13 +59,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
     if (props.enkeltPeriode.fom?.year) {
       getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbelopRespons) => {
         if (grunnbelopRespons.grunnbeloep) {
-          dispatch({
-            type: Actions.Grunnbeloep,
-            payload: {
-              grunnbeloep: grunnbelopRespons.grunnbeloep.grunnbeloep,
-              itemId: props.enkeltPeriode.uniqueKey
-            }
-          });
+          props.onGrunnbelopChange(grunnbelopRespons.grunnbeloep.grunnbeloep);
         }
       });
     }
@@ -100,9 +70,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
       <Datovelger
         id={`fra-dato-${props.index}`}
         label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_FRA)}</div>}
-        onDateChange={(fraDato: Date | undefined) => {
-          fraDatoValgt(fraDato, props.enkeltPeriode.uniqueKey);
-        }}
+        onDateChange={fraDatoValgt}
         error={props.enkeltPeriode.fomError}
         toDate={today}
         fromDate={MIN_KRONISK_DATO}
@@ -111,15 +79,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
       <Datovelger
         id={`til-dato-${props.index}`}
         label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_TIL)}</div>}
-        onDateChange={(tilDate: Date | undefined) => {
-          dispatch({
-            type: Actions.Til,
-            payload: {
-              til: tilDate,
-              itemId: props.enkeltPeriode.uniqueKey
-            }
-          });
-        }}
+        onDateChange={props.onTilChange}
         error={props.enkeltPeriode.tomError}
         toDate={today}
         defaultSelected={defaultTom}
@@ -140,13 +100,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         id={`dager-${props.index}`}
         value={props.enkeltPeriode.dager}
         onChange={(event: React.FormEvent<HTMLSelectElement>) =>
-          dispatch({
-            type: Actions.Dager,
-            payload: {
-              dager: stringishToNumber(event.currentTarget.value),
-              itemId: props.enkeltPeriode.uniqueKey
-            }
-          })
+          props.onDagerChange(stringishToNumber(event.currentTarget.value))
         }
         error={props.enkeltPeriode.dagerError}
       />
@@ -170,13 +124,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         placeholder='Kr:'
         defaultValue={props.enkeltPeriode.belop}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          dispatch({
-            type: Actions.Beloep,
-            payload: {
-              belop: stringishToNumber(event.currentTarget.value),
-              itemId: props.enkeltPeriode.uniqueKey
-            }
-          })
+          props.onBelopChange(stringishToNumber(event.currentTarget.value))
         }
         error={props.enkeltPeriode.belopError}
       />
@@ -196,13 +144,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         placeholder='100%'
         defaultValue={defaultSykemeldingsgrad}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          dispatch({
-            type: Actions.Sykemeldingsgrad,
-            payload: {
-              sykemeldingsgrad: event.currentTarget.value,
-              itemId: props.enkeltPeriode.uniqueKey
-            }
-          })
+          props.onSykemeldingsgradChange(event.currentTarget.value)
         }
         error={props.enkeltPeriode.sykemeldingsgradError}
       />
@@ -224,12 +166,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
       </div>
       {props.slettbar && (
         <div className='slett-periode-wrapper'>
-          <Button
-            data-color='danger'
-            variant='primary'
-            onClick={() => fjernPeriode(props.enkeltPeriode.uniqueKey)}
-            className='slett-periode'
-          >
+          <Button data-color='danger' variant='primary' onClick={() => props.onDelete()} className='slett-periode'>
             Slett
           </Button>
         </div>

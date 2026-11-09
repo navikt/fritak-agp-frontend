@@ -318,13 +318,29 @@ const GravidKrav = (props: GravidKravProps) => {
         >
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
-              dispatch={dispatch}
               enkeltPeriode={enkeltPeriode}
               index={index}
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
               slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-              Actions={Actions}
+              onFraChange={(fra) => dispatch({ type: Actions.Fra, payload: { fra, itemId: enkeltPeriode.uniqueKey } })}
+              onTilChange={(til) => dispatch({ type: Actions.Til, payload: { til, itemId: enkeltPeriode.uniqueKey } })}
+              onDagerChange={(dager) =>
+                dispatch({ type: Actions.Dager, payload: { dager, itemId: enkeltPeriode.uniqueKey } })
+              }
+              onBelopChange={(belop) =>
+                dispatch({ type: Actions.Beloep, payload: { belop, itemId: enkeltPeriode.uniqueKey } })
+              }
+              onSykemeldingsgradChange={(sykemeldingsgrad) =>
+                dispatch({
+                  type: Actions.Sykemeldingsgrad,
+                  payload: { sykemeldingsgrad, itemId: enkeltPeriode.uniqueKey }
+                })
+              }
+              onGrunnbelopChange={(grunnbeloep) =>
+                dispatch({ type: Actions.Grunnbeloep, payload: { grunnbeloep, itemId: enkeltPeriode.uniqueKey } })
+              }
+              onDelete={() => dispatch({ type: Actions.DeletePeriode, payload: { itemId: enkeltPeriode.uniqueKey } })}
             />
           ))}
           <div>
