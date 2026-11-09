@@ -50,8 +50,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     aktuellPeriode.tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
 
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
-    aktuellPeriode.belopError = formatValidation(
-      validateBeloep(stringOrUndefined(aktuellPeriode.belop), MAX, !!state.validated),
+    aktuellPeriode.beloepError = formatValidation(
+      validateBeloep(stringOrUndefined(aktuellPeriode.beloep), MAX, !!state.validated),
       translate
     );
   });
@@ -69,8 +69,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
       pushFeilmelding(`dager-${index}`, aktuellPeriode.dagerError, feilmeldinger);
     }
 
-    if (aktuellPeriode.belopError) {
-      pushFeilmelding(`belop-${index}`, aktuellPeriode.belopError, feilmeldinger);
+    if (aktuellPeriode.beloepError) {
+      pushFeilmelding(`belop-${index}`, aktuellPeriode.beloepError, feilmeldinger);
     }
 
     if (aktuellPeriode.sykemeldingsgradError) {

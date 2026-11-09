@@ -14,7 +14,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            belop: 3000,
+            beloep: 3000,
             uniqueKey: '1'
           }
         ],
@@ -34,7 +34,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            belop: 3000,
+            beloep: 3000,
             uniqueKey: '1'
           }
         ],
@@ -54,7 +54,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('99.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            belop: 3000,
+            beloep: 3000,
             uniqueKey: '1'
           }
         ],
@@ -74,7 +74,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('99.04.2025'),
             dager: 5,
-            belop: 3000,
+            beloep: 3000,
             uniqueKey: '1'
           }
         ],
@@ -90,7 +90,7 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: undefined,
-        belop: 3000,
+        beloep: 3000,
         uniqueKey: '1'
       }
     ];
@@ -105,7 +105,7 @@ describe('mapKroniskKravRequest', () => {
         fra: parseDato('01.02.2020'),
         til: parseDato('02.04.2025'),
         dager: 3,
-        belop: undefined,
+        beloep: undefined,
         uniqueKey: '1'
       }
     ];
@@ -121,7 +121,7 @@ describe('mapKroniskKravRequest', () => {
         fom: parseDato('01.02.2020'),
         tom: parseDato('02.04.2025'),
         dager: 3,
-        belop: 3000,
+        beloep: 3000,
         uniqueKey: '1'
       }
     ];
@@ -163,7 +163,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            belop: 3000,
+            beloep: 3000,
             uniqueKey: '1'
           }
         ],
@@ -196,7 +196,7 @@ describe('mapKroniskKravRequest', () => {
             fom: parseDato('01.02.2020'),
             tom: parseDato('03.04.2025'),
             dager: 5,
-            belop: 3000,
+            beloep: 3000,
             uniqueKey: '1'
           }
         ],

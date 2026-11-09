@@ -35,9 +35,9 @@ const createCallbacks = () => ({
   onFraChange: vi.fn(),
   onTilChange: vi.fn(),
   onDagerChange: vi.fn(),
-  onBelopChange: vi.fn(),
+  onBeloepChange: vi.fn(),
   onSykemeldingsgradChange: vi.fn(),
-  onGrunnbelopChange: vi.fn(),
+  onGrunnbeloepChange: vi.fn(),
   onDelete: vi.fn()
 });
 
@@ -117,22 +117,22 @@ describe('KravPeriode', () => {
     expect(callbacks.onDelete).toHaveBeenCalledExactlyOnceWith();
   });
 
-  it('calls onBelopChange with a number when beløp has been updated', async () => {
+  it('calls onBeloepChange with a number when beløp has been updated', async () => {
     const callbacks = createCallbacks();
 
     render(
       <KravPeriode {...callbacks} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={true} />
     );
 
-    const inputBelop = screen.getByPlaceholderText('Kr:');
+    const inputBeloep = screen.getByPlaceholderText('Kr:');
 
-    fireEvent.change(inputBelop, { target: { value: '20000' } });
+    fireEvent.change(inputBeloep, { target: { value: '20000' } });
 
-    expect(callbacks.onBelopChange).toHaveBeenCalledExactlyOnceWith(20000);
+    expect(callbacks.onBeloepChange).toHaveBeenCalledExactlyOnceWith(20000);
 
-    fireEvent.change(inputBelop, { target: { value: '' } });
+    fireEvent.change(inputBeloep, { target: { value: '' } });
 
-    expect(callbacks.onBelopChange).toHaveBeenLastCalledWith(undefined);
+    expect(callbacks.onBeloepChange).toHaveBeenLastCalledWith(undefined);
   });
 
   it('calls onDagerChange with a number when dager has been updated', async () => {
@@ -165,9 +165,9 @@ describe('KravPeriode', () => {
   });
 
   it.each([
-    { label: /Fra dato/, callback: 'onFraChange' as const, grunnbelopCalls: [['2025-01-15']] },
-    { label: /Til dato/, callback: 'onTilChange' as const, grunnbelopCalls: [] }
-  ])('calls $callback with the selected date and undefined when cleared', ({ label, callback, grunnbelopCalls }) => {
+    { label: /Fra dato/, callback: 'onFraChange' as const, grunnbeloepCalls: [['2025-01-15']] },
+    { label: /Til dato/, callback: 'onTilChange' as const, grunnbeloepCalls: [] }
+  ])('calls $callback with the selected date and undefined when cleared', ({ label, callback, grunnbeloepCalls }) => {
     const callbacks = createCallbacks();
     render(
       <KravPeriode {...callbacks} index={0} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={false} />
@@ -180,10 +180,10 @@ describe('KravPeriode', () => {
     fireEvent.change(screen.getByLabelText(label), { target: { value: '' } });
 
     expect(callbacks[callback]).toHaveBeenLastCalledWith(undefined);
-    expect(vi.mocked(getGrunnbeloep).mock.calls).toEqual(grunnbelopCalls);
+    expect(vi.mocked(getGrunnbeloep).mock.calls).toEqual(grunnbeloepCalls);
   });
 
-  it.each([false, true])('calls onGrunnbelopChange for an existing from-date: %s', async (existingDate) => {
+  it.each([false, true])('calls onGrunnbeloepChange for an existing from-date: %s', async (existingDate) => {
     const callbacks = createCallbacks();
     vi.mocked(getGrunnbeloep).mockResolvedValue({
       status: HttpStatus.Successfully,
@@ -209,7 +209,7 @@ describe('KravPeriode', () => {
       fireEvent.change(screen.getByLabelText(/Fra dato/), { target: { value: '2025-01-15' } });
     }
 
-    await waitFor(() => expect(callbacks.onGrunnbelopChange).toHaveBeenCalledExactlyOnceWith(130160));
+    await waitFor(() => expect(callbacks.onGrunnbeloepChange).toHaveBeenCalledExactlyOnceWith(130160));
     expect(getGrunnbeloep).toHaveBeenCalledExactlyOnceWith('2025-01-15');
   });
 

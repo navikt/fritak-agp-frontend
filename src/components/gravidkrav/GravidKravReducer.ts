@@ -74,12 +74,12 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
 
     case Actions.Beloep: {
       checkItemId(payload?.itemId);
-      const belopPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
-      if (!belopPeriode) {
+      const beloepPeriode = nextState.perioder.find((periode) => periode.uniqueKey === payload?.itemId);
+      if (!beloepPeriode) {
         return nextState;
       }
       nextState.formDirty = true;
-      belopPeriode.belop = payload?.belop;
+      beloepPeriode.beloep = payload?.beloep;
 
       return validateGravidKrav(nextState, translate);
     }
@@ -144,7 +144,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       return nextState;
     }
 
-    case Actions.antallDager:
+    case Actions.AntallDager:
       nextState.antallDager = payload?.antallDager;
       return validateGravidKrav(nextState, translate);
 
@@ -182,7 +182,7 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
           fom: parseISO(periode.fom),
           tom: parseISO(periode.tom),
           dager: Number(periode.antallDagerMedRefusjon),
-          belop: Number(periode.månedsinntekt),
+          beloep: Number(periode.månedsinntekt),
           sykemeldingsgrad: (periode.gradering * 100).toString()
         }));
         nextState.kravId = krav.id;

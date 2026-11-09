@@ -71,7 +71,7 @@ const GravidKrav = (props: GravidKravProps) => {
   };
 
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
-    dispatch({ type: Actions.antallDager, payload: { antallDager: stringishToNumber(dager) } });
+    dispatch({ type: Actions.AntallDager, payload: { antallDager: stringishToNumber(dager) } });
   };
 
   const setEndringsAarsak = (aarsak: EndringsAarsak) => {
@@ -309,8 +309,8 @@ const GravidKrav = (props: GravidKravProps) => {
               onDagerChange={(dager) =>
                 dispatch({ type: Actions.Dager, payload: { dager, itemId: enkeltPeriode.uniqueKey } })
               }
-              onBelopChange={(belop) =>
-                dispatch({ type: Actions.Beloep, payload: { belop, itemId: enkeltPeriode.uniqueKey } })
+              onBeloepChange={(beloep) =>
+                dispatch({ type: Actions.Beloep, payload: { beloep, itemId: enkeltPeriode.uniqueKey } })
               }
               onSykemeldingsgradChange={(sykemeldingsgrad) =>
                 dispatch({
@@ -318,7 +318,7 @@ const GravidKrav = (props: GravidKravProps) => {
                   payload: { sykemeldingsgrad, itemId: enkeltPeriode.uniqueKey }
                 })
               }
-              onGrunnbelopChange={(grunnbeloep) =>
+              onGrunnbeloepChange={(grunnbeloep) =>
                 dispatch({ type: Actions.Grunnbeloep, payload: { grunnbeloep, itemId: enkeltPeriode.uniqueKey } })
               }
               onDelete={() => dispatch({ type: Actions.DeletePeriode, payload: { itemId: enkeltPeriode.uniqueKey } })}

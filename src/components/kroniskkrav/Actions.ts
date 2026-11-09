@@ -19,8 +19,8 @@ export enum Actions {
   Kvittering,
   NotAuthorized,
   Grunnbeloep,
-  antallDager,
-  AddPeriod,
+  AntallDager,
+  AddPeriode,
   DeletePeriode,
   Sykemeldingsgrad,
   KravEndring,
@@ -42,7 +42,7 @@ interface Payload {
   fra?: Date;
   til?: Date;
   dager?: number;
-  belop?: number;
+  beloep?: number;
   videre?: boolean;
   bekreft?: boolean;
   progress?: boolean;
