@@ -56,19 +56,13 @@ const buildReducer =
 
 const KroniskKrav = (props: KroniskKravProps) => {
   const { t, i18n } = useTranslation();
-  const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
-  const { arbeidsgiverId } = useArbeidsgiver();
   const { language, idKrav } = useParams();
-
   const navigate = useNavigate();
+  const { arbeidsgiverId } = useArbeidsgiver();
 
+  const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultKroniskKravState);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const submissionInFlight = useRef(false);
-
-  useEffect(() => {
-    document.title =
-      'Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no';
-  }, []);
 
   const dispatchResponse = (response: ValidationResponse<KroniskKravResponse>) => {
     dispatch({
@@ -77,12 +71,23 @@ const KroniskKrav = (props: KroniskKravProps) => {
     });
   };
 
-  const handleCloseNotAuthorized = () => {
-    dispatch({ type: Actions.NotAuthorized });
-  };
-
   const setArbeidsdagerDagerPrAar = (dager: string | undefined) => {
     dispatch({ type: Actions.antallDager, payload: { antallDager: stringishToNumber(dager) } });
+  };
+
+  const setEndringsAarsak = (aarsak: EndringsAarsak) => {
+    dispatch({
+      type: Actions.EndringsAarsak,
+      payload: {
+        endringsAarsak: aarsak
+      }
+    });
+  };
+
+  const leggTilPeriode = () => {
+    dispatch({
+      type: Actions.AddPeriod
+    });
   };
 
   const handleSubmitClicked = async () => {
@@ -116,20 +121,6 @@ const KroniskKrav = (props: KroniskKravProps) => {
     }
   };
 
-  const handleCloseServerFeil = () => {
-    dispatch({ type: Actions.HideServerError });
-  };
-
-  const handleCloseDuplicateFeil = () => {
-    dispatch({ type: Actions.HideDuplicateSubmissionError });
-  };
-
-  const leggTilPeriode = () => {
-    dispatch({
-      type: Actions.AddPeriod
-    });
-  };
-
   const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     window.location.href = environment.minSideArbeidsgiver;
@@ -141,15 +132,6 @@ const KroniskKrav = (props: KroniskKravProps) => {
       type: Actions.RemoveBackendError
     });
     setModalOpen(true);
-  };
-
-  const setEndringsAarsak = (aarsak: EndringsAarsak) => {
-    dispatch({
-      type: Actions.EndringsAarsak,
-      payload: {
-        endringsAarsak: aarsak
-      }
-    });
   };
 
   const onOKClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -175,6 +157,23 @@ const KroniskKrav = (props: KroniskKravProps) => {
       });
     }
   };
+
+  const handleCloseNotAuthorized = () => {
+    dispatch({ type: Actions.NotAuthorized });
+  };
+
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
+  };
+
+  const handleCloseDuplicateFeil = () => {
+    dispatch({ type: Actions.HideDuplicateSubmissionError });
+  };
+
+  useEffect(() => {
+    document.title =
+      'Krav om refusjon av sykepenger i arbeidsgiverperioden ved kronisk eller langvarig syk ansatt - nav.no';
+  }, []);
 
   useEffect(() => {
     if (arbeidsgiverId.length > 0) {

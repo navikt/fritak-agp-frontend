@@ -54,17 +54,32 @@ import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/D
 
 export const MAX_TILTAK_BESKRIVELSE = 2000;
 
+const buildReducer =
+  (Translate: i18n): Reducer<GravidState, GravidAction> =>
+  (bulkState: GravidState, action: GravidAction) =>
+    GravidReducer(bulkState, action, Translate);
+
 const GravidSide = (props: GravidSideProps) => {
   const { t, i18n } = useTranslation();
   const { language } = useParams();
   const { saveResponse } = useContext(GravidSoknadKvitteringContext);
 
-  const GravidReducerSettOpp =
-    (Translate: i18n): Reducer<GravidState, GravidAction> =>
-    (bulkState: GravidState, action: GravidAction) =>
-      GravidReducer(bulkState, action, Translate);
+  const [state, dispatch] = useReducer(buildReducer(i18n), props.state, defaultGravidState);
+  const [files, setFiles] = useState<FileObject[]>([]);
 
-  const GravidReducerI18n: Reducer<GravidState, GravidAction> = GravidReducerSettOpp(i18n);
+  const isCheckboxChecked = (checkbox: Tiltak): boolean => {
+    const foundElement = state.tiltak?.find((element) => {
+      return element === checkbox;
+    });
+
+    return !!foundElement;
+  };
+
+  const parseTermindato = (value: string | undefined): Date | undefined => {
+    if (!value) return undefined;
+    const parsed = parse(value, 'dd.MM.yyyy', new Date());
+    return isNaN(parsed.getTime()) ? undefined : parsed;
+  };
 
   const handleTilretteleggingChange = (val: string) => {
     dispatch({
@@ -72,12 +87,6 @@ const GravidSide = (props: GravidSideProps) => {
       payload: { tilrettelegge: val === 'ja' }
     });
   };
-  const [state, dispatch] = useReducer(GravidReducerI18n, props.state, defaultGravidState);
-
-  useEffect(() => {
-    document.title = 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
-  }, []);
-
   const handleUploadChanged = (file: FileObject[]) => {
     setFiles(file);
     if (file) {
@@ -103,27 +112,23 @@ const GravidSide = (props: GravidSideProps) => {
   const handleSubmitClicked = async () => {
     dispatch({ type: Actions.Validate });
   };
-  const handleCloseServerFeil = () => {
-    dispatch({ type: Actions.HideServerError });
-  };
-  const handleCloseNotAuthorized = () => {
-    dispatch({ type: Actions.NotAuthorized });
-  };
-  const handleCloseDuplicateFeil = () => {
-    dispatch({ type: Actions.HideDuplicateSubmissionError });
-  };
   const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     window.location.href = environment.minSideArbeidsgiver;
   };
-
-  const isCheckboxChecked = (checkbox: Tiltak): boolean => {
-    const foundElement = state.tiltak?.find((element) => {
-      return element === checkbox;
-    });
-
-    return !!foundElement;
+  const handleCloseNotAuthorized = () => {
+    dispatch({ type: Actions.NotAuthorized });
   };
+  const handleCloseServerFeil = () => {
+    dispatch({ type: Actions.HideServerError });
+  };
+  const handleCloseDuplicateFeil = () => {
+    dispatch({ type: Actions.HideDuplicateSubmissionError });
+  };
+
+  useEffect(() => {
+    document.title = 'Søknad om at NAV dekker sykepenger i arbeidsgiverperioden for gravid ansatt - nav.no';
+  }, []);
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
@@ -166,20 +171,12 @@ const GravidSide = (props: GravidSideProps) => {
     state.termindato
   ]);
 
-  const title = t(GravidSideKeys.GRAVID_SIDE_TITTEL);
-  const subtitle = t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL);
-
-  const parseTermindato = (value: string | undefined): Date | undefined => {
-    if (!value) return undefined;
-    const parsed = parse(value, 'dd.MM.yyyy', new Date());
-    return isNaN(parsed.getTime()) ? undefined : parsed;
-  };
-
-  const [files, setFiles] = useState<FileObject[]>([]);
-
   if (state.kvittering) {
     return <Navigate to={buildLenke(lenker.GravidKvittering, (language as Language) || Language.nb)} replace />;
   }
+
+  const title = t(GravidSideKeys.GRAVID_SIDE_TITTEL);
+  const subtitle = t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL);
 
   return (
     <Side
