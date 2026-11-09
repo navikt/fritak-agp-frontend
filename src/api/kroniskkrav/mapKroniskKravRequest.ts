@@ -30,7 +30,7 @@ export const mapKroniskKravRequest = (
     if (enkeltPeriode.dager === undefined) {
       throw new Error('Dager må spesifiseres');
     }
-    if (enkeltPeriode.belop === undefined) {
+    if (enkeltPeriode.beloep === undefined) {
       throw new Error('Beløp må spesifiseres');
     }
   });

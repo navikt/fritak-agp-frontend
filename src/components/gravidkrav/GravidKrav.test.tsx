@@ -44,7 +44,7 @@ describe('GravidKrav', () => {
         antallDager: 260,
         bekreft: true,
         perioder: [
-          { uniqueKey: 'periode', fom: parseDato('02.08.2021'), tom: parseDato('06.08.2021'), dager: 5, belop: 35000 }
+          { uniqueKey: 'periode', fom: parseDato('02.08.2021'), tom: parseDato('06.08.2021'), dager: 5, beloep: 35000 }
         ],
         ...overrides
       });
@@ -120,17 +120,17 @@ describe('GravidKrav', () => {
       router.dispose();
     });
 
-    it('sends only once during rapid clicks, field edits and a grunnbelop update', async () => {
+    it('sends only once during rapid clicks, field edits and a grunnbeloep update', async () => {
       let finishRequest!: (response: ValidationResponse<GravidKravResponse>) => void;
       vi.mocked(postGravidKrav).mockReturnValue(
         new Promise((resolve) => {
           finishRequest = resolve;
         })
       );
-      let finishGrunnbelop!: (response: Awaited<ReturnType<typeof getGrunnbeloep>>) => void;
+      let finishGrunnbeloep!: (response: Awaited<ReturnType<typeof getGrunnbeloep>>) => void;
       vi.mocked(getGrunnbeloep).mockReturnValue(
         new Promise((resolve) => {
-          finishGrunnbelop = resolve;
+          finishGrunnbeloep = resolve;
         })
       );
       const router = renderForm(validState());
@@ -143,7 +143,7 @@ describe('GravidKrav', () => {
         target: { value: '40000' }
       });
       await act(async () => {
-        finishGrunnbelop({
+        finishGrunnbeloep({
           status: HttpStatus.Successfully,
           grunnbeloep: {
             dato: '2021-05-01',

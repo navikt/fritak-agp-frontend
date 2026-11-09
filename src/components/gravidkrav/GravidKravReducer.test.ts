@@ -210,12 +210,12 @@ describe('GravidKravReducer', () => {
       defaultState,
       {
         type: Actions.Beloep,
-        payload: { belop: 233, itemId }
+        payload: { beloep: 233, itemId }
       },
       translationMock as unknown as i18n
     );
 
-    expect(state.perioder && state.perioder[0].belop).toEqual(233);
+    expect(state.perioder && state.perioder[0].beloep).toEqual(233);
   });
 
   it('should set the kvittering', () => {
@@ -395,7 +395,7 @@ describe('GravidKravReducer', () => {
     const state = GravidKravReducer(
       defaultGravidKravState(),
       {
-        type: Actions.antallDager,
+        type: Actions.AntallDager,
         payload: { antallDager: 14950 }
       },
       translationMock as unknown as i18n
@@ -407,7 +407,7 @@ describe('GravidKravReducer', () => {
     const state = GravidKravReducer(
       defaultGravidKravState(),
       {
-        type: Actions.antallDager,
+        type: Actions.AntallDager,
         payload: { antallDager: 0 }
       },
       translationMock as unknown as i18n
@@ -697,7 +697,7 @@ describe('GravidKravReducer', () => {
       defaultState,
       {
         type: Actions.Beloep,
-        payload: { belop: 10000, itemId: 'non-existent-id' }
+        payload: { beloep: 10000, itemId: 'non-existent-id' }
       },
       translationMock as unknown as i18n
     );
@@ -761,6 +761,7 @@ describe('GravidKravReducer', () => {
     expect(state.kravId).toEqual('123');
     expect(state.endringskrav).toBe(true);
     expect(state.perioder?.length).toBeGreaterThan(0);
+    expect(state.perioder?.[0].beloep).toBe(25000);
   });
 
   it('should return state unchanged when KravEndring has no krav', () => {

@@ -65,7 +65,7 @@ describe('validateKroniskKrav', () => {
     expect(state2.perioder ? state2.perioder[0].fomError : 'defined').toBeUndefined();
     expect(state2.perioder ? state2.perioder[0].tomError : 'defined').toBeUndefined();
     expect(state2.perioder ? state2.perioder[0].dagerError : 'defined').toBeUndefined();
-    expect(state2.perioder ? state2.perioder[0].belopError : 'defined').toBeUndefined();
+    expect(state2.perioder ? state2.perioder[0].beloepError : 'defined').toBeUndefined();
     expect(state2.bekreftError).toBeUndefined();
   });
 });

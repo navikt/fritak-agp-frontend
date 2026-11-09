@@ -68,7 +68,7 @@ describe('validateGravidKrav', () => {
     expect(state2.perioder[0].fomError).toBeUndefined();
     expect(state2.perioder[0].tomError).toBeUndefined();
     expect(state2.perioder[0].dagerError).toBeUndefined();
-    expect(state2.perioder[0].belopError).toBeUndefined();
+    expect(state2.perioder[0].beloepError).toBeUndefined();
     expect(state2.bekreftError).toBeUndefined();
   });
 });

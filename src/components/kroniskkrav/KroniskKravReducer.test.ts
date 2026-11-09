@@ -211,11 +211,11 @@ describe('KroniskKravReducer', () => {
       defaultKrav,
       {
         type: Actions.Beloep,
-        payload: { belop: 233, itemId }
+        payload: { beloep: 233, itemId }
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].belop).toEqual(233);
+    expect(state.perioder && state.perioder[0].beloep).toEqual(233);
     expect(state.formDirty).toBe(true);
   });
 
@@ -379,7 +379,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
-        type: Actions.antallDager,
+        type: Actions.AntallDager,
         payload: { antallDager: 14950 }
       },
       i18n
@@ -391,7 +391,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKroniskKravState(),
       {
-        type: Actions.antallDager,
+        type: Actions.AntallDager,
         payload: { antallDager: 0 }
       },
       i18n
@@ -479,7 +479,7 @@ describe('KroniskKravReducer', () => {
     expect(state.notAuthorized).toBe(false);
   });
 
-  it('should add periode when the action is AddPeriod', () => {
+  it('should add periode when the action is AddPeriode', () => {
     const defaultKrav = defaultKroniskKravState();
 
     expect(defaultKrav.perioder?.length).toBe(1);
@@ -487,7 +487,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.AddPeriod
+        type: Actions.AddPeriode
       },
       i18n
     );
@@ -502,7 +502,7 @@ describe('KroniskKravReducer', () => {
     const state = KroniskKravReducer(
       defaultKrav,
       {
-        type: Actions.AddPeriod
+        type: Actions.AddPeriode
       },
       i18n
     );
@@ -572,6 +572,7 @@ describe('KroniskKravReducer', () => {
     const fom = state.perioder![0].fom;
     const tom = state.perioder![0].tom;
 
+    expect(state.perioder![0].beloep).toBe(123);
     expect(fom?.value).toBe('12.11.2022');
     expect(tom?.value).toBe('13.12.2022');
   });
@@ -753,7 +754,7 @@ describe('KroniskKravReducer', () => {
         defaultKroniskKravState(),
         {
           type: Actions.Beloep,
-          payload: { belop: 10000 }
+          payload: { beloep: 10000 }
         },
         i18n
       );
@@ -805,7 +806,7 @@ describe('KroniskKravReducer', () => {
       defaultState,
       {
         type: Actions.Beloep,
-        payload: { belop: 10000, itemId: 'non-existent-id' }
+        payload: { beloep: 10000, itemId: 'non-existent-id' }
       },
       i18n
     );
