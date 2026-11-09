@@ -2,8 +2,8 @@ import React from 'react';
 import GravidSide from './GravidSide';
 import { defaultGravidState } from './GravidState';
 import '../../mockData/mockWindowLocation';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom';
 import testFnr from '../../mockData/testFnr';
 import testOrgnr from '../../mockData/testOrgnr';
 import { Omplassering } from './Omplassering';
@@ -78,6 +78,56 @@ describe('GravidSide', () => {
   beforeEach(() => {
     vi.mocked(postGravid).mockReset();
     vi.mocked(postGravid).mockResolvedValue({ status: HttpStatus.Error } as Awaited<ReturnType<typeof postGravid>>);
+  });
+
+  it.each([
+    { path: '/nb/gravid/soknad', route: '/:language/gravid/soknad', receipt: '/nb/gravid/soknad/kvittering' },
+    { path: '/en/gravid/soknad', route: '/:language/gravid/soknad', receipt: '/en/gravid/soknad/kvittering' },
+    { path: '/gravid/soknad', route: '/gravid/soknad', receipt: '/nb/gravid/soknad/kvittering' }
+  ])('replaces $path with $receipt after successful submission', async ({ path, route, receipt }) => {
+    const consoleError = vi.spyOn(console, 'error');
+    const state = defaultGravidState();
+    state.kvittering = true;
+    const router = createMemoryRouter(
+      [
+        { path: '/before', element: <div>Before form</div> },
+        { path: route, element: <GravidSide state={state} /> },
+        { path: receipt, element: <div>Receipt</div> }
+      ],
+      { initialEntries: ['/before', path], initialIndex: 1 }
+    );
+
+    try {
+      render(<RouterProvider router={router} />);
+
+      await waitFor(() => expect(router.state.location.pathname).toBe(receipt));
+      expect(router.state.historyAction).toBe('REPLACE');
+      expect(consoleError.mock.calls.flat().join(' ')).not.toMatch(
+        /Cannot update a component|You should call navigate\(\) in a React\.useEffect/
+      );
+
+      await act(() => router.navigate(-1));
+
+      expect(router.state.location.pathname).toBe('/before');
+    } finally {
+      consoleError.mockRestore();
+      router.dispose();
+    }
+  });
+
+  it.each([false, true])('stays on the form with validation errors and serverError=%s', (serverError) => {
+    const state = defaultGravidState();
+    state.kvittering = false;
+    state.serverError = serverError;
+    state.feilmeldinger = [lagFeil('fnr', 'Test validation error')];
+    const router = createMemoryRouter([{ path: '/nb/gravid/soknad', element: <GravidSide state={state} /> }], {
+      initialEntries: ['/nb/gravid/soknad']
+    });
+    render(<RouterProvider router={router} />);
+
+    expect(router.state.historyAction).toBe('POP');
+    expect(router.state.location.pathname).toBe('/nb/gravid/soknad');
+    router.dispose();
   });
 
   it('skal vise progress mens venter på svar', () => {

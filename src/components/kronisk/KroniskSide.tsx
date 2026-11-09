@@ -17,7 +17,7 @@ import { i18n } from 'i18next';
 import { KroniskSideKeys } from './KroniskSideKeys';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { KroniskSoknadKvitteringContext } from '../../context/KroniskSoknadKvitteringContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import {
   BodyLong,
   Box,
@@ -51,7 +51,6 @@ const KroniskSide = () => {
   const { saveResponse } = useContext(KroniskSoknadKvitteringContext);
 
   const { language } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     document.title =
@@ -132,8 +131,7 @@ const KroniskSide = () => {
   const [files, setFiles] = useState<FileObject[]>([]);
 
   if (state.kvittering === true) {
-    navigate(buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb), { replace: true });
-    return null;
+    return <Navigate to={buildLenke(lenker.KroniskKvittering, (language as Language) || Language.nb)} replace />;
   }
 
   const sidetittel = t(KroniskSideKeys.KRONISK_SIDE_SIDETITTEL);

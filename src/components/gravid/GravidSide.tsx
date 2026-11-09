@@ -21,7 +21,7 @@ import { i18n } from 'i18next';
 import LangKey from '../../locale/LangKey';
 import lenker, { buildLenke } from '../../config/lenker';
 import { GravidSideKeys } from './GravidSideKeys';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
 import { parse } from 'date-fns';
@@ -58,8 +58,6 @@ const GravidSide = (props: GravidSideProps) => {
   const { t, i18n } = useTranslation();
   const { language } = useParams();
   const { saveResponse } = useContext(GravidSoknadKvitteringContext);
-
-  const navigate = useNavigate();
 
   const GravidReducerSettOpp =
     (Translate: i18n): Reducer<GravidState, GravidAction> =>
@@ -168,12 +166,6 @@ const GravidSide = (props: GravidSideProps) => {
     state.termindato
   ]);
 
-  useEffect(() => {
-    if (state.kvittering) {
-      navigate(buildLenke(lenker.GravidKvittering, language as Language), { replace: true });
-    }
-  }, [state.kvittering, language, navigate]);
-
   const title = t(GravidSideKeys.GRAVID_SIDE_TITTEL);
   const subtitle = t(GravidSideKeys.GRAVID_SIDE_UNDERTITTEL);
 
@@ -184,6 +176,10 @@ const GravidSide = (props: GravidSideProps) => {
   };
 
   const [files, setFiles] = useState<FileObject[]>([]);
+
+  if (state.kvittering) {
+    return <Navigate to={buildLenke(lenker.GravidKvittering, (language as Language) || Language.nb)} replace />;
+  }
 
   return (
     <Side

@@ -4,7 +4,7 @@ import { axe } from 'vitest-axe';
 import userEvent from '@testing-library/user-event';
 
 import KroniskKrav from './KroniskKrav';
-import { MemoryRouter } from 'react-router-dom';
+import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom';
 import { Organisasjon } from '@navikt/virksomhetsvelger';
 import testFnr from '../../mockData/testFnr';
 import testOrganisasjon from '../../mockData/testOrganisasjoner';
@@ -15,6 +15,7 @@ import buildResources from '../../locale/buildResources';
 import { LanguageProvider } from '../../context/language/LanguageContext';
 import { ArbeidsgiverProvider } from '../../context/arbeidsgiver/ArbeidsgiverContext';
 import { vi } from 'vitest';
+import { defaultKroniskKravState } from './KroniskKravState';
 
 const arbeidsgivere: Organisasjon[] = testOrganisasjon;
 vi.unmock('react-i18next');
@@ -30,6 +31,67 @@ describe('KroniskKrav', () => {
     }
   });
   const user = userEvent.setup();
+
+  it.each([
+    { path: '/nb/kronisk/krav', route: '/:language/kronisk/krav', receipt: '/nb/kronisk/krav/kvittering' },
+    { path: '/en/kronisk/krav', route: '/:language/kronisk/krav', receipt: '/en/kronisk/krav/kvittering' },
+    { path: '/kronisk/krav', route: '/kronisk/krav', receipt: '/nb/kronisk/krav/kvittering' }
+  ])('replaces $path with $receipt after successful submission', async ({ path, route, receipt }) => {
+    const consoleError = vi.spyOn(console, 'error');
+    const router = createMemoryRouter(
+      [
+        { path: '/before', element: <div>Before form</div> },
+        {
+          path: route,
+          element: <KroniskKrav state={defaultKroniskKravState({ kvittering: true, feilmeldinger: [] })} />
+        },
+        { path: receipt, element: <div>Receipt</div> }
+      ],
+      { initialEntries: ['/before', path], initialIndex: 1 }
+    );
+
+    try {
+      render(<RouterProvider router={router} />);
+
+      await waitFor(() => expect(router.state.location.pathname).toBe(receipt));
+      expect(router.state.historyAction).toBe('REPLACE');
+      expect(consoleError.mock.calls.flat().join(' ')).not.toMatch(
+        /Cannot update a component|You should call navigate\(\) in a React\.useEffect/
+      );
+
+      await act(() => router.navigate(-1));
+
+      expect(router.state.location.pathname).toBe('/before');
+    } finally {
+      consoleError.mockRestore();
+      router.dispose();
+    }
+  });
+
+  it.each([false, true])('stays on the form with validation errors and serverError=%s', (serverError) => {
+    const router = createMemoryRouter(
+      [
+        {
+          path: '/nb/kronisk/krav',
+          element: (
+            <KroniskKrav
+              state={defaultKroniskKravState({
+                kvittering: false,
+                serverError,
+                feilmeldinger: [{ skjemaelementId: 'fnr', feilmelding: 'Test validation error' }]
+              })}
+            />
+          )
+        }
+      ],
+      { initialEntries: ['/nb/kronisk/krav'] }
+    );
+    render(<RouterProvider router={router} />);
+
+    expect(router.state.historyAction).toBe('POP');
+    expect(router.state.location.pathname).toBe('/nb/kronisk/krav');
+    router.dispose();
+  });
 
   it('should have no a11y violations', async () => {
     let container: string | Element;
