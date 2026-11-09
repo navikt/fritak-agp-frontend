@@ -82,7 +82,7 @@
     "@vitest/eslint-plugin": "^1.6.28",
     "@vitest/ui": "^5.1.0",
     "cross-os": "1.6.0",
-    "eslint": "^10.13.0",
+    "eslint": "^10.14.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "husky": "~9.1.7",
     "knip": "^6.44.1",
