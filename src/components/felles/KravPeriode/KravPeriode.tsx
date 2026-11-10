@@ -36,7 +36,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   const fraDatoValgt = (fraDato: Date | undefined) => {
     if (fraDato) {
-      getGrunnbeloep(format(fraDato, 'yyyy-MM-dd')).then((grunnbeloepRespons) => {
+      void getGrunnbeloep(format(fraDato, 'yyyy-MM-dd')).then((grunnbeloepRespons) => {
         if (grunnbeloepRespons.grunnbeloep) {
           props.onGrunnbeloepChange(grunnbeloepRespons.grunnbeloep.grunnbeloep);
         }
@@ -57,7 +57,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
 
   useEffect(() => {
     if (props.enkeltPeriode.fom?.year) {
-      getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbeloepRespons) => {
+      void getGrunnbeloep(datoToString(props.enkeltPeriode.fom)).then((grunnbeloepRespons) => {
         if (grunnbeloepRespons.grunnbeloep) {
           props.onGrunnbeloepChange(grunnbeloepRespons.grunnbeloep.grunnbeloep);
         }
@@ -99,7 +99,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         className='periode-elementer'
         id={`dager-${props.index}`}
         value={props.enkeltPeriode.dager}
-        onChange={(event: React.FormEvent<HTMLSelectElement>) =>
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
           props.onDagerChange(stringishToNumber(event.currentTarget.value))
         }
         error={props.enkeltPeriode.dagerError}

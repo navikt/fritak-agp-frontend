@@ -90,7 +90,7 @@ const GravidSide = (props: GravidSideProps) => {
   const handleUploadChanged = (file: FileObject[]) => {
     setFiles(file);
     if (file) {
-      getBase64file(file[0].file).then((base64encoded) => {
+      void getBase64file(file[0].file).then((base64encoded) => {
         dispatch({
           type: Actions.Dokumentasjon,
           payload: {
@@ -132,7 +132,7 @@ const GravidSide = (props: GravidSideProps) => {
 
   useEffect(() => {
     if (state.validated === true && state.progress === true && state.submitting === true) {
-      postGravid(
+      void postGravid(
         environment.baseUrl,
         mapGravidRequest(
           state.fnr,
