@@ -120,12 +120,12 @@ const GravidKrav = (props: GravidKravProps) => {
     }
   };
 
-  const handleCancelClicked = (event: React.FormEvent) => {
+  const handleCancelClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     window.location.href = environment.minSideArbeidsgiver;
   };
 
-  const handleDeleteClicked = async (event: React.FormEvent) => {
+  const handleDeleteClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatch({
       type: Actions.RemoveBackendError
@@ -133,7 +133,7 @@ const GravidKrav = (props: GravidKravProps) => {
     setModalOpen(true);
   };
 
-  const onOKClicked = async (event: React.FormEvent) => {
+  const onOKClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (state.kravId) {
       dispatch({
