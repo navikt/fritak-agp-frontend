@@ -51,8 +51,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
     props.onDagerChange(defaultFom && tilDato ? differenceInCalendarDays(tilDato, defaultFom) + 1 : undefined);
   };
 
-  // const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
-
   const today = new Date();
 
   const defaultFom = props.enkeltPeriode.fom && isValid(props.enkeltPeriode.fom) ? props.enkeltPeriode.fom : undefined;
@@ -90,26 +88,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
         toDate={today}
         defaultSelected={defaultTom}
       />
-      {/* <SelectDager
-        label={
-          <div className='label-med-hjelp'>
-            {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
-            <HelpText
-              className='krav-padding-hjelpetekst'
-              title={textify(t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL))}
-            >
-              {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
-            </HelpText>
-          </div>
-        }
-        className='periode-elementer'
-        id={`dager-${props.index}`}
-        value={props.enkeltPeriode.dager}
-        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-          props.onDagerChange(stringishToNumber(event.currentTarget.value))
-        }
-        error={props.enkeltPeriode.dagerError}
-      /> */}
       <TextField
         label={
           <div className='label-med-hjelp'>
@@ -138,7 +116,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         id={`sykemeldingsgrad-${props.index}`}
         label={
           <div className='label-med-hjelp'>
-            Sykemeldingsgrad
+            Sykmeldings&shy;grad
             <HelpText className='krav-padding-hjelpetekst' title='Gradert sykmelding'>
               <TextLabel>Gradert sykmelding</TextLabel>
               Sykmeldingsgrad, minimum 20%
@@ -154,29 +132,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
         error={props.enkeltPeriode.sykemeldingsgradError}
       />
-      {/* <div>
-        <TextLabel>
-          <div className='label-med-hjelp'>
-            {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
-            <HelpText
-              className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
-              title={textify(t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL))}
-            >
-              <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
-            </HelpText>
-          </div>
-        </TextLabel>
-        <div className='skjemalelement tekstvisning'>
-          {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
-        </div>
-      </div> */}
       {props.slettbar && (
         <div className='slett-periode-wrapper'>
           <Button
             data-color='danger'
             variant='tertiary'
             onClick={() => props.onDelete()}
-            className='slett-periodeeee'
             icon={<TrashIcon aria-hidden />}
           >
             Slett

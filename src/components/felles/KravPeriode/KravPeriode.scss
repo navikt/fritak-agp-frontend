@@ -4,21 +4,75 @@
     // border: 1px solid #cdcecf;
     // box-shadow: 5px 5px 5px 2px #f5f3f0;
     display: grid;
-    grid-template-columns: [col1] 20% [col2] 20% [col3] auto [col4] 20% [col5] auto;
-    grid-template-rows: [row1] auto [row2] auto;
-    gap: 1rem;
+    align-items: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 1.3fr) minmax(0, 1fr) max-content;
+    grid-template-rows: auto auto auto;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+
+    > .aksel-form-field,
+    > .aksel-date__wrapper {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 3;
+        align-items: start;
+        min-width: 0;
+        width: 100%;
+    }
+
+    > .aksel-date__wrapper > .aksel-form-field {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: 1 / -1;
+        align-items: start;
+        min-width: 0;
+    }
+
+    .aksel-form-field__label {
+        align-self: end;
+        min-width: 0;
+    }
+
+    .aksel-date__field-wrapper,
+    .aksel-date__field-input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .slett-periode-wrapper {
+        grid-column: 5;
+        grid-row: 2;
+        align-self: center;
+        justify-self: center;
+    }
+
+    > .aksel-error-message {
+        grid-column: 1 / -1;
+    }
     
     @media screen and (max-width: 1024px) {
-        grid-template-columns: [col1] 50% [col2] auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        .slett-periode-wrapper {
+            grid-column: 1 / -1;
+            grid-row: auto;
+            justify-self: end;
+        }
     }
     
     @media screen and (max-width: 608px) {
-        grid-template-columns: [col1] auto;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .label-med-hjelp {
         display: flex;
-        white-space: nowrap;
+        align-items: center;
+        white-space: normal;
+        // overflow-wrap: anywhere;
+
+        button {
+            flex-shrink: 0;
+        }
 
         span {
             white-space: break-spaces;

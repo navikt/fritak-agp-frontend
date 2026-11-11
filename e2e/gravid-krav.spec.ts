@@ -4,8 +4,8 @@ import { test, expect } from '@playwright/test';
 import gravidKravResponse from './gravidKravResponse';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 
-import clickButton from './helpers/clickSubmit';
 import { FormPage } from './utils/formPage';
+import { assertKravPeriodLayout, fillKravWithPeriods, getKravInputSizes } from './helpers/krav';
 import { addDays, format } from 'date-fns';
 import { MAX_DAGER_MELLOM_PERIODER } from '../src/config/konstanter';
 
@@ -13,7 +13,7 @@ const arbeidsgiverAPI = /\/api\/v1\/arbeidsgiver-tilganger/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
 const grunnBeloep = /\/api\/v1\/grunnbeloep/;
 const innsendingAPI = /\/api\/v1\/gravid\/krav/;
-const deko = /\/dekoratoren/;
+const dekoratoren = /\/dekoratoren/;
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -45,7 +45,7 @@ test.describe('Gravid - Krav', () => {
     await page.route(innsendingAPI, (route) =>
       route.fulfill({ body: JSON.stringify(gravidKravResponse), status: 201, headers: headereJson })
     );
-    await page.route(deko, (route) => route.fulfill({ body: '', status: 201, headers: headereJson }));
+    await page.route(dekoratoren, (route) => route.fulfill({ body: '', status: 201, headers: headereJson }));
 
     await page.clock.setFixedTime(new Date('2021-08-25T10:00:00'));
 
@@ -192,7 +192,7 @@ test.describe('Gravid - Krav', () => {
         innsendinger.push(request.url());
       }
     });
-    await formPage.fillKravWithPeriods([
+    await fillKravWithPeriods(page, [
       { fom: '01.01.2021', tom: '05.01.2021' },
       { fom: format(ugyldigStart, 'dd.MM.yyyy'), tom: format(ugyldigStart, 'dd.MM.yyyy') }
     ]);
@@ -230,7 +230,7 @@ test.describe('Gravid - Krav', () => {
           innsendinger.push(request.url());
         }
       });
-      await formPage.fillKravWithPeriods([
+      await fillKravWithPeriods(page, [
         { fom: '01.01.2021', tom: '05.01.2021' },
         { fom: '05.01.2021', tom: '06.01.2021' }
       ]);
@@ -251,6 +251,35 @@ test.describe('Gravid - Krav', () => {
       expect(request.postDataJSON().perioder).toHaveLength(handling === 'korriger' ? 2 : 1);
       expect(innsendinger).toHaveLength(1);
       await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
+    });
+  }
+
+  for (const width of [360, 768, 1280]) {
+    test(`Stabil felthøyde og slett-knapp med feilmeldinger ved ${width}px`, async ({ page }, testInfo) => {
+      const formPage = new FormPage(page);
+      await page.setViewportSize({ width, height: 1000 });
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+      });
+      await fillKravWithPeriods(page, [
+        { fom: '01.01.2021', tom: '05.01.2021' },
+        { fom: '23.01.2021', tom: '23.01.2021' }
+      ]);
+      const inputSizes = await getKravInputSizes(page);
+
+      await formPage.clickButton('Send krav');
+      await expect(page.getByRole('link', { name: /dager mellom periodene/ })).toBeVisible();
+      await page.locator('#belop-0').fill('');
+      await page.locator('#sykemeldingsgrad-0').fill('10');
+
+      const updatedSizes = await getKravInputSizes(page);
+      expect(updatedSizes).toHaveLength(inputSizes.length);
+      updatedSizes.forEach((size, index) => {
+        expect(Math.abs(size.height - inputSizes[index].height)).toBeLessThanOrEqual(1);
+        expect(Math.abs(size.width - inputSizes[index].width)).toBeLessThanOrEqual(1);
+      });
+      await assertKravPeriodLayout(page, width);
+      await page.locator('#dager-total').screenshot({ path: testInfo.outputPath('perioder-med-feil.png') });
     });
   }
 

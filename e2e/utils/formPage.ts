@@ -7,20 +7,6 @@ export class FormPage {
     this.page = page;
   }
 
-  async fillKravWithPeriods(perioder: { fom: string; tom: string }[]): Promise<void> {
-    await this.fillInput('Fødselsnummer (11 siffer)', '20125027610');
-    await this.fillInput('Oppgi antall dager dere utbetaler lønn for i året:', '260');
-    await this.checkCheckbox('Jeg bekrefter at opplysningene jeg har gitt, er riktige og fullstendige.');
-    for (const [index, periode] of perioder.entries()) {
-      if (index > 0) {
-        await this.clickButton('+ Legg til en periode');
-      }
-      await this.page.getByRole('textbox', { name: 'Fra dato', exact: true }).nth(index).fill(periode.fom);
-      await this.page.getByRole('textbox', { name: 'Til dato', exact: true }).nth(index).fill(periode.tom);
-      await this.page.locator(`#belop-${index}`).fill('5000');
-    }
-  }
-
   getRadioButton(groupName: string | RegExp, optionLabel: string | RegExp): Locator {
     return this.page.getByRole('radiogroup', { name: groupName }).getByRole('radio', { name: optionLabel });
   }
