@@ -1,10 +1,10 @@
 .krav-kort {
     padding: 0.25rem 0.625rem 0.625rem;
-    border-radius: 0.125rem;
-    border: 1px solid #cdcecf;
-    box-shadow: 5px 5px 5px 2px #f5f3f0;
+    // border-radius: 0.125rem;
+    // border: 1px solid #cdcecf;
+    // box-shadow: 5px 5px 5px 2px #f5f3f0;
     display: grid;
-    grid-template-columns: [col1] 25% [col2] 25% [col3] auto [col4] 25%;
+    grid-template-columns: [col1] 20% [col2] 20% [col3] auto [col4] 20% [col5] auto;
     grid-template-rows: [row1] auto [row2] auto;
     gap: 1rem;
     

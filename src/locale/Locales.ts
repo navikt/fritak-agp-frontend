@@ -358,8 +358,8 @@ const Locales: Record<
     en: 'Period of absence'
   },
   GRAVID_KRAV_ARBEIDSTID_PERIODE: {
-    nb: 'Hvilken periode var den ansatte borte?',
-    en: 'What period was the employee away? '
+    nb: 'Fraværsperioder i arbeidsgiverperioden',
+    en: 'Periods of absence during the employer period'
   },
   GRAVID_KRAV_ARBEIDSTID_HJELPETEKST: {
     nb:
@@ -474,7 +474,7 @@ const Locales: Record<
     en: 'Amount has to be filled out'
   },
   GRAVID_KRAV_LEGG_TIL_PERIODE: {
-    nb: '+ Legg til en fraværsperiode',
+    nb: '+ Legg til en periode',
     en: '+ Add an absence period'
   },
   KRONISK_SIDE_SIDETITTEL: {
@@ -623,7 +623,7 @@ const Locales: Record<
     en: 'There is no historical absence due to new employment, longer leave or otherwise.'
   },
   KRONISK_KRAV_ARBEIDSTID_TAPT: {
-    nb: 'Fraværsperiode',
+    nb: 'Arbeidsgiverperiode',
     en: 'Period of absence'
   },
   KRONISK_KRAV_PERIODE_BELOP_TEXT: {
@@ -1016,11 +1016,11 @@ const Locales: Record<
     en: 'Employee'
   },
   KRONISK_KRAV_PERIOD_AWAY: {
-    nb: 'Hvilken periode var den ansatte borte?',
-    en: 'What time was the employee not working?'
+    nb: 'Fraværsperioder i arbeidsgiverperioden',
+    en: 'Periods of absence during the employer period'
   },
   KRONISK_KRAV_ADD_PERIOD: {
-    nb: '+ Legg til en fraværsperiode',
+    nb: '+ Legg til en periode',
     en: '+ Add period'
   },
   KRONISK_KRAV_SUBMIT: {
@@ -1058,6 +1058,10 @@ const Locales: Record<
   VALIDATE_DAGER_REQUIRED: {
     nb: 'Må fylles ut',
     en: 'Required'
+  },
+  VALIDATE_DAGER_TOO_HIGH: {
+    nb: 'Det kan ikke være mer enn 16 dager i en arbeidsgiverperiode',
+    en: 'An employer period cannot exceed 16 days'
   },
   VALIDATE_DAGER_MISSING: {
     nb: 'Mangler dager',

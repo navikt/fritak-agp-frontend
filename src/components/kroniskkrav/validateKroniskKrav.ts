@@ -23,9 +23,9 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   if (!state.validated) {
     return state;
   }
-  const nextState = { ...state, perioder: state.perioder?.map((periode) => ({ ...periode })) };
+  const nextState = { ...state, perioder: state.perioder?.map((periode) => ({ ...periode })), periodeError: undefined };
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
-
+  console.log('nextState start:', nextState);
   validateFodselsnummer(nextState, state, translate, feilmeldinger);
 
   validateOrganisasjonsnummer(nextState, state, translate, feilmeldinger);
@@ -33,6 +33,8 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   validateAntallDager(nextState, state, translate, feilmeldinger);
 
   validateEndringsAarsak(nextState, feilmeldinger);
+
+  let totaltDager = 0;
 
   nextState.perioder?.forEach((aktuellPeriode) => {
     const minDato = format(MIN_DATE, 'dd.MM.yyyy');
@@ -50,11 +52,22 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     aktuellPeriode.tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
 
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
+    if (aktuellPeriode.dager) {
+      totaltDager += aktuellPeriode.dager;
+    }
     aktuellPeriode.beloepError = formatValidation(
       validateBeloep(stringOrUndefined(aktuellPeriode.beloep), MAX, !!state.validated),
       translate
     );
   });
+
+  nextState.periodeError = formatValidation(validateDager(totaltDager, !!state.validated), translate);
+
+  if (nextState.periodeError) {
+    pushFeilmelding('dager-total', nextState.periodeError, feilmeldinger);
+  } else {
+    delete nextState.periodeError;
+  }
 
   nextState.perioder?.forEach((aktuellPeriode, index) => {
     if (aktuellPeriode.fomError) {
@@ -79,7 +92,7 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   });
 
   validateBekreftelse(nextState, state, translate, feilmeldinger);
-
+  console.log('nextState:', nextState);
   nextState.feilmeldinger = feilmeldinger;
   return nextState;
 };

@@ -1,6 +1,6 @@
-import { format, parseISO } from 'date-fns';
+import { differenceInCalendarDays, format, parseISO } from 'date-fns';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import getGrunnbeloep from '../../../api/grunnbelop/getGrunnbeloep';
 import SelectDager from '../SelectDager/SelectDager';
 import type { KravPeriodeData } from '../../../state/KravPeriodeData';
@@ -9,13 +9,14 @@ import { useTranslation } from 'react-i18next';
 import LangKey from '../../../locale/LangKey';
 import beregnRefusjon from './beregnRefusjon';
 import { MIN_KRONISK_DATO } from '../../../config/konstanter';
-import { Button, HelpText, TextField } from '@navikt/ds-react';
+import { Button, ErrorMessage, HelpText, TextField } from '@navikt/ds-react';
 import Oversettelse from '../Oversettelse/Oversettelse';
 import Datovelger from '../../datovelger/Datovelger';
 import TextLabel from '../../TextLabel';
 import stringishToNumber from '../../../utils/stringishToNumber';
 import { datoToString } from '../../../utils/dato/Dato';
 import textify from '../../../utils/textify';
+import { TrashIcon } from '@navikt/aksel-icons';
 
 interface KravPeriodeProps {
   enkeltPeriode: KravPeriodeData;
@@ -34,6 +35,9 @@ interface KravPeriodeProps {
 const KravPeriode = (props: KravPeriodeProps) => {
   const { t } = useTranslation();
 
+  const [startDato, setStartDato] = useState<Date | undefined>(undefined);
+  const [sluttDato, setSluttDato] = useState<Date | undefined>(undefined);
+
   const fraDatoValgt = (fraDato: Date | undefined) => {
     if (fraDato) {
       void getGrunnbeloep(format(fraDato, 'yyyy-MM-dd')).then((grunnbeloepRespons) => {
@@ -42,10 +46,16 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
       });
     }
+    setStartDato(fraDato);
     props.onFraChange(fraDato);
   };
 
-  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
+  const tilDatoValgt = (tilDato: Date | undefined) => {
+    setSluttDato(tilDato);
+    props.onTilChange(tilDato);
+  };
+
+  // const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager).toLocaleString('nb-NO');
 
   const today = new Date();
 
@@ -65,6 +75,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    const dager = startDato && sluttDato ? differenceInCalendarDays(sluttDato, startDato) + 1 : undefined;
+    props.onDagerChange(dager);
+    console.log('Dager endret:', dager);
+  }, [startDato, sluttDato]);
+
   return (
     <div className='krav-kort' data-testid='krav-periode-wrapper'>
       <Datovelger
@@ -79,12 +95,12 @@ const KravPeriode = (props: KravPeriodeProps) => {
       <Datovelger
         id={`til-dato-${props.index}`}
         label={<div className='label-uten-hjelp'>{t(LangKey.KRONISK_KRAV_PERIODE_TIL)}</div>}
-        onDateChange={props.onTilChange}
+        onDateChange={tilDatoValgt}
         error={props.enkeltPeriode.tomError}
         toDate={today}
         defaultSelected={defaultTom}
       />
-      <SelectDager
+      {/* <SelectDager
         label={
           <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
@@ -103,7 +119,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
           props.onDagerChange(stringishToNumber(event.currentTarget.value))
         }
         error={props.enkeltPeriode.dagerError}
-      />
+      /> */}
       <TextField
         label={
           <div className='label-med-hjelp'>
@@ -148,7 +164,7 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
         error={props.enkeltPeriode.sykemeldingsgradError}
       />
-      <div>
+      {/* <div>
         <TextLabel>
           <div className='label-med-hjelp'>
             {t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}
@@ -163,14 +179,21 @@ const KravPeriode = (props: KravPeriodeProps) => {
         <div className='skjemalelement tekstvisning'>
           {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon}
         </div>
-      </div>
+      </div> */}
       {props.slettbar && (
         <div className='slett-periode-wrapper'>
-          <Button data-color='danger' variant='primary' onClick={() => props.onDelete()} className='slett-periode'>
+          <Button
+            data-color='danger'
+            variant='tertiary'
+            onClick={() => props.onDelete()}
+            className='slett-periodeeee'
+            icon={<TrashIcon title={'Slett'} />}
+          >
             Slett
           </Button>
         </div>
       )}
+      {props.enkeltPeriode.dagerError && <ErrorMessage as='div'>{props.enkeltPeriode.dagerError}</ErrorMessage>}
     </div>
   );
 };

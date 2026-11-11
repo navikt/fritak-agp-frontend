@@ -30,7 +30,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { BodyLong, Box, Button, Fieldset, Heading, HelpText } from '@navikt/ds-react';
+import { BodyLong, Box, Button, ErrorMessage, Fieldset, Heading, HelpText, ReadMore } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -293,14 +293,9 @@ const KroniskKrav = (props: KroniskKravProps) => {
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(KroniskKravKeys.KRONISK_KRAV_ARBEIDSTID_TAPT)}
         </Heading>
-        <TextLabel className='textfelt-padding-bottom'>
-          <div className='label-med-hjelp'>
-            {t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}
-            <HelpText className='krav-padding-hjelpetekst'>
-              <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
-            </HelpText>
-          </div>
-        </TextLabel>
+        <ReadMore header={t(KroniskKravKeys.KRONISK_KRAV_PERIOD_AWAY)}>
+          <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
+        </ReadMore>
         <Fieldset
           aria-live='polite'
           errorId={'arbeidsperiode'}
@@ -314,7 +309,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
               index={index}
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
-              slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
+              slettbar={!!(state?.perioder && state.perioder?.length > 1)}
               onFraChange={(fra) => dispatch({ type: Actions.Fra, payload: { fra, itemId: enkeltPeriode.uniqueKey } })}
               onTilChange={(til) => dispatch({ type: Actions.Til, payload: { til, itemId: enkeltPeriode.uniqueKey } })}
               onDagerChange={(dager) =>
@@ -340,6 +335,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
               <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
             )}
           </div>
+          {state.periodeError && <ErrorMessage as='div'>{state.periodeError}</ErrorMessage>}
         </Fieldset>
       </Box>
       <Skillelinje />
