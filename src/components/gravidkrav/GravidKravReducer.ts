@@ -1,7 +1,7 @@
 import { Actions, GravidKravAction } from './Actions';
 import { validateGravidKrav } from './validateGravidKrav';
 import GravidKravState, { defaultGravidKravState } from './GravidKravState';
-import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
+import { parseISO } from 'date-fns';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
@@ -43,7 +43,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
         return nextState;
       }
       nextState.formDirty = true;
-      fraPeriode.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
+      fraPeriode.fom = payload?.fra;
+      fraPeriode.fomInputError = payload?.dateInputError;
 
       return validateGravidKrav(nextState, translate);
     }
@@ -55,7 +56,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
         return nextState;
       }
       nextState.formDirty = true;
-      tilPeriode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
+      tilPeriode.tom = payload?.til;
+      tilPeriode.tomInputError = payload?.dateInputError;
 
       return validateGravidKrav(nextState, translate);
     }
@@ -157,8 +159,8 @@ const GravidKravReducer = (state: GravidKravState, action: GravidKravAction, tra
       }
 
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
-        : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+        ? [...nextState.perioder, { uniqueKey: uuid() }]
+        : [{ uniqueKey: uuid() }];
       return nextState;
     }
 

@@ -94,8 +94,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    // @ts-expect-error Dette er en test
-    expect(state.perioder[0].fom.value).toEqual('05.06.2020');
+    expect(state.perioder?.[0].fom).toEqual(new Date('2020.06.05 12:00:00'));
   });
 
   it('should throw on fom when itemId is missing', () => {
@@ -124,7 +123,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    expect(state.perioder && state.perioder[0].fom?.value).toBeUndefined();
+    expect(state.perioder?.[0].fom).toBeUndefined();
   });
 
   it('should set the tom', () => {
@@ -140,7 +139,7 @@ describe('GravidKravReducer', () => {
       translationMock as unknown as i18n
     );
 
-    expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.perioder?.[0].tom).toEqual(new Date('2020.06.05 12:00:00'));
   });
 
   it('should clear tom when empty payload', () => {

@@ -24,7 +24,6 @@ import { GravidSideKeys } from './GravidSideKeys';
 import { Navigate, useParams } from 'react-router-dom';
 import LoggetUtAdvarsel from '../felles/LoggetUtAdvarsel';
 import { GravidSoknadKvitteringContext } from '../../context/GravidSoknadKvitteringContext';
-import { parse } from 'date-fns';
 import {
   Alert,
   BodyLong,
@@ -73,12 +72,6 @@ const GravidSide = (props: GravidSideProps) => {
     });
 
     return !!foundElement;
-  };
-
-  const parseTermindato = (value: string | undefined): Date | undefined => {
-    if (!value) return undefined;
-    const parsed = parse(value, 'dd.MM.yyyy', new Date());
-    return isNaN(parsed.getTime()) ? undefined : parsed;
   };
 
   const handleTilretteleggingChange = (val: string) => {
@@ -224,11 +217,11 @@ const GravidSide = (props: GravidSideProps) => {
                     id='termindato'
                     label={t(GravidSideKeys.GRAVID_SIDE_TERMINDATO)}
                     error={state.termindatoError}
-                    defaultSelected={parseTermindato(state.termindato?.value)}
-                    onDateChange={(termindato: Date | undefined) => {
+                    defaultSelected={state.termindato}
+                    onDateChange={(termindato, dateInputError) => {
                       dispatch({
                         type: Actions.Termindato,
-                        payload: { termindato }
+                        payload: { termindato, dateInputError }
                       });
                     }}
                     className='termindato'

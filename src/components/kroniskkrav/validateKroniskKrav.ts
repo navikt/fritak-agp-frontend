@@ -23,9 +23,12 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   if (!state.validated) {
     return state;
   }
-  const nextState = { ...state, perioder: state.perioder?.map((periode) => ({ ...periode })), periodeError: undefined };
+  const nextState: KroniskKravState = {
+    ...state,
+    perioder: state.perioder?.map((periode) => ({ ...periode })),
+    periodeError: undefined
+  };
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
-  console.log('nextState start:', nextState);
   validateFodselsnummer(nextState, state, translate, feilmeldinger);
 
   validateOrganisasjonsnummer(nextState, state, translate, feilmeldinger);
@@ -38,11 +41,22 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
 
   nextState.perioder?.forEach((aktuellPeriode) => {
     const minDato = format(MIN_DATE, 'dd.MM.yyyy');
-    const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
+    const valideringFraStatus = validateFra(
+      aktuellPeriode.fom,
+      MIN_DATE,
+      !!state.validated,
+      aktuellPeriode.fomInputError
+    );
 
     aktuellPeriode.fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
 
-    const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
+    const valideringTilStatus = validateTil(
+      aktuellPeriode.fom,
+      aktuellPeriode.tom,
+      MIN_DATE,
+      !!state.validated,
+      aktuellPeriode.tomInputError
+    );
 
     aktuellPeriode.sykemeldingsgradError = formatValidation(
       validateSykemeldingGrad(aktuellPeriode.sykemeldingsgrad, !!state.validated),
@@ -92,7 +106,6 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   });
 
   validateBekreftelse(nextState, state, translate, feilmeldinger);
-  console.log('nextState:', nextState);
   nextState.feilmeldinger = feilmeldinger;
   return nextState;
 };

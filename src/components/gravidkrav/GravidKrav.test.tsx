@@ -1,3 +1,4 @@
+import { parseISO } from 'date-fns';
 import React from 'react';
 import { render, cleanup, act, waitFor, screen, fireEvent } from '@testing-library/react';
 import { axe } from 'vitest-axe';
@@ -9,7 +10,6 @@ import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import patchGravidKrav from '../../api/kroniskkrav/patchGravidKrav';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import { parseDato } from '../../utils/dato/Dato';
 import { EndringsAarsak } from './EndringsAarsak';
 import HttpStatus from '../../api/HttpStatus';
 import { ValidationResponse } from '../../state/validation/ValidationResponse';
@@ -44,7 +44,7 @@ describe('GravidKrav', () => {
         antallDager: 260,
         bekreft: true,
         perioder: [
-          { uniqueKey: 'periode', fom: parseDato('02.08.2021'), tom: parseDato('06.08.2021'), dager: 5, beloep: 35000 }
+          { uniqueKey: 'periode', fom: parseISO('2021-08-02'), tom: parseISO('2021-08-06'), dager: 5, beloep: 35000 }
         ],
         ...overrides
       });
@@ -96,7 +96,7 @@ describe('GravidKrav', () => {
         ],
         ...(endringskrav ? { aarsakEndring: EndringsAarsak.ANNET } : {})
       });
-      if (endringskrav) expect(vi.mocked(patchGravidKrav).mock.calls[0][1]).toBe('krav-id');
+      expect(vi.mocked(patchGravidKrav).mock.calls.map((call) => call[1])).toEqual(endringskrav ? ['krav-id'] : []);
       expect(endringskrav ? postGravidKrav : patchGravidKrav).not.toHaveBeenCalled();
       router.dispose();
     });
@@ -124,6 +124,72 @@ describe('GravidKrav', () => {
       expect(errorLink).toBeInTheDocument();
       expect(screen.getAllByText(errorLink!.textContent!)).toHaveLength(2);
       expect(document.getElementById('dager-total')).toHaveAttribute('tabindex', '-1');
+      router.dispose();
+    });
+
+    it.each([false, true])('revalidates total days before sending endringskrav=%s', async (endringskrav) => {
+      const api = endringskrav ? vi.mocked(patchGravidKrav) : vi.mocked(postGravidKrav);
+      api.mockResolvedValue({ status: HttpStatus.Created, violations: [] });
+      const state = validState({ endringskrav, kravId: 'krav-id', endringsAarsak: EndringsAarsak.ANNET });
+      state.perioder?.push({
+        uniqueKey: 'periode-2',
+        fom: parseISO('2021-08-10'),
+        tom: parseISO('2021-08-21'),
+        dager: 12,
+        beloep: 35000
+      });
+      const router = renderForm(state);
+      const submit = screen.getByRole('button', { name: endringskrav ? /Send inn endring/ : /Send krav/ });
+
+      fireEvent.click(submit);
+
+      expect(postGravidKrav).not.toHaveBeenCalled();
+      expect(patchGravidKrav).not.toHaveBeenCalled();
+      expect(document.querySelector('a[href="#dager-total"]')).toBeInTheDocument();
+
+      fireEvent.change(screen.getAllByLabelText(/Til dato/, { selector: 'input' })[1], {
+        target: { value: '20.08.2021' }
+      });
+
+      expect(document.querySelector('a[href="#dager-total"]')).not.toBeInTheDocument();
+      fireEvent.click(submit);
+
+      await waitFor(() => expect(router.state.location.pathname).toBe('/nb/gravid/krav/kvittering'));
+      expect(api).toHaveBeenCalledTimes(1);
+      expect(api.mock.calls[0].at(-1)).toMatchObject({
+        perioder: [{ antallDagerMedRefusjon: 5 }, { antallDagerMedRefusjon: 11 }]
+      });
+      router.dispose();
+    });
+
+    it.each([
+      { label: /Fra dato/, value: '02.08.2021' },
+      { label: /Til dato/, value: '06.08.2021' }
+    ])('preserves invalid $label input until it is corrected', async ({ label, value }) => {
+      vi.mocked(postGravidKrav).mockResolvedValue({ status: HttpStatus.Created, violations: [] });
+      const router = renderForm(validState());
+      const input = screen.getByLabelText(label, { selector: 'input' });
+      const submit = screen.getByRole('button', { name: /Send krav/ });
+
+      fireEvent.change(input, { target: { value: '31.02.2021' } });
+      fireEvent.click(submit);
+      fireEvent.change(screen.getByLabelText(/Beregnet månedsinntekt/, { selector: 'input' }), {
+        target: { value: '36000' }
+      });
+
+      expect(input).toHaveValue('31.02.2021');
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(postGravidKrav).not.toHaveBeenCalled();
+
+      fireEvent.change(input, { target: { value: '' } });
+      fireEvent.click(submit);
+      expect(postGravidKrav).not.toHaveBeenCalled();
+
+      fireEvent.change(input, { target: { value } });
+      fireEvent.click(submit);
+
+      await waitFor(() => expect(router.state.location.pathname).toBe('/nb/gravid/krav/kvittering'));
+      expect(postGravidKrav).toHaveBeenCalledTimes(1);
       router.dispose();
     });
 
@@ -195,8 +261,9 @@ describe('GravidKrav', () => {
         expect(router.state.location.pathname).toBe('/nb/gravid/krav');
         if (status === HttpStatus.Error)
           screen.getAllByText('Skjul denne meldingen.').forEach((link) => fireEvent.click(link));
-        if (status === HttpStatus.UnprocessableEntity)
-          expect(screen.getAllByText('Backend validation error').length).toBeGreaterThan(0);
+        expect(screen.queryAllByText('Backend validation error').length > 0).toBe(
+          status === HttpStatus.UnprocessableEntity
+        );
         fireEvent.click(screen.getByRole('button', { name: /Send krav/ }));
         await waitFor(() => expect(router.state.location.pathname).toBe('/nb/gravid/krav/kvittering'));
         expect(postGravidKrav).toHaveBeenCalledTimes(2);

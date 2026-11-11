@@ -297,6 +297,8 @@ const KroniskKrav = (props: KroniskKravProps) => {
           <Oversettelse langKey={KroniskKravKeys.KRONISK_KRAV_PERIOD_INFO} />
         </ReadMore>
         <Fieldset
+          id='dager-total'
+          tabIndex={-1}
           aria-live='polite'
           errorId={'arbeidsperiode'}
           className='krav-kort-wrapper'
@@ -310,8 +312,12 @@ const KroniskKrav = (props: KroniskKravProps) => {
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
               slettbar={!!(state?.perioder && state.perioder?.length > 1)}
-              onFraChange={(fra) => dispatch({ type: Actions.Fra, payload: { fra, itemId: enkeltPeriode.uniqueKey } })}
-              onTilChange={(til) => dispatch({ type: Actions.Til, payload: { til, itemId: enkeltPeriode.uniqueKey } })}
+              onFraChange={(fra, dateInputError) =>
+                dispatch({ type: Actions.Fra, payload: { fra, dateInputError, itemId: enkeltPeriode.uniqueKey } })
+              }
+              onTilChange={(til, dateInputError) =>
+                dispatch({ type: Actions.Til, payload: { til, dateInputError, itemId: enkeltPeriode.uniqueKey } })
+              }
               onDagerChange={(dager) =>
                 dispatch({ type: Actions.Dager, payload: { dager, itemId: enkeltPeriode.uniqueKey } })
               }

@@ -1,41 +1,51 @@
-import { parseDato } from '../utils/dato/Dato';
-import { validateTil } from './validateTil';
+import { parseISO } from 'date-fns';
+import { validateTil, validateTilKeys } from './validateTil';
 
 describe('validateTil', () => {
   const minDate = new Date(2021, 0, 29);
 
   it('should not show errors when valid', () => {
-    expect(validateTil(parseDato('01.02.2021'), parseDato('03.04.2021'), minDate, false)).toBeUndefined();
-    expect(validateTil(parseDato('01.02.2021'), parseDato('03.04.2021'), minDate, true)).toBeUndefined();
+    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-04-03'), minDate, false)).toBeUndefined();
+    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-04-03'), minDate, true)).toBeUndefined();
   });
 
   it('should show errors when errors in dates', () => {
-    expect(validateTil(parseDato('aa.02.2021'), parseDato('03.04.2021'), minDate, true)).toBeDefined();
-    expect(validateTil(parseDato('01.02.2021'), parseDato('aa.04.2021'), minDate, true)).toBeDefined();
+    expect(validateTil(new Date(NaN), parseISO('2021-04-03'), minDate, true)).toBeDefined();
+    expect(validateTil(parseISO('2021-02-01'), new Date(NaN), minDate, true)).toBeDefined();
   });
 
   it('should show errors when tom is before fom', () => {
-    expect(validateTil(parseDato('03.04.2021'), parseDato('01.02.2021'), minDate, true)).toBeDefined();
+    expect(validateTil(parseISO('2021-04-03'), parseISO('2021-02-01'), minDate, true)).toBeDefined();
   });
 
   it('should show errors when before earliest valid date', () => {
-    expect(validateTil(parseDato('28.01.2021'), parseDato('28.01.2021'), minDate, true)).toBeDefined();
+    expect(validateTil(parseISO('2021-01-28'), parseISO('2021-01-28'), minDate, true)).toBeDefined();
   });
 
   it('should not show errors when valid and equal dates', () => {
-    expect(validateTil(parseDato('01.02.2021'), parseDato('01.02.2021'), minDate, false)).toBeUndefined();
-    expect(validateTil(parseDato('01.02.2021'), parseDato('01.02.2021'), minDate, true)).toBeUndefined();
+    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-02-01'), minDate, false)).toBeUndefined();
+    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-02-01'), minDate, true)).toBeUndefined();
   });
 
   it('should not show errors when fra is undefined', () => {
-    expect(validateTil(undefined, parseDato('03.04.2021'), minDate, true)).toBeUndefined();
+    expect(validateTil(undefined, parseISO('2021-04-03'), minDate, true)).toBeUndefined();
   });
 
   it('should not show errors when til is undefined and not required', () => {
-    expect(validateTil(parseDato('03.04.2021'), undefined, minDate, false)).toBeUndefined();
+    expect(validateTil(parseISO('2021-04-03'), undefined, minDate, false)).toBeUndefined();
   });
 
   it('should show error when til is undefined', () => {
-    expect(validateTil(parseDato('03.04.2021'), undefined, minDate, true)).toBeDefined();
+    expect(validateTil(parseISO('2021-04-03'), undefined, minDate, true)).toBeDefined();
+  });
+
+  it('distinguishes invalid and out-of-range input from an empty field', () => {
+    expect(validateTil(undefined, undefined, minDate, true, 'invalid')).toEqual({
+      key: validateTilKeys.VALIDATE_TIL_ERROR
+    });
+    expect(validateTil(undefined, undefined, minDate, true, 'beforeMin')?.key).toBe(
+      validateTilKeys.VALIDATE_TIL_INVALID
+    );
+    expect(validateTil(undefined, undefined, minDate, true, 'afterMax')?.key).toBe(validateTilKeys.VALIDATE_TIL_ERROR);
   });
 });

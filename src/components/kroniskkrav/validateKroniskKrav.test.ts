@@ -1,6 +1,6 @@
+import { parseISO } from 'date-fns';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import { defaultKroniskKravState } from './KroniskKravState';
-import { parseDato } from '../../utils/dato/Dato';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
@@ -40,7 +40,7 @@ describe('validateKroniskKrav', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.fnr = '123';
-    state.perioder = [{ uniqueKey: 'unik', fom: parseDato('14.14.2014') }];
+    state.perioder = [{ uniqueKey: 'unik', fom: parseISO('2014-14-14') }];
     const state2 = validateKroniskKrav(state, i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
@@ -49,7 +49,7 @@ describe('validateKroniskKrav', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.fnr = '123';
-    state.perioder = [{ uniqueKey: 'unik', tom: parseDato('14.14.2014') }];
+    state.perioder = [{ uniqueKey: 'unik', tom: parseISO('2014-14-14') }];
     const state2 = validateKroniskKrav(state, i18n);
     expect(state2.perioder).not.toBeUndefined();
     expect(state2.perioder ? state2.perioder[0].tomError : undefined).not.toBeUndefined();

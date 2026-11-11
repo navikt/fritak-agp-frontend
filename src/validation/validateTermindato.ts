@@ -1,15 +1,19 @@
-import { Dato } from '../utils/dato/Dato';
+import { isValid } from 'date-fns';
+import type { DateInputError } from '../utils/dato/Dato';
 
 export const validateTermindato = (
-  termindato: Dato | undefined,
+  termindato: Date | undefined,
   required: boolean,
-  feilmelding: string
+  feilmelding: string,
+  inputError?: DateInputError
 ): string | undefined => {
-  if (!termindato?.value) {
-    return required ? feilmelding : undefined;
+  if (!required) {
+    return undefined;
   }
-
-  if (termindato && termindato.error) {
-    return required ? termindato.error : undefined;
+  if (inputError || (termindato && !isValid(termindato))) {
+    return 'Ugyldig dato';
+  }
+  if (!termindato) {
+    return feilmelding;
   }
 };

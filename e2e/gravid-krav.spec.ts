@@ -62,7 +62,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma',
+        'Mangler beløp',
         'Bekreft at opplysningene er korrekt'
       ])
     );
@@ -76,7 +76,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma'
+        'Mangler beløp'
       ])
     );
 
@@ -90,7 +90,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma'
+        'Mangler beløp'
       ])
     );
     await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
@@ -100,10 +100,11 @@ test.describe('Gravid - Krav', () => {
 
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
+      'Mangler dager',
       'Mangler fra dato',
       'Mangler til dato',
       'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma'
+      'Mangler beløp'
     ]);
 
     await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
@@ -117,7 +118,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma'
+        'Mangler beløp'
       ])
     );
 
@@ -129,51 +130,25 @@ test.describe('Gravid - Krav', () => {
     await belop.fill('5000');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
+      'Mangler dager',
       'Mangler fra dato',
       'Mangler til dato',
       'Mangler dager'
     ]);
-    await formPage.assertNotVisibleText('Oppgi beløp med kun tall med maks to tall etter komma');
+    await formPage.assertNotVisibleText('Mangler beløp');
     await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
     await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
-    const velgDager = page.locator('#dager-0');
-    await velgDager.selectOption({ label: '5' });
+    await page.getByLabel('Fra dato').fill('07.08.21');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
-      'Mangler fra dato',
-      'Mangler til dato'
-    ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
       'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
-
-    await page.getByLabel('Fra dato').fill('07.08.21');
-    await expect(await page.locator('li > a').allInnerTexts()).toEqual(['Ugyldig fødselsnummer', 'Mangler til dato']);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Mangler fra dato',
-      'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
+      'Mangler til dato',
+      'Mangler dager'
     ]);
 
     await page.getByLabel('Til dato').fill('17.08.21');
-
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Mangler til dato',
-      'Mangler fra dato',
-      'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await expect(page.locator('li > a')).toHaveText(['Ugyldig fødselsnummer']);
 
     await formPage.fillInput('Fødselsnummer (11 siffer)', '20125027610');
 
@@ -187,7 +162,7 @@ test.describe('Gravid - Krav', () => {
       identitetsnummer: '20125027610',
       perioder: [
         {
-          antallDagerMedRefusjon: 5,
+          antallDagerMedRefusjon: 11,
           fom: '2021-08-07',
           gradering: 1,
           månedsinntekt: 5000,
@@ -206,7 +181,7 @@ test.describe('Gravid - Krav', () => {
 
   test('Legg til og fjern perioder', async ({ page }) => {
     const formPage = new FormPage(page);
-    await formPage.clickButton('+ Legg til en fraværsperiode');
+    await formPage.clickButton('+ Legg til en periode');
     await expect(page.locator('#belop-0')).toBeVisible();
     await expect(page.locator('#belop-1')).toBeVisible();
 

@@ -1,6 +1,6 @@
+import { parseISO } from 'date-fns';
 import { validateGravidKrav } from './validateGravidKrav';
 import { defaultGravidKravState } from './GravidKravState';
-import { parseDato } from '../../utils/dato/Dato';
 import { i18n } from 'i18next';
 import { ValidateDagerKeys } from '../../validation/validateDager';
 
@@ -72,7 +72,7 @@ describe('validateGravidKrav', () => {
     const state = defaultGravidKravState();
     state.validated = true;
     state.fnr = '123';
-    if (state.perioder) state.perioder[0].fom = parseDato('14.14.2014');
+    if (state.perioder) state.perioder[0].fom = parseISO('2014-14-14');
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
     if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];
     expect(state2.perioder[0].fomError).not.toBeUndefined();
@@ -83,8 +83,8 @@ describe('validateGravidKrav', () => {
     state.validated = true;
     state.fnr = '123';
     if (state.perioder) {
-      state.perioder[0].fom = parseDato('12.12.2014');
-      state.perioder[0].tom = parseDato('11.11.2014');
+      state.perioder[0].fom = parseISO('2014-12-12');
+      state.perioder[0].tom = parseISO('2014-11-11');
     }
     const state2 = validateGravidKrav(state, translationMock as unknown as i18n);
     if (!state2.perioder) state2.perioder = [{ uniqueKey: 'uuid' }];

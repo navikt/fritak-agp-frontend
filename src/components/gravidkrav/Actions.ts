@@ -3,6 +3,7 @@ import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import { GravidKrav } from '../../context/krav';
 import { EndringsAarsak as IEndringsAarsak } from './EndringsAarsak';
 import type GravidKravState from './GravidKravState';
+import type { DateInputError } from '../../utils/dato/Dato';
 
 export enum Actions {
   Reset,
@@ -40,6 +41,7 @@ interface Payload {
   orgnr?: string;
   fra?: Date;
   til?: Date;
+  dateInputError?: DateInputError;
   dager?: number;
   beloep?: number;
   videre?: boolean;

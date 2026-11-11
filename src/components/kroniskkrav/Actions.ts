@@ -3,6 +3,7 @@ import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { KroniskKrav } from '../../context/krav';
 import { EndringsAarsak as IEndringsAarsak } from '../gravidkrav/EndringsAarsak';
 import type KroniskKravState from './KroniskKravState';
+import type { DateInputError } from '../../utils/dato/Dato';
 
 export enum Actions {
   Reset,
@@ -41,6 +42,7 @@ interface Payload {
   orgnr?: string;
   fra?: Date;
   til?: Date;
+  dateInputError?: DateInputError;
   dager?: number;
   beloep?: number;
   videre?: boolean;

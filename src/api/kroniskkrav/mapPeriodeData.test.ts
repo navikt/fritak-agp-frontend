@@ -1,14 +1,14 @@
+import { parseISO } from 'date-fns';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
-import { parseDato } from '../../utils/dato/Dato';
 import mapPeriodeData, { beregnSykemeldingGradering } from './mapPeriodeData';
 
 describe('mapPeriodeData', () => {
   it('should map the data', () => {
     const perioder: KroniskKravPeriode[] = [
       {
-        fom: parseDato('01.02.2020'),
+        fom: parseISO('2020-02-01'),
         fomError: 'error',
-        tom: parseDato('03.04.2025'),
+        tom: parseISO('2025-04-03'),
         tomError: 'error',
         dager: 5,
         dagerError: 'error',
@@ -16,8 +16,8 @@ describe('mapPeriodeData', () => {
         uniqueKey: '77-777'
       },
       {
-        fom: parseDato('23.02.2020'),
-        tom: parseDato('24.04.2025'),
+        fom: parseISO('2020-02-23'),
+        tom: parseISO('2025-04-24'),
         dager: 7,
         sykemeldingsgrad: '50',
         beloep: 3500,
@@ -45,9 +45,9 @@ describe('mapPeriodeData', () => {
   it('should map the data even when data is undefined', () => {
     const perioder: KroniskKravPeriode[] = [
       {
-        fom: parseDato('01.02.2020'),
+        fom: parseISO('2020-02-01'),
         fomError: 'error',
-        tom: parseDato('03.04.2025'),
+        tom: parseISO('2025-04-03'),
         tomError: 'error',
         dager: 5,
         dagerError: 'error',
@@ -55,8 +55,8 @@ describe('mapPeriodeData', () => {
         uniqueKey: '77-777'
       },
       {
-        fom: parseDato('23.02.2020'),
-        tom: parseDato('24.04.2025'),
+        fom: parseISO('2020-02-23'),
+        tom: parseISO('2025-04-24'),
         dager: undefined,
         beloep: undefined,
         uniqueKey: '77-778'

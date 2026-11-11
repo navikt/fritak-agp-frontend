@@ -65,11 +65,17 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   nextState.perioder?.forEach((periode) => {
     const minDato = format(MIN_DATE, 'dd.MM.yyyy');
 
-    const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
+    const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated, periode.fomInputError);
     const fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
     periode.fomError = fomError;
 
-    const valideringTilStatus = validateTil(periode.fom, periode.tom, MIN_DATE, !!state.validated);
+    const valideringTilStatus = validateTil(
+      periode.fom,
+      periode.tom,
+      MIN_DATE,
+      !!state.validated,
+      periode.tomInputError
+    );
     const tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
     periode.tomError = tomError;
 

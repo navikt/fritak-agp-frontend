@@ -1,6 +1,7 @@
 import { Arbeidsgiverperiode, KroniskKravRequest } from './KroniskKravRequest';
 import { KroniskKravPeriode } from '../../components/kroniskkrav/KroniskKravState';
 import mapPeriodeData from './mapPeriodeData';
+import { isValid } from 'date-fns';
 
 export const mapKroniskKravRequest = (
   fnr: string | undefined,
@@ -21,10 +22,10 @@ export const mapKroniskKravRequest = (
   }
 
   perioder.forEach((enkeltPeriode) => {
-    if (enkeltPeriode.fom?.error) {
+    if (!enkeltPeriode.fom || !isValid(enkeltPeriode.fom) || enkeltPeriode.fomInputError) {
       throw new Error('Fra må spesifiseres');
     }
-    if (enkeltPeriode.tom?.error) {
+    if (!enkeltPeriode.tom || !isValid(enkeltPeriode.tom) || enkeltPeriode.tomInputError) {
       throw new Error('Til må spesifiseres');
     }
     if (enkeltPeriode.dager === undefined) {

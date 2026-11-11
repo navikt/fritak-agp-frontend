@@ -10,6 +10,7 @@ import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { Actions, GravidKravAction } from './Actions';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
+import { MIN_GRAVID_DATO } from '../../config/konstanter';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import { useTranslation } from 'react-i18next';
 import { i18n as Ii18n } from 'i18next';
@@ -296,11 +297,16 @@ const GravidKrav = (props: GravidKravProps) => {
             <KravPeriode
               enkeltPeriode={enkeltPeriode}
               index={index}
+              minDate={MIN_GRAVID_DATO}
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
               slettbar={!!(state?.perioder && state.perioder?.length > 1)}
-              onFraChange={(fra) => dispatch({ type: Actions.Fra, payload: { fra, itemId: enkeltPeriode.uniqueKey } })}
-              onTilChange={(til) => dispatch({ type: Actions.Til, payload: { til, itemId: enkeltPeriode.uniqueKey } })}
+              onFraChange={(fra, dateInputError) =>
+                dispatch({ type: Actions.Fra, payload: { fra, dateInputError, itemId: enkeltPeriode.uniqueKey } })
+              }
+              onTilChange={(til, dateInputError) =>
+                dispatch({ type: Actions.Til, payload: { til, dateInputError, itemId: enkeltPeriode.uniqueKey } })
+              }
               onDagerChange={(dager) =>
                 dispatch({ type: Actions.Dager, payload: { dager, itemId: enkeltPeriode.uniqueKey } })
               }
