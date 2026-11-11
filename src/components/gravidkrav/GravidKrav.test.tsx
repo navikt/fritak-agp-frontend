@@ -106,10 +106,24 @@ describe('GravidKrav', () => {
       fireEvent.click(screen.getByRole('button', { name: /Send krav/ }));
       expect(postGravidKrav).not.toHaveBeenCalled();
       expect(screen.getAllByText(/Ugyldig fødselsnummer/).length).toBeGreaterThan(0);
+      expect(screen.getByRole('link', { name: /Ugyldig fødselsnummer/ })).toHaveAttribute('href', '#fnr');
       fireEvent.change(screen.getByLabelText(/Fødselsnummer/), {
         target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
       });
       expect(screen.queryByText(/Ugyldig fødselsnummer/)).not.toBeInTheDocument();
+      router.dispose();
+    });
+
+    it('shows the total days error with a working summary link and blocks submission', () => {
+      const router = renderForm(validState({ perioder: [] }));
+
+      fireEvent.click(screen.getByRole('button', { name: /Send krav/ }));
+
+      expect(postGravidKrav).not.toHaveBeenCalled();
+      const errorLink = document.querySelector('a[href="#dager-total"]');
+      expect(errorLink).toBeInTheDocument();
+      expect(screen.getAllByText(errorLink!.textContent!)).toHaveLength(2);
+      expect(document.getElementById('dager-total')).toHaveAttribute('tabindex', '-1');
       router.dispose();
     });
 

@@ -15,6 +15,7 @@ import { validateFra } from '../../validation/validateFra';
 import { validateTil } from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
+import textify from '../../utils/textify';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;
@@ -23,11 +24,15 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   if (!state.validated) {
     return state;
   }
-  const nextState = { ...state, perioder: state.perioder?.map((periode) => ({ ...periode })) };
+  const nextState: GravidKravState = {
+    ...state,
+    perioder: state.perioder?.map((periode) => ({ ...periode })),
+    periodeError: undefined
+  };
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
   nextState.fnrError = formatValidation(validateFnr(state.fnr, state.validated), translate);
   if (nextState.fnrError) {
-    pushFeilmelding('ansatteFeilmeldingId', nextState.fnrError, feilmeldinger);
+    pushFeilmelding('fnr', nextState.fnrError, feilmeldinger);
   }
   nextState.orgnrError = formatValidation(validateOrgnr(state.orgnr, state.validated), translate);
   if (nextState.orgnrError) {
@@ -55,25 +60,42 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     pushFeilmelding('select-endring-dropdown', nextState.endringsAarsakError, feilmeldinger);
   }
 
-  nextState.perioder?.forEach((periode, index) => {
+  let totaltDager = 0;
+
+  nextState.perioder?.forEach((periode) => {
     const minDato = format(MIN_DATE, 'dd.MM.yyyy');
 
     const valideringFraStatus = validateFra(periode.fom, MIN_DATE, !!state.validated);
-    const fomError = translate.t(valideringFraStatus?.key as string, { value: minDato });
+    const fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
     periode.fomError = fomError;
 
     const valideringTilStatus = validateTil(periode.fom, periode.tom, MIN_DATE, !!state.validated);
-    const tomError = translate.t(valideringTilStatus?.key as string, { value: minDato });
+    const tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
     periode.tomError = tomError;
 
     periode.dagerError = formatValidation(validateDager(periode.dager, !!state.validated), translate);
-    periode.beloepError = formatValidation(validateBeloep('' + periode.beloep, MAX, !!nextState.validated), translate);
+    if (periode.dager) {
+      totaltDager += periode.dager;
+    }
+    periode.beloepError = formatValidation(
+      validateBeloep(periode.beloep ? periode.beloep.toString() : undefined, MAX, !!state.validated),
+      translate
+    );
 
     periode.sykemeldingsgradError = formatValidation(
       validateSykemeldingGrad(periode.sykemeldingsgrad, !!state.validated),
       translate
     );
+  });
 
+  nextState.periodeError = formatValidation(validateDager(totaltDager, !!state.validated), translate);
+  if (nextState.periodeError) {
+    pushFeilmelding('dager-total', nextState.periodeError, feilmeldinger);
+  } else {
+    delete nextState.periodeError;
+  }
+
+  nextState.perioder?.forEach((periode, index) => {
     fyllPeriodeFeilmeldingsboks(periode, index, feilmeldinger);
   });
 

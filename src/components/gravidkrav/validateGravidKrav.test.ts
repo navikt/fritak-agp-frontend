@@ -2,12 +2,45 @@ import { validateGravidKrav } from './validateGravidKrav';
 import { defaultGravidKravState } from './GravidKravState';
 import { parseDato } from '../../utils/dato/Dato';
 import { i18n } from 'i18next';
+import { ValidateDagerKeys } from '../../validation/validateDager';
 
 const translationMock = {
   t: (param: never) => param
 };
 
 describe('validateGravidKrav', () => {
+  it.each([
+    { dager: [8, 8], error: undefined },
+    { dager: [8, 9], error: ValidateDagerKeys.VALIDATE_DAGER_TOO_HIGH },
+    { dager: [0], error: ValidateDagerKeys.VALIDATE_DAGER_MISSING },
+    { dager: [], error: ValidateDagerKeys.VALIDATE_DAGER_MISSING }
+  ])('validates total days for $dager', ({ dager, error }) => {
+    const state = defaultGravidKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: dager.map((antallDager, index) => ({ uniqueKey: `periode-${index}`, dager: antallDager }))
+    });
+
+    const result = validateGravidKrav(state, translationMock as unknown as i18n);
+
+    expect(result.periodeError).toBe(error);
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#dager-total')).toBe(!!error);
+  });
+
+  it('clears the total days error after correcting the periods', () => {
+    const state = defaultGravidKravState({
+      validated: true,
+      feilmeldinger: [],
+      periodeError: ValidateDagerKeys.VALIDATE_DAGER_TOO_HIGH,
+      perioder: [{ uniqueKey: 'periode', dager: 16 }]
+    });
+
+    const result = validateGravidKrav(state, translationMock as unknown as i18n);
+
+    expect(result.periodeError).toBeUndefined();
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#dager-total')).toBe(false);
+  });
+
   it('does not mutate the periods being validated', () => {
     const state = defaultGravidKravState({ validated: true, feilmeldinger: [] });
     const original = structuredClone(state);
