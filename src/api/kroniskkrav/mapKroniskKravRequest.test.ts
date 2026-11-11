@@ -87,8 +87,8 @@ describe('mapKroniskKravRequest', () => {
   it('should throw error when empty dager', () => {
     const periode = [
       {
-        fra: parseISO('2020-02-01'),
-        til: parseISO('2025-04-02'),
+        fom: parseISO('2020-02-01'),
+        tom: parseISO('2025-04-02'),
         dager: undefined,
         beloep: 3000,
         uniqueKey: '1'
@@ -96,14 +96,14 @@ describe('mapKroniskKravRequest', () => {
     ];
     expect(() => {
       mapKroniskKravRequest('123', '123', periode, true, undefined);
-    }).toThrowError();
+    }).toThrowError('Dager må spesifiseres');
   });
 
   it('should throw error when empty beløp', () => {
     const periode = [
       {
-        fra: parseISO('2020-02-01'),
-        til: parseISO('2025-04-02'),
+        fom: parseISO('2020-02-01'),
+        tom: parseISO('2025-04-02'),
         dager: 3,
         beloep: undefined,
         uniqueKey: '1'
@@ -112,7 +112,7 @@ describe('mapKroniskKravRequest', () => {
 
     expect(() => {
       mapKroniskKravRequest('123', '123', periode, true, undefined);
-    }).toThrowError();
+    }).toThrowError('Beløp må spesifiseres');
   });
 
   it('should throw error when empty bekreft', () => {
@@ -140,8 +140,8 @@ describe('mapKroniskKravRequest', () => {
   it('should throw error when error in beløp', () => {
     const periode = [
       {
-        fra: parseISO('2020-02-01'),
-        til: parseISO('2025-04-02'),
+        fom: parseISO('2020-02-01'),
+        tom: parseISO('2025-04-02'),
         dager: 3,
         beloep: undefined,
         uniqueKey: '1'
@@ -150,7 +150,7 @@ describe('mapKroniskKravRequest', () => {
 
     expect(() => {
       mapKroniskKravRequest('123', '123', periode, true, 5);
-    }).toThrowError();
+    }).toThrowError('Beløp må spesifiseres');
   });
 
   it('should not fail when fnr is 123', () => {
