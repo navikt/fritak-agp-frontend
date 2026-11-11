@@ -15,6 +15,7 @@ import validateBekreft from '../../validation/validateBekreft';
 import { validateOrgnr } from '../../validation/validateOrgnr';
 import { validateFnr } from '../../validation/validateFnr';
 import textify from '../../utils/textify';
+import { validatePerioder } from '../../validation/validatePerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_KRONISK_DATO;
@@ -82,6 +83,13 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   } else {
     delete nextState.periodeError;
   }
+
+  validatePerioder(nextState.perioder).forEach(({ index, key, value }) => {
+    const periode = nextState.perioder?.[index];
+    if (periode) {
+      periode.fomError = textify(translate.t(key, { value }));
+    }
+  });
 
   nextState.perioder?.forEach((aktuellPeriode, index) => {
     if (aktuellPeriode.fomError) {

@@ -16,6 +16,7 @@ import { validateTil } from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
 import textify from '../../utils/textify';
+import { validatePerioder } from '../../validation/validatePerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;
@@ -100,6 +101,13 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
   } else {
     delete nextState.periodeError;
   }
+
+  validatePerioder(nextState.perioder).forEach(({ index, key, value }) => {
+    const periode = nextState.perioder?.[index];
+    if (periode) {
+      periode.fomError = textify(translate.t(key, { value }));
+    }
+  });
 
   nextState.perioder?.forEach((periode, index) => {
     fyllPeriodeFeilmeldingsboks(periode, index, feilmeldinger);

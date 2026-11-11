@@ -113,6 +113,53 @@ describe('KroniskKrav', () => {
       router.dispose();
     });
 
+    it.each([
+      { endringskrav: false, start: '2021-08-24' },
+      { endringskrav: true, start: '2021-08-24' },
+      { endringskrav: false, start: '2021-08-06' },
+      { endringskrav: true, start: '2021-08-06' }
+    ])(
+      'blocks invalid periods from $start with endringskrav=$endringskrav until corrected',
+      async ({ start, endringskrav }) => {
+        const api = endringskrav ? vi.mocked(patchKroniskKrav) : vi.mocked(postKroniskKrav);
+        api.mockResolvedValue({ status: HttpStatus.Created, violations: [] });
+        const state = validState({ endringskrav, kravId: 'krav-id', endringsAarsak: EndringsAarsak.ANNET });
+        state.perioder?.push({
+          uniqueKey: 'second',
+          fom: parseISO(start),
+          tom: parseISO(start),
+          dager: 1,
+          beloep: 35000
+        });
+        const router = renderForm(state);
+        const submit = screen.getByRole('button', { name: endringskrav ? /Send inn endring/ : /Send kravet/ });
+
+        fireEvent.click(submit);
+
+        expect(postKroniskKrav).not.toHaveBeenCalled();
+        expect(patchKroniskKrav).not.toHaveBeenCalled();
+        expect(screen.getByRole('link', { name: /mellom periodene|Periodene kan ikke overlappe/ })).toHaveAttribute(
+          'href',
+          '#fra-dato-1'
+        );
+
+        fireEvent.change(screen.getAllByLabelText(/Fra dato/, { selector: 'input' })[1], {
+          target: { value: '07.08.2021' }
+        });
+        fireEvent.change(screen.getAllByLabelText(/Til dato/, { selector: 'input' })[1], {
+          target: { value: '07.08.2021' }
+        });
+
+        expect(
+          screen.queryByRole('link', { name: /mellom periodene|Periodene kan ikke overlappe/ })
+        ).not.toBeInTheDocument();
+        fireEvent.click(submit);
+        await waitFor(() => expect(router.state.location.pathname).toBe('/nb/kronisk/krav/kvittering'));
+        expect(api).toHaveBeenCalledTimes(1);
+        router.dispose();
+      }
+    );
+
     it('does not send an invalid form and revalidates corrected fields', async () => {
       const router = renderForm(validState({ fnr: '123' }));
       fireEvent.click(screen.getByRole('button', { name: /Send kravet/ }));

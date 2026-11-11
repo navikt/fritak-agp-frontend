@@ -1,6 +1,7 @@
 import LangKey from './LangKey';
 
 import { ValidateDagerKeys } from '../validation/validateDager';
+import { ValidatePerioderKeys } from '../validation/validatePerioder';
 import { KroniskKravKeys } from '../components/kroniskkrav/KroniskKravKeys';
 import { KroniskSideKeys } from '../components/kronisk/KroniskSideKeys';
 import { GravidKravKeys } from '../components/gravidkrav/GravidKravKeys';
@@ -51,6 +52,7 @@ const Locales: Record<
   | GravidSideKeys
   | GravidKvitteringKeys
   | ValidateDagerKeys
+  | ValidatePerioderKeys
   | validateFnrKeys
   | validateOrgnrKeys
   | validateFraKeys
@@ -968,6 +970,14 @@ const Locales: Record<
   VALIDATE_FRA_FOM_ERROR: {
     nb: 'Feil dato',
     en: 'Incorrect date'
+  },
+  VALIDATE_PERIODER_OPPHOLD: {
+    nb: 'Det kan ikke være mer enn {{value}} dager mellom periodene',
+    en: 'There cannot be more than {{value}} days between periods'
+  },
+  VALIDATE_PERIODER_OVERLAPP: {
+    nb: 'Periodene kan ikke overlappe',
+    en: 'Periods cannot overlap'
   },
 
   VALIDATE_BELOEP_AMOUNT_MISSING: {

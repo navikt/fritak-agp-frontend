@@ -3,12 +3,60 @@ import { validateGravidKrav } from './validateGravidKrav';
 import { defaultGravidKravState } from './GravidKravState';
 import { i18n } from 'i18next';
 import { ValidateDagerKeys } from '../../validation/validateDager';
+import { ValidatePerioderKeys } from '../../validation/validatePerioder';
 
 const translationMock = {
   t: (param: never) => param
 };
 
 describe('validateGravidKrav', () => {
+  it.each([
+    { start: '2025-01-22', error: undefined },
+    { start: '2025-01-23', error: ValidatePerioderKeys.VALIDATE_PERIODER_OPPHOLD },
+    { start: '2025-01-05', error: ValidatePerioderKeys.VALIDATE_PERIODER_OVERLAPP }
+  ])('validates the relationship between periods starting $start', ({ start, error }) => {
+    const state = defaultGravidKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [
+        { uniqueKey: 'first', fom: parseISO('2025-01-01'), tom: parseISO('2025-01-05'), dager: 5 },
+        { uniqueKey: 'second', fom: parseISO(start), tom: parseISO(start), dager: 1 }
+      ]
+    });
+    const original = structuredClone(state);
+
+    const result = validateGravidKrav(state, translationMock as unknown as i18n);
+
+    expect(result.perioder?.[1].fomError).toBe(error);
+    expect(result.periodeError).toBeUndefined();
+    expect(result.feilmeldinger.filter((feil) => feil.skjemaelementId === '#fra-dato-1')).toHaveLength(error ? 1 : 0);
+    expect(state).toEqual(original);
+  });
+
+  it.each(['correct', 'delete'])('clears period errors after %s', (action) => {
+    let state = defaultGravidKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [
+        { uniqueKey: 'first', fom: parseISO('2025-01-01'), tom: parseISO('2025-01-05'), dager: 5 },
+        { uniqueKey: 'second', fom: parseISO('2025-01-23'), tom: parseISO('2025-01-23'), dager: 1 }
+      ]
+    });
+    state = validateGravidKrav(state, translationMock as unknown as i18n);
+    expect(state.perioder?.[1].fomError).toBe(ValidatePerioderKeys.VALIDATE_PERIODER_OPPHOLD);
+    state.perioder =
+      action === 'delete'
+        ? state.perioder?.slice(0, 1)
+        : state.perioder?.map((periode, index) =>
+            index === 1 ? { ...periode, fom: parseISO('2025-01-22'), tom: parseISO('2025-01-22') } : periode
+          );
+
+    const result = validateGravidKrav(state, translationMock as unknown as i18n);
+
+    expect(result.perioder?.every((periode) => !periode.fomError)).toBe(true);
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#fra-dato-1')).toBe(false);
+  });
+
   it.each([
     { dager: [8, 8], error: undefined },
     { dager: [8, 9], error: ValidateDagerKeys.VALIDATE_DAGER_TOO_HIGH },

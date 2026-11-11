@@ -6,6 +6,8 @@ import arbeidsgiverResponse from './arbeidsgiverResponse';
 
 import clickButton from './helpers/clickSubmit';
 import { FormPage } from './utils/formPage';
+import { addDays, format } from 'date-fns';
+import { MAX_DAGER_MELLOM_PERIODER } from '../src/config/konstanter';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgiver-tilganger/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
@@ -178,6 +180,79 @@ test.describe('Gravid - Krav', () => {
       })
     ).toBeVisible();
   });
+
+  test('Avviser for langt opphold og tillater den konfigurerte grensen etter korrigering', async ({ page }) => {
+    const formPage = new FormPage(page);
+    const sluttdato = new Date(2021, 0, 5);
+    const ugyldigStart = addDays(sluttdato, MAX_DAGER_MELLOM_PERIODER + 2);
+    const gyldigStart = addDays(sluttdato, MAX_DAGER_MELLOM_PERIODER + 1);
+    const innsendinger: string[] = [];
+    page.on('request', (request) => {
+      if (request.method() === 'POST' && innsendingAPI.test(request.url())) {
+        innsendinger.push(request.url());
+      }
+    });
+    await formPage.fillKravWithPeriods([
+      { fom: '01.01.2021', tom: '05.01.2021' },
+      { fom: format(ugyldigStart, 'dd.MM.yyyy'), tom: format(ugyldigStart, 'dd.MM.yyyy') }
+    ]);
+    await formPage.clickButton('Send krav');
+
+    const feil = page.getByRole('link', {
+      name: `Det kan ikke være mer enn ${MAX_DAGER_MELLOM_PERIODER} dager mellom periodene`
+    });
+    await expect(feil).toHaveAttribute('href', '#fra-dato-1');
+    expect(innsendinger).toHaveLength(0);
+    await feil.click();
+    await expect(page.locator('#fra-dato-1')).toBeFocused();
+
+    await page.locator('#fra-dato-1').fill(format(gyldigStart, 'dd.MM.yyyy'));
+    await page.locator('#til-dato-1').fill(format(gyldigStart, 'dd.MM.yyyy'));
+    await expect(feil).toHaveCount(0);
+    const requestPromise = page.waitForRequest(innsendingAPI);
+    await formPage.clickButton('Send krav');
+    const request = await requestPromise;
+    expect(request.postDataJSON().perioder[1]).toMatchObject({
+      fom: format(gyldigStart, 'yyyy-MM-dd'),
+      tom: format(gyldigStart, 'yyyy-MM-dd'),
+      antallDagerMedRefusjon: 1
+    });
+    expect(innsendinger).toHaveLength(1);
+    await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
+  });
+
+  for (const handling of ['korriger', 'slett']) {
+    test(`Avviser overlapp og tillater innsending etter ${handling}`, async ({ page }) => {
+      const formPage = new FormPage(page);
+      const innsendinger: string[] = [];
+      page.on('request', (request) => {
+        if (request.method() === 'POST' && innsendingAPI.test(request.url())) {
+          innsendinger.push(request.url());
+        }
+      });
+      await formPage.fillKravWithPeriods([
+        { fom: '01.01.2021', tom: '05.01.2021' },
+        { fom: '05.01.2021', tom: '06.01.2021' }
+      ]);
+      await formPage.clickButton('Send krav');
+
+      const feil = page.getByRole('link', { name: 'Periodene kan ikke overlappe' });
+      await expect(feil).toHaveAttribute('href', '#fra-dato-1');
+      expect(innsendinger).toHaveLength(0);
+      if (handling === 'korriger') {
+        await page.locator('#fra-dato-1').fill('06.01.2021');
+      } else {
+        await page.getByRole('button', { name: 'Slett', exact: true }).last().click();
+      }
+      await expect(feil).toHaveCount(0);
+      const requestPromise = page.waitForRequest(innsendingAPI);
+      await formPage.clickButton('Send krav');
+      const request = await requestPromise;
+      expect(request.postDataJSON().perioder).toHaveLength(handling === 'korriger' ? 2 : 1);
+      expect(innsendinger).toHaveLength(1);
+      await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
+    });
+  }
 
   test('Legg til og fjern perioder', async ({ page }) => {
     const formPage = new FormPage(page);
