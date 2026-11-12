@@ -15,6 +15,7 @@ import validateBekreft from '../../validation/validateBekreft';
 import { validateOrgnr } from '../../validation/validateOrgnr';
 import { validateFnr } from '../../validation/validateFnr';
 import textify from '../../utils/textify';
+import { validatePerioder } from '../../validation/validatePerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_KRONISK_DATO;
@@ -23,9 +24,12 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   if (!state.validated) {
     return state;
   }
-  const nextState = { ...state, perioder: state.perioder?.map((periode) => ({ ...periode })) };
+  const nextState: KroniskKravState = {
+    ...state,
+    perioder: state.perioder?.map((periode) => ({ ...periode })),
+    periodeError: undefined
+  };
   const feilmeldinger = new Array<FeiloppsummeringFeil>();
-
   validateFodselsnummer(nextState, state, translate, feilmeldinger);
 
   validateOrganisasjonsnummer(nextState, state, translate, feilmeldinger);
@@ -34,13 +38,26 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
 
   validateEndringsAarsak(nextState, feilmeldinger);
 
+  let totaltDager = 0;
+
   nextState.perioder?.forEach((aktuellPeriode) => {
     const minDato = format(MIN_DATE, 'dd.MM.yyyy');
-    const valideringFraStatus = validateFra(aktuellPeriode.fom, MIN_DATE, !!state.validated);
+    const valideringFraStatus = validateFra(
+      aktuellPeriode.fom,
+      MIN_DATE,
+      !!state.validated,
+      aktuellPeriode.fomInputError
+    );
 
     aktuellPeriode.fomError = textify(translate.t(valideringFraStatus?.key as string, { value: minDato }));
 
-    const valideringTilStatus = validateTil(aktuellPeriode.fom, aktuellPeriode.tom, MIN_DATE, !!state.validated);
+    const valideringTilStatus = validateTil(
+      aktuellPeriode.fom,
+      aktuellPeriode.tom,
+      MIN_DATE,
+      !!state.validated,
+      aktuellPeriode.tomInputError
+    );
 
     aktuellPeriode.sykemeldingsgradError = formatValidation(
       validateSykemeldingGrad(aktuellPeriode.sykemeldingsgrad, !!state.validated),
@@ -50,10 +67,28 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
     aktuellPeriode.tomError = textify(translate.t(valideringTilStatus?.key as string, { value: minDato }));
 
     aktuellPeriode.dagerError = formatValidation(validateDager(aktuellPeriode.dager, !!state.validated), translate);
+    if (aktuellPeriode.dager) {
+      totaltDager += aktuellPeriode.dager;
+    }
     aktuellPeriode.beloepError = formatValidation(
       validateBeloep(stringOrUndefined(aktuellPeriode.beloep), MAX, !!state.validated),
       translate
     );
+  });
+
+  nextState.periodeError = formatValidation(validateDager(totaltDager, !!state.validated), translate);
+
+  if (nextState.periodeError) {
+    pushFeilmelding('dager-total', nextState.periodeError, feilmeldinger);
+  } else {
+    delete nextState.periodeError;
+  }
+
+  validatePerioder(nextState.perioder).forEach(({ index, key, value }) => {
+    const periode = nextState.perioder?.[index];
+    if (periode) {
+      periode.fomError = textify(translate.t(key, { value }));
+    }
   });
 
   nextState.perioder?.forEach((aktuellPeriode, index) => {
@@ -79,7 +114,6 @@ export const validateKroniskKrav = (state: KroniskKravState, translate: i18n): K
   });
 
   validateBekreftelse(nextState, state, translate, feilmeldinger);
-
   nextState.feilmeldinger = feilmeldinger;
   return nextState;
 };

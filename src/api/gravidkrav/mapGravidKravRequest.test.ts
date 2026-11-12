@@ -1,5 +1,5 @@
+import { parseISO } from 'date-fns';
 import { mapGravidKravRequest } from './mapGravidKravRequest';
-import { parseDato } from '../../utils/dato/Dato';
 import { GravidKravRequest } from './GravidKravRequest';
 import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
 
@@ -12,8 +12,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-03'),
             dager: 5,
             beloep: 3000
           }
@@ -32,8 +32,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-03'),
             dager: 5,
             beloep: 3000
           }
@@ -52,8 +52,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('99.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-99'),
+            tom: parseISO('2025-04-03'),
             dager: 5,
             beloep: 3000
           }
@@ -72,8 +72,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('99.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-99'),
             dager: 5,
             beloep: 3000
           }
@@ -92,8 +92,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-03'),
             beloep: 3000
           }
         ],
@@ -111,8 +111,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-03'),
             dager: 5
           }
         ],
@@ -130,8 +130,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-03'),
             dager: 5,
             beloep: 3000
           }
@@ -150,8 +150,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-03'),
             dager: 5,
             beloep: 3000
           }
@@ -184,8 +184,8 @@ describe('mapGravidKravRequest', () => {
         [
           {
             uniqueKey: '1',
-            fom: parseDato('01.02.2020'),
-            tom: parseDato('03.04.2025'),
+            fom: parseISO('2020-02-01'),
+            tom: parseISO('2025-04-03'),
             dager: 5,
             beloep: 3000
           }

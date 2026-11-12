@@ -1,10 +1,12 @@
-import type { Dato } from '../utils/dato/Dato';
+import type { DateInputError } from '../utils/dato/Dato';
 
 export interface KravPeriodeData {
   uniqueKey: string;
-  fom?: Dato;
+  fom?: Date;
+  fomInputError?: DateInputError;
   fomError?: string;
-  tom?: Dato;
+  tom?: Date;
+  tomInputError?: DateInputError;
   tomError?: string;
   dager?: number;
   dagerError?: string;

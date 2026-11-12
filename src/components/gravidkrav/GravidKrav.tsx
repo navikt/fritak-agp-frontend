@@ -10,6 +10,7 @@ import GravidKravState, { defaultGravidKravState } from './GravidKravState';
 import { Actions, GravidKravAction } from './Actions';
 import postGravidKrav from '../../api/gravidkrav/postGravidKrav';
 import environment from '../../config/environment';
+import { MIN_GRAVID_DATO } from '../../config/konstanter';
 import { mapGravidKravRequest } from '../../api/gravidkrav/mapGravidKravRequest';
 import { useTranslation } from 'react-i18next';
 import { i18n as Ii18n } from 'i18next';
@@ -30,7 +31,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { BodyLong, Box, Button, Fieldset, Heading, HelpText } from '@navikt/ds-react';
+import { BodyLong, Box, Button, ErrorMessage, Fieldset, Heading, ReadMore } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -43,7 +44,6 @@ import HttpStatus from '../../api/HttpStatus';
 import { Language } from '../../locale/Language';
 import stringishToNumber from '../../utils/stringishToNumber';
 import LeggTilKnapp from '../felles/LeggTilKnapp/LeggTilKnapp';
-import TextLabel from '../TextLabel';
 import DuplicateSubmissionAdvarsel from '../felles/DuplicateSubmissionAdvarsel/DuplicateSubmissionAdvarsel';
 import { GravidKrav as GravidKravType } from '../../context/krav';
 import { validateGravidKrav } from './validateGravidKrav';
@@ -207,7 +207,6 @@ const GravidKrav = (props: GravidKravProps) => {
   const title = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_STOR);
   const subtitle = t(GravidKravKeys.GRAVID_KRAV_SIDETITTEL_SUBTITLE);
 
-  const arbeidstidHjelpetekstTitle = t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL);
   return (
     <Side
       bedriftsmeny={true}
@@ -282,15 +281,12 @@ const GravidKrav = (props: GravidKravProps) => {
         <Heading size='medium' level='3' className='textfelt-padding-bottom'>
           {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_TAPT)}
         </Heading>
-        <TextLabel className='textfelt-padding-bottom'>
-          <div className='label-med-hjelp'>
-            {t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}
-            <HelpText className='krav-padding-hjelpetekst' title={arbeidstidHjelpetekstTitle}>
-              <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
-            </HelpText>
-          </div>
-        </TextLabel>
+        <ReadMore header={t(GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_PERIODE)}>
+          <Oversettelse langKey={GravidKravKeys.GRAVID_KRAV_ARBEIDSTID_HJELPETEKST} />
+        </ReadMore>
         <Fieldset
+          id='dager-total'
+          tabIndex={-1}
           aria-live='polite'
           errorId={'arbeidsperiode'}
           className='krav-kort-wrapper'
@@ -301,11 +297,16 @@ const GravidKrav = (props: GravidKravProps) => {
             <KravPeriode
               enkeltPeriode={enkeltPeriode}
               index={index}
+              minDate={MIN_GRAVID_DATO}
               lonnspliktDager={state.antallDager}
               key={enkeltPeriode.uniqueKey}
-              slettbar={!!(state && state.perioder && state.perioder?.length > 1)}
-              onFraChange={(fra) => dispatch({ type: Actions.Fra, payload: { fra, itemId: enkeltPeriode.uniqueKey } })}
-              onTilChange={(til) => dispatch({ type: Actions.Til, payload: { til, itemId: enkeltPeriode.uniqueKey } })}
+              slettbar={!!(state?.perioder && state.perioder?.length > 1)}
+              onFraChange={(fra, dateInputError) =>
+                dispatch({ type: Actions.Fra, payload: { fra, dateInputError, itemId: enkeltPeriode.uniqueKey } })
+              }
+              onTilChange={(til, dateInputError) =>
+                dispatch({ type: Actions.Til, payload: { til, dateInputError, itemId: enkeltPeriode.uniqueKey } })
+              }
               onDagerChange={(dager) =>
                 dispatch({ type: Actions.Dager, payload: { dager, itemId: enkeltPeriode.uniqueKey } })
               }
@@ -329,6 +330,7 @@ const GravidKrav = (props: GravidKravProps) => {
               <LeggTilKnapp onClick={leggTilPeriode}>{t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}</LeggTilKnapp>
             )}
           </div>
+          {state.periodeError && <ErrorMessage as='div'>{state.periodeError}</ErrorMessage>}
         </Fieldset>
       </Box>
       <Skillelinje />

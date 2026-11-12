@@ -1,6 +1,6 @@
 .kroniskkrav {
     .krav-padding-hjelpetekst {
-        margin-left: 1rem !important;
+        margin-left: var(--ax-space-8);
     }
 
     .datoelement {
@@ -8,8 +8,8 @@
     }
 
     .kroniskkrav-datolabel {
-        margin-bottom: 0.5rem;
-        margin-top: 0.5rem;
+        margin-bottom: var(--ax-space-8);
+        margin-top: var(--ax-space-8);
     }
 
     .kroniskkrav-label-dato,
@@ -18,7 +18,7 @@
     }
 
     .avbrytknapp {
-        margin-left: 1rem;
+        margin-left: var(--ax-space-16);
     }
 
     .sletteknapp {
@@ -42,14 +42,14 @@
 
     .krav-kort-wrapper {
         display: flex;
-        gap: 1rem;
+        gap: var(--ax-space-16);
         flex-direction: column;
     }
 }
 
 .kroniskkrav-modal {
     &-text {
-        margin-bottom: 1rem;
+        margin-bottom: var(--ax-space-16);
         display: inline-block;
     }
     

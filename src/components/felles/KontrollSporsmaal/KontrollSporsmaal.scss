@@ -9,13 +9,13 @@
     display: inline-block;
 
     @media screen and (min-width: 1200px) {
-        margin-left: 1rem;
+        margin-left: var(--ax-space-16);
     }
 }
 
 .kontrollsporsmaal {
     .harFeil input:not(:focus):not(:hover):not(:active):not(.inputPanel--focused) {
-        border-color: #ba3a26;
-        box-shadow: 0 0 0 1px #ba3a26;
+        border-color: var(--ax-border-danger-strong);
+        box-shadow: 0 0 0 1px var(--ax-border-danger-strong);
       }
 }

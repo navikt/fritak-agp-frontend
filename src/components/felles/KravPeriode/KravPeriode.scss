@@ -1,24 +1,78 @@
 .krav-kort {
-    padding: 0.25rem 0.625rem 0.625rem;
-    border-radius: 0.125rem;
-    border: 1px solid #cdcecf;
-    box-shadow: 5px 5px 5px 2px #f5f3f0;
+    padding: var(--ax-space-4) 0.625rem 0.625rem;
+    // border-radius: 0.125rem;
+    // border: 1px solid #cdcecf;
+    // box-shadow: 5px 5px 5px 2px #f5f3f0;
     display: grid;
-    grid-template-columns: [col1] 25% [col2] 25% [col3] auto [col4] 25%;
-    grid-template-rows: [row1] auto [row2] auto;
-    gap: 1rem;
+    align-items: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 1.3fr) minmax(0, 1fr) max-content;
+    grid-template-rows: auto auto auto;
+    column-gap: var(--ax-space-16);
+    row-gap: var(--ax-space-8);
+
+    > .aksel-form-field,
+    > .aksel-date__wrapper {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 3;
+        align-items: start;
+        min-width: 0;
+        width: 100%;
+    }
+
+    > .aksel-date__wrapper > .aksel-form-field {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: 1 / -1;
+        align-items: start;
+        min-width: 0;
+    }
+
+    .aksel-form-field__label {
+        align-self: end;
+        min-width: 0;
+    }
+
+    .aksel-date__field-wrapper,
+    .aksel-date__field-input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .slett-periode-wrapper {
+        grid-column: 5;
+        grid-row: 2;
+        align-self: center;
+        justify-self: center;
+    }
+
+    > .aksel-error-message {
+        grid-column: 1 / -1;
+    }
     
     @media screen and (max-width: 1024px) {
-        grid-template-columns: [col1] 50% [col2] auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        .slett-periode-wrapper {
+            grid-column: 1 / -1;
+            grid-row: auto;
+            justify-self: end;
+        }
     }
     
     @media screen and (max-width: 608px) {
-        grid-template-columns: [col1] auto;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .label-med-hjelp {
         display: flex;
-        white-space: nowrap;
+        align-items: center;
+        white-space: normal;
+        // overflow-wrap: anywhere;
+
+        button {
+            flex-shrink: 0;
+        }
 
         span {
             white-space: break-spaces;
@@ -27,20 +81,20 @@
 
 }
 .periodewrapper {
-    margin: 0.25rem;
+    margin: var(--ax-space-4);
     display: flex;
-    gap: 0.75rem;
+    gap: var(--ax-space-12);
     flex-wrap: wrap;
 
     &.andre {
-        margin-top: 1rem;
+        margin-top: var(--ax-space-16);
     }
     .datowrapper {
         margin-top: auto;
     }
 
     .tekstvisning {
-        padding-top: .75rem;
+        padding-top: var(--ax-space-12);
     }
 
     .datovelger-periode {
@@ -49,7 +103,7 @@
     }
 
     .skjemaelement__label {
-        margin-top: 1rem;
+        margin-top: var(--ax-space-16);
     }
 
     .mnd-inntekt  {
@@ -67,11 +121,11 @@
     .slett-periode-wrapper {
         @media screen and (min-width: 608px) {
             margin-left: auto;
-            margin-top: 3rem;
+            margin-top: var(--ax-space-48);
         }
         .knapp {
             @media screen and (max-width: 608px) {
-                margin-top: 1rem;
+                margin-top: var(--ax-space-16);
             }
         }
     }
@@ -89,10 +143,10 @@
         }
         
         .skjemaelement {
-            padding-top: 1rem;
+            padding-top: var(--ax-space-16);
         }
         .tekstvisning {
-            padding-top: 1.75rem;
+            padding-top: var(--ax-space-28);
         }
         
         .slett-periode-wrapper {

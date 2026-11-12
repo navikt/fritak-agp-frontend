@@ -1,3 +1,4 @@
+import { parseISO } from 'date-fns';
 import React from 'react';
 import { render, cleanup, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { axe } from 'vitest-axe';
@@ -19,7 +20,6 @@ import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
 import postKroniskKrav from '../../api/kroniskkrav/postKroniskKrav';
 import patchKroniskKrav from '../../api/kroniskkrav/patchKroniskKrav';
 import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
-import { parseDato } from '../../utils/dato/Dato';
 import { EndringsAarsak } from '../gravidkrav/EndringsAarsak';
 import HttpStatus from '../../api/HttpStatus';
 import { ValidationResponse } from '../../state/validation/ValidationResponse';
@@ -53,7 +53,7 @@ describe('KroniskKrav', () => {
         antallDager: 260,
         bekreft: true,
         perioder: [
-          { uniqueKey: 'periode', fom: parseDato('02.08.2021'), tom: parseDato('06.08.2021'), dager: 5, beloep: 35000 }
+          { uniqueKey: 'periode', fom: parseISO('2021-08-02'), tom: parseISO('2021-08-06'), dager: 5, beloep: 35000 }
         ],
         ...overrides
       });
@@ -108,10 +108,57 @@ describe('KroniskKrav', () => {
         ...(endringskrav ? { aarsakEndring: EndringsAarsak.ANNET } : {})
       };
       expect(api.mock.calls[0].at(-1)).toEqual(expectedRequest);
-      if (endringskrav) expect(vi.mocked(patchKroniskKrav).mock.calls[0][1]).toBe('krav-id');
+      expect(vi.mocked(patchKroniskKrav).mock.calls.map((call) => call[1])).toEqual(endringskrav ? ['krav-id'] : []);
       expect(endringskrav ? postKroniskKrav : patchKroniskKrav).not.toHaveBeenCalled();
       router.dispose();
     });
+
+    it.each([
+      { endringskrav: false, start: '2021-08-24' },
+      { endringskrav: true, start: '2021-08-24' },
+      { endringskrav: false, start: '2021-08-06' },
+      { endringskrav: true, start: '2021-08-06' }
+    ])(
+      'blocks invalid periods from $start with endringskrav=$endringskrav until corrected',
+      async ({ start, endringskrav }) => {
+        const api = endringskrav ? vi.mocked(patchKroniskKrav) : vi.mocked(postKroniskKrav);
+        api.mockResolvedValue({ status: HttpStatus.Created, violations: [] });
+        const state = validState({ endringskrav, kravId: 'krav-id', endringsAarsak: EndringsAarsak.ANNET });
+        state.perioder?.push({
+          uniqueKey: 'second',
+          fom: parseISO(start),
+          tom: parseISO(start),
+          dager: 1,
+          beloep: 35000
+        });
+        const router = renderForm(state);
+        const submit = screen.getByRole('button', { name: endringskrav ? /Send inn endring/ : /Send kravet/ });
+
+        fireEvent.click(submit);
+
+        expect(postKroniskKrav).not.toHaveBeenCalled();
+        expect(patchKroniskKrav).not.toHaveBeenCalled();
+        expect(screen.getByRole('link', { name: /mellom periodene|Periodene kan ikke overlappe/ })).toHaveAttribute(
+          'href',
+          '#fra-dato-1'
+        );
+
+        fireEvent.change(screen.getAllByLabelText(/Fra dato/, { selector: 'input' })[1], {
+          target: { value: '07.08.2021' }
+        });
+        fireEvent.change(screen.getAllByLabelText(/Til dato/, { selector: 'input' })[1], {
+          target: { value: '07.08.2021' }
+        });
+
+        expect(
+          screen.queryByRole('link', { name: /mellom periodene|Periodene kan ikke overlappe/ })
+        ).not.toBeInTheDocument();
+        fireEvent.click(submit);
+        await waitFor(() => expect(router.state.location.pathname).toBe('/nb/kronisk/krav/kvittering'));
+        expect(api).toHaveBeenCalledTimes(1);
+        router.dispose();
+      }
+    );
 
     it('does not send an invalid form and revalidates corrected fields', async () => {
       const router = renderForm(validState({ fnr: '123' }));
@@ -122,6 +169,37 @@ describe('KroniskKrav', () => {
         target: { value: testFnr.GyldigeFraDolly.TestPerson1 }
       });
       expect(screen.queryByText(/Ugyldig fødselsnummer/)).not.toBeInTheDocument();
+      router.dispose();
+    });
+
+    it.each([
+      { label: /Fra dato/, value: '02.08.2021' },
+      { label: /Til dato/, value: '06.08.2021' }
+    ])('preserves invalid $label input until it is corrected', async ({ label, value }) => {
+      vi.mocked(postKroniskKrav).mockResolvedValue({ status: HttpStatus.Created, violations: [] });
+      const router = renderForm(validState());
+      const input = screen.getByLabelText(label, { selector: 'input' });
+      const submit = screen.getByRole('button', { name: /Send kravet/ });
+
+      fireEvent.change(input, { target: { value: '31.02.2021' } });
+      fireEvent.click(submit);
+      fireEvent.change(screen.getByLabelText(/Beregnet månedsinntekt/, { selector: 'input' }), {
+        target: { value: '36000' }
+      });
+
+      expect(input).toHaveValue('31.02.2021');
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(postKroniskKrav).not.toHaveBeenCalled();
+
+      fireEvent.change(input, { target: { value: '' } });
+      fireEvent.click(submit);
+      expect(postKroniskKrav).not.toHaveBeenCalled();
+
+      fireEvent.change(input, { target: { value } });
+      fireEvent.click(submit);
+
+      await waitFor(() => expect(router.state.location.pathname).toBe('/nb/kronisk/krav/kvittering'));
+      expect(postKroniskKrav).toHaveBeenCalledTimes(1);
       router.dispose();
     });
 
@@ -208,8 +286,9 @@ describe('KroniskKrav', () => {
         expect(router.state.location.pathname).toBe('/nb/kronisk/krav');
         if (status === HttpStatus.Error)
           screen.getAllByText('Skjul denne meldingen.').forEach((link) => fireEvent.click(link));
-        if (status === HttpStatus.UnprocessableEntity)
-          expect(screen.getAllByText('Backend validation error').length).toBeGreaterThan(0);
+        expect(screen.queryAllByText('Backend validation error').length > 0).toBe(
+          status === HttpStatus.UnprocessableEntity
+        );
         fireEvent.click(screen.getByRole('button', { name: /Send kravet/ }));
         await waitFor(() => expect(router.state.location.pathname).toBe('/nb/kronisk/krav/kvittering'));
         expect(postKroniskKrav).toHaveBeenCalledTimes(2);
@@ -323,7 +402,9 @@ describe('KroniskKrav', () => {
     expect(screen.getAllByText(/Mangler fødselsnummer/).length).toBe(2);
     expect(screen.getAllByText(/Mangler fra dato/).length).toBe(2);
     expect(screen.getAllByText(/Mangler til dato/).length).toBe(2);
-    expect(screen.getAllByText(/Mangler dager/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler dager/).length).toBe(4);
+    expect(document.getElementById('dager-total')).toHaveAttribute('tabindex', '-1');
+    expect(document.getElementById('dager-0')).toHaveAttribute('tabindex', '-1');
     expect(screen.getAllByText(/Mangler beløp/).length).toBe(2);
     expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
   });
@@ -374,14 +455,15 @@ describe('KroniskKrav', () => {
     );
     const submitButton = await screen.findByText(/Send kravet/);
 
-    const selectDager = screen.getByLabelText(/Antall dager/, { selector: 'select' });
-
     await user.click(submitButton);
-    await user.selectOptions(selectDager, ['3']);
+    expect(screen.getAllByText(/Mangler dager/)).toHaveLength(4);
+
+    fireEvent.change(screen.getByLabelText(/Fra dato/, { selector: 'input' }), { target: { value: '01.08.2025' } });
+    fireEvent.change(screen.getByLabelText(/Til dato/, { selector: 'input' }), { target: { value: '03.08.2025' } });
 
     await waitFor(
       () => {
-        expect(screen.queryByText(/Dager må fylles ut/)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Mangler dager/)).not.toBeInTheDocument();
       },
       { timeout: 10000 }
     );
