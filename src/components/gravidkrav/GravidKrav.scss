@@ -1,6 +1,6 @@
 .gravidkrav {
     .krav-padding-hjelpetekst {
-        margin-left: .5rem;
+        margin-left: var(--ax-space-8);
     }
 
     .datoelement {
@@ -8,8 +8,8 @@
     }
 
     .gravidkrav-datolabel {
-        margin-bottom: 0.5rem;
-        margin-top: 0.5rem;
+        margin-bottom: var(--ax-space-8);
+        margin-top: var(--ax-space-8);
     }
 
     .gravidkrav-label-dato,
@@ -25,11 +25,11 @@
     }
 
     .first-row .slett-knapp {
-        margin-top: 2rem;
+        margin-top: var(--ax-space-32);
     }
 
     .avbrytknapp {
-        margin-left: 1rem;
+        margin-left: var(--ax-space-16);
     }
 
     .sletteknapp {
@@ -52,7 +52,7 @@
 
     .krav-kort-wrapper {
         display: flex;
-        gap: 1rem;
+        gap: var(--ax-space-16);
         flex-direction: column;
     }
 }

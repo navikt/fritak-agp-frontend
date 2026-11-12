@@ -1,5 +1,3 @@
-@use "../../variabler.sass";
-
 .gravid-side {
     .arbeidsmiljo-ingress ul {
         margin-top: 0;
@@ -15,11 +13,11 @@
     }
 
     .gravidside-panel-ansatte {
-        padding-bottom: 0.5rem;
+        padding-bottom: var(--ax-space-8);
     }
     
     .gravid-side-radiogruppe-omplassering {
-        margin-top: 1rem;
+        margin-top: var(--ax-space-16);
         
         > .skjemagruppe.radiogruppe {
             margin-bottom: 0;
@@ -37,12 +35,12 @@
         margin: 0;
         padding-right: 0;
         background: transparent;
-        color: variabler.$navBla !important;
+        color: var(--ax-text-accent-subtle) !important;
         text-decoration: underline;
     }
 
     .gravideside-radiogruppe-indentert {
-        margin-left: 1rem !important;
+        margin-left: var(--ax-space-16) !important;
     }
 
     .termindato {
@@ -50,6 +48,6 @@
     }
 
     .avbrytknapp {
-        margin-left: 1rem;
+        margin-left: var(--ax-space-16);
     }
 }
