@@ -954,6 +954,10 @@ const Locales: Record<
     nb: 'Til dato kan ikke være før fra dato',
     en: 'To date can not be before from date'
   },
+  VALIDATE_TIL_TOO_LONG: {
+    nb: 'Perioden kan ikke være lengre enn 16 dager, inkludert fra- og til-dato',
+    en: 'The period cannot exceed 16 days, including the start and end dates'
+  },
   VALIDATE_BEKREFT_NOT_CHECKED: {
     nb: 'Bekreft at opplysningene er korrekt',
     en: 'Please confirm that the information is correct'
@@ -978,6 +982,10 @@ const Locales: Record<
   VALIDATE_PERIODER_OVERLAPP: {
     nb: 'Periodene kan ikke overlappe',
     en: 'Periods cannot overlap'
+  },
+  VALIDATE_PERIODER_TOTALT_FOR_LANG: {
+    nb: 'Periodene kan til sammen ikke overstige 16 kalenderdager, inkludert fra- og til-dato i hver periode',
+    en: 'The periods cannot exceed 16 calendar days in total, including the start and end dates of each period'
   },
 
   VALIDATE_BELOEP_AMOUNT_MISSING: {

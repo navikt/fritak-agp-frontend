@@ -8,7 +8,8 @@ export enum validateTilKeys {
   VALIDATE_TIL_INVALID = 'VALIDATE_TIL_INVALID',
   VALIDATE_TIL_FOM_ERROR = 'VALIDATE_TIL_FOM_ERROR',
   VALIDATE_TIL_ERROR = 'VALIDATE_TIL_ERROR',
-  VALIDATE_TIL_TOO_EARLY = 'VALIDATE_TIL_TOO_EARLY'
+  VALIDATE_TIL_TOO_EARLY = 'VALIDATE_TIL_TOO_EARLY',
+  VALIDATE_TIL_TOO_LONG = 'VALIDATE_TIL_TOO_LONG'
 }
 
 interface ValidateTilResult extends ValidationResult {
@@ -17,7 +18,8 @@ interface ValidateTilResult extends ValidationResult {
     | validateTilKeys.VALIDATE_TIL_INVALID
     | validateTilKeys.VALIDATE_TIL_FOM_ERROR
     | validateTilKeys.VALIDATE_TIL_ERROR
-    | validateTilKeys.VALIDATE_TIL_TOO_EARLY;
+    | validateTilKeys.VALIDATE_TIL_TOO_EARLY
+    | validateTilKeys.VALIDATE_TIL_TOO_LONG;
 }
 
 export const validateTil = (
@@ -51,6 +53,9 @@ export const validateTil = (
   }
   if (differenceInCalendarDays(fra, til) > 0) {
     return { key: validateTilKeys.VALIDATE_TIL_TOO_EARLY };
+  }
+  if (differenceInCalendarDays(til, fra) + 1 > 16) {
+    return { key: validateTilKeys.VALIDATE_TIL_TOO_LONG };
   }
   return undefined;
 };

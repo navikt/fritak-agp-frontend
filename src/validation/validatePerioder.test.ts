@@ -1,7 +1,7 @@
 import { addDays, parseISO } from 'date-fns';
 import { MAX_DAGER_MELLOM_PERIODER } from '../config/konstanter';
 import type { KravPeriodeData } from '../state/KravPeriodeData';
-import { validatePerioder, ValidatePerioderKeys } from './validatePerioder';
+import { validatePerioder, ValidatePerioderKeys, validateTotaltKalenderdager } from './validatePerioder';
 
 const periode = (fom: string, tom = fom): KravPeriodeData => ({
   uniqueKey: fom,
@@ -10,6 +10,25 @@ const periode = (fom: string, tom = fom): KravPeriodeData => ({
 });
 
 describe('validatePerioder', () => {
+  it.each([
+    { lengder: [8, 8], forLang: false },
+    { lengder: [8, 9], forLang: true },
+    { lengder: [10, 7], forLang: true },
+    { lengder: [5, 5, 6], forLang: false },
+    { lengder: [5, 5, 7], forLang: true }
+  ])('validates total inclusive calendar days for $lengder without counting gaps', ({ lengder, forLang }) => {
+    const perioder = lengder.map((lengde, index) => ({
+      uniqueKey: `periode-${index}`,
+      fom: new Date(2025, 0, index * 15 + 1),
+      tom: new Date(2025, 0, index * 15 + lengde),
+      dager: 1
+    }));
+
+    expect(validateTotaltKalenderdager(perioder)).toEqual(
+      forLang ? { key: ValidatePerioderKeys.VALIDATE_PERIODER_TOTALT_FOR_LANG } : undefined
+    );
+  });
+
   it('accepts missing, empty and single periods', () => {
     expect(validatePerioder(undefined)).toEqual([]);
     expect(validatePerioder([])).toEqual([]);

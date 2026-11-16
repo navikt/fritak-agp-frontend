@@ -1,13 +1,26 @@
-import { parseISO } from 'date-fns';
+import { addDays, parseISO } from 'date-fns';
 import { validateTil, validateTilKeys } from './validateTil';
 
 describe('validateTil', () => {
   const minDate = new Date(2021, 0, 29);
 
   it('should not show errors when valid', () => {
-    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-04-03'), minDate, false)).toBeUndefined();
-    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-04-03'), minDate, true)).toBeUndefined();
+    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-02-16'), minDate, false)).toBeUndefined();
+    expect(validateTil(parseISO('2021-02-01'), parseISO('2021-02-16'), minDate, true)).toBeUndefined();
   });
+
+  it.each(['2025-01-01', '2024-02-25', '2025-03-22', '2025-10-18', '2025-12-25'])(
+    'accepts 16 inclusive calendar days but rejects 17 starting %s',
+    (start) => {
+      const fra = parseISO(start);
+
+      expect(validateTil(fra, addDays(fra, 15), minDate, true)).toBeUndefined();
+      expect(validateTil(fra, addDays(fra, 16), minDate, true)).toEqual({
+        key: validateTilKeys.VALIDATE_TIL_TOO_LONG
+      });
+      expect(validateTil(fra, addDays(fra, 16), minDate, false)).toBeUndefined();
+    }
+  );
 
   it('should show errors when errors in dates', () => {
     expect(validateTil(new Date(NaN), parseISO('2021-04-03'), minDate, true)).toBeDefined();

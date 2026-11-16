@@ -1,11 +1,8 @@
 .krav-kort {
-    padding: var(--ax-space-4) 0.625rem 0.625rem;
-    // border-radius: 0.125rem;
-    // border: 1px solid #cdcecf;
-    // box-shadow: 5px 5px 5px 2px #f5f3f0;
+    padding: var(--ax-space-16) 0;
     display: grid;
     align-items: start;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 1.3fr) minmax(0, 1fr) max-content;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.2fr) minmax(0, 1fr) max-content;
     grid-template-rows: auto auto auto;
     column-gap: var(--ax-space-16);
     row-gap: var(--ax-space-8);
@@ -13,6 +10,7 @@
     > .aksel-form-field,
     > .aksel-date__wrapper {
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
         grid-template-rows: subgrid;
         grid-row: span 3;
         align-items: start;
@@ -22,6 +20,7 @@
 
     > .aksel-date__wrapper > .aksel-form-field {
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
         grid-template-rows: subgrid;
         grid-row: 1 / -1;
         align-items: start;
@@ -40,7 +39,7 @@
     }
 
     .slett-periode-wrapper {
-        grid-column: 5;
+        grid-column: 6;
         grid-row: 2;
         align-self: center;
         justify-self: center;
@@ -50,8 +49,13 @@
         grid-column: 1 / -1;
     }
     
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1200px) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        & + .krav-kort {
+            border-top: 1px solid var(--ax-border-neutral-subtle);
+            padding-top: var(--ax-space-24);
+        }
 
         .slett-periode-wrapper {
             grid-column: 1 / -1;
@@ -64,11 +68,10 @@
         grid-template-columns: minmax(0, 1fr);
     }
 
-    .label-med-hjelp {
+    .aksel-form-field__label .label-med-hjelp {
         display: flex;
         align-items: center;
         white-space: normal;
-        // overflow-wrap: anywhere;
 
         button {
             flex-shrink: 0;

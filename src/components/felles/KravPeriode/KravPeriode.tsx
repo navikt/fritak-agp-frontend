@@ -1,13 +1,14 @@
-import { differenceInCalendarDays, format, isValid } from 'date-fns';
+import { format, isValid } from 'date-fns';
 
 import React, { useEffect } from 'react';
 import getGrunnbeloep from '../../../api/grunnbelop/getGrunnbeloep';
+import SelectDager from '../SelectDager/SelectDager';
 import type { KravPeriodeData } from '../../../state/KravPeriodeData';
 import './KravPeriode.scss';
 import { useTranslation } from 'react-i18next';
 import LangKey from '../../../locale/LangKey';
 import { MIN_KRONISK_DATO } from '../../../config/konstanter';
-import { Button, ErrorMessage, HelpText, TextField } from '@navikt/ds-react';
+import { Button, HelpText, TextField } from '@navikt/ds-react';
 import Oversettelse from '../Oversettelse/Oversettelse';
 import Datovelger from '../../datovelger/Datovelger';
 import TextLabel from '../../TextLabel';
@@ -43,12 +44,10 @@ const KravPeriode = (props: KravPeriodeProps) => {
       });
     }
     props.onFraChange(fraDato, inputError);
-    props.onDagerChange(fraDato && defaultTom ? differenceInCalendarDays(defaultTom, fraDato) + 1 : undefined);
   };
 
   const tilDatoValgt = (tilDato: Date | undefined, inputError?: DateInputError) => {
     props.onTilChange(tilDato, inputError);
-    props.onDagerChange(defaultFom && tilDato ? differenceInCalendarDays(tilDato, defaultFom) + 1 : undefined);
   };
 
   const today = new Date();
@@ -87,6 +86,26 @@ const KravPeriode = (props: KravPeriodeProps) => {
         error={props.enkeltPeriode.tomError}
         toDate={today}
         defaultSelected={defaultTom}
+      />
+      <SelectDager
+        label={
+          <div className='label-med-hjelp'>
+            {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_LABEL)}
+            <HelpText
+              className='krav-padding-hjelpetekst'
+              title={textify(t(LangKey.KRONISK_KRAV_PERIODE_DAGER_TITTEL))}
+            >
+              {t(LangKey.KRONISK_KRAV_PERIODE_DAGER_HJELPETEKST)}
+            </HelpText>
+          </div>
+        }
+        className='periode-elementer'
+        id={`dager-${props.index}`}
+        value={props.enkeltPeriode.dager ?? 0}
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+          props.onDagerChange(stringishToNumber(event.currentTarget.value))
+        }
+        error={props.enkeltPeriode.dagerError}
       />
       <TextField
         label={
@@ -143,11 +162,6 @@ const KravPeriode = (props: KravPeriodeProps) => {
             Slett
           </Button>
         </div>
-      )}
-      {props.enkeltPeriode.dagerError && (
-        <ErrorMessage as='div' id={`dager-${props.index}`} tabIndex={-1}>
-          {props.enkeltPeriode.dagerError}
-        </ErrorMessage>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ import { validateTil } from '../../validation/validateTil';
 import validateBeloep from '../../validation/validateBeloep';
 import validateBekreft from '../../validation/validateBekreft';
 import textify from '../../utils/textify';
-import { validatePerioder } from '../../validation/validatePerioder';
+import { validatePerioder, validateTotaltKalenderdager } from '../../validation/validatePerioder';
 
 const MAX = 10000000;
 const MIN_DATE = MIN_GRAVID_DATO;
@@ -95,7 +95,10 @@ export const validateGravidKrav = (state: GravidKravState, translate: i18n): Gra
     );
   });
 
-  nextState.periodeError = formatValidation(validateDager(totaltDager, !!state.validated), translate);
+  nextState.periodeError = formatValidation(
+    validateDager(totaltDager, !!state.validated) ?? validateTotaltKalenderdager(nextState.perioder),
+    translate
+  );
   if (nextState.periodeError) {
     pushFeilmelding('dager-total', nextState.periodeError, feilmeldinger);
   } else {

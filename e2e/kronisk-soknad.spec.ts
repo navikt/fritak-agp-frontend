@@ -56,6 +56,7 @@ test.describe('Kronisk - Søknad', () => {
     await page.clock.setFixedTime(new Date('2021-08-25T10:00:00'));
 
     await page.goto('http://localhost:3000/fritak-agp/nb/kronisk/soknad?bedrift=810007842');
+    await page.getByRole('button', { name: 'Send søknad', exact: true }).waitFor({ state: 'visible' });
   });
 
   for (const width of [360, 390]) {

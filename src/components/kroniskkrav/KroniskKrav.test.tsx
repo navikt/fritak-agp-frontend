@@ -404,7 +404,7 @@ describe('KroniskKrav', () => {
     expect(screen.getAllByText(/Mangler til dato/).length).toBe(2);
     expect(screen.getAllByText(/Mangler dager/).length).toBe(4);
     expect(document.getElementById('dager-total')).toHaveAttribute('tabindex', '-1');
-    expect(document.getElementById('dager-0')).toHaveAttribute('tabindex', '-1');
+    expect(screen.getByRole('combobox', { name: /Antall dager/ })).toHaveAttribute('aria-invalid', 'true');
     expect(screen.getAllByText(/Mangler beløp/).length).toBe(2);
     expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
   });
@@ -460,6 +460,7 @@ describe('KroniskKrav', () => {
 
     fireEvent.change(screen.getByLabelText(/Fra dato/, { selector: 'input' }), { target: { value: '01.08.2025' } });
     fireEvent.change(screen.getByLabelText(/Til dato/, { selector: 'input' }), { target: { value: '03.08.2025' } });
+    await user.selectOptions(screen.getByRole('combobox', { name: /Antall dager/ }), '3');
 
     await waitFor(
       () => {

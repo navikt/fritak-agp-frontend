@@ -1,7 +1,10 @@
 import { expect, type Page } from '@playwright/test';
 import { FormPage } from '../utils/formPage';
 
-export async function fillKravWithPeriods(page: Page, perioder: { fom: string; tom: string }[]): Promise<void> {
+export async function fillKravWithPeriods(
+  page: Page,
+  perioder: { fom: string; tom: string; dager: number }[]
+): Promise<void> {
   const formPage = new FormPage(page);
   await formPage.fillInput('Fødselsnummer (11 siffer)', '20125027610');
   await formPage.fillInput('Oppgi antall dager dere utbetaler lønn for i året:', '260');
@@ -12,6 +15,10 @@ export async function fillKravWithPeriods(page: Page, perioder: { fom: string; t
     }
     await page.getByRole('textbox', { name: 'Fra dato', exact: true }).nth(index).fill(periode.fom);
     await page.getByRole('textbox', { name: 'Til dato', exact: true }).nth(index).fill(periode.tom);
+    await page
+      .getByRole('combobox', { name: /Antall dager/ })
+      .nth(index)
+      .selectOption(String(periode.dager));
     await page.locator(`#belop-${index}`).fill('5000');
   }
 }
@@ -19,7 +26,7 @@ export async function fillKravWithPeriods(page: Page, perioder: { fom: string; t
 export function getKravInputSizes(page: Page): Promise<{ height: number; width: number }[]> {
   return page
     .getByTestId('krav-periode-wrapper')
-    .locator('input')
+    .locator('input, select')
     .evaluateAll((inputs) =>
       inputs.map((input) => {
         const box = input.getBoundingClientRect();
@@ -31,7 +38,7 @@ export function getKravInputSizes(page: Page): Promise<{ height: number; width: 
 export async function assertKravPeriodLayout(page: Page, width: number): Promise<void> {
   for (const periode of await page.getByTestId('krav-periode-wrapper').all()) {
     const geometry = await periode.evaluate((element) => {
-      const inputs = Array.from(element.querySelectorAll('input')).map((input) => {
+      const inputs = Array.from(element.querySelectorAll('input, select')).map((input) => {
         const box = input.getBoundingClientRect();
         return { left: box.left, right: box.right, center: box.top + box.height / 2 };
       });
@@ -51,11 +58,11 @@ export async function assertKravPeriodLayout(page: Page, width: number): Promise
     for (const input of geometry.inputs) {
       expect(input.left).toBeGreaterThanOrEqual(geometry.left - 1);
       expect(input.right).toBeLessThanOrEqual(geometry.right + 1);
-      if (width > 1024) {
+      if (width > 1200) {
         expect(Math.abs(input.center - geometry.button.center)).toBeLessThanOrEqual(1);
       }
     }
-    if (width <= 1024) {
+    if (width <= 1200) {
       expect(geometry.button.top).toBeGreaterThanOrEqual(geometry.lastFieldBottom - 1);
     }
   }

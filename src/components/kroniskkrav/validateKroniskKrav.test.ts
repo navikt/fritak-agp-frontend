@@ -10,6 +10,44 @@ import { MAX_DAGER_MELLOM_PERIODER } from '../../config/konstanter';
 describe('validateKroniskKrav', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
 
+  it.each([6, 7])('validates and revalidates the combined calendar length with a %s-day second period', (length) => {
+    const state = defaultKroniskKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [
+        { uniqueKey: 'first', fom: new Date(2025, 0, 1), tom: new Date(2025, 0, 10), dager: 1 },
+        { uniqueKey: 'second', fom: new Date(2025, 0, 15), tom: new Date(2025, 0, 14 + length), dager: 1 }
+      ]
+    });
+
+    const result = validateKroniskKrav(state, i18n);
+
+    expect(result.periodeError).toBe(
+      length > 6
+        ? 'Periodene kan til sammen ikke overstige 16 kalenderdager, inkludert fra- og til-dato i hver periode'
+        : undefined
+    );
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#dager-total')).toBe(length > 6);
+    result.perioder![1].tom = new Date(2025, 0, 20);
+    expect(validateKroniskKrav(result, i18n).periodeError).toBeUndefined();
+  });
+
+  it.each([16, 17])('validates a %s-day date range independently of selected days', (length) => {
+    const state = defaultKroniskKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [{ uniqueKey: 'periode', fom: new Date(2025, 0, 1), tom: new Date(2025, 0, length), dager: 5 }]
+    });
+
+    const result = validateKroniskKrav(state, i18n);
+
+    expect(result.perioder?.[0].tomError || undefined).toBe(
+      length > 16 ? 'Perioden kan ikke være lengre enn 16 dager, inkludert fra- og til-dato' : undefined
+    );
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#til-dato-0')).toBe(length > 16);
+    expect(result.periodeError).toBeUndefined();
+  });
+
   it.each([
     { start: '2025-01-22', error: undefined },
     { start: '2025-01-23', error: `Det kan ikke være mer enn ${MAX_DAGER_MELLOM_PERIODER} dager mellom periodene` },

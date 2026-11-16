@@ -4,7 +4,8 @@ import type { KravPeriodeData } from '../state/KravPeriodeData';
 
 export enum ValidatePerioderKeys {
   VALIDATE_PERIODER_OPPHOLD = 'VALIDATE_PERIODER_OPPHOLD',
-  VALIDATE_PERIODER_OVERLAPP = 'VALIDATE_PERIODER_OVERLAPP'
+  VALIDATE_PERIODER_OVERLAPP = 'VALIDATE_PERIODER_OVERLAPP',
+  VALIDATE_PERIODER_TOTALT_FOR_LANG = 'VALIDATE_PERIODER_TOTALT_FOR_LANG'
 }
 
 interface PeriodeFeil {
@@ -12,6 +13,28 @@ interface PeriodeFeil {
   key: ValidatePerioderKeys;
   value?: number;
 }
+
+export const validateTotaltKalenderdager = (perioder: KravPeriodeData[] | undefined) => {
+  let totaltDager = 0;
+  for (const periode of perioder ?? []) {
+    const { fom, tom } = periode;
+    if (
+      !fom ||
+      !tom ||
+      !isValid(fom) ||
+      !isValid(tom) ||
+      periode.fomInputError ||
+      periode.tomInputError ||
+      periode.fomError ||
+      periode.tomError ||
+      differenceInCalendarDays(tom, fom) < 0
+    ) {
+      return undefined;
+    }
+    totaltDager += differenceInCalendarDays(tom, fom) + 1;
+  }
+  return totaltDager > 16 ? { key: ValidatePerioderKeys.VALIDATE_PERIODER_TOTALT_FOR_LANG } : undefined;
+};
 
 export const validatePerioder = (perioder: KravPeriodeData[] | undefined): PeriodeFeil[] => {
   if (!perioder || perioder.length < 2) {

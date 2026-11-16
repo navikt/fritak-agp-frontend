@@ -194,6 +194,16 @@ describe('GravidKrav', () => {
       expect(patchGravidKrav).not.toHaveBeenCalled();
       expect(document.querySelector('a[href="#dager-total"]')).toBeInTheDocument();
 
+      fireEvent.change(screen.getAllByRole('combobox', { name: /Antall dager/ })[1], {
+        target: { value: '11' }
+      });
+
+      expect(document.querySelector('a[href="#dager-total"]')).toHaveTextContent(
+        'Periodene kan til sammen ikke overstige 16 kalenderdager'
+      );
+      fireEvent.click(submit);
+      expect(api).not.toHaveBeenCalled();
+
       fireEvent.change(screen.getAllByLabelText(/Til dato/, { selector: 'input' })[1], {
         target: { value: '20.08.2021' }
       });

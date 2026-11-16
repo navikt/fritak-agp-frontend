@@ -4,12 +4,45 @@ import { defaultGravidKravState } from './GravidKravState';
 import { i18n } from 'i18next';
 import { ValidateDagerKeys } from '../../validation/validateDager';
 import { ValidatePerioderKeys } from '../../validation/validatePerioder';
+import { validateTilKeys } from '../../validation/validateTil';
 
 const translationMock = {
   t: (param: never) => param
 };
 
 describe('validateGravidKrav', () => {
+  it.each([6, 7])('validates and revalidates the combined calendar length with a %s-day second period', (length) => {
+    const state = defaultGravidKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [
+        { uniqueKey: 'first', fom: new Date(2025, 0, 1), tom: new Date(2025, 0, 10), dager: 1 },
+        { uniqueKey: 'second', fom: new Date(2025, 0, 15), tom: new Date(2025, 0, 14 + length), dager: 1 }
+      ]
+    });
+
+    const result = validateGravidKrav(state, translationMock as unknown as i18n);
+
+    expect(result.periodeError).toBe(length > 6 ? ValidatePerioderKeys.VALIDATE_PERIODER_TOTALT_FOR_LANG : undefined);
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#dager-total')).toBe(length > 6);
+    result.perioder![1].tom = new Date(2025, 0, 20);
+    expect(validateGravidKrav(result, translationMock as unknown as i18n).periodeError).toBeUndefined();
+  });
+
+  it.each([16, 17])('validates a %s-day date range independently of selected days', (length) => {
+    const state = defaultGravidKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [{ uniqueKey: 'periode', fom: new Date(2025, 0, 1), tom: new Date(2025, 0, length), dager: 5 }]
+    });
+
+    const result = validateGravidKrav(state, translationMock as unknown as i18n);
+
+    expect(result.perioder?.[0].tomError).toBe(length > 16 ? validateTilKeys.VALIDATE_TIL_TOO_LONG : undefined);
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#til-dato-0')).toBe(length > 16);
+    expect(result.periodeError).toBeUndefined();
+  });
+
   it.each([
     { start: '2025-01-22', error: undefined },
     { start: '2025-01-23', error: ValidatePerioderKeys.VALIDATE_PERIODER_OPPHOLD },
