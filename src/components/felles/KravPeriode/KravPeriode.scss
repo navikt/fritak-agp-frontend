@@ -2,7 +2,7 @@
     padding: var(--ax-space-16) 0;
     display: grid;
     align-items: start;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.2fr) minmax(0, 1fr) max-content;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.2fr) minmax(0, 1fr);
     grid-template-rows: auto auto auto;
     column-gap: var(--ax-space-16);
     row-gap: var(--ax-space-8);
@@ -38,11 +38,40 @@
         min-width: 0;
     }
 
+    .krav-periode-oppsummering {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--ax-space-16);
+        padding-top: var(--ax-space-8);
+        min-width: 0;
+    }
+
+    .krav-periode-refusjon {
+        display: flex;
+        flex: 1 1 16rem;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--ax-space-8) var(--ax-space-16);
+        min-width: 0;
+    }
+
+    .krav-periode-refusjon-label {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        color: var(--ax-text-neutral-subtle);
+    }
+
+    .krav-periode-refusjon-belop {
+        font-weight: var(--ax-font-weight-bold);
+        white-space: nowrap;
+    }
+
     .slett-periode-wrapper {
-        grid-column: 6;
-        grid-row: 2;
-        align-self: center;
-        justify-self: center;
+        margin-left: auto;
     }
 
     > .aksel-error-message {
@@ -57,11 +86,6 @@
             padding-top: var(--ax-space-24);
         }
 
-        .slett-periode-wrapper {
-            grid-column: 1 / -1;
-            grid-row: auto;
-            justify-self: end;
-        }
     }
     
     @media screen and (max-width: 608px) {

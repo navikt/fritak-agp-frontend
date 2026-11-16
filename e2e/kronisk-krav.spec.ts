@@ -308,7 +308,7 @@ test.describe('Kronisk - Krav', () => {
     await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
   });
 
-  for (const width of [360, 768, 1200, 1201, 1280]) {
+  for (const width of [320, 360, 768, 1200, 1201, 1280]) {
     test(`Stabil felthøyde og slett-knapp med feilmeldinger ved ${width}px`, async ({ page }, testInfo) => {
       const formPage = new FormPage(page);
       await page.setViewportSize({ width, height: 1000 });

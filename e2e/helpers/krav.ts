@@ -43,11 +43,15 @@ export async function assertKravPeriodLayout(page: Page, width: number): Promise
         return { left: box.left, right: box.right, center: box.top + box.height / 2 };
       });
       const button = element.querySelector('.slett-periode-wrapper button')!.getBoundingClientRect();
+      const refund = element.querySelector('output')!.getBoundingClientRect();
+      const summary = element.querySelector('.krav-periode-oppsummering')!.getBoundingClientRect();
       const fields = Array.from(element.querySelectorAll('.aksel-form-field'));
       const bounds = element.getBoundingClientRect();
       return {
         inputs,
-        button: { top: button.top, center: button.top + button.height / 2 },
+        button: { top: button.top, left: button.left, right: button.right },
+        refund: { left: refund.left, right: refund.right, bottom: refund.bottom },
+        summaryTop: summary.top,
         lastFieldBottom: Math.max(...fields.map((field) => field.getBoundingClientRect().bottom)),
         left: bounds.left,
         right: bounds.right,
@@ -59,11 +63,17 @@ export async function assertKravPeriodLayout(page: Page, width: number): Promise
       expect(input.left).toBeGreaterThanOrEqual(geometry.left - 1);
       expect(input.right).toBeLessThanOrEqual(geometry.right + 1);
       if (width > 1200) {
-        expect(Math.abs(input.center - geometry.button.center)).toBeLessThanOrEqual(1);
+        expect(Math.abs(input.center - geometry.inputs[0].center)).toBeLessThanOrEqual(1);
       }
     }
-    if (width <= 1200) {
-      expect(geometry.button.top).toBeGreaterThanOrEqual(geometry.lastFieldBottom - 1);
-    }
+    expect(geometry.summaryTop).toBeGreaterThanOrEqual(geometry.lastFieldBottom - 1);
+    expect(geometry.button.left).toBeGreaterThanOrEqual(geometry.left - 1);
+    expect(geometry.button.right).toBeLessThanOrEqual(geometry.right + 1);
+    expect(geometry.refund.left).toBeGreaterThanOrEqual(geometry.left - 1);
+    expect(geometry.refund.right).toBeLessThanOrEqual(geometry.right + 1);
+    expect(geometry.refund.right <= geometry.button.left + 1 || geometry.refund.bottom <= geometry.button.top + 1).toBe(
+      true
+    );
+    await expect(periode.getByRole('status', { name: 'Foreløpig beregnet refusjon' })).toBeVisible();
   }
 }

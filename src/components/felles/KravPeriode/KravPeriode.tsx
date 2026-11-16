@@ -16,6 +16,7 @@ import stringishToNumber from '../../../utils/stringishToNumber';
 import { formatApiDate, type DateInputError } from '../../../utils/dato/Dato';
 import textify from '../../../utils/textify';
 import { TrashIcon } from '@navikt/aksel-icons';
+import beregnRefusjon from './beregnRefusjon';
 
 interface KravPeriodeProps {
   enkeltPeriode: KravPeriodeData;
@@ -67,6 +68,8 @@ const KravPeriode = (props: KravPeriodeProps) => {
       });
     }
   }, []);
+
+  const beregnetRefusjon = beregnRefusjon(props.enkeltPeriode, props.lonnspliktDager);
 
   return (
     <div className='krav-kort' data-testid='krav-periode-wrapper'>
@@ -151,18 +154,34 @@ const KravPeriode = (props: KravPeriodeProps) => {
         }
         error={props.enkeltPeriode.sykemeldingsgradError}
       />
-      {props.slettbar && (
-        <div className='slett-periode-wrapper'>
-          <Button
-            data-color='danger'
-            variant='tertiary'
-            onClick={() => props.onDelete()}
-            icon={<TrashIcon aria-hidden />}
-          >
-            Slett
-          </Button>
+      <div className='krav-periode-oppsummering'>
+        <div className='krav-periode-refusjon'>
+          <div className='krav-periode-refusjon-label'>
+            <span id={`refusjon-label-${props.index}`}>{t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_LABEL)}</span>
+            <HelpText
+              className='krav-padding-hjelpetekst veldig-lang-hjelpetekst'
+              title={textify(t(LangKey.KRONISK_KRAV_PERIODE_BEREGNET_TITTEL))}
+            >
+              <Oversettelse langKey={LangKey.KRONISK_KRAV_PERIODE_BEREGNET_HJELPETEKST} />
+            </HelpText>
+          </div>
+          <output className='krav-periode-refusjon-belop' aria-labelledby={`refusjon-label-${props.index}`}>
+            {t(LangKey.KRONER)}&nbsp;{beregnetRefusjon.toLocaleString('nb-NO')}
+          </output>
         </div>
-      )}
+        {props.slettbar && (
+          <div className='slett-periode-wrapper'>
+            <Button
+              data-color='danger'
+              variant='tertiary'
+              onClick={() => props.onDelete()}
+              icon={<TrashIcon aria-hidden />}
+            >
+              Slett
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

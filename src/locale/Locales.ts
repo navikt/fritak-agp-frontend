@@ -368,11 +368,13 @@ const Locales: Record<
       '-##' +
       '--Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
       '--Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.\n' +
+      '--Du kan kun sende inn krav for en arbeidsgiverperiode av gangen.\n' +
       '##-',
     en:
       '-##' +
       '--From and including the first to and including the last day of absence in the employer period.\n' +
       '--You must choose _both_ the first and last day. If the absence is only for one day, you choose the same day twice.\n' +
+      '--You can only submit a claim for one employer period at a time.\n' +
       '##-'
   },
   GRAVID_KRAV_ARBEIDSTID_HJELPETEKST_TITTEL: {
@@ -1064,13 +1066,15 @@ const Locales: Record<
   KRONISK_KRAV_PERIOD_INFO: {
     nb:
       '-##' +
-      '-- Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
-      '-- Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.' +
+      '--Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
+      '--Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.\n' +
+      '--Du kan kun sende inn krav for en arbeidsgiverperiode av gangen.\n' +
       '##-',
     en:
       '-##' +
-      '-- Fra og med første til og med siste fraværsdag i arbeidsgiverperioden.\n' +
-      '-- Du må velge _både_ første og siste dag. Er fraværet bare på én dag, velger du samme dag to ganger.' +
+      '--From and including the first to and including the last day of absence in the employer period.\n' +
+      '--You must choose _both_ the first and last day. If the absence is only for one day, you choose the same day twice.\n' +
+      '--You can only submit a claim for one employer period at a time.\n' +
       '##-'
   },
   VALIDATE_DAGER_REQUIRED: {
