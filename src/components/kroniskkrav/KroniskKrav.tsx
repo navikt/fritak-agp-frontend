@@ -30,7 +30,7 @@ import GetHandler from '../../api/fetch/GetHandler';
 import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { BodyLong, Box, Button, ErrorMessage, Fieldset, Heading, HelpText, ReadMore } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Fieldset, Heading, ReadMore } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -304,6 +304,7 @@ const KroniskKrav = (props: KroniskKravProps) => {
           className='krav-kort-wrapper'
           legend='Krav periode'
           hideLegend={true}
+          error={state.periodeError}
         >
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
@@ -341,7 +342,6 @@ const KroniskKrav = (props: KroniskKravProps) => {
               <LeggTilKnapp onClick={leggTilPeriode}>{t(KroniskKravKeys.KRONISK_KRAV_ADD_PERIOD)}</LeggTilKnapp>
             )}
           </div>
-          {state.periodeError && <ErrorMessage as='div'>{state.periodeError}</ErrorMessage>}
         </Fieldset>
       </Box>
       <Skillelinje />

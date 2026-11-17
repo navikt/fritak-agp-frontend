@@ -31,7 +31,7 @@ import NotifikasjonType from '../notifikasjon/felles/NotifikasjonType';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
 import { ValidationResponse } from '../../state/validation/ValidationResponse';
 import SlettKravModal from '../felles/SlettKravModal/SlettKravModal';
-import { BodyLong, Box, Button, ErrorMessage, Fieldset, Heading, ReadMore } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Fieldset, Heading, ReadMore } from '@navikt/ds-react';
 import Fnr from '../felles/Fnr/Fnr';
 import ServerFeilAdvarsel from '../felles/ServerFeilAdvarsel/ServerFeilAdvarsel';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
@@ -292,6 +292,7 @@ const GravidKrav = (props: GravidKravProps) => {
           className='krav-kort-wrapper'
           legend='Kravperioder'
           hideLegend={true}
+          error={state.periodeError}
         >
           {state.perioder?.map((enkeltPeriode, index) => (
             <KravPeriode
@@ -330,7 +331,6 @@ const GravidKrav = (props: GravidKravProps) => {
               <LeggTilKnapp onClick={leggTilPeriode}>{t(GravidKravKeys.GRAVID_KRAV_LEGG_TIL_PERIODE)}</LeggTilKnapp>
             )}
           </div>
-          {state.periodeError && <ErrorMessage as='div'>{state.periodeError}</ErrorMessage>}
         </Fieldset>
       </Box>
       <Skillelinje />
