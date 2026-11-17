@@ -399,14 +399,14 @@ describe('KroniskKrav', () => {
 
     fireEvent.click(submitButton);
 
-    expect(screen.getAllByText(/Mangler fødselsnummer/).length).toBe(2);
-    expect(screen.getAllByText(/Mangler fra dato/).length).toBe(2);
-    expect(screen.getAllByText(/Mangler til dato/).length).toBe(2);
-    expect(screen.getAllByText(/Mangler dager/).length).toBe(4);
+    expect(screen.getAllByText(/Mangler fødselsnummer/)).toHaveLength(2);
+    expect(screen.getAllByText(/Mangler fra dato/)).toHaveLength(2);
+    expect(screen.getAllByText(/Mangler til dato/)).toHaveLength(2);
+    expect(screen.getAllByText(/Mangler dager/)).toHaveLength(4);
     expect(document.getElementById('dager-total')).toHaveAttribute('tabindex', '-1');
     expect(screen.getByRole('combobox', { name: /Antall dager/ })).toHaveAttribute('aria-invalid', 'true');
-    expect(screen.getAllByText(/Mangler beløp/).length).toBe(2);
-    expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler beløp/)).toHaveLength(2);
+    expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/)).toHaveLength(2);
   });
 
   it('should show warnings when input is missing, and the warning should disappear when fixed', async () => {
@@ -429,7 +429,7 @@ describe('KroniskKrav', () => {
 
     await user.click(submitButton);
 
-    expect(screen.getAllByText(/Mangler fødselsnummer/).length).toBe(2);
+    expect(screen.getAllByText(/Mangler fødselsnummer/)).toHaveLength(2);
 
     expect(screen.getAllByText(/Bekreft at opplysningene er korrekt/).length).toBe(2);
 
