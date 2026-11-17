@@ -902,10 +902,10 @@ const Locales: Record<
   ALLE_FELT_PAKREVD: {
     nb:
       'Vi sender en melding til den ansatte med informasjon om at du har sendt refusjonskravet.\n\n' +
-      'Alle felter må fylles ut.',
+      'Alle felter må fylles ut. Det kan kun sendes inn krav for en arbeidsgiverperiode av gangen.',
     en:
       'We will send a message to the employee notifying them about your reimbursement claim.\n' +
-      'All fields are mandatory.'
+      'All fields are mandatory. It can only be submitted for one employer period at a time.'
   },
   KRONER: {
     nb: 'Kr:',
