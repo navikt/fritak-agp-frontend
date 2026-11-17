@@ -56,7 +56,39 @@ test.describe('Kronisk - Søknad', () => {
     await page.clock.setFixedTime(new Date('2021-08-25T10:00:00'));
 
     await page.goto('http://localhost:3000/fritak-agp/nb/kronisk/soknad?bedrift=810007842');
+    await page.getByRole('button', { name: 'Send søknad', exact: true }).waitFor({ state: 'visible' });
   });
+
+  for (const width of [360, 390]) {
+    test(`Fraværstabellen har eget scrollområde ved ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      const scrollArea = page.locator('.fravaer-tabell-scroll');
+      await expect(scrollArea).toBeVisible();
+
+      await expect
+        .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
+        .toBe(true);
+      expect(await scrollArea.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+
+      await scrollArea.focus();
+      await expect(scrollArea).toBeFocused();
+
+      const firstRowInputs = scrollArea.locator('tbody tr').first().locator('input');
+      const lastInput = firstRowInputs.last();
+      const inputCount = await firstRowInputs.count();
+      for (let inputIndex = 0; inputIndex < inputCount; inputIndex++) {
+        await page.keyboard.press('Tab');
+      }
+      await expect(lastInput).toBeFocused();
+      await expect.poll(() => scrollArea.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+      expect(
+        await lastInput.evaluate((element) => {
+          const bounds = element.getBoundingClientRect();
+          return bounds.left >= 0 && bounds.right <= window.innerWidth;
+        })
+      ).toBe(true);
+    });
+  }
 
   test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async ({ page }) => {
     const formPage = new FormPage(page);

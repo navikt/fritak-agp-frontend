@@ -1,13 +1,13 @@
 import { Page, Locator, expect } from '@playwright/test';
 
 export class FormPage {
-  private page: Page;
+  private readonly page: Page;
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  async getRadioButton(groupName: string | RegExp, optionLabel: string | RegExp): Promise<Locator> {
+  getRadioButton(groupName: string | RegExp, optionLabel: string | RegExp): Locator {
     return this.page.getByRole('radiogroup', { name: groupName }).getByRole('radio', { name: optionLabel });
   }
 
@@ -23,7 +23,7 @@ export class FormPage {
     await radioButton.uncheck();
   }
 
-  async getInput(label: string): Promise<Locator> {
+  getInput(label: string): Locator {
     // const input = this.page.getByLabel(label).nth(0);
     const input = this.page.getByRole('textbox', { name: label });
     // await expect(input).toBeVisible();
@@ -84,7 +84,7 @@ export class FormPage {
     return await select.inputValue();
   }
 
-  async getByText(text: string): Promise<Locator> {
+  getByText(text: string): Locator {
     return this.page.locator(`text="${text}"`);
   }
 

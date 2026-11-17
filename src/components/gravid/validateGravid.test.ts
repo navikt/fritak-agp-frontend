@@ -1,3 +1,4 @@
+import { parseISO } from 'date-fns';
 import { validateGravid } from './validateGravid';
 import { defaultGravidState } from './GravidState';
 import { Tiltak } from './Tiltak';
@@ -5,7 +6,6 @@ import { MAX_TILTAK_BESKRIVELSE } from './GravidSide';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import { i18n } from 'i18next';
-import { parseDato } from '../../utils/dato/Dato';
 
 const translationMock = {
   t: (param: never) => param
@@ -23,7 +23,7 @@ describe('validateGravid', () => {
   it('should show termindato error when invalid', () => {
     const state = defaultGravidState();
     state.validated = true;
-    state.termindato = parseDato('14.14.2014');
+    state.termindato = parseISO('2014-14-14');
     const state2 = validateGravid(state, translationMock as unknown as i18n);
     expect(state2.termindatoError).not.toBeUndefined();
   });

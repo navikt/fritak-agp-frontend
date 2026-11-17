@@ -116,12 +116,7 @@ describe('mapGravidRequest', () => {
       Aarsak.FAAR_IKKE_KONTAKT,
       '',
       true,
-      {
-        value: '12.12.2020',
-        year: 2020,
-        month: 11,
-        day: 12
-      }
+      new Date(2020, 10, 12)
     );
     expect(request.identitetsnummer).toEqual('123');
     expect(request.virksomhetsnummer).toEqual('456');

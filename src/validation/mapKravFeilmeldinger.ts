@@ -80,7 +80,7 @@ const mapPeriodeFeilmeldinger = (
 ) => {
   switch (subPath) {
     case 'antallDagerMedRefusjon':
-      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+      if (typeof pathIndex === 'number' && state.perioder?.[pathIndex]) {
         state.perioder[pathIndex].dagerError =
           v.message || 'Antall dager med refusjon er høyere enn antall dager i perioden';
       }
@@ -90,7 +90,7 @@ const mapPeriodeFeilmeldinger = (
       break;
 
     case 'fom':
-      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+      if (typeof pathIndex === 'number' && state.perioder?.[pathIndex]) {
         state.perioder[pathIndex].fomError = v.message || 'Fra dato kan ikke være etter til dato';
       }
 
@@ -98,7 +98,7 @@ const mapPeriodeFeilmeldinger = (
       break;
 
     case 'tom':
-      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+      if (typeof pathIndex === 'number' && state.perioder?.[pathIndex]) {
         state.perioder[pathIndex].tomError = v.message;
       }
 
@@ -106,7 +106,7 @@ const mapPeriodeFeilmeldinger = (
       break;
 
     case 'månedsinntekt':
-      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+      if (typeof pathIndex === 'number' && state.perioder?.[pathIndex]) {
         state.perioder[pathIndex].beloepError = v.message || 'Månedsinntekt mangler';
       }
 
@@ -114,7 +114,7 @@ const mapPeriodeFeilmeldinger = (
       break;
 
     case 'gradering':
-      if (typeof pathIndex === 'number' && state.perioder && state.perioder[pathIndex]) {
+      if (typeof pathIndex === 'number' && state.perioder?.[pathIndex]) {
         state.perioder[pathIndex].sykemeldingsgradError = v.message || 'Sykemeldingsgraden må være mellom 20% og 100%';
       }
       feilmeldinger.push(

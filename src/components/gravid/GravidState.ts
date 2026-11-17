@@ -2,7 +2,7 @@ import { Aarsak } from './Aarsak';
 import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
 import { ValidationState } from '../../state/validation/ValidationState';
-import { Dato } from '../../utils/dato/Dato';
+import type { DateInputError } from '../../utils/dato/Dato';
 import { FeiloppsummeringFeil } from '../../validation/mapKravFeilmeldinger';
 
 export const defaultGravidState = (state?: GravidState): GravidState => {
@@ -46,6 +46,7 @@ export default interface GravidState extends ValidationState {
   error?: boolean;
   login?: boolean;
   submitting?: boolean;
-  termindato?: Dato;
+  termindato?: Date;
+  termindatoInputError?: DateInputError;
   termindatoError?: string;
 }

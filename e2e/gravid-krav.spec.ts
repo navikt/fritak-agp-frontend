@@ -4,14 +4,16 @@ import { test, expect } from '@playwright/test';
 import gravidKravResponse from './gravidKravResponse';
 import arbeidsgiverResponse from './arbeidsgiverResponse';
 
-import clickButton from './helpers/clickSubmit';
 import { FormPage } from './utils/formPage';
+import { assertKravPeriodLayout, fillKravWithPeriods, getKravInputSizes } from './helpers/krav';
+import { addDays, format } from 'date-fns';
+import { MAX_DAGER_MELLOM_PERIODER } from '../src/config/konstanter';
 
 const arbeidsgiverAPI = /\/api\/v1\/arbeidsgiver-tilganger/;
 const navAuth = /\/person\/innloggingsstatus\/auth/;
 const grunnBeloep = /\/api\/v1\/grunnbeloep/;
 const innsendingAPI = /\/api\/v1\/gravid\/krav/;
-const deko = /\/dekoratoren/;
+const dekoratoren = /\/dekoratoren/;
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -43,7 +45,7 @@ test.describe('Gravid - Krav', () => {
     await page.route(innsendingAPI, (route) =>
       route.fulfill({ body: JSON.stringify(gravidKravResponse), status: 201, headers: headereJson })
     );
-    await page.route(deko, (route) => route.fulfill({ body: '', status: 201, headers: headereJson }));
+    await page.route(dekoratoren, (route) => route.fulfill({ body: '', status: 201, headers: headereJson }));
 
     await page.clock.setFixedTime(new Date('2021-08-25T10:00:00'));
 
@@ -62,7 +64,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma',
+        'Mangler beløp',
         'Bekreft at opplysningene er korrekt'
       ])
     );
@@ -76,7 +78,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma'
+        'Mangler beløp'
       ])
     );
 
@@ -90,7 +92,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma'
+        'Mangler beløp'
       ])
     );
     await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
@@ -100,10 +102,11 @@ test.describe('Gravid - Krav', () => {
 
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
+      'Mangler dager',
       'Mangler fra dato',
       'Mangler til dato',
       'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma'
+      'Mangler beløp'
     ]);
 
     await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
@@ -117,7 +120,7 @@ test.describe('Gravid - Krav', () => {
         'Mangler fra dato',
         'Mangler til dato',
         'Mangler dager',
-        'Oppgi beløp med kun tall med maks to tall etter komma'
+        'Mangler beløp'
       ])
     );
 
@@ -129,51 +132,27 @@ test.describe('Gravid - Krav', () => {
     await belop.fill('5000');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
+      'Mangler dager',
       'Mangler fra dato',
       'Mangler til dato',
       'Mangler dager'
     ]);
-    await formPage.assertNotVisibleText('Oppgi beløp med kun tall med maks to tall etter komma');
+    await formPage.assertNotVisibleText('Mangler beløp');
     await formPage.assertNotVisibleText('Bekreft at opplysningene er korrekt');
     await formPage.assertNotVisibleText('Mangler antall arbeidsdager');
 
-    const velgDager = page.locator('#dager-0');
-    await velgDager.selectOption({ label: '5' });
+    await page.getByLabel('Fra dato').fill('07.08.21');
     await expect(await page.locator('li > a').allInnerTexts()).toEqual([
       'Ugyldig fødselsnummer',
-      'Mangler fra dato',
-      'Mangler til dato'
-    ]);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
       'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
-
-    await page.getByLabel('Fra dato').fill('07.08.21');
-    await expect(await page.locator('li > a').allInnerTexts()).toEqual(['Ugyldig fødselsnummer', 'Mangler til dato']);
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Mangler fra dato',
-      'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
+      'Mangler til dato',
+      'Mangler dager'
     ]);
 
     await page.getByLabel('Til dato').fill('17.08.21');
-
-    await expect(page.locator('.navds-error-summary__list')).not.toContainText([
-      'Mangler til dato',
-      'Mangler fra dato',
-      'Mangler dager',
-      'Oppgi beløp med kun tall med maks to tall etter komma',
-      'Ugyldig fødselsnummer',
-      'Bekreft at opplysningene er korrekt',
-      'Mangler antall arbeidsdager'
-    ]);
+    await expect(page.locator('a[href="#dager-0"]')).toBeVisible();
+    await page.getByRole('combobox', { name: /Antall dager/ }).selectOption('11');
+    await expect(page.locator('li > a')).toHaveText(['Ugyldig fødselsnummer']);
 
     await formPage.fillInput('Fødselsnummer (11 siffer)', '20125027610');
 
@@ -187,7 +166,7 @@ test.describe('Gravid - Krav', () => {
       identitetsnummer: '20125027610',
       perioder: [
         {
-          antallDagerMedRefusjon: 5,
+          antallDagerMedRefusjon: 11,
           fom: '2021-08-07',
           gradering: 1,
           månedsinntekt: 5000,
@@ -204,9 +183,180 @@ test.describe('Gravid - Krav', () => {
     ).toBeVisible();
   });
 
+  test('Avviser for langt opphold og tillater den konfigurerte grensen etter korrigering', async ({ page }) => {
+    const formPage = new FormPage(page);
+    const sluttdato = new Date(2021, 0, 5);
+    const ugyldigStart = addDays(sluttdato, MAX_DAGER_MELLOM_PERIODER + 2);
+    const gyldigStart = addDays(sluttdato, MAX_DAGER_MELLOM_PERIODER + 1);
+    const innsendinger: string[] = [];
+    page.on('request', (request) => {
+      if (request.method() === 'POST' && innsendingAPI.test(request.url())) {
+        innsendinger.push(request.url());
+      }
+    });
+    await fillKravWithPeriods(page, [
+      { fom: '01.01.2021', tom: '05.01.2021', dager: 5 },
+      { fom: format(ugyldigStart, 'dd.MM.yyyy'), tom: format(ugyldigStart, 'dd.MM.yyyy'), dager: 1 }
+    ]);
+    await formPage.clickButton('Send krav');
+
+    const feil = page.getByRole('link', {
+      name: `Det kan ikke være mer enn ${MAX_DAGER_MELLOM_PERIODER} dager mellom periodene`
+    });
+    await expect(feil).toHaveAttribute('href', '#fra-dato-1');
+    expect(innsendinger).toHaveLength(0);
+    await feil.click();
+    await expect(page.locator('#fra-dato-1')).toBeFocused();
+
+    await page.locator('#fra-dato-1').fill(format(gyldigStart, 'dd.MM.yyyy'));
+    await page.locator('#til-dato-1').fill(format(gyldigStart, 'dd.MM.yyyy'));
+    await expect(feil).toHaveCount(0);
+    const requestPromise = page.waitForRequest(innsendingAPI);
+    await formPage.clickButton('Send krav');
+    const request = await requestPromise;
+    expect(request.postDataJSON().perioder[1]).toMatchObject({
+      fom: format(gyldigStart, 'yyyy-MM-dd'),
+      tom: format(gyldigStart, 'yyyy-MM-dd'),
+      antallDagerMedRefusjon: 1
+    });
+    expect(innsendinger).toHaveLength(1);
+    await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
+  });
+
+  for (const handling of ['korriger', 'slett']) {
+    test(`Avviser overlapp og tillater innsending etter ${handling}`, async ({ page }) => {
+      const formPage = new FormPage(page);
+      const innsendinger: string[] = [];
+      page.on('request', (request) => {
+        if (request.method() === 'POST' && innsendingAPI.test(request.url())) {
+          innsendinger.push(request.url());
+        }
+      });
+      await fillKravWithPeriods(page, [
+        { fom: '01.01.2021', tom: '05.01.2021', dager: 5 },
+        { fom: '05.01.2021', tom: '06.01.2021', dager: 1 }
+      ]);
+      await formPage.clickButton('Send krav');
+
+      const feil = page.getByRole('link', { name: 'Periodene kan ikke overlappe' });
+      await expect(feil).toHaveAttribute('href', '#fra-dato-1');
+      expect(innsendinger).toHaveLength(0);
+      if (handling === 'korriger') {
+        await page.locator('#fra-dato-1').fill('06.01.2021');
+      } else {
+        await page.getByRole('button', { name: 'Slett', exact: true }).last().click();
+      }
+      await expect(feil).toHaveCount(0);
+      const requestPromise = page.waitForRequest(innsendingAPI);
+      await formPage.clickButton('Send krav');
+      const request = await requestPromise;
+      expect(request.postDataJSON().perioder).toHaveLength(handling === 'korriger' ? 2 : 1);
+      expect(innsendinger).toHaveLength(1);
+      await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
+    });
+  }
+
+  test('Avviser 17 kalenderdager fordelt på to rader og tillater 16 etter korrigering', async ({ page }) => {
+    const formPage = new FormPage(page);
+    const innsendinger: string[] = [];
+    page.on('request', (request) => {
+      if (request.method() === 'POST' && innsendingAPI.test(request.url())) {
+        innsendinger.push(request.url());
+      }
+    });
+    await fillKravWithPeriods(page, [
+      { fom: '01.01.2021', tom: '10.01.2021', dager: 1 },
+      { fom: '16.01.2021', tom: '22.01.2021', dager: 1 }
+    ]);
+    await formPage.clickButton('Send krav');
+
+    const feil = page.getByRole('link', {
+      name: 'Periodene kan til sammen ikke overstige 16 kalenderdager, inkludert fra- og til-dato i hver periode'
+    });
+    await expect(feil).toHaveAttribute('href', '#dager-total');
+    expect(innsendinger).toHaveLength(0);
+    await feil.click();
+    await expect(page.locator('#dager-total')).toBeFocused();
+
+    await page.locator('#til-dato-1').fill('21.01.2021');
+    await expect(feil).toHaveCount(0);
+    await expect(page.locator('#dager-1')).toHaveValue('1');
+    const requestPromise = page.waitForRequest(innsendingAPI);
+    await formPage.clickButton('Send krav');
+
+    const request = await requestPromise;
+    expect(request.postDataJSON().perioder).toMatchObject([
+      { fom: '2021-01-01', tom: '2021-01-10', antallDagerMedRefusjon: 1 },
+      { fom: '2021-01-16', tom: '2021-01-21', antallDagerMedRefusjon: 1 }
+    ]);
+    expect(innsendinger).toHaveLength(1);
+    await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
+  });
+
+  test('Avviser mer enn 16 valgte refusjonsdager totalt selv med gyldige datoer', async ({ page }) => {
+    const formPage = new FormPage(page);
+    const innsendinger: string[] = [];
+    page.on('request', (request) => {
+      if (request.method() === 'POST' && innsendingAPI.test(request.url())) {
+        innsendinger.push(request.url());
+      }
+    });
+    await fillKravWithPeriods(page, [
+      { fom: '01.01.2021', tom: '08.01.2021', dager: 9 },
+      { fom: '12.01.2021', tom: '19.01.2021', dager: 8 }
+    ]);
+    await formPage.clickButton('Send krav');
+
+    const feil = page.getByRole('link', { name: 'Det kan ikke være mer enn 16 dager i en arbeidsgiverperiode' });
+    await expect(feil).toHaveAttribute('href', '#dager-total');
+    expect(innsendinger).toHaveLength(0);
+
+    await page.locator('#dager-0').selectOption('8');
+    await expect(feil).toHaveCount(0);
+    const requestPromise = page.waitForRequest(innsendingAPI);
+    await formPage.clickButton('Send krav');
+
+    const request = await requestPromise;
+    expect(request.postDataJSON().perioder).toMatchObject([
+      { antallDagerMedRefusjon: 8 },
+      { antallDagerMedRefusjon: 8 }
+    ]);
+    expect(innsendinger).toHaveLength(1);
+    await expect(page.getByRole('heading', { name: 'Kravet er mottatt' })).toBeVisible();
+  });
+
+  for (const width of [320, 360, 768, 1200, 1201, 1280]) {
+    test(`Stabil felthøyde og slett-knapp med feilmeldinger ved ${width}px`, async ({ page }, testInfo) => {
+      const formPage = new FormPage(page);
+      await page.setViewportSize({ width, height: 1000 });
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+      });
+      await fillKravWithPeriods(page, [
+        { fom: '01.01.2021', tom: '05.01.2021', dager: 5 },
+        { fom: '23.01.2021', tom: '23.01.2021', dager: 1 }
+      ]);
+      const inputSizes = await getKravInputSizes(page);
+
+      await formPage.clickButton('Send krav');
+      await expect(page.getByRole('link', { name: /dager mellom periodene/ })).toBeVisible();
+      await page.locator('#belop-0').fill('');
+      await page.locator('#sykemeldingsgrad-0').fill('10');
+
+      const updatedSizes = await getKravInputSizes(page);
+      expect(updatedSizes).toHaveLength(inputSizes.length);
+      updatedSizes.forEach((size, index) => {
+        expect(Math.abs(size.height - inputSizes[index].height)).toBeLessThanOrEqual(1);
+        expect(Math.abs(size.width - inputSizes[index].width)).toBeLessThanOrEqual(1);
+      });
+      await assertKravPeriodLayout(page, width);
+      await page.locator('#dager-total').screenshot({ path: testInfo.outputPath('perioder-med-feil.png') });
+    });
+  }
+
   test('Legg til og fjern perioder', async ({ page }) => {
     const formPage = new FormPage(page);
-    await formPage.clickButton('+ Legg til en fraværsperiode');
+    await formPage.clickButton('+ Legg til en periode');
     await expect(page.locator('#belop-0')).toBeVisible();
     await expect(page.locator('#belop-1')).toBeVisible();
 

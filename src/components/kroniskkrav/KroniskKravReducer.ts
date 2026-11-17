@@ -1,7 +1,7 @@
 import { Actions, KroniskKravAction } from './Actions';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import KroniskKravState, { defaultKroniskKravState } from './KroniskKravState';
-import { parseDateTilDato, parseISO } from '../../utils/dato/Dato';
+import { parseISO } from 'date-fns';
 import mapResponse from '../../state/validation/mapResponse';
 import mapKravFeilmeldinger from '../../validation/mapKravFeilmeldinger';
 import { v4 as uuid } from 'uuid';
@@ -17,7 +17,7 @@ const checkItemId = (itemId?: string) => {
 const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, translate: i18n): KroniskKravState => {
   const nextState = { ...state };
   const { payload } = action;
-  nextState.perioder = nextState.perioder ?? [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+  nextState.perioder = nextState.perioder ?? [{ uniqueKey: uuid() }];
 
   switch (action.type) {
     case Actions.Fnr:
@@ -41,7 +41,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
         return nextState;
       }
       nextState.formDirty = true;
-      fraPeriode.fom = payload?.fra ? parseDateTilDato(payload.fra) : undefined;
+      fraPeriode.fom = payload?.fra;
+      fraPeriode.fomInputError = payload?.dateInputError;
 
       return validateKroniskKrav(nextState, translate);
     }
@@ -53,7 +54,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
         return nextState;
       }
       nextState.formDirty = true;
-      tilPeriode.tom = payload?.til ? parseDateTilDato(payload.til) : undefined;
+      tilPeriode.tom = payload?.til;
+      tilPeriode.tomInputError = payload?.dateInputError;
 
       return validateKroniskKrav(nextState, translate);
     }
@@ -158,8 +160,8 @@ const KroniskKravReducer = (state: KroniskKravState, action: KroniskKravAction, 
 
     case Actions.AddPeriode: {
       nextState.perioder = nextState.perioder
-        ? [...nextState.perioder, { fom: {}, tom: {}, uniqueKey: uuid() }]
-        : [{ fom: {}, tom: {}, uniqueKey: uuid() }];
+        ? [...nextState.perioder, { uniqueKey: uuid() }]
+        : [{ uniqueKey: uuid() }];
       return nextState;
     }
 

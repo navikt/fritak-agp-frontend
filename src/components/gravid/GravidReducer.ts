@@ -3,7 +3,6 @@ import { Actions, GravidAction } from './Actions';
 import { validateGravid } from './validateGravid';
 import { Omplassering } from './Omplassering';
 import { Tiltak } from './Tiltak';
-import { parseDateTilDato } from '../../utils/dato/Dato';
 import mapResponse from '../../state/validation/mapResponse';
 import mapGravidFeilmeldinger from './mapGravidFeilmeldinger';
 import { i18n } from 'i18next';
@@ -119,11 +118,8 @@ const GravidReducer = (state: GravidState, action: GravidAction, translate: i18n
       return Object.assign({}, defaultGravidState());
 
     case Actions.Termindato:
-      if (payload?.termindato === undefined) {
-        nextState.termindato = undefined;
-      } else {
-        nextState.termindato = parseDateTilDato(payload?.termindato);
-      }
+      nextState.termindato = payload?.termindato;
+      nextState.termindatoInputError = payload?.dateInputError;
       return validateGravid(nextState, translate);
 
     case Actions.NotAuthorized:

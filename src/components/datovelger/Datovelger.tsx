@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { isValid } from 'date-fns';
+import type { DateInputError } from '../../utils/dato/Dato';
 
 interface DatovelgerProps {
-  onDateChange?: (val?: Date | undefined) => void;
+  onDateChange?: (val?: Date, inputError?: DateInputError) => void;
   defaultSelected?: Date;
   toDate?: Date;
   fromDate?: Date;
@@ -33,19 +34,29 @@ export default function Datovelger({
     defaultSelected = undefined;
   }
 
-  const { datepickerProps, inputProps, reset } = useDatepicker({
+  const selectedDate = useRef(defaultSelected);
+  const { datepickerProps, inputProps } = useDatepicker({
     toDate: toDate,
     fromDate: fromDate,
-    onDateChange: onDateChange,
+    onDateChange: (date) => {
+      selectedDate.current = date;
+    },
+    onValidate: (validation) => {
+      let inputError: DateInputError | undefined;
+      if (!validation.isEmpty) {
+        if (validation.isBefore) {
+          inputError = 'beforeMin';
+        } else if (validation.isAfter) {
+          inputError = 'afterMax';
+        } else if (!validation.isValidDate) {
+          inputError = 'invalid';
+        }
+      }
+      onDateChange?.(selectedDate.current, inputError);
+    },
     defaultSelected: defaultSelected,
     defaultMonth: defaultMonth
   });
-
-  useEffect(() => {
-    if (typeof defaultSelected === 'undefined') {
-      reset();
-    }
-  }, [defaultSelected]);
 
   return (
     <DatePicker {...datepickerProps}>

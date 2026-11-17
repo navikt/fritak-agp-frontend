@@ -3,6 +3,7 @@ export const MAX_ARBEIDSDAGER = 366;
 
 export const MIN_FRAVAERSPERIODER = 1;
 export const MAX_FRAVAERSPERIODER = 330;
+export const MAX_DAGER_MELLOM_PERIODER = 16;
 
 /****
  * Krav om refusjon av AGP (§ 8-20) kan kun innfris for opptil tre måneder før den måneden da kravet ble satt.

@@ -1,5 +1,6 @@
 import { GravidKravRequest } from './GravidKravRequest';
-import { datoToString } from '../../utils/dato/Dato';
+import { formatApiDate } from '../../utils/dato/Dato';
+import { isValid } from 'date-fns';
 import { Periode } from '../../components/gravidkrav/GravidKravState';
 import { Arbeidsgiverperiode } from '../kroniskkrav/KroniskKravRequest';
 import { beregnSykemeldingGradering } from '../kroniskkrav/mapPeriodeData';
@@ -21,10 +22,10 @@ export const mapGravidKravRequest = (
     throw new Error('Perioder må spesifiseres');
   }
   perioder?.forEach((periode) => {
-    if (periode.fom?.error) {
+    if (!periode.fom || !isValid(periode.fom) || periode.fomInputError) {
       throw new Error('Fra må spesifiseres');
     }
-    if (periode.tom?.error) {
+    if (!periode.tom || !isValid(periode.tom) || periode.tomInputError) {
       throw new Error('Til må spesifiseres');
     }
     if (periode.dager === undefined) {
@@ -41,8 +42,8 @@ export const mapGravidKravRequest = (
   perioder = perioder || [];
 
   const arbeidsgiverPerioder: Array<Arbeidsgiverperiode> = perioder?.map((periode) => ({
-    fom: datoToString(periode.fom),
-    tom: datoToString(periode.tom),
+    fom: formatApiDate(periode.fom),
+    tom: formatApiDate(periode.tom),
     antallDagerMedRefusjon: periode.dager || 0,
     månedsinntekt: Number(periode.beloep || 0),
     gradering: beregnSykemeldingGradering(periode.sykemeldingsgrad)

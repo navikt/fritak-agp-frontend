@@ -113,7 +113,7 @@ describe('KroniskKravReducer', () => {
       i18n
     );
 
-    expect(state.perioder && state?.perioder[0]?.fom?.value).toEqual('05.06.2020');
+    expect(state.perioder?.[0].fom).toEqual(new Date('2020.06.05 12:00:00'));
     expect(state.formDirty).toBe(true);
   });
 
@@ -130,7 +130,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0]?.fom?.value).toBeUndefined();
+    expect(state.perioder?.[0].fom).toBeUndefined();
   });
 
   it('should clear fra when empty payload', () => {
@@ -165,7 +165,7 @@ describe('KroniskKravReducer', () => {
       },
       i18n
     );
-    expect(state.perioder && state.perioder[0].tom?.value).toEqual('05.06.2020');
+    expect(state.perioder?.[0].tom).toEqual(new Date('2020.06.05 12:00:00'));
     expect(state.formDirty).toBe(true);
   });
 
@@ -573,8 +573,8 @@ describe('KroniskKravReducer', () => {
     const tom = state.perioder![0].tom;
 
     expect(state.perioder![0].beloep).toBe(123);
-    expect(fom?.value).toBe('12.11.2022');
-    expect(tom?.value).toBe('13.12.2022');
+    expect(fom).toEqual(new Date(2022, 10, 12));
+    expect(tom).toEqual(new Date(2022, 11, 13));
   });
 
   it('should show and hide spinner', () => {

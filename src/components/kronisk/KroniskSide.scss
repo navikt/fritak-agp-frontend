@@ -1,14 +1,12 @@
-@use "../../variabler.sass";
-
 .kronisk-side {
 
     .kroniskside-tett-liste {
         margin-top: 0;
-        margin-bottom: 2rem;
+        margin-bottom: var(--ax-space-32);
     }
 
     .kronisk-side-radiogruppe-omplassering {
-        margin-top: 1rem;
+        margin-top: var(--ax-space-16);
     }
 
     .kontrollsporsmaal-lonn-arbeidsdager input {
@@ -24,7 +22,7 @@
         padding-bottom: 0;
 
         .kroniskside-arbeidsmiljo-ingress {
-            margin-bottom: 2rem;
+            margin-bottom: var(--ax-space-32);
             display: inline-block;
         }
     }
@@ -40,12 +38,12 @@
         margin: 0;
         padding-right: 0;
         background: transparent;
-        color: variabler.$navBla !important;
+        color: var(--ax-text-accent-subtle) !important;
         text-decoration: underline;
     }
 
     .kroniskeside-radiogruppe-indentert {
-        margin-left: 1rem !important;
+        margin-left: var(--ax-space-16) !important;
     }
 
     #textarea-annet {
@@ -57,11 +55,11 @@
     }
 
     .checkbox-unntak {
-        margin-top: 1rem;
+        margin-top: var(--ax-space-16);
     }
 
     .avbrytknapp {
-        margin-left: 1rem;
+        margin-left: var(--ax-space-16);
     }
 
 }

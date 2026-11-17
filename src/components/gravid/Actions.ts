@@ -3,6 +3,7 @@ import { Tiltak } from './Tiltak';
 import { Omplassering } from './Omplassering';
 import { Aarsak } from './Aarsak';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
+import type { DateInputError } from '../../utils/dato/Dato';
 
 export enum Actions {
   Reset,
@@ -41,6 +42,7 @@ type Payload = {
   dokumentasjon?: string;
   response?: ValidationResponse<GravidSoknadResponse>;
   termindato?: Date;
+  dateInputError?: DateInputError;
 };
 
 export type GravidAction = {

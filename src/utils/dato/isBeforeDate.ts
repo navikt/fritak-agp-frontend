@@ -1,9 +1,5 @@
-import { isBefore } from 'date-fns';
-import { Dato } from './Dato';
+import { differenceInCalendarDays } from 'date-fns';
 
-const isBeforeDate = (dagen: Dato, minDate: Date): boolean => {
-  const currentDate = new Date(dagen.year ?? 0, (dagen.month ?? 1) - 1, dagen.day ?? 1);
-  return isBefore(currentDate, minDate);
-};
+const isBeforeDate = (dagen: Date, minDate: Date): boolean => differenceInCalendarDays(dagen, minDate) < 0;
 
 export default isBeforeDate;

@@ -1,13 +1,99 @@
+import { parseISO } from 'date-fns';
 import { validateKroniskKrav } from './validateKroniskKrav';
 import { defaultKroniskKravState } from './KroniskKravState';
-import { parseDato } from '../../utils/dato/Dato';
 import { languageInit } from '../../locale/languageInit';
 import i18next from 'i18next';
 import Locales from '../../locale/Locales';
 import { Language } from '../../locale/Language';
+import { MAX_DAGER_MELLOM_PERIODER } from '../../config/konstanter';
 
 describe('validateKroniskKrav', () => {
   const i18n = languageInit(i18next, Language.nb, Locales);
+
+  it.each([6, 7])('validates and revalidates the combined calendar length with a %s-day second period', (length) => {
+    const state = defaultKroniskKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [
+        { uniqueKey: 'first', fom: new Date(2025, 0, 1), tom: new Date(2025, 0, 10), dager: 1 },
+        { uniqueKey: 'second', fom: new Date(2025, 0, 15), tom: new Date(2025, 0, 14 + length), dager: 1 }
+      ]
+    });
+
+    const result = validateKroniskKrav(state, i18n);
+
+    expect(result.periodeError).toBe(
+      length > 6
+        ? 'Periodene kan til sammen ikke overstige 16 kalenderdager, inkludert fra- og til-dato i hver periode'
+        : undefined
+    );
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#dager-total')).toBe(length > 6);
+    result.perioder![1].tom = new Date(2025, 0, 20);
+    expect(validateKroniskKrav(result, i18n).periodeError).toBeUndefined();
+  });
+
+  it.each([16, 17])('validates a %s-day date range independently of selected days', (length) => {
+    const state = defaultKroniskKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [{ uniqueKey: 'periode', fom: new Date(2025, 0, 1), tom: new Date(2025, 0, length), dager: 5 }]
+    });
+
+    const result = validateKroniskKrav(state, i18n);
+
+    expect(result.perioder?.[0].tomError || undefined).toBe(
+      length > 16 ? 'Perioden kan ikke være lengre enn 16 dager, inkludert fra- og til-dato' : undefined
+    );
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#til-dato-0')).toBe(length > 16);
+    expect(result.periodeError).toBeUndefined();
+  });
+
+  it.each([
+    { start: '2025-01-22', error: undefined },
+    { start: '2025-01-23', error: `Det kan ikke være mer enn ${MAX_DAGER_MELLOM_PERIODER} dager mellom periodene` },
+    { start: '2025-01-05', error: 'Periodene kan ikke overlappe' }
+  ])('validates the relationship between periods starting $start', ({ start, error }) => {
+    const state = defaultKroniskKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [
+        { uniqueKey: 'first', fom: parseISO('2025-01-01'), tom: parseISO('2025-01-05'), dager: 5 },
+        { uniqueKey: 'second', fom: parseISO(start), tom: parseISO(start), dager: 1 }
+      ]
+    });
+    const original = structuredClone(state);
+
+    const result = validateKroniskKrav(state, i18n);
+
+    expect(result.perioder?.[1].fomError || undefined).toBe(error);
+    expect(result.periodeError).toBeUndefined();
+    expect(result.feilmeldinger.filter((feil) => feil.skjemaelementId === '#fra-dato-1')).toHaveLength(error ? 1 : 0);
+    expect(state).toEqual(original);
+  });
+
+  it.each(['correct', 'delete'])('clears period errors after %s', (action) => {
+    let state = defaultKroniskKravState({
+      validated: true,
+      feilmeldinger: [],
+      perioder: [
+        { uniqueKey: 'first', fom: parseISO('2025-01-01'), tom: parseISO('2025-01-05'), dager: 5 },
+        { uniqueKey: 'second', fom: parseISO('2025-01-23'), tom: parseISO('2025-01-23'), dager: 1 }
+      ]
+    });
+    state = validateKroniskKrav(state, i18n);
+    expect(state.perioder?.[1].fomError).toContain(`${MAX_DAGER_MELLOM_PERIODER}`);
+    state.perioder =
+      action === 'delete'
+        ? state.perioder?.slice(0, 1)
+        : state.perioder?.map((periode, index) =>
+            index === 1 ? { ...periode, fom: parseISO('2025-01-22'), tom: parseISO('2025-01-22') } : periode
+          );
+
+    const result = validateKroniskKrav(state, i18n);
+
+    expect(result.perioder?.every((periode) => !periode.fomError)).toBe(true);
+    expect(result.feilmeldinger.some((feil) => feil.skjemaelementId === '#fra-dato-1')).toBe(false);
+  });
 
   it('does not mutate the periods being validated', () => {
     const state = defaultKroniskKravState({ validated: true, feilmeldinger: [] });
@@ -40,7 +126,7 @@ describe('validateKroniskKrav', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.fnr = '123';
-    state.perioder = [{ uniqueKey: 'unik', fom: parseDato('14.14.2014') }];
+    state.perioder = [{ uniqueKey: 'unik', fom: parseISO('2014-14-14') }];
     const state2 = validateKroniskKrav(state, i18n);
     expect(state2.fnrError).not.toBeUndefined();
   });
@@ -49,7 +135,7 @@ describe('validateKroniskKrav', () => {
     const state = defaultKroniskKravState();
     state.validated = true;
     state.fnr = '123';
-    state.perioder = [{ uniqueKey: 'unik', tom: parseDato('14.14.2014') }];
+    state.perioder = [{ uniqueKey: 'unik', tom: parseISO('2014-14-14') }];
     const state2 = validateKroniskKrav(state, i18n);
     expect(state2.perioder).not.toBeUndefined();
     expect(state2.perioder ? state2.perioder[0].tomError : undefined).not.toBeUndefined();

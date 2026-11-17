@@ -11,18 +11,20 @@ import i18next from 'i18next';
 import Locales from '../../../locale/Locales';
 import { Language } from '../../../locale/Language';
 import { vi, expect, it } from 'vitest';
+import { format } from 'date-fns';
 
 const enkeltPeriode: KravPeriodeData = { uniqueKey: 'mocked' };
 
 vi.mock('../../../api/grunnbelop/getGrunnbeloep');
 
 vi.mock('../../datovelger/Datovelger', () => ({
-  default: ({ id, label, onDateChange }: ComponentProps<typeof Datovelger>) => (
+  default: ({ id, label, onDateChange, defaultSelected }: ComponentProps<typeof Datovelger>) => (
     <label htmlFor={id}>
       {label}
       <input
         id={id}
         type='date'
+        defaultValue={defaultSelected ? format(defaultSelected, 'yyyy-MM-dd') : ''}
         onChange={(event) =>
           onDateChange?.(event.currentTarget.value ? new Date(`${event.currentTarget.value}T00:00:00`) : undefined)
         }
@@ -58,7 +60,7 @@ describe('KravPeriode', () => {
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /Antall dager/ })).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).not.toBeInTheDocument();
   });
@@ -71,7 +73,7 @@ describe('KravPeriode', () => {
     );
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /Antall dager/ })).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
   });
@@ -92,7 +94,7 @@ describe('KravPeriode', () => {
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /Antall dager/ })).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(screen.queryByText(/Slett/)).toBeInTheDocument();
   });
@@ -108,7 +110,7 @@ describe('KravPeriode', () => {
 
     expect(screen.getByLabelText(/Fra dato/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Til dato/)).toBeInTheDocument();
-    expect(screen.queryAllByLabelText(/Antall dager/)[0]).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /Antall dager/ })).toBeInTheDocument();
     expect(screen.queryAllByLabelText(/Beregnet månedsinntekt/)[0]).toBeInTheDocument();
     expect(slettButton).toBeInTheDocument();
 
@@ -135,18 +137,76 @@ describe('KravPeriode', () => {
     expect(callbacks.onBeloepChange).toHaveBeenLastCalledWith(undefined);
   });
 
-  it('calls onDagerChange with a number when dager has been updated', async () => {
+  it('shows loaded days and calls onDagerChange when a day count is selected', () => {
     const callbacks = createCallbacks();
 
     render(
-      <KravPeriode {...callbacks} index={1} enkeltPeriode={enkeltPeriode} lonnspliktDager={260} slettbar={true} />
+      <KravPeriode
+        {...callbacks}
+        index={0}
+        enkeltPeriode={{
+          ...enkeltPeriode,
+          fom: new Date(2025, 0, 15),
+          tom: new Date(2025, 0, 20),
+          dager: 6
+        }}
+        lonnspliktDager={260}
+        slettbar={false}
+      />
     );
 
-    const selectDager = screen.getByDisplayValue('-');
+    const selectDager = screen.getByRole('combobox', { name: /Antall dager/ });
+    expect(selectDager).toHaveValue('6');
+    expect(callbacks.onDagerChange).not.toHaveBeenCalled();
 
-    fireEvent.change(selectDager, { target: { value: 12 } });
+    fireEvent.change(selectDager, { target: { value: '12' } });
 
     expect(callbacks.onDagerChange).toHaveBeenCalledExactlyOnceWith(12);
+  });
+
+  it.each([
+    { label: /Fra dato/, value: '2025-01-17' },
+    { label: /Til dato/, value: '2025-01-17' },
+    { label: /Til dato/, value: '2025-01-15' },
+    { label: /Fra dato/, value: '' },
+    { label: /Til dato/, value: '' }
+  ])('preserves selected days when $label changes to $value', ({ label, value }) => {
+    const callbacks = createCallbacks();
+    render(
+      <KravPeriode
+        {...callbacks}
+        index={0}
+        enkeltPeriode={{
+          ...enkeltPeriode,
+          fom: new Date(2025, 0, 15),
+          tom: new Date(2025, 0, 20),
+          dager: 6
+        }}
+        lonnspliktDager={260}
+        slettbar={false}
+      />
+    );
+
+    fireEvent.change(screen.getByLabelText(label), { target: { value } });
+
+    expect(callbacks.onDagerChange).not.toHaveBeenCalled();
+    expect(screen.getByRole('combobox', { name: /Antall dager/ })).toHaveValue('6');
+  });
+
+  it('shows day validation errors on the dropdown', () => {
+    const callbacks = createCallbacks();
+    render(
+      <KravPeriode
+        {...callbacks}
+        index={0}
+        enkeltPeriode={{ ...enkeltPeriode, dagerError: 'Velg antall dager' }}
+        lonnspliktDager={260}
+        slettbar={false}
+      />
+    );
+
+    expect(screen.getByRole('combobox', { name: /Antall dager/ })).toHaveValue('0');
+    expect(screen.getByText('Velg antall dager')).toBeInTheDocument();
   });
 
   it('calls onSykemeldingsgradChange with the entered string', () => {
@@ -175,11 +235,11 @@ describe('KravPeriode', () => {
 
     fireEvent.change(screen.getByLabelText(label), { target: { value: '2025-01-15' } });
 
-    expect(callbacks[callback]).toHaveBeenCalledExactlyOnceWith(new Date(2025, 0, 15));
+    expect(callbacks[callback]).toHaveBeenCalledExactlyOnceWith(new Date(2025, 0, 15), undefined);
 
     fireEvent.change(screen.getByLabelText(label), { target: { value: '' } });
 
-    expect(callbacks[callback]).toHaveBeenLastCalledWith(undefined);
+    expect(callbacks[callback]).toHaveBeenLastCalledWith(undefined, undefined);
     expect(vi.mocked(getGrunnbeloep).mock.calls).toEqual(grunnbeloepCalls);
   });
 
@@ -199,7 +259,7 @@ describe('KravPeriode', () => {
       <KravPeriode
         {...callbacks}
         index={0}
-        enkeltPeriode={existingDate ? { ...enkeltPeriode, fom: { year: 2025, month: 1, day: 15 } } : enkeltPeriode}
+        enkeltPeriode={existingDate ? { ...enkeltPeriode, fom: new Date(2025, 0, 15) } : enkeltPeriode}
         lonnspliktDager={260}
         slettbar={false}
       />

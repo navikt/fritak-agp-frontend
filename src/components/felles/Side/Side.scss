@@ -1,24 +1,21 @@
 .side {
-  padding-bottom: 4rem;
-  background-color: #f1f1f1;
+  padding-bottom: var(--ax-space-64);
+  background-color: var(--ax-bg-neutral-soft);
   --a-spacing-1: 0.2rem;
   --a-spacing-2: 0.3rem;
   --a-spacing-3: 0.4rem;
   --a-spacing-4: 0.5rem;
   --a-spacing-5: 0.6rem;
   --a-deepblue-700: #003087;
-  --a-deepblue-900: #00214d;  
   --a-gray-300: #c6c6c6;
-  --a-white: #ffffff;
-  --a-bg-subtle: #f1f1f1;
-  --a-bg-default: #ffffff;
+  --a-bg-subtle: var(--ax-bg-neutral-soft);
+  --a-bg-default: var(--ax-bg-default);
   --a-border-radius-small: 4px;
   --a-border-radius-medium: 8px;
-  --a-surface-action-subtle: #f1f1f1;
 
   
   .side__innhold {
-    background-color: #ffffff;
+    background-color: var(--ax-bg-default);
     padding: 0;
   }
   
@@ -31,7 +28,7 @@
   }
   
   .side__minside_arbeidsgiver {
-    padding: 1rem 3rem
+    padding: var(--ax-space-16) var(--ax-space-48)
   }
 }
 
@@ -39,8 +36,8 @@
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--ax-space-8);
+  padding-right: var(--ax-space-8);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

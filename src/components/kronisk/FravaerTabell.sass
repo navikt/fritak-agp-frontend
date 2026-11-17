@@ -1,25 +1,33 @@
-@use "../../variabler.sass"
+.fravaer-tabell-scroll
+  position: relative
+  max-width: 100%
+  min-width: 0
+  overflow-x: auto
+
+  &:focus-visible
+    outline: 3px solid var(--ax-border-focus)
+    outline-offset: 3px
 
 .fravaer-tabell
-  margin: 1rem 0 0
-  border: 1px solid rgba(0,0,0,.55)
+  margin: var(--ax-space-16) 0 0
+  border: 1px solid var(--ax-border-neutral)
   border-collapse: collapse
   th
-    border: 1px solid rgba(0,0,0,.55)
-    padding: 1rem
+    border: 1px solid var(--ax-border-neutral)
+    padding: var(--ax-space-16)
   tr:nth-child(1)
     th
-      background-color: variabler.$tabellGra
-      color: white
+      background-color: var(--ax-bg-neutral-strong)
+      color: var(--ax-text-neutral-contrast)
       text-align: center
       font-weight: bold
-      border-right: 2px solid white
+      border-right: 2px solid var(--ax-text-neutral-contrast)
     th:last-child
-      border-right: 1px solid black
+      border-right: 1px solid var(--ax-border-neutral)
   tr:nth-child(2)
     th
-      background-color: orange
-      color: black
+      background-color: var(--ax-bg-accent-moderate)
+      color: var(--ax-text-accent)
       text-align: center
   .skjemaelement__label
     display: none
@@ -32,11 +40,11 @@
   td
     text-align: center !important
     width: 12.5%
-    padding: 0rem 1rem !important
-    border: 1px solid black
+    padding: 0rem var(--ax-space-16) !important
+    border: 1px solid var(--ax-border-neutral)
   .empty-month
-    background-color: #dddddd !important
+    background-color: var(--ax-bg-neutral-moderate) !important
 
   tbody tr:nth-child(odd):not(.tabell__tr--valgt) td, tbody tr:nth-child(odd):not(.tabell__tr--valgt) th 
-    background: rgba(0,0,0,.03)
+    background: var(--ax-bg-neutral-softA)
     

@@ -1,4 +1,5 @@
-import { Dato } from '../utils/dato/Dato';
+import { differenceInCalendarDays, isValid } from 'date-fns';
+import type { DateInputError } from '../utils/dato/Dato';
 import isBeforeDate from '../utils/dato/isBeforeDate';
 import ValidationResult from '../utils/ValidationResult';
 
@@ -7,7 +8,8 @@ export enum validateTilKeys {
   VALIDATE_TIL_INVALID = 'VALIDATE_TIL_INVALID',
   VALIDATE_TIL_FOM_ERROR = 'VALIDATE_TIL_FOM_ERROR',
   VALIDATE_TIL_ERROR = 'VALIDATE_TIL_ERROR',
-  VALIDATE_TIL_TOO_EARLY = 'VALIDATE_TIL_TOO_EARLY'
+  VALIDATE_TIL_TOO_EARLY = 'VALIDATE_TIL_TOO_EARLY',
+  VALIDATE_TIL_TOO_LONG = 'VALIDATE_TIL_TOO_LONG'
 }
 
 interface ValidateTilResult extends ValidationResult {
@@ -16,41 +18,44 @@ interface ValidateTilResult extends ValidationResult {
     | validateTilKeys.VALIDATE_TIL_INVALID
     | validateTilKeys.VALIDATE_TIL_FOM_ERROR
     | validateTilKeys.VALIDATE_TIL_ERROR
-    | validateTilKeys.VALIDATE_TIL_TOO_EARLY;
+    | validateTilKeys.VALIDATE_TIL_TOO_EARLY
+    | validateTilKeys.VALIDATE_TIL_TOO_LONG;
 }
 
 export const validateTil = (
-  fra: Dato | undefined,
-  til: Dato | undefined,
+  fra: Date | undefined,
+  til: Date | undefined,
   minDate: Date,
-  required = false
+  required = false,
+  inputError?: DateInputError
 ): ValidateTilResult | undefined => {
-  if (!til?.value) {
-    return required ? { key: validateTilKeys.VALIDATE_TIL_MISSING } : undefined;
+  if (!required) {
+    return undefined;
   }
-
-  if (required && til?.value && isBeforeDate(til, minDate)) {
+  if (inputError === 'beforeMin' || (til && isValid(til) && isBeforeDate(til, minDate))) {
     return {
       key: validateTilKeys.VALIDATE_TIL_INVALID,
       value: minDate.toLocaleDateString('nb')
     };
   }
 
-  if (!fra || !til) {
-    return undefined;
-  }
-
-  if (!required) {
-    return;
-  }
-  if (fra.error || !fra.millis) {
-    return { key: validateTilKeys.VALIDATE_TIL_FOM_ERROR };
-  }
-  if (til.error || !til.millis) {
+  if (inputError || (til && !isValid(til))) {
     return { key: validateTilKeys.VALIDATE_TIL_ERROR };
   }
-  if (fra.millis > til.millis) {
+  if (!til) {
+    return { key: validateTilKeys.VALIDATE_TIL_MISSING };
+  }
+  if (!fra) {
+    return undefined;
+  }
+  if (!isValid(fra)) {
+    return { key: validateTilKeys.VALIDATE_TIL_FOM_ERROR };
+  }
+  if (differenceInCalendarDays(fra, til) > 0) {
     return { key: validateTilKeys.VALIDATE_TIL_TOO_EARLY };
+  }
+  if (differenceInCalendarDays(til, fra) + 1 > 16) {
+    return { key: validateTilKeys.VALIDATE_TIL_TOO_LONG };
   }
   return undefined;
 };

@@ -1,4 +1,5 @@
-import { Dato } from '../utils/dato/Dato';
+import { isValid } from 'date-fns';
+import type { DateInputError } from '../utils/dato/Dato';
 import isBeforeDate from '../utils/dato/isBeforeDate';
 import ValidationResult from '../utils/ValidationResult';
 
@@ -15,20 +16,26 @@ interface ValidateFraResult extends ValidationResult {
     | validateFraKeys.VALIDATE_FRA_FOM_ERROR;
 }
 
-export const validateFra = (fra: Dato | undefined, minDate: Date, required = false): ValidateFraResult | undefined => {
-  if (required && !fra?.value) {
-    return { key: validateFraKeys.VALIDATE_FRA_MISSING };
+export const validateFra = (
+  fra: Date | undefined,
+  minDate: Date,
+  required = false,
+  inputError?: DateInputError
+): ValidateFraResult | undefined => {
+  if (!required) {
+    return undefined;
   }
-
-  if (required && fra?.value && isBeforeDate(fra, minDate)) {
+  if (inputError === 'beforeMin' || (fra && isValid(fra) && isBeforeDate(fra, minDate))) {
     return {
       key: validateFraKeys.VALIDATE_FRA_FOM_INVALID,
       value: minDate.toLocaleDateString('nb')
     };
   }
-
-  if (fra && fra.error) {
-    return required ? { key: validateFraKeys.VALIDATE_FRA_FOM_ERROR } : undefined;
+  if (inputError || (fra && !isValid(fra))) {
+    return { key: validateFraKeys.VALIDATE_FRA_FOM_ERROR };
+  }
+  if (!fra) {
+    return { key: validateFraKeys.VALIDATE_FRA_MISSING };
   }
   return undefined;
 };

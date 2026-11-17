@@ -12,7 +12,6 @@ import { expect, vi, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 import { lagFeil } from '../felles/Feilmeldingspanel/lagFeil';
-import { Dato } from '../../utils/dato/Dato';
 import { http, HttpResponse } from 'msw/http';
 import { server } from '../../mocks/server';
 import postGravid from '../../api/gravid/postGravid';
@@ -263,12 +262,13 @@ describe('GravidSide', () => {
 
   it('uses the selected PDF for submission and allows deleting it', async () => {
     const state = defaultGravidState({
+      feilmeldinger: [],
       fnr: testFnr.GyldigeFraDolly.TestPerson1,
       orgnr: testOrgnr.GyldigeOrgnr.TestOrg1,
       tilrettelegge: false,
       videre: true,
       bekreft: true,
-      termindato: { day: 1, month: 10, year: 2026, value: '01.10.2026' }
+      termindato: new Date(2026, 9, 1)
     });
     const fileContent = `%PDF-1.4\n${'content'.repeat(100)}`;
     const file = new File([fileContent], 'dokumentasjon.pdf', { type: 'application/pdf' });
@@ -360,12 +360,7 @@ describe('GravidSide', () => {
     // with 401 responses needs to be clarified. The kvittering state might redirect in some cases.
     const state = defaultGravidState();
 
-    const termindato: Dato = {
-      day: 1,
-      month: 5,
-      year: 2021,
-      value: '01.05.2021'
-    };
+    const termindato = new Date(2021, 4, 1);
 
     state.orgnr = testOrgnr.GyldigeOrgnr.TestOrg1;
     state.fnr = testFnr.GyldigeFraDolly.TestPerson1;
