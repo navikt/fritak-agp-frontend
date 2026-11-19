@@ -1,5 +1,5 @@
 import express from 'express';
-import { access } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
@@ -16,6 +16,21 @@ const __dirname = path.dirname(__filename);
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../dist';
 const STATIC_ROOT = path.resolve(__dirname, HOME_FOLDER);
+const ASSET_ROOT = path.join(STATIC_ROOT, 'assets');
+const compressedAssets = new Set(
+  (await readdir(ASSET_ROOT, { withFileTypes: true }))
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.br'))
+    .map((entry) => `assets/${entry.name}`)
+);
+const serveCompressedAssets = express.static(STATIC_ROOT, {
+  index: false,
+  fallthrough: false,
+  setHeaders: (res) => {
+    res.setHeader('Content-Encoding', 'br');
+    res.setHeader('Vary', 'Accept-Encoding');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+});
 
 const PORT = process.env.PORT || 8080;
 const API_URL = process.env.API_URL || 'http://localhost:3000';
@@ -111,7 +126,7 @@ const startServer = () => {
     }
   });
 
-  app.use(BASE_PATH, async (req, res, next) => {
+  app.use(BASE_PATH, (req, res, next) => {
     if (
       !req.path.startsWith('/assets/') ||
       !req.get('Accept-Encoding') ||
@@ -123,29 +138,17 @@ const startServer = () => {
     }
 
     const relativePath = req.path.replace(/^\/+/, '');
-    const compressedPath = path.resolve(STATIC_ROOT, `${relativePath}.br`);
+    const compressedPath = `${relativePath}.br`;
 
-    if (!compressedPath.startsWith(`${STATIC_ROOT}${path.sep}`)) {
+    if (!compressedAssets.has(compressedPath)) {
       next();
       return;
     }
 
-    try {
-      await access(compressedPath);
-    } catch (error) {
-      if (error.code !== 'ENOENT') {
-        next(error);
-        return;
-      }
-      next();
-      return;
-    }
-
+    const [pathname, query] = req.url.split('?', 2);
+    req.url = `${pathname}.br${query === undefined ? '' : `?${query}`}`;
     res.type(path.basename(relativePath));
-    res.setHeader('Content-Encoding', 'br');
-    res.setHeader('Vary', 'Accept-Encoding');
-    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    res.sendFile(compressedPath);
+    serveCompressedAssets(req, res, next);
   });
 
   app.use(
