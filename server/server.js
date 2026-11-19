@@ -156,6 +156,7 @@ const startServer = () => {
     express.static(STATIC_ROOT, {
       setHeaders: (res, filePath) => {
         if (filePath.includes(`${path.sep}assets${path.sep}`)) {
+          res.setHeader('Vary', 'Accept-Encoding');
           res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
         }
       }
