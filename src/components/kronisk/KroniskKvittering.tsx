@@ -8,7 +8,7 @@ import './KroniskKvittering.scss';
 import SoknadMottatt from '../gravid/SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
 import Fravaersdager from '../notifikasjon/kronisk/soknad/Fravaersdager';
-import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
+import Dokumentasjon from '../notifikasjon/felles/Dokumentasjon';
 import { Alert, BodyLong, Box, Heading, Link } from '@navikt/ds-react';
 import Side from '../felles/Side/Side';
 import InternLenke from '../felles/InternLenke/InternLenke';

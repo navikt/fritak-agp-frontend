@@ -5,9 +5,9 @@ import NotifikasjonType from '../../felles/NotifikasjonType';
 import formatOmplassering from './formatOmplassering';
 import formatTilrettelegge from './formatTilrettelegge';
 import formatTiltak from './formatTiltak';
-import GravidSoknadFooter from './GravidSoknadFooter';
-import InnsendtAv from './InnsendtAv';
-import Dokumentasjon from './Dokumentasjon';
+import NotifikasjonFooter from '../../felles/NotifikasjonFooter';
+import InnsendtAv from '../../felles/InnsendtAv';
+import Dokumentasjon from '../../felles/Dokumentasjon';
 
 interface GravidSoknadNotifikasjonProps {
   gravidSoknadResponse: GravidSoknadResponse;
@@ -53,7 +53,7 @@ const GravidSoknadView = ({ gravidSoknadResponse }: GravidSoknadNotifikasjonProp
         søknaden, vil du få beskjed om resultatet.
       </p>
       <p>
-        <GravidSoknadFooter />
+        <NotifikasjonFooter />
       </p>
     </NotifikasjonInnhold>
   );

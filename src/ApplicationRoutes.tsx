@@ -20,35 +20,15 @@ const KravEndringKvittering = lazy(() => import('./components/kravendringkvitter
 const TokenFornyet = lazy(() => import('./components/felles/login/TokenFornyet'));
 
 // Notifikasjon controllers
-const GravidSoknadController = lazy(() =>
-  import('./components/notifikasjon/gravid/soknad/GravidSoknadController').then((m) => ({
-    default: m.GravidSoknadController
-  }))
+const GravidSoknadController = lazy(() => import('./components/notifikasjon/gravid/soknad/GravidSoknadController'));
+const GravidKravController = lazy(() => import('./components/notifikasjon/gravid/krav/GravidKravController'));
+const GravidKravSlettetController = lazy(
+  () => import('./components/notifikasjon/gravid/kravSlettet/GravidKravSlettetController')
 );
-const GravidKravController = lazy(() =>
-  import('./components/notifikasjon/gravid/krav/GravidKravController').then((m) => ({
-    default: m.GravidKravController
-  }))
-);
-const GravidKravSlettetController = lazy(() =>
-  import('./components/notifikasjon/gravid/kravSlettet/GravidKravSlettetController').then((m) => ({
-    default: m.GravidKravSlettetController
-  }))
-);
-const KroniskSoknadController = lazy(() =>
-  import('./components/notifikasjon/kronisk/soknad/KroniskSoknadController').then((m) => ({
-    default: m.KroniskSoknadController
-  }))
-);
-const KroniskKravController = lazy(() =>
-  import('./components/notifikasjon/kronisk/krav/KroniskKravController').then((m) => ({
-    default: m.KroniskKravController
-  }))
-);
-const KroniskKravSlettetController = lazy(() =>
-  import('./components/notifikasjon/kronisk/kravSlettet/KroniskKravSlettetController').then((m) => ({
-    default: m.KroniskKravSlettetController
-  }))
+const KroniskSoknadController = lazy(() => import('./components/notifikasjon/kronisk/soknad/KroniskSoknadController'));
+const KroniskKravController = lazy(() => import('./components/notifikasjon/kronisk/krav/KroniskKravController'));
+const KroniskKravSlettetController = lazy(
+  () => import('./components/notifikasjon/kronisk/kravSlettet/KroniskKravSlettetController')
 );
 
 const PageLoader = () => (

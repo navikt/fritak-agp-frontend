@@ -8,7 +8,6 @@ import { NotifikasjonAction } from './state/NotifikasjonAction';
 import { useParams } from 'react-router-dom';
 import NotifikasjonView from './NotifikasjonView';
 import Actions from './state/Actions';
-import NotifikasjonPayload from './state/NotifikasjonPayload';
 import SideRamme from '../felles/Side/SideRamme';
 
 interface NotifikasjonStateProps {
@@ -20,34 +19,71 @@ const NotifikasjonController = ({
   notifikasjonState,
   notifikasjonType = NotifikasjonType.Ukjent
 }: NotifikasjonStateProps) => {
-  const [state, dispatch] = useReducer(NotifikasjonReducer, notifikasjonState, defaultNotifikasjonState);
-  state.notifikasjonType = notifikasjonType;
-  const { uuid } = useParams();
+  const [state, dispatch] = useReducer(
+    NotifikasjonReducer,
+    defaultNotifikasjonState({
+      ...notifikasjonState,
+      notifikasjonType
+    })
+  );
+  const { uuid } = useParams<{ uuid: string }>();
+
   useEffect(() => {
-    if (state.status === undefined) {
-      GetHandler(getNotifikasjonUrl(uuid as string, notifikasjonType))
-        .then((response) => {
-          dispatch({
-            type: Actions.HandleResponse,
-            payload: {
-              notifikasjonsType: notifikasjonType,
-              json: response.json,
-              status: response.status
-            } as NotifikasjonPayload
-          } as NotifikasjonAction);
-        })
-        .catch((response) => {
-          dispatch({
-            type: Actions.HandleError,
-            payload: {
-              status: response.status,
-              notifikasjonsType: notifikasjonType
-            } as NotifikasjonPayload
-          } as NotifikasjonAction);
-        });
+    if (!uuid || notifikasjonState !== undefined) {
+      return;
     }
-  }, []);
-  return <SideRamme>{NotifikasjonView(state)}</SideRamme>;
+
+    let isActive = true;
+
+    dispatch({
+      type: Actions.Reset,
+      payload: {
+        notifikasjonsType: notifikasjonType,
+        uuid
+      }
+    });
+
+    GetHandler(getNotifikasjonUrl(uuid, notifikasjonType))
+      .then((response) => {
+        if (!isActive) {
+          return;
+        }
+
+        dispatch({
+          type: Actions.HandleResponse,
+          payload: {
+            notifikasjonsType: notifikasjonType,
+            json: response.json,
+            status: response.status,
+            uuid
+          }
+        } as NotifikasjonAction);
+      })
+      .catch((response) => {
+        if (!isActive) {
+          return;
+        }
+
+        dispatch({
+          type: Actions.HandleError,
+          payload: {
+            status: response.status,
+            notifikasjonsType: notifikasjonType,
+            uuid
+          }
+        } as NotifikasjonAction);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [notifikasjonState, notifikasjonType, uuid]);
+
+  return (
+    <SideRamme>
+      <NotifikasjonView state={state} />
+    </SideRamme>
+  );
 };
 
 export default NotifikasjonController;

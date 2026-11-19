@@ -12,7 +12,11 @@ import mapKravState from './utils/mapKravState';
 import KroniskSoknadView from './kronisk/soknad/KroniskSoknadView';
 import GravidKravVisning from '../../api/gravidkrav/GravidKravVisning';
 
-const NotifikasjonView = (state: NotifikasjonState) => {
+interface NotifikasjonViewProps {
+  state: NotifikasjonState;
+}
+
+const NotifikasjonView = ({ state }: NotifikasjonViewProps) => {
   switch (state.status) {
     case undefined:
       return <NotifikasjonSpinner />;
