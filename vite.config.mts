@@ -14,12 +14,16 @@ export default defineConfig({
   plugins: [
     react(),
     viteCompression({ algorithm: 'brotliCompress' }),
-    visualizer({
-      filename: 'dist/stats.html',
-      open: process.env.ANALYZE === 'true',
-      gzipSize: true,
-      brotliSize: true
-    })
+    ...(process.env.ANALYZE === 'true'
+      ? [
+          visualizer({
+            filename: 'dist/stats.html',
+            open: true,
+            gzipSize: true,
+            brotliSize: true
+          })
+        ]
+      : [])
   ],
   server: {
     // this ensures that the browser opens upon server start
