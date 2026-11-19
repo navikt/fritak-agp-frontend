@@ -1,4 +1,5 @@
 import express from 'express';
+import { access } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis';
@@ -14,6 +15,7 @@ const __dirname = path.dirname(__filename);
 
 const BASE_PATH = '/fritak-agp';
 const HOME_FOLDER = '../dist';
+const STATIC_ROOT = path.resolve(__dirname, HOME_FOLDER);
 
 const PORT = process.env.PORT || 8080;
 const API_URL = process.env.API_URL || 'http://localhost:3000';
@@ -109,7 +111,53 @@ const startServer = () => {
     }
   });
 
-  app.use(BASE_PATH, express.static(HOME_FOLDER));
+  app.use(BASE_PATH, async (req, res, next) => {
+    if (
+      !req.path.startsWith('/assets/') ||
+      !req.get('Accept-Encoding') ||
+      !req.acceptsEncodings('br') ||
+      !/\.(css|js)$/.test(req.path)
+    ) {
+      next();
+      return;
+    }
+
+    const relativePath = req.path.replace(/^\/+/, '');
+    const compressedPath = path.resolve(STATIC_ROOT, `${relativePath}.br`);
+
+    if (!compressedPath.startsWith(`${STATIC_ROOT}${path.sep}`)) {
+      next();
+      return;
+    }
+
+    try {
+      await access(compressedPath);
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        next(error);
+        return;
+      }
+      next();
+      return;
+    }
+
+    res.type(path.basename(relativePath));
+    res.setHeader('Content-Encoding', 'br');
+    res.setHeader('Vary', 'Accept-Encoding');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile(compressedPath);
+  });
+
+  app.use(
+    BASE_PATH,
+    express.static(STATIC_ROOT, {
+      setHeaders: (res, filePath) => {
+        if (filePath.includes(`${path.sep}assets${path.sep}`)) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+      }
+    })
+  );
 
   app.use('/{*splat}', (req, res, next) => {
     if (!req.headers['authorization']) {
