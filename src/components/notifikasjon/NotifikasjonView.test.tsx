@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import NotifikasjonController from './NotifikasjonController';
 import { defaultNotifikasjonState, NotifikasjonState } from './state/NotifikasjonState';
 import NotifikasjonType from './felles/NotifikasjonType';
-import { MemoryRouter } from 'react-router-dom';
+import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom';
 import HttpStatus from '../../api/HttpStatus';
 import { GravidSoknadResponse } from '../../api/gravid/GravidSoknadResponse';
 import GravidKravResponse from '../../api/gravidkrav/GravidKravResponse';
@@ -11,9 +11,14 @@ import KroniskKravResponse from '../../api/gravidkrav/KroniskKravResponse';
 import KroniskSoknadResponse from '../../api/kronisk/KroniskSoknadResponse';
 import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
+import GetHandler from '../../api/fetch/GetHandler';
 
 vi.mock('react-i18next', () => ({
   useTranslation: vi.fn()
+}));
+
+vi.mock('../../api/fetch/GetHandler', () => ({
+  default: vi.fn()
 }));
 
 const initHistory = ['/'];
@@ -30,6 +35,9 @@ describe('NotifikasjonView', () => {
   );
 
   beforeEach(() => {
+    vi.clearAllMocks();
+    vi.mocked(GetHandler).mockReturnValue(new Promise(() => {}));
+
     const useTranslationSpy = useTranslation;
     const tSpy = vi.fn((str) => str);
     useTranslationSpy.mockReturnValue({
@@ -59,6 +67,32 @@ describe('NotifikasjonView', () => {
     const state = defaultNotifikasjonState();
     const { container } = render(buildNotifikasjonSide(state, NotifikasjonType.GravidSoknad));
     expect(container.textContent).toContain(STATUS_PROGRESS);
+  });
+
+  it('should load a new notification when the route uuid changes', async () => {
+    const router = createMemoryRouter(
+      [
+        {
+          path: '/notifikasjon/:uuid',
+          element: <NotifikasjonController notifikasjonType={NotifikasjonType.GravidSoknad} />
+        }
+      ],
+      { initialEntries: ['/notifikasjon/first'] }
+    );
+
+    render(<RouterProvider router={router} />);
+
+    await vi.waitFor(() => {
+      expect(GetHandler).toHaveBeenCalledTimes(1);
+    });
+
+    await act(() => router.navigate('/notifikasjon/second'));
+
+    await vi.waitFor(() => {
+      expect(GetHandler).toHaveBeenCalledTimes(2);
+    });
+
+    expect(GetHandler).toHaveBeenLastCalledWith(expect.stringContaining('/second'));
   });
 
   it('should handle errors', () => {

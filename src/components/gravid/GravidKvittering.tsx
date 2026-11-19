@@ -9,7 +9,7 @@ import formatOmplassering from '../notifikasjon/gravid/soknad/formatOmplassering
 import './GravidKvittering.scss';
 import SoknadMottatt from './SoknadMottatt';
 import PrintKnapp from '../felles/PrintKnapp';
-import Dokumentasjon from '../notifikasjon/gravid/soknad/Dokumentasjon';
+import Dokumentasjon from '../notifikasjon/felles/Dokumentasjon';
 import environment from '../../config/environment';
 import { Alert, Heading, BodyLong, Box } from '@navikt/ds-react';
 import Oversettelse from '../felles/Oversettelse/Oversettelse';
