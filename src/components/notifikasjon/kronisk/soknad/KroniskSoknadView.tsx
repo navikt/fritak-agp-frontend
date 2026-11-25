@@ -3,10 +3,10 @@ import NotifikasjonInnhold from '../../felles/NotifikasjonInnhold';
 import NotifikasjonType from '../../felles/NotifikasjonType';
 import KroniskSoknadResponse from '../../../../api/kronisk/KroniskSoknadResponse';
 import './KroniskSoknadView.scss';
-import GravidSoknadFooter from '../../gravid/soknad/GravidSoknadFooter';
+import NotifikasjonFooter from '../../felles/NotifikasjonFooter';
 import Fravaersdager from './Fravaersdager';
-import InnsendtAv from '../../gravid/soknad/InnsendtAv';
-import Dokumentasjon from '../../gravid/soknad/Dokumentasjon';
+import InnsendtAv from '../../felles/InnsendtAv';
+import Dokumentasjon from '../../felles/Dokumentasjon';
 
 interface KroniskSoknadNotifikasjonProps {
   kroniskSoknadResponse: KroniskSoknadResponse;
@@ -40,7 +40,7 @@ const KroniskSoknadView = ({ kroniskSoknadResponse }: KroniskSoknadNotifikasjonP
         <InnsendtAv sendtAv={kroniskSoknadResponse.sendtAvNavn} />
       </p>
       <p>
-        <GravidSoknadFooter />
+        <NotifikasjonFooter />
       </p>
     </NotifikasjonInnhold>
   );
